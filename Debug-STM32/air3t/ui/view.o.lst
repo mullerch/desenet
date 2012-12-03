@@ -1,0 +1,603 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"view.cpp"
+  23              	.Ltext0:
+  24              		.file 1 "../air3t/ui/view.cpp"
+ 1936              		.align	2
+ 1937              		.weak	_ZN17IJoystickObserverC2Ev
+ 1938              		.thumb
+ 1939              		.thumb_func
+ 1941              	_ZN17IJoystickObserverC2Ev:
+ 1942              	.LFB9:
+   1:/home/desem/workspace/desenet/interfaces/ijoystickobserver.h **** #pragma once
+   2:/home/desem/workspace/desenet/interfaces/ijoystickobserver.h **** #include <IJoystick>
+   3:/home/desem/workspace/desenet/interfaces/ijoystickobserver.h **** 
+   4:/home/desem/workspace/desenet/interfaces/ijoystickobserver.h **** /**
+   5:/home/desem/workspace/desenet/interfaces/ijoystickobserver.h ****  * @ingroup interfaces
+   6:/home/desem/workspace/desenet/interfaces/ijoystickobserver.h ****  * @brief This interface has to be implemented by all objects which want to register them self as o
+   7:/home/desem/workspace/desenet/interfaces/ijoystickobserver.h ****  * 		  implementing the IJoystick interface.
+   8:/home/desem/workspace/desenet/interfaces/ijoystickobserver.h ****  *
+   9:/home/desem/workspace/desenet/interfaces/ijoystickobserver.h ****  * Any time the position of the joystick changes, the onPositionChange() method will be called. Att
+  10:/home/desem/workspace/desenet/interfaces/ijoystickobserver.h ****  * in which the observers method onPositionChange() will be called is not defined and can be anothe
+  11:/home/desem/workspace/desenet/interfaces/ijoystickobserver.h ****  * interrupt service routine. Take care of that.
+  12:/home/desem/workspace/desenet/interfaces/ijoystickobserver.h ****  */
+  13:/home/desem/workspace/desenet/interfaces/ijoystickobserver.h **** class IJoystickObserver
+  14:/home/desem/workspace/desenet/interfaces/ijoystickobserver.h **** {
+  15:/home/desem/workspace/desenet/interfaces/ijoystickobserver.h **** protected:
+  16:/home/desem/workspace/desenet/interfaces/ijoystickobserver.h **** 	// It is just an interface, so constructor and destructor should be not public.
+  17:/home/desem/workspace/desenet/interfaces/ijoystickobserver.h **** 	explicit IJoystickObserver() {}
+ 1943              		.loc 7 17 0
+ 1944              		.cfi_startproc
+ 1945              		@ args = 0, pretend = 0, frame = 8
+ 1946              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1947              		@ link register save eliminated.
+ 1948 0000 80B4     		push	{r7}
+ 1949              	.LCFI0:
+ 1950              		.cfi_def_cfa_offset 4
+ 1951 0002 83B0     		sub	sp, sp, #12
+ 1952              	.LCFI1:
+ 1953              		.cfi_def_cfa_offset 16
+ 1954 0004 00AF     		add	r7, sp, #0
+ 1955              		.cfi_offset 7, -4
+ 1956              	.LCFI2:
+ 1957              		.cfi_def_cfa_register 7
+ 1958 0006 7860     		str	r0, [r7, #4]
+ 1959              	.LBB2:
+ 1960              		.loc 7 17 0
+ 1961 0008 7B68     		ldr	r3, [r7, #4]
+ 1962 000a 044A     		ldr	r2, .L3
+ 1963 000c 1A60     		str	r2, [r3, #0]
+ 1964              	.LBE2:
+ 1965 000e 7B68     		ldr	r3, [r7, #4]
+ 1966 0010 1846     		mov	r0, r3
+ 1967 0012 07F10C07 		add	r7, r7, #12
+ 1968 0016 BD46     		mov	sp, r7
+ 1969 0018 80BC     		pop	{r7}
+ 1970 001a 7047     		bx	lr
+ 1971              	.L4:
+ 1972              		.align	2
+ 1973              	.L3:
+ 1974 001c 08000000 		.word	_ZTV17IJoystickObserver+8
+ 1975              		.cfi_endproc
+ 1976              	.LFE9:
+ 1978              		.weak	_ZN17IJoystickObserverC1Ev
+ 1979              		.thumb_set _ZN17IJoystickObserverC1Ev,_ZN17IJoystickObserverC2Ev
+ 1980              		.section	.text._ZN17IJoystickObserverD2Ev,"axG",%progbits,_ZN17IJoystickObserverD5Ev,comdat
+ 1981              		.align	2
+ 1982              		.weak	_ZN17IJoystickObserverD2Ev
+ 1983              		.thumb
+ 1984              		.thumb_func
+ 1986              	_ZN17IJoystickObserverD2Ev:
+ 1987              	.LFB12:
+  18:/home/desem/workspace/desenet/interfaces/ijoystickobserver.h **** 	virtual ~IJoystickObserver() {}
+ 1988              		.loc 7 18 0
+ 1989              		.cfi_startproc
+ 1990              		@ args = 0, pretend = 0, frame = 8
+ 1991              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1992 0000 80B5     		push	{r7, lr}
+ 1993              	.LCFI3:
+ 1994              		.cfi_def_cfa_offset 8
+ 1995 0002 82B0     		sub	sp, sp, #8
+ 1996              	.LCFI4:
+ 1997              		.cfi_def_cfa_offset 16
+ 1998 0004 00AF     		add	r7, sp, #0
+ 1999              		.cfi_offset 14, -4
+ 2000              		.cfi_offset 7, -8
+ 2001              	.LCFI5:
+ 2002              		.cfi_def_cfa_register 7
+ 2003 0006 7860     		str	r0, [r7, #4]
+ 2004              	.LBB3:
+ 2005              		.loc 7 18 0
+ 2006 0008 7B68     		ldr	r3, [r7, #4]
+ 2007 000a 094A     		ldr	r2, .L8
+ 2008 000c 1A60     		str	r2, [r3, #0]
+ 2009              	.LBE3:
+ 2010 000e 4FF00003 		mov	r3, #0
+ 2011 0012 03F00103 		and	r3, r3, #1
+ 2012 0016 DBB2     		uxtb	r3, r3
+ 2013 0018 002B     		cmp	r3, #0
+ 2014 001a 02D0     		beq	.L7
+ 2015              		.loc 7 18 0 is_stmt 0 discriminator 1
+ 2016 001c 7868     		ldr	r0, [r7, #4]
+ 2017 001e FFF7FEFF 		bl	_ZdlPv
+ 2018              	.L7:
+ 2019              		.loc 7 18 0 discriminator 2
+ 2020 0022 7B68     		ldr	r3, [r7, #4]
+ 2021 0024 1846     		mov	r0, r3
+ 2022 0026 07F10807 		add	r7, r7, #8
+ 2023 002a BD46     		mov	sp, r7
+ 2024 002c 80BD     		pop	{r7, pc}
+ 2025              	.L9:
+ 2026 002e 00BF     		.align	2
+ 2027              	.L8:
+ 2028 0030 08000000 		.word	_ZTV17IJoystickObserver+8
+ 2029              		.cfi_endproc
+ 2030              	.LFE12:
+ 2032              		.weak	_ZN17IJoystickObserverD1Ev
+ 2033              		.thumb_set _ZN17IJoystickObserverD1Ev,_ZN17IJoystickObserverD2Ev
+ 2034              		.section	.text._ZN17IJoystickObserverD0Ev,"axG",%progbits,_ZN17IJoystickObserverD5Ev,comdat
+ 2035              		.align	2
+ 2036              		.weak	_ZN17IJoystickObserverD0Ev
+ 2037              		.thumb
+ 2038              		.thumb_func
+ 2040              	_ZN17IJoystickObserverD0Ev:
+ 2041              	.LFB14:
+ 2042              		.loc 7 18 0 is_stmt 1
+ 2043              		.cfi_startproc
+ 2044              		@ args = 0, pretend = 0, frame = 8
+ 2045              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2046 0000 80B5     		push	{r7, lr}
+ 2047              	.LCFI6:
+ 2048              		.cfi_def_cfa_offset 8
+ 2049 0002 82B0     		sub	sp, sp, #8
+ 2050              	.LCFI7:
+ 2051              		.cfi_def_cfa_offset 16
+ 2052 0004 00AF     		add	r7, sp, #0
+ 2053              		.cfi_offset 14, -4
+ 2054              		.cfi_offset 7, -8
+ 2055              	.LCFI8:
+ 2056              		.cfi_def_cfa_register 7
+ 2057 0006 7860     		str	r0, [r7, #4]
+ 2058              		.loc 7 18 0
+ 2059 0008 7868     		ldr	r0, [r7, #4]
+ 2060 000a FFF7FEFF 		bl	_ZN17IJoystickObserverD1Ev
+ 2061 000e 7868     		ldr	r0, [r7, #4]
+ 2062 0010 FFF7FEFF 		bl	_ZdlPv
+ 2063 0014 7B68     		ldr	r3, [r7, #4]
+ 2064 0016 1846     		mov	r0, r3
+ 2065 0018 07F10807 		add	r7, r7, #8
+ 2066 001c BD46     		mov	sp, r7
+ 2067 001e 80BD     		pop	{r7, pc}
+ 2068              		.cfi_endproc
+ 2069              	.LFE14:
+ 2071              		.section	.text._ZN5Air3T5IViewC2Ev,"axG",%progbits,_ZN5Air3T5IViewC5Ev,comdat
+ 2072              		.align	2
+ 2073              		.weak	_ZN5Air3T5IViewC2Ev
+ 2074              		.thumb
+ 2075              		.thumb_func
+ 2077              	_ZN5Air3T5IViewC2Ev:
+ 2078              	.LFB16:
+   1:../air3t/ui/iview.h **** #pragma once
+   2:../air3t/ui/iview.h **** #include <IJoystickObserver>
+   3:../air3t/ui/iview.h **** 
+   4:../air3t/ui/iview.h **** /**
+   5:../air3t/ui/iview.h ****  * @ingroup air3t
+   6:../air3t/ui/iview.h ****  * @defgroup ui UI
+   7:../air3t/ui/iview.h ****  * @brief The user interface package of the Air3T game.
+   8:../air3t/ui/iview.h ****  *
+   9:../air3t/ui/iview.h ****  * A view is an object that renders a certain view to the display using the MonochromeDisplayPainte
+  10:../air3t/ui/iview.h ****  * update method of such a view will re-render the view. A view will basically send events to the c
+  11:../air3t/ui/iview.h ****  * and the controller can replace a view with another on the screen to have a different functionali
+  12:../air3t/ui/iview.h ****  * moment in time. A view is always rendered fullscreen and there is only one view active at the mo
+  13:../air3t/ui/iview.h ****  */
+  14:../air3t/ui/iview.h **** 
+  15:../air3t/ui/iview.h **** namespace Air3T
+  16:../air3t/ui/iview.h **** {
+  17:../air3t/ui/iview.h **** 	/**
+  18:../air3t/ui/iview.h **** 	 * @ingroup ui
+  19:../air3t/ui/iview.h **** 	 * @brief View interface used by the model to notify the view about changes in the data model.
+  20:../air3t/ui/iview.h **** 	 */
+  21:../air3t/ui/iview.h **** 	class IView : public IJoystickObserver
+  22:../air3t/ui/iview.h **** 	{
+  23:../air3t/ui/iview.h **** 	protected:
+  24:../air3t/ui/iview.h **** 		// Constructor and destructor are protected, since it is an interface and not meant the be insta
+  25:../air3t/ui/iview.h **** 		explicit IView() {}
+ 2079              		.loc 5 25 0
+ 2080              		.cfi_startproc
+ 2081              		@ args = 0, pretend = 0, frame = 8
+ 2082              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2083 0000 80B5     		push	{r7, lr}
+ 2084              	.LCFI9:
+ 2085              		.cfi_def_cfa_offset 8
+ 2086 0002 82B0     		sub	sp, sp, #8
+ 2087              	.LCFI10:
+ 2088              		.cfi_def_cfa_offset 16
+ 2089 0004 00AF     		add	r7, sp, #0
+ 2090              		.cfi_offset 14, -4
+ 2091              		.cfi_offset 7, -8
+ 2092              	.LCFI11:
+ 2093              		.cfi_def_cfa_register 7
+ 2094 0006 7860     		str	r0, [r7, #4]
+ 2095              	.LBB4:
+ 2096              		.loc 5 25 0
+ 2097 0008 7B68     		ldr	r3, [r7, #4]
+ 2098 000a 1846     		mov	r0, r3
+ 2099 000c FFF7FEFF 		bl	_ZN17IJoystickObserverC2Ev
+ 2100 0010 7B68     		ldr	r3, [r7, #4]
+ 2101 0012 044A     		ldr	r2, .L14
+ 2102 0014 1A60     		str	r2, [r3, #0]
+ 2103              	.LBE4:
+ 2104 0016 7B68     		ldr	r3, [r7, #4]
+ 2105 0018 1846     		mov	r0, r3
+ 2106 001a 07F10807 		add	r7, r7, #8
+ 2107 001e BD46     		mov	sp, r7
+ 2108 0020 80BD     		pop	{r7, pc}
+ 2109              	.L15:
+ 2110 0022 00BF     		.align	2
+ 2111              	.L14:
+ 2112 0024 08000000 		.word	_ZTVN5Air3T5IViewE+8
+ 2113              		.cfi_endproc
+ 2114              	.LFE16:
+ 2116              		.weak	_ZN5Air3T5IViewC1Ev
+ 2117              		.thumb_set _ZN5Air3T5IViewC1Ev,_ZN5Air3T5IViewC2Ev
+ 2118              		.section	.text._ZN5Air3T5IViewD2Ev,"axG",%progbits,_ZN5Air3T5IViewD5Ev,comdat
+ 2119              		.align	2
+ 2120              		.weak	_ZN5Air3T5IViewD2Ev
+ 2121              		.thumb
+ 2122              		.thumb_func
+ 2124              	_ZN5Air3T5IViewD2Ev:
+ 2125              	.LFB19:
+  26:../air3t/ui/iview.h **** 		virtual ~IView() {}
+ 2126              		.loc 5 26 0
+ 2127              		.cfi_startproc
+ 2128              		@ args = 0, pretend = 0, frame = 8
+ 2129              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2130 0000 80B5     		push	{r7, lr}
+ 2131              	.LCFI12:
+ 2132              		.cfi_def_cfa_offset 8
+ 2133 0002 82B0     		sub	sp, sp, #8
+ 2134              	.LCFI13:
+ 2135              		.cfi_def_cfa_offset 16
+ 2136 0004 00AF     		add	r7, sp, #0
+ 2137              		.cfi_offset 14, -4
+ 2138              		.cfi_offset 7, -8
+ 2139              	.LCFI14:
+ 2140              		.cfi_def_cfa_register 7
+ 2141 0006 7860     		str	r0, [r7, #4]
+ 2142              	.LBB5:
+ 2143              		.loc 5 26 0
+ 2144 0008 7B68     		ldr	r3, [r7, #4]
+ 2145 000a 0B4A     		ldr	r2, .L19
+ 2146 000c 1A60     		str	r2, [r3, #0]
+ 2147 000e 7B68     		ldr	r3, [r7, #4]
+ 2148 0010 1846     		mov	r0, r3
+ 2149 0012 FFF7FEFF 		bl	_ZN17IJoystickObserverD2Ev
+ 2150              	.LBE5:
+ 2151 0016 4FF00003 		mov	r3, #0
+ 2152 001a 03F00103 		and	r3, r3, #1
+ 2153 001e DBB2     		uxtb	r3, r3
+ 2154 0020 002B     		cmp	r3, #0
+ 2155 0022 02D0     		beq	.L18
+ 2156              		.loc 5 26 0 is_stmt 0 discriminator 2
+ 2157 0024 7868     		ldr	r0, [r7, #4]
+ 2158 0026 FFF7FEFF 		bl	_ZdlPv
+ 2159              	.L18:
+ 2160              		.loc 5 26 0 discriminator 3
+ 2161 002a 7B68     		ldr	r3, [r7, #4]
+ 2162 002c 1846     		mov	r0, r3
+ 2163 002e 07F10807 		add	r7, r7, #8
+ 2164 0032 BD46     		mov	sp, r7
+ 2165 0034 80BD     		pop	{r7, pc}
+ 2166              	.L20:
+ 2167 0036 00BF     		.align	2
+ 2168              	.L19:
+ 2169 0038 08000000 		.word	_ZTVN5Air3T5IViewE+8
+ 2170              		.cfi_endproc
+ 2171              	.LFE19:
+ 2173              		.weak	_ZN5Air3T5IViewD1Ev
+ 2174              		.thumb_set _ZN5Air3T5IViewD1Ev,_ZN5Air3T5IViewD2Ev
+ 2175              		.section	.text._ZN5Air3T5IViewD0Ev,"axG",%progbits,_ZN5Air3T5IViewD5Ev,comdat
+ 2176              		.align	2
+ 2177              		.weak	_ZN5Air3T5IViewD0Ev
+ 2178              		.thumb
+ 2179              		.thumb_func
+ 2181              	_ZN5Air3T5IViewD0Ev:
+ 2182              	.LFB21:
+ 2183              		.loc 5 26 0 is_stmt 1
+ 2184              		.cfi_startproc
+ 2185              		@ args = 0, pretend = 0, frame = 8
+ 2186              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2187 0000 80B5     		push	{r7, lr}
+ 2188              	.LCFI15:
+ 2189              		.cfi_def_cfa_offset 8
+ 2190 0002 82B0     		sub	sp, sp, #8
+ 2191              	.LCFI16:
+ 2192              		.cfi_def_cfa_offset 16
+ 2193 0004 00AF     		add	r7, sp, #0
+ 2194              		.cfi_offset 14, -4
+ 2195              		.cfi_offset 7, -8
+ 2196              	.LCFI17:
+ 2197              		.cfi_def_cfa_register 7
+ 2198 0006 7860     		str	r0, [r7, #4]
+ 2199              		.loc 5 26 0
+ 2200 0008 7868     		ldr	r0, [r7, #4]
+ 2201 000a FFF7FEFF 		bl	_ZN5Air3T5IViewD1Ev
+ 2202 000e 7868     		ldr	r0, [r7, #4]
+ 2203 0010 FFF7FEFF 		bl	_ZdlPv
+ 2204 0014 7B68     		ldr	r3, [r7, #4]
+ 2205 0016 1846     		mov	r0, r3
+ 2206 0018 07F10807 		add	r7, r7, #8
+ 2207 001c BD46     		mov	sp, r7
+ 2208 001e 80BD     		pop	{r7, pc}
+ 2209              		.cfi_endproc
+ 2210              	.LFE21:
+ 2212              		.section	.text._ZN5Air3T4ViewC2Ev,"ax",%progbits
+ 2213              		.align	2
+ 2214              		.global	_ZN5Air3T4ViewC2Ev
+ 2215              		.thumb
+ 2216              		.thumb_func
+ 2218              	_ZN5Air3T4ViewC2Ev:
+ 2219              	.LFB29:
+   1:../air3t/ui/view.cpp **** #include "View"
+   2:../air3t/ui/view.cpp **** #include <assert.h>
+   3:../air3t/ui/view.cpp **** 
+   4:../air3t/ui/view.cpp **** namespace Air3T
+   5:../air3t/ui/view.cpp **** {
+   6:../air3t/ui/view.cpp **** 	View::View() : _observer( NULL )
+ 2220              		.loc 1 6 0
+ 2221              		.cfi_startproc
+ 2222              		@ args = 0, pretend = 0, frame = 8
+ 2223              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2224 0000 80B5     		push	{r7, lr}
+ 2225              	.LCFI18:
+ 2226              		.cfi_def_cfa_offset 8
+ 2227 0002 82B0     		sub	sp, sp, #8
+ 2228              	.LCFI19:
+ 2229              		.cfi_def_cfa_offset 16
+ 2230 0004 00AF     		add	r7, sp, #0
+ 2231              		.cfi_offset 14, -4
+ 2232              		.cfi_offset 7, -8
+ 2233              	.LCFI20:
+ 2234              		.cfi_def_cfa_register 7
+ 2235 0006 7860     		str	r0, [r7, #4]
+ 2236              	.LBB6:
+ 2237              		.loc 1 6 0
+ 2238 0008 7B68     		ldr	r3, [r7, #4]
+ 2239 000a 1846     		mov	r0, r3
+ 2240 000c FFF7FEFF 		bl	_ZN5Air3T5IViewC2Ev
+ 2241 0010 7B68     		ldr	r3, [r7, #4]
+ 2242 0012 064A     		ldr	r2, .L25
+ 2243 0014 1A60     		str	r2, [r3, #0]
+ 2244 0016 7B68     		ldr	r3, [r7, #4]
+ 2245 0018 4FF00002 		mov	r2, #0
+ 2246 001c 5A60     		str	r2, [r3, #4]
+ 2247              	.LBE6:
+   7:../air3t/ui/view.cpp **** 	{}
+ 2248              		.loc 1 7 0
+ 2249 001e 7B68     		ldr	r3, [r7, #4]
+ 2250 0020 1846     		mov	r0, r3
+ 2251 0022 07F10807 		add	r7, r7, #8
+ 2252 0026 BD46     		mov	sp, r7
+ 2253 0028 80BD     		pop	{r7, pc}
+ 2254              	.L26:
+ 2255 002a 00BF     		.align	2
+ 2256              	.L25:
+ 2257 002c 08000000 		.word	_ZTVN5Air3T4ViewE+8
+ 2258              		.cfi_endproc
+ 2259              	.LFE29:
+ 2261              		.global	_ZN5Air3T4ViewC1Ev
+ 2262              		.thumb_set _ZN5Air3T4ViewC1Ev,_ZN5Air3T4ViewC2Ev
+ 2263              		.section	.text._ZN5Air3T4ViewD2Ev,"ax",%progbits
+ 2264              		.align	2
+ 2265              		.global	_ZN5Air3T4ViewD2Ev
+ 2266              		.thumb
+ 2267              		.thumb_func
+ 2269              	_ZN5Air3T4ViewD2Ev:
+ 2270              	.LFB32:
+   8:../air3t/ui/view.cpp **** 
+   9:../air3t/ui/view.cpp **** 	View::~View()
+ 2271              		.loc 1 9 0
+ 2272              		.cfi_startproc
+ 2273              		@ args = 0, pretend = 0, frame = 8
+ 2274              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2275 0000 80B5     		push	{r7, lr}
+ 2276              	.LCFI21:
+ 2277              		.cfi_def_cfa_offset 8
+ 2278 0002 82B0     		sub	sp, sp, #8
+ 2279              	.LCFI22:
+ 2280              		.cfi_def_cfa_offset 16
+ 2281 0004 00AF     		add	r7, sp, #0
+ 2282              		.cfi_offset 14, -4
+ 2283              		.cfi_offset 7, -8
+ 2284              	.LCFI23:
+ 2285              		.cfi_def_cfa_register 7
+ 2286 0006 7860     		str	r0, [r7, #4]
+ 2287              	.LBB7:
+ 2288              		.loc 1 9 0
+ 2289 0008 7B68     		ldr	r3, [r7, #4]
+ 2290 000a 0B4A     		ldr	r2, .L30
+ 2291 000c 1A60     		str	r2, [r3, #0]
+ 2292 000e 7B68     		ldr	r3, [r7, #4]
+  10:../air3t/ui/view.cpp **** 	{}
+ 2293              		.loc 1 10 0
+ 2294 0010 1846     		mov	r0, r3
+ 2295 0012 FFF7FEFF 		bl	_ZN5Air3T5IViewD2Ev
+ 2296              	.LBE7:
+ 2297 0016 4FF00003 		mov	r3, #0
+ 2298 001a 03F00103 		and	r3, r3, #1
+ 2299 001e DBB2     		uxtb	r3, r3
+ 2300 0020 002B     		cmp	r3, #0
+ 2301 0022 02D0     		beq	.L29
+ 2302              		.loc 1 10 0 is_stmt 0 discriminator 2
+ 2303 0024 7868     		ldr	r0, [r7, #4]
+ 2304 0026 FFF7FEFF 		bl	_ZdlPv
+ 2305              	.L29:
+ 2306              		.loc 1 10 0 discriminator 3
+ 2307 002a 7B68     		ldr	r3, [r7, #4]
+ 2308 002c 1846     		mov	r0, r3
+ 2309 002e 07F10807 		add	r7, r7, #8
+ 2310 0032 BD46     		mov	sp, r7
+ 2311 0034 80BD     		pop	{r7, pc}
+ 2312              	.L31:
+ 2313 0036 00BF     		.align	2
+ 2314              	.L30:
+ 2315 0038 08000000 		.word	_ZTVN5Air3T4ViewE+8
+ 2316              		.cfi_endproc
+ 2317              	.LFE32:
+ 2319              		.global	_ZN5Air3T4ViewD1Ev
+ 2320              		.thumb_set _ZN5Air3T4ViewD1Ev,_ZN5Air3T4ViewD2Ev
+ 2321              		.section	.text._ZN5Air3T4ViewD0Ev,"ax",%progbits
+ 2322              		.align	2
+ 2323              		.global	_ZN5Air3T4ViewD0Ev
+ 2324              		.thumb
+ 2325              		.thumb_func
+ 2327              	_ZN5Air3T4ViewD0Ev:
+ 2328              	.LFB34:
+   9:../air3t/ui/view.cpp **** 	View::~View()
+ 2329              		.loc 1 9 0 is_stmt 1
+ 2330              		.cfi_startproc
+ 2331              		@ args = 0, pretend = 0, frame = 8
+ 2332              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2333 0000 80B5     		push	{r7, lr}
+ 2334              	.LCFI24:
+ 2335              		.cfi_def_cfa_offset 8
+ 2336 0002 82B0     		sub	sp, sp, #8
+ 2337              	.LCFI25:
+ 2338              		.cfi_def_cfa_offset 16
+ 2339 0004 00AF     		add	r7, sp, #0
+ 2340              		.cfi_offset 14, -4
+ 2341              		.cfi_offset 7, -8
+ 2342              	.LCFI26:
+ 2343              		.cfi_def_cfa_register 7
+ 2344 0006 7860     		str	r0, [r7, #4]
+ 2345              		.loc 1 10 0
+ 2346 0008 7868     		ldr	r0, [r7, #4]
+ 2347 000a FFF7FEFF 		bl	_ZN5Air3T4ViewD1Ev
+ 2348 000e 7868     		ldr	r0, [r7, #4]
+ 2349 0010 FFF7FEFF 		bl	_ZdlPv
+ 2350 0014 7B68     		ldr	r3, [r7, #4]
+ 2351 0016 1846     		mov	r0, r3
+ 2352 0018 07F10807 		add	r7, r7, #8
+ 2353 001c BD46     		mov	sp, r7
+ 2354 001e 80BD     		pop	{r7, pc}
+ 2355              		.cfi_endproc
+ 2356              	.LFE34:
+ 2358              		.section	.text._ZN5Air3T4View11setObserverEPNS_13IViewObserverE,"ax",%progbits
+ 2359              		.align	2
+ 2360              		.global	_ZN5Air3T4View11setObserverEPNS_13IViewObserverE
+ 2361              		.thumb
+ 2362              		.thumb_func
+ 2364              	_ZN5Air3T4View11setObserverEPNS_13IViewObserverE:
+ 2365              	.LFB35:
+  11:../air3t/ui/view.cpp **** 
+  12:../air3t/ui/view.cpp **** 	bool View::setObserver( IViewObserver * observer )
+  13:../air3t/ui/view.cpp **** 	{
+ 2366              		.loc 1 13 0
+ 2367              		.cfi_startproc
+ 2368              		@ args = 0, pretend = 0, frame = 8
+ 2369              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2370              		@ link register save eliminated.
+ 2371 0000 80B4     		push	{r7}
+ 2372              	.LCFI27:
+ 2373              		.cfi_def_cfa_offset 4
+ 2374 0002 83B0     		sub	sp, sp, #12
+ 2375              	.LCFI28:
+ 2376              		.cfi_def_cfa_offset 16
+ 2377 0004 00AF     		add	r7, sp, #0
+ 2378              		.cfi_offset 7, -4
+ 2379              	.LCFI29:
+ 2380              		.cfi_def_cfa_register 7
+ 2381 0006 7860     		str	r0, [r7, #4]
+ 2382 0008 3960     		str	r1, [r7, #0]
+  14:../air3t/ui/view.cpp **** 		_observer = observer;
+ 2383              		.loc 1 14 0
+ 2384 000a 7B68     		ldr	r3, [r7, #4]
+ 2385 000c 3A68     		ldr	r2, [r7, #0]
+ 2386 000e 5A60     		str	r2, [r3, #4]
+  15:../air3t/ui/view.cpp **** 		return observer;
+ 2387              		.loc 1 15 0
+ 2388 0010 3B68     		ldr	r3, [r7, #0]
+ 2389 0012 002B     		cmp	r3, #0
+ 2390 0014 0CBF     		ite	eq
+ 2391 0016 0023     		moveq	r3, #0
+ 2392 0018 0123     		movne	r3, #1
+ 2393 001a DBB2     		uxtb	r3, r3
+  16:../air3t/ui/view.cpp **** 	}
+ 2394              		.loc 1 16 0
+ 2395 001c 1846     		mov	r0, r3
+ 2396 001e 07F10C07 		add	r7, r7, #12
+ 2397 0022 BD46     		mov	sp, r7
+ 2398 0024 80BC     		pop	{r7}
+ 2399 0026 7047     		bx	lr
+ 2400              		.cfi_endproc
+ 2401              	.LFE35:
+ 2403              		.global	_ZTVN5Air3T4ViewE
+ 2404              		.section	.rodata._ZTVN5Air3T4ViewE,"a",%progbits
+ 2405              		.align	3
+ 2408              	_ZTVN5Air3T4ViewE:
+ 2409 0000 00000000 		.word	0
+ 2410 0004 00000000 		.word	0
+ 2411 0008 00000000 		.word	_ZN5Air3T4ViewD1Ev
+ 2412 000c 00000000 		.word	_ZN5Air3T4ViewD0Ev
+ 2413 0010 00000000 		.word	__cxa_pure_virtual
+ 2414 0014 00000000 		.word	__cxa_pure_virtual
+ 2415              		.weak	_ZTVN5Air3T5IViewE
+ 2416              		.section	.rodata._ZTVN5Air3T5IViewE,"aG",%progbits,_ZTVN5Air3T5IViewE,comdat
+ 2417              		.align	3
+ 2420              	_ZTVN5Air3T5IViewE:
+ 2421 0000 00000000 		.word	0
+ 2422 0004 00000000 		.word	0
+ 2423 0008 00000000 		.word	_ZN5Air3T5IViewD1Ev
+ 2424 000c 00000000 		.word	_ZN5Air3T5IViewD0Ev
+ 2425 0010 00000000 		.word	__cxa_pure_virtual
+ 2426 0014 00000000 		.word	__cxa_pure_virtual
+ 2427              		.weak	_ZTV17IJoystickObserver
+ 2428              		.section	.rodata._ZTV17IJoystickObserver,"aG",%progbits,_ZTV17IJoystickObserver,comdat
+ 2429              		.align	3
+ 2432              	_ZTV17IJoystickObserver:
+ 2433 0000 00000000 		.word	0
+ 2434 0004 00000000 		.word	0
+ 2435 0008 00000000 		.word	_ZN17IJoystickObserverD1Ev
+ 2436 000c 00000000 		.word	_ZN17IJoystickObserverD0Ev
+ 2437 0010 00000000 		.word	__cxa_pure_virtual
+ 2438 0014 00000000 		.text
+ 2439              	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 view.cpp
+     /tmp/cc05hymV.s:1936   .text._ZN17IJoystickObserverC2Ev:00000000 $t
+     /tmp/cc05hymV.s:1941   .text._ZN17IJoystickObserverC2Ev:00000000 _ZN17IJoystickObserverC2Ev
+     /tmp/cc05hymV.s:1974   .text._ZN17IJoystickObserverC2Ev:0000001c $d
+     /tmp/cc05hymV.s:2432   .rodata._ZTV17IJoystickObserver:00000000 _ZTV17IJoystickObserver
+     /tmp/cc05hymV.s:1941   .text._ZN17IJoystickObserverC2Ev:00000000 _ZN17IJoystickObserverC1Ev
+     /tmp/cc05hymV.s:1981   .text._ZN17IJoystickObserverD2Ev:00000000 $t
+     /tmp/cc05hymV.s:1986   .text._ZN17IJoystickObserverD2Ev:00000000 _ZN17IJoystickObserverD2Ev
+     /tmp/cc05hymV.s:2028   .text._ZN17IJoystickObserverD2Ev:00000030 $d
+     /tmp/cc05hymV.s:1986   .text._ZN17IJoystickObserverD2Ev:00000000 _ZN17IJoystickObserverD1Ev
+     /tmp/cc05hymV.s:2035   .text._ZN17IJoystickObserverD0Ev:00000000 $t
+     /tmp/cc05hymV.s:2040   .text._ZN17IJoystickObserverD0Ev:00000000 _ZN17IJoystickObserverD0Ev
+     /tmp/cc05hymV.s:2072   .text._ZN5Air3T5IViewC2Ev:00000000 $t
+     /tmp/cc05hymV.s:2077   .text._ZN5Air3T5IViewC2Ev:00000000 _ZN5Air3T5IViewC2Ev
+     /tmp/cc05hymV.s:2112   .text._ZN5Air3T5IViewC2Ev:00000024 $d
+     /tmp/cc05hymV.s:2420   .rodata._ZTVN5Air3T5IViewE:00000000 _ZTVN5Air3T5IViewE
+     /tmp/cc05hymV.s:2077   .text._ZN5Air3T5IViewC2Ev:00000000 _ZN5Air3T5IViewC1Ev
+     /tmp/cc05hymV.s:2119   .text._ZN5Air3T5IViewD2Ev:00000000 $t
+     /tmp/cc05hymV.s:2124   .text._ZN5Air3T5IViewD2Ev:00000000 _ZN5Air3T5IViewD2Ev
+     /tmp/cc05hymV.s:2169   .text._ZN5Air3T5IViewD2Ev:00000038 $d
+     /tmp/cc05hymV.s:2124   .text._ZN5Air3T5IViewD2Ev:00000000 _ZN5Air3T5IViewD1Ev
+     /tmp/cc05hymV.s:2176   .text._ZN5Air3T5IViewD0Ev:00000000 $t
+     /tmp/cc05hymV.s:2181   .text._ZN5Air3T5IViewD0Ev:00000000 _ZN5Air3T5IViewD0Ev
+     /tmp/cc05hymV.s:2213   .text._ZN5Air3T4ViewC2Ev:00000000 $t
+     /tmp/cc05hymV.s:2218   .text._ZN5Air3T4ViewC2Ev:00000000 _ZN5Air3T4ViewC2Ev
+     /tmp/cc05hymV.s:2257   .text._ZN5Air3T4ViewC2Ev:0000002c $d
+     /tmp/cc05hymV.s:2408   .rodata._ZTVN5Air3T4ViewE:00000000 _ZTVN5Air3T4ViewE
+     /tmp/cc05hymV.s:2218   .text._ZN5Air3T4ViewC2Ev:00000000 _ZN5Air3T4ViewC1Ev
+     /tmp/cc05hymV.s:2264   .text._ZN5Air3T4ViewD2Ev:00000000 $t
+     /tmp/cc05hymV.s:2269   .text._ZN5Air3T4ViewD2Ev:00000000 _ZN5Air3T4ViewD2Ev
+     /tmp/cc05hymV.s:2315   .text._ZN5Air3T4ViewD2Ev:00000038 $d
+     /tmp/cc05hymV.s:2269   .text._ZN5Air3T4ViewD2Ev:00000000 _ZN5Air3T4ViewD1Ev
+     /tmp/cc05hymV.s:2322   .text._ZN5Air3T4ViewD0Ev:00000000 $t
+     /tmp/cc05hymV.s:2327   .text._ZN5Air3T4ViewD0Ev:00000000 _ZN5Air3T4ViewD0Ev
+     /tmp/cc05hymV.s:2359   .text._ZN5Air3T4View11setObserverEPNS_13IViewObserverE:00000000 $t
+     /tmp/cc05hymV.s:2364   .text._ZN5Air3T4View11setObserverEPNS_13IViewObserverE:00000000 _ZN5Air3T4View11setObserverEPNS_13IViewObserverE
+     /tmp/cc05hymV.s:2405   .rodata._ZTVN5Air3T4ViewE:00000000 $d
+     /tmp/cc05hymV.s:2417   .rodata._ZTVN5Air3T5IViewE:00000000 $d
+     /tmp/cc05hymV.s:2429   .rodata._ZTV17IJoystickObserver:00000000 $d
+                     .debug_frame:00000010 $d
+                           .group:00000000 _ZN17IJoystickObserverC5Ev
+                           .group:00000000 _ZN17IJoystickObserverD5Ev
+                           .group:00000000 _ZN5Air3T5IViewC5Ev
+                           .group:00000000 _ZN5Air3T5IViewD5Ev
+
+UNDEFINED SYMBOLS
+_ZdlPv
+__cxa_pure_virtual

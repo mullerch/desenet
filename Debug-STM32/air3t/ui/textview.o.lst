@@ -1,0 +1,958 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"textview.cpp"
+  23              	.Ltext0:
+  24              		.file 1 "../air3t/ui/textview.cpp"
+ 4046              		.align	2
+ 4047              		.weak	_ZN5Air3T4View8observerEv
+ 4048              		.thumb
+ 4049              		.thumb_func
+ 4051              	_ZN5Air3T4View8observerEv:
+ 4052              	.LFB27:
+   1:../air3t/ui/view.h **** #pragma once
+   2:../air3t/ui/view.h **** #include "IView"
+   3:../air3t/ui/view.h **** #include <cstring>
+   4:../air3t/ui/view.h **** 
+   5:../air3t/ui/view.h **** namespace Air3T
+   6:../air3t/ui/view.h **** {
+   7:../air3t/ui/view.h **** 	class IViewObserver;
+   8:../air3t/ui/view.h **** 
+   9:../air3t/ui/view.h **** 	/**
+  10:../air3t/ui/view.h **** 	 * @ingroup ui
+  11:../air3t/ui/view.h **** 	 * @brief Base class of all view implementations. Handles the pointers to the input event observer
+  12:../air3t/ui/view.h **** 	 */
+  13:../air3t/ui/view.h **** 	class View : public IView
+  14:../air3t/ui/view.h **** 	{
+  15:../air3t/ui/view.h **** 	protected:
+  16:../air3t/ui/view.h **** 		// Constructor is protected, only derived classes can be instanciated.
+  17:../air3t/ui/view.h **** 		explicit View();
+  18:../air3t/ui/view.h **** 
+  19:../air3t/ui/view.h **** 		// Returns the pointer to the observer to derived classes.
+  20:../air3t/ui/view.h **** 		inline IViewObserver * observer() { return _observer; }
+ 4053              		.loc 5 20 0
+ 4054              		.cfi_startproc
+ 4055              		@ args = 0, pretend = 0, frame = 8
+ 4056              		@ frame_needed = 1, uses_anonymous_args = 0
+ 4057              		@ link register save eliminated.
+ 4058 0000 80B4     		push	{r7}
+ 4059              	.LCFI0:
+ 4060              		.cfi_def_cfa_offset 4
+ 4061 0002 83B0     		sub	sp, sp, #12
+ 4062              	.LCFI1:
+ 4063              		.cfi_def_cfa_offset 16
+ 4064 0004 00AF     		add	r7, sp, #0
+ 4065              		.cfi_offset 7, -4
+ 4066              	.LCFI2:
+ 4067              		.cfi_def_cfa_register 7
+ 4068 0006 7860     		str	r0, [r7, #4]
+ 4069              		.loc 5 20 0
+ 4070 0008 7B68     		ldr	r3, [r7, #4]
+ 4071 000a 5B68     		ldr	r3, [r3, #4]
+ 4072 000c 1846     		mov	r0, r3
+ 4073 000e 07F10C07 		add	r7, r7, #12
+ 4074 0012 BD46     		mov	sp, r7
+ 4075 0014 80BC     		pop	{r7}
+ 4076 0016 7047     		bx	lr
+ 4077              		.cfi_endproc
+ 4078              	.LFE27:
+ 4080              		.section	.text._ZL20__gthread_key_deletei,"ax",%progbits
+ 4081              		.align	2
+ 4082              		.thumb
+ 4083              		.thumb_func
+ 4085              	_ZL20__gthread_key_deletei:
+ 4086              	.LFB356:
+   1:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Threads compatibility routines for libgcc2 and libobjc.  */
+   2:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Compile this one with gcc.  */
+   3:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Copyright (C) 1997, 1999, 2000, 2004, 2008, 2009
+   4:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****    Free Software Foundation, Inc.
+   5:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+   6:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** This file is part of GCC.
+   7:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+   8:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** GCC is free software; you can redistribute it and/or modify it under
+   9:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** the terms of the GNU General Public License as published by the Free
+  10:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** Software Foundation; either version 3, or (at your option) any later
+  11:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** version.
+  12:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  13:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** GCC is distributed in the hope that it will be useful, but WITHOUT ANY
+  14:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** WARRANTY; without even the implied warranty of MERCHANTABILITY or
+  15:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+  16:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** for more details.
+  17:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  18:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** Under Section 7 of GPL version 3, you are granted additional
+  19:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** permissions described in the GCC Runtime Library Exception, version
+  20:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 3.1, as published by the Free Software Foundation.
+  21:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  22:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** You should have received a copy of the GNU General Public License and
+  23:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** a copy of the GCC Runtime Library Exception along with this program;
+  24:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
+  25:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** <http://www.gnu.org/licenses/>.  */
+  26:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  27:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** #ifndef _GLIBCXX_GCC_GTHR_SINGLE_H
+  28:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** #define _GLIBCXX_GCC_GTHR_SINGLE_H
+  29:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  30:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Just provide compatibility for mutex handling.  */
+  31:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  32:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** typedef int __gthread_key_t;
+  33:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** typedef int __gthread_once_t;
+  34:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** typedef int __gthread_mutex_t;
+  35:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** typedef int __gthread_recursive_mutex_t;
+  36:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  37:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** #define __GTHREAD_ONCE_INIT 0
+  38:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** #define __GTHREAD_MUTEX_INIT 0
+  39:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** #define __GTHREAD_RECURSIVE_MUTEX_INIT 0
+  40:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  41:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** #define _GLIBCXX_UNUSED __attribute__((unused))
+  42:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  43:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** #ifdef _LIBOBJC
+  44:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  45:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Thread local storage for a single thread */
+  46:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static void *thread_local_storage = NULL;
+  47:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  48:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Backend initialization functions */
+  49:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  50:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Initialize the threads subsystem.  */
+  51:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+  52:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_init_thread_system (void)
+  53:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+  54:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   /* No thread support available */
+  55:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return -1;
+  56:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+  57:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  58:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Close the threads subsystem.  */
+  59:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+  60:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_close_thread_system (void)
+  61:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+  62:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   /* No thread support available */
+  63:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return -1;
+  64:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+  65:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  66:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Backend thread functions */
+  67:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  68:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Create a new thread of execution.  */
+  69:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline objc_thread_t
+  70:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_thread_detach (void (* func)(void *), void * arg _GLIBCXX_UNUSED)
+  71:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+  72:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   /* No thread support available */
+  73:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return NULL;
+  74:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+  75:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  76:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Set the current thread's priority.  */
+  77:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+  78:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_thread_set_priority (int priority _GLIBCXX_UNUSED)
+  79:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+  80:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   /* No thread support available */
+  81:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return -1;
+  82:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+  83:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  84:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Return the current thread's priority.  */
+  85:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+  86:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_thread_get_priority (void)
+  87:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+  88:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return OBJC_THREAD_INTERACTIVE_PRIORITY;
+  89:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+  90:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  91:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Yield our process time to another thread.  */
+  92:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline void
+  93:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_thread_yield (void)
+  94:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+  95:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return;
+  96:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+  97:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  98:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Terminate the current thread.  */
+  99:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+ 100:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_thread_exit (void)
+ 101:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 102:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   /* No thread support available */
+ 103:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   /* Should we really exit the program */
+ 104:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   /* exit (&__objc_thread_exit_status); */
+ 105:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return -1;
+ 106:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 107:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 108:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Returns an integer value which uniquely describes a thread.  */
+ 109:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline objc_thread_t
+ 110:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_thread_id (void)
+ 111:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 112:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   /* No thread support, use 1.  */
+ 113:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return (objc_thread_t) 1;
+ 114:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 115:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 116:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Sets the thread's local storage pointer.  */
+ 117:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+ 118:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_thread_set_data (void *value)
+ 119:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 120:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   thread_local_storage = value;
+ 121:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return 0;
+ 122:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 123:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 124:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Returns the thread's local storage pointer.  */
+ 125:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline void *
+ 126:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_thread_get_data (void)
+ 127:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 128:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return thread_local_storage;
+ 129:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 130:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 131:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Backend mutex functions */
+ 132:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 133:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Allocate a mutex.  */
+ 134:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+ 135:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_mutex_allocate (objc_mutex_t mutex _GLIBCXX_UNUSED)
+ 136:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 137:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return 0;
+ 138:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 139:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 140:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Deallocate a mutex.  */
+ 141:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+ 142:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_mutex_deallocate (objc_mutex_t mutex _GLIBCXX_UNUSED)
+ 143:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 144:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return 0;
+ 145:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 146:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 147:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Grab a lock on a mutex.  */
+ 148:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+ 149:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_mutex_lock (objc_mutex_t mutex _GLIBCXX_UNUSED)
+ 150:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 151:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   /* There can only be one thread, so we always get the lock */
+ 152:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return 0;
+ 153:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 154:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 155:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Try to grab a lock on a mutex.  */
+ 156:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+ 157:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_mutex_trylock (objc_mutex_t mutex _GLIBCXX_UNUSED)
+ 158:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 159:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   /* There can only be one thread, so we always get the lock */
+ 160:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return 0;
+ 161:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 162:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 163:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Unlock the mutex */
+ 164:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+ 165:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_mutex_unlock (objc_mutex_t mutex _GLIBCXX_UNUSED)
+ 166:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 167:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return 0;
+ 168:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 169:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 170:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Backend condition mutex functions */
+ 171:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 172:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Allocate a condition.  */
+ 173:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+ 174:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_condition_allocate (objc_condition_t condition _GLIBCXX_UNUSED)
+ 175:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 176:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return 0;
+ 177:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 178:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 179:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Deallocate a condition.  */
+ 180:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+ 181:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_condition_deallocate (objc_condition_t condition _GLIBCXX_UNUSED)
+ 182:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 183:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return 0;
+ 184:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 185:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 186:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Wait on the condition */
+ 187:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+ 188:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_condition_wait (objc_condition_t condition _GLIBCXX_UNUSED,
+ 189:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 			       objc_mutex_t mutex _GLIBCXX_UNUSED)
+ 190:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 191:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return 0;
+ 192:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 193:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 194:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Wake up all threads waiting on this condition.  */
+ 195:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+ 196:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_condition_broadcast (objc_condition_t condition _GLIBCXX_UNUSED)
+ 197:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 198:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return 0;
+ 199:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 200:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 201:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Wake up one thread waiting on this condition.  */
+ 202:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+ 203:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_condition_signal (objc_condition_t condition _GLIBCXX_UNUSED)
+ 204:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 205:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return 0;
+ 206:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 207:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 208:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** #else /* _LIBOBJC */
+ 209:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 210:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+ 211:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_active_p (void)
+ 212:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 213:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return 0;
+ 214:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 215:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 216:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+ 217:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_once (__gthread_once_t *__once _GLIBCXX_UNUSED, void (*__func) (void) _GLIBCXX_UNUSED)
+ 218:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 219:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return 0;
+ 220:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 221:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 222:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int _GLIBCXX_UNUSED
+ 223:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_key_create (__gthread_key_t *__key _GLIBCXX_UNUSED, void (*__func) (void *) _GLIBCXX_UNUS
+ 224:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 225:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return 0;
+ 226:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 227:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 228:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static int _GLIBCXX_UNUSED
+ 229:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_key_delete (__gthread_key_t __key _GLIBCXX_UNUSED)
+ 230:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 4087              		.loc 69 230 0
+ 4088              		.cfi_startproc
+ 4089              		@ args = 0, pretend = 0, frame = 8
+ 4090              		@ frame_needed = 1, uses_anonymous_args = 0
+ 4091              		@ link register save eliminated.
+ 4092 0000 80B4     		push	{r7}
+ 4093              	.LCFI3:
+ 4094              		.cfi_def_cfa_offset 4
+ 4095 0002 83B0     		sub	sp, sp, #12
+ 4096              	.LCFI4:
+ 4097              		.cfi_def_cfa_offset 16
+ 4098 0004 00AF     		add	r7, sp, #0
+ 4099              		.cfi_offset 7, -4
+ 4100              	.LCFI5:
+ 4101              		.cfi_def_cfa_register 7
+ 4102 0006 7860     		str	r0, [r7, #4]
+ 231:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return 0;
+ 4103              		.loc 69 231 0
+ 4104 0008 4FF00003 		mov	r3, #0
+ 232:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 4105              		.loc 69 232 0
+ 4106 000c 1846     		mov	r0, r3
+ 4107 000e 07F10C07 		add	r7, r7, #12
+ 4108 0012 BD46     		mov	sp, r7
+ 4109 0014 80BC     		pop	{r7}
+ 4110 0016 7047     		bx	lr
+ 4111              		.cfi_endproc
+ 4112              	.LFE356:
+ 4114              		.section	.text._ZN18IMonochromeDisplay5PointC2Eii,"axG",%progbits,_ZN18IMonochromeDisplay5PointC5E
+ 4115              		.align	2
+ 4116              		.weak	_ZN18IMonochromeDisplay5PointC2Eii
+ 4117              		.thumb
+ 4118              		.thumb_func
+ 4120              	_ZN18IMonochromeDisplay5PointC2Eii:
+ 4121              	.LFB560:
+   1:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** #pragma once
+   2:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** #include <stdint.h>
+   3:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** #include <cstddef>
+   4:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** #include <string>
+   5:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** 
+   6:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** /**
+   7:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h ****  * @ingroup interfaces
+   8:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h ****  * @brief Abstracts a simple monochrome display, with either unaccelerated or accelerated drawing m
+   9:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h ****  *
+  10:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h ****  * Note that if you need a common way to paint into displays with different accelerated features, u
+  11:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h ****  * MonochromeDisplayPainter class, the class uses for each drawing instruction the  most effective 
+  12:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h ****  * draw into the display.
+  13:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h ****  */
+  14:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** class IMonochromeDisplay
+  15:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** {
+  16:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** public:
+  17:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** 	/**
+  18:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** 	 * @brief The definitions for the pixel colors. Quite a short list for monochrome displays...
+  19:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** 	 */
+  20:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** 	enum PixelColor
+  21:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** 	{
+  22:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** 		Undefined 	=  0 ,	///< Undefined color, use if you want no stroke or no fill.
+  23:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** 		White 		= -1 ,	///< White pixel value.
+  24:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** 		Black 		=  1 	///< Black pixel value.
+  25:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** 	};
+  26:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** 
+  27:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** 	/**
+  28:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** 	 * @brief A bit-mask defining the possible accelerated drawing operations a display can offer.
+  29:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** 	 *
+  30:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** 	 * The MonochromeDisplayPainter class will use accelerated methods if available and will fall back
+  31:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** 	 * to software based rendering methods if the display does not support the accelerated operations.
+  32:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** 	 */
+  33:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** 	struct AcceleratedDrawingMethods
+  34:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** 	{
+  35:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** 		unsigned clearAccelerated : 1;					///< @brief The display supports to clear screen.
+  36:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** 		unsigned memoryCopyAccelerated : 1;				///< @brief The display supports burst access to the displ
+  37:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** 		unsigned drawLineAccelerated : 1;				///< @brief The display supports drawing simple lines.
+  38:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** 		unsigned drawRectangleStrokeAccelerated : 1;	///< @brief The display supports drawing strokes of 
+  39:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** 		unsigned drawRectangeFillAccelerated : 1;		///< @brief The display supports filling rectangles.
+  40:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** 		unsigned drawEllipseStrokeAccelerated : 1;		///< @brief The display supports drawing ellipse stro
+  41:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** 		unsigned drawEllipseFillAccelerated : 1;		///< @brief The display supports filling ellipses.
+  42:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** 		unsigned drawTextAccelerated : 1;				///< @brief The display supports text drawing.
+  43:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** 	};
+  44:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** 
+  45:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** 	/**
+  46:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** 	 * @brief This class represents a point in a two-dimensional space and is used to draw into the di
+  47:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** 	 */
+  48:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** 	class Point
+  49:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** 	{
+  50:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** 	public:
+  51:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** 		/**
+  52:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** 		 * @brief Constructor, initializes the x and y coordinates of the point.
+  53:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** 		 *
+  54:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** 		 * @param x The X coordinate.
+  55:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** 		 * @param y The Y coordinate.
+  56:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** 		 */
+  57:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** 		inline explicit Point( int x = 0 , int y = 0 ) : x( x ) , y( y ) {}
+ 4122              		.loc 76 57 0
+ 4123              		.cfi_startproc
+ 4124              		@ args = 0, pretend = 0, frame = 16
+ 4125              		@ frame_needed = 1, uses_anonymous_args = 0
+ 4126              		@ link register save eliminated.
+ 4127 0000 80B4     		push	{r7}
+ 4128              	.LCFI6:
+ 4129              		.cfi_def_cfa_offset 4
+ 4130 0002 85B0     		sub	sp, sp, #20
+ 4131              	.LCFI7:
+ 4132              		.cfi_def_cfa_offset 24
+ 4133 0004 00AF     		add	r7, sp, #0
+ 4134              		.cfi_offset 7, -4
+ 4135              	.LCFI8:
+ 4136              		.cfi_def_cfa_register 7
+ 4137 0006 F860     		str	r0, [r7, #12]
+ 4138 0008 B960     		str	r1, [r7, #8]
+ 4139 000a 7A60     		str	r2, [r7, #4]
+ 4140              	.LBB2:
+ 4141              		.loc 76 57 0
+ 4142 000c FB68     		ldr	r3, [r7, #12]
+ 4143 000e BA68     		ldr	r2, [r7, #8]
+ 4144 0010 1A60     		str	r2, [r3, #0]
+ 4145 0012 FB68     		ldr	r3, [r7, #12]
+ 4146 0014 7A68     		ldr	r2, [r7, #4]
+ 4147 0016 5A60     		str	r2, [r3, #4]
+ 4148              	.LBE2:
+ 4149 0018 FB68     		ldr	r3, [r7, #12]
+ 4150 001a 1846     		mov	r0, r3
+ 4151 001c 07F11407 		add	r7, r7, #20
+ 4152 0020 BD46     		mov	sp, r7
+ 4153 0022 80BC     		pop	{r7}
+ 4154 0024 7047     		bx	lr
+ 4155              		.cfi_endproc
+ 4156              	.LFE560:
+ 4158              		.weak	_ZN18IMonochromeDisplay5PointC1Eii
+ 4159              		.thumb_set _ZN18IMonochromeDisplay5PointC1Eii,_ZN18IMonochromeDisplay5PointC2Eii
+ 4160 0026 00BF     		.section	.text._ZN18IMonochromeDisplay4SizeC2Eii,"axG",%progbits,_ZN18IMonochromeDisplay4SizeC5Eii
+ 4161              		.align	2
+ 4162              		.weak	_ZN18IMonochromeDisplay4SizeC2Eii
+ 4163              		.thumb
+ 4164              		.thumb_func
+ 4166              	_ZN18IMonochromeDisplay4SizeC2Eii:
+ 4167              	.LFB563:
+  58:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** 
+  59:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** 		int x;		///< @brief The X coordinate.
+  60:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** 		int y;		///< @brief The Y coordinate.
+  61:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** 	};
+  62:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** 
+  63:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** 	/**
+  64:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** 	 * @brief This class represents a size in a two-dimensional space used to describe the size for al
+  65:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** 	 */
+  66:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** 	class Size
+  67:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** 	{
+  68:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** 	public:
+  69:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** 		/**
+  70:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** 		 * @brief Constructor, initializes the width and height of a size.
+  71:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** 		 *
+  72:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** 		 * @param width 	The width.
+  73:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** 		 * @param height 	The height.
+  74:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** 		 */
+  75:/home/desem/workspace/desenet/interfaces/imonochromedisplay.h **** 		inline explicit Size( int width = 0 , int height = 0 ) : width( width ) , height( height ) {}
+ 4168              		.loc 76 75 0
+ 4169              		.cfi_startproc
+ 4170              		@ args = 0, pretend = 0, frame = 16
+ 4171              		@ frame_needed = 1, uses_anonymous_args = 0
+ 4172              		@ link register save eliminated.
+ 4173 0000 80B4     		push	{r7}
+ 4174              	.LCFI9:
+ 4175              		.cfi_def_cfa_offset 4
+ 4176 0002 85B0     		sub	sp, sp, #20
+ 4177              	.LCFI10:
+ 4178              		.cfi_def_cfa_offset 24
+ 4179 0004 00AF     		add	r7, sp, #0
+ 4180              		.cfi_offset 7, -4
+ 4181              	.LCFI11:
+ 4182              		.cfi_def_cfa_register 7
+ 4183 0006 F860     		str	r0, [r7, #12]
+ 4184 0008 B960     		str	r1, [r7, #8]
+ 4185 000a 7A60     		str	r2, [r7, #4]
+ 4186              	.LBB3:
+ 4187              		.loc 76 75 0
+ 4188 000c FB68     		ldr	r3, [r7, #12]
+ 4189 000e BA68     		ldr	r2, [r7, #8]
+ 4190 0010 1A60     		str	r2, [r3, #0]
+ 4191 0012 FB68     		ldr	r3, [r7, #12]
+ 4192 0014 7A68     		ldr	r2, [r7, #4]
+ 4193 0016 5A60     		str	r2, [r3, #4]
+ 4194              	.LBE3:
+ 4195 0018 FB68     		ldr	r3, [r7, #12]
+ 4196 001a 1846     		mov	r0, r3
+ 4197 001c 07F11407 		add	r7, r7, #20
+ 4198 0020 BD46     		mov	sp, r7
+ 4199 0022 80BC     		pop	{r7}
+ 4200 0024 7047     		bx	lr
+ 4201              		.cfi_endproc
+ 4202              	.LFE563:
+ 4204              		.weak	_ZN18IMonochromeDisplay4SizeC1Eii
+ 4205              		.thumb_set _ZN18IMonochromeDisplay4SizeC1Eii,_ZN18IMonochromeDisplay4SizeC2Eii
+ 4206 0026 00BF     		.section	.text._ZN5Air3T8TextViewC2ER24MonochromeDisplayPainterRKSs,"ax",%progbits
+ 4207              		.align	2
+ 4208              		.global	_ZN5Air3T8TextViewC2ER24MonochromeDisplayPainterRKSs
+ 4209              		.thumb
+ 4210              		.thumb_func
+ 4212              	_ZN5Air3T8TextViewC2ER24MonochromeDisplayPainterRKSs:
+ 4213              	.LFB920:
+   1:../air3t/ui/textview.cpp **** #include "TextView"
+   2:../air3t/ui/textview.cpp **** #include <utils/MonochromeDisplayPainter>
+   3:../air3t/ui/textview.cpp **** #include <cstring>
+   4:../air3t/ui/textview.cpp **** #include <algorithm>
+   5:../air3t/ui/textview.cpp **** #include "IViewObserver"
+   6:../air3t/ui/textview.cpp **** #include <air3t/data/Model>
+   7:../air3t/ui/textview.cpp **** 
+   8:../air3t/ui/textview.cpp **** namespace Air3T
+   9:../air3t/ui/textview.cpp **** {
+  10:../air3t/ui/textview.cpp **** 
+  11:../air3t/ui/textview.cpp **** 	TextView::TextView( MonochromeDisplayPainter & painter , const std::string & text )
+ 4214              		.loc 1 11 0
+ 4215              		.cfi_startproc
+ 4216              		@ args = 0, pretend = 0, frame = 16
+ 4217              		@ frame_needed = 1, uses_anonymous_args = 0
+ 4218 0000 80B5     		push	{r7, lr}
+ 4219              	.LCFI12:
+ 4220              		.cfi_def_cfa_offset 8
+ 4221 0002 84B0     		sub	sp, sp, #16
+ 4222              	.LCFI13:
+ 4223              		.cfi_def_cfa_offset 24
+ 4224 0004 00AF     		add	r7, sp, #0
+ 4225              		.cfi_offset 14, -4
+ 4226              		.cfi_offset 7, -8
+ 4227              	.LCFI14:
+ 4228              		.cfi_def_cfa_register 7
+ 4229 0006 F860     		str	r0, [r7, #12]
+ 4230 0008 B960     		str	r1, [r7, #8]
+ 4231 000a 7A60     		str	r2, [r7, #4]
+ 4232              	.LBB4:
+  12:../air3t/ui/textview.cpp **** 		: _painter( painter ) , _text( text )
+ 4233              		.loc 1 12 0
+ 4234 000c FB68     		ldr	r3, [r7, #12]
+ 4235 000e 1846     		mov	r0, r3
+ 4236 0010 FFF7FEFF 		bl	_ZN5Air3T4ViewC2Ev
+ 4237 0014 FB68     		ldr	r3, [r7, #12]
+ 4238 0016 0E4A     		ldr	r2, .L9
+ 4239 0018 1A60     		str	r2, [r3, #0]
+ 4240 001a FB68     		ldr	r3, [r7, #12]
+ 4241 001c BA68     		ldr	r2, [r7, #8]
+ 4242 001e 9A60     		str	r2, [r3, #8]
+ 4243 0020 FB68     		ldr	r3, [r7, #12]
+ 4244 0022 03F10C03 		add	r3, r3, #12
+ 4245 0026 1846     		mov	r0, r3
+ 4246 0028 7968     		ldr	r1, [r7, #4]
+ 4247 002a FFF7FEFF 		bl	_ZNSsC1ERKSs
+  13:../air3t/ui/textview.cpp **** 	{
+  14:../air3t/ui/textview.cpp **** 		_painter.setAutoUpdate( false );
+ 4248              		.loc 1 14 0
+ 4249 002e FB68     		ldr	r3, [r7, #12]
+ 4250 0030 9B68     		ldr	r3, [r3, #8]
+ 4251 0032 1846     		mov	r0, r3
+ 4252 0034 4FF00001 		mov	r1, #0
+ 4253 0038 FFF7FEFF 		bl	_ZN24MonochromeDisplayPainter13setAutoUpdateEb
+  15:../air3t/ui/textview.cpp **** 		repaint();
+ 4254              		.loc 1 15 0
+ 4255 003c F868     		ldr	r0, [r7, #12]
+ 4256 003e FFF7FEFF 		bl	_ZN5Air3T8TextView7repaintEv
+ 4257              	.LBE4:
+  16:../air3t/ui/textview.cpp **** 	}
+ 4258              		.loc 1 16 0
+ 4259 0042 FB68     		ldr	r3, [r7, #12]
+ 4260 0044 1846     		mov	r0, r3
+ 4261 0046 07F11007 		add	r7, r7, #16
+ 4262 004a BD46     		mov	sp, r7
+ 4263 004c 80BD     		pop	{r7, pc}
+ 4264              	.L10:
+ 4265 004e 00BF     		.align	2
+ 4266              	.L9:
+ 4267 0050 08000000 		.word	_ZTVN5Air3T8TextViewE+8
+ 4268              		.cfi_endproc
+ 4269              	.LFE920:
+ 4271              		.global	_ZN5Air3T8TextViewC1ER24MonochromeDisplayPainterRKSs
+ 4272              		.thumb_set _ZN5Air3T8TextViewC1ER24MonochromeDisplayPainterRKSs,_ZN5Air3T8TextViewC2ER24Monochrome
+ 4273              		.section	.text._ZN5Air3T8TextViewD2Ev,"ax",%progbits
+ 4274              		.align	2
+ 4275              		.global	_ZN5Air3T8TextViewD2Ev
+ 4276              		.thumb
+ 4277              		.thumb_func
+ 4279              	_ZN5Air3T8TextViewD2Ev:
+ 4280              	.LFB923:
+  17:../air3t/ui/textview.cpp **** 
+  18:../air3t/ui/textview.cpp **** 	TextView::~TextView()
+ 4281              		.loc 1 18 0
+ 4282              		.cfi_startproc
+ 4283              		@ args = 0, pretend = 0, frame = 8
+ 4284              		@ frame_needed = 1, uses_anonymous_args = 0
+ 4285 0000 80B5     		push	{r7, lr}
+ 4286              	.LCFI15:
+ 4287              		.cfi_def_cfa_offset 8
+ 4288 0002 82B0     		sub	sp, sp, #8
+ 4289              	.LCFI16:
+ 4290              		.cfi_def_cfa_offset 16
+ 4291 0004 00AF     		add	r7, sp, #0
+ 4292              		.cfi_offset 14, -4
+ 4293              		.cfi_offset 7, -8
+ 4294              	.LCFI17:
+ 4295              		.cfi_def_cfa_register 7
+ 4296 0006 7860     		str	r0, [r7, #4]
+ 4297              	.LBB5:
+ 4298              		.loc 1 18 0
+ 4299 0008 7B68     		ldr	r3, [r7, #4]
+ 4300 000a 0E4A     		ldr	r2, .L14
+ 4301 000c 1A60     		str	r2, [r3, #0]
+ 4302 000e 7B68     		ldr	r3, [r7, #4]
+ 4303 0010 03F10C03 		add	r3, r3, #12
+  19:../air3t/ui/textview.cpp **** 	{}
+ 4304              		.loc 1 19 0
+ 4305 0014 1846     		mov	r0, r3
+ 4306 0016 FFF7FEFF 		bl	_ZNSsD1Ev
+  18:../air3t/ui/textview.cpp **** 	TextView::~TextView()
+ 4307              		.loc 1 18 0
+ 4308 001a 7B68     		ldr	r3, [r7, #4]
+ 4309              		.loc 1 19 0
+ 4310 001c 1846     		mov	r0, r3
+ 4311 001e FFF7FEFF 		bl	_ZN5Air3T4ViewD2Ev
+ 4312              	.LBE5:
+ 4313 0022 4FF00003 		mov	r3, #0
+ 4314 0026 03F00103 		and	r3, r3, #1
+ 4315 002a DBB2     		uxtb	r3, r3
+ 4316 002c 002B     		cmp	r3, #0
+ 4317 002e 02D0     		beq	.L13
+ 4318              		.loc 1 19 0 is_stmt 0 discriminator 2
+ 4319 0030 7868     		ldr	r0, [r7, #4]
+ 4320 0032 FFF7FEFF 		bl	_ZdlPv
+ 4321              	.L13:
+ 4322              		.loc 1 19 0 discriminator 3
+ 4323 0036 7B68     		ldr	r3, [r7, #4]
+ 4324 0038 1846     		mov	r0, r3
+ 4325 003a 07F10807 		add	r7, r7, #8
+ 4326 003e BD46     		mov	sp, r7
+ 4327 0040 80BD     		pop	{r7, pc}
+ 4328              	.L15:
+ 4329 0042 00BF     		.align	2
+ 4330              	.L14:
+ 4331 0044 08000000 		.word	_ZTVN5Air3T8TextViewE+8
+ 4332              		.cfi_endproc
+ 4333              	.LFE923:
+ 4335              		.global	_ZN5Air3T8TextViewD1Ev
+ 4336              		.thumb_set _ZN5Air3T8TextViewD1Ev,_ZN5Air3T8TextViewD2Ev
+ 4337              		.section	.text._ZN5Air3T8TextViewD0Ev,"ax",%progbits
+ 4338              		.align	2
+ 4339              		.global	_ZN5Air3T8TextViewD0Ev
+ 4340              		.thumb
+ 4341              		.thumb_func
+ 4343              	_ZN5Air3T8TextViewD0Ev:
+ 4344              	.LFB925:
+  18:../air3t/ui/textview.cpp **** 	TextView::~TextView()
+ 4345              		.loc 1 18 0 is_stmt 1
+ 4346              		.cfi_startproc
+ 4347              		@ args = 0, pretend = 0, frame = 8
+ 4348              		@ frame_needed = 1, uses_anonymous_args = 0
+ 4349 0000 80B5     		push	{r7, lr}
+ 4350              	.LCFI18:
+ 4351              		.cfi_def_cfa_offset 8
+ 4352 0002 82B0     		sub	sp, sp, #8
+ 4353              	.LCFI19:
+ 4354              		.cfi_def_cfa_offset 16
+ 4355 0004 00AF     		add	r7, sp, #0
+ 4356              		.cfi_offset 14, -4
+ 4357              		.cfi_offset 7, -8
+ 4358              	.LCFI20:
+ 4359              		.cfi_def_cfa_register 7
+ 4360 0006 7860     		str	r0, [r7, #4]
+ 4361              		.loc 1 19 0
+ 4362 0008 7868     		ldr	r0, [r7, #4]
+ 4363 000a FFF7FEFF 		bl	_ZN5Air3T8TextViewD1Ev
+ 4364 000e 7868     		ldr	r0, [r7, #4]
+ 4365 0010 FFF7FEFF 		bl	_ZdlPv
+ 4366 0014 7B68     		ldr	r3, [r7, #4]
+ 4367 0016 1846     		mov	r0, r3
+ 4368 0018 07F10807 		add	r7, r7, #8
+ 4369 001c BD46     		mov	sp, r7
+ 4370 001e 80BD     		pop	{r7, pc}
+ 4371              		.cfi_endproc
+ 4372              	.LFE925:
+ 4374              		.section	.text._ZN5Air3T8TextView7repaintEv,"ax",%progbits
+ 4375              		.align	2
+ 4376              		.global	_ZN5Air3T8TextView7repaintEv
+ 4377              		.thumb
+ 4378              		.thumb_func
+ 4380              	_ZN5Air3T8TextView7repaintEv:
+ 4381              	.LFB926:
+  20:../air3t/ui/textview.cpp **** 
+  21:../air3t/ui/textview.cpp **** 	void TextView::repaint()
+  22:../air3t/ui/textview.cpp **** 	{
+ 4382              		.loc 1 22 0
+ 4383              		.cfi_startproc
+ 4384              		@ args = 0, pretend = 0, frame = 32
+ 4385              		@ frame_needed = 1, uses_anonymous_args = 0
+ 4386 0000 90B5     		push	{r4, r7, lr}
+ 4387              	.LCFI21:
+ 4388              		.cfi_def_cfa_offset 12
+ 4389 0002 8BB0     		sub	sp, sp, #44
+ 4390              	.LCFI22:
+ 4391              		.cfi_def_cfa_offset 56
+ 4392 0004 02AF     		add	r7, sp, #8
+ 4393              		.cfi_offset 14, -4
+ 4394              		.cfi_offset 7, -8
+ 4395              		.cfi_offset 4, -12
+ 4396              	.LCFI23:
+ 4397              		.cfi_def_cfa 7, 48
+ 4398 0006 7860     		str	r0, [r7, #4]
+  23:../air3t/ui/textview.cpp **** 		// Clear display.
+  24:../air3t/ui/textview.cpp **** 		_painter.clear();
+ 4399              		.loc 1 24 0
+ 4400 0008 7B68     		ldr	r3, [r7, #4]
+ 4401 000a 9B68     		ldr	r3, [r3, #8]
+ 4402 000c 1846     		mov	r0, r3
+ 4403 000e 4FF0FF31 		mov	r1, #-1
+ 4404 0012 FFF7FEFF 		bl	_ZN24MonochromeDisplayPainter5clearEN18IMonochromeDisplay10PixelColorE
+  25:../air3t/ui/textview.cpp **** 
+  26:../air3t/ui/textview.cpp **** 		// Draw box.
+  27:../air3t/ui/textview.cpp **** 		_painter.drawRectangle( IMDPoint( 0 , 0 ) , IMDSize( 84 , 48 ) , IMonochromeDisplay::Black );
+ 4405              		.loc 1 27 0
+ 4406 0016 7B68     		ldr	r3, [r7, #4]
+ 4407 0018 9C68     		ldr	r4, [r3, #8]
+ 4408 001a 07F10803 		add	r3, r7, #8
+ 4409 001e 1846     		mov	r0, r3
+ 4410 0020 4FF00001 		mov	r1, #0
+ 4411 0024 4FF00002 		mov	r2, #0
+ 4412 0028 FFF7FEFF 		bl	_ZN18IMonochromeDisplay5PointC1Eii
+ 4413 002c 07F11003 		add	r3, r7, #16
+ 4414 0030 1846     		mov	r0, r3
+ 4415 0032 4FF05401 		mov	r1, #84
+ 4416 0036 4FF03002 		mov	r2, #48
+ 4417 003a FFF7FEFF 		bl	_ZN18IMonochromeDisplay4SizeC1Eii
+ 4418 003e 07F10802 		add	r2, r7, #8
+ 4419 0042 07F11003 		add	r3, r7, #16
+ 4420 0046 4FF00001 		mov	r1, #0
+ 4421 004a 0091     		str	r1, [sp, #0]
+ 4422 004c 2046     		mov	r0, r4
+ 4423 004e 1146     		mov	r1, r2
+ 4424 0050 1A46     		mov	r2, r3
+ 4425 0052 4FF00103 		mov	r3, #1
+ 4426 0056 FFF7FEFF 		bl	_ZN24MonochromeDisplayPainter13drawRectangleERKN18IMonochromeDisplay5PointERKNS0_4SizeENS0_10Pi
+  28:../air3t/ui/textview.cpp **** 
+  29:../air3t/ui/textview.cpp **** 		// Draw text.
+  30:../air3t/ui/textview.cpp **** 		_painter.drawText( IMDPoint( 42 - _text.size() * 6 / 2 , 20 ) ,
+  31:../air3t/ui/textview.cpp **** 									_text , IMonochromeDisplay::Black );
+ 4427              		.loc 1 31 0
+ 4428 005a 7B68     		ldr	r3, [r7, #4]
+ 4429 005c 9C68     		ldr	r4, [r3, #8]
+  30:../air3t/ui/textview.cpp **** 		_painter.drawText( IMDPoint( 42 - _text.size() * 6 / 2 , 20 ) ,
+ 4430              		.loc 1 30 0
+ 4431 005e 7B68     		ldr	r3, [r7, #4]
+ 4432 0060 03F10C03 		add	r3, r3, #12
+ 4433 0064 1846     		mov	r0, r3
+ 4434 0066 FFF7FEFF 		bl	_ZNKSs4sizeEv
+ 4435 006a 0246     		mov	r2, r0
+ 4436              		.loc 1 31 0
+ 4437 006c 1346     		mov	r3, r2
+ 4438 006e 4FEA4303 		lsl	r3, r3, #1
+ 4439 0072 9B18     		adds	r3, r3, r2
+ 4440 0074 4FEA4303 		lsl	r3, r3, #1
+ 4441 0078 4FEA5303 		lsr	r3, r3, #1
+ 4442 007c C3F12A03 		rsb	r3, r3, #42
+ 4443 0080 07F11802 		add	r2, r7, #24
+ 4444 0084 1046     		mov	r0, r2
+ 4445 0086 1946     		mov	r1, r3
+ 4446 0088 4FF01402 		mov	r2, #20
+ 4447 008c FFF7FEFF 		bl	_ZN18IMonochromeDisplay5PointC1Eii
+ 4448 0090 7B68     		ldr	r3, [r7, #4]
+ 4449 0092 03F10C03 		add	r3, r3, #12
+ 4450 0096 07F11802 		add	r2, r7, #24
+ 4451 009a 2046     		mov	r0, r4
+ 4452 009c 1146     		mov	r1, r2
+ 4453 009e 1A46     		mov	r2, r3
+ 4454 00a0 4FF00103 		mov	r3, #1
+ 4455 00a4 FFF7FEFF 		bl	_ZN24MonochromeDisplayPainter8drawTextERKN18IMonochromeDisplay5PointERKSsNS0_10PixelColorE
+  32:../air3t/ui/textview.cpp **** 
+  33:../air3t/ui/textview.cpp **** 		_painter.update();
+ 4456              		.loc 1 33 0
+ 4457 00a8 7B68     		ldr	r3, [r7, #4]
+ 4458 00aa 9B68     		ldr	r3, [r3, #8]
+ 4459 00ac 1846     		mov	r0, r3
+ 4460 00ae FFF7FEFF 		bl	_ZN24MonochromeDisplayPainter6updateEv
+  34:../air3t/ui/textview.cpp **** 	}
+ 4461              		.loc 1 34 0
+ 4462 00b2 07F12407 		add	r7, r7, #36
+ 4463 00b6 BD46     		mov	sp, r7
+ 4464 00b8 90BD     		pop	{r4, r7, pc}
+ 4465              		.cfi_endproc
+ 4466              	.LFE926:
+ 4468 00ba 00BF     		.section	.text._ZN5Air3T8TextView6updateEi,"ax",%progbits
+ 4469              		.align	2
+ 4470              		.global	_ZN5Air3T8TextView6updateEi
+ 4471              		.thumb
+ 4472              		.thumb_func
+ 4474              	_ZN5Air3T8TextView6updateEi:
+ 4475              	.LFB927:
+  35:../air3t/ui/textview.cpp **** 
+  36:../air3t/ui/textview.cpp **** 	void TextView::update( int section )
+  37:../air3t/ui/textview.cpp **** 	{
+ 4476              		.loc 1 37 0
+ 4477              		.cfi_startproc
+ 4478              		@ args = 0, pretend = 0, frame = 8
+ 4479              		@ frame_needed = 1, uses_anonymous_args = 0
+ 4480 0000 80B5     		push	{r7, lr}
+ 4481              	.LCFI24:
+ 4482              		.cfi_def_cfa_offset 8
+ 4483 0002 82B0     		sub	sp, sp, #8
+ 4484              	.LCFI25:
+ 4485              		.cfi_def_cfa_offset 16
+ 4486 0004 00AF     		add	r7, sp, #0
+ 4487              		.cfi_offset 14, -4
+ 4488              		.cfi_offset 7, -8
+ 4489              	.LCFI26:
+ 4490              		.cfi_def_cfa_register 7
+ 4491 0006 7860     		str	r0, [r7, #4]
+ 4492 0008 3960     		str	r1, [r7, #0]
+  38:../air3t/ui/textview.cpp **** 		if ( section == Model::UnknownSection )
+ 4493              		.loc 1 38 0
+ 4494 000a 3B68     		ldr	r3, [r7, #0]
+ 4495 000c 002B     		cmp	r3, #0
+ 4496 000e 02D1     		bne	.L19
+  39:../air3t/ui/textview.cpp **** 			repaint();
+ 4497              		.loc 1 39 0
+ 4498 0010 7868     		ldr	r0, [r7, #4]
+ 4499 0012 FFF7FEFF 		bl	_ZN5Air3T8TextView7repaintEv
+ 4500              	.L19:
+  40:../air3t/ui/textview.cpp **** 	}
+ 4501              		.loc 1 40 0
+ 4502 0016 07F10807 		add	r7, r7, #8
+ 4503 001a BD46     		mov	sp, r7
+ 4504 001c 80BD     		pop	{r7, pc}
+ 4505              		.cfi_endproc
+ 4506              	.LFE927:
+ 4508 001e 00BF     		.section	.text._ZN5Air3T8TextView16onPositionChangeEN9IJoystick8PositionE,"ax",%progbits
+ 4509              		.align	2
+ 4510              		.global	_ZN5Air3T8TextView16onPositionChangeEN9IJoystick8PositionE
+ 4511              		.thumb
+ 4512              		.thumb_func
+ 4514              	_ZN5Air3T8TextView16onPositionChangeEN9IJoystick8PositionE:
+ 4515              	.LFB928:
+  41:../air3t/ui/textview.cpp **** 
+  42:../air3t/ui/textview.cpp **** 	void TextView::onPositionChange( IJoystick::Position position )
+  43:../air3t/ui/textview.cpp **** 	{
+ 4516              		.loc 1 43 0
+ 4517              		.cfi_startproc
+ 4518              		@ args = 0, pretend = 0, frame = 8
+ 4519              		@ frame_needed = 1, uses_anonymous_args = 0
+ 4520 0000 80B5     		push	{r7, lr}
+ 4521              	.LCFI27:
+ 4522              		.cfi_def_cfa_offset 8
+ 4523 0002 82B0     		sub	sp, sp, #8
+ 4524              	.LCFI28:
+ 4525              		.cfi_def_cfa_offset 16
+ 4526 0004 00AF     		add	r7, sp, #0
+ 4527              		.cfi_offset 14, -4
+ 4528              		.cfi_offset 7, -8
+ 4529              	.LCFI29:
+ 4530              		.cfi_def_cfa_register 7
+ 4531 0006 7860     		str	r0, [r7, #4]
+ 4532 0008 0B46     		mov	r3, r1
+ 4533 000a FB70     		strb	r3, [r7, #3]
+  44:../air3t/ui/textview.cpp **** 		if ( position != IJoystick::Center && observer() )
+ 4534              		.loc 1 44 0
+ 4535 000c FB78     		ldrb	r3, [r7, #3]	@ zero_extendqisi2
+ 4536 000e 012B     		cmp	r3, #1
+ 4537 0010 09D0     		beq	.L22
+ 4538              		.loc 1 44 0 is_stmt 0 discriminator 1
+ 4539 0012 7B68     		ldr	r3, [r7, #4]
+ 4540 0014 1846     		mov	r0, r3
+ 4541 0016 FFF7FEFF 		bl	_ZN5Air3T4View8observerEv
+ 4542 001a 0346     		mov	r3, r0
+ 4543 001c 002B     		cmp	r3, #0
+ 4544 001e 02D0     		beq	.L22
+ 4545              		.loc 1 44 0 discriminator 3
+ 4546 0020 4FF00103 		mov	r3, #1
+ 4547 0024 01E0     		b	.L23
+ 4548              	.L22:
+ 4549              		.loc 1 44 0 discriminator 2
+ 4550 0026 4FF00003 		mov	r3, #0
+ 4551              	.L23:
+ 4552              		.loc 1 44 0 discriminator 4
+ 4553 002a 002B     		cmp	r3, #0
+ 4554 002c 0AD0     		beq	.L21
+  45:../air3t/ui/textview.cpp **** 		{
+  46:../air3t/ui/textview.cpp **** 			observer()->onTextViewProceed();
+ 4555              		.loc 1 46 0 is_stmt 1
+ 4556 002e 7B68     		ldr	r3, [r7, #4]
+ 4557 0030 1846     		mov	r0, r3
+ 4558 0032 FFF7FEFF 		bl	_ZN5Air3T4View8observerEv
+ 4559 0036 0346     		mov	r3, r0
+ 4560 0038 1A68     		ldr	r2, [r3, #0]
+ 4561 003a 02F11002 		add	r2, r2, #16
+ 4562 003e 1268     		ldr	r2, [r2, #0]
+ 4563 0040 1846     		mov	r0, r3
+ 4564 0042 9047     		blx	r2
+ 4565              	.L21:
+  47:../air3t/ui/textview.cpp **** 		}
+  48:../air3t/ui/textview.cpp **** 	}
+ 4566              		.loc 1 48 0
+ 4567 0044 07F10807 		add	r7, r7, #8
+ 4568 0048 BD46     		mov	sp, r7
+ 4569 004a 80BD     		pop	{r7, pc}
+ 4570              		.cfi_endproc
+ 4571              	.LFE928:
+ 4573              		.global	_ZTVN5Air3T8TextViewE
+ 4574              		.section	.rodata._ZTVN5Air3T8TextViewE,"a",%progbits
+ 4575              		.align	3
+ 4578              	_ZTVN5Air3T8TextViewE:
+ 4579 0000 00000000 		.word	0
+ 4580 0004 00000000 		.word	0
+ 4581 0008 00000000 		.word	_ZN5Air3T8TextViewD1Ev
+ 4582 000c 00000000 		.word	_ZN5Air3T8TextViewD0Ev
+ 4583 0010 00000000 		.word	_ZN5Air3T8TextView16onPositionChangeEN9IJoystick8PositionE
+ 4584 0014 00000000 		.word	_ZN5Air3T8TextView6updateEi
+ 4585              		.text
+ 4586              	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 textview.cpp
+     /tmp/ccKNhGzR.s:4046   .text._ZN5Air3T4View8observerEv:00000000 $t
+     /tmp/ccKNhGzR.s:4051   .text._ZN5Air3T4View8observerEv:00000000 _ZN5Air3T4View8observerEv
+     /tmp/ccKNhGzR.s:4081   .text._ZL20__gthread_key_deletei:00000000 $t
+     /tmp/ccKNhGzR.s:4085   .text._ZL20__gthread_key_deletei:00000000 _ZL20__gthread_key_deletei
+     /tmp/ccKNhGzR.s:4115   .text._ZN18IMonochromeDisplay5PointC2Eii:00000000 $t
+     /tmp/ccKNhGzR.s:4120   .text._ZN18IMonochromeDisplay5PointC2Eii:00000000 _ZN18IMonochromeDisplay5PointC2Eii
+     /tmp/ccKNhGzR.s:4120   .text._ZN18IMonochromeDisplay5PointC2Eii:00000000 _ZN18IMonochromeDisplay5PointC1Eii
+     /tmp/ccKNhGzR.s:4161   .text._ZN18IMonochromeDisplay4SizeC2Eii:00000000 $t
+     /tmp/ccKNhGzR.s:4166   .text._ZN18IMonochromeDisplay4SizeC2Eii:00000000 _ZN18IMonochromeDisplay4SizeC2Eii
+     /tmp/ccKNhGzR.s:4166   .text._ZN18IMonochromeDisplay4SizeC2Eii:00000000 _ZN18IMonochromeDisplay4SizeC1Eii
+     /tmp/ccKNhGzR.s:4207   .text._ZN5Air3T8TextViewC2ER24MonochromeDisplayPainterRKSs:00000000 $t
+     /tmp/ccKNhGzR.s:4212   .text._ZN5Air3T8TextViewC2ER24MonochromeDisplayPainterRKSs:00000000 _ZN5Air3T8TextViewC2ER24MonochromeDisplayPainterRKSs
+     /tmp/ccKNhGzR.s:4380   .text._ZN5Air3T8TextView7repaintEv:00000000 _ZN5Air3T8TextView7repaintEv
+     /tmp/ccKNhGzR.s:4267   .text._ZN5Air3T8TextViewC2ER24MonochromeDisplayPainterRKSs:00000050 $d
+     /tmp/ccKNhGzR.s:4578   .rodata._ZTVN5Air3T8TextViewE:00000000 _ZTVN5Air3T8TextViewE
+     /tmp/ccKNhGzR.s:4212   .text._ZN5Air3T8TextViewC2ER24MonochromeDisplayPainterRKSs:00000000 _ZN5Air3T8TextViewC1ER24MonochromeDisplayPainterRKSs
+     /tmp/ccKNhGzR.s:4274   .text._ZN5Air3T8TextViewD2Ev:00000000 $t
+     /tmp/ccKNhGzR.s:4279   .text._ZN5Air3T8TextViewD2Ev:00000000 _ZN5Air3T8TextViewD2Ev
+     /tmp/ccKNhGzR.s:4331   .text._ZN5Air3T8TextViewD2Ev:00000044 $d
+     /tmp/ccKNhGzR.s:4279   .text._ZN5Air3T8TextViewD2Ev:00000000 _ZN5Air3T8TextViewD1Ev
+     /tmp/ccKNhGzR.s:4338   .text._ZN5Air3T8TextViewD0Ev:00000000 $t
+     /tmp/ccKNhGzR.s:4343   .text._ZN5Air3T8TextViewD0Ev:00000000 _ZN5Air3T8TextViewD0Ev
+     /tmp/ccKNhGzR.s:4375   .text._ZN5Air3T8TextView7repaintEv:00000000 $t
+     /tmp/ccKNhGzR.s:4469   .text._ZN5Air3T8TextView6updateEi:00000000 $t
+     /tmp/ccKNhGzR.s:4474   .text._ZN5Air3T8TextView6updateEi:00000000 _ZN5Air3T8TextView6updateEi
+     /tmp/ccKNhGzR.s:4509   .text._ZN5Air3T8TextView16onPositionChangeEN9IJoystick8PositionE:00000000 $t
+     /tmp/ccKNhGzR.s:4514   .text._ZN5Air3T8TextView16onPositionChangeEN9IJoystick8PositionE:00000000 _ZN5Air3T8TextView16onPositionChangeEN9IJoystick8PositionE
+     /tmp/ccKNhGzR.s:4575   .rodata._ZTVN5Air3T8TextViewE:00000000 $d
+                     .debug_frame:00000010 $d
+                           .group:00000000 _ZN18IMonochromeDisplay5PointC5Eii
+                           .group:00000000 _ZN18IMonochromeDisplay4SizeC5Eii
+
+UNDEFINED SYMBOLS
+_ZN5Air3T4ViewC2Ev
+_ZNSsC1ERKSs
+_ZN24MonochromeDisplayPainter13setAutoUpdateEb
+_ZNSsD1Ev
+_ZN5Air3T4ViewD2Ev
+_ZdlPv
+_ZN24MonochromeDisplayPainter5clearEN18IMonochromeDisplay10PixelColorE
+_ZN24MonochromeDisplayPainter13drawRectangleERKN18IMonochromeDisplay5PointERKNS0_4SizeENS0_10PixelColorES7_
+_ZNKSs4sizeEv
+_ZN24MonochromeDisplayPainter8drawTextERKN18IMonochromeDisplay5PointERKSsNS0_10PixelColorE
+_ZN24MonochromeDisplayPainter6updateEv

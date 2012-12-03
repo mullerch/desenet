@@ -1,0 +1,272 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"xf.cpp"
+  23              	.Ltext0:
+  24              		.file 1 "../xf/xf.cpp"
+ 1773              	_ZN2XF13_bInitializedE:
+ 1774 0000 00       		.space	1
+ 1775              		.global	_ZN2XF11_mainThreadE
+ 1776              		.section	.bss._ZN2XF11_mainThreadE,"aw",%nobits
+ 1777              		.align	2
+ 1780              	_ZN2XF11_mainThreadE:
+ 1781 0000 00000000 		.space	52
+ 1781      00000000 
+ 1781      00000000 
+ 1781      00000000 
+ 1781      00000000 
+ 1782              		.section	.text._ZN2XF4initEi,"ax",%progbits
+ 1783              		.align	2
+ 1784              		.global	_ZN2XF4initEi
+ 1785              		.thumb
+ 1786              		.thumb_func
+ 1788              	_ZN2XF4initEi:
+ 1789              	.LFB822:
+   1:../xf/xf.cpp  **** #include "xf.h"
+   2:../xf/xf.cpp  **** #include "xftimeoutmanager.h"
+   3:../xf/xf.cpp  **** 
+   4:../xf/xf.cpp  **** 
+   5:../xf/xf.cpp  **** bool XF::_bInitialized = false;
+   6:../xf/xf.cpp  **** XFThread XF::_mainThread;
+   7:../xf/xf.cpp  **** 
+   8:../xf/xf.cpp  **** 
+   9:../xf/xf.cpp  **** /**
+  10:../xf/xf.cpp  ****  * Initializes the eXecution Framework (XF). Call
+  11:../xf/xf.cpp  ****  * this method prior to initialize the other objects of the system.
+  12:../xf/xf.cpp  ****  */
+  13:../xf/xf.cpp  **** void XF::init(int timeInterval)
+  14:../xf/xf.cpp  **** {
+ 1790              		.loc 1 14 0
+ 1791              		.cfi_startproc
+ 1792              		@ args = 0, pretend = 0, frame = 8
+ 1793              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1794 0000 80B5     		push	{r7, lr}
+ 1795              	.LCFI0:
+ 1796              		.cfi_def_cfa_offset 8
+ 1797 0002 82B0     		sub	sp, sp, #8
+ 1798              	.LCFI1:
+ 1799              		.cfi_def_cfa_offset 16
+ 1800 0004 00AF     		add	r7, sp, #0
+ 1801              		.cfi_offset 14, -4
+ 1802              		.cfi_offset 7, -8
+ 1803              	.LCFI2:
+ 1804              		.cfi_def_cfa_register 7
+ 1805 0006 7860     		str	r0, [r7, #4]
+  15:../xf/xf.cpp  **** 	// Create and initialize XFTimeoutManager
+  16:../xf/xf.cpp  **** 	XFTimeoutManager::getInstance()->setTickInterval(timeInterval);
+ 1806              		.loc 1 16 0
+ 1807 0008 FFF7FEFF 		bl	_ZN16XFTimeoutManager11getInstanceEv
+ 1808 000c 0346     		mov	r3, r0
+ 1809 000e 1846     		mov	r0, r3
+ 1810 0010 7968     		ldr	r1, [r7, #4]
+ 1811 0012 FFF7FEFF 		bl	_ZN16XFTimeoutManager15setTickIntervalEi
+  17:../xf/xf.cpp  **** 	// Start it
+  18:../xf/xf.cpp  **** 	XFTimeoutManager::getInstance()->start();
+ 1812              		.loc 1 18 0
+ 1813 0016 FFF7FEFF 		bl	_ZN16XFTimeoutManager11getInstanceEv
+ 1814 001a 0346     		mov	r3, r0
+ 1815 001c 1846     		mov	r0, r3
+ 1816 001e FFF7FEFF 		bl	_ZN16XFTimeoutManager5startEv
+  19:../xf/xf.cpp  **** }
+ 1817              		.loc 1 19 0
+ 1818 0022 07F10807 		add	r7, r7, #8
+ 1819 0026 BD46     		mov	sp, r7
+ 1820 0028 80BD     		pop	{r7, pc}
+ 1821              		.cfi_endproc
+ 1822              	.LFE822:
+ 1824 002a 00BF     		.section	.text._ZN2XF5startEv,"ax",%progbits
+ 1825              		.align	2
+ 1826              		.global	_ZN2XF5startEv
+ 1827              		.thumb
+ 1828              		.thumb_func
+ 1830              	_ZN2XF5startEv:
+ 1831              	.LFB823:
+  20:../xf/xf.cpp  **** 
+  21:../xf/xf.cpp  **** /**
+  22:../xf/xf.cpp  ****  * Starts the execution of the framework. This
+  23:../xf/xf.cpp  ****  * results in processing the events in the main loop.
+  24:../xf/xf.cpp  ****  */
+  25:../xf/xf.cpp  **** 
+  26:../xf/xf.cpp  **** 
+  27:../xf/xf.cpp  **** #ifdef TC_STM32 /**********************************************************************************
+  28:../xf/xf.cpp  **** 
+  29:../xf/xf.cpp  **** void XF::start()
+  30:../xf/xf.cpp  **** {
+ 1832              		.loc 1 30 0
+ 1833              		.cfi_startproc
+ 1834              		@ args = 0, pretend = 0, frame = 0
+ 1835              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1836 0000 80B5     		push	{r7, lr}
+ 1837              	.LCFI3:
+ 1838              		.cfi_def_cfa_offset 8
+ 1839 0002 00AF     		add	r7, sp, #0
+ 1840              		.cfi_offset 14, -4
+ 1841              		.cfi_offset 7, -8
+ 1842              	.LCFI4:
+ 1843              		.cfi_def_cfa_register 7
+  31:../xf/xf.cpp  **** 	_mainThread.start();
+ 1844              		.loc 1 31 0
+ 1845 0004 40F20000 		movw	r0, #:lower16:_ZN2XF11_mainThreadE
+ 1846 0008 C0F20000 		movt	r0, #:upper16:_ZN2XF11_mainThreadE
+ 1847 000c FFF7FEFF 		bl	_ZN8XFThread5startEv
+  32:../xf/xf.cpp  **** }
+ 1848              		.loc 1 32 0
+ 1849 0010 80BD     		pop	{r7, pc}
+ 1850              		.cfi_endproc
+ 1851              	.LFE823:
+ 1853 0012 00BF     		.section	.text._ZN2XF13getMainThreadEv,"ax",%progbits
+ 1854              		.align	2
+ 1855              		.global	_ZN2XF13getMainThreadEv
+ 1856              		.thumb
+ 1857              		.thumb_func
+ 1859              	_ZN2XF13getMainThreadEv:
+ 1860              	.LFB824:
+  33:../xf/xf.cpp  **** 
+  34:../xf/xf.cpp  **** #endif /*******************************************************************************************
+  35:../xf/xf.cpp  **** 
+  36:../xf/xf.cpp  **** 
+  37:../xf/xf.cpp  **** XFThread * XF::getMainThread()
+  38:../xf/xf.cpp  **** {
+ 1861              		.loc 1 38 0
+ 1862              		.cfi_startproc
+ 1863              		@ args = 0, pretend = 0, frame = 0
+ 1864              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1865              		@ link register save eliminated.
+ 1866 0000 80B4     		push	{r7}
+ 1867              	.LCFI5:
+ 1868              		.cfi_def_cfa_offset 4
+ 1869 0002 00AF     		add	r7, sp, #0
+ 1870              		.cfi_offset 7, -4
+ 1871              	.LCFI6:
+ 1872              		.cfi_def_cfa_register 7
+  39:../xf/xf.cpp  **** 	return &_mainThread;
+ 1873              		.loc 1 39 0
+ 1874 0004 40F20003 		movw	r3, #:lower16:_ZN2XF11_mainThreadE
+ 1875 0008 C0F20003 		movt	r3, #:upper16:_ZN2XF11_mainThreadE
+  40:../xf/xf.cpp  **** }
+ 1876              		.loc 1 40 0
+ 1877 000c 1846     		mov	r0, r3
+ 1878 000e BD46     		mov	sp, r7
+ 1879 0010 80BC     		pop	{r7}
+ 1880 0012 7047     		bx	lr
+ 1881              		.cfi_endproc
+ 1882              	.LFE824:
+ 1884              		.section	.text._Z41__static_initialization_and_destruction_0ii,"ax",%progbits
+ 1885              		.align	2
+ 1886              		.thumb
+ 1887              		.thumb_func
+ 1889              	_Z41__static_initialization_and_destruction_0ii:
+ 1890              	.LFB957:
+ 1891              		.loc 1 40 0
+ 1892              		.cfi_startproc
+ 1893              		@ args = 0, pretend = 0, frame = 8
+ 1894              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1895 0000 80B5     		push	{r7, lr}
+ 1896              	.LCFI7:
+ 1897              		.cfi_def_cfa_offset 8
+ 1898 0002 82B0     		sub	sp, sp, #8
+ 1899              	.LCFI8:
+ 1900              		.cfi_def_cfa_offset 16
+ 1901 0004 00AF     		add	r7, sp, #0
+ 1902              		.cfi_offset 14, -4
+ 1903              		.cfi_offset 7, -8
+ 1904              	.LCFI9:
+ 1905              		.cfi_def_cfa_register 7
+ 1906 0006 7860     		str	r0, [r7, #4]
+ 1907 0008 3960     		str	r1, [r7, #0]
+ 1908              		.loc 1 40 0
+ 1909 000a 7B68     		ldr	r3, [r7, #4]
+ 1910 000c 012B     		cmp	r3, #1
+ 1911 000e 19D1     		bne	.L4
+ 1912              		.loc 1 40 0 is_stmt 0 discriminator 1
+ 1913 0010 3A68     		ldr	r2, [r7, #0]
+ 1914 0012 4FF6FF73 		movw	r3, #65535
+ 1915 0016 9A42     		cmp	r2, r3
+ 1916 0018 14D1     		bne	.L4
+   6:../xf/xf.cpp  **** XFThread XF::_mainThread;
+ 1917              		.loc 1 6 0 is_stmt 1
+ 1918 001a 40F20000 		movw	r0, #:lower16:_ZN2XF11_mainThreadE
+ 1919 001e C0F20000 		movt	r0, #:upper16:_ZN2XF11_mainThreadE
+ 1920 0022 FFF7FEFF 		bl	_ZN8XFThreadC1Ev
+ 1921 0026 40F20003 		movw	r3, #:lower16:_ZN8XFThreadD1Ev
+ 1922 002a C0F20003 		movt	r3, #:upper16:_ZN8XFThreadD1Ev
+ 1923 002e 40F20000 		movw	r0, #:lower16:_ZN2XF11_mainThreadE
+ 1924 0032 C0F20000 		movt	r0, #:upper16:_ZN2XF11_mainThreadE
+ 1925 0036 1946     		mov	r1, r3
+ 1926 0038 40F20002 		movw	r2, #:lower16:__dso_handle
+ 1927 003c C0F20002 		movt	r2, #:upper16:__dso_handle
+ 1928 0040 FFF7FEFF 		bl	__aeabi_atexit
+ 1929              	.L4:
+ 1930              		.loc 1 40 0
+ 1931 0044 07F10807 		add	r7, r7, #8
+ 1932 0048 BD46     		mov	sp, r7
+ 1933 004a 80BD     		pop	{r7, pc}
+ 1934              		.cfi_endproc
+ 1935              	.LFE957:
+ 1937              		.section	.text._GLOBAL__I__ZN2XF13_bInitializedE,"ax",%progbits
+ 1938              		.align	2
+ 1939              		.thumb
+ 1940              		.thumb_func
+ 1942              	_GLOBAL__I__ZN2XF13_bInitializedE:
+ 1943              	.LFB958:
+ 1944              		.loc 1 40 0
+ 1945              		.cfi_startproc
+ 1946              		@ args = 0, pretend = 0, frame = 0
+ 1947              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1948 0000 80B5     		push	{r7, lr}
+ 1949              	.LCFI10:
+ 1950              		.cfi_def_cfa_offset 8
+ 1951 0002 00AF     		add	r7, sp, #0
+ 1952              		.cfi_offset 14, -4
+ 1953              		.cfi_offset 7, -8
+ 1954              	.LCFI11:
+ 1955              		.cfi_def_cfa_register 7
+ 1956              		.loc 1 40 0
+ 1957 0004 4FF00100 		mov	r0, #1
+ 1958 0008 4FF6FF71 		movw	r1, #65535
+ 1959 000c FFF7FEFF 		bl	_Z41__static_initialization_and_destruction_0ii
+ 1960 0010 80BD     		pop	{r7, pc}
+ 1961              		.cfi_endproc
+ 1962              	.LFE958:
+ 1964 0012 00BF     		.section	.init_array,"aw",%init_array
+ 1965              		.align	2
+ 1966 0000 00000000 		.word	_GLOBAL__I__ZN2XF13_bInitializedE(target1)
+ 1967              		.text
+ 1968              	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 xf.cpp
+     /tmp/cc2nPVYJ.s:1773   .bss._ZN2XF13_bInitializedE:00000000 _ZN2XF13_bInitializedE
+     /tmp/cc2nPVYJ.s:1774   .bss._ZN2XF13_bInitializedE:00000000 $d
+     /tmp/cc2nPVYJ.s:1780   .bss._ZN2XF11_mainThreadE:00000000 _ZN2XF11_mainThreadE
+     /tmp/cc2nPVYJ.s:1777   .bss._ZN2XF11_mainThreadE:00000000 $d
+     /tmp/cc2nPVYJ.s:1783   .text._ZN2XF4initEi:00000000 $t
+     /tmp/cc2nPVYJ.s:1788   .text._ZN2XF4initEi:00000000 _ZN2XF4initEi
+     /tmp/cc2nPVYJ.s:1825   .text._ZN2XF5startEv:00000000 $t
+     /tmp/cc2nPVYJ.s:1830   .text._ZN2XF5startEv:00000000 _ZN2XF5startEv
+     /tmp/cc2nPVYJ.s:1854   .text._ZN2XF13getMainThreadEv:00000000 $t
+     /tmp/cc2nPVYJ.s:1859   .text._ZN2XF13getMainThreadEv:00000000 _ZN2XF13getMainThreadEv
+     /tmp/cc2nPVYJ.s:1885   .text._Z41__static_initialization_and_destruction_0ii:00000000 $t
+     /tmp/cc2nPVYJ.s:1889   .text._Z41__static_initialization_and_destruction_0ii:00000000 _Z41__static_initialization_and_destruction_0ii
+     /tmp/cc2nPVYJ.s:1938   .text._GLOBAL__I__ZN2XF13_bInitializedE:00000000 $t
+     /tmp/cc2nPVYJ.s:1942   .text._GLOBAL__I__ZN2XF13_bInitializedE:00000000 _GLOBAL__I__ZN2XF13_bInitializedE
+     /tmp/cc2nPVYJ.s:1965   .init_array:00000000 $d
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+_ZN16XFTimeoutManager11getInstanceEv
+_ZN16XFTimeoutManager15setTickIntervalEi
+_ZN16XFTimeoutManager5startEv
+_ZN8XFThread5startEv
+_ZN8XFThreadC1Ev
+_ZN8XFThreadD1Ev
+__dso_handle
+__aeabi_atexit

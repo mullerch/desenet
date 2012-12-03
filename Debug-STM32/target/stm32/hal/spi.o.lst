@@ -1,0 +1,771 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"spi.cpp"
+  23              	.Ltext0:
+  24              		.file 1 "../target/stm32/hal/spi.cpp"
+ 17896              		.align	2
+ 17897              	.LC0:
+ 17898 0000 2E2E2F74 		.ascii	"../target/stm32/hal/spi.cpp\000"
+ 17898      61726765 
+ 17898      742F7374 
+ 17898      6D33322F 
+ 17898      68616C2F 
+ 17899              		.align	2
+ 17900              	.LC1:
+ 17901 001c 66616C73 		.ascii	"false\000"
+ 17901      6500
+ 17902              		.section	.text._ZN3SPIC2Ei,"ax",%progbits
+ 17903              		.align	2
+ 17904              		.global	_ZN3SPIC2Ei
+ 17905              		.thumb
+ 17906              		.thumb_func
+ 17908              	_ZN3SPIC2Ei:
+ 17909              	.LFB30:
+   1:../target/stm32/hal/spi.cpp **** #include <target.h>
+   2:../target/stm32/hal/spi.cpp **** #include <stm32f10x_spi.h>
+   3:../target/stm32/hal/spi.cpp **** #include "spi.h"
+   4:../target/stm32/hal/spi.cpp **** 
+   5:../target/stm32/hal/spi.cpp **** SPI::SPI(int spiNbr)
+ 17910              		.loc 1 5 0
+ 17911              		.cfi_startproc
+ 17912              		@ args = 0, pretend = 0, frame = 8
+ 17913              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17914 0000 80B5     		push	{r7, lr}
+ 17915              	.LCFI0:
+ 17916              		.cfi_def_cfa_offset 8
+ 17917 0002 82B0     		sub	sp, sp, #8
+ 17918              	.LCFI1:
+ 17919              		.cfi_def_cfa_offset 16
+ 17920 0004 00AF     		add	r7, sp, #0
+ 17921              		.cfi_offset 14, -4
+ 17922              		.cfi_offset 7, -8
+ 17923              	.LCFI2:
+ 17924              		.cfi_def_cfa_register 7
+ 17925 0006 7860     		str	r0, [r7, #4]
+ 17926 0008 3960     		str	r1, [r7, #0]
+ 17927              	.LBB2:
+   6:../target/stm32/hal/spi.cpp ****  : _bInitialized(false),
+   7:../target/stm32/hal/spi.cpp ****    _pSPI(NULL)
+ 17928              		.loc 1 7 0
+ 17929 000a 7B68     		ldr	r3, [r7, #4]
+ 17930 000c 1D4A     		ldr	r2, .L8
+ 17931 000e 1A60     		str	r2, [r3, #0]
+ 17932 0010 7B68     		ldr	r3, [r7, #4]
+ 17933 0012 4FF00002 		mov	r2, #0
+ 17934 0016 1A71     		strb	r2, [r3, #4]
+ 17935 0018 7B68     		ldr	r3, [r7, #4]
+ 17936 001a 4FF00002 		mov	r2, #0
+ 17937 001e 9A60     		str	r2, [r3, #8]
+   8:../target/stm32/hal/spi.cpp **** {
+   9:../target/stm32/hal/spi.cpp **** 	switch (spiNbr)
+ 17938              		.loc 1 9 0
+ 17939 0020 3B68     		ldr	r3, [r7, #0]
+ 17940 0022 012B     		cmp	r3, #1
+ 17941 0024 0AD0     		beq	.L4
+ 17942 0026 022B     		cmp	r3, #2
+ 17943 0028 0FD0     		beq	.L5
+ 17944 002a 002B     		cmp	r3, #0
+ 17945 002c 14D1     		bne	.L7
+ 17946              	.L3:
+  10:../target/stm32/hal/spi.cpp **** 	{
+  11:../target/stm32/hal/spi.cpp **** 	case 0:
+  12:../target/stm32/hal/spi.cpp **** 		_pSPI = SPI1;
+ 17947              		.loc 1 12 0
+ 17948 002e 7A68     		ldr	r2, [r7, #4]
+ 17949 0030 4FF44053 		mov	r3, #12288
+ 17950 0034 C4F20103 		movt	r3, 16385
+ 17951 0038 9360     		str	r3, [r2, #8]
+  13:../target/stm32/hal/spi.cpp **** 		break;
+ 17952              		.loc 1 13 0
+ 17953 003a 1DE0     		b	.L6
+ 17954              	.L4:
+  14:../target/stm32/hal/spi.cpp **** 	case 1:
+  15:../target/stm32/hal/spi.cpp **** 		_pSPI = SPI2;
+ 17955              		.loc 1 15 0
+ 17956 003c 7A68     		ldr	r2, [r7, #4]
+ 17957 003e 4FF46053 		mov	r3, #14336
+ 17958 0042 C4F20003 		movt	r3, 16384
+ 17959 0046 9360     		str	r3, [r2, #8]
+  16:../target/stm32/hal/spi.cpp **** 		break;
+ 17960              		.loc 1 16 0
+ 17961 0048 16E0     		b	.L6
+ 17962              	.L5:
+  17:../target/stm32/hal/spi.cpp **** 	case 2:
+  18:../target/stm32/hal/spi.cpp **** 		_pSPI = SPI3;
+ 17963              		.loc 1 18 0
+ 17964 004a 7A68     		ldr	r2, [r7, #4]
+ 17965 004c 4FF47053 		mov	r3, #15360
+ 17966 0050 C4F20003 		movt	r3, 16384
+ 17967 0054 9360     		str	r3, [r2, #8]
+  19:../target/stm32/hal/spi.cpp **** 		break;
+ 17968              		.loc 1 19 0
+ 17969 0056 0FE0     		b	.L6
+ 17970              	.L7:
+  20:../target/stm32/hal/spi.cpp **** 	default:
+  21:../target/stm32/hal/spi.cpp **** 		assert(false);	// Passed wrong parameter
+ 17971              		.loc 1 21 0
+ 17972 0058 40F20000 		movw	r0, #:lower16:.LC0
+ 17973 005c C0F20000 		movt	r0, #:upper16:.LC0
+ 17974 0060 4FF01501 		mov	r1, #21
+ 17975 0064 40F20002 		movw	r2, #:lower16:_ZZN3SPIC1EiE19__PRETTY_FUNCTION__
+ 17976 0068 C0F20002 		movt	r2, #:upper16:_ZZN3SPIC1EiE19__PRETTY_FUNCTION__
+ 17977 006c 40F20003 		movw	r3, #:lower16:.LC1
+ 17978 0070 C0F20003 		movt	r3, #:upper16:.LC1
+ 17979 0074 FFF7FEFF 		bl	__assert_func
+ 17980              	.L6:
+ 17981              	.LBE2:
+  22:../target/stm32/hal/spi.cpp **** 	}
+  23:../target/stm32/hal/spi.cpp **** }
+ 17982              		.loc 1 23 0
+ 17983 0078 7B68     		ldr	r3, [r7, #4]
+ 17984 007a 1846     		mov	r0, r3
+ 17985 007c 07F10807 		add	r7, r7, #8
+ 17986 0080 BD46     		mov	sp, r7
+ 17987 0082 80BD     		pop	{r7, pc}
+ 17988              	.L9:
+ 17989              		.align	2
+ 17990              	.L8:
+ 17991 0084 08000000 		.word	_ZTV3SPI+8
+ 17992              		.cfi_endproc
+ 17993              	.LFE30:
+ 17995              		.global	_ZN3SPIC1Ei
+ 17996              		.thumb_set _ZN3SPIC1Ei,_ZN3SPIC2Ei
+ 17997              		.section	.text._ZN3SPID2Ev,"ax",%progbits
+ 17998              		.align	2
+ 17999              		.global	_ZN3SPID2Ev
+ 18000              		.thumb
+ 18001              		.thumb_func
+ 18003              	_ZN3SPID2Ev:
+ 18004              	.LFB33:
+  24:../target/stm32/hal/spi.cpp **** 
+  25:../target/stm32/hal/spi.cpp **** SPI::~SPI()
+ 18005              		.loc 1 25 0
+ 18006              		.cfi_startproc
+ 18007              		@ args = 0, pretend = 0, frame = 8
+ 18008              		@ frame_needed = 1, uses_anonymous_args = 0
+ 18009 0000 80B5     		push	{r7, lr}
+ 18010              	.LCFI3:
+ 18011              		.cfi_def_cfa_offset 8
+ 18012 0002 82B0     		sub	sp, sp, #8
+ 18013              	.LCFI4:
+ 18014              		.cfi_def_cfa_offset 16
+ 18015 0004 00AF     		add	r7, sp, #0
+ 18016              		.cfi_offset 14, -4
+ 18017              		.cfi_offset 7, -8
+ 18018              	.LCFI5:
+ 18019              		.cfi_def_cfa_register 7
+ 18020 0006 7860     		str	r0, [r7, #4]
+ 18021              	.LBB3:
+ 18022              		.loc 1 25 0
+ 18023 0008 7B68     		ldr	r3, [r7, #4]
+ 18024 000a 094A     		ldr	r2, .L13
+ 18025 000c 1A60     		str	r2, [r3, #0]
+ 18026              	.LBE3:
+  26:../target/stm32/hal/spi.cpp **** {
+  27:../target/stm32/hal/spi.cpp **** 
+  28:../target/stm32/hal/spi.cpp **** }
+ 18027              		.loc 1 28 0
+ 18028 000e 4FF00003 		mov	r3, #0
+ 18029 0012 03F00103 		and	r3, r3, #1
+ 18030 0016 DBB2     		uxtb	r3, r3
+ 18031 0018 002B     		cmp	r3, #0
+ 18032 001a 02D0     		beq	.L12
+ 18033              		.loc 1 28 0 is_stmt 0 discriminator 1
+ 18034 001c 7868     		ldr	r0, [r7, #4]
+ 18035 001e FFF7FEFF 		bl	_ZdlPv
+ 18036              	.L12:
+ 18037              		.loc 1 28 0 discriminator 2
+ 18038 0022 7B68     		ldr	r3, [r7, #4]
+ 18039 0024 1846     		mov	r0, r3
+ 18040 0026 07F10807 		add	r7, r7, #8
+ 18041 002a BD46     		mov	sp, r7
+ 18042 002c 80BD     		pop	{r7, pc}
+ 18043              	.L14:
+ 18044 002e 00BF     		.align	2
+ 18045              	.L13:
+ 18046 0030 08000000 		.word	_ZTV3SPI+8
+ 18047              		.cfi_endproc
+ 18048              	.LFE33:
+ 18050              		.global	_ZN3SPID1Ev
+ 18051              		.thumb_set _ZN3SPID1Ev,_ZN3SPID2Ev
+ 18052              		.section	.text._ZN3SPID0Ev,"ax",%progbits
+ 18053              		.align	2
+ 18054              		.global	_ZN3SPID0Ev
+ 18055              		.thumb
+ 18056              		.thumb_func
+ 18058              	_ZN3SPID0Ev:
+ 18059              	.LFB35:
+  25:../target/stm32/hal/spi.cpp **** SPI::~SPI()
+ 18060              		.loc 1 25 0 is_stmt 1
+ 18061              		.cfi_startproc
+ 18062              		@ args = 0, pretend = 0, frame = 8
+ 18063              		@ frame_needed = 1, uses_anonymous_args = 0
+ 18064 0000 80B5     		push	{r7, lr}
+ 18065              	.LCFI6:
+ 18066              		.cfi_def_cfa_offset 8
+ 18067 0002 82B0     		sub	sp, sp, #8
+ 18068              	.LCFI7:
+ 18069              		.cfi_def_cfa_offset 16
+ 18070 0004 00AF     		add	r7, sp, #0
+ 18071              		.cfi_offset 14, -4
+ 18072              		.cfi_offset 7, -8
+ 18073              	.LCFI8:
+ 18074              		.cfi_def_cfa_register 7
+ 18075 0006 7860     		str	r0, [r7, #4]
+ 18076              		.loc 1 28 0
+ 18077 0008 7868     		ldr	r0, [r7, #4]
+ 18078 000a FFF7FEFF 		bl	_ZN3SPID1Ev
+ 18079 000e 7868     		ldr	r0, [r7, #4]
+ 18080 0010 FFF7FEFF 		bl	_ZdlPv
+ 18081 0014 7B68     		ldr	r3, [r7, #4]
+ 18082 0016 1846     		mov	r0, r3
+ 18083 0018 07F10807 		add	r7, r7, #8
+ 18084 001c BD46     		mov	sp, r7
+ 18085 001e 80BD     		pop	{r7, pc}
+ 18086              		.cfi_endproc
+ 18087              	.LFE35:
+ 18089              		.section	.text._ZN3SPI10initializeEv,"ax",%progbits
+ 18090              		.align	2
+ 18091              		.global	_ZN3SPI10initializeEv
+ 18092              		.thumb
+ 18093              		.thumb_func
+ 18095              	_ZN3SPI10initializeEv:
+ 18096              	.LFB36:
+  29:../target/stm32/hal/spi.cpp **** 
+  30:../target/stm32/hal/spi.cpp **** /**
+  31:../target/stm32/hal/spi.cpp ****  * Partially initializes the SPI. Other part of the initialization
+  32:../target/stm32/hal/spi.cpp ****  * needs to be made in an other place (see in board configuration).
+  33:../target/stm32/hal/spi.cpp ****  *
+  34:../target/stm32/hal/spi.cpp ****  * After complete initialization the SPI can be enabled using the #enable method.
+  35:../target/stm32/hal/spi.cpp ****  */
+  36:../target/stm32/hal/spi.cpp **** bool SPI::initialize()
+  37:../target/stm32/hal/spi.cpp **** {
+ 18097              		.loc 1 37 0
+ 18098              		.cfi_startproc
+ 18099              		@ args = 0, pretend = 0, frame = 16
+ 18100              		@ frame_needed = 1, uses_anonymous_args = 0
+ 18101 0000 80B5     		push	{r7, lr}
+ 18102              	.LCFI9:
+ 18103              		.cfi_def_cfa_offset 8
+ 18104 0002 84B0     		sub	sp, sp, #16
+ 18105              	.LCFI10:
+ 18106              		.cfi_def_cfa_offset 24
+ 18107 0004 00AF     		add	r7, sp, #0
+ 18108              		.cfi_offset 14, -4
+ 18109              		.cfi_offset 7, -8
+ 18110              	.LCFI11:
+ 18111              		.cfi_def_cfa_register 7
+ 18112 0006 7860     		str	r0, [r7, #4]
+ 18113              	.LBB4:
+  38:../target/stm32/hal/spi.cpp **** //	SPI_InitTypeDef  SPI_InitStructure;
+  39:../target/stm32/hal/spi.cpp **** 	GPIO_InitTypeDef gpioInitStructure;
+  40:../target/stm32/hal/spi.cpp **** 
+  41:../target/stm32/hal/spi.cpp **** 	if (!_bInitialized)
+ 18114              		.loc 1 41 0
+ 18115 0008 7B68     		ldr	r3, [r7, #4]
+ 18116 000a 1B79     		ldrb	r3, [r3, #4]	@ zero_extendqisi2
+ 18117 000c 83F00103 		eor	r3, r3, #1
+ 18118 0010 DBB2     		uxtb	r3, r3
+ 18119 0012 002B     		cmp	r3, #0
+ 18120 0014 48D0     		beq	.L18
+  42:../target/stm32/hal/spi.cpp **** 	{
+  43:../target/stm32/hal/spi.cpp **** 		_bInitialized = true;
+ 18121              		.loc 1 43 0
+ 18122 0016 7B68     		ldr	r3, [r7, #4]
+ 18123 0018 4FF00102 		mov	r2, #1
+ 18124 001c 1A71     		strb	r2, [r3, #4]
+  44:../target/stm32/hal/spi.cpp **** 
+  45:../target/stm32/hal/spi.cpp **** 		// Enable SPI1 and GPIOA clocks
+  46:../target/stm32/hal/spi.cpp **** 		RCC_APB2PeriphClockCmd(RCC_APB2Periph_SPI1 | RCC_APB2Periph_GPIOA | RCC_APB2Periph_GPIOB | RCC_AP
+ 18125              		.loc 1 46 0
+ 18126 001e 41F21C00 		movw	r0, #4124
+ 18127 0022 4FF00101 		mov	r1, #1
+ 18128 0026 FFF7FEFF 		bl	RCC_APB2PeriphClockCmd
+  47:../target/stm32/hal/spi.cpp **** 
+  48:../target/stm32/hal/spi.cpp **** 		if (_pSPI == SPI1)
+ 18129              		.loc 1 48 0
+ 18130 002a 7B68     		ldr	r3, [r7, #4]
+ 18131 002c 9A68     		ldr	r2, [r3, #8]
+ 18132 002e 4FF44053 		mov	r3, #12288
+ 18133 0032 C4F20103 		movt	r3, 16385
+ 18134 0036 9A42     		cmp	r2, r3
+ 18135 0038 26D1     		bne	.L19
+  49:../target/stm32/hal/spi.cpp **** 		{
+  50:../target/stm32/hal/spi.cpp **** 			// Configure SPI1 pins: NSS, SCK, MISO and MOSI
+  51:../target/stm32/hal/spi.cpp **** 			gpioInitStructure.GPIO_Pin = GPIO_Pin_5 | GPIO_Pin_6 | GPIO_Pin_7;
+ 18136              		.loc 1 51 0
+ 18137 003a 4FF0E003 		mov	r3, #224
+ 18138 003e BB81     		strh	r3, [r7, #12]	@ movhi
+  52:../target/stm32/hal/spi.cpp **** 			gpioInitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+ 18139              		.loc 1 52 0
+ 18140 0040 4FF00303 		mov	r3, #3
+ 18141 0044 BB73     		strb	r3, [r7, #14]
+  53:../target/stm32/hal/spi.cpp **** 			gpioInitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+ 18142              		.loc 1 53 0
+ 18143 0046 4FF01803 		mov	r3, #24
+ 18144 004a FB73     		strb	r3, [r7, #15]
+  54:../target/stm32/hal/spi.cpp **** 			GPIO_Init(GPIOA, &gpioInitStructure);
+ 18145              		.loc 1 54 0
+ 18146 004c 07F10C03 		add	r3, r7, #12
+ 18147 0050 4FF40060 		mov	r0, #2048
+ 18148 0054 C4F20100 		movt	r0, 16385
+ 18149 0058 1946     		mov	r1, r3
+ 18150 005a FFF7FEFF 		bl	GPIO_Init
+  55:../target/stm32/hal/spi.cpp **** 
+  56:../target/stm32/hal/spi.cpp **** 			// Chip select - output (SPI1_NSS)
+  57:../target/stm32/hal/spi.cpp **** 			gpioInitStructure.GPIO_Pin = GPIO_Pin_4;
+ 18151              		.loc 1 57 0
+ 18152 005e 4FF01003 		mov	r3, #16
+ 18153 0062 BB81     		strh	r3, [r7, #12]	@ movhi
+  58:../target/stm32/hal/spi.cpp **** 			gpioInitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+ 18154              		.loc 1 58 0
+ 18155 0064 4FF00303 		mov	r3, #3
+ 18156 0068 BB73     		strb	r3, [r7, #14]
+  59:../target/stm32/hal/spi.cpp **** 			gpioInitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+ 18157              		.loc 1 59 0
+ 18158 006a 4FF01003 		mov	r3, #16
+ 18159 006e FB73     		strb	r3, [r7, #15]
+  60:../target/stm32/hal/spi.cpp **** 			GPIO_Init(GPIOA, &gpioInitStructure);
+ 18160              		.loc 1 60 0
+ 18161 0070 07F10C03 		add	r3, r7, #12
+ 18162 0074 4FF40060 		mov	r0, #2048
+ 18163 0078 C4F20100 		movt	r0, 16385
+ 18164 007c 1946     		mov	r1, r3
+ 18165 007e FFF7FEFF 		bl	GPIO_Init
+  61:../target/stm32/hal/spi.cpp **** 		}
+  62:../target/stm32/hal/spi.cpp **** 		else
+  63:../target/stm32/hal/spi.cpp **** 		{
+  64:../target/stm32/hal/spi.cpp **** 			assert(false);	// Initialization for this SPI not implemented yet
+  65:../target/stm32/hal/spi.cpp **** 		}
+  66:../target/stm32/hal/spi.cpp **** 
+  67:../target/stm32/hal/spi.cpp **** 		// Reset SPI Interface
+  68:../target/stm32/hal/spi.cpp **** 	//	SPI_DeInit(SPI1);
+  69:../target/stm32/hal/spi.cpp **** 
+  70:../target/stm32/hal/spi.cpp **** 	//	// SPI1 configuration
+  71:../target/stm32/hal/spi.cpp **** 	//	SPI_InitStructure.SPI_Direction = SPI_Direction_2Lines_FullDuplex;
+  72:../target/stm32/hal/spi.cpp **** 	//	SPI_InitStructure.SPI_Mode = SPI_Mode_Master;
+  73:../target/stm32/hal/spi.cpp **** 	//	SPI_InitStructure.SPI_DataSize = SPI_DataSize_8b;
+  74:../target/stm32/hal/spi.cpp **** 	//	SPI_InitStructure.SPI_CPOL = SPI_CPOL_Low;
+  75:../target/stm32/hal/spi.cpp **** 	//	SPI_InitStructure.SPI_CPHA = SPI_CPHA_1Edge;
+  76:../target/stm32/hal/spi.cpp **** 	//	SPI_InitStructure.SPI_NSS = SPI_NSS_Soft;
+  77:../target/stm32/hal/spi.cpp **** 	//	SPI_InitStructure.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_256;
+  78:../target/stm32/hal/spi.cpp **** 	//	SPI_InitStructure.SPI_FirstBit = SPI_FirstBit_MSB;
+  79:../target/stm32/hal/spi.cpp **** 	//	SPI_InitStructure.SPI_CRCPolynomial = 7;
+  80:../target/stm32/hal/spi.cpp **** 	//
+  81:../target/stm32/hal/spi.cpp **** 	//	// Init SPI
+  82:../target/stm32/hal/spi.cpp **** 	//	SPI_Init(SPI1, &SPI_InitStructure);
+  83:../target/stm32/hal/spi.cpp **** 	//
+  84:../target/stm32/hal/spi.cpp **** 	//	// Enable SPI1
+  85:../target/stm32/hal/spi.cpp **** 	//	SPI_Cmd(SPI1, ENABLE);
+  86:../target/stm32/hal/spi.cpp **** 
+  87:../target/stm32/hal/spi.cpp **** 		return true;
+ 18166              		.loc 1 87 0
+ 18167 0082 4FF00103 		mov	r3, #1
+ 18168 0086 11E0     		b	.L20
+ 18169              	.L19:
+  64:../target/stm32/hal/spi.cpp **** 			assert(false);	// Initialization for this SPI not implemented yet
+ 18170              		.loc 1 64 0
+ 18171 0088 40F20000 		movw	r0, #:lower16:.LC0
+ 18172 008c C0F20000 		movt	r0, #:upper16:.LC0
+ 18173 0090 4FF04001 		mov	r1, #64
+ 18174 0094 40F20002 		movw	r2, #:lower16:_ZZN3SPI10initializeEvE19__PRETTY_FUNCTION__
+ 18175 0098 C0F20002 		movt	r2, #:upper16:_ZZN3SPI10initializeEvE19__PRETTY_FUNCTION__
+ 18176 009c 40F20003 		movw	r3, #:lower16:.LC1
+ 18177 00a0 C0F20003 		movt	r3, #:upper16:.LC1
+ 18178 00a4 FFF7FEFF 		bl	__assert_func
+ 18179              	.L18:
+  88:../target/stm32/hal/spi.cpp **** 	}
+  89:../target/stm32/hal/spi.cpp **** 
+  90:../target/stm32/hal/spi.cpp **** 	return false;
+ 18180              		.loc 1 90 0
+ 18181 00a8 4FF00003 		mov	r3, #0
+ 18182              	.L20:
+ 18183              	.LBE4:
+  91:../target/stm32/hal/spi.cpp **** }
+ 18184              		.loc 1 91 0
+ 18185 00ac 1846     		mov	r0, r3
+ 18186 00ae 07F11007 		add	r7, r7, #16
+ 18187 00b2 BD46     		mov	sp, r7
+ 18188 00b4 80BD     		pop	{r7, pc}
+ 18189              		.cfi_endproc
+ 18190              	.LFE36:
+ 18192 00b6 00BF     		.section	.text._ZN3SPI6enableEv,"ax",%progbits
+ 18193              		.align	2
+ 18194              		.global	_ZN3SPI6enableEv
+ 18195              		.thumb
+ 18196              		.thumb_func
+ 18198              	_ZN3SPI6enableEv:
+ 18199              	.LFB37:
+  92:../target/stm32/hal/spi.cpp **** 
+  93:../target/stm32/hal/spi.cpp **** void SPI::enable()
+  94:../target/stm32/hal/spi.cpp **** {
+ 18200              		.loc 1 94 0
+ 18201              		.cfi_startproc
+ 18202              		@ args = 0, pretend = 0, frame = 8
+ 18203              		@ frame_needed = 1, uses_anonymous_args = 0
+ 18204 0000 80B5     		push	{r7, lr}
+ 18205              	.LCFI12:
+ 18206              		.cfi_def_cfa_offset 8
+ 18207 0002 82B0     		sub	sp, sp, #8
+ 18208              	.LCFI13:
+ 18209              		.cfi_def_cfa_offset 16
+ 18210 0004 00AF     		add	r7, sp, #0
+ 18211              		.cfi_offset 14, -4
+ 18212              		.cfi_offset 7, -8
+ 18213              	.LCFI14:
+ 18214              		.cfi_def_cfa_register 7
+ 18215 0006 7860     		str	r0, [r7, #4]
+  95:../target/stm32/hal/spi.cpp **** 	SPI_Cmd(_pSPI, ENABLE);
+ 18216              		.loc 1 95 0
+ 18217 0008 7B68     		ldr	r3, [r7, #4]
+ 18218 000a 9B68     		ldr	r3, [r3, #8]
+ 18219 000c 1846     		mov	r0, r3
+ 18220 000e 4FF00101 		mov	r1, #1
+ 18221 0012 FFF7FEFF 		bl	SPI_Cmd
+  96:../target/stm32/hal/spi.cpp **** }
+ 18222              		.loc 1 96 0
+ 18223 0016 07F10807 		add	r7, r7, #8
+ 18224 001a BD46     		mov	sp, r7
+ 18225 001c 80BD     		pop	{r7, pc}
+ 18226              		.cfi_endproc
+ 18227              	.LFE37:
+ 18229 001e 00BF     		.section	.text._ZN3SPI7disableEv,"ax",%progbits
+ 18230              		.align	2
+ 18231              		.global	_ZN3SPI7disableEv
+ 18232              		.thumb
+ 18233              		.thumb_func
+ 18235              	_ZN3SPI7disableEv:
+ 18236              	.LFB38:
+  97:../target/stm32/hal/spi.cpp **** 
+  98:../target/stm32/hal/spi.cpp **** void SPI::disable()
+  99:../target/stm32/hal/spi.cpp **** {
+ 18237              		.loc 1 99 0
+ 18238              		.cfi_startproc
+ 18239              		@ args = 0, pretend = 0, frame = 8
+ 18240              		@ frame_needed = 1, uses_anonymous_args = 0
+ 18241 0000 80B5     		push	{r7, lr}
+ 18242              	.LCFI15:
+ 18243              		.cfi_def_cfa_offset 8
+ 18244 0002 82B0     		sub	sp, sp, #8
+ 18245              	.LCFI16:
+ 18246              		.cfi_def_cfa_offset 16
+ 18247 0004 00AF     		add	r7, sp, #0
+ 18248              		.cfi_offset 14, -4
+ 18249              		.cfi_offset 7, -8
+ 18250              	.LCFI17:
+ 18251              		.cfi_def_cfa_register 7
+ 18252 0006 7860     		str	r0, [r7, #4]
+ 100:../target/stm32/hal/spi.cpp **** 	SPI_Cmd(_pSPI, DISABLE);
+ 18253              		.loc 1 100 0
+ 18254 0008 7B68     		ldr	r3, [r7, #4]
+ 18255 000a 9B68     		ldr	r3, [r3, #8]
+ 18256 000c 1846     		mov	r0, r3
+ 18257 000e 4FF00001 		mov	r1, #0
+ 18258 0012 FFF7FEFF 		bl	SPI_Cmd
+ 101:../target/stm32/hal/spi.cpp **** }
+ 18259              		.loc 1 101 0
+ 18260 0016 07F10807 		add	r7, r7, #8
+ 18261 001a BD46     		mov	sp, r7
+ 18262 001c 80BD     		pop	{r7, pc}
+ 18263              		.cfi_endproc
+ 18264              	.LFE38:
+ 18266 001e 00BF     		.section	.text._ZN3SPI17resetStateMachineEv,"ax",%progbits
+ 18267              		.align	2
+ 18268              		.global	_ZN3SPI17resetStateMachineEv
+ 18269              		.thumb
+ 18270              		.thumb_func
+ 18272              	_ZN3SPI17resetStateMachineEv:
+ 18273              	.LFB39:
+ 102:../target/stm32/hal/spi.cpp **** 
+ 103:../target/stm32/hal/spi.cpp **** /**
+ 104:../target/stm32/hal/spi.cpp ****  * Resets the state machine of the SPI. Useful only
+ 105:../target/stm32/hal/spi.cpp ****  * when accessing multiple chips with one SPI
+ 106:../target/stm32/hal/spi.cpp ****  */
+ 107:../target/stm32/hal/spi.cpp **** void SPI::resetStateMachine()
+ 108:../target/stm32/hal/spi.cpp **** {
+ 18274              		.loc 1 108 0
+ 18275              		.cfi_startproc
+ 18276              		@ args = 0, pretend = 0, frame = 8
+ 18277              		@ frame_needed = 1, uses_anonymous_args = 0
+ 18278 0000 80B5     		push	{r7, lr}
+ 18279              	.LCFI18:
+ 18280              		.cfi_def_cfa_offset 8
+ 18281 0002 82B0     		sub	sp, sp, #8
+ 18282              	.LCFI19:
+ 18283              		.cfi_def_cfa_offset 16
+ 18284 0004 00AF     		add	r7, sp, #0
+ 18285              		.cfi_offset 14, -4
+ 18286              		.cfi_offset 7, -8
+ 18287              	.LCFI20:
+ 18288              		.cfi_def_cfa_register 7
+ 18289 0006 7860     		str	r0, [r7, #4]
+ 109:../target/stm32/hal/spi.cpp **** 	// Reset state machine of the SPI by resetting the periphery.
+ 110:../target/stm32/hal/spi.cpp **** 	SPI_I2S_DeInit(_pSPI);
+ 18290              		.loc 1 110 0
+ 18291 0008 7B68     		ldr	r3, [r7, #4]
+ 18292 000a 9B68     		ldr	r3, [r3, #8]
+ 18293 000c 1846     		mov	r0, r3
+ 18294 000e FFF7FEFF 		bl	SPI_I2S_DeInit
+ 111:../target/stm32/hal/spi.cpp **** }
+ 18295              		.loc 1 111 0
+ 18296 0012 07F10807 		add	r7, r7, #8
+ 18297 0016 BD46     		mov	sp, r7
+ 18298 0018 80BD     		pop	{r7, pc}
+ 18299              		.cfi_endproc
+ 18300              	.LFE39:
+ 18302 001a 00BF     		.section	.rodata
+ 18303 0022 0000     		.align	2
+ 18304              	.LC2:
+ 18305 0024 5F705350 		.ascii	"_pSPI\000"
+ 18305      4900
+ 18306 002a 0000     		.section	.text._ZN3SPI13getFlagStatusEt,"ax",%progbits
+ 18307              		.align	2
+ 18308              		.global	_ZN3SPI13getFlagStatusEt
+ 18309              		.thumb
+ 18310              		.thumb_func
+ 18312              	_ZN3SPI13getFlagStatusEt:
+ 18313              	.LFB40:
+ 112:../target/stm32/hal/spi.cpp **** 
+ 113:../target/stm32/hal/spi.cpp **** bool SPI::getFlagStatus(unsigned short flagMask)
+ 114:../target/stm32/hal/spi.cpp **** {
+ 18314              		.loc 1 114 0
+ 18315              		.cfi_startproc
+ 18316              		@ args = 0, pretend = 0, frame = 8
+ 18317              		@ frame_needed = 1, uses_anonymous_args = 0
+ 18318 0000 80B5     		push	{r7, lr}
+ 18319              	.LCFI21:
+ 18320              		.cfi_def_cfa_offset 8
+ 18321 0002 82B0     		sub	sp, sp, #8
+ 18322              	.LCFI22:
+ 18323              		.cfi_def_cfa_offset 16
+ 18324 0004 00AF     		add	r7, sp, #0
+ 18325              		.cfi_offset 14, -4
+ 18326              		.cfi_offset 7, -8
+ 18327              	.LCFI23:
+ 18328              		.cfi_def_cfa_register 7
+ 18329 0006 7860     		str	r0, [r7, #4]
+ 18330 0008 0B46     		mov	r3, r1
+ 18331 000a 7B80     		strh	r3, [r7, #2]	@ movhi
+ 18332              	.LBB5:
+ 115:../target/stm32/hal/spi.cpp **** 	assert(_pSPI);
+ 18333              		.loc 1 115 0
+ 18334 000c 7B68     		ldr	r3, [r7, #4]
+ 18335 000e 9B68     		ldr	r3, [r3, #8]
+ 18336 0010 002B     		cmp	r3, #0
+ 18337 0012 0FD1     		bne	.L25
+ 18338              		.loc 1 115 0 is_stmt 0 discriminator 1
+ 18339 0014 40F20000 		movw	r0, #:lower16:.LC0
+ 18340 0018 C0F20000 		movt	r0, #:upper16:.LC0
+ 18341 001c 4FF07301 		mov	r1, #115
+ 18342 0020 40F20002 		movw	r2, #:lower16:_ZZN3SPI13getFlagStatusEtE19__PRETTY_FUNCTION__
+ 18343 0024 C0F20002 		movt	r2, #:upper16:_ZZN3SPI13getFlagStatusEtE19__PRETTY_FUNCTION__
+ 18344 0028 40F20003 		movw	r3, #:lower16:.LC2
+ 18345 002c C0F20003 		movt	r3, #:upper16:.LC2
+ 18346 0030 FFF7FEFF 		bl	__assert_func
+ 18347              	.L25:
+ 116:../target/stm32/hal/spi.cpp **** 	return SPI_I2S_GetFlagStatus(_pSPI, flagMask);
+ 18348              		.loc 1 116 0 is_stmt 1
+ 18349 0034 7B68     		ldr	r3, [r7, #4]
+ 18350 0036 9A68     		ldr	r2, [r3, #8]
+ 18351 0038 7B88     		ldrh	r3, [r7, #2]
+ 18352 003a 1046     		mov	r0, r2
+ 18353 003c 1946     		mov	r1, r3
+ 18354 003e FFF7FEFF 		bl	SPI_I2S_GetFlagStatus
+ 18355 0042 0346     		mov	r3, r0
+ 18356 0044 002B     		cmp	r3, #0
+ 18357 0046 0CBF     		ite	eq
+ 18358 0048 0023     		moveq	r3, #0
+ 18359 004a 0123     		movne	r3, #1
+ 18360 004c DBB2     		uxtb	r3, r3
+ 18361              	.LBE5:
+ 117:../target/stm32/hal/spi.cpp **** }
+ 18362              		.loc 1 117 0
+ 18363 004e 1846     		mov	r0, r3
+ 18364 0050 07F10807 		add	r7, r7, #8
+ 18365 0054 BD46     		mov	sp, r7
+ 18366 0056 80BD     		pop	{r7, pc}
+ 18367              		.cfi_endproc
+ 18368              	.LFE40:
+ 18370              		.section	.text._ZN3SPI8sendByteEh,"ax",%progbits
+ 18371              		.align	2
+ 18372              		.global	_ZN3SPI8sendByteEh
+ 18373              		.thumb
+ 18374              		.thumb_func
+ 18376              	_ZN3SPI8sendByteEh:
+ 18377              	.LFB41:
+ 118:../target/stm32/hal/spi.cpp **** 
+ 119:../target/stm32/hal/spi.cpp **** SPI::tStatus SPI::sendByte(unsigned char data)
+ 120:../target/stm32/hal/spi.cpp **** {
+ 18378              		.loc 1 120 0
+ 18379              		.cfi_startproc
+ 18380              		@ args = 0, pretend = 0, frame = 8
+ 18381              		@ frame_needed = 1, uses_anonymous_args = 0
+ 18382 0000 80B5     		push	{r7, lr}
+ 18383              	.LCFI24:
+ 18384              		.cfi_def_cfa_offset 8
+ 18385 0002 82B0     		sub	sp, sp, #8
+ 18386              	.LCFI25:
+ 18387              		.cfi_def_cfa_offset 16
+ 18388 0004 00AF     		add	r7, sp, #0
+ 18389              		.cfi_offset 14, -4
+ 18390              		.cfi_offset 7, -8
+ 18391              	.LCFI26:
+ 18392              		.cfi_def_cfa_register 7
+ 18393 0006 7860     		str	r0, [r7, #4]
+ 18394 0008 0B46     		mov	r3, r1
+ 18395 000a FB70     		strb	r3, [r7, #3]
+ 121:../target/stm32/hal/spi.cpp **** 	// Loop while DR register in not empty
+ 122:../target/stm32/hal/spi.cpp **** 	while(SPI_I2S_GetFlagStatus(SPI1, SPI_I2S_FLAG_TXE) == RESET);
+ 18396              		.loc 1 122 0
+ 18397 000c 00BF     		nop
+ 18398              	.L27:
+ 18399              		.loc 1 122 0 is_stmt 0 discriminator 1
+ 18400 000e 4FF44050 		mov	r0, #12288
+ 18401 0012 C4F20100 		movt	r0, 16385
+ 18402 0016 4FF00201 		mov	r1, #2
+ 18403 001a FFF7FEFF 		bl	SPI_I2S_GetFlagStatus
+ 18404 001e 0346     		mov	r3, r0
+ 18405 0020 002B     		cmp	r3, #0
+ 18406 0022 14BF     		ite	ne
+ 18407 0024 0023     		movne	r3, #0
+ 18408 0026 0123     		moveq	r3, #1
+ 18409 0028 DBB2     		uxtb	r3, r3
+ 18410 002a 002B     		cmp	r3, #0
+ 18411 002c EFD1     		bne	.L27
+ 123:../target/stm32/hal/spi.cpp **** 
+ 124:../target/stm32/hal/spi.cpp **** 	// Send byte through the SPI1 peripheral
+ 125:../target/stm32/hal/spi.cpp **** 	SPI_I2S_SendData(SPI1, data);
+ 18412              		.loc 1 125 0 is_stmt 1
+ 18413 002e FB78     		ldrb	r3, [r7, #3]	@ zero_extendqisi2
+ 18414 0030 9BB2     		uxth	r3, r3
+ 18415 0032 4FF44050 		mov	r0, #12288
+ 18416 0036 C4F20100 		movt	r0, 16385
+ 18417 003a 1946     		mov	r1, r3
+ 18418 003c FFF7FEFF 		bl	SPI_I2S_SendData
+ 126:../target/stm32/hal/spi.cpp **** 
+ 127:../target/stm32/hal/spi.cpp **** 	// Wait to receive a byte
+ 128:../target/stm32/hal/spi.cpp **** 	while(SPI_I2S_GetFlagStatus(SPI1, SPI_I2S_FLAG_RXNE) == RESET);
+ 18419              		.loc 1 128 0
+ 18420 0040 00BF     		nop
+ 18421              	.L28:
+ 18422              		.loc 1 128 0 is_stmt 0 discriminator 1
+ 18423 0042 4FF44050 		mov	r0, #12288
+ 18424 0046 C4F20100 		movt	r0, 16385
+ 18425 004a 4FF00101 		mov	r1, #1
+ 18426 004e FFF7FEFF 		bl	SPI_I2S_GetFlagStatus
+ 18427 0052 0346     		mov	r3, r0
+ 18428 0054 002B     		cmp	r3, #0
+ 18429 0056 14BF     		ite	ne
+ 18430 0058 0023     		movne	r3, #0
+ 18431 005a 0123     		moveq	r3, #1
+ 18432 005c DBB2     		uxtb	r3, r3
+ 18433 005e 002B     		cmp	r3, #0
+ 18434 0060 EFD1     		bne	.L28
+ 129:../target/stm32/hal/spi.cpp **** 
+ 130:../target/stm32/hal/spi.cpp **** 	// Return the byte read from the SPI bus
+ 131:../target/stm32/hal/spi.cpp **** 	return SPI_I2S_ReceiveData(SPI1);
+ 18435              		.loc 1 131 0 is_stmt 1
+ 18436 0062 4FF44050 		mov	r0, #12288
+ 18437 0066 C4F20100 		movt	r0, 16385
+ 18438 006a FFF7FEFF 		bl	SPI_I2S_ReceiveData
+ 18439 006e 0346     		mov	r3, r0
+ 18440 0070 DBB2     		uxtb	r3, r3
+ 132:../target/stm32/hal/spi.cpp **** }
+ 18441              		.loc 1 132 0
+ 18442 0072 1846     		mov	r0, r3
+ 18443 0074 07F10807 		add	r7, r7, #8
+ 18444 0078 BD46     		mov	sp, r7
+ 18445 007a 80BD     		pop	{r7, pc}
+ 18446              		.cfi_endproc
+ 18447              	.LFE41:
+ 18449              		.global	_ZTV3SPI
+ 18450              		.section	.rodata._ZTV3SPI,"a",%progbits
+ 18451              		.align	3
+ 18454              	_ZTV3SPI:
+ 18455 0000 00000000 		.word	0
+ 18456 0004 00000000 		.word	0
+ 18457 0008 00000000 		.word	_ZN3SPID1Ev
+ 18458 000c 00000000 		.word	_ZN3SPID0Ev
+ 18459              		.section	.rodata._ZZN3SPI13getFlagStatusEtE19__PRETTY_FUNCTION__,"a",%progbits
+ 18460              		.align	2
+ 18463              	_ZZN3SPI13getFlagStatusEtE19__PRETTY_FUNCTION__:
+ 18464 0000 626F6F6C 		.ascii	"bool SPI::getFlagStatus(short unsigned int)\000"
+ 18464      20535049 
+ 18464      3A3A6765 
+ 18464      74466C61 
+ 18464      67537461 
+ 18465              		.section	.rodata._ZZN3SPI10initializeEvE19__PRETTY_FUNCTION__,"a",%progbits
+ 18466              		.align	2
+ 18469              	_ZZN3SPI10initializeEvE19__PRETTY_FUNCTION__:
+ 18470 0000 626F6F6C 		.ascii	"bool SPI::initialize()\000"
+ 18470      20535049 
+ 18470      3A3A696E 
+ 18470      69746961 
+ 18470      6C697A65 
+ 18471 0017 00       		.section	.rodata._ZZN3SPIC1EiE19__PRETTY_FUNCTION__,"a",%progbits
+ 18472              		.align	2
+ 18475              	_ZZN3SPIC1EiE19__PRETTY_FUNCTION__:
+ 18476 0000 5350493A 		.ascii	"SPI::SPI(int)\000"
+ 18476      3A535049 
+ 18476      28696E74 
+ 18476      2900
+ 18477 000e 0000     		.text
+ 18478              	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 spi.cpp
+     /tmp/ccBxwMe6.s:17896  .rodata:00000000 $d
+     /tmp/ccBxwMe6.s:17897  .rodata:00000000 .LC0
+     /tmp/ccBxwMe6.s:17900  .rodata:0000001c .LC1
+     /tmp/ccBxwMe6.s:17903  .text._ZN3SPIC2Ei:00000000 $t
+     /tmp/ccBxwMe6.s:17908  .text._ZN3SPIC2Ei:00000000 _ZN3SPIC2Ei
+     /tmp/ccBxwMe6.s:18475  .rodata._ZZN3SPIC1EiE19__PRETTY_FUNCTION__:00000000 _ZZN3SPIC1EiE19__PRETTY_FUNCTION__
+     /tmp/ccBxwMe6.s:17991  .text._ZN3SPIC2Ei:00000084 $d
+     /tmp/ccBxwMe6.s:18454  .rodata._ZTV3SPI:00000000 _ZTV3SPI
+     /tmp/ccBxwMe6.s:17908  .text._ZN3SPIC2Ei:00000000 _ZN3SPIC1Ei
+     /tmp/ccBxwMe6.s:17998  .text._ZN3SPID2Ev:00000000 $t
+     /tmp/ccBxwMe6.s:18003  .text._ZN3SPID2Ev:00000000 _ZN3SPID2Ev
+     /tmp/ccBxwMe6.s:18046  .text._ZN3SPID2Ev:00000030 $d
+     /tmp/ccBxwMe6.s:18003  .text._ZN3SPID2Ev:00000000 _ZN3SPID1Ev
+     /tmp/ccBxwMe6.s:18053  .text._ZN3SPID0Ev:00000000 $t
+     /tmp/ccBxwMe6.s:18058  .text._ZN3SPID0Ev:00000000 _ZN3SPID0Ev
+     /tmp/ccBxwMe6.s:18090  .text._ZN3SPI10initializeEv:00000000 $t
+     /tmp/ccBxwMe6.s:18095  .text._ZN3SPI10initializeEv:00000000 _ZN3SPI10initializeEv
+     /tmp/ccBxwMe6.s:18469  .rodata._ZZN3SPI10initializeEvE19__PRETTY_FUNCTION__:00000000 _ZZN3SPI10initializeEvE19__PRETTY_FUNCTION__
+     /tmp/ccBxwMe6.s:18193  .text._ZN3SPI6enableEv:00000000 $t
+     /tmp/ccBxwMe6.s:18198  .text._ZN3SPI6enableEv:00000000 _ZN3SPI6enableEv
+     /tmp/ccBxwMe6.s:18230  .text._ZN3SPI7disableEv:00000000 $t
+     /tmp/ccBxwMe6.s:18235  .text._ZN3SPI7disableEv:00000000 _ZN3SPI7disableEv
+     /tmp/ccBxwMe6.s:18267  .text._ZN3SPI17resetStateMachineEv:00000000 $t
+     /tmp/ccBxwMe6.s:18272  .text._ZN3SPI17resetStateMachineEv:00000000 _ZN3SPI17resetStateMachineEv
+     /tmp/ccBxwMe6.s:18304  .rodata:00000024 .LC2
+     /tmp/ccBxwMe6.s:18307  .text._ZN3SPI13getFlagStatusEt:00000000 $t
+     /tmp/ccBxwMe6.s:18312  .text._ZN3SPI13getFlagStatusEt:00000000 _ZN3SPI13getFlagStatusEt
+     /tmp/ccBxwMe6.s:18463  .rodata._ZZN3SPI13getFlagStatusEtE19__PRETTY_FUNCTION__:00000000 _ZZN3SPI13getFlagStatusEtE19__PRETTY_FUNCTION__
+     /tmp/ccBxwMe6.s:18371  .text._ZN3SPI8sendByteEh:00000000 $t
+     /tmp/ccBxwMe6.s:18376  .text._ZN3SPI8sendByteEh:00000000 _ZN3SPI8sendByteEh
+     /tmp/ccBxwMe6.s:18451  .rodata._ZTV3SPI:00000000 $d
+     /tmp/ccBxwMe6.s:18460  .rodata._ZZN3SPI13getFlagStatusEtE19__PRETTY_FUNCTION__:00000000 $d
+     /tmp/ccBxwMe6.s:18466  .rodata._ZZN3SPI10initializeEvE19__PRETTY_FUNCTION__:00000000 $d
+     /tmp/ccBxwMe6.s:18472  .rodata._ZZN3SPIC1EiE19__PRETTY_FUNCTION__:00000000 $d
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+__assert_func
+_ZdlPv
+RCC_APB2PeriphClockCmd
+GPIO_Init
+SPI_Cmd
+SPI_I2S_DeInit
+SPI_I2S_GetFlagStatus
+SPI_I2S_SendData
+SPI_I2S_ReceiveData

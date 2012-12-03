@@ -1,0 +1,19 @@
+/**
+ * @page meshsimsettings Mesh Simulator settings for DeSeNet
+ *
+ * In order to be able to start the simulation using the mesh simulator, the simulator has to be configured to use the right settings for the DeSEm project clients.
+ *
+ * Setup the following parameters for the network (right panel in Mesh Simulator):
+ *
+ * - Maximal Transfer Unit : 32
+ * - Address Length : 4
+ * - Destination Address Offset : 1
+ * - Source Address Offset : 1
+ * - TCP Server Enabled : checked
+ * - TCP Server Port : 8844
+ * - TCP Server Plug'n'Place : checked
+ * - TCP Server Name is ID : checked
+ * - Frames acknowledged : checked
+ *
+ * The other parameters do have the right default values for our usage.
+ */

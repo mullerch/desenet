@@ -1,0 +1,138 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"vectors.cpp"
+  23              	.Ltext0:
+  24              		.file 1 "../target/stm32/vectors.cpp"
+ 656              		.align	2
+ 659              	myvectors:
+ 660 0000 00000000 		.word	_stack
+ 661 0004 00000000 		.word	_Z12resetHandlerv
+ 662 0008 00000000 		.word	_Z11nmi_handlerv
+ 663 000c 00000000 		.word	_Z17hardfault_handlerv
+ 664 0010 00000000 		.word	_Z18MemManageExceptionv
+ 665 0014 00000000 		.word	_Z17BusFaultExceptionv
+ 666 0018 00000000 		.word	_Z19UsageFaultExceptionv
+ 667 001c 00000000 		.word	0
+ 668 0020 00000000 		.word	0
+ 669 0024 00000000 		.word	0
+ 670 0028 00000000 		.word	0
+ 671 002c 00000000 		.word	_Z10SVCHandlerv
+ 672 0030 00000000 		.word	_Z12DebugMonitorv
+ 673 0034 00000000 		.word	0
+ 674 0038 00000000 		.word	_Z7PendSVCv
+ 675 003c 00000000 		.word	_Z14SysTickHandlerv
+ 676 0040 00000000 		.word	_Z15WWDG_IRQHandlerv
+ 677 0044 00000000 		.word	_Z14PVD_IRQHandlerv
+ 678 0048 00000000 		.word	_Z17TAMPER_IRQHandlerv
+ 679 004c 00000000 		.word	_Z14RTC_IRQHandlerv
+ 680 0050 00000000 		.word	_Z16FLASH_IRQHandlerv
+ 681 0054 00000000 		.word	_Z14RCC_IRQHandlerv
+ 682 0058 00000000 		.word	_Z16EXTI0_IRQHandlerv
+ 683 005c 00000000 		.word	_Z16EXTI1_IRQHandlerv
+ 684 0060 00000000 		.word	_Z16EXTI2_IRQHandlerv
+ 685 0064 00000000 		.word	_Z16EXTI3_IRQHandlerv
+ 686 0068 00000000 		.word	_Z16EXTI4_IRQHandlerv
+ 687 006c 00000000 		.word	_Z22DMAChannel1_IRQHandlerv
+ 688 0070 00000000 		.word	_Z22DMAChannel2_IRQHandlerv
+ 689 0074 00000000 		.word	_Z22DMAChannel3_IRQHandlerv
+ 690 0078 00000000 		.word	_Z22DMAChannel4_IRQHandlerv
+ 691 007c 00000000 		.word	_Z22DMAChannel5_IRQHandlerv
+ 692 0080 00000000 		.word	_Z22DMAChannel6_IRQHandlerv
+ 693 0084 00000000 		.word	_Z22DMAChannel7_IRQHandlerv
+ 694 0088 00000000 		.word	_Z14ADC_IRQHandlerv
+ 695 008c 00000000 		.word	_Z24USB_HP_CAN_TX_IRQHandlerv
+ 696 0090 00000000 		.word	_Z25USB_LP_CAN_RX0_IRQHandlerv
+ 697 0094 00000000 		.word	_Z18CAN_RX1_IRQHandlerv
+ 698 0098 00000000 		.word	_Z18CAN_SCE_IRQHandlerv
+ 699 009c 00000000 		.word	_Z18EXTI9_5_IRQHandlerv
+ 700 00a0 00000000 		.word	_Z19TIM1_BRK_IRQHandlerv
+ 701 00a4 00000000 		.word	_Z18TIM1_UP_IRQHandlerv
+ 702 00a8 00000000 		.word	_Z24TIM1_TRG_CCUP_IRQHandlerv
+ 703 00ac 00000000 		.word	_Z18TIM1_CC_IRQHandlerv
+ 704 00b0 00000000 		.word	_Z15TIM2_IRQHandlerv
+ 705 00b4 00000000 		.word	_Z15TIM3_IRQHandlerv
+ 706 00b8 00000000 		.word	_Z15TIM4_IRQHandlerv
+ 707 00bc 00000000 		.word	_Z18I2C1_EV_IRQHandlerv
+ 708 00c0 00000000 		.word	_Z18I2C1_ER_IRQHandlerv
+ 709 00c4 00000000 		.word	_Z18I2C2_EV_IRQHandlerv
+ 710 00c8 00000000 		.word	_Z18I2C2_ER_IRQHandlerv
+ 711 00cc 00000000 		.word	_Z15SPI1_IRQHandlerv
+ 712 00d0 00000000 		.word	_Z15SPI2_IRQHandlerv
+ 713 00d4 00000000 		.word	_Z17USART1_IRQHandlerv
+ 714 00d8 00000000 		.word	_Z17USART2_IRQHandlerv
+ 715 00dc 00000000 		.word	_Z17USART3_IRQHandlerv
+ 716 00e0 00000000 		.word	_Z20EXTI15_10_IRQHandlerv
+ 717 00e4 00000000 		.word	_Z19RTCAlarm_IRQHandlerv
+ 718 00e8 00000000 		.word	_Z20USBWakeUp_IRQHandlerv
+ 719              		.text
+ 720              	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 vectors.cpp
+     /tmp/cc80kvzS.s:659    vectors:00000000 myvectors
+     /tmp/cc80kvzS.s:656    vectors:00000000 $d
+
+UNDEFINED SYMBOLS
+_stack
+_Z12resetHandlerv
+_Z11nmi_handlerv
+_Z17hardfault_handlerv
+_Z18MemManageExceptionv
+_Z17BusFaultExceptionv
+_Z19UsageFaultExceptionv
+_Z10SVCHandlerv
+_Z12DebugMonitorv
+_Z7PendSVCv
+_Z14SysTickHandlerv
+_Z15WWDG_IRQHandlerv
+_Z14PVD_IRQHandlerv
+_Z17TAMPER_IRQHandlerv
+_Z14RTC_IRQHandlerv
+_Z16FLASH_IRQHandlerv
+_Z14RCC_IRQHandlerv
+_Z16EXTI0_IRQHandlerv
+_Z16EXTI1_IRQHandlerv
+_Z16EXTI2_IRQHandlerv
+_Z16EXTI3_IRQHandlerv
+_Z16EXTI4_IRQHandlerv
+_Z22DMAChannel1_IRQHandlerv
+_Z22DMAChannel2_IRQHandlerv
+_Z22DMAChannel3_IRQHandlerv
+_Z22DMAChannel4_IRQHandlerv
+_Z22DMAChannel5_IRQHandlerv
+_Z22DMAChannel6_IRQHandlerv
+_Z22DMAChannel7_IRQHandlerv
+_Z14ADC_IRQHandlerv
+_Z24USB_HP_CAN_TX_IRQHandlerv
+_Z25USB_LP_CAN_RX0_IRQHandlerv
+_Z18CAN_RX1_IRQHandlerv
+_Z18CAN_SCE_IRQHandlerv
+_Z18EXTI9_5_IRQHandlerv
+_Z19TIM1_BRK_IRQHandlerv
+_Z18TIM1_UP_IRQHandlerv
+_Z24TIM1_TRG_CCUP_IRQHandlerv
+_Z18TIM1_CC_IRQHandlerv
+_Z15TIM2_IRQHandlerv
+_Z15TIM3_IRQHandlerv
+_Z15TIM4_IRQHandlerv
+_Z18I2C1_EV_IRQHandlerv
+_Z18I2C1_ER_IRQHandlerv
+_Z18I2C2_EV_IRQHandlerv
+_Z18I2C2_ER_IRQHandlerv
+_Z15SPI1_IRQHandlerv
+_Z15SPI2_IRQHandlerv
+_Z17USART1_IRQHandlerv
+_Z17USART2_IRQHandlerv
+_Z17USART3_IRQHandlerv
+_Z20EXTI15_10_IRQHandlerv
+_Z19RTCAlarm_IRQHandlerv
+_Z20USBWakeUp_IRQHandlerv

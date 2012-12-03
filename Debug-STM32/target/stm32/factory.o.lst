@@ -1,0 +1,2862 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"factory.cpp"
+  23              	.Ltext0:
+  24              		.file 1 "../target/stm32/factory.cpp"
+ 20104              		.align	2
+ 20105              		.thumb
+ 20106              		.thumb_func
+ 20108              	_ZL20__gthread_key_deletei:
+ 20109              	.LFB569:
+   1:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Threads compatibility routines for libgcc2 and libobjc.  */
+   2:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Compile this one with gcc.  */
+   3:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Copyright (C) 1997, 1999, 2000, 2004, 2008, 2009
+   4:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****    Free Software Foundation, Inc.
+   5:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+   6:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** This file is part of GCC.
+   7:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+   8:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** GCC is free software; you can redistribute it and/or modify it under
+   9:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** the terms of the GNU General Public License as published by the Free
+  10:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** Software Foundation; either version 3, or (at your option) any later
+  11:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** version.
+  12:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  13:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** GCC is distributed in the hope that it will be useful, but WITHOUT ANY
+  14:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** WARRANTY; without even the implied warranty of MERCHANTABILITY or
+  15:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+  16:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** for more details.
+  17:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  18:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** Under Section 7 of GPL version 3, you are granted additional
+  19:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** permissions described in the GCC Runtime Library Exception, version
+  20:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 3.1, as published by the Free Software Foundation.
+  21:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  22:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** You should have received a copy of the GNU General Public License and
+  23:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** a copy of the GCC Runtime Library Exception along with this program;
+  24:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
+  25:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** <http://www.gnu.org/licenses/>.  */
+  26:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  27:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** #ifndef _GLIBCXX_GCC_GTHR_SINGLE_H
+  28:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** #define _GLIBCXX_GCC_GTHR_SINGLE_H
+  29:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  30:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Just provide compatibility for mutex handling.  */
+  31:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  32:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** typedef int __gthread_key_t;
+  33:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** typedef int __gthread_once_t;
+  34:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** typedef int __gthread_mutex_t;
+  35:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** typedef int __gthread_recursive_mutex_t;
+  36:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  37:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** #define __GTHREAD_ONCE_INIT 0
+  38:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** #define __GTHREAD_MUTEX_INIT 0
+  39:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** #define __GTHREAD_RECURSIVE_MUTEX_INIT 0
+  40:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  41:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** #define _GLIBCXX_UNUSED __attribute__((unused))
+  42:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  43:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** #ifdef _LIBOBJC
+  44:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  45:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Thread local storage for a single thread */
+  46:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static void *thread_local_storage = NULL;
+  47:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  48:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Backend initialization functions */
+  49:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  50:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Initialize the threads subsystem.  */
+  51:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+  52:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_init_thread_system (void)
+  53:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+  54:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   /* No thread support available */
+  55:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return -1;
+  56:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+  57:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  58:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Close the threads subsystem.  */
+  59:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+  60:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_close_thread_system (void)
+  61:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+  62:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   /* No thread support available */
+  63:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return -1;
+  64:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+  65:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  66:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Backend thread functions */
+  67:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  68:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Create a new thread of execution.  */
+  69:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline objc_thread_t
+  70:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_thread_detach (void (* func)(void *), void * arg _GLIBCXX_UNUSED)
+  71:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+  72:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   /* No thread support available */
+  73:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return NULL;
+  74:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+  75:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  76:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Set the current thread's priority.  */
+  77:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+  78:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_thread_set_priority (int priority _GLIBCXX_UNUSED)
+  79:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+  80:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   /* No thread support available */
+  81:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return -1;
+  82:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+  83:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  84:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Return the current thread's priority.  */
+  85:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+  86:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_thread_get_priority (void)
+  87:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+  88:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return OBJC_THREAD_INTERACTIVE_PRIORITY;
+  89:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+  90:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  91:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Yield our process time to another thread.  */
+  92:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline void
+  93:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_thread_yield (void)
+  94:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+  95:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return;
+  96:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+  97:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  98:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Terminate the current thread.  */
+  99:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+ 100:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_thread_exit (void)
+ 101:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 102:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   /* No thread support available */
+ 103:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   /* Should we really exit the program */
+ 104:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   /* exit (&__objc_thread_exit_status); */
+ 105:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return -1;
+ 106:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 107:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 108:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Returns an integer value which uniquely describes a thread.  */
+ 109:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline objc_thread_t
+ 110:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_thread_id (void)
+ 111:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 112:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   /* No thread support, use 1.  */
+ 113:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return (objc_thread_t) 1;
+ 114:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 115:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 116:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Sets the thread's local storage pointer.  */
+ 117:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+ 118:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_thread_set_data (void *value)
+ 119:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 120:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   thread_local_storage = value;
+ 121:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return 0;
+ 122:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 123:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 124:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Returns the thread's local storage pointer.  */
+ 125:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline void *
+ 126:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_thread_get_data (void)
+ 127:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 128:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return thread_local_storage;
+ 129:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 130:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 131:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Backend mutex functions */
+ 132:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 133:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Allocate a mutex.  */
+ 134:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+ 135:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_mutex_allocate (objc_mutex_t mutex _GLIBCXX_UNUSED)
+ 136:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 137:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return 0;
+ 138:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 139:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 140:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Deallocate a mutex.  */
+ 141:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+ 142:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_mutex_deallocate (objc_mutex_t mutex _GLIBCXX_UNUSED)
+ 143:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 144:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return 0;
+ 145:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 146:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 147:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Grab a lock on a mutex.  */
+ 148:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+ 149:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_mutex_lock (objc_mutex_t mutex _GLIBCXX_UNUSED)
+ 150:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 151:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   /* There can only be one thread, so we always get the lock */
+ 152:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return 0;
+ 153:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 154:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 155:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Try to grab a lock on a mutex.  */
+ 156:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+ 157:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_mutex_trylock (objc_mutex_t mutex _GLIBCXX_UNUSED)
+ 158:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 159:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   /* There can only be one thread, so we always get the lock */
+ 160:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return 0;
+ 161:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 162:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 163:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Unlock the mutex */
+ 164:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+ 165:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_mutex_unlock (objc_mutex_t mutex _GLIBCXX_UNUSED)
+ 166:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 167:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return 0;
+ 168:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 169:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 170:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Backend condition mutex functions */
+ 171:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 172:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Allocate a condition.  */
+ 173:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+ 174:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_condition_allocate (objc_condition_t condition _GLIBCXX_UNUSED)
+ 175:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 176:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return 0;
+ 177:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 178:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 179:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Deallocate a condition.  */
+ 180:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+ 181:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_condition_deallocate (objc_condition_t condition _GLIBCXX_UNUSED)
+ 182:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 183:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return 0;
+ 184:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 185:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 186:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Wait on the condition */
+ 187:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+ 188:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_condition_wait (objc_condition_t condition _GLIBCXX_UNUSED,
+ 189:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 			       objc_mutex_t mutex _GLIBCXX_UNUSED)
+ 190:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 191:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return 0;
+ 192:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 193:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 194:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Wake up all threads waiting on this condition.  */
+ 195:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+ 196:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_condition_broadcast (objc_condition_t condition _GLIBCXX_UNUSED)
+ 197:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 198:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return 0;
+ 199:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 200:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 201:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Wake up one thread waiting on this condition.  */
+ 202:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+ 203:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_condition_signal (objc_condition_t condition _GLIBCXX_UNUSED)
+ 204:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 205:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return 0;
+ 206:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 207:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 208:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** #else /* _LIBOBJC */
+ 209:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 210:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+ 211:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_active_p (void)
+ 212:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 213:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return 0;
+ 214:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 215:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 216:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+ 217:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_once (__gthread_once_t *__once _GLIBCXX_UNUSED, void (*__func) (void) _GLIBCXX_UNUSED)
+ 218:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 219:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return 0;
+ 220:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 221:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 222:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int _GLIBCXX_UNUSED
+ 223:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_key_create (__gthread_key_t *__key _GLIBCXX_UNUSED, void (*__func) (void *) _GLIBCXX_UNUS
+ 224:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 225:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return 0;
+ 226:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 227:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 228:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static int _GLIBCXX_UNUSED
+ 229:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_key_delete (__gthread_key_t __key _GLIBCXX_UNUSED)
+ 230:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 20110              		.loc 91 230 0
+ 20111              		.cfi_startproc
+ 20112              		@ args = 0, pretend = 0, frame = 8
+ 20113              		@ frame_needed = 1, uses_anonymous_args = 0
+ 20114              		@ link register save eliminated.
+ 20115 0000 80B4     		push	{r7}
+ 20116              	.LCFI0:
+ 20117              		.cfi_def_cfa_offset 4
+ 20118 0002 83B0     		sub	sp, sp, #12
+ 20119              	.LCFI1:
+ 20120              		.cfi_def_cfa_offset 16
+ 20121 0004 00AF     		add	r7, sp, #0
+ 20122              		.cfi_offset 7, -4
+ 20123              	.LCFI2:
+ 20124              		.cfi_def_cfa_register 7
+ 20125 0006 7860     		str	r0, [r7, #4]
+ 231:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return 0;
+ 20126              		.loc 91 231 0
+ 20127 0008 4FF00003 		mov	r3, #0
+ 232:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 20128              		.loc 91 232 0
+ 20129 000c 1846     		mov	r0, r3
+ 20130 000e 07F10C07 		add	r7, r7, #12
+ 20131 0012 BD46     		mov	sp, r7
+ 20132 0014 80BC     		pop	{r7}
+ 20133 0016 7047     		bx	lr
+ 20134              		.cfi_endproc
+ 20135              	.LFE569:
+ 20137              		.section	.text._ZN4ILedaSENS_5StateE,"axG",%progbits,_ZN4ILedaSENS_5StateE,comdat
+ 20138              		.align	2
+ 20139              		.weak	_ZN4ILedaSENS_5StateE
+ 20140              		.thumb
+ 20141              		.thumb_func
+ 20143              	_ZN4ILedaSENS_5StateE:
+ 20144              	.LFB824:
+   1:/home/desem/workspace/desenet/interfaces/iled.h **** #pragma once
+   2:/home/desem/workspace/desenet/interfaces/iled.h **** 
+   3:/home/desem/workspace/desenet/interfaces/iled.h **** /**
+   4:/home/desem/workspace/desenet/interfaces/iled.h ****  * @ingroup interfaces
+   5:/home/desem/workspace/desenet/interfaces/iled.h ****  * @brief Interface for a single LED. Abstracts all operations possible (turn off, turn on, toggle)
+   6:/home/desem/workspace/desenet/interfaces/iled.h ****  * 		  with a simple interface.
+   7:/home/desem/workspace/desenet/interfaces/iled.h ****  */
+   8:/home/desem/workspace/desenet/interfaces/iled.h **** class ILed
+   9:/home/desem/workspace/desenet/interfaces/iled.h **** {
+  10:/home/desem/workspace/desenet/interfaces/iled.h **** public:
+  11:/home/desem/workspace/desenet/interfaces/iled.h **** 	/**
+  12:/home/desem/workspace/desenet/interfaces/iled.h **** 	 * @brief All possible and impossible states a LED can have.
+  13:/home/desem/workspace/desenet/interfaces/iled.h **** 	 */
+  14:/home/desem/workspace/desenet/interfaces/iled.h **** 	enum State
+  15:/home/desem/workspace/desenet/interfaces/iled.h **** 	{
+  16:/home/desem/workspace/desenet/interfaces/iled.h **** 		Invalid	=  0 ,	///< @brief Invalid LED state.
+  17:/home/desem/workspace/desenet/interfaces/iled.h **** 		Off 	= -1 ,	///< @brief The LED is off.
+  18:/home/desem/workspace/desenet/interfaces/iled.h **** 		On 		=  1	///< @brief The LED is on.
+  19:/home/desem/workspace/desenet/interfaces/iled.h **** 	};
+  20:/home/desem/workspace/desenet/interfaces/iled.h **** 
+  21:/home/desem/workspace/desenet/interfaces/iled.h **** protected:
+  22:/home/desem/workspace/desenet/interfaces/iled.h **** 	// It is just an interface, so constructor and destructor should be not public.
+  23:/home/desem/workspace/desenet/interfaces/iled.h **** 	explicit ILed() {}
+  24:/home/desem/workspace/desenet/interfaces/iled.h **** 	virtual ~ILed() {}
+  25:/home/desem/workspace/desenet/interfaces/iled.h **** 
+  26:/home/desem/workspace/desenet/interfaces/iled.h **** public:
+  27:/home/desem/workspace/desenet/interfaces/iled.h **** 	/**
+  28:/home/desem/workspace/desenet/interfaces/iled.h **** 	 * @brief Initializes all subsystems and the object itself needed for proper LED operation.
+  29:/home/desem/workspace/desenet/interfaces/iled.h **** 	 *
+  30:/home/desem/workspace/desenet/interfaces/iled.h **** 	 * @return True if the LED could be initialized and is ready to be used, false otherwise.
+  31:/home/desem/workspace/desenet/interfaces/iled.h **** 	 */
+  32:/home/desem/workspace/desenet/interfaces/iled.h **** 	virtual bool initialize() = 0;
+  33:/home/desem/workspace/desenet/interfaces/iled.h **** 
+  34:/home/desem/workspace/desenet/interfaces/iled.h **** 	/**
+  35:/home/desem/workspace/desenet/interfaces/iled.h **** 	 * @brief Returns the actual state of the LED.
+  36:/home/desem/workspace/desenet/interfaces/iled.h **** 	 *
+  37:/home/desem/workspace/desenet/interfaces/iled.h **** 	 * @return State of the LED.
+  38:/home/desem/workspace/desenet/interfaces/iled.h **** 	 */
+  39:/home/desem/workspace/desenet/interfaces/iled.h **** 	virtual State state() const = 0;
+  40:/home/desem/workspace/desenet/interfaces/iled.h **** 
+  41:/home/desem/workspace/desenet/interfaces/iled.h **** 	/**
+  42:/home/desem/workspace/desenet/interfaces/iled.h **** 	 * @brief Changes the actual state of the LED.
+  43:/home/desem/workspace/desenet/interfaces/iled.h **** 	 *
+  44:/home/desem/workspace/desenet/interfaces/iled.h **** 	 * @param state State to set for the LED.
+  45:/home/desem/workspace/desenet/interfaces/iled.h **** 	 */
+  46:/home/desem/workspace/desenet/interfaces/iled.h **** 	virtual void setState( State state ) = 0;
+  47:/home/desem/workspace/desenet/interfaces/iled.h **** 
+  48:/home/desem/workspace/desenet/interfaces/iled.h **** 	/**
+  49:/home/desem/workspace/desenet/interfaces/iled.h **** 	 * @brief Convenient method that makes myLed = ILed::On statements possible.
+  50:/home/desem/workspace/desenet/interfaces/iled.h **** 	 *
+  51:/home/desem/workspace/desenet/interfaces/iled.h **** 	 * @param state State to set for the LED.
+  52:/home/desem/workspace/desenet/interfaces/iled.h **** 	 * @return Reference to the ILed object.
+  53:/home/desem/workspace/desenet/interfaces/iled.h **** 	 */
+  54:/home/desem/workspace/desenet/interfaces/iled.h **** 	inline const ILed & operator=( State state )
+ 20145              		.loc 104 54 0
+ 20146              		.cfi_startproc
+ 20147              		@ args = 0, pretend = 0, frame = 8
+ 20148              		@ frame_needed = 1, uses_anonymous_args = 0
+ 20149 0000 80B5     		push	{r7, lr}
+ 20150              	.LCFI3:
+ 20151              		.cfi_def_cfa_offset 8
+ 20152 0002 82B0     		sub	sp, sp, #8
+ 20153              	.LCFI4:
+ 20154              		.cfi_def_cfa_offset 16
+ 20155 0004 00AF     		add	r7, sp, #0
+ 20156              		.cfi_offset 14, -4
+ 20157              		.cfi_offset 7, -8
+ 20158              	.LCFI5:
+ 20159              		.cfi_def_cfa_register 7
+ 20160 0006 7860     		str	r0, [r7, #4]
+ 20161 0008 0B46     		mov	r3, r1
+ 20162 000a FB70     		strb	r3, [r7, #3]
+  55:/home/desem/workspace/desenet/interfaces/iled.h **** 	{
+  56:/home/desem/workspace/desenet/interfaces/iled.h **** 		setState( state );
+ 20163              		.loc 104 56 0
+ 20164 000c 7B68     		ldr	r3, [r7, #4]
+ 20165 000e 1B68     		ldr	r3, [r3, #0]
+ 20166 0010 03F11003 		add	r3, r3, #16
+ 20167 0014 1B68     		ldr	r3, [r3, #0]
+ 20168 0016 97F90320 		ldrsb	r2, [r7, #3]
+ 20169 001a 7868     		ldr	r0, [r7, #4]
+ 20170 001c 1146     		mov	r1, r2
+ 20171 001e 9847     		blx	r3
+  57:/home/desem/workspace/desenet/interfaces/iled.h **** 		return *this;
+ 20172              		.loc 104 57 0
+ 20173 0020 7B68     		ldr	r3, [r7, #4]
+  58:/home/desem/workspace/desenet/interfaces/iled.h **** 	}
+ 20174              		.loc 104 58 0
+ 20175 0022 1846     		mov	r0, r3
+ 20176 0024 07F10807 		add	r7, r7, #8
+ 20177 0028 BD46     		mov	sp, r7
+ 20178 002a 80BD     		pop	{r7, pc}
+ 20179              		.cfi_endproc
+ 20180              	.LFE824:
+ 20182              		.section	.rodata
+ 20183              		.align	2
+ 20184              	.LC0:
+ 20185 0000 2F686F6D 		.ascii	"/home/desem/workspace/desenet/target/stm32/hal/uart"
+ 20185      652F6465 
+ 20185      73656D2F 
+ 20185      776F726B 
+ 20185      73706163 
+ 20186 0033 2E6800   		.ascii	".h\000"
+ 20187 0036 0000     		.align	2
+ 20188              	.LC1:
+ 20189 0038 75617274 		.ascii	"uartNbr >= 0 && uartNbr < UART_COUNT\000"
+ 20189      4E627220 
+ 20189      3E3D2030 
+ 20189      20262620 
+ 20189      75617274 
+ 20190              		.section	.text._ZN4Uart4uartEh,"axG",%progbits,_ZN4Uart4uartEh,comdat
+ 20191              		.align	2
+ 20192              		.weak	_ZN4Uart4uartEh
+ 20193              		.thumb
+ 20194              		.thumb_func
+ 20196              	_ZN4Uart4uartEh:
+ 20197              	.LFB827:
+   1:/home/desem/workspace/desenet/target/stm32/hal/uart.h **** #pragma once
+   2:/home/desem/workspace/desenet/target/stm32/hal/uart.h **** 
+   3:/home/desem/workspace/desenet/target/stm32/hal/uart.h **** 
+   4:/home/desem/workspace/desenet/target/stm32/hal/uart.h **** #include <stm32f10x.h>
+   5:/home/desem/workspace/desenet/target/stm32/hal/uart.h **** #include <assert.h>
+   6:/home/desem/workspace/desenet/target/stm32/hal/uart.h **** 
+   7:/home/desem/workspace/desenet/target/stm32/hal/uart.h **** 
+   8:/home/desem/workspace/desenet/target/stm32/hal/uart.h **** class Uart
+   9:/home/desem/workspace/desenet/target/stm32/hal/uart.h **** {
+  10:/home/desem/workspace/desenet/target/stm32/hal/uart.h **** 	friend class Factory;
+  11:/home/desem/workspace/desenet/target/stm32/hal/uart.h **** 
+  12:/home/desem/workspace/desenet/target/stm32/hal/uart.h **** public:
+  13:/home/desem/workspace/desenet/target/stm32/hal/uart.h **** 	Uart(const unsigned char uartNbr);
+  14:/home/desem/workspace/desenet/target/stm32/hal/uart.h **** 	virtual ~Uart();
+  15:/home/desem/workspace/desenet/target/stm32/hal/uart.h **** 
+  16:/home/desem/workspace/desenet/target/stm32/hal/uart.h **** 	bool initialize(const unsigned long baudRate);
+  17:/home/desem/workspace/desenet/target/stm32/hal/uart.h **** 
+  18:/home/desem/workspace/desenet/target/stm32/hal/uart.h **** 	bool enable();
+  19:/home/desem/workspace/desenet/target/stm32/hal/uart.h **** 	bool disable();
+  20:/home/desem/workspace/desenet/target/stm32/hal/uart.h **** 
+  21:/home/desem/workspace/desenet/target/stm32/hal/uart.h **** 	void write(const char * str, unsigned int length = 0);
+  22:/home/desem/workspace/desenet/target/stm32/hal/uart.h **** 	void onIsr();
+  23:/home/desem/workspace/desenet/target/stm32/hal/uart.h **** 
+  24:/home/desem/workspace/desenet/target/stm32/hal/uart.h **** 	/**
+  25:/home/desem/workspace/desenet/target/stm32/hal/uart.h **** 	 * Static accessor to the instances of UART. Used by the factory.
+  26:/home/desem/workspace/desenet/target/stm32/hal/uart.h **** 	 * You should not use this method directly. Use the factory to
+  27:/home/desem/workspace/desenet/target/stm32/hal/uart.h **** 	 * access an UART instead.
+  28:/home/desem/workspace/desenet/target/stm32/hal/uart.h **** 	 */
+  29:/home/desem/workspace/desenet/target/stm32/hal/uart.h **** 	static inline Uart & uart(const unsigned char uartNbr)
+ 20198              		.loc 106 29 0
+ 20199              		.cfi_startproc
+ 20200              		@ args = 0, pretend = 0, frame = 8
+ 20201              		@ frame_needed = 1, uses_anonymous_args = 0
+ 20202 0000 80B5     		push	{r7, lr}
+ 20203              	.LCFI6:
+ 20204              		.cfi_def_cfa_offset 8
+ 20205 0002 82B0     		sub	sp, sp, #8
+ 20206              	.LCFI7:
+ 20207              		.cfi_def_cfa_offset 16
+ 20208 0004 00AF     		add	r7, sp, #0
+ 20209              		.cfi_offset 14, -4
+ 20210              		.cfi_offset 7, -8
+ 20211              	.LCFI8:
+ 20212              		.cfi_def_cfa_register 7
+ 20213 0006 0346     		mov	r3, r0
+ 20214 0008 FB71     		strb	r3, [r7, #7]
+ 20215              	.LBB2:
+  30:/home/desem/workspace/desenet/target/stm32/hal/uart.h **** 	{
+  31:/home/desem/workspace/desenet/target/stm32/hal/uart.h **** 		assert(uartNbr >= 0 && uartNbr < UART_COUNT);
+ 20216              		.loc 106 31 0
+ 20217 000a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 20218 000c 022B     		cmp	r3, #2
+ 20219 000e 0FD9     		bls	.L4
+ 20220              		.loc 106 31 0 is_stmt 0 discriminator 1
+ 20221 0010 40F20000 		movw	r0, #:lower16:.LC0
+ 20222 0014 C0F20000 		movt	r0, #:upper16:.LC0
+ 20223 0018 4FF01F01 		mov	r1, #31
+ 20224 001c 40F20002 		movw	r2, #:lower16:_ZZN4Uart4uartEhE19__PRETTY_FUNCTION__
+ 20225 0020 C0F20002 		movt	r2, #:upper16:_ZZN4Uart4uartEhE19__PRETTY_FUNCTION__
+ 20226 0024 40F20003 		movw	r3, #:lower16:.LC1
+ 20227 0028 C0F20003 		movt	r3, #:upper16:.LC1
+ 20228 002c FFF7FEFF 		bl	__assert_func
+ 20229              	.L4:
+  32:/home/desem/workspace/desenet/target/stm32/hal/uart.h **** 		return *_sUart[uartNbr];
+ 20230              		.loc 106 32 0 is_stmt 1
+ 20231 0030 FA79     		ldrb	r2, [r7, #7]	@ zero_extendqisi2
+ 20232 0032 40F20003 		movw	r3, #:lower16:_ZN4Uart6_sUartE
+ 20233 0036 C0F20003 		movt	r3, #:upper16:_ZN4Uart6_sUartE
+ 20234 003a 53F82230 		ldr	r3, [r3, r2, lsl #2]
+ 20235              	.LBE2:
+  33:/home/desem/workspace/desenet/target/stm32/hal/uart.h **** 	}
+ 20236              		.loc 106 33 0
+ 20237 003e 1846     		mov	r0, r3
+ 20238 0040 07F10807 		add	r7, r7, #8
+ 20239 0044 BD46     		mov	sp, r7
+ 20240 0046 80BD     		pop	{r7, pc}
+ 20241              		.cfi_endproc
+ 20242              	.LFE827:
+ 20244              		.section	.text._ZNK8IXFEvent12getEventTypeEv,"axG",%progbits,_ZNK8IXFEvent12getEventTypeEv,comdat
+ 20245              		.align	2
+ 20246              		.weak	_ZNK8IXFEvent12getEventTypeEv
+ 20247              		.thumb
+ 20248              		.thumb_func
+ 20250              	_ZNK8IXFEvent12getEventTypeEv:
+ 20251              	.LFB836:
+   1:/home/desem/workspace/desenet/xf/ixfevent.h **** #ifndef IXFEVENT_H
+   2:/home/desem/workspace/desenet/xf/ixfevent.h **** #define IXFEVENT_H
+   3:/home/desem/workspace/desenet/xf/ixfevent.h **** 
+   4:/home/desem/workspace/desenet/xf/ixfevent.h **** 
+   5:/home/desem/workspace/desenet/xf/ixfevent.h **** class IXFReactive;
+   6:/home/desem/workspace/desenet/xf/ixfevent.h **** 
+   7:/home/desem/workspace/desenet/xf/ixfevent.h **** 
+   8:/home/desem/workspace/desenet/xf/ixfevent.h **** /**
+   9:/home/desem/workspace/desenet/xf/ixfevent.h ****  * @ingroup xf
+  10:/home/desem/workspace/desenet/xf/ixfevent.h ****  * Interface for an event. The abstract methods defined in this interface
+  11:/home/desem/workspace/desenet/xf/ixfevent.h ****  * need to be reimplemented in its derived classes. These methods are
+  12:/home/desem/workspace/desenet/xf/ixfevent.h ****  * used by other classes in the framework (ex. XFThread, XFReactive).
+  13:/home/desem/workspace/desenet/xf/ixfevent.h ****  *
+  14:/home/desem/workspace/desenet/xf/ixfevent.h ****  * Requirements:
+  15:/home/desem/workspace/desenet/xf/ixfevent.h ****  * - Needs to hold a property which allows to distinguish between different
+  16:/home/desem/workspace/desenet/xf/ixfevent.h ****  *   types of events.
+  17:/home/desem/workspace/desenet/xf/ixfevent.h ****  * - Use an enumeration to define the type for the type property.
+  18:/home/desem/workspace/desenet/xf/ixfevent.h ****  * - The type property needs to be set at initialization time and cannot be
+  19:/home/desem/workspace/desenet/xf/ixfevent.h ****  *   changed afterwards.
+  20:/home/desem/workspace/desenet/xf/ixfevent.h ****  */
+  21:/home/desem/workspace/desenet/xf/ixfevent.h **** class IXFEvent
+  22:/home/desem/workspace/desenet/xf/ixfevent.h **** {
+  23:/home/desem/workspace/desenet/xf/ixfevent.h **** public:
+  24:/home/desem/workspace/desenet/xf/ixfevent.h **** 	/**
+  25:/home/desem/workspace/desenet/xf/ixfevent.h **** 	 * Defines the types of events
+  26:/home/desem/workspace/desenet/xf/ixfevent.h **** 	 */
+  27:/home/desem/workspace/desenet/xf/ixfevent.h **** 	typedef enum
+  28:/home/desem/workspace/desenet/xf/ixfevent.h **** 	{
+  29:/home/desem/workspace/desenet/xf/ixfevent.h **** 		Unknown			= 0,		///< Unknown state (not initialized)
+  30:/home/desem/workspace/desenet/xf/ixfevent.h **** 		Initial			= 1,		///< Initial pseudo-state
+  31:/home/desem/workspace/desenet/xf/ixfevent.h **** 		NullTransition	= 2,		///< Event generated by the state machine to define a null transition
+  32:/home/desem/workspace/desenet/xf/ixfevent.h **** 		Event			= 3,		///< Normal event
+  33:/home/desem/workspace/desenet/xf/ixfevent.h **** 		Timeout			= 4,		///< Defines a timeout event.
+  34:/home/desem/workspace/desenet/xf/ixfevent.h **** 		Terminate		= -1		///< Defines a terminate state. Will end the state machine.
+  35:/home/desem/workspace/desenet/xf/ixfevent.h **** 	} eEventType;
+  36:/home/desem/workspace/desenet/xf/ixfevent.h **** 
+  37:/home/desem/workspace/desenet/xf/ixfevent.h **** public :
+  38:/home/desem/workspace/desenet/xf/ixfevent.h **** 	/**
+  39:/home/desem/workspace/desenet/xf/ixfevent.h **** 	 * Default class constructor
+  40:/home/desem/workspace/desenet/xf/ixfevent.h **** 	 */
+  41:/home/desem/workspace/desenet/xf/ixfevent.h **** 	IXFEvent(eEventType eventType, int id, IXFReactive * pBehavior) : _eventType(eventType), _id(id), 
+  42:/home/desem/workspace/desenet/xf/ixfevent.h **** 	virtual ~IXFEvent() {}		///< Class destructor
+  43:/home/desem/workspace/desenet/xf/ixfevent.h **** 
+  44:/home/desem/workspace/desenet/xf/ixfevent.h **** 	/** \brief Returns the type of the event.
+  45:/home/desem/workspace/desenet/xf/ixfevent.h **** 	 *
+  46:/home/desem/workspace/desenet/xf/ixfevent.h **** 	 * Can be used to distinguish between an event or a timeout.
+  47:/home/desem/workspace/desenet/xf/ixfevent.h **** 	 */
+  48:/home/desem/workspace/desenet/xf/ixfevent.h **** 	inline eEventType getEventType() const { return _eventType; }
+ 20252              		.loc 114 48 0
+ 20253              		.cfi_startproc
+ 20254              		@ args = 0, pretend = 0, frame = 8
+ 20255              		@ frame_needed = 1, uses_anonymous_args = 0
+ 20256              		@ link register save eliminated.
+ 20257 0000 80B4     		push	{r7}
+ 20258              	.LCFI9:
+ 20259              		.cfi_def_cfa_offset 4
+ 20260 0002 83B0     		sub	sp, sp, #12
+ 20261              	.LCFI10:
+ 20262              		.cfi_def_cfa_offset 16
+ 20263 0004 00AF     		add	r7, sp, #0
+ 20264              		.cfi_offset 7, -4
+ 20265              	.LCFI11:
+ 20266              		.cfi_def_cfa_register 7
+ 20267 0006 7860     		str	r0, [r7, #4]
+ 20268              		.loc 114 48 0
+ 20269 0008 7B68     		ldr	r3, [r7, #4]
+ 20270 000a 1B79     		ldrb	r3, [r3, #4]	@ zero_extendqisi2
+ 20271 000c 5BB2     		sxtb	r3, r3
+ 20272 000e 1846     		mov	r0, r3
+ 20273 0010 07F10C07 		add	r7, r7, #12
+ 20274 0014 BD46     		mov	sp, r7
+ 20275 0016 80BC     		pop	{r7}
+ 20276 0018 7047     		bx	lr
+ 20277              		.cfi_endproc
+ 20278              	.LFE836:
+ 20280 001a 00BF     		.section	.text._ZNK8IXFEvent5getIdEv,"axG",%progbits,_ZNK8IXFEvent5getIdEv,comdat
+ 20281              		.align	2
+ 20282              		.weak	_ZNK8IXFEvent5getIdEv
+ 20283              		.thumb
+ 20284              		.thumb_func
+ 20286              	_ZNK8IXFEvent5getIdEv:
+ 20287              	.LFB839:
+  49:/home/desem/workspace/desenet/xf/ixfevent.h **** 
+  50:/home/desem/workspace/desenet/xf/ixfevent.h **** 	/** \brief Returns pointer to behavioral class.
+  51:/home/desem/workspace/desenet/xf/ixfevent.h **** 	 *
+  52:/home/desem/workspace/desenet/xf/ixfevent.h **** 	 * Returns a pointer to the behavioral class processing the event (see #_pBehavior).
+  53:/home/desem/workspace/desenet/xf/ixfevent.h **** 	 */
+  54:/home/desem/workspace/desenet/xf/ixfevent.h **** 	inline IXFReactive * getBehavior() const { return _pBehavior; }
+  55:/home/desem/workspace/desenet/xf/ixfevent.h **** 
+  56:/home/desem/workspace/desenet/xf/ixfevent.h **** 	/** \brief Sets pointer to behavioral class (see #_pBehavior).
+  57:/home/desem/workspace/desenet/xf/ixfevent.h **** 	 * Sets the behavior in which the event should be executed.
+  58:/home/desem/workspace/desenet/xf/ixfevent.h **** 	 */
+  59:/home/desem/workspace/desenet/xf/ixfevent.h **** 	inline void setBehavior(IXFReactive * pBehavior) { _pBehavior = pBehavior; }
+  60:/home/desem/workspace/desenet/xf/ixfevent.h **** 
+  61:/home/desem/workspace/desenet/xf/ixfevent.h **** 	inline int getId() const { return _id; }		///< Returns #_id identifying the event in the behaviors
+ 20288              		.loc 114 61 0
+ 20289              		.cfi_startproc
+ 20290              		@ args = 0, pretend = 0, frame = 8
+ 20291              		@ frame_needed = 1, uses_anonymous_args = 0
+ 20292              		@ link register save eliminated.
+ 20293 0000 80B4     		push	{r7}
+ 20294              	.LCFI12:
+ 20295              		.cfi_def_cfa_offset 4
+ 20296 0002 83B0     		sub	sp, sp, #12
+ 20297              	.LCFI13:
+ 20298              		.cfi_def_cfa_offset 16
+ 20299 0004 00AF     		add	r7, sp, #0
+ 20300              		.cfi_offset 7, -4
+ 20301              	.LCFI14:
+ 20302              		.cfi_def_cfa_register 7
+ 20303 0006 7860     		str	r0, [r7, #4]
+ 20304              		.loc 114 61 0
+ 20305 0008 7B68     		ldr	r3, [r7, #4]
+ 20306 000a 9B68     		ldr	r3, [r3, #8]
+ 20307 000c 1846     		mov	r0, r3
+ 20308 000e 07F10C07 		add	r7, r7, #12
+ 20309 0012 BD46     		mov	sp, r7
+ 20310 0014 80BC     		pop	{r7}
+ 20311 0016 7047     		bx	lr
+ 20312              		.cfi_endproc
+ 20313              	.LFE839:
+ 20315              		.section	.text._ZN11EventStatusC2ENS_12eEventStatusE,"axG",%progbits,_ZN11EventStatusC5ENS_12eEven
+ 20316              		.align	2
+ 20317              		.weak	_ZN11EventStatusC2ENS_12eEventStatusE
+ 20318              		.thumb
+ 20319              		.thumb_func
+ 20321              	_ZN11EventStatusC2ENS_12eEventStatusE:
+ 20322              	.LFB1238:
+   1:/home/desem/workspace/desenet/xf/xfeventstatus.h **** #ifndef XFEVENTSTATUS_H
+   2:/home/desem/workspace/desenet/xf/xfeventstatus.h **** #define XFEVENTSTATUS_H
+   3:/home/desem/workspace/desenet/xf/xfeventstatus.h **** 
+   4:/home/desem/workspace/desenet/xf/xfeventstatus.h **** 
+   5:/home/desem/workspace/desenet/xf/xfeventstatus.h **** /**
+   6:/home/desem/workspace/desenet/xf/xfeventstatus.h ****  * @ingroup xf
+   7:/home/desem/workspace/desenet/xf/xfeventstatus.h ****  * The EventStatus is used after consumption of an event. It gives an
+   8:/home/desem/workspace/desenet/xf/xfeventstatus.h ****  * information on how the event was consument and how the framework should
+   9:/home/desem/workspace/desenet/xf/xfeventstatus.h ****  * react.
+  10:/home/desem/workspace/desenet/xf/xfeventstatus.h ****  */
+  11:/home/desem/workspace/desenet/xf/xfeventstatus.h **** class EventStatus
+  12:/home/desem/workspace/desenet/xf/xfeventstatus.h **** {
+  13:/home/desem/workspace/desenet/xf/xfeventstatus.h **** public:
+  14:/home/desem/workspace/desenet/xf/xfeventstatus.h **** 	/**
+  15:/home/desem/workspace/desenet/xf/xfeventstatus.h **** 	 * Status values about the event processed.
+  16:/home/desem/workspace/desenet/xf/xfeventstatus.h **** 	 *
+  17:/home/desem/workspace/desenet/xf/xfeventstatus.h **** 	 * \see XFReactive::process
+  18:/home/desem/workspace/desenet/xf/xfeventstatus.h **** 	 */
+  19:/home/desem/workspace/desenet/xf/xfeventstatus.h **** 	typedef enum
+  20:/home/desem/workspace/desenet/xf/xfeventstatus.h **** 	{
+  21:/home/desem/workspace/desenet/xf/xfeventstatus.h **** 		Unknown			= 0,
+  22:/home/desem/workspace/desenet/xf/xfeventstatus.h **** 		Consumed		= 0x0001,
+  23:/home/desem/workspace/desenet/xf/xfeventstatus.h **** 		NotConsumed		= 0x0002,
+  24:/home/desem/workspace/desenet/xf/xfeventstatus.h **** 		Terminate		= 0x0004
+  25:/home/desem/workspace/desenet/xf/xfeventstatus.h **** 	} eEventStatus;
+  26:/home/desem/workspace/desenet/xf/xfeventstatus.h **** 
+  27:/home/desem/workspace/desenet/xf/xfeventstatus.h **** 	/**
+  28:/home/desem/workspace/desenet/xf/xfeventstatus.h **** 	 * Constructor
+  29:/home/desem/workspace/desenet/xf/xfeventstatus.h **** 	 *
+  30:/home/desem/workspace/desenet/xf/xfeventstatus.h **** 	 * \param eventStatus Initial value of the event status.
+  31:/home/desem/workspace/desenet/xf/xfeventstatus.h **** 	 */
+  32:/home/desem/workspace/desenet/xf/xfeventstatus.h **** 	EventStatus(eEventStatus eventStatus = Unknown) : _status(eventStatus) {}
+ 20323              		.loc 125 32 0
+ 20324              		.cfi_startproc
+ 20325              		@ args = 0, pretend = 0, frame = 8
+ 20326              		@ frame_needed = 1, uses_anonymous_args = 0
+ 20327              		@ link register save eliminated.
+ 20328 0000 80B4     		push	{r7}
+ 20329              	.LCFI15:
+ 20330              		.cfi_def_cfa_offset 4
+ 20331 0002 83B0     		sub	sp, sp, #12
+ 20332              	.LCFI16:
+ 20333              		.cfi_def_cfa_offset 16
+ 20334 0004 00AF     		add	r7, sp, #0
+ 20335              		.cfi_offset 7, -4
+ 20336              	.LCFI17:
+ 20337              		.cfi_def_cfa_register 7
+ 20338 0006 7860     		str	r0, [r7, #4]
+ 20339 0008 0B46     		mov	r3, r1
+ 20340 000a FB70     		strb	r3, [r7, #3]
+ 20341              	.LBB3:
+ 20342              		.loc 125 32 0
+ 20343 000c 7B68     		ldr	r3, [r7, #4]
+ 20344 000e FA78     		ldrb	r2, [r7, #3]
+ 20345 0010 1A70     		strb	r2, [r3, #0]
+ 20346              	.LBE3:
+ 20347 0012 7B68     		ldr	r3, [r7, #4]
+ 20348 0014 1846     		mov	r0, r3
+ 20349 0016 07F10C07 		add	r7, r7, #12
+ 20350 001a BD46     		mov	sp, r7
+ 20351 001c 80BC     		pop	{r7}
+ 20352 001e 7047     		bx	lr
+ 20353              		.cfi_endproc
+ 20354              	.LFE1238:
+ 20356              		.weak	_ZN11EventStatusC1ENS_12eEventStatusE
+ 20357              		.thumb_set _ZN11EventStatusC1ENS_12eEventStatusE,_ZN11EventStatusC2ENS_12eEventStatusE
+ 20358              		.section	.text._ZN13IAir3TFactoryC2Ev,"axG",%progbits,_ZN13IAir3TFactoryC5Ev,comdat
+ 20359              		.align	2
+ 20360              		.weak	_ZN13IAir3TFactoryC2Ev
+ 20361              		.thumb
+ 20362              		.thumb_func
+ 20364              	_ZN13IAir3TFactoryC2Ev:
+ 20365              	.LFB1275:
+   1:/home/desem/workspace/desenet/interfaces/iair3tfactory.h **** #pragma once
+   2:/home/desem/workspace/desenet/interfaces/iair3tfactory.h **** class IPhyTransceiver;
+   3:/home/desem/workspace/desenet/interfaces/iair3tfactory.h **** class IMonochromeDisplay;
+   4:/home/desem/workspace/desenet/interfaces/iair3tfactory.h **** class IJoystick;
+   5:/home/desem/workspace/desenet/interfaces/iair3tfactory.h **** class ILed;
+   6:/home/desem/workspace/desenet/interfaces/iair3tfactory.h **** class IBuilder;
+   7:/home/desem/workspace/desenet/interfaces/iair3tfactory.h **** 
+   8:/home/desem/workspace/desenet/interfaces/iair3tfactory.h **** #ifndef NULL
+   9:/home/desem/workspace/desenet/interfaces/iair3tfactory.h **** #define NULL 0
+  10:/home/desem/workspace/desenet/interfaces/iair3tfactory.h **** #endif
+  11:/home/desem/workspace/desenet/interfaces/iair3tfactory.h **** 
+  12:/home/desem/workspace/desenet/interfaces/iair3tfactory.h **** /**
+  13:/home/desem/workspace/desenet/interfaces/iair3tfactory.h ****  * @defgroup interfaces Interfaces
+  14:/home/desem/workspace/desenet/interfaces/iair3tfactory.h ****  * @brief The interfaces package offers all needed interfaces to abstract the differences between t
+  15:/home/desem/workspace/desenet/interfaces/iair3tfactory.h ****  * 		  can run and offers a common way to use the different hardware components from a high-level p
+  16:/home/desem/workspace/desenet/interfaces/iair3tfactory.h ****  * @{
+  17:/home/desem/workspace/desenet/interfaces/iair3tfactory.h ****  *
+  18:/home/desem/workspace/desenet/interfaces/iair3tfactory.h ****  * @section interfcaces_cd Class Diagram
+  19:/home/desem/workspace/desenet/interfaces/iair3tfactory.h ****  * The following class diagram shows the relations between the different classes inside the Interfa
+  20:/home/desem/workspace/desenet/interfaces/iair3tfactory.h ****  * Interface package is used to have a common interface for the high-level software which does not 
+  21:/home/desem/workspace/desenet/interfaces/iair3tfactory.h ****  * actual target the software is runnung on.
+  22:/home/desem/workspace/desenet/interfaces/iair3tfactory.h ****  * @image html Interfaces.png
+  23:/home/desem/workspace/desenet/interfaces/iair3tfactory.h ****  *
+  24:/home/desem/workspace/desenet/interfaces/iair3tfactory.h ****  * IJoystick is used to controll the real hardware joystick on the Olimex development board or the 
+  25:/home/desem/workspace/desenet/interfaces/iair3tfactory.h ****  * on the simulated device. The IJoystickObserver interface enables to get notified about joystick 
+  26:/home/desem/workspace/desenet/interfaces/iair3tfactory.h ****  *
+  27:/home/desem/workspace/desenet/interfaces/iair3tfactory.h ****  * The IPhyTransceiver interface abstracts the used transceiver and enables the application to conf
+  28:/home/desem/workspace/desenet/interfaces/iair3tfactory.h ****  * send frames. The IPhyObserver interface allows again to get notified about PHY events which can 
+  29:/home/desem/workspace/desenet/interfaces/iair3tfactory.h ****  * frames or the status of sent frames.
+  30:/home/desem/workspace/desenet/interfaces/iair3tfactory.h ****  *
+  31:/home/desem/workspace/desenet/interfaces/iair3tfactory.h ****  * The ILed interface allows the control of the LED in a transparent manner for the real target and
+  32:/home/desem/workspace/desenet/interfaces/iair3tfactory.h ****  *
+  33:/home/desem/workspace/desenet/interfaces/iair3tfactory.h ****  * The IMonochromeDisplay interface abtracts monochrome LCD displays. The interface allows differen
+  34:/home/desem/workspace/desenet/interfaces/iair3tfactory.h ****  * their different accelerated drawing methods. The Point and Size classes inside the class are use
+  35:/home/desem/workspace/desenet/interfaces/iair3tfactory.h ****  * points and sizes of objects to draw.
+  36:/home/desem/workspace/desenet/interfaces/iair3tfactory.h ****  *
+  37:/home/desem/workspace/desenet/interfaces/iair3tfactory.h ****  * The IAir3TFactory is used to create the objects that implement the interfaces for the different 
+  38:/home/desem/workspace/desenet/interfaces/iair3tfactory.h ****  * platforms. The IBuilder interface initializes the objects and establishes the relations between 
+  39:/home/desem/workspace/desenet/interfaces/iair3tfactory.h ****  * the different platforms.
+  40:/home/desem/workspace/desenet/interfaces/iair3tfactory.h ****  */
+  41:/home/desem/workspace/desenet/interfaces/iair3tfactory.h **** 
+  42:/home/desem/workspace/desenet/interfaces/iair3tfactory.h **** 
+  43:/home/desem/workspace/desenet/interfaces/iair3tfactory.h **** /**
+  44:/home/desem/workspace/desenet/interfaces/iair3tfactory.h ****  * @brief This factory interface defines the interface used to instantiate target specific classes 
+  45:/home/desem/workspace/desenet/interfaces/iair3tfactory.h ****  * common interface (interfaces inside this folder) and to get the references to singleton objects 
+  46:/home/desem/workspace/desenet/interfaces/iair3tfactory.h ****  * common interface. This class has to be implemented on each target and is the only binding betwee
+  47:/home/desem/workspace/desenet/interfaces/iair3tfactory.h ****  * and the respective implementations on the different targets.
+  48:/home/desem/workspace/desenet/interfaces/iair3tfactory.h ****  */
+  49:/home/desem/workspace/desenet/interfaces/iair3tfactory.h **** class IAir3TFactory
+  50:/home/desem/workspace/desenet/interfaces/iair3tfactory.h **** {
+  51:/home/desem/workspace/desenet/interfaces/iair3tfactory.h **** protected:
+  52:/home/desem/workspace/desenet/interfaces/iair3tfactory.h **** 	// It is just an interface, so constructor and destructor should be not public.
+  53:/home/desem/workspace/desenet/interfaces/iair3tfactory.h **** 	explicit IAir3TFactory() {}
+ 20366              		.loc 138 53 0
+ 20367              		.cfi_startproc
+ 20368              		@ args = 0, pretend = 0, frame = 8
+ 20369              		@ frame_needed = 1, uses_anonymous_args = 0
+ 20370              		@ link register save eliminated.
+ 20371 0000 80B4     		push	{r7}
+ 20372              	.LCFI18:
+ 20373              		.cfi_def_cfa_offset 4
+ 20374 0002 83B0     		sub	sp, sp, #12
+ 20375              	.LCFI19:
+ 20376              		.cfi_def_cfa_offset 16
+ 20377 0004 00AF     		add	r7, sp, #0
+ 20378              		.cfi_offset 7, -4
+ 20379              	.LCFI20:
+ 20380              		.cfi_def_cfa_register 7
+ 20381 0006 7860     		str	r0, [r7, #4]
+ 20382              	.LBB4:
+ 20383              		.loc 138 53 0
+ 20384 0008 7B68     		ldr	r3, [r7, #4]
+ 20385 000a 044A     		ldr	r2, .L11
+ 20386 000c 1A60     		str	r2, [r3, #0]
+ 20387              	.LBE4:
+ 20388 000e 7B68     		ldr	r3, [r7, #4]
+ 20389 0010 1846     		mov	r0, r3
+ 20390 0012 07F10C07 		add	r7, r7, #12
+ 20391 0016 BD46     		mov	sp, r7
+ 20392 0018 80BC     		pop	{r7}
+ 20393 001a 7047     		bx	lr
+ 20394              	.L12:
+ 20395              		.align	2
+ 20396              	.L11:
+ 20397 001c 08000000 		.word	_ZTV13IAir3TFactory+8
+ 20398              		.cfi_endproc
+ 20399              	.LFE1275:
+ 20401              		.weak	_ZN13IAir3TFactoryC1Ev
+ 20402              		.thumb_set _ZN13IAir3TFactoryC1Ev,_ZN13IAir3TFactoryC2Ev
+ 20403              		.section	.text._ZN13IAir3TFactoryD2Ev,"axG",%progbits,_ZN13IAir3TFactoryD5Ev,comdat
+ 20404              		.align	2
+ 20405              		.weak	_ZN13IAir3TFactoryD2Ev
+ 20406              		.thumb
+ 20407              		.thumb_func
+ 20409              	_ZN13IAir3TFactoryD2Ev:
+ 20410              	.LFB1278:
+  54:/home/desem/workspace/desenet/interfaces/iair3tfactory.h **** 	virtual ~IAir3TFactory() {}
+ 20411              		.loc 138 54 0
+ 20412              		.cfi_startproc
+ 20413              		@ args = 0, pretend = 0, frame = 8
+ 20414              		@ frame_needed = 1, uses_anonymous_args = 0
+ 20415 0000 80B5     		push	{r7, lr}
+ 20416              	.LCFI21:
+ 20417              		.cfi_def_cfa_offset 8
+ 20418 0002 82B0     		sub	sp, sp, #8
+ 20419              	.LCFI22:
+ 20420              		.cfi_def_cfa_offset 16
+ 20421 0004 00AF     		add	r7, sp, #0
+ 20422              		.cfi_offset 14, -4
+ 20423              		.cfi_offset 7, -8
+ 20424              	.LCFI23:
+ 20425              		.cfi_def_cfa_register 7
+ 20426 0006 7860     		str	r0, [r7, #4]
+ 20427              	.LBB5:
+ 20428              		.loc 138 54 0
+ 20429 0008 7B68     		ldr	r3, [r7, #4]
+ 20430 000a 094A     		ldr	r2, .L16
+ 20431 000c 1A60     		str	r2, [r3, #0]
+ 20432              	.LBE5:
+ 20433 000e 4FF00003 		mov	r3, #0
+ 20434 0012 03F00103 		and	r3, r3, #1
+ 20435 0016 DBB2     		uxtb	r3, r3
+ 20436 0018 002B     		cmp	r3, #0
+ 20437 001a 02D0     		beq	.L15
+ 20438              		.loc 138 54 0 is_stmt 0 discriminator 1
+ 20439 001c 7868     		ldr	r0, [r7, #4]
+ 20440 001e FFF7FEFF 		bl	_ZdlPv
+ 20441              	.L15:
+ 20442              		.loc 138 54 0 discriminator 2
+ 20443 0022 7B68     		ldr	r3, [r7, #4]
+ 20444 0024 1846     		mov	r0, r3
+ 20445 0026 07F10807 		add	r7, r7, #8
+ 20446 002a BD46     		mov	sp, r7
+ 20447 002c 80BD     		pop	{r7, pc}
+ 20448              	.L17:
+ 20449 002e 00BF     		.align	2
+ 20450              	.L16:
+ 20451 0030 08000000 		.word	_ZTV13IAir3TFactory+8
+ 20452              		.cfi_endproc
+ 20453              	.LFE1278:
+ 20455              		.weak	_ZN13IAir3TFactoryD1Ev
+ 20456              		.thumb_set _ZN13IAir3TFactoryD1Ev,_ZN13IAir3TFactoryD2Ev
+ 20457              		.section	.text._ZN13IAir3TFactoryD0Ev,"axG",%progbits,_ZN13IAir3TFactoryD5Ev,comdat
+ 20458              		.align	2
+ 20459              		.weak	_ZN13IAir3TFactoryD0Ev
+ 20460              		.thumb
+ 20461              		.thumb_func
+ 20463              	_ZN13IAir3TFactoryD0Ev:
+ 20464              	.LFB1280:
+ 20465              		.loc 138 54 0 is_stmt 1
+ 20466              		.cfi_startproc
+ 20467              		@ args = 0, pretend = 0, frame = 8
+ 20468              		@ frame_needed = 1, uses_anonymous_args = 0
+ 20469 0000 80B5     		push	{r7, lr}
+ 20470              	.LCFI24:
+ 20471              		.cfi_def_cfa_offset 8
+ 20472 0002 82B0     		sub	sp, sp, #8
+ 20473              	.LCFI25:
+ 20474              		.cfi_def_cfa_offset 16
+ 20475 0004 00AF     		add	r7, sp, #0
+ 20476              		.cfi_offset 14, -4
+ 20477              		.cfi_offset 7, -8
+ 20478              	.LCFI26:
+ 20479              		.cfi_def_cfa_register 7
+ 20480 0006 7860     		str	r0, [r7, #4]
+ 20481              		.loc 138 54 0
+ 20482 0008 7868     		ldr	r0, [r7, #4]
+ 20483 000a FFF7FEFF 		bl	_ZN13IAir3TFactoryD1Ev
+ 20484 000e 7868     		ldr	r0, [r7, #4]
+ 20485 0010 FFF7FEFF 		bl	_ZdlPv
+ 20486 0014 7B68     		ldr	r3, [r7, #4]
+ 20487 0016 1846     		mov	r0, r3
+ 20488 0018 07F10807 		add	r7, r7, #8
+ 20489 001c BD46     		mov	sp, r7
+ 20490 001e 80BD     		pop	{r7, pc}
+ 20491              		.cfi_endproc
+ 20492              	.LFE1280:
+ 20494              		.section	.text._ZN10LEDBlinkerC2ER4ILed,"axG",%progbits,_ZN10LEDBlinkerC5ER4ILed,comdat
+ 20495              		.align	2
+ 20496              		.weak	_ZN10LEDBlinkerC2ER4ILed
+ 20497              		.thumb
+ 20498              		.thumb_func
+ 20500              	_ZN10LEDBlinkerC2ER4ILed:
+ 20501              	.LFB1282:
+   1:/home/desem/workspace/desenet/test/ledblinker.hpp **** #pragma once
+   2:/home/desem/workspace/desenet/test/ledblinker.hpp **** #include <xf/xfreactive.h>
+   3:/home/desem/workspace/desenet/test/ledblinker.hpp **** #include <ILed>
+   4:/home/desem/workspace/desenet/test/ledblinker.hpp **** 
+   5:/home/desem/workspace/desenet/test/ledblinker.hpp **** 
+   6:/home/desem/workspace/desenet/test/ledblinker.hpp **** /**
+   7:/home/desem/workspace/desenet/test/ledblinker.hpp ****  * @defgroup test Test
+   8:/home/desem/workspace/desenet/test/ledblinker.hpp ****  * Several test procedures for specific system compoents.
+   9:/home/desem/workspace/desenet/test/ledblinker.hpp ****  * @{
+  10:/home/desem/workspace/desenet/test/ledblinker.hpp ****  *
+  11:/home/desem/workspace/desenet/test/ledblinker.hpp ****  * @section test_cd Class Diagram
+  12:/home/desem/workspace/desenet/test/ledblinker.hpp ****  * The test class diagram:
+  13:/home/desem/workspace/desenet/test/ledblinker.hpp ****  * @image html Test.png
+  14:/home/desem/workspace/desenet/test/ledblinker.hpp ****  */
+  15:/home/desem/workspace/desenet/test/ledblinker.hpp **** 
+  16:/home/desem/workspace/desenet/test/ledblinker.hpp **** 
+  17:/home/desem/workspace/desenet/test/ledblinker.hpp **** /**
+  18:/home/desem/workspace/desenet/test/ledblinker.hpp ****  * This class can be used to test the eXecution Framework (XF). It uses the XF for event processin
+  19:/home/desem/workspace/desenet/test/ledblinker.hpp ****  * the led as the output.
+  20:/home/desem/workspace/desenet/test/ledblinker.hpp ****  */
+  21:/home/desem/workspace/desenet/test/ledblinker.hpp **** class LEDBlinker : public XFReactive
+  22:/home/desem/workspace/desenet/test/ledblinker.hpp **** {
+  23:/home/desem/workspace/desenet/test/ledblinker.hpp **** public:
+  24:/home/desem/workspace/desenet/test/ledblinker.hpp **** 	/**
+  25:/home/desem/workspace/desenet/test/ledblinker.hpp **** 	 * Creates the object and starts directly its behavior.
+  26:/home/desem/workspace/desenet/test/ledblinker.hpp **** 	 */
+  27:/home/desem/workspace/desenet/test/ledblinker.hpp **** 	LEDBlinker( ILed & ledController ) : _ledController( ledController )
+ 20502              		.loc 139 27 0
+ 20503              		.cfi_startproc
+ 20504              		@ args = 0, pretend = 0, frame = 8
+ 20505              		@ frame_needed = 1, uses_anonymous_args = 0
+ 20506 0000 80B5     		push	{r7, lr}
+ 20507              	.LCFI27:
+ 20508              		.cfi_def_cfa_offset 8
+ 20509 0002 82B0     		sub	sp, sp, #8
+ 20510              	.LCFI28:
+ 20511              		.cfi_def_cfa_offset 16
+ 20512 0004 00AF     		add	r7, sp, #0
+ 20513              		.cfi_offset 14, -4
+ 20514              		.cfi_offset 7, -8
+ 20515              	.LCFI29:
+ 20516              		.cfi_def_cfa_register 7
+ 20517 0006 7860     		str	r0, [r7, #4]
+ 20518 0008 3960     		str	r1, [r7, #0]
+ 20519              	.LBB6:
+ 20520              		.loc 139 27 0
+ 20521 000a 7B68     		ldr	r3, [r7, #4]
+ 20522 000c 1846     		mov	r0, r3
+ 20523 000e 4FF00001 		mov	r1, #0
+ 20524 0012 FFF7FEFF 		bl	_ZN10XFReactiveC2EP8XFThread
+ 20525 0016 7B68     		ldr	r3, [r7, #4]
+ 20526 0018 094A     		ldr	r2, .L22
+ 20527 001a 1A60     		str	r2, [r3, #0]
+ 20528 001c 7B68     		ldr	r3, [r7, #4]
+ 20529 001e 3A68     		ldr	r2, [r7, #0]
+ 20530 0020 1A61     		str	r2, [r3, #16]
+  28:/home/desem/workspace/desenet/test/ledblinker.hpp **** 	{
+  29:/home/desem/workspace/desenet/test/ledblinker.hpp **** 		_currentState = STATE_INITIAL;
+ 20531              		.loc 139 29 0
+ 20532 0022 7B68     		ldr	r3, [r7, #4]
+ 20533 0024 4FF00102 		mov	r2, #1
+ 20534 0028 1A73     		strb	r2, [r3, #12]
+  30:/home/desem/workspace/desenet/test/ledblinker.hpp **** 
+  31:/home/desem/workspace/desenet/test/ledblinker.hpp **** 		// Start state machine
+  32:/home/desem/workspace/desenet/test/ledblinker.hpp **** 		startBehavior();
+ 20535              		.loc 139 32 0
+ 20536 002a 7B68     		ldr	r3, [r7, #4]
+ 20537 002c 1846     		mov	r0, r3
+ 20538 002e FFF7FEFF 		bl	_ZN10XFReactive13startBehaviorEv
+ 20539              	.LBE6:
+  33:/home/desem/workspace/desenet/test/ledblinker.hpp **** 	}
+ 20540              		.loc 139 33 0
+ 20541 0032 7B68     		ldr	r3, [r7, #4]
+ 20542 0034 1846     		mov	r0, r3
+ 20543 0036 07F10807 		add	r7, r7, #8
+ 20544 003a BD46     		mov	sp, r7
+ 20545 003c 80BD     		pop	{r7, pc}
+ 20546              	.L23:
+ 20547 003e 00BF     		.align	2
+ 20548              	.L22:
+ 20549 0040 08000000 		.word	_ZTV10LEDBlinker+8
+ 20550              		.cfi_endproc
+ 20551              	.LFE1282:
+ 20553              		.weak	_ZN10LEDBlinkerC1ER4ILed
+ 20554              		.thumb_set _ZN10LEDBlinkerC1ER4ILed,_ZN10LEDBlinkerC2ER4ILed
+ 20555              		.section	.text._ZN10LEDBlinkerD2Ev,"axG",%progbits,_ZN10LEDBlinkerD5Ev,comdat
+ 20556              		.align	2
+ 20557              		.weak	_ZN10LEDBlinkerD2Ev
+ 20558              		.thumb
+ 20559              		.thumb_func
+ 20561              	_ZN10LEDBlinkerD2Ev:
+ 20562              	.LFB1285:
+  34:/home/desem/workspace/desenet/test/ledblinker.hpp **** 
+  35:/home/desem/workspace/desenet/test/ledblinker.hpp **** 	virtual ~LEDBlinker()
+ 20563              		.loc 139 35 0
+ 20564              		.cfi_startproc
+ 20565              		@ args = 0, pretend = 0, frame = 8
+ 20566              		@ frame_needed = 1, uses_anonymous_args = 0
+ 20567 0000 80B5     		push	{r7, lr}
+ 20568              	.LCFI30:
+ 20569              		.cfi_def_cfa_offset 8
+ 20570 0002 82B0     		sub	sp, sp, #8
+ 20571              	.LCFI31:
+ 20572              		.cfi_def_cfa_offset 16
+ 20573 0004 00AF     		add	r7, sp, #0
+ 20574              		.cfi_offset 14, -4
+ 20575              		.cfi_offset 7, -8
+ 20576              	.LCFI32:
+ 20577              		.cfi_def_cfa_register 7
+ 20578 0006 7860     		str	r0, [r7, #4]
+ 20579              	.LBB7:
+  36:/home/desem/workspace/desenet/test/ledblinker.hpp **** 	{}
+ 20580              		.loc 139 36 0
+ 20581 0008 7B68     		ldr	r3, [r7, #4]
+ 20582 000a 0B4A     		ldr	r2, .L27
+ 20583 000c 1A60     		str	r2, [r3, #0]
+ 20584 000e 7B68     		ldr	r3, [r7, #4]
+ 20585 0010 1846     		mov	r0, r3
+ 20586 0012 FFF7FEFF 		bl	_ZN10XFReactiveD2Ev
+ 20587              	.LBE7:
+ 20588 0016 4FF00003 		mov	r3, #0
+ 20589 001a 03F00103 		and	r3, r3, #1
+ 20590 001e DBB2     		uxtb	r3, r3
+ 20591 0020 002B     		cmp	r3, #0
+ 20592 0022 02D0     		beq	.L26
+ 20593              		.loc 139 36 0 is_stmt 0 discriminator 2
+ 20594 0024 7868     		ldr	r0, [r7, #4]
+ 20595 0026 FFF7FEFF 		bl	_ZdlPv
+ 20596              	.L26:
+ 20597              		.loc 139 36 0 discriminator 3
+ 20598 002a 7B68     		ldr	r3, [r7, #4]
+ 20599 002c 1846     		mov	r0, r3
+ 20600 002e 07F10807 		add	r7, r7, #8
+ 20601 0032 BD46     		mov	sp, r7
+ 20602 0034 80BD     		pop	{r7, pc}
+ 20603              	.L28:
+ 20604 0036 00BF     		.align	2
+ 20605              	.L27:
+ 20606 0038 08000000 		.word	_ZTV10LEDBlinker+8
+ 20607              		.cfi_endproc
+ 20608              	.LFE1285:
+ 20610              		.weak	_ZN10LEDBlinkerD1Ev
+ 20611              		.thumb_set _ZN10LEDBlinkerD1Ev,_ZN10LEDBlinkerD2Ev
+ 20612              		.section	.text._ZN10LEDBlinkerD0Ev,"axG",%progbits,_ZN10LEDBlinkerD5Ev,comdat
+ 20613              		.align	2
+ 20614              		.weak	_ZN10LEDBlinkerD0Ev
+ 20615              		.thumb
+ 20616              		.thumb_func
+ 20618              	_ZN10LEDBlinkerD0Ev:
+ 20619              	.LFB1287:
+  35:/home/desem/workspace/desenet/test/ledblinker.hpp **** 	virtual ~LEDBlinker()
+ 20620              		.loc 139 35 0 is_stmt 1
+ 20621              		.cfi_startproc
+ 20622              		@ args = 0, pretend = 0, frame = 8
+ 20623              		@ frame_needed = 1, uses_anonymous_args = 0
+ 20624 0000 80B5     		push	{r7, lr}
+ 20625              	.LCFI33:
+ 20626              		.cfi_def_cfa_offset 8
+ 20627 0002 82B0     		sub	sp, sp, #8
+ 20628              	.LCFI34:
+ 20629              		.cfi_def_cfa_offset 16
+ 20630 0004 00AF     		add	r7, sp, #0
+ 20631              		.cfi_offset 14, -4
+ 20632              		.cfi_offset 7, -8
+ 20633              	.LCFI35:
+ 20634              		.cfi_def_cfa_register 7
+ 20635 0006 7860     		str	r0, [r7, #4]
+ 20636              		.loc 139 36 0
+ 20637 0008 7868     		ldr	r0, [r7, #4]
+ 20638 000a FFF7FEFF 		bl	_ZN10LEDBlinkerD1Ev
+ 20639 000e 7868     		ldr	r0, [r7, #4]
+ 20640 0010 FFF7FEFF 		bl	_ZdlPv
+ 20641 0014 7B68     		ldr	r3, [r7, #4]
+ 20642 0016 1846     		mov	r0, r3
+ 20643 0018 07F10807 		add	r7, r7, #8
+ 20644 001c BD46     		mov	sp, r7
+ 20645 001e 80BD     		pop	{r7, pc}
+ 20646              		.cfi_endproc
+ 20647              	.LFE1287:
+ 20649              		.section	.text._ZN10LEDBlinker12processEventEv,"axG",%progbits,_ZN10LEDBlinker12processEventEv,com
+ 20650              		.align	2
+ 20651              		.weak	_ZN10LEDBlinker12processEventEv
+ 20652              		.thumb
+ 20653              		.thumb_func
+ 20655              	_ZN10LEDBlinker12processEventEv:
+ 20656              	.LFB1288:
+  37:/home/desem/workspace/desenet/test/ledblinker.hpp **** 
+  38:/home/desem/workspace/desenet/test/ledblinker.hpp **** protected:
+  39:/home/desem/workspace/desenet/test/ledblinker.hpp **** 	/**
+  40:/home/desem/workspace/desenet/test/ledblinker.hpp **** 	 * FSM implementation.
+  41:/home/desem/workspace/desenet/test/ledblinker.hpp **** 	 */
+  42:/home/desem/workspace/desenet/test/ledblinker.hpp **** 	virtual EventStatus processEvent()
+ 20657              		.loc 139 42 0
+ 20658              		.cfi_startproc
+ 20659              		@ args = 0, pretend = 0, frame = 16
+ 20660              		@ frame_needed = 1, uses_anonymous_args = 0
+ 20661 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+ 20662              	.LCFI36:
+ 20663              		.cfi_def_cfa_offset 20
+ 20664 0002 85B0     		sub	sp, sp, #20
+ 20665              	.LCFI37:
+ 20666              		.cfi_def_cfa_offset 40
+ 20667 0004 00AF     		add	r7, sp, #0
+ 20668              		.cfi_offset 14, -4
+ 20669              		.cfi_offset 7, -8
+ 20670              		.cfi_offset 6, -12
+ 20671              		.cfi_offset 5, -16
+ 20672              		.cfi_offset 4, -20
+ 20673              	.LCFI38:
+ 20674              		.cfi_def_cfa_register 7
+ 20675 0006 7860     		str	r0, [r7, #4]
+ 20676              	.LBB8:
+  43:/home/desem/workspace/desenet/test/ledblinker.hpp **** 	{
+  44:/home/desem/workspace/desenet/test/ledblinker.hpp **** 		eEventStatus eventStatus = EventStatus::Unknown;
+ 20677              		.loc 139 44 0
+ 20678 0008 4FF00003 		mov	r3, #0
+ 20679 000c FB73     		strb	r3, [r7, #15]
+  45:/home/desem/workspace/desenet/test/ledblinker.hpp **** 
+  46:/home/desem/workspace/desenet/test/ledblinker.hpp **** 		switch (_currentState)
+ 20680              		.loc 139 46 0
+ 20681 000e 7B68     		ldr	r3, [r7, #4]
+ 20682 0010 1B7B     		ldrb	r3, [r3, #12]	@ zero_extendqisi2
+ 20683 0012 022B     		cmp	r3, #2
+ 20684 0014 34D0     		beq	.L34
+ 20685 0016 032B     		cmp	r3, #3
+ 20686 0018 7AD0     		beq	.L35
+ 20687 001a 012B     		cmp	r3, #1
+ 20688 001c 40F0B580 		bne	.L45
+ 20689              	.L33:
+  47:/home/desem/workspace/desenet/test/ledblinker.hpp **** 		{
+  48:/home/desem/workspace/desenet/test/ledblinker.hpp **** 		case STATE_INITIAL:
+  49:/home/desem/workspace/desenet/test/ledblinker.hpp **** 			{
+  50:/home/desem/workspace/desenet/test/ledblinker.hpp **** 				if ( getCurrentEvent()->getEventType() == IXFEvent::Initial )
+ 20690              		.loc 139 50 0
+ 20691 0020 7B68     		ldr	r3, [r7, #4]
+ 20692 0022 1846     		mov	r0, r3
+ 20693 0024 FFF7FEFF 		bl	_ZNK10XFReactive15getCurrentEventEv
+ 20694 0028 0346     		mov	r3, r0
+ 20695 002a 1846     		mov	r0, r3
+ 20696 002c FFF7FEFF 		bl	_ZNK8IXFEvent12getEventTypeEv
+ 20697 0030 0346     		mov	r3, r0
+ 20698 0032 012B     		cmp	r3, #1
+ 20699 0034 14BF     		ite	ne
+ 20700 0036 0023     		movne	r3, #0
+ 20701 0038 0123     		moveq	r3, #1
+ 20702 003a DBB2     		uxtb	r3, r3
+ 20703 003c 002B     		cmp	r3, #0
+ 20704 003e 00F0A680 		beq	.L46
+  51:/home/desem/workspace/desenet/test/ledblinker.hpp **** 				{
+  52:/home/desem/workspace/desenet/test/ledblinker.hpp **** 					GEN(XFNullTransition());
+ 20705              		.loc 139 52 0
+ 20706 0042 7B68     		ldr	r3, [r7, #4]
+ 20707 0044 1B68     		ldr	r3, [r3, #0]
+ 20708 0046 03F10C03 		add	r3, r3, #12
+ 20709 004a 1D68     		ldr	r5, [r3, #0]
+ 20710 004c 7E68     		ldr	r6, [r7, #4]
+ 20711 004e 4FF01400 		mov	r0, #20
+ 20712 0052 FFF7FEFF 		bl	_Znwj
+ 20713 0056 0446     		mov	r4, r0
+ 20714 0058 2346     		mov	r3, r4
+ 20715 005a 1846     		mov	r0, r3
+ 20716 005c 4FF00001 		mov	r1, #0
+ 20717 0060 4FF00002 		mov	r2, #0
+ 20718 0064 FFF7FEFF 		bl	_ZN16XFNullTransitionC1EiP11IXFReactive
+ 20719 0068 2346     		mov	r3, r4
+ 20720 006a 3046     		mov	r0, r6
+ 20721 006c 1946     		mov	r1, r3
+ 20722 006e A847     		blx	r5
+  53:/home/desem/workspace/desenet/test/ledblinker.hpp **** 
+  54:/home/desem/workspace/desenet/test/ledblinker.hpp **** 					_currentState = STATE_LED_ON;
+ 20723              		.loc 139 54 0
+ 20724 0070 7B68     		ldr	r3, [r7, #4]
+ 20725 0072 4FF00202 		mov	r2, #2
+ 20726 0076 1A73     		strb	r2, [r3, #12]
+  55:/home/desem/workspace/desenet/test/ledblinker.hpp **** 
+  56:/home/desem/workspace/desenet/test/ledblinker.hpp **** 					eventStatus = EventStatus::Consumed;
+ 20727              		.loc 139 56 0
+ 20728 0078 4FF00103 		mov	r3, #1
+ 20729 007c FB73     		strb	r3, [r7, #15]
+  57:/home/desem/workspace/desenet/test/ledblinker.hpp **** 				}
+  58:/home/desem/workspace/desenet/test/ledblinker.hpp **** 			}
+  59:/home/desem/workspace/desenet/test/ledblinker.hpp **** 			break;
+ 20730              		.loc 139 59 0
+ 20731 007e 8BE0     		b	.L37
+ 20732              	.L34:
+  60:/home/desem/workspace/desenet/test/ledblinker.hpp **** 		case STATE_LED_ON:
+  61:/home/desem/workspace/desenet/test/ledblinker.hpp **** 			{
+  62:/home/desem/workspace/desenet/test/ledblinker.hpp **** 				if (getCurrentEvent()->getEventType() == IXFEvent::NullTransition ||
+ 20733              		.loc 139 62 0
+ 20734 0080 7B68     		ldr	r3, [r7, #4]
+ 20735 0082 1846     		mov	r0, r3
+ 20736 0084 FFF7FEFF 		bl	_ZNK10XFReactive15getCurrentEventEv
+ 20737 0088 0346     		mov	r3, r0
+ 20738 008a 1846     		mov	r0, r3
+ 20739 008c FFF7FEFF 		bl	_ZNK8IXFEvent12getEventTypeEv
+ 20740 0090 0346     		mov	r3, r0
+ 20741 0092 022B     		cmp	r3, #2
+ 20742 0094 15D0     		beq	.L38
+  63:/home/desem/workspace/desenet/test/ledblinker.hpp **** 					(getCurrentEvent()->getEventType() == IXFEvent::Timeout &&
+ 20743              		.loc 139 63 0 discriminator 2
+ 20744 0096 7B68     		ldr	r3, [r7, #4]
+ 20745 0098 1846     		mov	r0, r3
+ 20746 009a FFF7FEFF 		bl	_ZNK10XFReactive15getCurrentEventEv
+ 20747 009e 0346     		mov	r3, r0
+ 20748 00a0 1846     		mov	r0, r3
+ 20749 00a2 FFF7FEFF 		bl	_ZNK8IXFEvent12getEventTypeEv
+ 20750 00a6 0346     		mov	r3, r0
+  62:/home/desem/workspace/desenet/test/ledblinker.hpp **** 				if (getCurrentEvent()->getEventType() == IXFEvent::NullTransition ||
+ 20751              		.loc 139 62 0 discriminator 2
+ 20752 00a8 042B     		cmp	r3, #4
+ 20753 00aa 0DD1     		bne	.L39
+  64:/home/desem/workspace/desenet/test/ledblinker.hpp **** 					 getCurrentTimeout()->getId() == Timeout_LED_OFF_id))
+ 20754              		.loc 139 64 0 discriminator 3
+ 20755 00ac 7B68     		ldr	r3, [r7, #4]
+ 20756 00ae 1846     		mov	r0, r3
+ 20757 00b0 FFF7FEFF 		bl	_ZN10XFReactive17getCurrentTimeoutEv
+ 20758 00b4 0346     		mov	r3, r0
+ 20759 00b6 1846     		mov	r0, r3
+ 20760 00b8 FFF7FEFF 		bl	_ZNK8IXFEvent5getIdEv
+ 20761 00bc 0346     		mov	r3, r0
+  62:/home/desem/workspace/desenet/test/ledblinker.hpp **** 				if (getCurrentEvent()->getEventType() == IXFEvent::NullTransition ||
+ 20762              		.loc 139 62 0 discriminator 3
+ 20763 00be 022B     		cmp	r3, #2
+ 20764 00c0 02D1     		bne	.L39
+ 20765              	.L38:
+  62:/home/desem/workspace/desenet/test/ledblinker.hpp **** 				if (getCurrentEvent()->getEventType() == IXFEvent::NullTransition ||
+ 20766              		.loc 139 62 0 is_stmt 0 discriminator 1
+ 20767 00c2 4FF00103 		mov	r3, #1
+ 20768 00c6 01E0     		b	.L40
+ 20769              	.L39:
+  62:/home/desem/workspace/desenet/test/ledblinker.hpp **** 				if (getCurrentEvent()->getEventType() == IXFEvent::NullTransition ||
+ 20770              		.loc 139 62 0 discriminator 4
+ 20771 00c8 4FF00003 		mov	r3, #0
+ 20772              	.L40:
+  62:/home/desem/workspace/desenet/test/ledblinker.hpp **** 				if (getCurrentEvent()->getEventType() == IXFEvent::NullTransition ||
+ 20773              		.loc 139 62 0 discriminator 5
+ 20774 00cc 002B     		cmp	r3, #0
+ 20775 00ce 60D0     		beq	.L47
+  65:/home/desem/workspace/desenet/test/ledblinker.hpp **** 				{
+  66:/home/desem/workspace/desenet/test/ledblinker.hpp **** 					{
+  67:/home/desem/workspace/desenet/test/ledblinker.hpp **** 						_ledController = ILed::On;
+ 20776              		.loc 139 67 0 is_stmt 1
+ 20777 00d0 7B68     		ldr	r3, [r7, #4]
+ 20778 00d2 1B69     		ldr	r3, [r3, #16]
+ 20779 00d4 1846     		mov	r0, r3
+ 20780 00d6 4FF00101 		mov	r1, #1
+ 20781 00da FFF7FEFF 		bl	_ZN4ILedaSENS_5StateE
+  68:/home/desem/workspace/desenet/test/ledblinker.hpp **** 					}
+  69:/home/desem/workspace/desenet/test/ledblinker.hpp **** 
+  70:/home/desem/workspace/desenet/test/ledblinker.hpp **** 					getThread()->scheduleTimeout(Timeout_LED_ON_id, 100, this);
+ 20782              		.loc 139 70 0
+ 20783 00de 7B68     		ldr	r3, [r7, #4]
+ 20784 00e0 1B68     		ldr	r3, [r3, #0]
+ 20785 00e2 03F11803 		add	r3, r3, #24
+ 20786 00e6 1B68     		ldr	r3, [r3, #0]
+ 20787 00e8 7A68     		ldr	r2, [r7, #4]
+ 20788 00ea 1046     		mov	r0, r2
+ 20789 00ec 9847     		blx	r3
+ 20790 00ee 0246     		mov	r2, r0
+ 20791 00f0 7B68     		ldr	r3, [r7, #4]
+ 20792 00f2 1046     		mov	r0, r2
+ 20793 00f4 4FF00101 		mov	r1, #1
+ 20794 00f8 4FF06402 		mov	r2, #100
+ 20795 00fc FFF7FEFF 		bl	_ZN8XFThread15scheduleTimeoutEiiP11IXFReactive
+  71:/home/desem/workspace/desenet/test/ledblinker.hpp **** 
+  72:/home/desem/workspace/desenet/test/ledblinker.hpp **** 					_currentState = STATE_LED_OFF;
+ 20796              		.loc 139 72 0
+ 20797 0100 7B68     		ldr	r3, [r7, #4]
+ 20798 0102 4FF00302 		mov	r2, #3
+ 20799 0106 1A73     		strb	r2, [r3, #12]
+  73:/home/desem/workspace/desenet/test/ledblinker.hpp **** 
+  74:/home/desem/workspace/desenet/test/ledblinker.hpp **** 					eventStatus = EventStatus::Consumed;
+ 20800              		.loc 139 74 0
+ 20801 0108 4FF00103 		mov	r3, #1
+ 20802 010c FB73     		strb	r3, [r7, #15]
+  75:/home/desem/workspace/desenet/test/ledblinker.hpp **** 				}
+  76:/home/desem/workspace/desenet/test/ledblinker.hpp **** 			}
+  77:/home/desem/workspace/desenet/test/ledblinker.hpp **** 			break;
+ 20803              		.loc 139 77 0
+ 20804 010e 43E0     		b	.L37
+ 20805              	.L35:
+  78:/home/desem/workspace/desenet/test/ledblinker.hpp **** 		case STATE_LED_OFF:
+  79:/home/desem/workspace/desenet/test/ledblinker.hpp **** 			{
+  80:/home/desem/workspace/desenet/test/ledblinker.hpp **** 				if (getCurrentEvent()->getEventType() == IXFEvent::Timeout &&
+ 20806              		.loc 139 80 0
+ 20807 0110 7B68     		ldr	r3, [r7, #4]
+ 20808 0112 1846     		mov	r0, r3
+ 20809 0114 FFF7FEFF 		bl	_ZNK10XFReactive15getCurrentEventEv
+ 20810 0118 0346     		mov	r3, r0
+ 20811 011a 1846     		mov	r0, r3
+ 20812 011c FFF7FEFF 		bl	_ZNK8IXFEvent12getEventTypeEv
+ 20813 0120 0346     		mov	r3, r0
+ 20814 0122 042B     		cmp	r3, #4
+ 20815 0124 0DD1     		bne	.L42
+  81:/home/desem/workspace/desenet/test/ledblinker.hpp **** 					 getCurrentTimeout()->getId() == Timeout_LED_ON_id)
+ 20816              		.loc 139 81 0 discriminator 1
+ 20817 0126 7B68     		ldr	r3, [r7, #4]
+ 20818 0128 1846     		mov	r0, r3
+ 20819 012a FFF7FEFF 		bl	_ZN10XFReactive17getCurrentTimeoutEv
+ 20820 012e 0346     		mov	r3, r0
+ 20821 0130 1846     		mov	r0, r3
+ 20822 0132 FFF7FEFF 		bl	_ZNK8IXFEvent5getIdEv
+ 20823 0136 0346     		mov	r3, r0
+  80:/home/desem/workspace/desenet/test/ledblinker.hpp **** 				if (getCurrentEvent()->getEventType() == IXFEvent::Timeout &&
+ 20824              		.loc 139 80 0 discriminator 1
+ 20825 0138 012B     		cmp	r3, #1
+ 20826 013a 02D1     		bne	.L42
+  80:/home/desem/workspace/desenet/test/ledblinker.hpp **** 				if (getCurrentEvent()->getEventType() == IXFEvent::Timeout &&
+ 20827              		.loc 139 80 0 is_stmt 0 discriminator 3
+ 20828 013c 4FF00103 		mov	r3, #1
+ 20829 0140 01E0     		b	.L43
+ 20830              	.L42:
+  80:/home/desem/workspace/desenet/test/ledblinker.hpp **** 				if (getCurrentEvent()->getEventType() == IXFEvent::Timeout &&
+ 20831              		.loc 139 80 0 discriminator 2
+ 20832 0142 4FF00003 		mov	r3, #0
+ 20833              	.L43:
+  80:/home/desem/workspace/desenet/test/ledblinker.hpp **** 				if (getCurrentEvent()->getEventType() == IXFEvent::Timeout &&
+ 20834              		.loc 139 80 0 discriminator 4
+ 20835 0146 002B     		cmp	r3, #0
+ 20836 0148 25D0     		beq	.L48
+  82:/home/desem/workspace/desenet/test/ledblinker.hpp **** 				{
+  83:/home/desem/workspace/desenet/test/ledblinker.hpp **** 					{
+  84:/home/desem/workspace/desenet/test/ledblinker.hpp **** 						_ledController = ILed::Off;
+ 20837              		.loc 139 84 0 is_stmt 1
+ 20838 014a 7B68     		ldr	r3, [r7, #4]
+ 20839 014c 1B69     		ldr	r3, [r3, #16]
+ 20840 014e 1846     		mov	r0, r3
+ 20841 0150 4FF0FF31 		mov	r1, #-1
+ 20842 0154 FFF7FEFF 		bl	_ZN4ILedaSENS_5StateE
+  85:/home/desem/workspace/desenet/test/ledblinker.hpp **** 					}
+  86:/home/desem/workspace/desenet/test/ledblinker.hpp **** 
+  87:/home/desem/workspace/desenet/test/ledblinker.hpp **** 					getThread()->scheduleTimeout(Timeout_LED_OFF_id, 900, this);
+ 20843              		.loc 139 87 0
+ 20844 0158 7B68     		ldr	r3, [r7, #4]
+ 20845 015a 1B68     		ldr	r3, [r3, #0]
+ 20846 015c 03F11803 		add	r3, r3, #24
+ 20847 0160 1B68     		ldr	r3, [r3, #0]
+ 20848 0162 7A68     		ldr	r2, [r7, #4]
+ 20849 0164 1046     		mov	r0, r2
+ 20850 0166 9847     		blx	r3
+ 20851 0168 0246     		mov	r2, r0
+ 20852 016a 7B68     		ldr	r3, [r7, #4]
+ 20853 016c 1046     		mov	r0, r2
+ 20854 016e 4FF00201 		mov	r1, #2
+ 20855 0172 4FF46172 		mov	r2, #900
+ 20856 0176 FFF7FEFF 		bl	_ZN8XFThread15scheduleTimeoutEiiP11IXFReactive
+  88:/home/desem/workspace/desenet/test/ledblinker.hpp **** 
+  89:/home/desem/workspace/desenet/test/ledblinker.hpp **** 					_currentState = STATE_LED_ON;
+ 20857              		.loc 139 89 0
+ 20858 017a 7B68     		ldr	r3, [r7, #4]
+ 20859 017c 4FF00202 		mov	r2, #2
+ 20860 0180 1A73     		strb	r2, [r3, #12]
+  90:/home/desem/workspace/desenet/test/ledblinker.hpp **** 
+  91:/home/desem/workspace/desenet/test/ledblinker.hpp **** 					eventStatus = EventStatus::Consumed;
+ 20861              		.loc 139 91 0
+ 20862 0182 4FF00103 		mov	r3, #1
+ 20863 0186 FB73     		strb	r3, [r7, #15]
+  92:/home/desem/workspace/desenet/test/ledblinker.hpp **** 				}
+  93:/home/desem/workspace/desenet/test/ledblinker.hpp **** 			}
+  94:/home/desem/workspace/desenet/test/ledblinker.hpp **** 			break;
+ 20864              		.loc 139 94 0
+ 20865 0188 06E0     		b	.L37
+ 20866              	.L45:
+  95:/home/desem/workspace/desenet/test/ledblinker.hpp **** 		default:
+  96:/home/desem/workspace/desenet/test/ledblinker.hpp **** 			break;
+ 20867              		.loc 139 96 0
+ 20868 018a 00BF     		nop
+ 20869 018c 04E0     		b	.L37
+ 20870              	.L46:
+  59:/home/desem/workspace/desenet/test/ledblinker.hpp **** 			break;
+ 20871              		.loc 139 59 0
+ 20872 018e 00BF     		nop
+ 20873 0190 02E0     		b	.L37
+ 20874              	.L47:
+  77:/home/desem/workspace/desenet/test/ledblinker.hpp **** 			break;
+ 20875              		.loc 139 77 0
+ 20876 0192 00BF     		nop
+ 20877 0194 00E0     		b	.L37
+ 20878              	.L48:
+  94:/home/desem/workspace/desenet/test/ledblinker.hpp **** 			break;
+ 20879              		.loc 139 94 0
+ 20880 0196 00BF     		nop
+ 20881              	.L37:
+  97:/home/desem/workspace/desenet/test/ledblinker.hpp **** 		}
+  98:/home/desem/workspace/desenet/test/ledblinker.hpp **** 
+  99:/home/desem/workspace/desenet/test/ledblinker.hpp **** 		return eventStatus;
+ 20882              		.loc 139 99 0
+ 20883 0198 07F10C02 		add	r2, r7, #12
+ 20884 019c FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 20885 019e 1046     		mov	r0, r2
+ 20886 01a0 1946     		mov	r1, r3
+ 20887 01a2 FFF7FEFF 		bl	_ZN11EventStatusC1ENS_12eEventStatusE
+ 20888 01a6 3B7B     		ldrb	r3, [r7, #12]
+ 20889              	.LBE8:
+ 100:/home/desem/workspace/desenet/test/ledblinker.hpp **** 	}
+ 20890              		.loc 139 100 0
+ 20891 01a8 1846     		mov	r0, r3
+ 20892 01aa 07F11407 		add	r7, r7, #20
+ 20893 01ae BD46     		mov	sp, r7
+ 20894 01b0 F0BD     		pop	{r4, r5, r6, r7, pc}
+ 20895              		.cfi_endproc
+ 20896              	.LFE1288:
+ 20898              		.global	_ZN7Factory10_pInstanceE
+ 20899 01b2 00BF     		.section	.bss._ZN7Factory10_pInstanceE,"aw",%nobits
+ 20900              		.align	2
+ 20903              	_ZN7Factory10_pInstanceE:
+ 20904 0000 00000000 		.space	4
+ 20905              		.section	.rodata
+ 20906 005d 000000   		.align	2
+ 20907              	.LC2:
+ 20908 0060 2E2E2F74 		.ascii	"../target/stm32/factory.cpp\000"
+ 20908      61726765 
+ 20908      742F7374 
+ 20908      6D33322F 
+ 20908      66616374 
+ 20909              		.align	2
+ 20910              	.LC3:
+ 20911 007c 66616C73 		.ascii	"false\000"
+ 20911      6500
+ 20912              		.section	.text._ZN7FactoryC2EiPPc,"ax",%progbits
+ 20913              		.align	2
+ 20914              		.global	_ZN7FactoryC2EiPPc
+ 20915              		.thumb
+ 20916              		.thumb_func
+ 20918              	_ZN7FactoryC2EiPPc:
+ 20919              	.LFB1297:
+   1:../target/stm32/factory.cpp **** #include <target.h>
+   2:../target/stm32/factory.cpp **** #include <IPhyTransceiver>
+   3:../target/stm32/factory.cpp **** #include <IMonochromeDisplay>
+   4:../target/stm32/factory.cpp **** #include <ILed>
+   5:../target/stm32/factory.cpp **** #include <hal/spi.h>
+   6:../target/stm32/factory.cpp **** #include <hal/uart.h>
+   7:../target/stm32/factory.cpp **** #include <board/joystick.h>
+   8:../target/stm32/factory.cpp **** #include <board/display/monochromedisplay.h>
+   9:../target/stm32/factory.cpp **** #include <board/transceiver/nrftransceiver.h>
+  10:../target/stm32/factory.cpp **** #include "inc/factory.h"
+  11:../target/stm32/factory.cpp **** #include "inc/builder.h"
+  12:../target/stm32/factory.cpp **** 
+  13:../target/stm32/factory.cpp **** 
+  14:../target/stm32/factory.cpp **** // Initialize static variable(s)
+  15:../target/stm32/factory.cpp **** Factory * Factory::_pInstance = NULL;
+  16:../target/stm32/factory.cpp **** 
+  17:../target/stm32/factory.cpp **** 
+  18:../target/stm32/factory.cpp **** Factory::Factory(int argc , char ** argv)
+ 20920              		.loc 1 18 0
+ 20921              		.cfi_startproc
+ 20922              		@ args = 0, pretend = 0, frame = 16
+ 20923              		@ frame_needed = 1, uses_anonymous_args = 0
+ 20924 0000 80B5     		push	{r7, lr}
+ 20925              	.LCFI39:
+ 20926              		.cfi_def_cfa_offset 8
+ 20927 0002 84B0     		sub	sp, sp, #16
+ 20928              	.LCFI40:
+ 20929              		.cfi_def_cfa_offset 24
+ 20930 0004 00AF     		add	r7, sp, #0
+ 20931              		.cfi_offset 14, -4
+ 20932              		.cfi_offset 7, -8
+ 20933              	.LCFI41:
+ 20934              		.cfi_def_cfa_register 7
+ 20935 0006 F860     		str	r0, [r7, #12]
+ 20936 0008 B960     		str	r1, [r7, #8]
+ 20937 000a 7A60     		str	r2, [r7, #4]
+ 20938              	.LBB9:
+  19:../target/stm32/factory.cpp **** : _ledBlinker(_ledController),
+  20:../target/stm32/factory.cpp ****   _pTransceiver(NULL),
+  21:../target/stm32/factory.cpp ****   _pDisplay(NULL),
+  22:../target/stm32/factory.cpp ****   _pJoystick(NULL),
+  23:../target/stm32/factory.cpp ****   _pSharedSpi(NULL)
+ 20939              		.loc 1 23 0
+ 20940 000c FB68     		ldr	r3, [r7, #12]
+ 20941 000e 1846     		mov	r0, r3
+ 20942 0010 FFF7FEFF 		bl	_ZN13IAir3TFactoryC2Ev
+ 20943 0014 FB68     		ldr	r3, [r7, #12]
+ 20944 0016 304A     		ldr	r2, .L52
+ 20945 0018 1A60     		str	r2, [r3, #0]
+ 20946 001a FB68     		ldr	r3, [r7, #12]
+ 20947 001c 03F10403 		add	r3, r3, #4
+ 20948 0020 1846     		mov	r0, r3
+ 20949 0022 FFF7FEFF 		bl	_ZN13LedControllerC1Ev
+ 20950 0026 FB68     		ldr	r3, [r7, #12]
+ 20951 0028 03F10C02 		add	r2, r3, #12
+ 20952 002c FB68     		ldr	r3, [r7, #12]
+ 20953 002e 03F10403 		add	r3, r3, #4
+ 20954 0032 1046     		mov	r0, r2
+ 20955 0034 1946     		mov	r1, r3
+ 20956 0036 FFF7FEFF 		bl	_ZN10LEDBlinkerC1ER4ILed
+ 20957 003a FB68     		ldr	r3, [r7, #12]
+ 20958 003c 4FF00002 		mov	r2, #0
+ 20959 0040 1A62     		str	r2, [r3, #32]
+ 20960 0042 FB68     		ldr	r3, [r7, #12]
+ 20961 0044 4FF00002 		mov	r2, #0
+ 20962 0048 5A62     		str	r2, [r3, #36]
+ 20963 004a FB68     		ldr	r3, [r7, #12]
+ 20964 004c 4FF00002 		mov	r2, #0
+ 20965 0050 9A62     		str	r2, [r3, #40]
+ 20966 0052 FB68     		ldr	r3, [r7, #12]
+ 20967 0054 4FF00002 		mov	r2, #0
+ 20968 0058 5A63     		str	r2, [r3, #52]
+  24:../target/stm32/factory.cpp **** {
+  25:../target/stm32/factory.cpp **** 	// Initialize attributes
+  26:../target/stm32/factory.cpp **** 	memset(_SPI, 0, 2 * sizeof(SPI *));
+ 20969              		.loc 1 26 0
+ 20970 005a FB68     		ldr	r3, [r7, #12]
+ 20971 005c 03F12C03 		add	r3, r3, #44
+ 20972 0060 1846     		mov	r0, r3
+ 20973 0062 4FF00001 		mov	r1, #0
+ 20974 0066 4FF00802 		mov	r2, #8
+ 20975 006a FFF7FEFF 		bl	memset
+  27:../target/stm32/factory.cpp **** 
+  28:../target/stm32/factory.cpp **** 	if (_pInstance)
+ 20976              		.loc 1 28 0
+ 20977 006e 40F20003 		movw	r3, #:lower16:_ZN7Factory10_pInstanceE
+ 20978 0072 C0F20003 		movt	r3, #:upper16:_ZN7Factory10_pInstanceE
+ 20979 0076 1B68     		ldr	r3, [r3, #0]
+ 20980 0078 002B     		cmp	r3, #0
+ 20981 007a 0FD0     		beq	.L50
+  29:../target/stm32/factory.cpp **** 	{
+  30:../target/stm32/factory.cpp **** 		assert(false); // Error: Create only one instance of Factory!
+ 20982              		.loc 1 30 0
+ 20983 007c 40F20000 		movw	r0, #:lower16:.LC2
+ 20984 0080 C0F20000 		movt	r0, #:upper16:.LC2
+ 20985 0084 4FF01E01 		mov	r1, #30
+ 20986 0088 40F20002 		movw	r2, #:lower16:_ZZN7FactoryC1EiPPcE19__PRETTY_FUNCTION__
+ 20987 008c C0F20002 		movt	r2, #:upper16:_ZZN7FactoryC1EiPPcE19__PRETTY_FUNCTION__
+ 20988 0090 40F20003 		movw	r3, #:lower16:.LC3
+ 20989 0094 C0F20003 		movt	r3, #:upper16:.LC3
+ 20990 0098 FFF7FEFF 		bl	__assert_func
+ 20991              	.L50:
+  31:../target/stm32/factory.cpp **** 		return;
+  32:../target/stm32/factory.cpp **** 	}
+  33:../target/stm32/factory.cpp **** 
+  34:../target/stm32/factory.cpp **** 	// Current instance is the singleton instance
+  35:../target/stm32/factory.cpp **** 	_pInstance = this;
+ 20992              		.loc 1 35 0
+ 20993 009c 40F20003 		movw	r3, #:lower16:_ZN7Factory10_pInstanceE
+ 20994 00a0 C0F20003 		movt	r3, #:upper16:_ZN7Factory10_pInstanceE
+ 20995 00a4 FA68     		ldr	r2, [r7, #12]
+ 20996 00a6 1A60     		str	r2, [r3, #0]
+  36:../target/stm32/factory.cpp **** 
+  37:../target/stm32/factory.cpp **** 	// Enable needed clocks
+  38:../target/stm32/factory.cpp **** 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO, ENABLE);
+ 20997              		.loc 1 38 0
+ 20998 00a8 4FF00100 		mov	r0, #1
+ 20999 00ac 4FF00101 		mov	r1, #1
+ 21000 00b0 FFF7FEFF 		bl	RCC_APB2PeriphClockCmd
+  39:../target/stm32/factory.cpp **** 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC | RCC_APB2Periph_GPIOA, ENABLE);
+ 21001              		.loc 1 39 0
+ 21002 00b4 4FF01400 		mov	r0, #20
+ 21003 00b8 4FF00101 		mov	r1, #1
+ 21004 00bc FFF7FEFF 		bl	RCC_APB2PeriphClockCmd
+  40:../target/stm32/factory.cpp **** 
+  41:../target/stm32/factory.cpp ****     // Start state machine(s)
+  42:../target/stm32/factory.cpp ****     _ledBlinker.startBehavior();
+ 21005              		.loc 1 42 0
+ 21006 00c0 FB68     		ldr	r3, [r7, #12]
+ 21007 00c2 03F10C03 		add	r3, r3, #12
+ 21008 00c6 1846     		mov	r0, r3
+ 21009 00c8 FFF7FEFF 		bl	_ZN10XFReactive13startBehaviorEv
+ 21010              	.LBE9:
+  43:../target/stm32/factory.cpp **** }
+ 21011              		.loc 1 43 0
+ 21012 00cc FB68     		ldr	r3, [r7, #12]
+ 21013 00ce 1846     		mov	r0, r3
+ 21014 00d0 07F11007 		add	r7, r7, #16
+ 21015 00d4 BD46     		mov	sp, r7
+ 21016 00d6 80BD     		pop	{r7, pc}
+ 21017              	.L53:
+ 21018              		.align	2
+ 21019              	.L52:
+ 21020 00d8 08000000 		.word	_ZTV7Factory+8
+ 21021              		.cfi_endproc
+ 21022              	.LFE1297:
+ 21024              		.global	_ZN7FactoryC1EiPPc
+ 21025              		.thumb_set _ZN7FactoryC1EiPPc,_ZN7FactoryC2EiPPc
+ 21026              		.section	.text._ZN7FactoryD2Ev,"ax",%progbits
+ 21027              		.align	2
+ 21028              		.global	_ZN7FactoryD2Ev
+ 21029              		.thumb
+ 21030              		.thumb_func
+ 21032              	_ZN7FactoryD2Ev:
+ 21033              	.LFB1300:
+  44:../target/stm32/factory.cpp **** 
+  45:../target/stm32/factory.cpp **** Factory::~Factory()
+ 21034              		.loc 1 45 0
+ 21035              		.cfi_startproc
+ 21036              		@ args = 0, pretend = 0, frame = 8
+ 21037              		@ frame_needed = 1, uses_anonymous_args = 0
+ 21038 0000 80B5     		push	{r7, lr}
+ 21039              	.LCFI42:
+ 21040              		.cfi_def_cfa_offset 8
+ 21041 0002 82B0     		sub	sp, sp, #8
+ 21042              	.LCFI43:
+ 21043              		.cfi_def_cfa_offset 16
+ 21044 0004 00AF     		add	r7, sp, #0
+ 21045              		.cfi_offset 14, -4
+ 21046              		.cfi_offset 7, -8
+ 21047              	.LCFI44:
+ 21048              		.cfi_def_cfa_register 7
+ 21049 0006 7860     		str	r0, [r7, #4]
+ 21050              	.LBB10:
+ 21051              		.loc 1 45 0
+ 21052 0008 7B68     		ldr	r3, [r7, #4]
+ 21053 000a 114A     		ldr	r2, .L57
+ 21054 000c 1A60     		str	r2, [r3, #0]
+ 21055 000e 7B68     		ldr	r3, [r7, #4]
+ 21056 0010 03F10C03 		add	r3, r3, #12
+  46:../target/stm32/factory.cpp **** {
+  47:../target/stm32/factory.cpp **** 
+  48:../target/stm32/factory.cpp **** }
+ 21057              		.loc 1 48 0
+ 21058 0014 1846     		mov	r0, r3
+ 21059 0016 FFF7FEFF 		bl	_ZN10LEDBlinkerD1Ev
+  45:../target/stm32/factory.cpp **** Factory::~Factory()
+ 21060              		.loc 1 45 0
+ 21061 001a 7B68     		ldr	r3, [r7, #4]
+ 21062 001c 03F10403 		add	r3, r3, #4
+ 21063              		.loc 1 48 0
+ 21064 0020 1846     		mov	r0, r3
+ 21065 0022 FFF7FEFF 		bl	_ZN13LedControllerD1Ev
+  45:../target/stm32/factory.cpp **** Factory::~Factory()
+ 21066              		.loc 1 45 0
+ 21067 0026 7B68     		ldr	r3, [r7, #4]
+ 21068              		.loc 1 48 0
+ 21069 0028 1846     		mov	r0, r3
+ 21070 002a FFF7FEFF 		bl	_ZN13IAir3TFactoryD2Ev
+ 21071              	.LBE10:
+ 21072 002e 4FF00003 		mov	r3, #0
+ 21073 0032 03F00103 		and	r3, r3, #1
+ 21074 0036 DBB2     		uxtb	r3, r3
+ 21075 0038 002B     		cmp	r3, #0
+ 21076 003a 02D0     		beq	.L56
+ 21077              		.loc 1 48 0 is_stmt 0 discriminator 2
+ 21078 003c 7868     		ldr	r0, [r7, #4]
+ 21079 003e FFF7FEFF 		bl	_ZdlPv
+ 21080              	.L56:
+ 21081              		.loc 1 48 0 discriminator 3
+ 21082 0042 7B68     		ldr	r3, [r7, #4]
+ 21083 0044 1846     		mov	r0, r3
+ 21084 0046 07F10807 		add	r7, r7, #8
+ 21085 004a BD46     		mov	sp, r7
+ 21086 004c 80BD     		pop	{r7, pc}
+ 21087              	.L58:
+ 21088 004e 00BF     		.align	2
+ 21089              	.L57:
+ 21090 0050 08000000 		.word	_ZTV7Factory+8
+ 21091              		.cfi_endproc
+ 21092              	.LFE1300:
+ 21094              		.global	_ZN7FactoryD1Ev
+ 21095              		.thumb_set _ZN7FactoryD1Ev,_ZN7FactoryD2Ev
+ 21096              		.section	.text._ZN7FactoryD0Ev,"ax",%progbits
+ 21097              		.align	2
+ 21098              		.global	_ZN7FactoryD0Ev
+ 21099              		.thumb
+ 21100              		.thumb_func
+ 21102              	_ZN7FactoryD0Ev:
+ 21103              	.LFB1302:
+  45:../target/stm32/factory.cpp **** Factory::~Factory()
+ 21104              		.loc 1 45 0 is_stmt 1
+ 21105              		.cfi_startproc
+ 21106              		@ args = 0, pretend = 0, frame = 8
+ 21107              		@ frame_needed = 1, uses_anonymous_args = 0
+ 21108 0000 80B5     		push	{r7, lr}
+ 21109              	.LCFI45:
+ 21110              		.cfi_def_cfa_offset 8
+ 21111 0002 82B0     		sub	sp, sp, #8
+ 21112              	.LCFI46:
+ 21113              		.cfi_def_cfa_offset 16
+ 21114 0004 00AF     		add	r7, sp, #0
+ 21115              		.cfi_offset 14, -4
+ 21116              		.cfi_offset 7, -8
+ 21117              	.LCFI47:
+ 21118              		.cfi_def_cfa_register 7
+ 21119 0006 7860     		str	r0, [r7, #4]
+ 21120              		.loc 1 48 0
+ 21121 0008 7868     		ldr	r0, [r7, #4]
+ 21122 000a FFF7FEFF 		bl	_ZN7FactoryD1Ev
+ 21123 000e 7868     		ldr	r0, [r7, #4]
+ 21124 0010 FFF7FEFF 		bl	_ZdlPv
+ 21125 0014 7B68     		ldr	r3, [r7, #4]
+ 21126 0016 1846     		mov	r0, r3
+ 21127 0018 07F10807 		add	r7, r7, #8
+ 21128 001c BD46     		mov	sp, r7
+ 21129 001e 80BD     		pop	{r7, pc}
+ 21130              		.cfi_endproc
+ 21131              	.LFE1302:
+ 21133              		.section	.rodata
+ 21134 0082 0000     		.align	2
+ 21135              	.LC4:
+ 21136 0084 5F70496E 		.ascii	"_pInstance\000"
+ 21136      7374616E 
+ 21136      636500
+ 21137              		.section	.text._ZN7Factory8instanceEv,"ax",%progbits
+ 21138              		.align	2
+ 21139              		.global	_ZN7Factory8instanceEv
+ 21140              		.thumb
+ 21141              		.thumb_func
+ 21143              	_ZN7Factory8instanceEv:
+ 21144              	.LFB1303:
+  49:../target/stm32/factory.cpp **** 
+  50:../target/stm32/factory.cpp **** /**
+  51:../target/stm32/factory.cpp ****  * Returns the only existing instance of Factory
+  52:../target/stm32/factory.cpp ****  */
+  53:../target/stm32/factory.cpp **** Factory & Factory::instance()
+  54:../target/stm32/factory.cpp **** {
+ 21145              		.loc 1 54 0
+ 21146              		.cfi_startproc
+ 21147              		@ args = 0, pretend = 0, frame = 0
+ 21148              		@ frame_needed = 1, uses_anonymous_args = 0
+ 21149 0000 80B5     		push	{r7, lr}
+ 21150              	.LCFI48:
+ 21151              		.cfi_def_cfa_offset 8
+ 21152 0002 00AF     		add	r7, sp, #0
+ 21153              		.cfi_offset 14, -4
+ 21154              		.cfi_offset 7, -8
+ 21155              	.LCFI49:
+ 21156              		.cfi_def_cfa_register 7
+ 21157              	.LBB11:
+  55:../target/stm32/factory.cpp **** 	assert(_pInstance);		// Create at least one instance of Factory!
+ 21158              		.loc 1 55 0
+ 21159 0004 40F20003 		movw	r3, #:lower16:_ZN7Factory10_pInstanceE
+ 21160 0008 C0F20003 		movt	r3, #:upper16:_ZN7Factory10_pInstanceE
+ 21161 000c 1B68     		ldr	r3, [r3, #0]
+ 21162 000e 002B     		cmp	r3, #0
+ 21163 0010 0FD1     		bne	.L62
+ 21164              		.loc 1 55 0 is_stmt 0 discriminator 1
+ 21165 0012 40F20000 		movw	r0, #:lower16:.LC2
+ 21166 0016 C0F20000 		movt	r0, #:upper16:.LC2
+ 21167 001a 4FF03701 		mov	r1, #55
+ 21168 001e 40F20002 		movw	r2, #:lower16:_ZZN7Factory8instanceEvE19__PRETTY_FUNCTION__
+ 21169 0022 C0F20002 		movt	r2, #:upper16:_ZZN7Factory8instanceEvE19__PRETTY_FUNCTION__
+ 21170 0026 40F20003 		movw	r3, #:lower16:.LC4
+ 21171 002a C0F20003 		movt	r3, #:upper16:.LC4
+ 21172 002e FFF7FEFF 		bl	__assert_func
+ 21173              	.L62:
+  56:../target/stm32/factory.cpp **** 	return *_pInstance;
+ 21174              		.loc 1 56 0 is_stmt 1
+ 21175 0032 40F20003 		movw	r3, #:lower16:_ZN7Factory10_pInstanceE
+ 21176 0036 C0F20003 		movt	r3, #:upper16:_ZN7Factory10_pInstanceE
+ 21177 003a 1B68     		ldr	r3, [r3, #0]
+ 21178              	.LBE11:
+  57:../target/stm32/factory.cpp **** }
+ 21179              		.loc 1 57 0
+ 21180 003c 1846     		mov	r0, r3
+ 21181 003e 80BD     		pop	{r7, pc}
+ 21182              		.cfi_endproc
+ 21183              	.LFE1303:
+ 21185              		.section	.rodata
+ 21186 008f 00       		.align	2
+ 21187              	.LC5:
+ 21188 0090 5F705472 		.ascii	"_pTransceiver\000"
+ 21188      616E7363 
+ 21188      65697665 
+ 21188      7200
+ 21189              		.section	.text._ZN7Factory14phyTransceiverEv,"ax",%progbits
+ 21190              		.align	2
+ 21191              		.global	_ZN7Factory14phyTransceiverEv
+ 21192              		.thumb
+ 21193              		.thumb_func
+ 21195              	_ZN7Factory14phyTransceiverEv:
+ 21196              	.LFB1304:
+  58:../target/stm32/factory.cpp **** 
+  59:../target/stm32/factory.cpp **** IPhyTransceiver & Factory::phyTransceiver()
+  60:../target/stm32/factory.cpp **** {
+ 21197              		.loc 1 60 0
+ 21198              		.cfi_startproc
+ 21199              		@ args = 0, pretend = 0, frame = 8
+ 21200              		@ frame_needed = 1, uses_anonymous_args = 0
+ 21201 0000 90B5     		push	{r4, r7, lr}
+ 21202              	.LCFI50:
+ 21203              		.cfi_def_cfa_offset 12
+ 21204 0002 83B0     		sub	sp, sp, #12
+ 21205              	.LCFI51:
+ 21206              		.cfi_def_cfa_offset 24
+ 21207 0004 00AF     		add	r7, sp, #0
+ 21208              		.cfi_offset 14, -4
+ 21209              		.cfi_offset 7, -8
+ 21210              		.cfi_offset 4, -12
+ 21211              	.LCFI52:
+ 21212              		.cfi_def_cfa_register 7
+ 21213 0006 7860     		str	r0, [r7, #4]
+ 21214              	.LBB12:
+  61:../target/stm32/factory.cpp **** 	if (!_pTransceiver)
+ 21215              		.loc 1 61 0
+ 21216 0008 7B68     		ldr	r3, [r7, #4]
+ 21217 000a 1B6A     		ldr	r3, [r3, #32]
+ 21218 000c 002B     		cmp	r3, #0
+ 21219 000e 0CD1     		bne	.L64
+  62:../target/stm32/factory.cpp **** 	{
+  63:../target/stm32/factory.cpp **** 		_pTransceiver = new NrfTransceiver();
+ 21220              		.loc 1 63 0
+ 21221 0010 4FF03800 		mov	r0, #56
+ 21222 0014 FFF7FEFF 		bl	_Znwj
+ 21223 0018 0446     		mov	r4, r0
+ 21224 001a 2346     		mov	r3, r4
+ 21225 001c 1846     		mov	r0, r3
+ 21226 001e FFF7FEFF 		bl	_ZN14NrfTransceiverC1Ev
+ 21227 0022 2346     		mov	r3, r4
+ 21228 0024 1A46     		mov	r2, r3
+ 21229 0026 7B68     		ldr	r3, [r7, #4]
+ 21230 0028 1A62     		str	r2, [r3, #32]
+ 21231              	.L64:
+  64:../target/stm32/factory.cpp **** 	}
+  65:../target/stm32/factory.cpp **** 	assert(_pTransceiver);
+ 21232              		.loc 1 65 0
+ 21233 002a 7B68     		ldr	r3, [r7, #4]
+ 21234 002c 1B6A     		ldr	r3, [r3, #32]
+ 21235 002e 002B     		cmp	r3, #0
+ 21236 0030 0FD1     		bne	.L65
+ 21237              		.loc 1 65 0 is_stmt 0 discriminator 1
+ 21238 0032 40F20000 		movw	r0, #:lower16:.LC2
+ 21239 0036 C0F20000 		movt	r0, #:upper16:.LC2
+ 21240 003a 4FF04101 		mov	r1, #65
+ 21241 003e 40F20002 		movw	r2, #:lower16:_ZZN7Factory14phyTransceiverEvE19__PRETTY_FUNCTION__
+ 21242 0042 C0F20002 		movt	r2, #:upper16:_ZZN7Factory14phyTransceiverEvE19__PRETTY_FUNCTION__
+ 21243 0046 40F20003 		movw	r3, #:lower16:.LC5
+ 21244 004a C0F20003 		movt	r3, #:upper16:.LC5
+ 21245 004e FFF7FEFF 		bl	__assert_func
+ 21246              	.L65:
+  66:../target/stm32/factory.cpp **** 	return *_pTransceiver;
+ 21247              		.loc 1 66 0 is_stmt 1
+ 21248 0052 7B68     		ldr	r3, [r7, #4]
+ 21249 0054 1B6A     		ldr	r3, [r3, #32]
+ 21250              	.LBE12:
+  67:../target/stm32/factory.cpp **** }
+ 21251              		.loc 1 67 0
+ 21252 0056 1846     		mov	r0, r3
+ 21253 0058 07F10C07 		add	r7, r7, #12
+ 21254 005c BD46     		mov	sp, r7
+ 21255 005e 90BD     		pop	{r4, r7, pc}
+ 21256              		.cfi_endproc
+ 21257              	.LFE1304:
+ 21259              		.section	.rodata
+ 21260 009e 0000     		.align	2
+ 21261              	.LC6:
+ 21262 00a0 5F704469 		.ascii	"_pDisplay\000"
+ 21262      73706C61 
+ 21262      7900
+ 21263              		.section	.text._ZN7Factory17monochromeDisplayEv,"ax",%progbits
+ 21264              		.align	2
+ 21265              		.global	_ZN7Factory17monochromeDisplayEv
+ 21266              		.thumb
+ 21267              		.thumb_func
+ 21269              	_ZN7Factory17monochromeDisplayEv:
+ 21270              	.LFB1305:
+  68:../target/stm32/factory.cpp **** 
+  69:../target/stm32/factory.cpp **** IMonochromeDisplay & Factory::monochromeDisplay()
+  70:../target/stm32/factory.cpp **** {
+ 21271              		.loc 1 70 0
+ 21272              		.cfi_startproc
+ 21273              		@ args = 0, pretend = 0, frame = 8
+ 21274              		@ frame_needed = 1, uses_anonymous_args = 0
+ 21275 0000 90B5     		push	{r4, r7, lr}
+ 21276              	.LCFI53:
+ 21277              		.cfi_def_cfa_offset 12
+ 21278 0002 83B0     		sub	sp, sp, #12
+ 21279              	.LCFI54:
+ 21280              		.cfi_def_cfa_offset 24
+ 21281 0004 00AF     		add	r7, sp, #0
+ 21282              		.cfi_offset 14, -4
+ 21283              		.cfi_offset 7, -8
+ 21284              		.cfi_offset 4, -12
+ 21285              	.LCFI55:
+ 21286              		.cfi_def_cfa_register 7
+ 21287 0006 7860     		str	r0, [r7, #4]
+ 21288              	.LBB13:
+  71:../target/stm32/factory.cpp **** 	if (!_pDisplay)
+ 21289              		.loc 1 71 0
+ 21290 0008 7B68     		ldr	r3, [r7, #4]
+ 21291 000a 5B6A     		ldr	r3, [r3, #36]
+ 21292 000c 002B     		cmp	r3, #0
+ 21293 000e 0CD1     		bne	.L67
+  72:../target/stm32/factory.cpp **** 	{
+  73:../target/stm32/factory.cpp **** 		_pDisplay = new MonochromeDisplay();
+ 21294              		.loc 1 73 0
+ 21295 0010 4FF40270 		mov	r0, #520
+ 21296 0014 FFF7FEFF 		bl	_Znwj
+ 21297 0018 0446     		mov	r4, r0
+ 21298 001a 2346     		mov	r3, r4
+ 21299 001c 1846     		mov	r0, r3
+ 21300 001e FFF7FEFF 		bl	_ZN17MonochromeDisplayC1Ev
+ 21301 0022 2346     		mov	r3, r4
+ 21302 0024 1A46     		mov	r2, r3
+ 21303 0026 7B68     		ldr	r3, [r7, #4]
+ 21304 0028 5A62     		str	r2, [r3, #36]
+ 21305              	.L67:
+  74:../target/stm32/factory.cpp **** 
+  75:../target/stm32/factory.cpp **** 	}
+  76:../target/stm32/factory.cpp **** 	assert(_pDisplay);
+ 21306              		.loc 1 76 0
+ 21307 002a 7B68     		ldr	r3, [r7, #4]
+ 21308 002c 5B6A     		ldr	r3, [r3, #36]
+ 21309 002e 002B     		cmp	r3, #0
+ 21310 0030 0FD1     		bne	.L68
+ 21311              		.loc 1 76 0 is_stmt 0 discriminator 1
+ 21312 0032 40F20000 		movw	r0, #:lower16:.LC2
+ 21313 0036 C0F20000 		movt	r0, #:upper16:.LC2
+ 21314 003a 4FF04C01 		mov	r1, #76
+ 21315 003e 40F20002 		movw	r2, #:lower16:_ZZN7Factory17monochromeDisplayEvE19__PRETTY_FUNCTION__
+ 21316 0042 C0F20002 		movt	r2, #:upper16:_ZZN7Factory17monochromeDisplayEvE19__PRETTY_FUNCTION__
+ 21317 0046 40F20003 		movw	r3, #:lower16:.LC6
+ 21318 004a C0F20003 		movt	r3, #:upper16:.LC6
+ 21319 004e FFF7FEFF 		bl	__assert_func
+ 21320              	.L68:
+  77:../target/stm32/factory.cpp **** 	return *_pDisplay;
+ 21321              		.loc 1 77 0 is_stmt 1
+ 21322 0052 7B68     		ldr	r3, [r7, #4]
+ 21323 0054 5B6A     		ldr	r3, [r3, #36]
+ 21324              	.LBE13:
+  78:../target/stm32/factory.cpp **** }
+ 21325              		.loc 1 78 0
+ 21326 0056 1846     		mov	r0, r3
+ 21327 0058 07F10C07 		add	r7, r7, #12
+ 21328 005c BD46     		mov	sp, r7
+ 21329 005e 90BD     		pop	{r4, r7, pc}
+ 21330              		.cfi_endproc
+ 21331              	.LFE1305:
+ 21333              		.section	.rodata
+ 21334 00aa 0000     		.align	2
+ 21335              	.LC7:
+ 21336 00ac 5F704A6F 		.ascii	"_pJoystick\000"
+ 21336      79737469 
+ 21336      636B00
+ 21337              		.section	.text._ZN7Factory8joystickEv,"ax",%progbits
+ 21338              		.align	2
+ 21339              		.global	_ZN7Factory8joystickEv
+ 21340              		.thumb
+ 21341              		.thumb_func
+ 21343              	_ZN7Factory8joystickEv:
+ 21344              	.LFB1306:
+  79:../target/stm32/factory.cpp **** 
+  80:../target/stm32/factory.cpp **** IJoystick & Factory::joystick()
+  81:../target/stm32/factory.cpp **** {
+ 21345              		.loc 1 81 0
+ 21346              		.cfi_startproc
+ 21347              		@ args = 0, pretend = 0, frame = 8
+ 21348              		@ frame_needed = 1, uses_anonymous_args = 0
+ 21349 0000 90B5     		push	{r4, r7, lr}
+ 21350              	.LCFI56:
+ 21351              		.cfi_def_cfa_offset 12
+ 21352 0002 83B0     		sub	sp, sp, #12
+ 21353              	.LCFI57:
+ 21354              		.cfi_def_cfa_offset 24
+ 21355 0004 00AF     		add	r7, sp, #0
+ 21356              		.cfi_offset 14, -4
+ 21357              		.cfi_offset 7, -8
+ 21358              		.cfi_offset 4, -12
+ 21359              	.LCFI58:
+ 21360              		.cfi_def_cfa_register 7
+ 21361 0006 7860     		str	r0, [r7, #4]
+ 21362              	.LBB14:
+  82:../target/stm32/factory.cpp **** 	if (!_pJoystick)
+ 21363              		.loc 1 82 0
+ 21364 0008 7B68     		ldr	r3, [r7, #4]
+ 21365 000a 9B6A     		ldr	r3, [r3, #40]
+ 21366 000c 002B     		cmp	r3, #0
+ 21367 000e 1AD1     		bne	.L70
+  83:../target/stm32/factory.cpp **** 	{
+  84:../target/stm32/factory.cpp **** 		_pJoystick = new Joystick;
+ 21368              		.loc 1 84 0
+ 21369 0010 4FF01C00 		mov	r0, #28
+ 21370 0014 FFF7FEFF 		bl	_Znwj
+ 21371 0018 0446     		mov	r4, r0
+ 21372 001a 2346     		mov	r3, r4
+ 21373 001c 1846     		mov	r0, r3
+ 21374 001e FFF7FEFF 		bl	_ZN8JoystickC1Ev
+ 21375 0022 2346     		mov	r3, r4
+ 21376 0024 1A46     		mov	r2, r3
+ 21377 0026 7B68     		ldr	r3, [r7, #4]
+ 21378 0028 9A62     		str	r2, [r3, #40]
+  85:../target/stm32/factory.cpp **** 
+  86:../target/stm32/factory.cpp **** 		if (_pJoystick)
+ 21379              		.loc 1 86 0
+ 21380 002a 7B68     		ldr	r3, [r7, #4]
+ 21381 002c 9B6A     		ldr	r3, [r3, #40]
+ 21382 002e 002B     		cmp	r3, #0
+ 21383 0030 09D0     		beq	.L70
+  87:../target/stm32/factory.cpp **** 		{
+  88:../target/stm32/factory.cpp **** 			_pJoystick->initialize();
+ 21384              		.loc 1 88 0
+ 21385 0032 7B68     		ldr	r3, [r7, #4]
+ 21386 0034 9B6A     		ldr	r3, [r3, #40]
+ 21387 0036 1B68     		ldr	r3, [r3, #0]
+ 21388 0038 03F10803 		add	r3, r3, #8
+ 21389 003c 1B68     		ldr	r3, [r3, #0]
+ 21390 003e 7A68     		ldr	r2, [r7, #4]
+ 21391 0040 926A     		ldr	r2, [r2, #40]
+ 21392 0042 1046     		mov	r0, r2
+ 21393 0044 9847     		blx	r3
+ 21394              	.L70:
+  89:../target/stm32/factory.cpp **** 		}
+  90:../target/stm32/factory.cpp **** 	}
+  91:../target/stm32/factory.cpp **** 	assert(_pJoystick);
+ 21395              		.loc 1 91 0
+ 21396 0046 7B68     		ldr	r3, [r7, #4]
+ 21397 0048 9B6A     		ldr	r3, [r3, #40]
+ 21398 004a 002B     		cmp	r3, #0
+ 21399 004c 0FD1     		bne	.L71
+ 21400              		.loc 1 91 0 is_stmt 0 discriminator 1
+ 21401 004e 40F20000 		movw	r0, #:lower16:.LC2
+ 21402 0052 C0F20000 		movt	r0, #:upper16:.LC2
+ 21403 0056 4FF05B01 		mov	r1, #91
+ 21404 005a 40F20002 		movw	r2, #:lower16:_ZZN7Factory8joystickEvE19__PRETTY_FUNCTION__
+ 21405 005e C0F20002 		movt	r2, #:upper16:_ZZN7Factory8joystickEvE19__PRETTY_FUNCTION__
+ 21406 0062 40F20003 		movw	r3, #:lower16:.LC7
+ 21407 0066 C0F20003 		movt	r3, #:upper16:.LC7
+ 21408 006a FFF7FEFF 		bl	__assert_func
+ 21409              	.L71:
+  92:../target/stm32/factory.cpp **** 	return *_pJoystick;
+ 21410              		.loc 1 92 0 is_stmt 1
+ 21411 006e 7B68     		ldr	r3, [r7, #4]
+ 21412 0070 9B6A     		ldr	r3, [r3, #40]
+ 21413              	.LBE14:
+  93:../target/stm32/factory.cpp **** }
+ 21414              		.loc 1 93 0
+ 21415 0072 1846     		mov	r0, r3
+ 21416 0074 07F10C07 		add	r7, r7, #12
+ 21417 0078 BD46     		mov	sp, r7
+ 21418 007a 90BD     		pop	{r4, r7, pc}
+ 21419              		.cfi_endproc
+ 21420              	.LFE1306:
+ 21422              		.section	.text._ZN7Factory3ledEv,"ax",%progbits
+ 21423              		.align	2
+ 21424              		.global	_ZN7Factory3ledEv
+ 21425              		.thumb
+ 21426              		.thumb_func
+ 21428              	_ZN7Factory3ledEv:
+ 21429              	.LFB1307:
+  94:../target/stm32/factory.cpp **** 
+  95:../target/stm32/factory.cpp **** ILed & Factory::led()
+  96:../target/stm32/factory.cpp **** {
+ 21430              		.loc 1 96 0
+ 21431              		.cfi_startproc
+ 21432              		@ args = 0, pretend = 0, frame = 8
+ 21433              		@ frame_needed = 1, uses_anonymous_args = 0
+ 21434              		@ link register save eliminated.
+ 21435 0000 80B4     		push	{r7}
+ 21436              	.LCFI59:
+ 21437              		.cfi_def_cfa_offset 4
+ 21438 0002 83B0     		sub	sp, sp, #12
+ 21439              	.LCFI60:
+ 21440              		.cfi_def_cfa_offset 16
+ 21441 0004 00AF     		add	r7, sp, #0
+ 21442              		.cfi_offset 7, -4
+ 21443              	.LCFI61:
+ 21444              		.cfi_def_cfa_register 7
+ 21445 0006 7860     		str	r0, [r7, #4]
+  97:../target/stm32/factory.cpp **** 	return _ledController;
+ 21446              		.loc 1 97 0
+ 21447 0008 7B68     		ldr	r3, [r7, #4]
+ 21448 000a 03F10403 		add	r3, r3, #4
+  98:../target/stm32/factory.cpp **** }
+ 21449              		.loc 1 98 0
+ 21450 000e 1846     		mov	r0, r3
+ 21451 0010 07F10C07 		add	r7, r7, #12
+ 21452 0014 BD46     		mov	sp, r7
+ 21453 0016 80BC     		pop	{r7}
+ 21454 0018 7047     		bx	lr
+ 21455              		.cfi_endproc
+ 21456              	.LFE1307:
+ 21458 001a 00BF     		.section	.rodata
+ 21459 00b7 00       		.align	2
+ 21460              	.LC8:
+ 21461 00b8 7370694E 		.ascii	"spiNbr >= 0 && spiNbr < 2\000"
+ 21461      6272203E 
+ 21461      3D203020 
+ 21461      26262073 
+ 21461      70694E62 
+ 21462 00d2 0000     		.align	2
+ 21463              	.LC9:
+ 21464 00d4 5F535049 		.ascii	"_SPI[spiNbr]\000"
+ 21464      5B737069 
+ 21464      4E62725D 
+ 21464      00
+ 21465              		.section	.text._ZN7Factory3spiEi,"ax",%progbits
+ 21466              		.align	2
+ 21467              		.global	_ZN7Factory3spiEi
+ 21468              		.thumb
+ 21469              		.thumb_func
+ 21471              	_ZN7Factory3spiEi:
+ 21472              	.LFB1308:
+  99:../target/stm32/factory.cpp **** 
+ 100:../target/stm32/factory.cpp **** SPI & Factory::spi(const int spiNbr)
+ 101:../target/stm32/factory.cpp **** {
+ 21473              		.loc 1 101 0
+ 21474              		.cfi_startproc
+ 21475              		@ args = 0, pretend = 0, frame = 8
+ 21476              		@ frame_needed = 1, uses_anonymous_args = 0
+ 21477 0000 90B5     		push	{r4, r7, lr}
+ 21478              	.LCFI62:
+ 21479              		.cfi_def_cfa_offset 12
+ 21480 0002 83B0     		sub	sp, sp, #12
+ 21481              	.LCFI63:
+ 21482              		.cfi_def_cfa_offset 24
+ 21483 0004 00AF     		add	r7, sp, #0
+ 21484              		.cfi_offset 14, -4
+ 21485              		.cfi_offset 7, -8
+ 21486              		.cfi_offset 4, -12
+ 21487              	.LCFI64:
+ 21488              		.cfi_def_cfa_register 7
+ 21489 0006 7860     		str	r0, [r7, #4]
+ 21490 0008 3960     		str	r1, [r7, #0]
+ 21491              	.LBB15:
+ 102:../target/stm32/factory.cpp **** 	assert(spiNbr >= 0 && spiNbr < 2);
+ 21492              		.loc 1 102 0
+ 21493 000a 3B68     		ldr	r3, [r7, #0]
+ 21494 000c 002B     		cmp	r3, #0
+ 21495 000e 02DB     		blt	.L74
+ 21496              		.loc 1 102 0 is_stmt 0 discriminator 2
+ 21497 0010 3B68     		ldr	r3, [r7, #0]
+ 21498 0012 012B     		cmp	r3, #1
+ 21499 0014 0FDD     		ble	.L75
+ 21500              	.L74:
+ 21501              		.loc 1 102 0 discriminator 1
+ 21502 0016 40F20000 		movw	r0, #:lower16:.LC2
+ 21503 001a C0F20000 		movt	r0, #:upper16:.LC2
+ 21504 001e 4FF06601 		mov	r1, #102
+ 21505 0022 40F20002 		movw	r2, #:lower16:_ZZN7Factory3spiEiE19__PRETTY_FUNCTION__
+ 21506 0026 C0F20002 		movt	r2, #:upper16:_ZZN7Factory3spiEiE19__PRETTY_FUNCTION__
+ 21507 002a 40F20003 		movw	r3, #:lower16:.LC8
+ 21508 002e C0F20003 		movt	r3, #:upper16:.LC8
+ 21509 0032 FFF7FEFF 		bl	__assert_func
+ 21510              	.L75:
+ 103:../target/stm32/factory.cpp **** 
+ 104:../target/stm32/factory.cpp **** 	if (!_SPI[spiNbr])
+ 21511              		.loc 1 104 0 is_stmt 1
+ 21512 0036 7A68     		ldr	r2, [r7, #4]
+ 21513 0038 3B68     		ldr	r3, [r7, #0]
+ 21514 003a 03F10A03 		add	r3, r3, #10
+ 21515 003e 4FEA8303 		lsl	r3, r3, #2
+ 21516 0042 D318     		adds	r3, r2, r3
+ 21517 0044 5B68     		ldr	r3, [r3, #4]
+ 21518 0046 002B     		cmp	r3, #0
+ 21519 0048 27D1     		bne	.L76
+ 105:../target/stm32/factory.cpp **** 	{
+ 106:../target/stm32/factory.cpp **** 		// Create it
+ 107:../target/stm32/factory.cpp **** 		_SPI[spiNbr] = new SPI(spiNbr);
+ 21520              		.loc 1 107 0
+ 21521 004a 4FF00C00 		mov	r0, #12
+ 21522 004e FFF7FEFF 		bl	_Znwj
+ 21523 0052 0446     		mov	r4, r0
+ 21524 0054 2346     		mov	r3, r4
+ 21525 0056 1846     		mov	r0, r3
+ 21526 0058 3968     		ldr	r1, [r7, #0]
+ 21527 005a FFF7FEFF 		bl	_ZN3SPIC1Ei
+ 21528 005e 2246     		mov	r2, r4
+ 21529 0060 7968     		ldr	r1, [r7, #4]
+ 21530 0062 3B68     		ldr	r3, [r7, #0]
+ 21531 0064 03F10A03 		add	r3, r3, #10
+ 21532 0068 4FEA8303 		lsl	r3, r3, #2
+ 21533 006c CB18     		adds	r3, r1, r3
+ 21534 006e 5A60     		str	r2, [r3, #4]
+ 108:../target/stm32/factory.cpp **** 
+ 109:../target/stm32/factory.cpp **** 		if (_SPI[spiNbr])
+ 21535              		.loc 1 109 0
+ 21536 0070 7A68     		ldr	r2, [r7, #4]
+ 21537 0072 3B68     		ldr	r3, [r7, #0]
+ 21538 0074 03F10A03 		add	r3, r3, #10
+ 21539 0078 4FEA8303 		lsl	r3, r3, #2
+ 21540 007c D318     		adds	r3, r2, r3
+ 21541 007e 5B68     		ldr	r3, [r3, #4]
+ 21542 0080 002B     		cmp	r3, #0
+ 21543 0082 0AD0     		beq	.L76
+ 110:../target/stm32/factory.cpp **** 		{
+ 111:../target/stm32/factory.cpp **** 			_SPI[spiNbr]->initialize();
+ 21544              		.loc 1 111 0
+ 21545 0084 7A68     		ldr	r2, [r7, #4]
+ 21546 0086 3B68     		ldr	r3, [r7, #0]
+ 21547 0088 03F10A03 		add	r3, r3, #10
+ 21548 008c 4FEA8303 		lsl	r3, r3, #2
+ 21549 0090 D318     		adds	r3, r2, r3
+ 21550 0092 5B68     		ldr	r3, [r3, #4]
+ 21551 0094 1846     		mov	r0, r3
+ 21552 0096 FFF7FEFF 		bl	_ZN3SPI10initializeEv
+ 21553              	.L76:
+ 112:../target/stm32/factory.cpp **** 		}
+ 113:../target/stm32/factory.cpp **** 	}
+ 114:../target/stm32/factory.cpp **** 
+ 115:../target/stm32/factory.cpp **** 	assert(_SPI[spiNbr]);
+ 21554              		.loc 1 115 0
+ 21555 009a 7A68     		ldr	r2, [r7, #4]
+ 21556 009c 3B68     		ldr	r3, [r7, #0]
+ 21557 009e 03F10A03 		add	r3, r3, #10
+ 21558 00a2 4FEA8303 		lsl	r3, r3, #2
+ 21559 00a6 D318     		adds	r3, r2, r3
+ 21560 00a8 5B68     		ldr	r3, [r3, #4]
+ 21561 00aa 002B     		cmp	r3, #0
+ 21562 00ac 0FD1     		bne	.L77
+ 21563              		.loc 1 115 0 is_stmt 0 discriminator 1
+ 21564 00ae 40F20000 		movw	r0, #:lower16:.LC2
+ 21565 00b2 C0F20000 		movt	r0, #:upper16:.LC2
+ 21566 00b6 4FF07301 		mov	r1, #115
+ 21567 00ba 40F20002 		movw	r2, #:lower16:_ZZN7Factory3spiEiE19__PRETTY_FUNCTION__
+ 21568 00be C0F20002 		movt	r2, #:upper16:_ZZN7Factory3spiEiE19__PRETTY_FUNCTION__
+ 21569 00c2 40F20003 		movw	r3, #:lower16:.LC9
+ 21570 00c6 C0F20003 		movt	r3, #:upper16:.LC9
+ 21571 00ca FFF7FEFF 		bl	__assert_func
+ 21572              	.L77:
+ 116:../target/stm32/factory.cpp **** 	return *_SPI[spiNbr];
+ 21573              		.loc 1 116 0 is_stmt 1
+ 21574 00ce 7A68     		ldr	r2, [r7, #4]
+ 21575 00d0 3B68     		ldr	r3, [r7, #0]
+ 21576 00d2 03F10A03 		add	r3, r3, #10
+ 21577 00d6 4FEA8303 		lsl	r3, r3, #2
+ 21578 00da D318     		adds	r3, r2, r3
+ 21579 00dc 5B68     		ldr	r3, [r3, #4]
+ 21580              	.LBE15:
+ 117:../target/stm32/factory.cpp **** }
+ 21581              		.loc 1 117 0
+ 21582 00de 1846     		mov	r0, r3
+ 21583 00e0 07F10C07 		add	r7, r7, #12
+ 21584 00e4 BD46     		mov	sp, r7
+ 21585 00e6 90BD     		pop	{r4, r7, pc}
+ 21586              		.cfi_endproc
+ 21587              	.LFE1308:
+ 21589              		.section	.rodata
+ 21590 00e1 000000   		.align	2
+ 21591              	.LC10:
+ 21592 00e4 75617274 		.ascii	"uartNbr >= 0 && uartNbr < Uart::UART_COUNT\000"
+ 21592      4E627220 
+ 21592      3E3D2030 
+ 21592      20262620 
+ 21592      75617274 
+ 21593 010f 00       		.align	2
+ 21594              	.LC11:
+ 21595 0110 55617274 		.ascii	"Uart::_sUart[uartNbr]\000"
+ 21595      3A3A5F73 
+ 21595      55617274 
+ 21595      5B756172 
+ 21595      744E6272 
+ 21596              		.section	.text._ZN7Factory4uartEh,"ax",%progbits
+ 21597              		.align	2
+ 21598              		.global	_ZN7Factory4uartEh
+ 21599              		.thumb
+ 21600              		.thumb_func
+ 21602              	_ZN7Factory4uartEh:
+ 21603              	.LFB1309:
+ 118:../target/stm32/factory.cpp **** 
+ 119:../target/stm32/factory.cpp **** Uart & Factory::uart(const unsigned char uartNbr)
+ 120:../target/stm32/factory.cpp **** {
+ 21604              		.loc 1 120 0
+ 21605              		.cfi_startproc
+ 21606              		@ args = 0, pretend = 0, frame = 8
+ 21607              		@ frame_needed = 1, uses_anonymous_args = 0
+ 21608 0000 80B5     		push	{r7, lr}
+ 21609              	.LCFI65:
+ 21610              		.cfi_def_cfa_offset 8
+ 21611 0002 82B0     		sub	sp, sp, #8
+ 21612              	.LCFI66:
+ 21613              		.cfi_def_cfa_offset 16
+ 21614 0004 00AF     		add	r7, sp, #0
+ 21615              		.cfi_offset 14, -4
+ 21616              		.cfi_offset 7, -8
+ 21617              	.LCFI67:
+ 21618              		.cfi_def_cfa_register 7
+ 21619 0006 7860     		str	r0, [r7, #4]
+ 21620 0008 0B46     		mov	r3, r1
+ 21621 000a FB70     		strb	r3, [r7, #3]
+ 21622              	.LBB16:
+ 121:../target/stm32/factory.cpp **** 	assert(uartNbr >= 0 && uartNbr < Uart::UART_COUNT);
+ 21623              		.loc 1 121 0
+ 21624 000c FB78     		ldrb	r3, [r7, #3]	@ zero_extendqisi2
+ 21625 000e 022B     		cmp	r3, #2
+ 21626 0010 0FD9     		bls	.L79
+ 21627              		.loc 1 121 0 is_stmt 0 discriminator 1
+ 21628 0012 40F20000 		movw	r0, #:lower16:.LC2
+ 21629 0016 C0F20000 		movt	r0, #:upper16:.LC2
+ 21630 001a 4FF07901 		mov	r1, #121
+ 21631 001e 40F20002 		movw	r2, #:lower16:_ZZN7Factory4uartEhE19__PRETTY_FUNCTION__
+ 21632 0022 C0F20002 		movt	r2, #:upper16:_ZZN7Factory4uartEhE19__PRETTY_FUNCTION__
+ 21633 0026 40F20003 		movw	r3, #:lower16:.LC10
+ 21634 002a C0F20003 		movt	r3, #:upper16:.LC10
+ 21635 002e FFF7FEFF 		bl	__assert_func
+ 21636              	.L79:
+ 122:../target/stm32/factory.cpp **** 
+ 123:../target/stm32/factory.cpp **** 	if (!Uart::_sUart[uartNbr])
+ 21637              		.loc 1 123 0 is_stmt 1
+ 21638 0032 FA78     		ldrb	r2, [r7, #3]	@ zero_extendqisi2
+ 21639 0034 40F20003 		movw	r3, #:lower16:_ZN4Uart6_sUartE
+ 21640 0038 C0F20003 		movt	r3, #:upper16:_ZN4Uart6_sUartE
+ 21641 003c 53F82230 		ldr	r3, [r3, r2, lsl #2]
+ 21642 0040 002B     		cmp	r3, #0
+ 21643 0042 0AD1     		bne	.L80
+ 124:../target/stm32/factory.cpp **** 	{
+ 125:../target/stm32/factory.cpp **** 		// Create it
+ 126:../target/stm32/factory.cpp **** 		new Uart(uartNbr);
+ 21644              		.loc 1 126 0
+ 21645 0044 4FF00C00 		mov	r0, #12
+ 21646 0048 FFF7FEFF 		bl	_Znwj
+ 21647 004c 0346     		mov	r3, r0
+ 21648 004e 1A46     		mov	r2, r3
+ 21649 0050 FB78     		ldrb	r3, [r7, #3]	@ zero_extendqisi2
+ 21650 0052 1046     		mov	r0, r2
+ 21651 0054 1946     		mov	r1, r3
+ 21652 0056 FFF7FEFF 		bl	_ZN4UartC1Eh
+ 21653              	.L80:
+ 127:../target/stm32/factory.cpp **** 	}
+ 128:../target/stm32/factory.cpp **** 
+ 129:../target/stm32/factory.cpp **** 	assert(Uart::_sUart[uartNbr]);
+ 21654              		.loc 1 129 0
+ 21655 005a FA78     		ldrb	r2, [r7, #3]	@ zero_extendqisi2
+ 21656 005c 40F20003 		movw	r3, #:lower16:_ZN4Uart6_sUartE
+ 21657 0060 C0F20003 		movt	r3, #:upper16:_ZN4Uart6_sUartE
+ 21658 0064 53F82230 		ldr	r3, [r3, r2, lsl #2]
+ 21659 0068 002B     		cmp	r3, #0
+ 21660 006a 0FD1     		bne	.L81
+ 21661              		.loc 1 129 0 is_stmt 0 discriminator 1
+ 21662 006c 40F20000 		movw	r0, #:lower16:.LC2
+ 21663 0070 C0F20000 		movt	r0, #:upper16:.LC2
+ 21664 0074 4FF08101 		mov	r1, #129
+ 21665 0078 40F20002 		movw	r2, #:lower16:_ZZN7Factory4uartEhE19__PRETTY_FUNCTION__
+ 21666 007c C0F20002 		movt	r2, #:upper16:_ZZN7Factory4uartEhE19__PRETTY_FUNCTION__
+ 21667 0080 40F20003 		movw	r3, #:lower16:.LC11
+ 21668 0084 C0F20003 		movt	r3, #:upper16:.LC11
+ 21669 0088 FFF7FEFF 		bl	__assert_func
+ 21670              	.L81:
+ 130:../target/stm32/factory.cpp **** 	return Uart::uart(uartNbr);
+ 21671              		.loc 1 130 0 is_stmt 1
+ 21672 008c FB78     		ldrb	r3, [r7, #3]	@ zero_extendqisi2
+ 21673 008e 1846     		mov	r0, r3
+ 21674 0090 FFF7FEFF 		bl	_ZN4Uart4uartEh
+ 21675 0094 0346     		mov	r3, r0
+ 21676              	.LBE16:
+ 131:../target/stm32/factory.cpp **** }
+ 21677              		.loc 1 131 0
+ 21678 0096 1846     		mov	r0, r3
+ 21679 0098 07F10807 		add	r7, r7, #8
+ 21680 009c BD46     		mov	sp, r7
+ 21681 009e 80BD     		pop	{r7, pc}
+ 21682              		.cfi_endproc
+ 21683              	.LFE1309:
+ 21685              		.section	.rodata
+ 21686 0126 0000     		.align	2
+ 21687              	.LC12:
+ 21688 0128 5F705368 		.ascii	"_pSharedSpi\000"
+ 21688      61726564 
+ 21688      53706900 
+ 21689              		.section	.text._ZN7Factory9sharedSpiEv,"ax",%progbits
+ 21690              		.align	2
+ 21691              		.global	_ZN7Factory9sharedSpiEv
+ 21692              		.thumb
+ 21693              		.thumb_func
+ 21695              	_ZN7Factory9sharedSpiEv:
+ 21696              	.LFB1310:
+ 132:../target/stm32/factory.cpp **** 
+ 133:../target/stm32/factory.cpp **** DisplayNrfSharedSpi & Factory::sharedSpi()
+ 134:../target/stm32/factory.cpp **** {
+ 21697              		.loc 1 134 0
+ 21698              		.cfi_startproc
+ 21699              		@ args = 0, pretend = 0, frame = 8
+ 21700              		@ frame_needed = 1, uses_anonymous_args = 0
+ 21701 0000 90B5     		push	{r4, r7, lr}
+ 21702              	.LCFI68:
+ 21703              		.cfi_def_cfa_offset 12
+ 21704 0002 83B0     		sub	sp, sp, #12
+ 21705              	.LCFI69:
+ 21706              		.cfi_def_cfa_offset 24
+ 21707 0004 00AF     		add	r7, sp, #0
+ 21708              		.cfi_offset 14, -4
+ 21709              		.cfi_offset 7, -8
+ 21710              		.cfi_offset 4, -12
+ 21711              	.LCFI70:
+ 21712              		.cfi_def_cfa_register 7
+ 21713 0006 7860     		str	r0, [r7, #4]
+ 21714              	.LBB17:
+ 135:../target/stm32/factory.cpp **** 	if (!_pSharedSpi)
+ 21715              		.loc 1 135 0
+ 21716 0008 7B68     		ldr	r3, [r7, #4]
+ 21717 000a 5B6B     		ldr	r3, [r3, #52]
+ 21718 000c 002B     		cmp	r3, #0
+ 21719 000e 0BD1     		bne	.L83
+ 136:../target/stm32/factory.cpp **** 	{
+ 137:../target/stm32/factory.cpp **** 		_pSharedSpi = new DisplayNrfSharedSpi();
+ 21720              		.loc 1 137 0
+ 21721 0010 4FF00C00 		mov	r0, #12
+ 21722 0014 FFF7FEFF 		bl	_Znwj
+ 21723 0018 0446     		mov	r4, r0
+ 21724 001a 2346     		mov	r3, r4
+ 21725 001c 1846     		mov	r0, r3
+ 21726 001e FFF7FEFF 		bl	_ZN19DisplayNrfSharedSpiC1Ev
+ 21727 0022 2246     		mov	r2, r4
+ 21728 0024 7B68     		ldr	r3, [r7, #4]
+ 21729 0026 5A63     		str	r2, [r3, #52]
+ 21730              	.L83:
+ 138:../target/stm32/factory.cpp **** 	}
+ 139:../target/stm32/factory.cpp **** 	assert(_pSharedSpi);
+ 21731              		.loc 1 139 0
+ 21732 0028 7B68     		ldr	r3, [r7, #4]
+ 21733 002a 5B6B     		ldr	r3, [r3, #52]
+ 21734 002c 002B     		cmp	r3, #0
+ 21735 002e 0FD1     		bne	.L84
+ 21736              		.loc 1 139 0 is_stmt 0 discriminator 1
+ 21737 0030 40F20000 		movw	r0, #:lower16:.LC2
+ 21738 0034 C0F20000 		movt	r0, #:upper16:.LC2
+ 21739 0038 4FF08B01 		mov	r1, #139
+ 21740 003c 40F20002 		movw	r2, #:lower16:_ZZN7Factory9sharedSpiEvE19__PRETTY_FUNCTION__
+ 21741 0040 C0F20002 		movt	r2, #:upper16:_ZZN7Factory9sharedSpiEvE19__PRETTY_FUNCTION__
+ 21742 0044 40F20003 		movw	r3, #:lower16:.LC12
+ 21743 0048 C0F20003 		movt	r3, #:upper16:.LC12
+ 21744 004c FFF7FEFF 		bl	__assert_func
+ 21745              	.L84:
+ 140:../target/stm32/factory.cpp **** 	return *_pSharedSpi;
+ 21746              		.loc 1 140 0 is_stmt 1
+ 21747 0050 7B68     		ldr	r3, [r7, #4]
+ 21748 0052 5B6B     		ldr	r3, [r3, #52]
+ 21749              	.LBE17:
+ 141:../target/stm32/factory.cpp **** }
+ 21750              		.loc 1 141 0
+ 21751 0054 1846     		mov	r0, r3
+ 21752 0056 07F10C07 		add	r7, r7, #12
+ 21753 005a BD46     		mov	sp, r7
+ 21754 005c 90BD     		pop	{r4, r7, pc}
+ 21755              		.cfi_endproc
+ 21756              	.LFE1310:
+ 21758 005e 00BF     		.section	.rodata
+ 21759              		.align	2
+ 21760              	.LC13:
+ 21761 0134 70466163 		.ascii	"pFactory\000"
+ 21761      746F7279 
+ 21761      00
+ 21762              		.section	.text._ZN13IAir3TFactory7factoryEiPPc,"ax",%progbits
+ 21763              		.align	2
+ 21764              		.global	_ZN13IAir3TFactory7factoryEiPPc
+ 21765              		.thumb
+ 21766              		.thumb_func
+ 21768              	_ZN13IAir3TFactory7factoryEiPPc:
+ 21769              	.LFB1311:
+ 142:../target/stm32/factory.cpp **** 
+ 143:../target/stm32/factory.cpp **** /**
+ 144:../target/stm32/factory.cpp ****  * Implementation of the factory method needed by the IAir3TFactory interface.
+ 145:../target/stm32/factory.cpp ****  */
+ 146:../target/stm32/factory.cpp **** IAir3TFactory & IAir3TFactory::factory(int argc , char ** argv)
+ 147:../target/stm32/factory.cpp **** {
+ 21770              		.loc 1 147 0
+ 21771              		.cfi_startproc
+ 21772              		@ args = 0, pretend = 0, frame = 8
+ 21773              		@ frame_needed = 1, uses_anonymous_args = 0
+ 21774 0000 90B5     		push	{r4, r7, lr}
+ 21775              	.LCFI71:
+ 21776              		.cfi_def_cfa_offset 12
+ 21777 0002 83B0     		sub	sp, sp, #12
+ 21778              	.LCFI72:
+ 21779              		.cfi_def_cfa_offset 24
+ 21780 0004 00AF     		add	r7, sp, #0
+ 21781              		.cfi_offset 14, -4
+ 21782              		.cfi_offset 7, -8
+ 21783              		.cfi_offset 4, -12
+ 21784              	.LCFI73:
+ 21785              		.cfi_def_cfa_register 7
+ 21786 0006 7860     		str	r0, [r7, #4]
+ 21787 0008 3960     		str	r1, [r7, #0]
+ 21788              	.LBB18:
+ 148:../target/stm32/factory.cpp **** 	static Factory * pFactory = NULL;
+ 149:../target/stm32/factory.cpp **** 
+ 150:../target/stm32/factory.cpp **** 	// Create the factory object on demand.
+ 151:../target/stm32/factory.cpp **** 	if (!pFactory)
+ 21789              		.loc 1 151 0
+ 21790 000a 40F20003 		movw	r3, #:lower16:_ZZN13IAir3TFactory7factoryEiPPcE8pFactory
+ 21791 000e C0F20003 		movt	r3, #:upper16:_ZZN13IAir3TFactory7factoryEiPPcE8pFactory
+ 21792 0012 1B68     		ldr	r3, [r3, #0]
+ 21793 0014 002B     		cmp	r3, #0
+ 21794 0016 10D1     		bne	.L86
+ 152:../target/stm32/factory.cpp **** 	{
+ 153:../target/stm32/factory.cpp **** 		pFactory = new Factory(argc , argv);
+ 21795              		.loc 1 153 0
+ 21796 0018 4FF03800 		mov	r0, #56
+ 21797 001c FFF7FEFF 		bl	_Znwj
+ 21798 0020 0446     		mov	r4, r0
+ 21799 0022 2346     		mov	r3, r4
+ 21800 0024 1846     		mov	r0, r3
+ 21801 0026 7968     		ldr	r1, [r7, #4]
+ 21802 0028 3A68     		ldr	r2, [r7, #0]
+ 21803 002a FFF7FEFF 		bl	_ZN7FactoryC1EiPPc
+ 21804 002e 2246     		mov	r2, r4
+ 21805 0030 40F20003 		movw	r3, #:lower16:_ZZN13IAir3TFactory7factoryEiPPcE8pFactory
+ 21806 0034 C0F20003 		movt	r3, #:upper16:_ZZN13IAir3TFactory7factoryEiPPcE8pFactory
+ 21807 0038 1A60     		str	r2, [r3, #0]
+ 21808              	.L86:
+ 154:../target/stm32/factory.cpp **** 	}
+ 155:../target/stm32/factory.cpp **** 	assert(pFactory);
+ 21809              		.loc 1 155 0
+ 21810 003a 40F20003 		movw	r3, #:lower16:_ZZN13IAir3TFactory7factoryEiPPcE8pFactory
+ 21811 003e C0F20003 		movt	r3, #:upper16:_ZZN13IAir3TFactory7factoryEiPPcE8pFactory
+ 21812 0042 1B68     		ldr	r3, [r3, #0]
+ 21813 0044 002B     		cmp	r3, #0
+ 21814 0046 0FD1     		bne	.L87
+ 21815              		.loc 1 155 0 is_stmt 0 discriminator 1
+ 21816 0048 40F20000 		movw	r0, #:lower16:.LC2
+ 21817 004c C0F20000 		movt	r0, #:upper16:.LC2
+ 21818 0050 4FF09B01 		mov	r1, #155
+ 21819 0054 40F20002 		movw	r2, #:lower16:_ZZN13IAir3TFactory7factoryEiPPcE19__PRETTY_FUNCTION__
+ 21820 0058 C0F20002 		movt	r2, #:upper16:_ZZN13IAir3TFactory7factoryEiPPcE19__PRETTY_FUNCTION__
+ 21821 005c 40F20003 		movw	r3, #:lower16:.LC13
+ 21822 0060 C0F20003 		movt	r3, #:upper16:.LC13
+ 21823 0064 FFF7FEFF 		bl	__assert_func
+ 21824              	.L87:
+ 156:../target/stm32/factory.cpp **** 
+ 157:../target/stm32/factory.cpp **** 	// Return the reference to the object.
+ 158:../target/stm32/factory.cpp **** 	return *pFactory;
+ 21825              		.loc 1 158 0 is_stmt 1
+ 21826 0068 40F20003 		movw	r3, #:lower16:_ZZN13IAir3TFactory7factoryEiPPcE8pFactory
+ 21827 006c C0F20003 		movt	r3, #:upper16:_ZZN13IAir3TFactory7factoryEiPPcE8pFactory
+ 21828 0070 1B68     		ldr	r3, [r3, #0]
+ 21829              	.LBE18:
+ 159:../target/stm32/factory.cpp **** }
+ 21830              		.loc 1 159 0
+ 21831 0072 1846     		mov	r0, r3
+ 21832 0074 07F10C07 		add	r7, r7, #12
+ 21833 0078 BD46     		mov	sp, r7
+ 21834 007a 90BD     		pop	{r4, r7, pc}
+ 21835              		.cfi_endproc
+ 21836              	.LFE1311:
+ 21838              		.section	.rodata
+ 21839 013d 000000   		.align	2
+ 21840              	.LC14:
+ 21841 0140 70427569 		.ascii	"pBuilder\000"
+ 21841      6C646572 
+ 21841      00
+ 21842 0149 000000   		.section	.text._ZN13IAir3TFactory7builderEv,"ax",%progbits
+ 21843              		.align	2
+ 21844              		.global	_ZN13IAir3TFactory7builderEv
+ 21845              		.thumb
+ 21846              		.thumb_func
+ 21848              	_ZN13IAir3TFactory7builderEv:
+ 21849              	.LFB1312:
+ 160:../target/stm32/factory.cpp **** 
+ 161:../target/stm32/factory.cpp **** /**
+ 162:../target/stm32/factory.cpp ****  * Implementation of the builder method needed by the IAir3TFactory interface.
+ 163:../target/stm32/factory.cpp ****  */
+ 164:../target/stm32/factory.cpp **** IBuilder & IAir3TFactory::builder()
+ 165:../target/stm32/factory.cpp **** {
+ 21850              		.loc 1 165 0
+ 21851              		.cfi_startproc
+ 21852              		@ args = 0, pretend = 0, frame = 0
+ 21853              		@ frame_needed = 1, uses_anonymous_args = 0
+ 21854 0000 98B5     		push	{r3, r4, r7, lr}
+ 21855              	.LCFI74:
+ 21856              		.cfi_def_cfa_offset 16
+ 21857 0002 00AF     		add	r7, sp, #0
+ 21858              		.cfi_offset 14, -4
+ 21859              		.cfi_offset 7, -8
+ 21860              		.cfi_offset 4, -12
+ 21861              		.cfi_offset 3, -16
+ 21862              	.LCFI75:
+ 21863              		.cfi_def_cfa_register 7
+ 21864              	.LBB19:
+ 166:../target/stm32/factory.cpp **** 	static Builder * pBuilder = NULL;
+ 167:../target/stm32/factory.cpp **** 
+ 168:../target/stm32/factory.cpp **** 	if (!pBuilder)
+ 21865              		.loc 1 168 0
+ 21866 0004 40F20003 		movw	r3, #:lower16:_ZZN13IAir3TFactory7builderEvE8pBuilder
+ 21867 0008 C0F20003 		movt	r3, #:upper16:_ZZN13IAir3TFactory7builderEvE8pBuilder
+ 21868 000c 1B68     		ldr	r3, [r3, #0]
+ 21869 000e 002B     		cmp	r3, #0
+ 21870 0010 0ED1     		bne	.L89
+ 169:../target/stm32/factory.cpp **** 	{
+ 170:../target/stm32/factory.cpp **** 		pBuilder = new Builder();
+ 21871              		.loc 1 170 0
+ 21872 0012 4FF00400 		mov	r0, #4
+ 21873 0016 FFF7FEFF 		bl	_Znwj
+ 21874 001a 0446     		mov	r4, r0
+ 21875 001c 2346     		mov	r3, r4
+ 21876 001e 1846     		mov	r0, r3
+ 21877 0020 FFF7FEFF 		bl	_ZN7BuilderC1Ev
+ 21878 0024 2246     		mov	r2, r4
+ 21879 0026 40F20003 		movw	r3, #:lower16:_ZZN13IAir3TFactory7builderEvE8pBuilder
+ 21880 002a C0F20003 		movt	r3, #:upper16:_ZZN13IAir3TFactory7builderEvE8pBuilder
+ 21881 002e 1A60     		str	r2, [r3, #0]
+ 21882              	.L89:
+ 171:../target/stm32/factory.cpp **** 	}
+ 172:../target/stm32/factory.cpp **** 	assert(pBuilder);
+ 21883              		.loc 1 172 0
+ 21884 0030 40F20003 		movw	r3, #:lower16:_ZZN13IAir3TFactory7builderEvE8pBuilder
+ 21885 0034 C0F20003 		movt	r3, #:upper16:_ZZN13IAir3TFactory7builderEvE8pBuilder
+ 21886 0038 1B68     		ldr	r3, [r3, #0]
+ 21887 003a 002B     		cmp	r3, #0
+ 21888 003c 0FD1     		bne	.L90
+ 21889              		.loc 1 172 0 is_stmt 0 discriminator 1
+ 21890 003e 40F20000 		movw	r0, #:lower16:.LC2
+ 21891 0042 C0F20000 		movt	r0, #:upper16:.LC2
+ 21892 0046 4FF0AC01 		mov	r1, #172
+ 21893 004a 40F20002 		movw	r2, #:lower16:_ZZN13IAir3TFactory7builderEvE19__PRETTY_FUNCTION__
+ 21894 004e C0F20002 		movt	r2, #:upper16:_ZZN13IAir3TFactory7builderEvE19__PRETTY_FUNCTION__
+ 21895 0052 40F20003 		movw	r3, #:lower16:.LC14
+ 21896 0056 C0F20003 		movt	r3, #:upper16:.LC14
+ 21897 005a FFF7FEFF 		bl	__assert_func
+ 21898              	.L90:
+ 173:../target/stm32/factory.cpp **** 
+ 174:../target/stm32/factory.cpp **** 	return *pBuilder;
+ 21899              		.loc 1 174 0 is_stmt 1
+ 21900 005e 40F20003 		movw	r3, #:lower16:_ZZN13IAir3TFactory7builderEvE8pBuilder
+ 21901 0062 C0F20003 		movt	r3, #:upper16:_ZZN13IAir3TFactory7builderEvE8pBuilder
+ 21902 0066 1B68     		ldr	r3, [r3, #0]
+ 21903              	.LBE19:
+ 175:../target/stm32/factory.cpp **** }
+ 21904              		.loc 1 175 0
+ 21905 0068 1846     		mov	r0, r3
+ 21906 006a 98BD     		pop	{r3, r4, r7, pc}
+ 21907              		.cfi_endproc
+ 21908              	.LFE1312:
+ 21910              		.global	_ZTV7Factory
+ 21911              		.section	.rodata._ZTV7Factory,"a",%progbits
+ 21912              		.align	3
+ 21915              	_ZTV7Factory:
+ 21916 0000 00000000 		.word	0
+ 21917 0004 00000000 		.word	0
+ 21918 0008 00000000 		.word	_ZN7FactoryD1Ev
+ 21919 000c 00000000 		.word	_ZN7FactoryD0Ev
+ 21920 0010 00000000 		.word	_ZN7Factory14phyTransceiverEv
+ 21921 0014 00000000 		.word	_ZN7Factory17monochromeDisplayEv
+ 21922 0018 00000000 		.word	_ZN7Factory8joystickEv
+ 21923 001c 00000000 		.word	_ZN7Factory3ledEv
+ 21924              		.weak	_ZTV10LEDBlinker
+ 21925              		.section	.rodata._ZTV10LEDBlinker,"aG",%progbits,_ZTV10LEDBlinker,comdat
+ 21926              		.align	3
+ 21929              	_ZTV10LEDBlinker:
+ 21930 0000 00000000 		.word	0
+ 21931 0004 00000000 		.word	0
+ 21932 0008 00000000 		.word	_ZN10LEDBlinkerD1Ev
+ 21933 000c 00000000 		.word	_ZN10LEDBlinkerD0Ev
+ 21934 0010 00000000 		.word	_ZN10XFReactive13startBehaviorEv
+ 21935 0014 00000000 		.word	_ZN10XFReactive9pushEventEP8IXFEvent
+ 21936 0018 00000000 		.word	_ZN10XFReactive7processEP8IXFEvent
+ 21937 001c 00000000 		.word	_ZN10LEDBlinker12processEventEv
+ 21938 0020 00000000 		.word	_ZN10XFReactive9getThreadEv
+ 21939              		.weak	_ZTV13IAir3TFactory
+ 21940 0024 00000000 		.section	.rodata._ZTV13IAir3TFactory,"aG",%progbits,_ZTV13IAir3TFactory,comdat
+ 21941              		.align	3
+ 21944              	_ZTV13IAir3TFactory:
+ 21945 0000 00000000 		.word	0
+ 21946 0004 00000000 		.word	0
+ 21947 0008 00000000 		.word	_ZN13IAir3TFactoryD1Ev
+ 21948 000c 00000000 		.word	_ZN13IAir3TFactoryD0Ev
+ 21949 0010 00000000 		.word	__cxa_pure_virtual
+ 21950 0014 00000000 		.word	__cxa_pure_virtual
+ 21951 0018 00000000 		.word	__cxa_pure_virtual
+ 21952 001c 00000000 		.word	__cxa_pure_virtual
+ 21953              		.section	.bss._ZZN13IAir3TFactory7builderEvE8pBuilder,"aw",%nobits
+ 21954              		.align	2
+ 21957              	_ZZN13IAir3TFactory7builderEvE8pBuilder:
+ 21958 0000 00000000 		.space	4
+ 21959              		.section	.rodata._ZZN13IAir3TFactory7builderEvE19__PRETTY_FUNCTION__,"a",%progbits
+ 21960              		.align	2
+ 21963              	_ZZN13IAir3TFactory7builderEvE19__PRETTY_FUNCTION__:
+ 21964 0000 73746174 		.ascii	"static IBuilder& IAir3TFactory::builder()\000"
+ 21964      69632049 
+ 21964      4275696C 
+ 21964      64657226 
+ 21964      20494169 
+ 21965 002a 0000     		.section	.bss._ZZN13IAir3TFactory7factoryEiPPcE8pFactory,"aw",%nobits
+ 21966              		.align	2
+ 21969              	_ZZN13IAir3TFactory7factoryEiPPcE8pFactory:
+ 21970 0000 00000000 		.space	4
+ 21971              		.section	.rodata._ZZN13IAir3TFactory7factoryEiPPcE19__PRETTY_FUNCTION__,"a",%progbits
+ 21972              		.align	2
+ 21975              	_ZZN13IAir3TFactory7factoryEiPPcE19__PRETTY_FUNCTION__:
+ 21976 0000 73746174 		.ascii	"static IAir3TFactory& IAir3TFactory::factory(int, c"
+ 21976      69632049 
+ 21976      41697233 
+ 21976      54466163 
+ 21976      746F7279 
+ 21977 0033 6861722A 		.ascii	"har**)\000"
+ 21977      2A2900
+ 21978 003a 0000     		.section	.rodata._ZZN7Factory9sharedSpiEvE19__PRETTY_FUNCTION__,"a",%progbits
+ 21979              		.align	2
+ 21982              	_ZZN7Factory9sharedSpiEvE19__PRETTY_FUNCTION__:
+ 21983 0000 44697370 		.ascii	"DisplayNrfSharedSpi& Factory::sharedSpi()\000"
+ 21983      6C61794E 
+ 21983      72665368 
+ 21983      61726564 
+ 21983      53706926 
+ 21984 002a 0000     		.section	.rodata._ZZN7Factory4uartEhE19__PRETTY_FUNCTION__,"a",%progbits
+ 21985              		.align	2
+ 21988              	_ZZN7Factory4uartEhE19__PRETTY_FUNCTION__:
+ 21989 0000 55617274 		.ascii	"Uart& Factory::uart(unsigned char)\000"
+ 21989      26204661 
+ 21989      63746F72 
+ 21989      793A3A75 
+ 21989      61727428 
+ 21990 0023 00       		.section	.rodata._ZZN4Uart4uartEhE19__PRETTY_FUNCTION__,"a",%progbits
+ 21991              		.align	2
+ 21994              	_ZZN4Uart4uartEhE19__PRETTY_FUNCTION__:
+ 21995 0000 73746174 		.ascii	"static Uart& Uart::uart(unsigned char)\000"
+ 21995      69632055 
+ 21995      61727426 
+ 21995      20556172 
+ 21995      743A3A75 
+ 21996 0027 00       		.section	.rodata._ZZN7Factory3spiEiE19__PRETTY_FUNCTION__,"a",%progbits
+ 21997              		.align	2
+ 22000              	_ZZN7Factory3spiEiE19__PRETTY_FUNCTION__:
+ 22001 0000 53504926 		.ascii	"SPI& Factory::spi(int)\000"
+ 22001      20466163 
+ 22001      746F7279 
+ 22001      3A3A7370 
+ 22001      6928696E 
+ 22002 0017 00       		.section	.rodata._ZZN7Factory8joystickEvE19__PRETTY_FUNCTION__,"a",%progbits
+ 22003              		.align	2
+ 22006              	_ZZN7Factory8joystickEvE19__PRETTY_FUNCTION__:
+ 22007 0000 76697274 		.ascii	"virtual IJoystick& Factory::joystick()\000"
+ 22007      75616C20 
+ 22007      494A6F79 
+ 22007      73746963 
+ 22007      6B262046 
+ 22008 0027 00       		.section	.rodata._ZZN7Factory17monochromeDisplayEvE19__PRETTY_FUNCTION__,"a",%progbits
+ 22009              		.align	2
+ 22012              	_ZZN7Factory17monochromeDisplayEvE19__PRETTY_FUNCTION__:
+ 22013 0000 76697274 		.ascii	"virtual IMonochromeDisplay& Factory::monochromeDisp"
+ 22013      75616C20 
+ 22013      494D6F6E 
+ 22013      6F636872 
+ 22013      6F6D6544 
+ 22014 0033 6C617928 		.ascii	"lay()\000"
+ 22014      2900
+ 22015 0039 000000   		.section	.rodata._ZZN7Factory14phyTransceiverEvE19__PRETTY_FUNCTION__,"a",%progbits
+ 22016              		.align	2
+ 22019              	_ZZN7Factory14phyTransceiverEvE19__PRETTY_FUNCTION__:
+ 22020 0000 76697274 		.ascii	"virtual IPhyTransceiver& Factory::phyTransceiver()\000"
+ 22020      75616C20 
+ 22020      49506879 
+ 22020      5472616E 
+ 22020      73636569 
+ 22021 0033 00       		.section	.rodata._ZZN7Factory8instanceEvE19__PRETTY_FUNCTION__,"a",%progbits
+ 22022              		.align	2
+ 22025              	_ZZN7Factory8instanceEvE19__PRETTY_FUNCTION__:
+ 22026 0000 73746174 		.ascii	"static Factory& Factory::instance()\000"
+ 22026      69632046 
+ 22026      6163746F 
+ 22026      72792620 
+ 22026      46616374 
+ 22027              		.section	.rodata._ZZN7FactoryC1EiPPcE19__PRETTY_FUNCTION__,"a",%progbits
+ 22028              		.align	2
+ 22031              	_ZZN7FactoryC1EiPPcE19__PRETTY_FUNCTION__:
+ 22032 0000 46616374 		.ascii	"Factory::Factory(int, char**)\000"
+ 22032      6F72793A 
+ 22032      3A466163 
+ 22032      746F7279 
+ 22032      28696E74 
+ 22033 001e 0000     		.text
+ 22034              	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 factory.cpp
+     /tmp/ccRj74jv.s:20104  .text._ZL20__gthread_key_deletei:00000000 $t
+     /tmp/ccRj74jv.s:20108  .text._ZL20__gthread_key_deletei:00000000 _ZL20__gthread_key_deletei
+     /tmp/ccRj74jv.s:20138  .text._ZN4ILedaSENS_5StateE:00000000 $t
+     /tmp/ccRj74jv.s:20143  .text._ZN4ILedaSENS_5StateE:00000000 _ZN4ILedaSENS_5StateE
+     /tmp/ccRj74jv.s:20183  .rodata:00000000 $d
+     /tmp/ccRj74jv.s:20184  .rodata:00000000 .LC0
+     /tmp/ccRj74jv.s:20188  .rodata:00000038 .LC1
+     /tmp/ccRj74jv.s:20191  .text._ZN4Uart4uartEh:00000000 $t
+     /tmp/ccRj74jv.s:20196  .text._ZN4Uart4uartEh:00000000 _ZN4Uart4uartEh
+     /tmp/ccRj74jv.s:21994  .rodata._ZZN4Uart4uartEhE19__PRETTY_FUNCTION__:00000000 _ZZN4Uart4uartEhE19__PRETTY_FUNCTION__
+     /tmp/ccRj74jv.s:20245  .text._ZNK8IXFEvent12getEventTypeEv:00000000 $t
+     /tmp/ccRj74jv.s:20250  .text._ZNK8IXFEvent12getEventTypeEv:00000000 _ZNK8IXFEvent12getEventTypeEv
+     /tmp/ccRj74jv.s:20281  .text._ZNK8IXFEvent5getIdEv:00000000 $t
+     /tmp/ccRj74jv.s:20286  .text._ZNK8IXFEvent5getIdEv:00000000 _ZNK8IXFEvent5getIdEv
+     /tmp/ccRj74jv.s:20316  .text._ZN11EventStatusC2ENS_12eEventStatusE:00000000 $t
+     /tmp/ccRj74jv.s:20321  .text._ZN11EventStatusC2ENS_12eEventStatusE:00000000 _ZN11EventStatusC2ENS_12eEventStatusE
+     /tmp/ccRj74jv.s:20321  .text._ZN11EventStatusC2ENS_12eEventStatusE:00000000 _ZN11EventStatusC1ENS_12eEventStatusE
+     /tmp/ccRj74jv.s:20359  .text._ZN13IAir3TFactoryC2Ev:00000000 $t
+     /tmp/ccRj74jv.s:20364  .text._ZN13IAir3TFactoryC2Ev:00000000 _ZN13IAir3TFactoryC2Ev
+     /tmp/ccRj74jv.s:20397  .text._ZN13IAir3TFactoryC2Ev:0000001c $d
+     /tmp/ccRj74jv.s:21944  .rodata._ZTV13IAir3TFactory:00000000 _ZTV13IAir3TFactory
+     /tmp/ccRj74jv.s:20364  .text._ZN13IAir3TFactoryC2Ev:00000000 _ZN13IAir3TFactoryC1Ev
+     /tmp/ccRj74jv.s:20404  .text._ZN13IAir3TFactoryD2Ev:00000000 $t
+     /tmp/ccRj74jv.s:20409  .text._ZN13IAir3TFactoryD2Ev:00000000 _ZN13IAir3TFactoryD2Ev
+     /tmp/ccRj74jv.s:20451  .text._ZN13IAir3TFactoryD2Ev:00000030 $d
+     /tmp/ccRj74jv.s:20409  .text._ZN13IAir3TFactoryD2Ev:00000000 _ZN13IAir3TFactoryD1Ev
+     /tmp/ccRj74jv.s:20458  .text._ZN13IAir3TFactoryD0Ev:00000000 $t
+     /tmp/ccRj74jv.s:20463  .text._ZN13IAir3TFactoryD0Ev:00000000 _ZN13IAir3TFactoryD0Ev
+     /tmp/ccRj74jv.s:20495  .text._ZN10LEDBlinkerC2ER4ILed:00000000 $t
+     /tmp/ccRj74jv.s:20500  .text._ZN10LEDBlinkerC2ER4ILed:00000000 _ZN10LEDBlinkerC2ER4ILed
+     /tmp/ccRj74jv.s:20549  .text._ZN10LEDBlinkerC2ER4ILed:00000040 $d
+     /tmp/ccRj74jv.s:21929  .rodata._ZTV10LEDBlinker:00000000 _ZTV10LEDBlinker
+     /tmp/ccRj74jv.s:20500  .text._ZN10LEDBlinkerC2ER4ILed:00000000 _ZN10LEDBlinkerC1ER4ILed
+     /tmp/ccRj74jv.s:20556  .text._ZN10LEDBlinkerD2Ev:00000000 $t
+     /tmp/ccRj74jv.s:20561  .text._ZN10LEDBlinkerD2Ev:00000000 _ZN10LEDBlinkerD2Ev
+     /tmp/ccRj74jv.s:20606  .text._ZN10LEDBlinkerD2Ev:00000038 $d
+     /tmp/ccRj74jv.s:20561  .text._ZN10LEDBlinkerD2Ev:00000000 _ZN10LEDBlinkerD1Ev
+     /tmp/ccRj74jv.s:20613  .text._ZN10LEDBlinkerD0Ev:00000000 $t
+     /tmp/ccRj74jv.s:20618  .text._ZN10LEDBlinkerD0Ev:00000000 _ZN10LEDBlinkerD0Ev
+     /tmp/ccRj74jv.s:20650  .text._ZN10LEDBlinker12processEventEv:00000000 $t
+     /tmp/ccRj74jv.s:20655  .text._ZN10LEDBlinker12processEventEv:00000000 _ZN10LEDBlinker12processEventEv
+     /tmp/ccRj74jv.s:20903  .bss._ZN7Factory10_pInstanceE:00000000 _ZN7Factory10_pInstanceE
+     /tmp/ccRj74jv.s:20900  .bss._ZN7Factory10_pInstanceE:00000000 $d
+     /tmp/ccRj74jv.s:20907  .rodata:00000060 .LC2
+     /tmp/ccRj74jv.s:20910  .rodata:0000007c .LC3
+     /tmp/ccRj74jv.s:20913  .text._ZN7FactoryC2EiPPc:00000000 $t
+     /tmp/ccRj74jv.s:20918  .text._ZN7FactoryC2EiPPc:00000000 _ZN7FactoryC2EiPPc
+     /tmp/ccRj74jv.s:22031  .rodata._ZZN7FactoryC1EiPPcE19__PRETTY_FUNCTION__:00000000 _ZZN7FactoryC1EiPPcE19__PRETTY_FUNCTION__
+     /tmp/ccRj74jv.s:21020  .text._ZN7FactoryC2EiPPc:000000d8 $d
+     /tmp/ccRj74jv.s:21915  .rodata._ZTV7Factory:00000000 _ZTV7Factory
+     /tmp/ccRj74jv.s:20918  .text._ZN7FactoryC2EiPPc:00000000 _ZN7FactoryC1EiPPc
+     /tmp/ccRj74jv.s:21027  .text._ZN7FactoryD2Ev:00000000 $t
+     /tmp/ccRj74jv.s:21032  .text._ZN7FactoryD2Ev:00000000 _ZN7FactoryD2Ev
+     /tmp/ccRj74jv.s:21090  .text._ZN7FactoryD2Ev:00000050 $d
+     /tmp/ccRj74jv.s:21032  .text._ZN7FactoryD2Ev:00000000 _ZN7FactoryD1Ev
+     /tmp/ccRj74jv.s:21097  .text._ZN7FactoryD0Ev:00000000 $t
+     /tmp/ccRj74jv.s:21102  .text._ZN7FactoryD0Ev:00000000 _ZN7FactoryD0Ev
+     /tmp/ccRj74jv.s:21135  .rodata:00000084 .LC4
+     /tmp/ccRj74jv.s:21138  .text._ZN7Factory8instanceEv:00000000 $t
+     /tmp/ccRj74jv.s:21143  .text._ZN7Factory8instanceEv:00000000 _ZN7Factory8instanceEv
+     /tmp/ccRj74jv.s:22025  .rodata._ZZN7Factory8instanceEvE19__PRETTY_FUNCTION__:00000000 _ZZN7Factory8instanceEvE19__PRETTY_FUNCTION__
+     /tmp/ccRj74jv.s:21187  .rodata:00000090 .LC5
+     /tmp/ccRj74jv.s:21190  .text._ZN7Factory14phyTransceiverEv:00000000 $t
+     /tmp/ccRj74jv.s:21195  .text._ZN7Factory14phyTransceiverEv:00000000 _ZN7Factory14phyTransceiverEv
+     /tmp/ccRj74jv.s:22019  .rodata._ZZN7Factory14phyTransceiverEvE19__PRETTY_FUNCTION__:00000000 _ZZN7Factory14phyTransceiverEvE19__PRETTY_FUNCTION__
+     /tmp/ccRj74jv.s:21261  .rodata:000000a0 .LC6
+     /tmp/ccRj74jv.s:21264  .text._ZN7Factory17monochromeDisplayEv:00000000 $t
+     /tmp/ccRj74jv.s:21269  .text._ZN7Factory17monochromeDisplayEv:00000000 _ZN7Factory17monochromeDisplayEv
+     /tmp/ccRj74jv.s:22012  .rodata._ZZN7Factory17monochromeDisplayEvE19__PRETTY_FUNCTION__:00000000 _ZZN7Factory17monochromeDisplayEvE19__PRETTY_FUNCTION__
+     /tmp/ccRj74jv.s:21335  .rodata:000000ac .LC7
+     /tmp/ccRj74jv.s:21338  .text._ZN7Factory8joystickEv:00000000 $t
+     /tmp/ccRj74jv.s:21343  .text._ZN7Factory8joystickEv:00000000 _ZN7Factory8joystickEv
+     /tmp/ccRj74jv.s:22006  .rodata._ZZN7Factory8joystickEvE19__PRETTY_FUNCTION__:00000000 _ZZN7Factory8joystickEvE19__PRETTY_FUNCTION__
+     /tmp/ccRj74jv.s:21423  .text._ZN7Factory3ledEv:00000000 $t
+     /tmp/ccRj74jv.s:21428  .text._ZN7Factory3ledEv:00000000 _ZN7Factory3ledEv
+     /tmp/ccRj74jv.s:21460  .rodata:000000b8 .LC8
+     /tmp/ccRj74jv.s:21463  .rodata:000000d4 .LC9
+     /tmp/ccRj74jv.s:21466  .text._ZN7Factory3spiEi:00000000 $t
+     /tmp/ccRj74jv.s:21471  .text._ZN7Factory3spiEi:00000000 _ZN7Factory3spiEi
+     /tmp/ccRj74jv.s:22000  .rodata._ZZN7Factory3spiEiE19__PRETTY_FUNCTION__:00000000 _ZZN7Factory3spiEiE19__PRETTY_FUNCTION__
+     /tmp/ccRj74jv.s:21591  .rodata:000000e4 .LC10
+     /tmp/ccRj74jv.s:21594  .rodata:00000110 .LC11
+     /tmp/ccRj74jv.s:21597  .text._ZN7Factory4uartEh:00000000 $t
+     /tmp/ccRj74jv.s:21602  .text._ZN7Factory4uartEh:00000000 _ZN7Factory4uartEh
+     /tmp/ccRj74jv.s:21988  .rodata._ZZN7Factory4uartEhE19__PRETTY_FUNCTION__:00000000 _ZZN7Factory4uartEhE19__PRETTY_FUNCTION__
+     /tmp/ccRj74jv.s:21687  .rodata:00000128 .LC12
+     /tmp/ccRj74jv.s:21690  .text._ZN7Factory9sharedSpiEv:00000000 $t
+     /tmp/ccRj74jv.s:21695  .text._ZN7Factory9sharedSpiEv:00000000 _ZN7Factory9sharedSpiEv
+     /tmp/ccRj74jv.s:21982  .rodata._ZZN7Factory9sharedSpiEvE19__PRETTY_FUNCTION__:00000000 _ZZN7Factory9sharedSpiEvE19__PRETTY_FUNCTION__
+     /tmp/ccRj74jv.s:21760  .rodata:00000134 .LC13
+     /tmp/ccRj74jv.s:21763  .text._ZN13IAir3TFactory7factoryEiPPc:00000000 $t
+     /tmp/ccRj74jv.s:21768  .text._ZN13IAir3TFactory7factoryEiPPc:00000000 _ZN13IAir3TFactory7factoryEiPPc
+     /tmp/ccRj74jv.s:21969  .bss._ZZN13IAir3TFactory7factoryEiPPcE8pFactory:00000000 _ZZN13IAir3TFactory7factoryEiPPcE8pFactory
+     /tmp/ccRj74jv.s:21975  .rodata._ZZN13IAir3TFactory7factoryEiPPcE19__PRETTY_FUNCTION__:00000000 _ZZN13IAir3TFactory7factoryEiPPcE19__PRETTY_FUNCTION__
+     /tmp/ccRj74jv.s:21840  .rodata:00000140 .LC14
+     /tmp/ccRj74jv.s:21843  .text._ZN13IAir3TFactory7builderEv:00000000 $t
+     /tmp/ccRj74jv.s:21848  .text._ZN13IAir3TFactory7builderEv:00000000 _ZN13IAir3TFactory7builderEv
+     /tmp/ccRj74jv.s:21957  .bss._ZZN13IAir3TFactory7builderEvE8pBuilder:00000000 _ZZN13IAir3TFactory7builderEvE8pBuilder
+     /tmp/ccRj74jv.s:21963  .rodata._ZZN13IAir3TFactory7builderEvE19__PRETTY_FUNCTION__:00000000 _ZZN13IAir3TFactory7builderEvE19__PRETTY_FUNCTION__
+     /tmp/ccRj74jv.s:21912  .rodata._ZTV7Factory:00000000 $d
+     /tmp/ccRj74jv.s:21926  .rodata._ZTV10LEDBlinker:00000000 $d
+     /tmp/ccRj74jv.s:21941  .rodata._ZTV13IAir3TFactory:00000000 $d
+     /tmp/ccRj74jv.s:21954  .bss._ZZN13IAir3TFactory7builderEvE8pBuilder:00000000 $d
+     /tmp/ccRj74jv.s:21960  .rodata._ZZN13IAir3TFactory7builderEvE19__PRETTY_FUNCTION__:00000000 $d
+     /tmp/ccRj74jv.s:21966  .bss._ZZN13IAir3TFactory7factoryEiPPcE8pFactory:00000000 $d
+     /tmp/ccRj74jv.s:21972  .rodata._ZZN13IAir3TFactory7factoryEiPPcE19__PRETTY_FUNCTION__:00000000 $d
+     /tmp/ccRj74jv.s:21979  .rodata._ZZN7Factory9sharedSpiEvE19__PRETTY_FUNCTION__:00000000 $d
+     /tmp/ccRj74jv.s:21985  .rodata._ZZN7Factory4uartEhE19__PRETTY_FUNCTION__:00000000 $d
+     /tmp/ccRj74jv.s:21991  .rodata._ZZN4Uart4uartEhE19__PRETTY_FUNCTION__:00000000 $d
+     /tmp/ccRj74jv.s:21997  .rodata._ZZN7Factory3spiEiE19__PRETTY_FUNCTION__:00000000 $d
+     /tmp/ccRj74jv.s:22003  .rodata._ZZN7Factory8joystickEvE19__PRETTY_FUNCTION__:00000000 $d
+     /tmp/ccRj74jv.s:22009  .rodata._ZZN7Factory17monochromeDisplayEvE19__PRETTY_FUNCTION__:00000000 $d
+     /tmp/ccRj74jv.s:22016  .rodata._ZZN7Factory14phyTransceiverEvE19__PRETTY_FUNCTION__:00000000 $d
+     /tmp/ccRj74jv.s:22022  .rodata._ZZN7Factory8instanceEvE19__PRETTY_FUNCTION__:00000000 $d
+     /tmp/ccRj74jv.s:22028  .rodata._ZZN7FactoryC1EiPPcE19__PRETTY_FUNCTION__:00000000 $d
+                     .debug_frame:00000010 $d
+                           .group:00000000 _ZN11EventStatusC5ENS_12eEventStatusE
+                           .group:00000000 _ZN13IAir3TFactoryC5Ev
+                           .group:00000000 _ZN13IAir3TFactoryD5Ev
+                           .group:00000000 _ZN10LEDBlinkerC5ER4ILed
+                           .group:00000000 _ZN10LEDBlinkerD5Ev
+
+UNDEFINED SYMBOLS
+__assert_func
+_ZN4Uart6_sUartE
+_ZdlPv
+_ZN10XFReactiveC2EP8XFThread
+_ZN10XFReactive13startBehaviorEv
+_ZN10XFReactiveD2Ev
+_ZNK10XFReactive15getCurrentEventEv
+_Znwj
+_ZN16XFNullTransitionC1EiP11IXFReactive
+_ZN10XFReactive17getCurrentTimeoutEv
+_ZN8XFThread15scheduleTimeoutEiiP11IXFReactive
+_ZN13LedControllerC1Ev
+memset
+RCC_APB2PeriphClockCmd
+_ZN13LedControllerD1Ev
+_ZN14NrfTransceiverC1Ev
+_ZN17MonochromeDisplayC1Ev
+_ZN8JoystickC1Ev
+_ZN3SPIC1Ei
+_ZN3SPI10initializeEv
+_ZN4UartC1Eh
+_ZN19DisplayNrfSharedSpiC1Ev
+_ZN7BuilderC1Ev
+_ZN10XFReactive9pushEventEP8IXFEvent
+_ZN10XFReactive7processEP8IXFEvent
+_ZN10XFReactive9getThreadEv
+__cxa_pure_virtual

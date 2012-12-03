@@ -1,0 +1,140 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"main.cpp"
+  23              	.Ltext0:
+  24              		.file 1 "../main.cpp"
+ 1914              		.align	2
+ 1915              	.LC0:
+ 1916 0000 2E2E2F6D 		.ascii	"../main.cpp\000"
+ 1916      61696E2E 
+ 1916      63707000 
+ 1917              		.align	2
+ 1918              	.LC1:
+ 1919 000c 49416972 		.ascii	"IAir3TFactory::builder().buildApplication( argc , a"
+ 1919      33544661 
+ 1919      63746F72 
+ 1919      793A3A62 
+ 1919      75696C64 
+ 1920 003f 72677620 		.ascii	"rgv )\000"
+ 1920      2900
+ 1921 0045 000000   		.section	.text.main,"ax",%progbits
+ 1922              		.align	2
+ 1923              		.global	main
+ 1924              		.thumb
+ 1925              		.thumb_func
+ 1927              	main:
+ 1928              	.LFB734:
+   1:../main.cpp   **** #include <xf/xf.h>
+   2:../main.cpp   **** #include <IAir3TFactory>
+   3:../main.cpp   **** #include <IBuilder>
+   4:../main.cpp   **** #include <assert.h>
+   5:../main.cpp   **** 
+   6:../main.cpp   **** 
+   7:../main.cpp   **** int main( int argc , char ** argv )
+   8:../main.cpp   **** {
+ 1929              		.loc 1 8 0
+ 1930              		.cfi_startproc
+ 1931              		@ args = 0, pretend = 0, frame = 8
+ 1932              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1933 0000 90B5     		push	{r4, r7, lr}
+ 1934              	.LCFI0:
+ 1935              		.cfi_def_cfa_offset 12
+ 1936 0002 83B0     		sub	sp, sp, #12
+ 1937              	.LCFI1:
+ 1938              		.cfi_def_cfa_offset 24
+ 1939 0004 00AF     		add	r7, sp, #0
+ 1940              		.cfi_offset 14, -4
+ 1941              		.cfi_offset 7, -8
+ 1942              		.cfi_offset 4, -12
+ 1943              	.LCFI2:
+ 1944              		.cfi_def_cfa_register 7
+ 1945 0006 7860     		str	r0, [r7, #4]
+ 1946 0008 3960     		str	r1, [r7, #0]
+ 1947              	.LBB2:
+   9:../main.cpp   **** 	// Prepare XF execution.
+  10:../main.cpp   **** 	XF_PREPARE;
+  11:../main.cpp   **** 
+  12:../main.cpp   **** 	// Start the application.
+  13:../main.cpp   **** 	assert( IAir3TFactory::builder().buildApplication( argc , argv ) );
+ 1948              		.loc 1 13 0
+ 1949 000a FFF7FEFF 		bl	_ZN13IAir3TFactory7builderEv
+ 1950 000e 0346     		mov	r3, r0
+ 1951 0010 1A68     		ldr	r2, [r3, #0]
+ 1952 0012 02F10802 		add	r2, r2, #8
+ 1953 0016 1468     		ldr	r4, [r2, #0]
+ 1954 0018 1846     		mov	r0, r3
+ 1955 001a 7968     		ldr	r1, [r7, #4]
+ 1956 001c 3A68     		ldr	r2, [r7, #0]
+ 1957 001e A047     		blx	r4
+ 1958 0020 0346     		mov	r3, r0
+ 1959 0022 002B     		cmp	r3, #0
+ 1960 0024 0FD1     		bne	.L2
+ 1961              		.loc 1 13 0 is_stmt 0 discriminator 1
+ 1962 0026 40F20000 		movw	r0, #:lower16:.LC0
+ 1963 002a C0F20000 		movt	r0, #:upper16:.LC0
+ 1964 002e 4FF00D01 		mov	r1, #13
+ 1965 0032 40F20002 		movw	r2, #:lower16:_ZZ4mainE19__PRETTY_FUNCTION__
+ 1966 0036 C0F20002 		movt	r2, #:upper16:_ZZ4mainE19__PRETTY_FUNCTION__
+ 1967 003a 40F20003 		movw	r3, #:lower16:.LC1
+ 1968 003e C0F20003 		movt	r3, #:upper16:.LC1
+ 1969 0042 FFF7FEFF 		bl	__assert_func
+ 1970              	.L2:
+  14:../main.cpp   **** 
+  15:../main.cpp   **** 	// Initialize and start the XF.
+  16:../main.cpp   **** 	XF::init( 10 );
+ 1971              		.loc 1 16 0 is_stmt 1
+ 1972 0046 4FF00A00 		mov	r0, #10
+ 1973 004a FFF7FEFF 		bl	_ZN2XF4initEi
+  17:../main.cpp   **** 	XF::start();
+ 1974              		.loc 1 17 0
+ 1975 004e FFF7FEFF 		bl	_ZN2XF5startEv
+  18:../main.cpp   **** 
+  19:../main.cpp   **** 	// Exit.
+  20:../main.cpp   **** 	return 0;
+ 1976              		.loc 1 20 0
+ 1977 0052 4FF00003 		mov	r3, #0
+ 1978              	.LBE2:
+  21:../main.cpp   **** }
+ 1979              		.loc 1 21 0
+ 1980 0056 1846     		mov	r0, r3
+ 1981 0058 07F10C07 		add	r7, r7, #12
+ 1982 005c BD46     		mov	sp, r7
+ 1983 005e 90BD     		pop	{r4, r7, pc}
+ 1984              		.cfi_endproc
+ 1985              	.LFE734:
+ 1987              		.section	.rodata._ZZ4mainE19__PRETTY_FUNCTION__,"a",%progbits
+ 1988              		.align	2
+ 1991              	_ZZ4mainE19__PRETTY_FUNCTION__:
+ 1992 0000 696E7420 		.ascii	"int main(int, char**)\000"
+ 1992      6D61696E 
+ 1992      28696E74 
+ 1992      2C206368 
+ 1992      61722A2A 
+ 1993 0016 0000     		.text
+ 1994              	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 main.cpp
+     /tmp/ccCrsTBA.s:1914   .rodata:00000000 $d
+     /tmp/ccCrsTBA.s:1915   .rodata:00000000 .LC0
+     /tmp/ccCrsTBA.s:1918   .rodata:0000000c .LC1
+     /tmp/ccCrsTBA.s:1922   .text.main:00000000 $t
+     /tmp/ccCrsTBA.s:1927   .text.main:00000000 main
+     /tmp/ccCrsTBA.s:1991   .rodata._ZZ4mainE19__PRETTY_FUNCTION__:00000000 _ZZ4mainE19__PRETTY_FUNCTION__
+     /tmp/ccCrsTBA.s:1988   .rodata._ZZ4mainE19__PRETTY_FUNCTION__:00000000 $d
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+_ZN13IAir3TFactory7builderEv
+__assert_func
+_ZN2XF4initEi
+_ZN2XF5startEv

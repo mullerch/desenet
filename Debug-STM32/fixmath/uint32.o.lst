@@ -1,0 +1,141 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"uint32.c"
+  23              	.Ltext0:
+  24              		.file 1 "../fixmath/uint32.c"
+ 902              		.align	2
+ 903              		.global	uint32_log2
+ 904              		.thumb
+ 905              		.thumb_func
+ 907              	uint32_log2:
+ 908              	.LFB0:
+   1:../fixmath/uint32.c **** #include "uint32.h"
+   2:../fixmath/uint32.c **** 
+   3:../fixmath/uint32.c **** 
+   4:../fixmath/uint32.c **** 
+   5:../fixmath/uint32.c **** uint32_t uint32_log2(uint32_t inVal) {
+ 909              		.loc 1 5 0
+ 910              		.cfi_startproc
+ 911              		@ args = 0, pretend = 0, frame = 16
+ 912              		@ frame_needed = 1, uses_anonymous_args = 0
+ 913              		@ link register save eliminated.
+ 914 0000 80B4     		push	{r7}
+ 915              	.LCFI0:
+ 916              		.cfi_def_cfa_offset 4
+ 917 0002 85B0     		sub	sp, sp, #20
+ 918              	.LCFI1:
+ 919              		.cfi_def_cfa_offset 24
+ 920 0004 00AF     		add	r7, sp, #0
+ 921              		.cfi_offset 7, -4
+ 922              	.LCFI2:
+ 923              		.cfi_def_cfa_register 7
+ 924 0006 7860     		str	r0, [r7, #4]
+   6:../fixmath/uint32.c **** 	if(inVal == 0)
+ 925              		.loc 1 6 0
+ 926 0008 7B68     		ldr	r3, [r7, #4]
+ 927 000a 002B     		cmp	r3, #0
+ 928 000c 02D1     		bne	.L2
+   7:../fixmath/uint32.c **** 		return 0;
+ 929              		.loc 1 7 0
+ 930 000e 4FF00003 		mov	r3, #0
+ 931 0012 38E0     		b	.L3
+ 932              	.L2:
+   8:../fixmath/uint32.c **** 	uint32_t tempOut = 0;
+ 933              		.loc 1 8 0
+ 934 0014 4FF00003 		mov	r3, #0
+ 935 0018 FB60     		str	r3, [r7, #12]
+   9:../fixmath/uint32.c **** 	if(inVal >= (1 << 16)) { inVal >>= 16; tempOut += 16; }
+ 936              		.loc 1 9 0
+ 937 001a 7A68     		ldr	r2, [r7, #4]
+ 938 001c 4FF6FF73 		movw	r3, #65535
+ 939 0020 9A42     		cmp	r2, r3
+ 940 0022 07D9     		bls	.L4
+ 941              		.loc 1 9 0 is_stmt 0 discriminator 1
+ 942 0024 7B68     		ldr	r3, [r7, #4]
+ 943 0026 4FEA1343 		lsr	r3, r3, #16
+ 944 002a 7B60     		str	r3, [r7, #4]
+ 945 002c FB68     		ldr	r3, [r7, #12]
+ 946 002e 03F11003 		add	r3, r3, #16
+ 947 0032 FB60     		str	r3, [r7, #12]
+ 948              	.L4:
+  10:../fixmath/uint32.c **** 	if(inVal >= (1 <<  8)) { inVal >>=  8; tempOut +=  8; }
+ 949              		.loc 1 10 0 is_stmt 1
+ 950 0034 7B68     		ldr	r3, [r7, #4]
+ 951 0036 FF2B     		cmp	r3, #255
+ 952 0038 07D9     		bls	.L5
+ 953              		.loc 1 10 0 is_stmt 0 discriminator 1
+ 954 003a 7B68     		ldr	r3, [r7, #4]
+ 955 003c 4FEA1323 		lsr	r3, r3, #8
+ 956 0040 7B60     		str	r3, [r7, #4]
+ 957 0042 FB68     		ldr	r3, [r7, #12]
+ 958 0044 03F10803 		add	r3, r3, #8
+ 959 0048 FB60     		str	r3, [r7, #12]
+ 960              	.L5:
+  11:../fixmath/uint32.c **** 	if(inVal >= (1 <<  4)) { inVal >>=  4; tempOut +=  4; }
+ 961              		.loc 1 11 0 is_stmt 1
+ 962 004a 7B68     		ldr	r3, [r7, #4]
+ 963 004c 0F2B     		cmp	r3, #15
+ 964 004e 07D9     		bls	.L6
+ 965              		.loc 1 11 0 is_stmt 0 discriminator 1
+ 966 0050 7B68     		ldr	r3, [r7, #4]
+ 967 0052 4FEA1313 		lsr	r3, r3, #4
+ 968 0056 7B60     		str	r3, [r7, #4]
+ 969 0058 FB68     		ldr	r3, [r7, #12]
+ 970 005a 03F10403 		add	r3, r3, #4
+ 971 005e FB60     		str	r3, [r7, #12]
+ 972              	.L6:
+  12:../fixmath/uint32.c **** 	if(inVal >= (1 <<  2)) { inVal >>=  2; tempOut +=  2; }
+ 973              		.loc 1 12 0 is_stmt 1
+ 974 0060 7B68     		ldr	r3, [r7, #4]
+ 975 0062 032B     		cmp	r3, #3
+ 976 0064 07D9     		bls	.L7
+ 977              		.loc 1 12 0 is_stmt 0 discriminator 1
+ 978 0066 7B68     		ldr	r3, [r7, #4]
+ 979 0068 4FEA9303 		lsr	r3, r3, #2
+ 980 006c 7B60     		str	r3, [r7, #4]
+ 981 006e FB68     		ldr	r3, [r7, #12]
+ 982 0070 03F10203 		add	r3, r3, #2
+ 983 0074 FB60     		str	r3, [r7, #12]
+ 984              	.L7:
+  13:../fixmath/uint32.c **** 	if(inVal >= (1 <<  1)) {               tempOut +=  1; }
+ 985              		.loc 1 13 0 is_stmt 1
+ 986 0076 7B68     		ldr	r3, [r7, #4]
+ 987 0078 012B     		cmp	r3, #1
+ 988 007a 03D9     		bls	.L8
+ 989              		.loc 1 13 0 is_stmt 0 discriminator 1
+ 990 007c FB68     		ldr	r3, [r7, #12]
+ 991 007e 03F10103 		add	r3, r3, #1
+ 992 0082 FB60     		str	r3, [r7, #12]
+ 993              	.L8:
+  14:../fixmath/uint32.c **** 	return tempOut;
+ 994              		.loc 1 14 0 is_stmt 1
+ 995 0084 FB68     		ldr	r3, [r7, #12]
+ 996              	.L3:
+  15:../fixmath/uint32.c **** }
+ 997              		.loc 1 15 0
+ 998 0086 1846     		mov	r0, r3
+ 999 0088 07F11407 		add	r7, r7, #20
+ 1000 008c BD46     		mov	sp, r7
+ 1001 008e 80BC     		pop	{r7}
+ 1002 0090 7047     		bx	lr
+ 1003              		.cfi_endproc
+ 1004              	.LFE0:
+ 1006 0092 00BF     		.text
+ 1007              	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 uint32.c
+     /tmp/cc2Ih2Nu.s:902    .text.uint32_log2:00000000 $t
+     /tmp/cc2Ih2Nu.s:907    .text.uint32_log2:00000000 uint32_log2
+                     .debug_frame:00000010 $d
+
+NO UNDEFINED SYMBOLS

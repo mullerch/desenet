@@ -1,0 +1,767 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"usb_endp.c"
+  23              	.Ltext0:
+  24              		.file 1 "../target/stm32/vcom/usb_endp.c"
+ 16528              	tx_in_progress:
+ 16529 0000 00       		.space	1
+ 16530              		.section	.bss.rx_pma_count,"aw",%nobits
+ 16531              		.align	1
+ 16534              	rx_pma_count:
+ 16535 0000 0000     		.space	2
+ 16536              		.section	.bss.rx_buffer,"aw",%nobits
+ 16537              		.align	2
+ 16540              	rx_buffer:
+ 16541 0000 00000000 		.space	64
+ 16541      00000000 
+ 16541      00000000 
+ 16541      00000000 
+ 16541      00000000 
+ 16542              		.section	.bss.rx_buffer_count,"aw",%nobits
+ 16543              		.align	1
+ 16546              	rx_buffer_count:
+ 16547 0000 0000     		.space	2
+ 16548              		.section	.bss.rx_buffer_index,"aw",%nobits
+ 16549              		.align	1
+ 16552              	rx_buffer_index:
+ 16553 0000 0000     		.space	2
+ 16554              		.section	.text.Enable_USB_Interrupts,"ax",%progbits
+ 16555              		.align	2
+ 16556              		.thumb
+ 16557              		.thumb_func
+ 16559              	Enable_USB_Interrupts:
+ 16560              	.LFB31:
+   1:../target/stm32/vcom/usb_endp.c **** #include "stm32f10x_lib.h"
+   2:../target/stm32/vcom/usb_endp.c **** #include "usb_lib.h"
+   3:../target/stm32/vcom/usb_endp.c **** #include "usb_desc.h"
+   4:../target/stm32/vcom/usb_endp.c **** #include "usb_mem.h"
+   5:../target/stm32/vcom/usb_endp.c **** #include "usb_hw.h"
+   6:../target/stm32/vcom/usb_endp.c **** #include "usb_istr.h"
+   7:../target/stm32/vcom/usb_endp.c **** #include "usb_endp.h"
+   8:../target/stm32/vcom/usb_endp.c **** 
+   9:../target/stm32/vcom/usb_endp.c **** static volatile bool tx_in_progress = FALSE;
+  10:../target/stm32/vcom/usb_endp.c **** static volatile u16 rx_pma_count = 0;
+  11:../target/stm32/vcom/usb_endp.c **** static u8 rx_buffer[VIRTUAL_COM_PORT_DATA_SIZE];
+  12:../target/stm32/vcom/usb_endp.c **** static u16 rx_buffer_count = 0;
+  13:../target/stm32/vcom/usb_endp.c **** static u16 rx_buffer_index = 0;
+  14:../target/stm32/vcom/usb_endp.c **** 
+  15:../target/stm32/vcom/usb_endp.c **** static inline void Enable_USB_Interrupts(void)
+  16:../target/stm32/vcom/usb_endp.c **** {
+ 16561              		.loc 1 16 0
+ 16562              		.cfi_startproc
+ 16563              		@ args = 0, pretend = 0, frame = 8
+ 16564              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16565              		@ link register save eliminated.
+ 16566 0000 80B4     		push	{r7}
+ 16567              	.LCFI0:
+ 16568              		.cfi_def_cfa_offset 4
+ 16569 0002 83B0     		sub	sp, sp, #12
+ 16570              	.LCFI1:
+ 16571              		.cfi_def_cfa_offset 16
+ 16572 0004 00AF     		add	r7, sp, #0
+ 16573              		.cfi_offset 7, -4
+ 16574              	.LCFI2:
+ 16575              		.cfi_def_cfa_register 7
+  17:../target/stm32/vcom/usb_endp.c ****   //NVIC_RESETPRIMASK();
+  18:../target/stm32/vcom/usb_endp.c ****   const int c = USB_LP_CAN1_RX0_IRQn;
+ 16576              		.loc 1 18 0
+ 16577 0006 4FF01403 		mov	r3, #20
+ 16578 000a 7B60     		str	r3, [r7, #4]
+  19:../target/stm32/vcom/usb_endp.c ****   NVIC->ISER[c >> 5] = 1 << (c & 0x1F);
+ 16579              		.loc 1 19 0
+ 16580 000c 4FF46143 		mov	r3, #57600
+ 16581 0010 CEF20003 		movt	r3, 57344
+ 16582 0014 7A68     		ldr	r2, [r7, #4]
+ 16583 0016 4FEA6212 		asr	r2, r2, #5
+ 16584 001a 7968     		ldr	r1, [r7, #4]
+ 16585 001c 01F01F01 		and	r1, r1, #31
+ 16586 0020 4FF00100 		mov	r0, #1
+ 16587 0024 00FA01F1 		lsl	r1, r0, r1
+ 16588 0028 43F82210 		str	r1, [r3, r2, lsl #2]
+  20:../target/stm32/vcom/usb_endp.c **** }
+ 16589              		.loc 1 20 0
+ 16590 002c 07F10C07 		add	r7, r7, #12
+ 16591 0030 BD46     		mov	sp, r7
+ 16592 0032 80BC     		pop	{r7}
+ 16593 0034 7047     		bx	lr
+ 16594              		.cfi_endproc
+ 16595              	.LFE31:
+ 16597 0036 00BF     		.section	.text.Disable_USB_Interrupts,"ax",%progbits
+ 16598              		.align	2
+ 16599              		.thumb
+ 16600              		.thumb_func
+ 16602              	Disable_USB_Interrupts:
+ 16603              	.LFB32:
+  21:../target/stm32/vcom/usb_endp.c **** 
+  22:../target/stm32/vcom/usb_endp.c **** static inline void Disable_USB_Interrupts(void)
+  23:../target/stm32/vcom/usb_endp.c **** {
+ 16604              		.loc 1 23 0
+ 16605              		.cfi_startproc
+ 16606              		@ args = 0, pretend = 0, frame = 8
+ 16607              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16608              		@ link register save eliminated.
+ 16609 0000 80B4     		push	{r7}
+ 16610              	.LCFI3:
+ 16611              		.cfi_def_cfa_offset 4
+ 16612 0002 83B0     		sub	sp, sp, #12
+ 16613              	.LCFI4:
+ 16614              		.cfi_def_cfa_offset 16
+ 16615 0004 00AF     		add	r7, sp, #0
+ 16616              		.cfi_offset 7, -4
+ 16617              	.LCFI5:
+ 16618              		.cfi_def_cfa_register 7
+  24:../target/stm32/vcom/usb_endp.c ****   //NVIC_SETPRIMASK();
+  25:../target/stm32/vcom/usb_endp.c ****   const int c = USB_LP_CAN1_RX0_IRQn;
+ 16619              		.loc 1 25 0
+ 16620 0006 4FF01403 		mov	r3, #20
+ 16621 000a 7B60     		str	r3, [r7, #4]
+  26:../target/stm32/vcom/usb_endp.c ****   NVIC->ICER[c >> 5] = 1 << (c & 0x1F);
+ 16622              		.loc 1 26 0
+ 16623 000c 4FF46143 		mov	r3, #57600
+ 16624 0010 CEF20003 		movt	r3, 57344
+ 16625 0014 7A68     		ldr	r2, [r7, #4]
+ 16626 0016 4FEA6212 		asr	r2, r2, #5
+ 16627 001a 7968     		ldr	r1, [r7, #4]
+ 16628 001c 01F01F01 		and	r1, r1, #31
+ 16629 0020 4FF00100 		mov	r0, #1
+ 16630 0024 00FA01F1 		lsl	r1, r0, r1
+ 16631 0028 02F12002 		add	r2, r2, #32
+ 16632 002c 43F82210 		str	r1, [r3, r2, lsl #2]
+  27:../target/stm32/vcom/usb_endp.c **** }
+ 16633              		.loc 1 27 0
+ 16634 0030 07F10C07 		add	r7, r7, #12
+ 16635 0034 BD46     		mov	sp, r7
+ 16636 0036 80BC     		pop	{r7}
+ 16637 0038 7047     		bx	lr
+ 16638              		.cfi_endproc
+ 16639              	.LFE32:
+ 16641 003a 00BF     		.section	.text.EP1_IN_Callback,"ax",%progbits
+ 16642              		.align	2
+ 16643              		.global	EP1_IN_Callback
+ 16644              		.thumb
+ 16645              		.thumb_func
+ 16647              	EP1_IN_Callback:
+ 16648              	.LFB33:
+  28:../target/stm32/vcom/usb_endp.c **** 
+  29:../target/stm32/vcom/usb_endp.c **** // Transmit
+  30:../target/stm32/vcom/usb_endp.c **** 
+  31:../target/stm32/vcom/usb_endp.c **** void EP1_IN_Callback(void)									// on transmit
+  32:../target/stm32/vcom/usb_endp.c **** {
+ 16649              		.loc 1 32 0
+ 16650              		.cfi_startproc
+ 16651              		@ args = 0, pretend = 0, frame = 0
+ 16652              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16653              		@ link register save eliminated.
+ 16654 0000 80B4     		push	{r7}
+ 16655              	.LCFI6:
+ 16656              		.cfi_def_cfa_offset 4
+ 16657 0002 00AF     		add	r7, sp, #0
+ 16658              		.cfi_offset 7, -4
+ 16659              	.LCFI7:
+ 16660              		.cfi_def_cfa_register 7
+  33:../target/stm32/vcom/usb_endp.c ****   tx_in_progress = FALSE;
+ 16661              		.loc 1 33 0
+ 16662 0004 40F20003 		movw	r3, #:lower16:tx_in_progress
+ 16663 0008 C0F20003 		movt	r3, #:upper16:tx_in_progress
+ 16664 000c 4FF00002 		mov	r2, #0
+ 16665 0010 1A70     		strb	r2, [r3, #0]
+  34:../target/stm32/vcom/usb_endp.c **** }
+ 16666              		.loc 1 34 0
+ 16667 0012 BD46     		mov	sp, r7
+ 16668 0014 80BC     		pop	{r7}
+ 16669 0016 7047     		bx	lr
+ 16670              		.cfi_endproc
+ 16671              	.LFE33:
+ 16673              		.section	.text.Virtual_Com_Port_Transmit_Available,"ax",%progbits
+ 16674              		.align	2
+ 16675              		.global	Virtual_Com_Port_Transmit_Available
+ 16676              		.thumb
+ 16677              		.thumb_func
+ 16679              	Virtual_Com_Port_Transmit_Available:
+ 16680              	.LFB34:
+  35:../target/stm32/vcom/usb_endp.c **** 
+  36:../target/stm32/vcom/usb_endp.c **** u32 Virtual_Com_Port_Transmit_Available()
+  37:../target/stm32/vcom/usb_endp.c **** {
+ 16681              		.loc 1 37 0
+ 16682              		.cfi_startproc
+ 16683              		@ args = 0, pretend = 0, frame = 0
+ 16684              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16685              		@ link register save eliminated.
+ 16686 0000 80B4     		push	{r7}
+ 16687              	.LCFI8:
+ 16688              		.cfi_def_cfa_offset 4
+ 16689 0002 00AF     		add	r7, sp, #0
+ 16690              		.cfi_offset 7, -4
+ 16691              	.LCFI9:
+ 16692              		.cfi_def_cfa_register 7
+  38:../target/stm32/vcom/usb_endp.c ****   return tx_in_progress ? 0 : VIRTUAL_COM_PORT_DATA_SIZE;
+ 16693              		.loc 1 38 0
+ 16694 0004 40F20003 		movw	r3, #:lower16:tx_in_progress
+ 16695 0008 C0F20003 		movt	r3, #:upper16:tx_in_progress
+ 16696 000c 1B78     		ldrb	r3, [r3, #0]
+ 16697 000e DBB2     		uxtb	r3, r3
+ 16698 0010 002B     		cmp	r3, #0
+ 16699 0012 02D0     		beq	.L5
+ 16700              		.loc 1 38 0 is_stmt 0 discriminator 1
+ 16701 0014 4FF00003 		mov	r3, #0
+ 16702 0018 01E0     		b	.L6
+ 16703              	.L5:
+ 16704              		.loc 1 38 0 discriminator 2
+ 16705 001a 4FF04003 		mov	r3, #64
+ 16706              	.L6:
+  39:../target/stm32/vcom/usb_endp.c **** }
+ 16707              		.loc 1 39 0 is_stmt 1 discriminator 3
+ 16708 001e 1846     		mov	r0, r3
+ 16709 0020 BD46     		mov	sp, r7
+ 16710 0022 80BC     		pop	{r7}
+ 16711 0024 7047     		bx	lr
+ 16712              		.cfi_endproc
+ 16713              	.LFE34:
+ 16715 0026 00BF     		.section	.text.Virtual_Com_Port_Transmit_Non_Blocking,"ax",%progbits
+ 16716              		.align	2
+ 16717              		.global	Virtual_Com_Port_Transmit_Non_Blocking
+ 16718              		.thumb
+ 16719              		.thumb_func
+ 16721              	Virtual_Com_Port_Transmit_Non_Blocking:
+ 16722              	.LFB35:
+  40:../target/stm32/vcom/usb_endp.c **** 
+  41:../target/stm32/vcom/usb_endp.c **** u32 Virtual_Com_Port_Transmit_Non_Blocking(const u8* data, u32 length)
+  42:../target/stm32/vcom/usb_endp.c **** {
+ 16723              		.loc 1 42 0
+ 16724              		.cfi_startproc
+ 16725              		@ args = 0, pretend = 0, frame = 16
+ 16726              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16727 0000 80B5     		push	{r7, lr}
+ 16728              	.LCFI10:
+ 16729              		.cfi_def_cfa_offset 8
+ 16730 0002 84B0     		sub	sp, sp, #16
+ 16731              	.LCFI11:
+ 16732              		.cfi_def_cfa_offset 24
+ 16733 0004 00AF     		add	r7, sp, #0
+ 16734              		.cfi_offset 14, -4
+ 16735              		.cfi_offset 7, -8
+ 16736              	.LCFI12:
+ 16737              		.cfi_def_cfa_register 7
+ 16738 0006 7860     		str	r0, [r7, #4]
+ 16739 0008 3960     		str	r1, [r7, #0]
+  43:../target/stm32/vcom/usb_endp.c ****   u32 l;
+  44:../target/stm32/vcom/usb_endp.c ****   if (!length || tx_in_progress) return 0;
+ 16740              		.loc 1 44 0
+ 16741 000a 3B68     		ldr	r3, [r7, #0]
+ 16742 000c 002B     		cmp	r3, #0
+ 16743 000e 07D0     		beq	.L8
+ 16744              		.loc 1 44 0 is_stmt 0 discriminator 2
+ 16745 0010 40F20003 		movw	r3, #:lower16:tx_in_progress
+ 16746 0014 C0F20003 		movt	r3, #:upper16:tx_in_progress
+ 16747 0018 1B78     		ldrb	r3, [r3, #0]
+ 16748 001a DBB2     		uxtb	r3, r3
+ 16749 001c 002B     		cmp	r3, #0
+ 16750 001e 02D0     		beq	.L9
+ 16751              	.L8:
+ 16752              		.loc 1 44 0 discriminator 1
+ 16753 0020 4FF00003 		mov	r3, #0
+ 16754 0024 23E0     		b	.L10
+ 16755              	.L9:
+  45:../target/stm32/vcom/usb_endp.c ****   tx_in_progress = TRUE;
+ 16756              		.loc 1 45 0 is_stmt 1
+ 16757 0026 40F20003 		movw	r3, #:lower16:tx_in_progress
+ 16758 002a C0F20003 		movt	r3, #:upper16:tx_in_progress
+ 16759 002e 4FF00102 		mov	r2, #1
+ 16760 0032 1A70     		strb	r2, [r3, #0]
+  46:../target/stm32/vcom/usb_endp.c ****   l = length <= VIRTUAL_COM_PORT_DATA_SIZE ? length : VIRTUAL_COM_PORT_DATA_SIZE;
+ 16761              		.loc 1 46 0
+ 16762 0034 3B68     		ldr	r3, [r7, #0]
+ 16763 0036 402B     		cmp	r3, #64
+ 16764 0038 28BF     		it	cs
+ 16765 003a 4023     		movcs	r3, #64
+ 16766 003c FB60     		str	r3, [r7, #12]
+  47:../target/stm32/vcom/usb_endp.c ****   UserToPMABufferCopy(data, ENDP1_TXADDR, l);
+ 16767              		.loc 1 47 0
+ 16768 003e FB68     		ldr	r3, [r7, #12]
+ 16769 0040 9BB2     		uxth	r3, r3
+ 16770 0042 7868     		ldr	r0, [r7, #4]
+ 16771 0044 4FF0C001 		mov	r1, #192
+ 16772 0048 1A46     		mov	r2, r3
+ 16773 004a FFF7FEFF 		bl	UserToPMABufferCopy
+  48:../target/stm32/vcom/usb_endp.c ****   Disable_USB_Interrupts();
+ 16774              		.loc 1 48 0
+ 16775 004e FFF7FEFF 		bl	Disable_USB_Interrupts
+  49:../target/stm32/vcom/usb_endp.c ****   SetEPTxCount(ENDP1, l);
+ 16776              		.loc 1 49 0
+ 16777 0052 FB68     		ldr	r3, [r7, #12]
+ 16778 0054 9BB2     		uxth	r3, r3
+ 16779 0056 4FF00100 		mov	r0, #1
+ 16780 005a 1946     		mov	r1, r3
+ 16781 005c FFF7FEFF 		bl	SetEPTxCount
+  50:../target/stm32/vcom/usb_endp.c ****   SetEPTxValid(ENDP1);
+ 16782              		.loc 1 50 0
+ 16783 0060 4FF00100 		mov	r0, #1
+ 16784 0064 FFF7FEFF 		bl	SetEPTxValid
+  51:../target/stm32/vcom/usb_endp.c ****   Enable_USB_Interrupts();
+ 16785              		.loc 1 51 0
+ 16786 0068 FFF7FEFF 		bl	Enable_USB_Interrupts
+  52:../target/stm32/vcom/usb_endp.c ****   return l;
+ 16787              		.loc 1 52 0
+ 16788 006c FB68     		ldr	r3, [r7, #12]
+ 16789              	.L10:
+  53:../target/stm32/vcom/usb_endp.c **** }
+ 16790              		.loc 1 53 0
+ 16791 006e 1846     		mov	r0, r3
+ 16792 0070 07F11007 		add	r7, r7, #16
+ 16793 0074 BD46     		mov	sp, r7
+ 16794 0076 80BD     		pop	{r7, pc}
+ 16795              		.cfi_endproc
+ 16796              	.LFE35:
+ 16798              		.section	.text.Virtual_Com_Port_Transmit,"ax",%progbits
+ 16799              		.align	2
+ 16800              		.global	Virtual_Com_Port_Transmit
+ 16801              		.thumb
+ 16802              		.thumb_func
+ 16804              	Virtual_Com_Port_Transmit:
+ 16805              	.LFB36:
+  54:../target/stm32/vcom/usb_endp.c **** 
+  55:../target/stm32/vcom/usb_endp.c **** void Virtual_Com_Port_Transmit(const u8* data, u32 length)
+  56:../target/stm32/vcom/usb_endp.c **** {
+ 16806              		.loc 1 56 0
+ 16807              		.cfi_startproc
+ 16808              		@ args = 0, pretend = 0, frame = 16
+ 16809              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16810 0000 80B5     		push	{r7, lr}
+ 16811              	.LCFI13:
+ 16812              		.cfi_def_cfa_offset 8
+ 16813 0002 84B0     		sub	sp, sp, #16
+ 16814              	.LCFI14:
+ 16815              		.cfi_def_cfa_offset 24
+ 16816 0004 00AF     		add	r7, sp, #0
+ 16817              		.cfi_offset 14, -4
+ 16818              		.cfi_offset 7, -8
+ 16819              	.LCFI15:
+ 16820              		.cfi_def_cfa_register 7
+ 16821 0006 7860     		str	r0, [r7, #4]
+ 16822 0008 3960     		str	r1, [r7, #0]
+  57:../target/stm32/vcom/usb_endp.c ****   while (length)
+ 16823              		.loc 1 57 0
+ 16824 000a 0CE0     		b	.L12
+ 16825              	.L13:
+ 16826              	.LBB2:
+  58:../target/stm32/vcom/usb_endp.c ****   {
+  59:../target/stm32/vcom/usb_endp.c ****     u32 l;
+  60:../target/stm32/vcom/usb_endp.c ****     l = Virtual_Com_Port_Transmit_Non_Blocking(data, length);
+ 16827              		.loc 1 60 0
+ 16828 000c 7868     		ldr	r0, [r7, #4]
+ 16829 000e 3968     		ldr	r1, [r7, #0]
+ 16830 0010 FFF7FEFF 		bl	Virtual_Com_Port_Transmit_Non_Blocking
+ 16831 0014 F860     		str	r0, [r7, #12]
+  61:../target/stm32/vcom/usb_endp.c ****     data += l;
+ 16832              		.loc 1 61 0
+ 16833 0016 7A68     		ldr	r2, [r7, #4]
+ 16834 0018 FB68     		ldr	r3, [r7, #12]
+ 16835 001a D318     		adds	r3, r2, r3
+ 16836 001c 7B60     		str	r3, [r7, #4]
+  62:../target/stm32/vcom/usb_endp.c ****     length -= l;
+ 16837              		.loc 1 62 0
+ 16838 001e 3A68     		ldr	r2, [r7, #0]
+ 16839 0020 FB68     		ldr	r3, [r7, #12]
+ 16840 0022 D31A     		subs	r3, r2, r3
+ 16841 0024 3B60     		str	r3, [r7, #0]
+ 16842              	.L12:
+ 16843              	.LBE2:
+  57:../target/stm32/vcom/usb_endp.c ****   while (length)
+ 16844              		.loc 1 57 0 discriminator 1
+ 16845 0026 3B68     		ldr	r3, [r7, #0]
+ 16846 0028 002B     		cmp	r3, #0
+ 16847 002a EFD1     		bne	.L13
+  63:../target/stm32/vcom/usb_endp.c ****   }
+  64:../target/stm32/vcom/usb_endp.c **** }
+ 16848              		.loc 1 64 0
+ 16849 002c 07F11007 		add	r7, r7, #16
+ 16850 0030 BD46     		mov	sp, r7
+ 16851 0032 80BD     		pop	{r7, pc}
+ 16852              		.cfi_endproc
+ 16853              	.LFE36:
+ 16855              		.section	.text.EP3_OUT_Callback,"ax",%progbits
+ 16856              		.align	2
+ 16857              		.global	EP3_OUT_Callback
+ 16858              		.thumb
+ 16859              		.thumb_func
+ 16861              	EP3_OUT_Callback:
+ 16862              	.LFB37:
+  65:../target/stm32/vcom/usb_endp.c **** 
+  66:../target/stm32/vcom/usb_endp.c **** // Receive
+  67:../target/stm32/vcom/usb_endp.c **** 
+  68:../target/stm32/vcom/usb_endp.c **** void EP3_OUT_Callback(void)									// on receive
+  69:../target/stm32/vcom/usb_endp.c **** {
+ 16863              		.loc 1 69 0
+ 16864              		.cfi_startproc
+ 16865              		@ args = 0, pretend = 0, frame = 8
+ 16866              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16867 0000 80B5     		push	{r7, lr}
+ 16868              	.LCFI16:
+ 16869              		.cfi_def_cfa_offset 8
+ 16870 0002 82B0     		sub	sp, sp, #8
+ 16871              	.LCFI17:
+ 16872              		.cfi_def_cfa_offset 16
+ 16873 0004 00AF     		add	r7, sp, #0
+ 16874              		.cfi_offset 14, -4
+ 16875              		.cfi_offset 7, -8
+ 16876              	.LCFI18:
+ 16877              		.cfi_def_cfa_register 7
+  70:../target/stm32/vcom/usb_endp.c ****   u16 c;
+  71:../target/stm32/vcom/usb_endp.c ****   rx_pma_count = c = GetEPRxCount(ENDP3);
+ 16878              		.loc 1 71 0
+ 16879 0006 4FF00300 		mov	r0, #3
+ 16880 000a FFF7FEFF 		bl	GetEPRxCount
+ 16881 000e 0346     		mov	r3, r0
+ 16882 0010 FB80     		strh	r3, [r7, #6]	@ movhi
+ 16883 0012 40F20003 		movw	r3, #:lower16:rx_pma_count
+ 16884 0016 C0F20003 		movt	r3, #:upper16:rx_pma_count
+ 16885 001a FA88     		ldrh	r2, [r7, #6]	@ movhi
+ 16886 001c 1A80     		strh	r2, [r3, #0]	@ movhi
+  72:../target/stm32/vcom/usb_endp.c ****   if (!c) SetEPRxValid(ENDP3);
+ 16887              		.loc 1 72 0
+ 16888 001e FB88     		ldrh	r3, [r7, #6]
+ 16889 0020 002B     		cmp	r3, #0
+ 16890 0022 03D1     		bne	.L14
+ 16891              		.loc 1 72 0 is_stmt 0 discriminator 1
+ 16892 0024 4FF00300 		mov	r0, #3
+ 16893 0028 FFF7FEFF 		bl	SetEPRxValid
+ 16894              	.L14:
+  73:../target/stm32/vcom/usb_endp.c **** }
+ 16895              		.loc 1 73 0 is_stmt 1
+ 16896 002c 07F10807 		add	r7, r7, #8
+ 16897 0030 BD46     		mov	sp, r7
+ 16898 0032 80BD     		pop	{r7, pc}
+ 16899              		.cfi_endproc
+ 16900              	.LFE37:
+ 16902              		.section	.text.Virtual_Com_Port_Receive_Available,"ax",%progbits
+ 16903              		.align	2
+ 16904              		.global	Virtual_Com_Port_Receive_Available
+ 16905              		.thumb
+ 16906              		.thumb_func
+ 16908              	Virtual_Com_Port_Receive_Available:
+ 16909              	.LFB38:
+  74:../target/stm32/vcom/usb_endp.c **** 
+  75:../target/stm32/vcom/usb_endp.c **** u32 Virtual_Com_Port_Receive_Available()
+  76:../target/stm32/vcom/usb_endp.c **** {
+ 16910              		.loc 1 76 0
+ 16911              		.cfi_startproc
+ 16912              		@ args = 0, pretend = 0, frame = 0
+ 16913              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16914              		@ link register save eliminated.
+ 16915 0000 80B4     		push	{r7}
+ 16916              	.LCFI19:
+ 16917              		.cfi_def_cfa_offset 4
+ 16918 0002 00AF     		add	r7, sp, #0
+ 16919              		.cfi_offset 7, -4
+ 16920              	.LCFI20:
+ 16921              		.cfi_def_cfa_register 7
+  77:../target/stm32/vcom/usb_endp.c ****   return rx_buffer_count > rx_buffer_index ? rx_buffer_count - rx_buffer_index : rx_pma_count;
+ 16922              		.loc 1 77 0
+ 16923 0004 40F20003 		movw	r3, #:lower16:rx_buffer_count
+ 16924 0008 C0F20003 		movt	r3, #:upper16:rx_buffer_count
+ 16925 000c 1A88     		ldrh	r2, [r3, #0]
+ 16926 000e 40F20003 		movw	r3, #:lower16:rx_buffer_index
+ 16927 0012 C0F20003 		movt	r3, #:upper16:rx_buffer_index
+ 16928 0016 1B88     		ldrh	r3, [r3, #0]
+ 16929 0018 9A42     		cmp	r2, r3
+ 16930 001a 0CD9     		bls	.L17
+ 16931              		.loc 1 77 0 is_stmt 0 discriminator 1
+ 16932 001c 40F20003 		movw	r3, #:lower16:rx_buffer_count
+ 16933 0020 C0F20003 		movt	r3, #:upper16:rx_buffer_count
+ 16934 0024 1B88     		ldrh	r3, [r3, #0]
+ 16935 0026 1A46     		mov	r2, r3
+ 16936 0028 40F20003 		movw	r3, #:lower16:rx_buffer_index
+ 16937 002c C0F20003 		movt	r3, #:upper16:rx_buffer_index
+ 16938 0030 1B88     		ldrh	r3, [r3, #0]
+ 16939 0032 D31A     		subs	r3, r2, r3
+ 16940 0034 05E0     		b	.L18
+ 16941              	.L17:
+ 16942              		.loc 1 77 0 discriminator 2
+ 16943 0036 40F20003 		movw	r3, #:lower16:rx_pma_count
+ 16944 003a C0F20003 		movt	r3, #:upper16:rx_pma_count
+ 16945 003e 1B88     		ldrh	r3, [r3, #0]	@ movhi
+ 16946 0040 9BB2     		uxth	r3, r3
+ 16947              	.L18:
+  78:../target/stm32/vcom/usb_endp.c **** }
+ 16948              		.loc 1 78 0 is_stmt 1 discriminator 3
+ 16949 0042 1846     		mov	r0, r3
+ 16950 0044 BD46     		mov	sp, r7
+ 16951 0046 80BC     		pop	{r7}
+ 16952 0048 7047     		bx	lr
+ 16953              		.cfi_endproc
+ 16954              	.LFE38:
+ 16956 004a 00BF     		.section	.text.Virtual_Com_Port_Receive_Non_Blocking,"ax",%progbits
+ 16957              		.align	2
+ 16958              		.global	Virtual_Com_Port_Receive_Non_Blocking
+ 16959              		.thumb
+ 16960              		.thumb_func
+ 16962              	Virtual_Com_Port_Receive_Non_Blocking:
+ 16963              	.LFB39:
+  79:../target/stm32/vcom/usb_endp.c **** 
+  80:../target/stm32/vcom/usb_endp.c **** u32 Virtual_Com_Port_Receive_Non_Blocking(u8* data, u32 length)
+  81:../target/stm32/vcom/usb_endp.c **** {
+ 16964              		.loc 1 81 0
+ 16965              		.cfi_startproc
+ 16966              		@ args = 0, pretend = 0, frame = 16
+ 16967              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16968 0000 80B5     		push	{r7, lr}
+ 16969              	.LCFI21:
+ 16970              		.cfi_def_cfa_offset 8
+ 16971 0002 84B0     		sub	sp, sp, #16
+ 16972              	.LCFI22:
+ 16973              		.cfi_def_cfa_offset 24
+ 16974 0004 00AF     		add	r7, sp, #0
+ 16975              		.cfi_offset 14, -4
+ 16976              		.cfi_offset 7, -8
+ 16977              	.LCFI23:
+ 16978              		.cfi_def_cfa_register 7
+ 16979 0006 7860     		str	r0, [r7, #4]
+ 16980 0008 3960     		str	r1, [r7, #0]
+  82:../target/stm32/vcom/usb_endp.c ****   u32 l;
+  83:../target/stm32/vcom/usb_endp.c ****   if (!(rx_buffer_count > rx_buffer_index))
+ 16981              		.loc 1 83 0
+ 16982 000a 40F20003 		movw	r3, #:lower16:rx_buffer_count
+ 16983 000e C0F20003 		movt	r3, #:upper16:rx_buffer_count
+ 16984 0012 1A88     		ldrh	r2, [r3, #0]
+ 16985 0014 40F20003 		movw	r3, #:lower16:rx_buffer_index
+ 16986 0018 C0F20003 		movt	r3, #:upper16:rx_buffer_index
+ 16987 001c 1B88     		ldrh	r3, [r3, #0]
+ 16988 001e 9A42     		cmp	r2, r3
+ 16989 0020 31D8     		bhi	.L20
+ 16990              	.LBB3:
+  84:../target/stm32/vcom/usb_endp.c ****   {
+  85:../target/stm32/vcom/usb_endp.c ****     u16 c;
+  86:../target/stm32/vcom/usb_endp.c ****     c = rx_pma_count;
+ 16991              		.loc 1 86 0
+ 16992 0022 40F20003 		movw	r3, #:lower16:rx_pma_count
+ 16993 0026 C0F20003 		movt	r3, #:upper16:rx_pma_count
+ 16994 002a 1B88     		ldrh	r3, [r3, #0]	@ movhi
+ 16995 002c FB81     		strh	r3, [r7, #14]	@ movhi
+  87:../target/stm32/vcom/usb_endp.c ****     if (!c) return 0;
+ 16996              		.loc 1 87 0
+ 16997 002e FB89     		ldrh	r3, [r7, #14]
+ 16998 0030 002B     		cmp	r3, #0
+ 16999 0032 02D1     		bne	.L21
+ 17000              		.loc 1 87 0 is_stmt 0 discriminator 1
+ 17001 0034 4FF00003 		mov	r3, #0
+ 17002 0038 61E0     		b	.L22
+ 17003              	.L21:
+  88:../target/stm32/vcom/usb_endp.c ****     PMAToUserBufferCopy(rx_buffer, ENDP3_RXADDR, c);
+ 17004              		.loc 1 88 0 is_stmt 1
+ 17005 003a FB89     		ldrh	r3, [r7, #14]
+ 17006 003c 40F20000 		movw	r0, #:lower16:rx_buffer
+ 17007 0040 C0F20000 		movt	r0, #:upper16:rx_buffer
+ 17008 0044 4FF48871 		mov	r1, #272
+ 17009 0048 1A46     		mov	r2, r3
+ 17010 004a FFF7FEFF 		bl	PMAToUserBufferCopy
+  89:../target/stm32/vcom/usb_endp.c ****     rx_buffer_count = c;
+ 17011              		.loc 1 89 0
+ 17012 004e 40F20003 		movw	r3, #:lower16:rx_buffer_count
+ 17013 0052 C0F20003 		movt	r3, #:upper16:rx_buffer_count
+ 17014 0056 FA89     		ldrh	r2, [r7, #14]	@ movhi
+ 17015 0058 1A80     		strh	r2, [r3, #0]	@ movhi
+  90:../target/stm32/vcom/usb_endp.c ****     rx_buffer_index = 0;
+ 17016              		.loc 1 90 0
+ 17017 005a 40F20003 		movw	r3, #:lower16:rx_buffer_index
+ 17018 005e C0F20003 		movt	r3, #:upper16:rx_buffer_index
+ 17019 0062 4FF00002 		mov	r2, #0
+ 17020 0066 1A80     		strh	r2, [r3, #0]	@ movhi
+  91:../target/stm32/vcom/usb_endp.c ****     rx_pma_count = 0;
+ 17021              		.loc 1 91 0
+ 17022 0068 40F20003 		movw	r3, #:lower16:rx_pma_count
+ 17023 006c C0F20003 		movt	r3, #:upper16:rx_pma_count
+ 17024 0070 4FF00002 		mov	r2, #0
+ 17025 0074 1A80     		strh	r2, [r3, #0]	@ movhi
+  92:../target/stm32/vcom/usb_endp.c ****     Disable_USB_Interrupts();
+ 17026              		.loc 1 92 0
+ 17027 0076 FFF7FEFF 		bl	Disable_USB_Interrupts
+  93:../target/stm32/vcom/usb_endp.c ****     SetEPRxValid(ENDP3);
+ 17028              		.loc 1 93 0
+ 17029 007a 4FF00300 		mov	r0, #3
+ 17030 007e FFF7FEFF 		bl	SetEPRxValid
+  94:../target/stm32/vcom/usb_endp.c ****     Enable_USB_Interrupts();
+ 17031              		.loc 1 94 0
+ 17032 0082 FFF7FEFF 		bl	Enable_USB_Interrupts
+ 17033              	.L20:
+ 17034              	.LBE3:
+  95:../target/stm32/vcom/usb_endp.c ****   }
+  96:../target/stm32/vcom/usb_endp.c ****   l = rx_buffer_count - rx_buffer_index;
+ 17035              		.loc 1 96 0
+ 17036 0086 40F20003 		movw	r3, #:lower16:rx_buffer_count
+ 17037 008a C0F20003 		movt	r3, #:upper16:rx_buffer_count
+ 17038 008e 1B88     		ldrh	r3, [r3, #0]
+ 17039 0090 1A46     		mov	r2, r3
+ 17040 0092 40F20003 		movw	r3, #:lower16:rx_buffer_index
+ 17041 0096 C0F20003 		movt	r3, #:upper16:rx_buffer_index
+ 17042 009a 1B88     		ldrh	r3, [r3, #0]
+ 17043 009c D31A     		subs	r3, r2, r3
+ 17044 009e BB60     		str	r3, [r7, #8]
+  97:../target/stm32/vcom/usb_endp.c ****   if (length > l) length = l;
+ 17045              		.loc 1 97 0
+ 17046 00a0 3A68     		ldr	r2, [r7, #0]
+ 17047 00a2 BB68     		ldr	r3, [r7, #8]
+ 17048 00a4 9A42     		cmp	r2, r3
+ 17049 00a6 01D9     		bls	.L23
+ 17050              		.loc 1 97 0 is_stmt 0 discriminator 1
+ 17051 00a8 BB68     		ldr	r3, [r7, #8]
+ 17052 00aa 3B60     		str	r3, [r7, #0]
+ 17053              	.L23:
+  98:../target/stm32/vcom/usb_endp.c ****   l = length;
+ 17054              		.loc 1 98 0 is_stmt 1
+ 17055 00ac 3B68     		ldr	r3, [r7, #0]
+ 17056 00ae BB60     		str	r3, [r7, #8]
+  99:../target/stm32/vcom/usb_endp.c ****   while (length--) *data++ = rx_buffer[rx_buffer_index++];
+ 17057              		.loc 1 99 0
+ 17058 00b0 18E0     		b	.L24
+ 17059              	.L25:
+ 17060              		.loc 1 99 0 is_stmt 0 discriminator 2
+ 17061 00b2 40F20003 		movw	r3, #:lower16:rx_buffer_index
+ 17062 00b6 C0F20003 		movt	r3, #:upper16:rx_buffer_index
+ 17063 00ba 1A88     		ldrh	r2, [r3, #0]
+ 17064 00bc 1146     		mov	r1, r2
+ 17065 00be 40F20003 		movw	r3, #:lower16:rx_buffer
+ 17066 00c2 C0F20003 		movt	r3, #:upper16:rx_buffer
+ 17067 00c6 595C     		ldrb	r1, [r3, r1]	@ zero_extendqisi2
+ 17068 00c8 7B68     		ldr	r3, [r7, #4]
+ 17069 00ca 1970     		strb	r1, [r3, #0]
+ 17070 00cc 7B68     		ldr	r3, [r7, #4]
+ 17071 00ce 03F10103 		add	r3, r3, #1
+ 17072 00d2 7B60     		str	r3, [r7, #4]
+ 17073 00d4 02F10103 		add	r3, r2, #1
+ 17074 00d8 9AB2     		uxth	r2, r3
+ 17075 00da 40F20003 		movw	r3, #:lower16:rx_buffer_index
+ 17076 00de C0F20003 		movt	r3, #:upper16:rx_buffer_index
+ 17077 00e2 1A80     		strh	r2, [r3, #0]	@ movhi
+ 17078              	.L24:
+ 17079              		.loc 1 99 0 discriminator 1
+ 17080 00e4 3B68     		ldr	r3, [r7, #0]
+ 17081 00e6 002B     		cmp	r3, #0
+ 17082 00e8 0CBF     		ite	eq
+ 17083 00ea 0023     		moveq	r3, #0
+ 17084 00ec 0123     		movne	r3, #1
+ 17085 00ee DBB2     		uxtb	r3, r3
+ 17086 00f0 3A68     		ldr	r2, [r7, #0]
+ 17087 00f2 02F1FF32 		add	r2, r2, #-1
+ 17088 00f6 3A60     		str	r2, [r7, #0]
+ 17089 00f8 002B     		cmp	r3, #0
+ 17090 00fa DAD1     		bne	.L25
+ 100:../target/stm32/vcom/usb_endp.c ****   return l;
+ 17091              		.loc 1 100 0 is_stmt 1
+ 17092 00fc BB68     		ldr	r3, [r7, #8]
+ 17093              	.L22:
+ 101:../target/stm32/vcom/usb_endp.c **** }
+ 17094              		.loc 1 101 0
+ 17095 00fe 1846     		mov	r0, r3
+ 17096 0100 07F11007 		add	r7, r7, #16
+ 17097 0104 BD46     		mov	sp, r7
+ 17098 0106 80BD     		pop	{r7, pc}
+ 17099              		.cfi_endproc
+ 17100              	.LFE39:
+ 17102              		.section	.text.Virtual_Com_Port_Receive,"ax",%progbits
+ 17103              		.align	2
+ 17104              		.global	Virtual_Com_Port_Receive
+ 17105              		.thumb
+ 17106              		.thumb_func
+ 17108              	Virtual_Com_Port_Receive:
+ 17109              	.LFB40:
+ 102:../target/stm32/vcom/usb_endp.c **** 
+ 103:../target/stm32/vcom/usb_endp.c **** u32 Virtual_Com_Port_Receive(u8* data, u32 length)
+ 104:../target/stm32/vcom/usb_endp.c **** {
+ 17110              		.loc 1 104 0
+ 17111              		.cfi_startproc
+ 17112              		@ args = 0, pretend = 0, frame = 16
+ 17113              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17114 0000 80B5     		push	{r7, lr}
+ 17115              	.LCFI24:
+ 17116              		.cfi_def_cfa_offset 8
+ 17117 0002 84B0     		sub	sp, sp, #16
+ 17118              	.LCFI25:
+ 17119              		.cfi_def_cfa_offset 24
+ 17120 0004 00AF     		add	r7, sp, #0
+ 17121              		.cfi_offset 14, -4
+ 17122              		.cfi_offset 7, -8
+ 17123              	.LCFI26:
+ 17124              		.cfi_def_cfa_register 7
+ 17125 0006 7860     		str	r0, [r7, #4]
+ 17126 0008 3960     		str	r1, [r7, #0]
+ 17127              	.L28:
+ 105:../target/stm32/vcom/usb_endp.c ****   u32 l;
+ 106:../target/stm32/vcom/usb_endp.c ****   do l = Virtual_Com_Port_Receive_Non_Blocking(data, length);
+ 17128              		.loc 1 106 0 discriminator 1
+ 17129 000a 7868     		ldr	r0, [r7, #4]
+ 17130 000c 3968     		ldr	r1, [r7, #0]
+ 17131 000e FFF7FEFF 		bl	Virtual_Com_Port_Receive_Non_Blocking
+ 17132 0012 F860     		str	r0, [r7, #12]
+ 107:../target/stm32/vcom/usb_endp.c ****   while (!l && length);
+ 17133              		.loc 1 107 0 discriminator 1
+ 17134 0014 FB68     		ldr	r3, [r7, #12]
+ 17135 0016 002B     		cmp	r3, #0
+ 17136 0018 02D1     		bne	.L27
+ 17137 001a 3B68     		ldr	r3, [r7, #0]
+ 17138 001c 002B     		cmp	r3, #0
+ 17139 001e F4D1     		bne	.L28
+ 17140              	.L27:
+ 108:../target/stm32/vcom/usb_endp.c ****   return l;
+ 17141              		.loc 1 108 0
+ 17142 0020 FB68     		ldr	r3, [r7, #12]
+ 109:../target/stm32/vcom/usb_endp.c **** }
+ 17143              		.loc 1 109 0
+ 17144 0022 1846     		mov	r0, r3
+ 17145 0024 07F11007 		add	r7, r7, #16
+ 17146 0028 BD46     		mov	sp, r7
+ 17147 002a 80BD     		pop	{r7, pc}
+ 17148              		.cfi_endproc
+ 17149              	.LFE40:
+ 17151              		.text
+ 17152              	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 usb_endp.c
+     /tmp/ccQtYXpG.s:16528  .bss.tx_in_progress:00000000 tx_in_progress
+     /tmp/ccQtYXpG.s:16529  .bss.tx_in_progress:00000000 $d
+     /tmp/ccQtYXpG.s:16531  .bss.rx_pma_count:00000000 $d
+     /tmp/ccQtYXpG.s:16534  .bss.rx_pma_count:00000000 rx_pma_count
+     /tmp/ccQtYXpG.s:16537  .bss.rx_buffer:00000000 $d
+     /tmp/ccQtYXpG.s:16540  .bss.rx_buffer:00000000 rx_buffer
+     /tmp/ccQtYXpG.s:16543  .bss.rx_buffer_count:00000000 $d
+     /tmp/ccQtYXpG.s:16546  .bss.rx_buffer_count:00000000 rx_buffer_count
+     /tmp/ccQtYXpG.s:16549  .bss.rx_buffer_index:00000000 $d
+     /tmp/ccQtYXpG.s:16552  .bss.rx_buffer_index:00000000 rx_buffer_index
+     /tmp/ccQtYXpG.s:16555  .text.Enable_USB_Interrupts:00000000 $t
+     /tmp/ccQtYXpG.s:16559  .text.Enable_USB_Interrupts:00000000 Enable_USB_Interrupts
+     /tmp/ccQtYXpG.s:16598  .text.Disable_USB_Interrupts:00000000 $t
+     /tmp/ccQtYXpG.s:16602  .text.Disable_USB_Interrupts:00000000 Disable_USB_Interrupts
+     /tmp/ccQtYXpG.s:16642  .text.EP1_IN_Callback:00000000 $t
+     /tmp/ccQtYXpG.s:16647  .text.EP1_IN_Callback:00000000 EP1_IN_Callback
+     /tmp/ccQtYXpG.s:16674  .text.Virtual_Com_Port_Transmit_Available:00000000 $t
+     /tmp/ccQtYXpG.s:16679  .text.Virtual_Com_Port_Transmit_Available:00000000 Virtual_Com_Port_Transmit_Available
+     /tmp/ccQtYXpG.s:16716  .text.Virtual_Com_Port_Transmit_Non_Blocking:00000000 $t
+     /tmp/ccQtYXpG.s:16721  .text.Virtual_Com_Port_Transmit_Non_Blocking:00000000 Virtual_Com_Port_Transmit_Non_Blocking
+     /tmp/ccQtYXpG.s:16799  .text.Virtual_Com_Port_Transmit:00000000 $t
+     /tmp/ccQtYXpG.s:16804  .text.Virtual_Com_Port_Transmit:00000000 Virtual_Com_Port_Transmit
+     /tmp/ccQtYXpG.s:16856  .text.EP3_OUT_Callback:00000000 $t
+     /tmp/ccQtYXpG.s:16861  .text.EP3_OUT_Callback:00000000 EP3_OUT_Callback
+     /tmp/ccQtYXpG.s:16903  .text.Virtual_Com_Port_Receive_Available:00000000 $t
+     /tmp/ccQtYXpG.s:16908  .text.Virtual_Com_Port_Receive_Available:00000000 Virtual_Com_Port_Receive_Available
+     /tmp/ccQtYXpG.s:16957  .text.Virtual_Com_Port_Receive_Non_Blocking:00000000 $t
+     /tmp/ccQtYXpG.s:16962  .text.Virtual_Com_Port_Receive_Non_Blocking:00000000 Virtual_Com_Port_Receive_Non_Blocking
+     /tmp/ccQtYXpG.s:17103  .text.Virtual_Com_Port_Receive:00000000 $t
+     /tmp/ccQtYXpG.s:17108  .text.Virtual_Com_Port_Receive:00000000 Virtual_Com_Port_Receive
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+UserToPMABufferCopy
+SetEPTxCount
+SetEPTxValid
+GetEPRxCount
+SetEPRxValid
+PMAToUserBufferCopy

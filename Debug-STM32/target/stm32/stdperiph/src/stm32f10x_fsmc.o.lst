@@ -1,0 +1,2830 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"stm32f10x_fsmc.c"
+  23              	.Ltext0:
+  24              		.file 1 "../target/stm32/stdperiph/src/stm32f10x_fsmc.c"
+ 16568              		.align	2
+ 16569              		.global	FSMC_NORSRAMDeInit
+ 16570              		.thumb
+ 16571              		.thumb_func
+ 16573              	FSMC_NORSRAMDeInit:
+ 16574              	.LFB29:
+   1:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** /**
+   2:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   ******************************************************************************
+   3:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @file    stm32f10x_fsmc.c
+   4:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @author  MCD Application Team
+   5:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @version V3.4.0
+   6:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @date    10/15/2010
+   7:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @brief   This file provides all the FSMC firmware functions.
+   8:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   ******************************************************************************
+   9:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @copy
+  10:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *
+  11:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
+  12:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
+  13:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * TIME. AS A RESULT, STMICROELECTRONICS SHALL NOT BE HELD LIABLE FOR ANY
+  14:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * DIRECT, INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING
+  15:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
+  16:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
+  17:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *
+  18:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * <h2><center>&copy; COPYRIGHT 2010 STMicroelectronics</center></h2>
+  19:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   */ 
+  20:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** 
+  21:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** /* Includes ------------------------------------------------------------------*/
+  22:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** #include "stm32f10x_fsmc.h"
+  23:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** #include "stm32f10x_rcc.h"
+  24:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** 
+  25:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** /** @addtogroup STM32F10x_StdPeriph_Driver
+  26:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @{
+  27:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   */
+  28:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** 
+  29:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** /** @defgroup FSMC 
+  30:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @brief FSMC driver modules
+  31:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @{
+  32:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   */ 
+  33:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** 
+  34:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** /** @defgroup FSMC_Private_TypesDefinitions
+  35:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @{
+  36:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   */ 
+  37:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** /**
+  38:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @}
+  39:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   */
+  40:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** 
+  41:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** /** @defgroup FSMC_Private_Defines
+  42:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @{
+  43:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   */
+  44:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** 
+  45:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** /* --------------------- FSMC registers bit mask ---------------------------- */
+  46:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** 
+  47:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** /* FSMC BCRx Mask */
+  48:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** #define BCR_MBKEN_Set                       ((uint32_t)0x00000001)
+  49:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** #define BCR_MBKEN_Reset                     ((uint32_t)0x000FFFFE)
+  50:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** #define BCR_FACCEN_Set                      ((uint32_t)0x00000040)
+  51:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** 
+  52:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** /* FSMC PCRx Mask */
+  53:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** #define PCR_PBKEN_Set                       ((uint32_t)0x00000004)
+  54:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** #define PCR_PBKEN_Reset                     ((uint32_t)0x000FFFFB)
+  55:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** #define PCR_ECCEN_Set                       ((uint32_t)0x00000040)
+  56:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** #define PCR_ECCEN_Reset                     ((uint32_t)0x000FFFBF)
+  57:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** #define PCR_MemoryType_NAND                 ((uint32_t)0x00000008)
+  58:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** /**
+  59:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @}
+  60:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   */
+  61:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** 
+  62:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** /** @defgroup FSMC_Private_Macros
+  63:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @{
+  64:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   */
+  65:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** 
+  66:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** /**
+  67:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @}
+  68:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   */
+  69:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** 
+  70:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** /** @defgroup FSMC_Private_Variables
+  71:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @{
+  72:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   */
+  73:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** 
+  74:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** /**
+  75:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @}
+  76:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   */
+  77:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** 
+  78:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** /** @defgroup FSMC_Private_FunctionPrototypes
+  79:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @{
+  80:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   */
+  81:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** 
+  82:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** /**
+  83:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @}
+  84:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   */
+  85:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** 
+  86:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** /** @defgroup FSMC_Private_Functions
+  87:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @{
+  88:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   */
+  89:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** 
+  90:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** /**
+  91:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @brief  Deinitializes the FSMC NOR/SRAM Banks registers to their default 
+  92:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *   reset values.
+  93:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @param  FSMC_Bank: specifies the FSMC Bank to be used
+  94:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *   This parameter can be one of the following values:
+  95:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *     @arg FSMC_Bank1_NORSRAM1: FSMC Bank1 NOR/SRAM1  
+  96:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *     @arg FSMC_Bank1_NORSRAM2: FSMC Bank1 NOR/SRAM2 
+  97:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *     @arg FSMC_Bank1_NORSRAM3: FSMC Bank1 NOR/SRAM3 
+  98:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *     @arg FSMC_Bank1_NORSRAM4: FSMC Bank1 NOR/SRAM4 
+  99:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @retval None
+ 100:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   */
+ 101:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** void FSMC_NORSRAMDeInit(uint32_t FSMC_Bank)
+ 102:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** {
+ 16575              		.loc 1 102 0
+ 16576              		.cfi_startproc
+ 16577              		@ args = 0, pretend = 0, frame = 8
+ 16578              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16579              		@ link register save eliminated.
+ 16580 0000 80B4     		push	{r7}
+ 16581              	.LCFI0:
+ 16582              		.cfi_def_cfa_offset 4
+ 16583 0002 83B0     		sub	sp, sp, #12
+ 16584              	.LCFI1:
+ 16585              		.cfi_def_cfa_offset 16
+ 16586 0004 00AF     		add	r7, sp, #0
+ 16587              		.cfi_offset 7, -4
+ 16588              	.LCFI2:
+ 16589              		.cfi_def_cfa_register 7
+ 16590 0006 7860     		str	r0, [r7, #4]
+ 103:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   /* Check the parameter */
+ 104:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param(IS_FSMC_NORSRAM_BANK(FSMC_Bank));
+ 105:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   
+ 106:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   /* FSMC_Bank1_NORSRAM1 */
+ 107:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   if(FSMC_Bank == FSMC_Bank1_NORSRAM1)
+ 16591              		.loc 1 107 0
+ 16592 0008 7B68     		ldr	r3, [r7, #4]
+ 16593 000a 002B     		cmp	r3, #0
+ 16594 000c 07D1     		bne	.L2
+ 108:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   {
+ 109:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     FSMC_Bank1->BTCR[FSMC_Bank] = 0x000030DB;    
+ 16595              		.loc 1 109 0
+ 16596 000e 4FF02043 		mov	r3, #-1610612736
+ 16597 0012 7A68     		ldr	r2, [r7, #4]
+ 16598 0014 43F2DB01 		movw	r1, #12507
+ 16599 0018 43F82210 		str	r1, [r3, r2, lsl #2]
+ 16600 001c 06E0     		b	.L3
+ 16601              	.L2:
+ 110:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   }
+ 111:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   /* FSMC_Bank1_NORSRAM2,  FSMC_Bank1_NORSRAM3 or FSMC_Bank1_NORSRAM4 */
+ 112:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   else
+ 113:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   {   
+ 114:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     FSMC_Bank1->BTCR[FSMC_Bank] = 0x000030D2; 
+ 16602              		.loc 1 114 0
+ 16603 001e 4FF02043 		mov	r3, #-1610612736
+ 16604 0022 7A68     		ldr	r2, [r7, #4]
+ 16605 0024 43F2D201 		movw	r1, #12498
+ 16606 0028 43F82210 		str	r1, [r3, r2, lsl #2]
+ 16607              	.L3:
+ 115:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   }
+ 116:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_Bank1->BTCR[FSMC_Bank + 1] = 0x0FFFFFFF;
+ 16608              		.loc 1 116 0
+ 16609 002c 4FF02043 		mov	r3, #-1610612736
+ 16610 0030 7A68     		ldr	r2, [r7, #4]
+ 16611 0032 02F10102 		add	r2, r2, #1
+ 16612 0036 6FF07041 		mvn	r1, #-268435456
+ 16613 003a 43F82210 		str	r1, [r3, r2, lsl #2]
+ 117:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_Bank1E->BWTR[FSMC_Bank] = 0x0FFFFFFF;  
+ 16614              		.loc 1 117 0
+ 16615 003e 4FF48273 		mov	r3, #260
+ 16616 0042 CAF20003 		movt	r3, 40960
+ 16617 0046 7A68     		ldr	r2, [r7, #4]
+ 16618 0048 6FF07041 		mvn	r1, #-268435456
+ 16619 004c 43F82210 		str	r1, [r3, r2, lsl #2]
+ 118:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** }
+ 16620              		.loc 1 118 0
+ 16621 0050 07F10C07 		add	r7, r7, #12
+ 16622 0054 BD46     		mov	sp, r7
+ 16623 0056 80BC     		pop	{r7}
+ 16624 0058 7047     		bx	lr
+ 16625              		.cfi_endproc
+ 16626              	.LFE29:
+ 16628 005a 00BF     		.section	.text.FSMC_NANDDeInit,"ax",%progbits
+ 16629              		.align	2
+ 16630              		.global	FSMC_NANDDeInit
+ 16631              		.thumb
+ 16632              		.thumb_func
+ 16634              	FSMC_NANDDeInit:
+ 16635              	.LFB30:
+ 119:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** 
+ 120:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** /**
+ 121:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @brief  Deinitializes the FSMC NAND Banks registers to their default reset values.
+ 122:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @param  FSMC_Bank: specifies the FSMC Bank to be used
+ 123:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *   This parameter can be one of the following values:
+ 124:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *     @arg FSMC_Bank2_NAND: FSMC Bank2 NAND 
+ 125:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *     @arg FSMC_Bank3_NAND: FSMC Bank3 NAND 
+ 126:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @retval None
+ 127:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   */
+ 128:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** void FSMC_NANDDeInit(uint32_t FSMC_Bank)
+ 129:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** {
+ 16636              		.loc 1 129 0
+ 16637              		.cfi_startproc
+ 16638              		@ args = 0, pretend = 0, frame = 8
+ 16639              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16640              		@ link register save eliminated.
+ 16641 0000 80B4     		push	{r7}
+ 16642              	.LCFI3:
+ 16643              		.cfi_def_cfa_offset 4
+ 16644 0002 83B0     		sub	sp, sp, #12
+ 16645              	.LCFI4:
+ 16646              		.cfi_def_cfa_offset 16
+ 16647 0004 00AF     		add	r7, sp, #0
+ 16648              		.cfi_offset 7, -4
+ 16649              	.LCFI5:
+ 16650              		.cfi_def_cfa_register 7
+ 16651 0006 7860     		str	r0, [r7, #4]
+ 130:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   /* Check the parameter */
+ 131:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param(IS_FSMC_NAND_BANK(FSMC_Bank));
+ 132:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   
+ 133:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   if(FSMC_Bank == FSMC_Bank2_NAND)
+ 16652              		.loc 1 133 0
+ 16653 0008 7B68     		ldr	r3, [r7, #4]
+ 16654 000a 102B     		cmp	r3, #16
+ 16655 000c 1CD1     		bne	.L5
+ 134:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   {
+ 135:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     /* Set the FSMC_Bank2 registers to their reset values */
+ 136:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     FSMC_Bank2->PCR2 = 0x00000018;
+ 16656              		.loc 1 136 0
+ 16657 000e 4FF06003 		mov	r3, #96
+ 16658 0012 CAF20003 		movt	r3, 40960
+ 16659 0016 4FF01802 		mov	r2, #24
+ 16660 001a 1A60     		str	r2, [r3, #0]
+ 137:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     FSMC_Bank2->SR2 = 0x00000040;
+ 16661              		.loc 1 137 0
+ 16662 001c 4FF06003 		mov	r3, #96
+ 16663 0020 CAF20003 		movt	r3, 40960
+ 16664 0024 4FF04002 		mov	r2, #64
+ 16665 0028 5A60     		str	r2, [r3, #4]
+ 138:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     FSMC_Bank2->PMEM2 = 0xFCFCFCFC;
+ 16666              		.loc 1 138 0
+ 16667 002a 4FF06003 		mov	r3, #96
+ 16668 002e CAF20003 		movt	r3, 40960
+ 16669 0032 4FF0FC32 		mov	r2, #-50529028
+ 16670 0036 9A60     		str	r2, [r3, #8]
+ 139:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     FSMC_Bank2->PATT2 = 0xFCFCFCFC;  
+ 16671              		.loc 1 139 0
+ 16672 0038 4FF06003 		mov	r3, #96
+ 16673 003c CAF20003 		movt	r3, 40960
+ 16674 0040 4FF0FC32 		mov	r2, #-50529028
+ 16675 0044 DA60     		str	r2, [r3, #12]
+ 16676 0046 1BE0     		b	.L4
+ 16677              	.L5:
+ 140:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   }
+ 141:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   /* FSMC_Bank3_NAND */  
+ 142:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   else
+ 143:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   {
+ 144:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     /* Set the FSMC_Bank3 registers to their reset values */
+ 145:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     FSMC_Bank3->PCR3 = 0x00000018;
+ 16678              		.loc 1 145 0
+ 16679 0048 4FF08003 		mov	r3, #128
+ 16680 004c CAF20003 		movt	r3, 40960
+ 16681 0050 4FF01802 		mov	r2, #24
+ 16682 0054 1A60     		str	r2, [r3, #0]
+ 146:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     FSMC_Bank3->SR3 = 0x00000040;
+ 16683              		.loc 1 146 0
+ 16684 0056 4FF08003 		mov	r3, #128
+ 16685 005a CAF20003 		movt	r3, 40960
+ 16686 005e 4FF04002 		mov	r2, #64
+ 16687 0062 5A60     		str	r2, [r3, #4]
+ 147:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     FSMC_Bank3->PMEM3 = 0xFCFCFCFC;
+ 16688              		.loc 1 147 0
+ 16689 0064 4FF08003 		mov	r3, #128
+ 16690 0068 CAF20003 		movt	r3, 40960
+ 16691 006c 4FF0FC32 		mov	r2, #-50529028
+ 16692 0070 9A60     		str	r2, [r3, #8]
+ 148:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     FSMC_Bank3->PATT3 = 0xFCFCFCFC; 
+ 16693              		.loc 1 148 0
+ 16694 0072 4FF08003 		mov	r3, #128
+ 16695 0076 CAF20003 		movt	r3, 40960
+ 16696 007a 4FF0FC32 		mov	r2, #-50529028
+ 16697 007e DA60     		str	r2, [r3, #12]
+ 16698              	.L4:
+ 149:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   }  
+ 150:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** }
+ 16699              		.loc 1 150 0
+ 16700 0080 07F10C07 		add	r7, r7, #12
+ 16701 0084 BD46     		mov	sp, r7
+ 16702 0086 80BC     		pop	{r7}
+ 16703 0088 7047     		bx	lr
+ 16704              		.cfi_endproc
+ 16705              	.LFE30:
+ 16707 008a 00BF     		.section	.text.FSMC_PCCARDDeInit,"ax",%progbits
+ 16708              		.align	2
+ 16709              		.global	FSMC_PCCARDDeInit
+ 16710              		.thumb
+ 16711              		.thumb_func
+ 16713              	FSMC_PCCARDDeInit:
+ 16714              	.LFB31:
+ 151:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** 
+ 152:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** /**
+ 153:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @brief  Deinitializes the FSMC PCCARD Bank registers to their default reset values.
+ 154:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @param  None                       
+ 155:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @retval None
+ 156:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   */
+ 157:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** void FSMC_PCCARDDeInit(void)
+ 158:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** {
+ 16715              		.loc 1 158 0
+ 16716              		.cfi_startproc
+ 16717              		@ args = 0, pretend = 0, frame = 0
+ 16718              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16719              		@ link register save eliminated.
+ 16720 0000 80B4     		push	{r7}
+ 16721              	.LCFI6:
+ 16722              		.cfi_def_cfa_offset 4
+ 16723 0002 00AF     		add	r7, sp, #0
+ 16724              		.cfi_offset 7, -4
+ 16725              	.LCFI7:
+ 16726              		.cfi_def_cfa_register 7
+ 159:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   /* Set the FSMC_Bank4 registers to their reset values */
+ 160:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_Bank4->PCR4 = 0x00000018; 
+ 16727              		.loc 1 160 0
+ 16728 0004 4FF0A003 		mov	r3, #160
+ 16729 0008 CAF20003 		movt	r3, 40960
+ 16730 000c 4FF01802 		mov	r2, #24
+ 16731 0010 1A60     		str	r2, [r3, #0]
+ 161:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_Bank4->SR4 = 0x00000000;	
+ 16732              		.loc 1 161 0
+ 16733 0012 4FF0A003 		mov	r3, #160
+ 16734 0016 CAF20003 		movt	r3, 40960
+ 16735 001a 4FF00002 		mov	r2, #0
+ 16736 001e 5A60     		str	r2, [r3, #4]
+ 162:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_Bank4->PMEM4 = 0xFCFCFCFC;
+ 16737              		.loc 1 162 0
+ 16738 0020 4FF0A003 		mov	r3, #160
+ 16739 0024 CAF20003 		movt	r3, 40960
+ 16740 0028 4FF0FC32 		mov	r2, #-50529028
+ 16741 002c 9A60     		str	r2, [r3, #8]
+ 163:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_Bank4->PATT4 = 0xFCFCFCFC;
+ 16742              		.loc 1 163 0
+ 16743 002e 4FF0A003 		mov	r3, #160
+ 16744 0032 CAF20003 		movt	r3, 40960
+ 16745 0036 4FF0FC32 		mov	r2, #-50529028
+ 16746 003a DA60     		str	r2, [r3, #12]
+ 164:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_Bank4->PIO4 = 0xFCFCFCFC;
+ 16747              		.loc 1 164 0
+ 16748 003c 4FF0A003 		mov	r3, #160
+ 16749 0040 CAF20003 		movt	r3, 40960
+ 16750 0044 4FF0FC32 		mov	r2, #-50529028
+ 16751 0048 1A61     		str	r2, [r3, #16]
+ 165:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** }
+ 16752              		.loc 1 165 0
+ 16753 004a BD46     		mov	sp, r7
+ 16754 004c 80BC     		pop	{r7}
+ 16755 004e 7047     		bx	lr
+ 16756              		.cfi_endproc
+ 16757              	.LFE31:
+ 16759              		.section	.text.FSMC_NORSRAMInit,"ax",%progbits
+ 16760              		.align	2
+ 16761              		.global	FSMC_NORSRAMInit
+ 16762              		.thumb
+ 16763              		.thumb_func
+ 16765              	FSMC_NORSRAMInit:
+ 16766              	.LFB32:
+ 166:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** 
+ 167:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** /**
+ 168:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @brief  Initializes the FSMC NOR/SRAM Banks according to the specified
+ 169:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *   parameters in the FSMC_NORSRAMInitStruct.
+ 170:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @param  FSMC_NORSRAMInitStruct : pointer to a FSMC_NORSRAMInitTypeDef
+ 171:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *   structure that contains the configuration information for 
+ 172:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *   the FSMC NOR/SRAM specified Banks.                       
+ 173:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @retval None
+ 174:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   */
+ 175:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** void FSMC_NORSRAMInit(FSMC_NORSRAMInitTypeDef* FSMC_NORSRAMInitStruct)
+ 176:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** { 
+ 16767              		.loc 1 176 0
+ 16768              		.cfi_startproc
+ 16769              		@ args = 0, pretend = 0, frame = 8
+ 16770              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16771              		@ link register save eliminated.
+ 16772 0000 80B4     		push	{r7}
+ 16773              	.LCFI8:
+ 16774              		.cfi_def_cfa_offset 4
+ 16775 0002 83B0     		sub	sp, sp, #12
+ 16776              	.LCFI9:
+ 16777              		.cfi_def_cfa_offset 16
+ 16778 0004 00AF     		add	r7, sp, #0
+ 16779              		.cfi_offset 7, -4
+ 16780              	.LCFI10:
+ 16781              		.cfi_def_cfa_register 7
+ 16782 0006 7860     		str	r0, [r7, #4]
+ 177:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   /* Check the parameters */
+ 178:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param(IS_FSMC_NORSRAM_BANK(FSMC_NORSRAMInitStruct->FSMC_Bank));
+ 179:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param(IS_FSMC_MUX(FSMC_NORSRAMInitStruct->FSMC_DataAddressMux));
+ 180:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param(IS_FSMC_MEMORY(FSMC_NORSRAMInitStruct->FSMC_MemoryType));
+ 181:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param(IS_FSMC_MEMORY_WIDTH(FSMC_NORSRAMInitStruct->FSMC_MemoryDataWidth));
+ 182:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param(IS_FSMC_BURSTMODE(FSMC_NORSRAMInitStruct->FSMC_BurstAccessMode));
+ 183:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param(IS_FSMC_ASYNWAIT(FSMC_NORSRAMInitStruct->FSMC_AsynchronousWait));
+ 184:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param(IS_FSMC_WAIT_POLARITY(FSMC_NORSRAMInitStruct->FSMC_WaitSignalPolarity));
+ 185:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param(IS_FSMC_WRAP_MODE(FSMC_NORSRAMInitStruct->FSMC_WrapMode));
+ 186:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param(IS_FSMC_WAIT_SIGNAL_ACTIVE(FSMC_NORSRAMInitStruct->FSMC_WaitSignalActive));
+ 187:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param(IS_FSMC_WRITE_OPERATION(FSMC_NORSRAMInitStruct->FSMC_WriteOperation));
+ 188:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param(IS_FSMC_WAITE_SIGNAL(FSMC_NORSRAMInitStruct->FSMC_WaitSignal));
+ 189:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param(IS_FSMC_EXTENDED_MODE(FSMC_NORSRAMInitStruct->FSMC_ExtendedMode));
+ 190:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param(IS_FSMC_WRITE_BURST(FSMC_NORSRAMInitStruct->FSMC_WriteBurst));  
+ 191:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param(IS_FSMC_ADDRESS_SETUP_TIME(FSMC_NORSRAMInitStruct->FSMC_ReadWriteTimingStruct->FSMC_
+ 192:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param(IS_FSMC_ADDRESS_HOLD_TIME(FSMC_NORSRAMInitStruct->FSMC_ReadWriteTimingStruct->FSMC_A
+ 193:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param(IS_FSMC_DATASETUP_TIME(FSMC_NORSRAMInitStruct->FSMC_ReadWriteTimingStruct->FSMC_Data
+ 194:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param(IS_FSMC_TURNAROUND_TIME(FSMC_NORSRAMInitStruct->FSMC_ReadWriteTimingStruct->FSMC_Bus
+ 195:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param(IS_FSMC_CLK_DIV(FSMC_NORSRAMInitStruct->FSMC_ReadWriteTimingStruct->FSMC_CLKDivision
+ 196:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param(IS_FSMC_DATA_LATENCY(FSMC_NORSRAMInitStruct->FSMC_ReadWriteTimingStruct->FSMC_DataLa
+ 197:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param(IS_FSMC_ACCESS_MODE(FSMC_NORSRAMInitStruct->FSMC_ReadWriteTimingStruct->FSMC_AccessM
+ 198:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   
+ 199:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   /* Bank1 NOR/SRAM control register configuration */ 
+ 200:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_Bank1->BTCR[FSMC_NORSRAMInitStruct->FSMC_Bank] = 
+ 16783              		.loc 1 200 0
+ 16784 0008 4FF02043 		mov	r3, #-1610612736
+ 16785 000c 7A68     		ldr	r2, [r7, #4]
+ 16786 000e 1268     		ldr	r2, [r2, #0]
+ 201:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****             (uint32_t)FSMC_NORSRAMInitStruct->FSMC_DataAddressMux |
+ 16787              		.loc 1 201 0
+ 16788 0010 7968     		ldr	r1, [r7, #4]
+ 16789 0012 4868     		ldr	r0, [r1, #4]
+ 202:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****             FSMC_NORSRAMInitStruct->FSMC_MemoryType |
+ 16790              		.loc 1 202 0
+ 16791 0014 7968     		ldr	r1, [r7, #4]
+ 16792 0016 8968     		ldr	r1, [r1, #8]
+ 201:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****             (uint32_t)FSMC_NORSRAMInitStruct->FSMC_DataAddressMux |
+ 16793              		.loc 1 201 0
+ 16794 0018 0843     		orrs	r0, r0, r1
+ 203:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****             FSMC_NORSRAMInitStruct->FSMC_MemoryDataWidth |
+ 16795              		.loc 1 203 0
+ 16796 001a 7968     		ldr	r1, [r7, #4]
+ 16797 001c C968     		ldr	r1, [r1, #12]
+ 202:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****             FSMC_NORSRAMInitStruct->FSMC_MemoryType |
+ 16798              		.loc 1 202 0
+ 16799 001e 0843     		orrs	r0, r0, r1
+ 204:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****             FSMC_NORSRAMInitStruct->FSMC_BurstAccessMode |
+ 16800              		.loc 1 204 0
+ 16801 0020 7968     		ldr	r1, [r7, #4]
+ 16802 0022 0969     		ldr	r1, [r1, #16]
+ 203:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****             FSMC_NORSRAMInitStruct->FSMC_MemoryDataWidth |
+ 16803              		.loc 1 203 0
+ 16804 0024 0843     		orrs	r0, r0, r1
+ 205:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****             FSMC_NORSRAMInitStruct->FSMC_AsynchronousWait |
+ 16805              		.loc 1 205 0
+ 16806 0026 7968     		ldr	r1, [r7, #4]
+ 16807 0028 4969     		ldr	r1, [r1, #20]
+ 204:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****             FSMC_NORSRAMInitStruct->FSMC_BurstAccessMode |
+ 16808              		.loc 1 204 0
+ 16809 002a 0843     		orrs	r0, r0, r1
+ 206:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****             FSMC_NORSRAMInitStruct->FSMC_WaitSignalPolarity |
+ 16810              		.loc 1 206 0
+ 16811 002c 7968     		ldr	r1, [r7, #4]
+ 16812 002e 8969     		ldr	r1, [r1, #24]
+ 205:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****             FSMC_NORSRAMInitStruct->FSMC_AsynchronousWait |
+ 16813              		.loc 1 205 0
+ 16814 0030 0843     		orrs	r0, r0, r1
+ 207:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****             FSMC_NORSRAMInitStruct->FSMC_WrapMode |
+ 16815              		.loc 1 207 0
+ 16816 0032 7968     		ldr	r1, [r7, #4]
+ 16817 0034 C969     		ldr	r1, [r1, #28]
+ 206:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****             FSMC_NORSRAMInitStruct->FSMC_WaitSignalPolarity |
+ 16818              		.loc 1 206 0
+ 16819 0036 0843     		orrs	r0, r0, r1
+ 208:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****             FSMC_NORSRAMInitStruct->FSMC_WaitSignalActive |
+ 16820              		.loc 1 208 0
+ 16821 0038 7968     		ldr	r1, [r7, #4]
+ 16822 003a 096A     		ldr	r1, [r1, #32]
+ 207:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****             FSMC_NORSRAMInitStruct->FSMC_WrapMode |
+ 16823              		.loc 1 207 0
+ 16824 003c 0843     		orrs	r0, r0, r1
+ 209:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****             FSMC_NORSRAMInitStruct->FSMC_WriteOperation |
+ 16825              		.loc 1 209 0
+ 16826 003e 7968     		ldr	r1, [r7, #4]
+ 16827 0040 496A     		ldr	r1, [r1, #36]
+ 208:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****             FSMC_NORSRAMInitStruct->FSMC_WaitSignalActive |
+ 16828              		.loc 1 208 0
+ 16829 0042 0843     		orrs	r0, r0, r1
+ 210:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****             FSMC_NORSRAMInitStruct->FSMC_WaitSignal |
+ 16830              		.loc 1 210 0
+ 16831 0044 7968     		ldr	r1, [r7, #4]
+ 16832 0046 896A     		ldr	r1, [r1, #40]
+ 209:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****             FSMC_NORSRAMInitStruct->FSMC_WriteOperation |
+ 16833              		.loc 1 209 0
+ 16834 0048 0843     		orrs	r0, r0, r1
+ 211:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****             FSMC_NORSRAMInitStruct->FSMC_ExtendedMode |
+ 16835              		.loc 1 211 0
+ 16836 004a 7968     		ldr	r1, [r7, #4]
+ 16837 004c C96A     		ldr	r1, [r1, #44]
+ 210:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****             FSMC_NORSRAMInitStruct->FSMC_WaitSignal |
+ 16838              		.loc 1 210 0
+ 16839 004e 0843     		orrs	r0, r0, r1
+ 212:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****             FSMC_NORSRAMInitStruct->FSMC_WriteBurst;
+ 16840              		.loc 1 212 0
+ 16841 0050 7968     		ldr	r1, [r7, #4]
+ 16842 0052 096B     		ldr	r1, [r1, #48]
+ 211:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****             FSMC_NORSRAMInitStruct->FSMC_ExtendedMode |
+ 16843              		.loc 1 211 0
+ 16844 0054 40EA0101 		orr	r1, r0, r1
+ 200:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_Bank1->BTCR[FSMC_NORSRAMInitStruct->FSMC_Bank] = 
+ 16845              		.loc 1 200 0
+ 16846 0058 43F82210 		str	r1, [r3, r2, lsl #2]
+ 213:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** 
+ 214:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   if(FSMC_NORSRAMInitStruct->FSMC_MemoryType == FSMC_MemoryType_NOR)
+ 16847              		.loc 1 214 0
+ 16848 005c 7B68     		ldr	r3, [r7, #4]
+ 16849 005e 9B68     		ldr	r3, [r3, #8]
+ 16850 0060 082B     		cmp	r3, #8
+ 16851 0062 0DD1     		bne	.L9
+ 215:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   {
+ 216:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     FSMC_Bank1->BTCR[FSMC_NORSRAMInitStruct->FSMC_Bank] |= (uint32_t)BCR_FACCEN_Set;
+ 16852              		.loc 1 216 0
+ 16853 0064 4FF02043 		mov	r3, #-1610612736
+ 16854 0068 7A68     		ldr	r2, [r7, #4]
+ 16855 006a 1268     		ldr	r2, [r2, #0]
+ 16856 006c 4FF02041 		mov	r1, #-1610612736
+ 16857 0070 7868     		ldr	r0, [r7, #4]
+ 16858 0072 0068     		ldr	r0, [r0, #0]
+ 16859 0074 51F82010 		ldr	r1, [r1, r0, lsl #2]
+ 16860 0078 41F04001 		orr	r1, r1, #64
+ 16861 007c 43F82210 		str	r1, [r3, r2, lsl #2]
+ 16862              	.L9:
+ 217:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   }
+ 218:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   
+ 219:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   /* Bank1 NOR/SRAM timing register configuration */
+ 220:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_Bank1->BTCR[FSMC_NORSRAMInitStruct->FSMC_Bank+1] = 
+ 16863              		.loc 1 220 0
+ 16864 0080 4FF02043 		mov	r3, #-1610612736
+ 16865 0084 7A68     		ldr	r2, [r7, #4]
+ 16866 0086 1268     		ldr	r2, [r2, #0]
+ 16867 0088 02F10102 		add	r2, r2, #1
+ 221:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****             (uint32_t)FSMC_NORSRAMInitStruct->FSMC_ReadWriteTimingStruct->FSMC_AddressSetupTime |
+ 16868              		.loc 1 221 0
+ 16869 008c 7968     		ldr	r1, [r7, #4]
+ 16870 008e 496B     		ldr	r1, [r1, #52]
+ 16871 0090 0868     		ldr	r0, [r1, #0]
+ 222:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****             (FSMC_NORSRAMInitStruct->FSMC_ReadWriteTimingStruct->FSMC_AddressHoldTime << 4) |
+ 16872              		.loc 1 222 0
+ 16873 0092 7968     		ldr	r1, [r7, #4]
+ 16874 0094 496B     		ldr	r1, [r1, #52]
+ 16875 0096 4968     		ldr	r1, [r1, #4]
+ 16876 0098 4FEA0111 		lsl	r1, r1, #4
+ 221:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****             (uint32_t)FSMC_NORSRAMInitStruct->FSMC_ReadWriteTimingStruct->FSMC_AddressSetupTime |
+ 16877              		.loc 1 221 0
+ 16878 009c 0843     		orrs	r0, r0, r1
+ 223:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****             (FSMC_NORSRAMInitStruct->FSMC_ReadWriteTimingStruct->FSMC_DataSetupTime << 8) |
+ 16879              		.loc 1 223 0
+ 16880 009e 7968     		ldr	r1, [r7, #4]
+ 16881 00a0 496B     		ldr	r1, [r1, #52]
+ 16882 00a2 8968     		ldr	r1, [r1, #8]
+ 16883 00a4 4FEA0121 		lsl	r1, r1, #8
+ 222:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****             (FSMC_NORSRAMInitStruct->FSMC_ReadWriteTimingStruct->FSMC_AddressHoldTime << 4) |
+ 16884              		.loc 1 222 0
+ 16885 00a8 0843     		orrs	r0, r0, r1
+ 224:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****             (FSMC_NORSRAMInitStruct->FSMC_ReadWriteTimingStruct->FSMC_BusTurnAroundDuration << 16) 
+ 16886              		.loc 1 224 0
+ 16887 00aa 7968     		ldr	r1, [r7, #4]
+ 16888 00ac 496B     		ldr	r1, [r1, #52]
+ 16889 00ae C968     		ldr	r1, [r1, #12]
+ 16890 00b0 4FEA0141 		lsl	r1, r1, #16
+ 223:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****             (FSMC_NORSRAMInitStruct->FSMC_ReadWriteTimingStruct->FSMC_DataSetupTime << 8) |
+ 16891              		.loc 1 223 0
+ 16892 00b4 0843     		orrs	r0, r0, r1
+ 225:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****             (FSMC_NORSRAMInitStruct->FSMC_ReadWriteTimingStruct->FSMC_CLKDivision << 20) |
+ 16893              		.loc 1 225 0
+ 16894 00b6 7968     		ldr	r1, [r7, #4]
+ 16895 00b8 496B     		ldr	r1, [r1, #52]
+ 16896 00ba 0969     		ldr	r1, [r1, #16]
+ 16897 00bc 4FEA0151 		lsl	r1, r1, #20
+ 224:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****             (FSMC_NORSRAMInitStruct->FSMC_ReadWriteTimingStruct->FSMC_BusTurnAroundDuration << 16) 
+ 16898              		.loc 1 224 0
+ 16899 00c0 0843     		orrs	r0, r0, r1
+ 226:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****             (FSMC_NORSRAMInitStruct->FSMC_ReadWriteTimingStruct->FSMC_DataLatency << 24) |
+ 16900              		.loc 1 226 0
+ 16901 00c2 7968     		ldr	r1, [r7, #4]
+ 16902 00c4 496B     		ldr	r1, [r1, #52]
+ 16903 00c6 4969     		ldr	r1, [r1, #20]
+ 16904 00c8 4FEA0161 		lsl	r1, r1, #24
+ 225:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****             (FSMC_NORSRAMInitStruct->FSMC_ReadWriteTimingStruct->FSMC_CLKDivision << 20) |
+ 16905              		.loc 1 225 0
+ 16906 00cc 0843     		orrs	r0, r0, r1
+ 227:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****              FSMC_NORSRAMInitStruct->FSMC_ReadWriteTimingStruct->FSMC_AccessMode;
+ 16907              		.loc 1 227 0
+ 16908 00ce 7968     		ldr	r1, [r7, #4]
+ 16909 00d0 496B     		ldr	r1, [r1, #52]
+ 16910 00d2 8969     		ldr	r1, [r1, #24]
+ 226:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****             (FSMC_NORSRAMInitStruct->FSMC_ReadWriteTimingStruct->FSMC_DataLatency << 24) |
+ 16911              		.loc 1 226 0
+ 16912 00d4 40EA0101 		orr	r1, r0, r1
+ 220:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_Bank1->BTCR[FSMC_NORSRAMInitStruct->FSMC_Bank+1] = 
+ 16913              		.loc 1 220 0
+ 16914 00d8 43F82210 		str	r1, [r3, r2, lsl #2]
+ 228:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****             
+ 229:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     
+ 230:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   /* Bank1 NOR/SRAM timing register for write configuration, if extended mode is used */
+ 231:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   if(FSMC_NORSRAMInitStruct->FSMC_ExtendedMode == FSMC_ExtendedMode_Enable)
+ 16915              		.loc 1 231 0
+ 16916 00dc 7B68     		ldr	r3, [r7, #4]
+ 16917 00de DB6A     		ldr	r3, [r3, #44]
+ 16918 00e0 B3F5804F 		cmp	r3, #16384
+ 16919 00e4 28D1     		bne	.L10
+ 232:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   {
+ 233:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     assert_param(IS_FSMC_ADDRESS_SETUP_TIME(FSMC_NORSRAMInitStruct->FSMC_WriteTimingStruct->FSMC_Ad
+ 234:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     assert_param(IS_FSMC_ADDRESS_HOLD_TIME(FSMC_NORSRAMInitStruct->FSMC_WriteTimingStruct->FSMC_Add
+ 235:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     assert_param(IS_FSMC_DATASETUP_TIME(FSMC_NORSRAMInitStruct->FSMC_WriteTimingStruct->FSMC_DataSe
+ 236:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     assert_param(IS_FSMC_CLK_DIV(FSMC_NORSRAMInitStruct->FSMC_WriteTimingStruct->FSMC_CLKDivision))
+ 237:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     assert_param(IS_FSMC_DATA_LATENCY(FSMC_NORSRAMInitStruct->FSMC_WriteTimingStruct->FSMC_DataLate
+ 238:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     assert_param(IS_FSMC_ACCESS_MODE(FSMC_NORSRAMInitStruct->FSMC_WriteTimingStruct->FSMC_AccessMod
+ 239:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     FSMC_Bank1E->BWTR[FSMC_NORSRAMInitStruct->FSMC_Bank] = 
+ 16920              		.loc 1 239 0
+ 16921 00e6 4FF48273 		mov	r3, #260
+ 16922 00ea CAF20003 		movt	r3, 40960
+ 16923 00ee 7A68     		ldr	r2, [r7, #4]
+ 16924 00f0 1268     		ldr	r2, [r2, #0]
+ 240:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****               (uint32_t)FSMC_NORSRAMInitStruct->FSMC_WriteTimingStruct->FSMC_AddressSetupTime |
+ 16925              		.loc 1 240 0
+ 16926 00f2 7968     		ldr	r1, [r7, #4]
+ 16927 00f4 896B     		ldr	r1, [r1, #56]
+ 16928 00f6 0868     		ldr	r0, [r1, #0]
+ 241:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****               (FSMC_NORSRAMInitStruct->FSMC_WriteTimingStruct->FSMC_AddressHoldTime << 4 )|
+ 16929              		.loc 1 241 0
+ 16930 00f8 7968     		ldr	r1, [r7, #4]
+ 16931 00fa 896B     		ldr	r1, [r1, #56]
+ 16932 00fc 4968     		ldr	r1, [r1, #4]
+ 16933 00fe 4FEA0111 		lsl	r1, r1, #4
+ 240:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****               (uint32_t)FSMC_NORSRAMInitStruct->FSMC_WriteTimingStruct->FSMC_AddressSetupTime |
+ 16934              		.loc 1 240 0
+ 16935 0102 0843     		orrs	r0, r0, r1
+ 242:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****               (FSMC_NORSRAMInitStruct->FSMC_WriteTimingStruct->FSMC_DataSetupTime << 8) |
+ 16936              		.loc 1 242 0
+ 16937 0104 7968     		ldr	r1, [r7, #4]
+ 16938 0106 896B     		ldr	r1, [r1, #56]
+ 16939 0108 8968     		ldr	r1, [r1, #8]
+ 16940 010a 4FEA0121 		lsl	r1, r1, #8
+ 241:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****               (FSMC_NORSRAMInitStruct->FSMC_WriteTimingStruct->FSMC_AddressHoldTime << 4 )|
+ 16941              		.loc 1 241 0
+ 16942 010e 0843     		orrs	r0, r0, r1
+ 243:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****               (FSMC_NORSRAMInitStruct->FSMC_WriteTimingStruct->FSMC_CLKDivision << 20) |
+ 16943              		.loc 1 243 0
+ 16944 0110 7968     		ldr	r1, [r7, #4]
+ 16945 0112 896B     		ldr	r1, [r1, #56]
+ 16946 0114 0969     		ldr	r1, [r1, #16]
+ 16947 0116 4FEA0151 		lsl	r1, r1, #20
+ 242:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****               (FSMC_NORSRAMInitStruct->FSMC_WriteTimingStruct->FSMC_DataSetupTime << 8) |
+ 16948              		.loc 1 242 0
+ 16949 011a 0843     		orrs	r0, r0, r1
+ 244:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****               (FSMC_NORSRAMInitStruct->FSMC_WriteTimingStruct->FSMC_DataLatency << 24) |
+ 16950              		.loc 1 244 0
+ 16951 011c 7968     		ldr	r1, [r7, #4]
+ 16952 011e 896B     		ldr	r1, [r1, #56]
+ 16953 0120 4969     		ldr	r1, [r1, #20]
+ 16954 0122 4FEA0161 		lsl	r1, r1, #24
+ 243:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****               (FSMC_NORSRAMInitStruct->FSMC_WriteTimingStruct->FSMC_CLKDivision << 20) |
+ 16955              		.loc 1 243 0
+ 16956 0126 0843     		orrs	r0, r0, r1
+ 245:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****                FSMC_NORSRAMInitStruct->FSMC_WriteTimingStruct->FSMC_AccessMode;
+ 16957              		.loc 1 245 0
+ 16958 0128 7968     		ldr	r1, [r7, #4]
+ 16959 012a 896B     		ldr	r1, [r1, #56]
+ 16960 012c 8969     		ldr	r1, [r1, #24]
+ 244:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****               (FSMC_NORSRAMInitStruct->FSMC_WriteTimingStruct->FSMC_DataLatency << 24) |
+ 16961              		.loc 1 244 0
+ 16962 012e 40EA0101 		orr	r1, r0, r1
+ 239:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     FSMC_Bank1E->BWTR[FSMC_NORSRAMInitStruct->FSMC_Bank] = 
+ 16963              		.loc 1 239 0
+ 16964 0132 43F82210 		str	r1, [r3, r2, lsl #2]
+ 16965 0136 09E0     		b	.L8
+ 16966              	.L10:
+ 246:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   }
+ 247:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   else
+ 248:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   {
+ 249:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     FSMC_Bank1E->BWTR[FSMC_NORSRAMInitStruct->FSMC_Bank] = 0x0FFFFFFF;
+ 16967              		.loc 1 249 0
+ 16968 0138 4FF48273 		mov	r3, #260
+ 16969 013c CAF20003 		movt	r3, 40960
+ 16970 0140 7A68     		ldr	r2, [r7, #4]
+ 16971 0142 1268     		ldr	r2, [r2, #0]
+ 16972 0144 6FF07041 		mvn	r1, #-268435456
+ 16973 0148 43F82210 		str	r1, [r3, r2, lsl #2]
+ 16974              	.L8:
+ 250:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   }
+ 251:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** }
+ 16975              		.loc 1 251 0
+ 16976 014c 07F10C07 		add	r7, r7, #12
+ 16977 0150 BD46     		mov	sp, r7
+ 16978 0152 80BC     		pop	{r7}
+ 16979 0154 7047     		bx	lr
+ 16980              		.cfi_endproc
+ 16981              	.LFE32:
+ 16983 0156 00BF     		.section	.text.FSMC_NANDInit,"ax",%progbits
+ 16984              		.align	2
+ 16985              		.global	FSMC_NANDInit
+ 16986              		.thumb
+ 16987              		.thumb_func
+ 16989              	FSMC_NANDInit:
+ 16990              	.LFB33:
+ 252:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** 
+ 253:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** /**
+ 254:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @brief  Initializes the FSMC NAND Banks according to the specified 
+ 255:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *   parameters in the FSMC_NANDInitStruct.
+ 256:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @param  FSMC_NANDInitStruct : pointer to a FSMC_NANDInitTypeDef 
+ 257:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *   structure that contains the configuration information for the FSMC NAND specified Banks.     
+ 258:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @retval None
+ 259:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   */
+ 260:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** void FSMC_NANDInit(FSMC_NANDInitTypeDef* FSMC_NANDInitStruct)
+ 261:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** {
+ 16991              		.loc 1 261 0
+ 16992              		.cfi_startproc
+ 16993              		@ args = 0, pretend = 0, frame = 24
+ 16994              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16995              		@ link register save eliminated.
+ 16996 0000 80B4     		push	{r7}
+ 16997              	.LCFI11:
+ 16998              		.cfi_def_cfa_offset 4
+ 16999 0002 87B0     		sub	sp, sp, #28
+ 17000              	.LCFI12:
+ 17001              		.cfi_def_cfa_offset 32
+ 17002 0004 00AF     		add	r7, sp, #0
+ 17003              		.cfi_offset 7, -4
+ 17004              	.LCFI13:
+ 17005              		.cfi_def_cfa_register 7
+ 17006 0006 7860     		str	r0, [r7, #4]
+ 262:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   uint32_t tmppcr = 0x00000000, tmppmem = 0x00000000, tmppatt = 0x00000000; 
+ 17007              		.loc 1 262 0
+ 17008 0008 4FF00003 		mov	r3, #0
+ 17009 000c 7B61     		str	r3, [r7, #20]
+ 17010 000e 4FF00003 		mov	r3, #0
+ 17011 0012 3B61     		str	r3, [r7, #16]
+ 17012 0014 4FF00003 		mov	r3, #0
+ 17013 0018 FB60     		str	r3, [r7, #12]
+ 263:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     
+ 264:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   /* Check the parameters */
+ 265:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param( IS_FSMC_NAND_BANK(FSMC_NANDInitStruct->FSMC_Bank));
+ 266:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param( IS_FSMC_WAIT_FEATURE(FSMC_NANDInitStruct->FSMC_Waitfeature));
+ 267:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param( IS_FSMC_MEMORY_WIDTH(FSMC_NANDInitStruct->FSMC_MemoryDataWidth));
+ 268:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param( IS_FSMC_ECC_STATE(FSMC_NANDInitStruct->FSMC_ECC));
+ 269:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param( IS_FSMC_ECCPAGE_SIZE(FSMC_NANDInitStruct->FSMC_ECCPageSize));
+ 270:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param( IS_FSMC_TCLR_TIME(FSMC_NANDInitStruct->FSMC_TCLRSetupTime));
+ 271:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param( IS_FSMC_TAR_TIME(FSMC_NANDInitStruct->FSMC_TARSetupTime));
+ 272:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param(IS_FSMC_SETUP_TIME(FSMC_NANDInitStruct->FSMC_CommonSpaceTimingStruct->FSMC_SetupTime
+ 273:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param(IS_FSMC_WAIT_TIME(FSMC_NANDInitStruct->FSMC_CommonSpaceTimingStruct->FSMC_WaitSetupT
+ 274:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param(IS_FSMC_HOLD_TIME(FSMC_NANDInitStruct->FSMC_CommonSpaceTimingStruct->FSMC_HoldSetupT
+ 275:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param(IS_FSMC_HIZ_TIME(FSMC_NANDInitStruct->FSMC_CommonSpaceTimingStruct->FSMC_HiZSetupTim
+ 276:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param(IS_FSMC_SETUP_TIME(FSMC_NANDInitStruct->FSMC_AttributeSpaceTimingStruct->FSMC_SetupT
+ 277:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param(IS_FSMC_WAIT_TIME(FSMC_NANDInitStruct->FSMC_AttributeSpaceTimingStruct->FSMC_WaitSet
+ 278:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param(IS_FSMC_HOLD_TIME(FSMC_NANDInitStruct->FSMC_AttributeSpaceTimingStruct->FSMC_HoldSet
+ 279:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param(IS_FSMC_HIZ_TIME(FSMC_NANDInitStruct->FSMC_AttributeSpaceTimingStruct->FSMC_HiZSetup
+ 280:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   
+ 281:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   /* Set the tmppcr value according to FSMC_NANDInitStruct parameters */
+ 282:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   tmppcr = (uint32_t)FSMC_NANDInitStruct->FSMC_Waitfeature |
+ 17014              		.loc 1 282 0
+ 17015 001a 7B68     		ldr	r3, [r7, #4]
+ 17016 001c 5A68     		ldr	r2, [r3, #4]
+ 283:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****             PCR_MemoryType_NAND |
+ 284:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****             FSMC_NANDInitStruct->FSMC_MemoryDataWidth |
+ 17017              		.loc 1 284 0
+ 17018 001e 7B68     		ldr	r3, [r7, #4]
+ 17019 0020 9B68     		ldr	r3, [r3, #8]
+ 283:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****             PCR_MemoryType_NAND |
+ 17020              		.loc 1 283 0
+ 17021 0022 1A43     		orrs	r2, r2, r3
+ 285:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****             FSMC_NANDInitStruct->FSMC_ECC |
+ 17022              		.loc 1 285 0
+ 17023 0024 7B68     		ldr	r3, [r7, #4]
+ 17024 0026 DB68     		ldr	r3, [r3, #12]
+ 284:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****             FSMC_NANDInitStruct->FSMC_MemoryDataWidth |
+ 17025              		.loc 1 284 0
+ 17026 0028 1A43     		orrs	r2, r2, r3
+ 286:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****             FSMC_NANDInitStruct->FSMC_ECCPageSize |
+ 17027              		.loc 1 286 0
+ 17028 002a 7B68     		ldr	r3, [r7, #4]
+ 17029 002c 1B69     		ldr	r3, [r3, #16]
+ 285:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****             FSMC_NANDInitStruct->FSMC_ECC |
+ 17030              		.loc 1 285 0
+ 17031 002e 1A43     		orrs	r2, r2, r3
+ 287:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****             (FSMC_NANDInitStruct->FSMC_TCLRSetupTime << 9 )|
+ 17032              		.loc 1 287 0
+ 17033 0030 7B68     		ldr	r3, [r7, #4]
+ 17034 0032 5B69     		ldr	r3, [r3, #20]
+ 17035 0034 4FEA4323 		lsl	r3, r3, #9
+ 286:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****             FSMC_NANDInitStruct->FSMC_ECCPageSize |
+ 17036              		.loc 1 286 0
+ 17037 0038 1A43     		orrs	r2, r2, r3
+ 288:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****             (FSMC_NANDInitStruct->FSMC_TARSetupTime << 13);
+ 17038              		.loc 1 288 0
+ 17039 003a 7B68     		ldr	r3, [r7, #4]
+ 17040 003c 9B69     		ldr	r3, [r3, #24]
+ 17041 003e 4FEA4333 		lsl	r3, r3, #13
+ 287:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****             (FSMC_NANDInitStruct->FSMC_TCLRSetupTime << 9 )|
+ 17042              		.loc 1 287 0
+ 17043 0042 42EA0303 		orr	r3, r2, r3
+ 282:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   tmppcr = (uint32_t)FSMC_NANDInitStruct->FSMC_Waitfeature |
+ 17044              		.loc 1 282 0
+ 17045 0046 43F00803 		orr	r3, r3, #8
+ 17046 004a 7B61     		str	r3, [r7, #20]
+ 289:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****             
+ 290:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   /* Set tmppmem value according to FSMC_CommonSpaceTimingStructure parameters */
+ 291:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   tmppmem = (uint32_t)FSMC_NANDInitStruct->FSMC_CommonSpaceTimingStruct->FSMC_SetupTime |
+ 17047              		.loc 1 291 0
+ 17048 004c 7B68     		ldr	r3, [r7, #4]
+ 17049 004e DB69     		ldr	r3, [r3, #28]
+ 17050 0050 1A68     		ldr	r2, [r3, #0]
+ 292:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****             (FSMC_NANDInitStruct->FSMC_CommonSpaceTimingStruct->FSMC_WaitSetupTime << 8) |
+ 17051              		.loc 1 292 0
+ 17052 0052 7B68     		ldr	r3, [r7, #4]
+ 17053 0054 DB69     		ldr	r3, [r3, #28]
+ 17054 0056 5B68     		ldr	r3, [r3, #4]
+ 17055 0058 4FEA0323 		lsl	r3, r3, #8
+ 291:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   tmppmem = (uint32_t)FSMC_NANDInitStruct->FSMC_CommonSpaceTimingStruct->FSMC_SetupTime |
+ 17056              		.loc 1 291 0
+ 17057 005c 1A43     		orrs	r2, r2, r3
+ 293:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****             (FSMC_NANDInitStruct->FSMC_CommonSpaceTimingStruct->FSMC_HoldSetupTime << 16)|
+ 17058              		.loc 1 293 0
+ 17059 005e 7B68     		ldr	r3, [r7, #4]
+ 17060 0060 DB69     		ldr	r3, [r3, #28]
+ 17061 0062 9B68     		ldr	r3, [r3, #8]
+ 17062 0064 4FEA0343 		lsl	r3, r3, #16
+ 292:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****             (FSMC_NANDInitStruct->FSMC_CommonSpaceTimingStruct->FSMC_WaitSetupTime << 8) |
+ 17063              		.loc 1 292 0
+ 17064 0068 1A43     		orrs	r2, r2, r3
+ 294:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****             (FSMC_NANDInitStruct->FSMC_CommonSpaceTimingStruct->FSMC_HiZSetupTime << 24); 
+ 17065              		.loc 1 294 0
+ 17066 006a 7B68     		ldr	r3, [r7, #4]
+ 17067 006c DB69     		ldr	r3, [r3, #28]
+ 17068 006e DB68     		ldr	r3, [r3, #12]
+ 17069 0070 4FEA0363 		lsl	r3, r3, #24
+ 291:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   tmppmem = (uint32_t)FSMC_NANDInitStruct->FSMC_CommonSpaceTimingStruct->FSMC_SetupTime |
+ 17070              		.loc 1 291 0
+ 17071 0074 42EA0303 		orr	r3, r2, r3
+ 17072 0078 3B61     		str	r3, [r7, #16]
+ 295:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****             
+ 296:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   /* Set tmppatt value according to FSMC_AttributeSpaceTimingStructure parameters */
+ 297:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   tmppatt = (uint32_t)FSMC_NANDInitStruct->FSMC_AttributeSpaceTimingStruct->FSMC_SetupTime |
+ 17073              		.loc 1 297 0
+ 17074 007a 7B68     		ldr	r3, [r7, #4]
+ 17075 007c 1B6A     		ldr	r3, [r3, #32]
+ 17076 007e 1A68     		ldr	r2, [r3, #0]
+ 298:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****             (FSMC_NANDInitStruct->FSMC_AttributeSpaceTimingStruct->FSMC_WaitSetupTime << 8) |
+ 17077              		.loc 1 298 0
+ 17078 0080 7B68     		ldr	r3, [r7, #4]
+ 17079 0082 1B6A     		ldr	r3, [r3, #32]
+ 17080 0084 5B68     		ldr	r3, [r3, #4]
+ 17081 0086 4FEA0323 		lsl	r3, r3, #8
+ 297:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   tmppatt = (uint32_t)FSMC_NANDInitStruct->FSMC_AttributeSpaceTimingStruct->FSMC_SetupTime |
+ 17082              		.loc 1 297 0
+ 17083 008a 1A43     		orrs	r2, r2, r3
+ 299:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****             (FSMC_NANDInitStruct->FSMC_AttributeSpaceTimingStruct->FSMC_HoldSetupTime << 16)|
+ 17084              		.loc 1 299 0
+ 17085 008c 7B68     		ldr	r3, [r7, #4]
+ 17086 008e 1B6A     		ldr	r3, [r3, #32]
+ 17087 0090 9B68     		ldr	r3, [r3, #8]
+ 17088 0092 4FEA0343 		lsl	r3, r3, #16
+ 298:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****             (FSMC_NANDInitStruct->FSMC_AttributeSpaceTimingStruct->FSMC_WaitSetupTime << 8) |
+ 17089              		.loc 1 298 0
+ 17090 0096 1A43     		orrs	r2, r2, r3
+ 300:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****             (FSMC_NANDInitStruct->FSMC_AttributeSpaceTimingStruct->FSMC_HiZSetupTime << 24);
+ 17091              		.loc 1 300 0
+ 17092 0098 7B68     		ldr	r3, [r7, #4]
+ 17093 009a 1B6A     		ldr	r3, [r3, #32]
+ 17094 009c DB68     		ldr	r3, [r3, #12]
+ 17095 009e 4FEA0363 		lsl	r3, r3, #24
+ 297:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   tmppatt = (uint32_t)FSMC_NANDInitStruct->FSMC_AttributeSpaceTimingStruct->FSMC_SetupTime |
+ 17096              		.loc 1 297 0
+ 17097 00a2 42EA0303 		orr	r3, r2, r3
+ 17098 00a6 FB60     		str	r3, [r7, #12]
+ 301:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   
+ 302:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   if(FSMC_NANDInitStruct->FSMC_Bank == FSMC_Bank2_NAND)
+ 17099              		.loc 1 302 0
+ 17100 00a8 7B68     		ldr	r3, [r7, #4]
+ 17101 00aa 1B68     		ldr	r3, [r3, #0]
+ 17102 00ac 102B     		cmp	r3, #16
+ 17103 00ae 12D1     		bne	.L13
+ 303:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   {
+ 304:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     /* FSMC_Bank2_NAND registers configuration */
+ 305:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     FSMC_Bank2->PCR2 = tmppcr;
+ 17104              		.loc 1 305 0
+ 17105 00b0 4FF06003 		mov	r3, #96
+ 17106 00b4 CAF20003 		movt	r3, 40960
+ 17107 00b8 7A69     		ldr	r2, [r7, #20]
+ 17108 00ba 1A60     		str	r2, [r3, #0]
+ 306:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     FSMC_Bank2->PMEM2 = tmppmem;
+ 17109              		.loc 1 306 0
+ 17110 00bc 4FF06003 		mov	r3, #96
+ 17111 00c0 CAF20003 		movt	r3, 40960
+ 17112 00c4 3A69     		ldr	r2, [r7, #16]
+ 17113 00c6 9A60     		str	r2, [r3, #8]
+ 307:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     FSMC_Bank2->PATT2 = tmppatt;
+ 17114              		.loc 1 307 0
+ 17115 00c8 4FF06003 		mov	r3, #96
+ 17116 00cc CAF20003 		movt	r3, 40960
+ 17117 00d0 FA68     		ldr	r2, [r7, #12]
+ 17118 00d2 DA60     		str	r2, [r3, #12]
+ 17119 00d4 11E0     		b	.L12
+ 17120              	.L13:
+ 308:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   }
+ 309:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   else
+ 310:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   {
+ 311:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     /* FSMC_Bank3_NAND registers configuration */
+ 312:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     FSMC_Bank3->PCR3 = tmppcr;
+ 17121              		.loc 1 312 0
+ 17122 00d6 4FF08003 		mov	r3, #128
+ 17123 00da CAF20003 		movt	r3, 40960
+ 17124 00de 7A69     		ldr	r2, [r7, #20]
+ 17125 00e0 1A60     		str	r2, [r3, #0]
+ 313:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     FSMC_Bank3->PMEM3 = tmppmem;
+ 17126              		.loc 1 313 0
+ 17127 00e2 4FF08003 		mov	r3, #128
+ 17128 00e6 CAF20003 		movt	r3, 40960
+ 17129 00ea 3A69     		ldr	r2, [r7, #16]
+ 17130 00ec 9A60     		str	r2, [r3, #8]
+ 314:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     FSMC_Bank3->PATT3 = tmppatt;
+ 17131              		.loc 1 314 0
+ 17132 00ee 4FF08003 		mov	r3, #128
+ 17133 00f2 CAF20003 		movt	r3, 40960
+ 17134 00f6 FA68     		ldr	r2, [r7, #12]
+ 17135 00f8 DA60     		str	r2, [r3, #12]
+ 17136              	.L12:
+ 315:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   }
+ 316:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** }
+ 17137              		.loc 1 316 0
+ 17138 00fa 07F11C07 		add	r7, r7, #28
+ 17139 00fe BD46     		mov	sp, r7
+ 17140 0100 80BC     		pop	{r7}
+ 17141 0102 7047     		bx	lr
+ 17142              		.cfi_endproc
+ 17143              	.LFE33:
+ 17145              		.section	.text.FSMC_PCCARDInit,"ax",%progbits
+ 17146              		.align	2
+ 17147              		.global	FSMC_PCCARDInit
+ 17148              		.thumb
+ 17149              		.thumb_func
+ 17151              	FSMC_PCCARDInit:
+ 17152              	.LFB34:
+ 317:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** 
+ 318:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** /**
+ 319:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @brief  Initializes the FSMC PCCARD Bank according to the specified 
+ 320:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *   parameters in the FSMC_PCCARDInitStruct.
+ 321:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @param  FSMC_PCCARDInitStruct : pointer to a FSMC_PCCARDInitTypeDef
+ 322:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *   structure that contains the configuration information for the FSMC PCCARD Bank.              
+ 323:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @retval None
+ 324:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   */
+ 325:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** void FSMC_PCCARDInit(FSMC_PCCARDInitTypeDef* FSMC_PCCARDInitStruct)
+ 326:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** {
+ 17153              		.loc 1 326 0
+ 17154              		.cfi_startproc
+ 17155              		@ args = 0, pretend = 0, frame = 8
+ 17156              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17157              		@ link register save eliminated.
+ 17158 0000 80B4     		push	{r7}
+ 17159              	.LCFI14:
+ 17160              		.cfi_def_cfa_offset 4
+ 17161 0002 83B0     		sub	sp, sp, #12
+ 17162              	.LCFI15:
+ 17163              		.cfi_def_cfa_offset 16
+ 17164 0004 00AF     		add	r7, sp, #0
+ 17165              		.cfi_offset 7, -4
+ 17166              	.LCFI16:
+ 17167              		.cfi_def_cfa_register 7
+ 17168 0006 7860     		str	r0, [r7, #4]
+ 327:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   /* Check the parameters */
+ 328:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param(IS_FSMC_WAIT_FEATURE(FSMC_PCCARDInitStruct->FSMC_Waitfeature));
+ 329:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param(IS_FSMC_TCLR_TIME(FSMC_PCCARDInitStruct->FSMC_TCLRSetupTime));
+ 330:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param(IS_FSMC_TAR_TIME(FSMC_PCCARDInitStruct->FSMC_TARSetupTime));
+ 331:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****  
+ 332:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param(IS_FSMC_SETUP_TIME(FSMC_PCCARDInitStruct->FSMC_CommonSpaceTimingStruct->FSMC_SetupTi
+ 333:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param(IS_FSMC_WAIT_TIME(FSMC_PCCARDInitStruct->FSMC_CommonSpaceTimingStruct->FSMC_WaitSetu
+ 334:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param(IS_FSMC_HOLD_TIME(FSMC_PCCARDInitStruct->FSMC_CommonSpaceTimingStruct->FSMC_HoldSetu
+ 335:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param(IS_FSMC_HIZ_TIME(FSMC_PCCARDInitStruct->FSMC_CommonSpaceTimingStruct->FSMC_HiZSetupT
+ 336:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   
+ 337:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param(IS_FSMC_SETUP_TIME(FSMC_PCCARDInitStruct->FSMC_AttributeSpaceTimingStruct->FSMC_Setu
+ 338:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param(IS_FSMC_WAIT_TIME(FSMC_PCCARDInitStruct->FSMC_AttributeSpaceTimingStruct->FSMC_WaitS
+ 339:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param(IS_FSMC_HOLD_TIME(FSMC_PCCARDInitStruct->FSMC_AttributeSpaceTimingStruct->FSMC_HoldS
+ 340:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param(IS_FSMC_HIZ_TIME(FSMC_PCCARDInitStruct->FSMC_AttributeSpaceTimingStruct->FSMC_HiZSet
+ 341:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param(IS_FSMC_SETUP_TIME(FSMC_PCCARDInitStruct->FSMC_IOSpaceTimingStruct->FSMC_SetupTime))
+ 342:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param(IS_FSMC_WAIT_TIME(FSMC_PCCARDInitStruct->FSMC_IOSpaceTimingStruct->FSMC_WaitSetupTim
+ 343:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param(IS_FSMC_HOLD_TIME(FSMC_PCCARDInitStruct->FSMC_IOSpaceTimingStruct->FSMC_HoldSetupTim
+ 344:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param(IS_FSMC_HIZ_TIME(FSMC_PCCARDInitStruct->FSMC_IOSpaceTimingStruct->FSMC_HiZSetupTime)
+ 345:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   
+ 346:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   /* Set the PCR4 register value according to FSMC_PCCARDInitStruct parameters */
+ 347:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_Bank4->PCR4 = (uint32_t)FSMC_PCCARDInitStruct->FSMC_Waitfeature |
+ 17169              		.loc 1 347 0
+ 17170 0008 4FF0A003 		mov	r3, #160
+ 17171 000c CAF20003 		movt	r3, 40960
+ 17172 0010 7A68     		ldr	r2, [r7, #4]
+ 17173 0012 1168     		ldr	r1, [r2, #0]
+ 348:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****                      FSMC_MemoryDataWidth_16b |  
+ 349:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****                      (FSMC_PCCARDInitStruct->FSMC_TCLRSetupTime << 9) |
+ 17174              		.loc 1 349 0
+ 17175 0014 7A68     		ldr	r2, [r7, #4]
+ 17176 0016 5268     		ldr	r2, [r2, #4]
+ 17177 0018 4FEA4222 		lsl	r2, r2, #9
+ 348:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****                      FSMC_MemoryDataWidth_16b |  
+ 17178              		.loc 1 348 0
+ 17179 001c 1143     		orrs	r1, r1, r2
+ 350:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****                      (FSMC_PCCARDInitStruct->FSMC_TARSetupTime << 13);
+ 17180              		.loc 1 350 0
+ 17181 001e 7A68     		ldr	r2, [r7, #4]
+ 17182 0020 9268     		ldr	r2, [r2, #8]
+ 17183 0022 4FEA4232 		lsl	r2, r2, #13
+ 349:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****                      (FSMC_PCCARDInitStruct->FSMC_TCLRSetupTime << 9) |
+ 17184              		.loc 1 349 0
+ 17185 0026 41EA0202 		orr	r2, r1, r2
+ 17186 002a 42F01002 		orr	r2, r2, #16
+ 347:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_Bank4->PCR4 = (uint32_t)FSMC_PCCARDInitStruct->FSMC_Waitfeature |
+ 17187              		.loc 1 347 0
+ 17188 002e 1A60     		str	r2, [r3, #0]
+ 351:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****             
+ 352:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   /* Set PMEM4 register value according to FSMC_CommonSpaceTimingStructure parameters */
+ 353:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_Bank4->PMEM4 = (uint32_t)FSMC_PCCARDInitStruct->FSMC_CommonSpaceTimingStruct->FSMC_SetupTime
+ 17189              		.loc 1 353 0
+ 17190 0030 4FF0A003 		mov	r3, #160
+ 17191 0034 CAF20003 		movt	r3, 40960
+ 17192 0038 7A68     		ldr	r2, [r7, #4]
+ 17193 003a D268     		ldr	r2, [r2, #12]
+ 17194 003c 1168     		ldr	r1, [r2, #0]
+ 354:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****                       (FSMC_PCCARDInitStruct->FSMC_CommonSpaceTimingStruct->FSMC_WaitSetupTime << 8
+ 17195              		.loc 1 354 0
+ 17196 003e 7A68     		ldr	r2, [r7, #4]
+ 17197 0040 D268     		ldr	r2, [r2, #12]
+ 17198 0042 5268     		ldr	r2, [r2, #4]
+ 17199 0044 4FEA0222 		lsl	r2, r2, #8
+ 353:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_Bank4->PMEM4 = (uint32_t)FSMC_PCCARDInitStruct->FSMC_CommonSpaceTimingStruct->FSMC_SetupTime
+ 17200              		.loc 1 353 0
+ 17201 0048 1143     		orrs	r1, r1, r2
+ 355:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****                       (FSMC_PCCARDInitStruct->FSMC_CommonSpaceTimingStruct->FSMC_HoldSetupTime << 1
+ 17202              		.loc 1 355 0
+ 17203 004a 7A68     		ldr	r2, [r7, #4]
+ 17204 004c D268     		ldr	r2, [r2, #12]
+ 17205 004e 9268     		ldr	r2, [r2, #8]
+ 17206 0050 4FEA0242 		lsl	r2, r2, #16
+ 354:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****                       (FSMC_PCCARDInitStruct->FSMC_CommonSpaceTimingStruct->FSMC_WaitSetupTime << 8
+ 17207              		.loc 1 354 0
+ 17208 0054 1143     		orrs	r1, r1, r2
+ 356:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****                       (FSMC_PCCARDInitStruct->FSMC_CommonSpaceTimingStruct->FSMC_HiZSetupTime << 24
+ 17209              		.loc 1 356 0
+ 17210 0056 7A68     		ldr	r2, [r7, #4]
+ 17211 0058 D268     		ldr	r2, [r2, #12]
+ 17212 005a D268     		ldr	r2, [r2, #12]
+ 17213 005c 4FEA0262 		lsl	r2, r2, #24
+ 355:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****                       (FSMC_PCCARDInitStruct->FSMC_CommonSpaceTimingStruct->FSMC_HoldSetupTime << 1
+ 17214              		.loc 1 355 0
+ 17215 0060 41EA0202 		orr	r2, r1, r2
+ 353:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_Bank4->PMEM4 = (uint32_t)FSMC_PCCARDInitStruct->FSMC_CommonSpaceTimingStruct->FSMC_SetupTime
+ 17216              		.loc 1 353 0
+ 17217 0064 9A60     		str	r2, [r3, #8]
+ 357:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****             
+ 358:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   /* Set PATT4 register value according to FSMC_AttributeSpaceTimingStructure parameters */
+ 359:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_Bank4->PATT4 = (uint32_t)FSMC_PCCARDInitStruct->FSMC_AttributeSpaceTimingStruct->FSMC_SetupT
+ 17218              		.loc 1 359 0
+ 17219 0066 4FF0A003 		mov	r3, #160
+ 17220 006a CAF20003 		movt	r3, 40960
+ 17221 006e 7A68     		ldr	r2, [r7, #4]
+ 17222 0070 1269     		ldr	r2, [r2, #16]
+ 17223 0072 1168     		ldr	r1, [r2, #0]
+ 360:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****                       (FSMC_PCCARDInitStruct->FSMC_AttributeSpaceTimingStruct->FSMC_WaitSetupTime <
+ 17224              		.loc 1 360 0
+ 17225 0074 7A68     		ldr	r2, [r7, #4]
+ 17226 0076 1269     		ldr	r2, [r2, #16]
+ 17227 0078 5268     		ldr	r2, [r2, #4]
+ 17228 007a 4FEA0222 		lsl	r2, r2, #8
+ 359:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_Bank4->PATT4 = (uint32_t)FSMC_PCCARDInitStruct->FSMC_AttributeSpaceTimingStruct->FSMC_SetupT
+ 17229              		.loc 1 359 0
+ 17230 007e 1143     		orrs	r1, r1, r2
+ 361:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****                       (FSMC_PCCARDInitStruct->FSMC_AttributeSpaceTimingStruct->FSMC_HoldSetupTime <
+ 17231              		.loc 1 361 0
+ 17232 0080 7A68     		ldr	r2, [r7, #4]
+ 17233 0082 1269     		ldr	r2, [r2, #16]
+ 17234 0084 9268     		ldr	r2, [r2, #8]
+ 17235 0086 4FEA0242 		lsl	r2, r2, #16
+ 360:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****                       (FSMC_PCCARDInitStruct->FSMC_AttributeSpaceTimingStruct->FSMC_WaitSetupTime <
+ 17236              		.loc 1 360 0
+ 17237 008a 1143     		orrs	r1, r1, r2
+ 362:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****                       (FSMC_PCCARDInitStruct->FSMC_AttributeSpaceTimingStruct->FSMC_HiZSetupTime <<
+ 17238              		.loc 1 362 0
+ 17239 008c 7A68     		ldr	r2, [r7, #4]
+ 17240 008e 1269     		ldr	r2, [r2, #16]
+ 17241 0090 D268     		ldr	r2, [r2, #12]
+ 17242 0092 4FEA0262 		lsl	r2, r2, #24
+ 361:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****                       (FSMC_PCCARDInitStruct->FSMC_AttributeSpaceTimingStruct->FSMC_HoldSetupTime <
+ 17243              		.loc 1 361 0
+ 17244 0096 41EA0202 		orr	r2, r1, r2
+ 359:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_Bank4->PATT4 = (uint32_t)FSMC_PCCARDInitStruct->FSMC_AttributeSpaceTimingStruct->FSMC_SetupT
+ 17245              		.loc 1 359 0
+ 17246 009a DA60     		str	r2, [r3, #12]
+ 363:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****             
+ 364:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   /* Set PIO4 register value according to FSMC_IOSpaceTimingStructure parameters */
+ 365:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_Bank4->PIO4 = (uint32_t)FSMC_PCCARDInitStruct->FSMC_IOSpaceTimingStruct->FSMC_SetupTime |
+ 17247              		.loc 1 365 0
+ 17248 009c 4FF0A003 		mov	r3, #160
+ 17249 00a0 CAF20003 		movt	r3, 40960
+ 17250 00a4 7A68     		ldr	r2, [r7, #4]
+ 17251 00a6 5269     		ldr	r2, [r2, #20]
+ 17252 00a8 1168     		ldr	r1, [r2, #0]
+ 366:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****                      (FSMC_PCCARDInitStruct->FSMC_IOSpaceTimingStruct->FSMC_WaitSetupTime << 8) |
+ 17253              		.loc 1 366 0
+ 17254 00aa 7A68     		ldr	r2, [r7, #4]
+ 17255 00ac 5269     		ldr	r2, [r2, #20]
+ 17256 00ae 5268     		ldr	r2, [r2, #4]
+ 17257 00b0 4FEA0222 		lsl	r2, r2, #8
+ 365:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_Bank4->PIO4 = (uint32_t)FSMC_PCCARDInitStruct->FSMC_IOSpaceTimingStruct->FSMC_SetupTime |
+ 17258              		.loc 1 365 0
+ 17259 00b4 1143     		orrs	r1, r1, r2
+ 367:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****                      (FSMC_PCCARDInitStruct->FSMC_IOSpaceTimingStruct->FSMC_HoldSetupTime << 16)|
+ 17260              		.loc 1 367 0
+ 17261 00b6 7A68     		ldr	r2, [r7, #4]
+ 17262 00b8 5269     		ldr	r2, [r2, #20]
+ 17263 00ba 9268     		ldr	r2, [r2, #8]
+ 17264 00bc 4FEA0242 		lsl	r2, r2, #16
+ 366:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****                      (FSMC_PCCARDInitStruct->FSMC_IOSpaceTimingStruct->FSMC_WaitSetupTime << 8) |
+ 17265              		.loc 1 366 0
+ 17266 00c0 1143     		orrs	r1, r1, r2
+ 368:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****                      (FSMC_PCCARDInitStruct->FSMC_IOSpaceTimingStruct->FSMC_HiZSetupTime << 24);   
+ 17267              		.loc 1 368 0
+ 17268 00c2 7A68     		ldr	r2, [r7, #4]
+ 17269 00c4 5269     		ldr	r2, [r2, #20]
+ 17270 00c6 D268     		ldr	r2, [r2, #12]
+ 17271 00c8 4FEA0262 		lsl	r2, r2, #24
+ 367:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****                      (FSMC_PCCARDInitStruct->FSMC_IOSpaceTimingStruct->FSMC_HoldSetupTime << 16)|
+ 17272              		.loc 1 367 0
+ 17273 00cc 41EA0202 		orr	r2, r1, r2
+ 365:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_Bank4->PIO4 = (uint32_t)FSMC_PCCARDInitStruct->FSMC_IOSpaceTimingStruct->FSMC_SetupTime |
+ 17274              		.loc 1 365 0
+ 17275 00d0 1A61     		str	r2, [r3, #16]
+ 369:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** }
+ 17276              		.loc 1 369 0
+ 17277 00d2 07F10C07 		add	r7, r7, #12
+ 17278 00d6 BD46     		mov	sp, r7
+ 17279 00d8 80BC     		pop	{r7}
+ 17280 00da 7047     		bx	lr
+ 17281              		.cfi_endproc
+ 17282              	.LFE34:
+ 17284              		.section	.text.FSMC_NORSRAMStructInit,"ax",%progbits
+ 17285              		.align	2
+ 17286              		.global	FSMC_NORSRAMStructInit
+ 17287              		.thumb
+ 17288              		.thumb_func
+ 17290              	FSMC_NORSRAMStructInit:
+ 17291              	.LFB35:
+ 370:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** 
+ 371:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** /**
+ 372:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @brief  Fills each FSMC_NORSRAMInitStruct member with its default value.
+ 373:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @param  FSMC_NORSRAMInitStruct: pointer to a FSMC_NORSRAMInitTypeDef 
+ 374:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *   structure which will be initialized.
+ 375:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @retval None
+ 376:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   */
+ 377:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** void FSMC_NORSRAMStructInit(FSMC_NORSRAMInitTypeDef* FSMC_NORSRAMInitStruct)
+ 378:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** {  
+ 17292              		.loc 1 378 0
+ 17293              		.cfi_startproc
+ 17294              		@ args = 0, pretend = 0, frame = 8
+ 17295              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17296              		@ link register save eliminated.
+ 17297 0000 80B4     		push	{r7}
+ 17298              	.LCFI17:
+ 17299              		.cfi_def_cfa_offset 4
+ 17300 0002 83B0     		sub	sp, sp, #12
+ 17301              	.LCFI18:
+ 17302              		.cfi_def_cfa_offset 16
+ 17303 0004 00AF     		add	r7, sp, #0
+ 17304              		.cfi_offset 7, -4
+ 17305              	.LCFI19:
+ 17306              		.cfi_def_cfa_register 7
+ 17307 0006 7860     		str	r0, [r7, #4]
+ 379:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   /* Reset NOR/SRAM Init structure parameters values */
+ 380:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_NORSRAMInitStruct->FSMC_Bank = FSMC_Bank1_NORSRAM1;
+ 17308              		.loc 1 380 0
+ 17309 0008 7B68     		ldr	r3, [r7, #4]
+ 17310 000a 4FF00002 		mov	r2, #0
+ 17311 000e 1A60     		str	r2, [r3, #0]
+ 381:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_NORSRAMInitStruct->FSMC_DataAddressMux = FSMC_DataAddressMux_Enable;
+ 17312              		.loc 1 381 0
+ 17313 0010 7B68     		ldr	r3, [r7, #4]
+ 17314 0012 4FF00202 		mov	r2, #2
+ 17315 0016 5A60     		str	r2, [r3, #4]
+ 382:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_NORSRAMInitStruct->FSMC_MemoryType = FSMC_MemoryType_SRAM;
+ 17316              		.loc 1 382 0
+ 17317 0018 7B68     		ldr	r3, [r7, #4]
+ 17318 001a 4FF00002 		mov	r2, #0
+ 17319 001e 9A60     		str	r2, [r3, #8]
+ 383:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_NORSRAMInitStruct->FSMC_MemoryDataWidth = FSMC_MemoryDataWidth_8b;
+ 17320              		.loc 1 383 0
+ 17321 0020 7B68     		ldr	r3, [r7, #4]
+ 17322 0022 4FF00002 		mov	r2, #0
+ 17323 0026 DA60     		str	r2, [r3, #12]
+ 384:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_NORSRAMInitStruct->FSMC_BurstAccessMode = FSMC_BurstAccessMode_Disable;
+ 17324              		.loc 1 384 0
+ 17325 0028 7B68     		ldr	r3, [r7, #4]
+ 17326 002a 4FF00002 		mov	r2, #0
+ 17327 002e 1A61     		str	r2, [r3, #16]
+ 385:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_NORSRAMInitStruct->FSMC_AsynchronousWait = FSMC_AsynchronousWait_Disable;
+ 17328              		.loc 1 385 0
+ 17329 0030 7B68     		ldr	r3, [r7, #4]
+ 17330 0032 4FF00002 		mov	r2, #0
+ 17331 0036 5A61     		str	r2, [r3, #20]
+ 386:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_NORSRAMInitStruct->FSMC_WaitSignalPolarity = FSMC_WaitSignalPolarity_Low;
+ 17332              		.loc 1 386 0
+ 17333 0038 7B68     		ldr	r3, [r7, #4]
+ 17334 003a 4FF00002 		mov	r2, #0
+ 17335 003e 9A61     		str	r2, [r3, #24]
+ 387:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_NORSRAMInitStruct->FSMC_WrapMode = FSMC_WrapMode_Disable;
+ 17336              		.loc 1 387 0
+ 17337 0040 7B68     		ldr	r3, [r7, #4]
+ 17338 0042 4FF00002 		mov	r2, #0
+ 17339 0046 DA61     		str	r2, [r3, #28]
+ 388:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_NORSRAMInitStruct->FSMC_WaitSignalActive = FSMC_WaitSignalActive_BeforeWaitState;
+ 17340              		.loc 1 388 0
+ 17341 0048 7B68     		ldr	r3, [r7, #4]
+ 17342 004a 4FF00002 		mov	r2, #0
+ 17343 004e 1A62     		str	r2, [r3, #32]
+ 389:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_NORSRAMInitStruct->FSMC_WriteOperation = FSMC_WriteOperation_Enable;
+ 17344              		.loc 1 389 0
+ 17345 0050 7B68     		ldr	r3, [r7, #4]
+ 17346 0052 4FF48052 		mov	r2, #4096
+ 17347 0056 5A62     		str	r2, [r3, #36]
+ 390:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_NORSRAMInitStruct->FSMC_WaitSignal = FSMC_WaitSignal_Enable;
+ 17348              		.loc 1 390 0
+ 17349 0058 7B68     		ldr	r3, [r7, #4]
+ 17350 005a 4FF40052 		mov	r2, #8192
+ 17351 005e 9A62     		str	r2, [r3, #40]
+ 391:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_NORSRAMInitStruct->FSMC_ExtendedMode = FSMC_ExtendedMode_Disable;
+ 17352              		.loc 1 391 0
+ 17353 0060 7B68     		ldr	r3, [r7, #4]
+ 17354 0062 4FF00002 		mov	r2, #0
+ 17355 0066 DA62     		str	r2, [r3, #44]
+ 392:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_NORSRAMInitStruct->FSMC_WriteBurst = FSMC_WriteBurst_Disable;
+ 17356              		.loc 1 392 0
+ 17357 0068 7B68     		ldr	r3, [r7, #4]
+ 17358 006a 4FF00002 		mov	r2, #0
+ 17359 006e 1A63     		str	r2, [r3, #48]
+ 393:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_NORSRAMInitStruct->FSMC_ReadWriteTimingStruct->FSMC_AddressSetupTime = 0xF;
+ 17360              		.loc 1 393 0
+ 17361 0070 7B68     		ldr	r3, [r7, #4]
+ 17362 0072 5B6B     		ldr	r3, [r3, #52]
+ 17363 0074 4FF00F02 		mov	r2, #15
+ 17364 0078 1A60     		str	r2, [r3, #0]
+ 394:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_NORSRAMInitStruct->FSMC_ReadWriteTimingStruct->FSMC_AddressHoldTime = 0xF;
+ 17365              		.loc 1 394 0
+ 17366 007a 7B68     		ldr	r3, [r7, #4]
+ 17367 007c 5B6B     		ldr	r3, [r3, #52]
+ 17368 007e 4FF00F02 		mov	r2, #15
+ 17369 0082 5A60     		str	r2, [r3, #4]
+ 395:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_NORSRAMInitStruct->FSMC_ReadWriteTimingStruct->FSMC_DataSetupTime = 0xFF;
+ 17370              		.loc 1 395 0
+ 17371 0084 7B68     		ldr	r3, [r7, #4]
+ 17372 0086 5B6B     		ldr	r3, [r3, #52]
+ 17373 0088 4FF0FF02 		mov	r2, #255
+ 17374 008c 9A60     		str	r2, [r3, #8]
+ 396:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_NORSRAMInitStruct->FSMC_ReadWriteTimingStruct->FSMC_BusTurnAroundDuration = 0xF;
+ 17375              		.loc 1 396 0
+ 17376 008e 7B68     		ldr	r3, [r7, #4]
+ 17377 0090 5B6B     		ldr	r3, [r3, #52]
+ 17378 0092 4FF00F02 		mov	r2, #15
+ 17379 0096 DA60     		str	r2, [r3, #12]
+ 397:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_NORSRAMInitStruct->FSMC_ReadWriteTimingStruct->FSMC_CLKDivision = 0xF;
+ 17380              		.loc 1 397 0
+ 17381 0098 7B68     		ldr	r3, [r7, #4]
+ 17382 009a 5B6B     		ldr	r3, [r3, #52]
+ 17383 009c 4FF00F02 		mov	r2, #15
+ 17384 00a0 1A61     		str	r2, [r3, #16]
+ 398:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_NORSRAMInitStruct->FSMC_ReadWriteTimingStruct->FSMC_DataLatency = 0xF;
+ 17385              		.loc 1 398 0
+ 17386 00a2 7B68     		ldr	r3, [r7, #4]
+ 17387 00a4 5B6B     		ldr	r3, [r3, #52]
+ 17388 00a6 4FF00F02 		mov	r2, #15
+ 17389 00aa 5A61     		str	r2, [r3, #20]
+ 399:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_NORSRAMInitStruct->FSMC_ReadWriteTimingStruct->FSMC_AccessMode = FSMC_AccessMode_A; 
+ 17390              		.loc 1 399 0
+ 17391 00ac 7B68     		ldr	r3, [r7, #4]
+ 17392 00ae 5B6B     		ldr	r3, [r3, #52]
+ 17393 00b0 4FF00002 		mov	r2, #0
+ 17394 00b4 9A61     		str	r2, [r3, #24]
+ 400:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_NORSRAMInitStruct->FSMC_WriteTimingStruct->FSMC_AddressSetupTime = 0xF;
+ 17395              		.loc 1 400 0
+ 17396 00b6 7B68     		ldr	r3, [r7, #4]
+ 17397 00b8 9B6B     		ldr	r3, [r3, #56]
+ 17398 00ba 4FF00F02 		mov	r2, #15
+ 17399 00be 1A60     		str	r2, [r3, #0]
+ 401:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_NORSRAMInitStruct->FSMC_WriteTimingStruct->FSMC_AddressHoldTime = 0xF;
+ 17400              		.loc 1 401 0
+ 17401 00c0 7B68     		ldr	r3, [r7, #4]
+ 17402 00c2 9B6B     		ldr	r3, [r3, #56]
+ 17403 00c4 4FF00F02 		mov	r2, #15
+ 17404 00c8 5A60     		str	r2, [r3, #4]
+ 402:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_NORSRAMInitStruct->FSMC_WriteTimingStruct->FSMC_DataSetupTime = 0xFF;
+ 17405              		.loc 1 402 0
+ 17406 00ca 7B68     		ldr	r3, [r7, #4]
+ 17407 00cc 9B6B     		ldr	r3, [r3, #56]
+ 17408 00ce 4FF0FF02 		mov	r2, #255
+ 17409 00d2 9A60     		str	r2, [r3, #8]
+ 403:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_NORSRAMInitStruct->FSMC_WriteTimingStruct->FSMC_BusTurnAroundDuration = 0xF;
+ 17410              		.loc 1 403 0
+ 17411 00d4 7B68     		ldr	r3, [r7, #4]
+ 17412 00d6 9B6B     		ldr	r3, [r3, #56]
+ 17413 00d8 4FF00F02 		mov	r2, #15
+ 17414 00dc DA60     		str	r2, [r3, #12]
+ 404:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_NORSRAMInitStruct->FSMC_WriteTimingStruct->FSMC_CLKDivision = 0xF;
+ 17415              		.loc 1 404 0
+ 17416 00de 7B68     		ldr	r3, [r7, #4]
+ 17417 00e0 9B6B     		ldr	r3, [r3, #56]
+ 17418 00e2 4FF00F02 		mov	r2, #15
+ 17419 00e6 1A61     		str	r2, [r3, #16]
+ 405:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_NORSRAMInitStruct->FSMC_WriteTimingStruct->FSMC_DataLatency = 0xF;
+ 17420              		.loc 1 405 0
+ 17421 00e8 7B68     		ldr	r3, [r7, #4]
+ 17422 00ea 9B6B     		ldr	r3, [r3, #56]
+ 17423 00ec 4FF00F02 		mov	r2, #15
+ 17424 00f0 5A61     		str	r2, [r3, #20]
+ 406:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_NORSRAMInitStruct->FSMC_WriteTimingStruct->FSMC_AccessMode = FSMC_AccessMode_A;
+ 17425              		.loc 1 406 0
+ 17426 00f2 7B68     		ldr	r3, [r7, #4]
+ 17427 00f4 9B6B     		ldr	r3, [r3, #56]
+ 17428 00f6 4FF00002 		mov	r2, #0
+ 17429 00fa 9A61     		str	r2, [r3, #24]
+ 407:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** }
+ 17430              		.loc 1 407 0
+ 17431 00fc 07F10C07 		add	r7, r7, #12
+ 17432 0100 BD46     		mov	sp, r7
+ 17433 0102 80BC     		pop	{r7}
+ 17434 0104 7047     		bx	lr
+ 17435              		.cfi_endproc
+ 17436              	.LFE35:
+ 17438 0106 00BF     		.section	.text.FSMC_NANDStructInit,"ax",%progbits
+ 17439              		.align	2
+ 17440              		.global	FSMC_NANDStructInit
+ 17441              		.thumb
+ 17442              		.thumb_func
+ 17444              	FSMC_NANDStructInit:
+ 17445              	.LFB36:
+ 408:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** 
+ 409:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** /**
+ 410:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @brief  Fills each FSMC_NANDInitStruct member with its default value.
+ 411:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @param  FSMC_NANDInitStruct: pointer to a FSMC_NANDInitTypeDef 
+ 412:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *   structure which will be initialized.
+ 413:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @retval None
+ 414:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   */
+ 415:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** void FSMC_NANDStructInit(FSMC_NANDInitTypeDef* FSMC_NANDInitStruct)
+ 416:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** { 
+ 17446              		.loc 1 416 0
+ 17447              		.cfi_startproc
+ 17448              		@ args = 0, pretend = 0, frame = 8
+ 17449              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17450              		@ link register save eliminated.
+ 17451 0000 80B4     		push	{r7}
+ 17452              	.LCFI20:
+ 17453              		.cfi_def_cfa_offset 4
+ 17454 0002 83B0     		sub	sp, sp, #12
+ 17455              	.LCFI21:
+ 17456              		.cfi_def_cfa_offset 16
+ 17457 0004 00AF     		add	r7, sp, #0
+ 17458              		.cfi_offset 7, -4
+ 17459              	.LCFI22:
+ 17460              		.cfi_def_cfa_register 7
+ 17461 0006 7860     		str	r0, [r7, #4]
+ 417:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   /* Reset NAND Init structure parameters values */
+ 418:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_NANDInitStruct->FSMC_Bank = FSMC_Bank2_NAND;
+ 17462              		.loc 1 418 0
+ 17463 0008 7B68     		ldr	r3, [r7, #4]
+ 17464 000a 4FF01002 		mov	r2, #16
+ 17465 000e 1A60     		str	r2, [r3, #0]
+ 419:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_NANDInitStruct->FSMC_Waitfeature = FSMC_Waitfeature_Disable;
+ 17466              		.loc 1 419 0
+ 17467 0010 7B68     		ldr	r3, [r7, #4]
+ 17468 0012 4FF00002 		mov	r2, #0
+ 17469 0016 5A60     		str	r2, [r3, #4]
+ 420:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_NANDInitStruct->FSMC_MemoryDataWidth = FSMC_MemoryDataWidth_8b;
+ 17470              		.loc 1 420 0
+ 17471 0018 7B68     		ldr	r3, [r7, #4]
+ 17472 001a 4FF00002 		mov	r2, #0
+ 17473 001e 9A60     		str	r2, [r3, #8]
+ 421:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_NANDInitStruct->FSMC_ECC = FSMC_ECC_Disable;
+ 17474              		.loc 1 421 0
+ 17475 0020 7B68     		ldr	r3, [r7, #4]
+ 17476 0022 4FF00002 		mov	r2, #0
+ 17477 0026 DA60     		str	r2, [r3, #12]
+ 422:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_NANDInitStruct->FSMC_ECCPageSize = FSMC_ECCPageSize_256Bytes;
+ 17478              		.loc 1 422 0
+ 17479 0028 7B68     		ldr	r3, [r7, #4]
+ 17480 002a 4FF00002 		mov	r2, #0
+ 17481 002e 1A61     		str	r2, [r3, #16]
+ 423:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_NANDInitStruct->FSMC_TCLRSetupTime = 0x0;
+ 17482              		.loc 1 423 0
+ 17483 0030 7B68     		ldr	r3, [r7, #4]
+ 17484 0032 4FF00002 		mov	r2, #0
+ 17485 0036 5A61     		str	r2, [r3, #20]
+ 424:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_NANDInitStruct->FSMC_TARSetupTime = 0x0;
+ 17486              		.loc 1 424 0
+ 17487 0038 7B68     		ldr	r3, [r7, #4]
+ 17488 003a 4FF00002 		mov	r2, #0
+ 17489 003e 9A61     		str	r2, [r3, #24]
+ 425:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_NANDInitStruct->FSMC_CommonSpaceTimingStruct->FSMC_SetupTime = 0xFC;
+ 17490              		.loc 1 425 0
+ 17491 0040 7B68     		ldr	r3, [r7, #4]
+ 17492 0042 DB69     		ldr	r3, [r3, #28]
+ 17493 0044 4FF0FC02 		mov	r2, #252
+ 17494 0048 1A60     		str	r2, [r3, #0]
+ 426:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_NANDInitStruct->FSMC_CommonSpaceTimingStruct->FSMC_WaitSetupTime = 0xFC;
+ 17495              		.loc 1 426 0
+ 17496 004a 7B68     		ldr	r3, [r7, #4]
+ 17497 004c DB69     		ldr	r3, [r3, #28]
+ 17498 004e 4FF0FC02 		mov	r2, #252
+ 17499 0052 5A60     		str	r2, [r3, #4]
+ 427:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_NANDInitStruct->FSMC_CommonSpaceTimingStruct->FSMC_HoldSetupTime = 0xFC;
+ 17500              		.loc 1 427 0
+ 17501 0054 7B68     		ldr	r3, [r7, #4]
+ 17502 0056 DB69     		ldr	r3, [r3, #28]
+ 17503 0058 4FF0FC02 		mov	r2, #252
+ 17504 005c 9A60     		str	r2, [r3, #8]
+ 428:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_NANDInitStruct->FSMC_CommonSpaceTimingStruct->FSMC_HiZSetupTime = 0xFC;
+ 17505              		.loc 1 428 0
+ 17506 005e 7B68     		ldr	r3, [r7, #4]
+ 17507 0060 DB69     		ldr	r3, [r3, #28]
+ 17508 0062 4FF0FC02 		mov	r2, #252
+ 17509 0066 DA60     		str	r2, [r3, #12]
+ 429:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_NANDInitStruct->FSMC_AttributeSpaceTimingStruct->FSMC_SetupTime = 0xFC;
+ 17510              		.loc 1 429 0
+ 17511 0068 7B68     		ldr	r3, [r7, #4]
+ 17512 006a 1B6A     		ldr	r3, [r3, #32]
+ 17513 006c 4FF0FC02 		mov	r2, #252
+ 17514 0070 1A60     		str	r2, [r3, #0]
+ 430:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_NANDInitStruct->FSMC_AttributeSpaceTimingStruct->FSMC_WaitSetupTime = 0xFC;
+ 17515              		.loc 1 430 0
+ 17516 0072 7B68     		ldr	r3, [r7, #4]
+ 17517 0074 1B6A     		ldr	r3, [r3, #32]
+ 17518 0076 4FF0FC02 		mov	r2, #252
+ 17519 007a 5A60     		str	r2, [r3, #4]
+ 431:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_NANDInitStruct->FSMC_AttributeSpaceTimingStruct->FSMC_HoldSetupTime = 0xFC;
+ 17520              		.loc 1 431 0
+ 17521 007c 7B68     		ldr	r3, [r7, #4]
+ 17522 007e 1B6A     		ldr	r3, [r3, #32]
+ 17523 0080 4FF0FC02 		mov	r2, #252
+ 17524 0084 9A60     		str	r2, [r3, #8]
+ 432:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_NANDInitStruct->FSMC_AttributeSpaceTimingStruct->FSMC_HiZSetupTime = 0xFC;	  
+ 17525              		.loc 1 432 0
+ 17526 0086 7B68     		ldr	r3, [r7, #4]
+ 17527 0088 1B6A     		ldr	r3, [r3, #32]
+ 17528 008a 4FF0FC02 		mov	r2, #252
+ 17529 008e DA60     		str	r2, [r3, #12]
+ 433:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** }
+ 17530              		.loc 1 433 0
+ 17531 0090 07F10C07 		add	r7, r7, #12
+ 17532 0094 BD46     		mov	sp, r7
+ 17533 0096 80BC     		pop	{r7}
+ 17534 0098 7047     		bx	lr
+ 17535              		.cfi_endproc
+ 17536              	.LFE36:
+ 17538 009a 00BF     		.section	.text.FSMC_PCCARDStructInit,"ax",%progbits
+ 17539              		.align	2
+ 17540              		.global	FSMC_PCCARDStructInit
+ 17541              		.thumb
+ 17542              		.thumb_func
+ 17544              	FSMC_PCCARDStructInit:
+ 17545              	.LFB37:
+ 434:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** 
+ 435:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** /**
+ 436:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @brief  Fills each FSMC_PCCARDInitStruct member with its default value.
+ 437:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @param  FSMC_PCCARDInitStruct: pointer to a FSMC_PCCARDInitTypeDef 
+ 438:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *   structure which will be initialized.
+ 439:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @retval None
+ 440:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   */
+ 441:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** void FSMC_PCCARDStructInit(FSMC_PCCARDInitTypeDef* FSMC_PCCARDInitStruct)
+ 442:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** {
+ 17546              		.loc 1 442 0
+ 17547              		.cfi_startproc
+ 17548              		@ args = 0, pretend = 0, frame = 8
+ 17549              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17550              		@ link register save eliminated.
+ 17551 0000 80B4     		push	{r7}
+ 17552              	.LCFI23:
+ 17553              		.cfi_def_cfa_offset 4
+ 17554 0002 83B0     		sub	sp, sp, #12
+ 17555              	.LCFI24:
+ 17556              		.cfi_def_cfa_offset 16
+ 17557 0004 00AF     		add	r7, sp, #0
+ 17558              		.cfi_offset 7, -4
+ 17559              	.LCFI25:
+ 17560              		.cfi_def_cfa_register 7
+ 17561 0006 7860     		str	r0, [r7, #4]
+ 443:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   /* Reset PCCARD Init structure parameters values */
+ 444:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_PCCARDInitStruct->FSMC_Waitfeature = FSMC_Waitfeature_Disable;
+ 17562              		.loc 1 444 0
+ 17563 0008 7B68     		ldr	r3, [r7, #4]
+ 17564 000a 4FF00002 		mov	r2, #0
+ 17565 000e 1A60     		str	r2, [r3, #0]
+ 445:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_PCCARDInitStruct->FSMC_TCLRSetupTime = 0x0;
+ 17566              		.loc 1 445 0
+ 17567 0010 7B68     		ldr	r3, [r7, #4]
+ 17568 0012 4FF00002 		mov	r2, #0
+ 17569 0016 5A60     		str	r2, [r3, #4]
+ 446:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_PCCARDInitStruct->FSMC_TARSetupTime = 0x0;
+ 17570              		.loc 1 446 0
+ 17571 0018 7B68     		ldr	r3, [r7, #4]
+ 17572 001a 4FF00002 		mov	r2, #0
+ 17573 001e 9A60     		str	r2, [r3, #8]
+ 447:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_PCCARDInitStruct->FSMC_CommonSpaceTimingStruct->FSMC_SetupTime = 0xFC;
+ 17574              		.loc 1 447 0
+ 17575 0020 7B68     		ldr	r3, [r7, #4]
+ 17576 0022 DB68     		ldr	r3, [r3, #12]
+ 17577 0024 4FF0FC02 		mov	r2, #252
+ 17578 0028 1A60     		str	r2, [r3, #0]
+ 448:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_PCCARDInitStruct->FSMC_CommonSpaceTimingStruct->FSMC_WaitSetupTime = 0xFC;
+ 17579              		.loc 1 448 0
+ 17580 002a 7B68     		ldr	r3, [r7, #4]
+ 17581 002c DB68     		ldr	r3, [r3, #12]
+ 17582 002e 4FF0FC02 		mov	r2, #252
+ 17583 0032 5A60     		str	r2, [r3, #4]
+ 449:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_PCCARDInitStruct->FSMC_CommonSpaceTimingStruct->FSMC_HoldSetupTime = 0xFC;
+ 17584              		.loc 1 449 0
+ 17585 0034 7B68     		ldr	r3, [r7, #4]
+ 17586 0036 DB68     		ldr	r3, [r3, #12]
+ 17587 0038 4FF0FC02 		mov	r2, #252
+ 17588 003c 9A60     		str	r2, [r3, #8]
+ 450:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_PCCARDInitStruct->FSMC_CommonSpaceTimingStruct->FSMC_HiZSetupTime = 0xFC;
+ 17589              		.loc 1 450 0
+ 17590 003e 7B68     		ldr	r3, [r7, #4]
+ 17591 0040 DB68     		ldr	r3, [r3, #12]
+ 17592 0042 4FF0FC02 		mov	r2, #252
+ 17593 0046 DA60     		str	r2, [r3, #12]
+ 451:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_PCCARDInitStruct->FSMC_AttributeSpaceTimingStruct->FSMC_SetupTime = 0xFC;
+ 17594              		.loc 1 451 0
+ 17595 0048 7B68     		ldr	r3, [r7, #4]
+ 17596 004a 1B69     		ldr	r3, [r3, #16]
+ 17597 004c 4FF0FC02 		mov	r2, #252
+ 17598 0050 1A60     		str	r2, [r3, #0]
+ 452:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_PCCARDInitStruct->FSMC_AttributeSpaceTimingStruct->FSMC_WaitSetupTime = 0xFC;
+ 17599              		.loc 1 452 0
+ 17600 0052 7B68     		ldr	r3, [r7, #4]
+ 17601 0054 1B69     		ldr	r3, [r3, #16]
+ 17602 0056 4FF0FC02 		mov	r2, #252
+ 17603 005a 5A60     		str	r2, [r3, #4]
+ 453:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_PCCARDInitStruct->FSMC_AttributeSpaceTimingStruct->FSMC_HoldSetupTime = 0xFC;
+ 17604              		.loc 1 453 0
+ 17605 005c 7B68     		ldr	r3, [r7, #4]
+ 17606 005e 1B69     		ldr	r3, [r3, #16]
+ 17607 0060 4FF0FC02 		mov	r2, #252
+ 17608 0064 9A60     		str	r2, [r3, #8]
+ 454:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_PCCARDInitStruct->FSMC_AttributeSpaceTimingStruct->FSMC_HiZSetupTime = 0xFC;	
+ 17609              		.loc 1 454 0
+ 17610 0066 7B68     		ldr	r3, [r7, #4]
+ 17611 0068 1B69     		ldr	r3, [r3, #16]
+ 17612 006a 4FF0FC02 		mov	r2, #252
+ 17613 006e DA60     		str	r2, [r3, #12]
+ 455:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_PCCARDInitStruct->FSMC_IOSpaceTimingStruct->FSMC_SetupTime = 0xFC;
+ 17614              		.loc 1 455 0
+ 17615 0070 7B68     		ldr	r3, [r7, #4]
+ 17616 0072 5B69     		ldr	r3, [r3, #20]
+ 17617 0074 4FF0FC02 		mov	r2, #252
+ 17618 0078 1A60     		str	r2, [r3, #0]
+ 456:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_PCCARDInitStruct->FSMC_IOSpaceTimingStruct->FSMC_WaitSetupTime = 0xFC;
+ 17619              		.loc 1 456 0
+ 17620 007a 7B68     		ldr	r3, [r7, #4]
+ 17621 007c 5B69     		ldr	r3, [r3, #20]
+ 17622 007e 4FF0FC02 		mov	r2, #252
+ 17623 0082 5A60     		str	r2, [r3, #4]
+ 457:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_PCCARDInitStruct->FSMC_IOSpaceTimingStruct->FSMC_HoldSetupTime = 0xFC;
+ 17624              		.loc 1 457 0
+ 17625 0084 7B68     		ldr	r3, [r7, #4]
+ 17626 0086 5B69     		ldr	r3, [r3, #20]
+ 17627 0088 4FF0FC02 		mov	r2, #252
+ 17628 008c 9A60     		str	r2, [r3, #8]
+ 458:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FSMC_PCCARDInitStruct->FSMC_IOSpaceTimingStruct->FSMC_HiZSetupTime = 0xFC;
+ 17629              		.loc 1 458 0
+ 17630 008e 7B68     		ldr	r3, [r7, #4]
+ 17631 0090 5B69     		ldr	r3, [r3, #20]
+ 17632 0092 4FF0FC02 		mov	r2, #252
+ 17633 0096 DA60     		str	r2, [r3, #12]
+ 459:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** }
+ 17634              		.loc 1 459 0
+ 17635 0098 07F10C07 		add	r7, r7, #12
+ 17636 009c BD46     		mov	sp, r7
+ 17637 009e 80BC     		pop	{r7}
+ 17638 00a0 7047     		bx	lr
+ 17639              		.cfi_endproc
+ 17640              	.LFE37:
+ 17642 00a2 00BF     		.section	.text.FSMC_NORSRAMCmd,"ax",%progbits
+ 17643              		.align	2
+ 17644              		.global	FSMC_NORSRAMCmd
+ 17645              		.thumb
+ 17646              		.thumb_func
+ 17648              	FSMC_NORSRAMCmd:
+ 17649              	.LFB38:
+ 460:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** 
+ 461:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** /**
+ 462:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @brief  Enables or disables the specified NOR/SRAM Memory Bank.
+ 463:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @param  FSMC_Bank: specifies the FSMC Bank to be used
+ 464:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *   This parameter can be one of the following values:
+ 465:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *     @arg FSMC_Bank1_NORSRAM1: FSMC Bank1 NOR/SRAM1  
+ 466:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *     @arg FSMC_Bank1_NORSRAM2: FSMC Bank1 NOR/SRAM2 
+ 467:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *     @arg FSMC_Bank1_NORSRAM3: FSMC Bank1 NOR/SRAM3 
+ 468:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *     @arg FSMC_Bank1_NORSRAM4: FSMC Bank1 NOR/SRAM4 
+ 469:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @param  NewState: new state of the FSMC_Bank. This parameter can be: ENABLE or DISABLE.
+ 470:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @retval None
+ 471:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   */
+ 472:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** void FSMC_NORSRAMCmd(uint32_t FSMC_Bank, FunctionalState NewState)
+ 473:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** {
+ 17650              		.loc 1 473 0
+ 17651              		.cfi_startproc
+ 17652              		@ args = 0, pretend = 0, frame = 8
+ 17653              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17654              		@ link register save eliminated.
+ 17655 0000 80B4     		push	{r7}
+ 17656              	.LCFI26:
+ 17657              		.cfi_def_cfa_offset 4
+ 17658 0002 83B0     		sub	sp, sp, #12
+ 17659              	.LCFI27:
+ 17660              		.cfi_def_cfa_offset 16
+ 17661 0004 00AF     		add	r7, sp, #0
+ 17662              		.cfi_offset 7, -4
+ 17663              	.LCFI28:
+ 17664              		.cfi_def_cfa_register 7
+ 17665 0006 7860     		str	r0, [r7, #4]
+ 17666 0008 0B46     		mov	r3, r1
+ 17667 000a FB70     		strb	r3, [r7, #3]
+ 474:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param(IS_FSMC_NORSRAM_BANK(FSMC_Bank));
+ 475:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param(IS_FUNCTIONAL_STATE(NewState));
+ 476:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   
+ 477:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   if (NewState != DISABLE)
+ 17668              		.loc 1 477 0
+ 17669 000c FB78     		ldrb	r3, [r7, #3]	@ zero_extendqisi2
+ 17670 000e 002B     		cmp	r3, #0
+ 17671 0010 0CD0     		beq	.L20
+ 478:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   {
+ 479:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     /* Enable the selected NOR/SRAM Bank by setting the PBKEN bit in the BCRx register */
+ 480:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     FSMC_Bank1->BTCR[FSMC_Bank] |= BCR_MBKEN_Set;
+ 17672              		.loc 1 480 0
+ 17673 0012 4FF02043 		mov	r3, #-1610612736
+ 17674 0016 4FF02042 		mov	r2, #-1610612736
+ 17675 001a 7968     		ldr	r1, [r7, #4]
+ 17676 001c 52F82120 		ldr	r2, [r2, r1, lsl #2]
+ 17677 0020 42F00101 		orr	r1, r2, #1
+ 17678 0024 7A68     		ldr	r2, [r7, #4]
+ 17679 0026 43F82210 		str	r1, [r3, r2, lsl #2]
+ 17680 002a 10E0     		b	.L19
+ 17681              	.L20:
+ 481:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   }
+ 482:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   else
+ 483:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   {
+ 484:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     /* Disable the selected NOR/SRAM Bank by clearing the PBKEN bit in the BCRx register */
+ 485:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     FSMC_Bank1->BTCR[FSMC_Bank] &= BCR_MBKEN_Reset;
+ 17682              		.loc 1 485 0
+ 17683 002c 4FF02042 		mov	r2, #-1610612736
+ 17684 0030 4FF02043 		mov	r3, #-1610612736
+ 17685 0034 7968     		ldr	r1, [r7, #4]
+ 17686 0036 53F82130 		ldr	r3, [r3, r1, lsl #2]
+ 17687 003a 1946     		mov	r1, r3
+ 17688 003c 4FF6FE73 		movw	r3, #65534
+ 17689 0040 C0F20F03 		movt	r3, 15
+ 17690 0044 01EA0303 		and	r3, r1, r3
+ 17691 0048 7968     		ldr	r1, [r7, #4]
+ 17692 004a 42F82130 		str	r3, [r2, r1, lsl #2]
+ 17693              	.L19:
+ 486:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   }
+ 487:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** }
+ 17694              		.loc 1 487 0
+ 17695 004e 07F10C07 		add	r7, r7, #12
+ 17696 0052 BD46     		mov	sp, r7
+ 17697 0054 80BC     		pop	{r7}
+ 17698 0056 7047     		bx	lr
+ 17699              		.cfi_endproc
+ 17700              	.LFE38:
+ 17702              		.section	.text.FSMC_NANDCmd,"ax",%progbits
+ 17703              		.align	2
+ 17704              		.global	FSMC_NANDCmd
+ 17705              		.thumb
+ 17706              		.thumb_func
+ 17708              	FSMC_NANDCmd:
+ 17709              	.LFB39:
+ 488:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** 
+ 489:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** /**
+ 490:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @brief  Enables or disables the specified NAND Memory Bank.
+ 491:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @param  FSMC_Bank: specifies the FSMC Bank to be used
+ 492:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *   This parameter can be one of the following values:
+ 493:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *     @arg FSMC_Bank2_NAND: FSMC Bank2 NAND 
+ 494:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *     @arg FSMC_Bank3_NAND: FSMC Bank3 NAND
+ 495:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @param  NewState: new state of the FSMC_Bank. This parameter can be: ENABLE or DISABLE.
+ 496:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @retval None
+ 497:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   */
+ 498:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** void FSMC_NANDCmd(uint32_t FSMC_Bank, FunctionalState NewState)
+ 499:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** {
+ 17710              		.loc 1 499 0
+ 17711              		.cfi_startproc
+ 17712              		@ args = 0, pretend = 0, frame = 8
+ 17713              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17714              		@ link register save eliminated.
+ 17715 0000 80B4     		push	{r7}
+ 17716              	.LCFI29:
+ 17717              		.cfi_def_cfa_offset 4
+ 17718 0002 83B0     		sub	sp, sp, #12
+ 17719              	.LCFI30:
+ 17720              		.cfi_def_cfa_offset 16
+ 17721 0004 00AF     		add	r7, sp, #0
+ 17722              		.cfi_offset 7, -4
+ 17723              	.LCFI31:
+ 17724              		.cfi_def_cfa_register 7
+ 17725 0006 7860     		str	r0, [r7, #4]
+ 17726 0008 0B46     		mov	r3, r1
+ 17727 000a FB70     		strb	r3, [r7, #3]
+ 500:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param(IS_FSMC_NAND_BANK(FSMC_Bank));
+ 501:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param(IS_FUNCTIONAL_STATE(NewState));
+ 502:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   
+ 503:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   if (NewState != DISABLE)
+ 17728              		.loc 1 503 0
+ 17729 000c FB78     		ldrb	r3, [r7, #3]	@ zero_extendqisi2
+ 17730 000e 002B     		cmp	r3, #0
+ 17731 0010 1CD0     		beq	.L23
+ 504:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   {
+ 505:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     /* Enable the selected NAND Bank by setting the PBKEN bit in the PCRx register */
+ 506:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     if(FSMC_Bank == FSMC_Bank2_NAND)
+ 17732              		.loc 1 506 0
+ 17733 0012 7B68     		ldr	r3, [r7, #4]
+ 17734 0014 102B     		cmp	r3, #16
+ 17735 0016 0CD1     		bne	.L24
+ 507:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     {
+ 508:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****       FSMC_Bank2->PCR2 |= PCR_PBKEN_Set;
+ 17736              		.loc 1 508 0
+ 17737 0018 4FF06003 		mov	r3, #96
+ 17738 001c CAF20003 		movt	r3, 40960
+ 17739 0020 4FF06002 		mov	r2, #96
+ 17740 0024 CAF20002 		movt	r2, 40960
+ 17741 0028 1268     		ldr	r2, [r2, #0]
+ 17742 002a 42F00402 		orr	r2, r2, #4
+ 17743 002e 1A60     		str	r2, [r3, #0]
+ 17744 0030 32E0     		b	.L22
+ 17745              	.L24:
+ 509:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     }
+ 510:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     else
+ 511:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     {
+ 512:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****       FSMC_Bank3->PCR3 |= PCR_PBKEN_Set;
+ 17746              		.loc 1 512 0
+ 17747 0032 4FF08003 		mov	r3, #128
+ 17748 0036 CAF20003 		movt	r3, 40960
+ 17749 003a 4FF08002 		mov	r2, #128
+ 17750 003e CAF20002 		movt	r2, 40960
+ 17751 0042 1268     		ldr	r2, [r2, #0]
+ 17752 0044 42F00402 		orr	r2, r2, #4
+ 17753 0048 1A60     		str	r2, [r3, #0]
+ 17754 004a 25E0     		b	.L22
+ 17755              	.L23:
+ 513:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     }
+ 514:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   }
+ 515:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   else
+ 516:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   {
+ 517:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     /* Disable the selected NAND Bank by clearing the PBKEN bit in the PCRx register */
+ 518:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     if(FSMC_Bank == FSMC_Bank2_NAND)
+ 17756              		.loc 1 518 0
+ 17757 004c 7B68     		ldr	r3, [r7, #4]
+ 17758 004e 102B     		cmp	r3, #16
+ 17759 0050 11D1     		bne	.L26
+ 519:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     {
+ 520:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****       FSMC_Bank2->PCR2 &= PCR_PBKEN_Reset;
+ 17760              		.loc 1 520 0
+ 17761 0052 4FF06002 		mov	r2, #96
+ 17762 0056 CAF20002 		movt	r2, 40960
+ 17763 005a 4FF06003 		mov	r3, #96
+ 17764 005e CAF20003 		movt	r3, 40960
+ 17765 0062 1B68     		ldr	r3, [r3, #0]
+ 17766 0064 1946     		mov	r1, r3
+ 17767 0066 4FF6FB73 		movw	r3, #65531
+ 17768 006a C0F20F03 		movt	r3, 15
+ 17769 006e 01EA0303 		and	r3, r1, r3
+ 17770 0072 1360     		str	r3, [r2, #0]
+ 17771 0074 10E0     		b	.L22
+ 17772              	.L26:
+ 521:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     }
+ 522:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     else
+ 523:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     {
+ 524:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****       FSMC_Bank3->PCR3 &= PCR_PBKEN_Reset;
+ 17773              		.loc 1 524 0
+ 17774 0076 4FF08002 		mov	r2, #128
+ 17775 007a CAF20002 		movt	r2, 40960
+ 17776 007e 4FF08003 		mov	r3, #128
+ 17777 0082 CAF20003 		movt	r3, 40960
+ 17778 0086 1B68     		ldr	r3, [r3, #0]
+ 17779 0088 1946     		mov	r1, r3
+ 17780 008a 4FF6FB73 		movw	r3, #65531
+ 17781 008e C0F20F03 		movt	r3, 15
+ 17782 0092 01EA0303 		and	r3, r1, r3
+ 17783 0096 1360     		str	r3, [r2, #0]
+ 17784              	.L22:
+ 525:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     }
+ 526:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   }
+ 527:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** }
+ 17785              		.loc 1 527 0
+ 17786 0098 07F10C07 		add	r7, r7, #12
+ 17787 009c BD46     		mov	sp, r7
+ 17788 009e 80BC     		pop	{r7}
+ 17789 00a0 7047     		bx	lr
+ 17790              		.cfi_endproc
+ 17791              	.LFE39:
+ 17793 00a2 00BF     		.section	.text.FSMC_PCCARDCmd,"ax",%progbits
+ 17794              		.align	2
+ 17795              		.global	FSMC_PCCARDCmd
+ 17796              		.thumb
+ 17797              		.thumb_func
+ 17799              	FSMC_PCCARDCmd:
+ 17800              	.LFB40:
+ 528:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** 
+ 529:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** /**
+ 530:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @brief  Enables or disables the PCCARD Memory Bank.
+ 531:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @param  NewState: new state of the PCCARD Memory Bank.  
+ 532:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *   This parameter can be: ENABLE or DISABLE.
+ 533:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @retval None
+ 534:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   */
+ 535:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** void FSMC_PCCARDCmd(FunctionalState NewState)
+ 536:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** {
+ 17801              		.loc 1 536 0
+ 17802              		.cfi_startproc
+ 17803              		@ args = 0, pretend = 0, frame = 8
+ 17804              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17805              		@ link register save eliminated.
+ 17806 0000 80B4     		push	{r7}
+ 17807              	.LCFI32:
+ 17808              		.cfi_def_cfa_offset 4
+ 17809 0002 83B0     		sub	sp, sp, #12
+ 17810              	.LCFI33:
+ 17811              		.cfi_def_cfa_offset 16
+ 17812 0004 00AF     		add	r7, sp, #0
+ 17813              		.cfi_offset 7, -4
+ 17814              	.LCFI34:
+ 17815              		.cfi_def_cfa_register 7
+ 17816 0006 0346     		mov	r3, r0
+ 17817 0008 FB71     		strb	r3, [r7, #7]
+ 537:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param(IS_FUNCTIONAL_STATE(NewState));
+ 538:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   
+ 539:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   if (NewState != DISABLE)
+ 17818              		.loc 1 539 0
+ 17819 000a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 17820 000c 002B     		cmp	r3, #0
+ 17821 000e 0CD0     		beq	.L28
+ 540:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   {
+ 541:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     /* Enable the PCCARD Bank by setting the PBKEN bit in the PCR4 register */
+ 542:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     FSMC_Bank4->PCR4 |= PCR_PBKEN_Set;
+ 17822              		.loc 1 542 0
+ 17823 0010 4FF0A003 		mov	r3, #160
+ 17824 0014 CAF20003 		movt	r3, 40960
+ 17825 0018 4FF0A002 		mov	r2, #160
+ 17826 001c CAF20002 		movt	r2, 40960
+ 17827 0020 1268     		ldr	r2, [r2, #0]
+ 17828 0022 42F00402 		orr	r2, r2, #4
+ 17829 0026 1A60     		str	r2, [r3, #0]
+ 17830 0028 10E0     		b	.L27
+ 17831              	.L28:
+ 543:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   }
+ 544:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   else
+ 545:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   {
+ 546:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     /* Disable the PCCARD Bank by clearing the PBKEN bit in the PCR4 register */
+ 547:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     FSMC_Bank4->PCR4 &= PCR_PBKEN_Reset;
+ 17832              		.loc 1 547 0
+ 17833 002a 4FF0A002 		mov	r2, #160
+ 17834 002e CAF20002 		movt	r2, 40960
+ 17835 0032 4FF0A003 		mov	r3, #160
+ 17836 0036 CAF20003 		movt	r3, 40960
+ 17837 003a 1B68     		ldr	r3, [r3, #0]
+ 17838 003c 1946     		mov	r1, r3
+ 17839 003e 4FF6FB73 		movw	r3, #65531
+ 17840 0042 C0F20F03 		movt	r3, 15
+ 17841 0046 01EA0303 		and	r3, r1, r3
+ 17842 004a 1360     		str	r3, [r2, #0]
+ 17843              	.L27:
+ 548:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   }
+ 549:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** }
+ 17844              		.loc 1 549 0
+ 17845 004c 07F10C07 		add	r7, r7, #12
+ 17846 0050 BD46     		mov	sp, r7
+ 17847 0052 80BC     		pop	{r7}
+ 17848 0054 7047     		bx	lr
+ 17849              		.cfi_endproc
+ 17850              	.LFE40:
+ 17852 0056 00BF     		.section	.text.FSMC_NANDECCCmd,"ax",%progbits
+ 17853              		.align	2
+ 17854              		.global	FSMC_NANDECCCmd
+ 17855              		.thumb
+ 17856              		.thumb_func
+ 17858              	FSMC_NANDECCCmd:
+ 17859              	.LFB41:
+ 550:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** 
+ 551:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** /**
+ 552:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @brief  Enables or disables the FSMC NAND ECC feature.
+ 553:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @param  FSMC_Bank: specifies the FSMC Bank to be used
+ 554:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *   This parameter can be one of the following values:
+ 555:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *     @arg FSMC_Bank2_NAND: FSMC Bank2 NAND 
+ 556:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *     @arg FSMC_Bank3_NAND: FSMC Bank3 NAND
+ 557:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @param  NewState: new state of the FSMC NAND ECC feature.  
+ 558:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *   This parameter can be: ENABLE or DISABLE.
+ 559:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @retval None
+ 560:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   */
+ 561:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** void FSMC_NANDECCCmd(uint32_t FSMC_Bank, FunctionalState NewState)
+ 562:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** {
+ 17860              		.loc 1 562 0
+ 17861              		.cfi_startproc
+ 17862              		@ args = 0, pretend = 0, frame = 8
+ 17863              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17864              		@ link register save eliminated.
+ 17865 0000 80B4     		push	{r7}
+ 17866              	.LCFI35:
+ 17867              		.cfi_def_cfa_offset 4
+ 17868 0002 83B0     		sub	sp, sp, #12
+ 17869              	.LCFI36:
+ 17870              		.cfi_def_cfa_offset 16
+ 17871 0004 00AF     		add	r7, sp, #0
+ 17872              		.cfi_offset 7, -4
+ 17873              	.LCFI37:
+ 17874              		.cfi_def_cfa_register 7
+ 17875 0006 7860     		str	r0, [r7, #4]
+ 17876 0008 0B46     		mov	r3, r1
+ 17877 000a FB70     		strb	r3, [r7, #3]
+ 563:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param(IS_FSMC_NAND_BANK(FSMC_Bank));
+ 564:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param(IS_FUNCTIONAL_STATE(NewState));
+ 565:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   
+ 566:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   if (NewState != DISABLE)
+ 17878              		.loc 1 566 0
+ 17879 000c FB78     		ldrb	r3, [r7, #3]	@ zero_extendqisi2
+ 17880 000e 002B     		cmp	r3, #0
+ 17881 0010 1CD0     		beq	.L31
+ 567:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   {
+ 568:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     /* Enable the selected NAND Bank ECC function by setting the ECCEN bit in the PCRx register */
+ 569:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     if(FSMC_Bank == FSMC_Bank2_NAND)
+ 17882              		.loc 1 569 0
+ 17883 0012 7B68     		ldr	r3, [r7, #4]
+ 17884 0014 102B     		cmp	r3, #16
+ 17885 0016 0CD1     		bne	.L32
+ 570:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     {
+ 571:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****       FSMC_Bank2->PCR2 |= PCR_ECCEN_Set;
+ 17886              		.loc 1 571 0
+ 17887 0018 4FF06003 		mov	r3, #96
+ 17888 001c CAF20003 		movt	r3, 40960
+ 17889 0020 4FF06002 		mov	r2, #96
+ 17890 0024 CAF20002 		movt	r2, 40960
+ 17891 0028 1268     		ldr	r2, [r2, #0]
+ 17892 002a 42F04002 		orr	r2, r2, #64
+ 17893 002e 1A60     		str	r2, [r3, #0]
+ 17894 0030 32E0     		b	.L30
+ 17895              	.L32:
+ 572:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     }
+ 573:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     else
+ 574:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     {
+ 575:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****       FSMC_Bank3->PCR3 |= PCR_ECCEN_Set;
+ 17896              		.loc 1 575 0
+ 17897 0032 4FF08003 		mov	r3, #128
+ 17898 0036 CAF20003 		movt	r3, 40960
+ 17899 003a 4FF08002 		mov	r2, #128
+ 17900 003e CAF20002 		movt	r2, 40960
+ 17901 0042 1268     		ldr	r2, [r2, #0]
+ 17902 0044 42F04002 		orr	r2, r2, #64
+ 17903 0048 1A60     		str	r2, [r3, #0]
+ 17904 004a 25E0     		b	.L30
+ 17905              	.L31:
+ 576:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     }
+ 577:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   }
+ 578:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   else
+ 579:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   {
+ 580:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     /* Disable the selected NAND Bank ECC function by clearing the ECCEN bit in the PCRx register *
+ 581:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     if(FSMC_Bank == FSMC_Bank2_NAND)
+ 17906              		.loc 1 581 0
+ 17907 004c 7B68     		ldr	r3, [r7, #4]
+ 17908 004e 102B     		cmp	r3, #16
+ 17909 0050 11D1     		bne	.L34
+ 582:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     {
+ 583:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****       FSMC_Bank2->PCR2 &= PCR_ECCEN_Reset;
+ 17910              		.loc 1 583 0
+ 17911 0052 4FF06002 		mov	r2, #96
+ 17912 0056 CAF20002 		movt	r2, 40960
+ 17913 005a 4FF06003 		mov	r3, #96
+ 17914 005e CAF20003 		movt	r3, 40960
+ 17915 0062 1B68     		ldr	r3, [r3, #0]
+ 17916 0064 1946     		mov	r1, r3
+ 17917 0066 4FF6BF73 		movw	r3, #65471
+ 17918 006a C0F20F03 		movt	r3, 15
+ 17919 006e 01EA0303 		and	r3, r1, r3
+ 17920 0072 1360     		str	r3, [r2, #0]
+ 17921 0074 10E0     		b	.L30
+ 17922              	.L34:
+ 584:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     }
+ 585:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     else
+ 586:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     {
+ 587:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****       FSMC_Bank3->PCR3 &= PCR_ECCEN_Reset;
+ 17923              		.loc 1 587 0
+ 17924 0076 4FF08002 		mov	r2, #128
+ 17925 007a CAF20002 		movt	r2, 40960
+ 17926 007e 4FF08003 		mov	r3, #128
+ 17927 0082 CAF20003 		movt	r3, 40960
+ 17928 0086 1B68     		ldr	r3, [r3, #0]
+ 17929 0088 1946     		mov	r1, r3
+ 17930 008a 4FF6BF73 		movw	r3, #65471
+ 17931 008e C0F20F03 		movt	r3, 15
+ 17932 0092 01EA0303 		and	r3, r1, r3
+ 17933 0096 1360     		str	r3, [r2, #0]
+ 17934              	.L30:
+ 588:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     }
+ 589:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   }
+ 590:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** }
+ 17935              		.loc 1 590 0
+ 17936 0098 07F10C07 		add	r7, r7, #12
+ 17937 009c BD46     		mov	sp, r7
+ 17938 009e 80BC     		pop	{r7}
+ 17939 00a0 7047     		bx	lr
+ 17940              		.cfi_endproc
+ 17941              	.LFE41:
+ 17943 00a2 00BF     		.section	.text.FSMC_GetECC,"ax",%progbits
+ 17944              		.align	2
+ 17945              		.global	FSMC_GetECC
+ 17946              		.thumb
+ 17947              		.thumb_func
+ 17949              	FSMC_GetECC:
+ 17950              	.LFB42:
+ 591:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** 
+ 592:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** /**
+ 593:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @brief  Returns the error correction code register value.
+ 594:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @param  FSMC_Bank: specifies the FSMC Bank to be used
+ 595:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *   This parameter can be one of the following values:
+ 596:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *     @arg FSMC_Bank2_NAND: FSMC Bank2 NAND 
+ 597:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *     @arg FSMC_Bank3_NAND: FSMC Bank3 NAND
+ 598:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @retval The Error Correction Code (ECC) value.
+ 599:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   */
+ 600:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** uint32_t FSMC_GetECC(uint32_t FSMC_Bank)
+ 601:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** {
+ 17951              		.loc 1 601 0
+ 17952              		.cfi_startproc
+ 17953              		@ args = 0, pretend = 0, frame = 16
+ 17954              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17955              		@ link register save eliminated.
+ 17956 0000 80B4     		push	{r7}
+ 17957              	.LCFI38:
+ 17958              		.cfi_def_cfa_offset 4
+ 17959 0002 85B0     		sub	sp, sp, #20
+ 17960              	.LCFI39:
+ 17961              		.cfi_def_cfa_offset 24
+ 17962 0004 00AF     		add	r7, sp, #0
+ 17963              		.cfi_offset 7, -4
+ 17964              	.LCFI40:
+ 17965              		.cfi_def_cfa_register 7
+ 17966 0006 7860     		str	r0, [r7, #4]
+ 602:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   uint32_t eccval = 0x00000000;
+ 17967              		.loc 1 602 0
+ 17968 0008 4FF00003 		mov	r3, #0
+ 17969 000c FB60     		str	r3, [r7, #12]
+ 603:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   
+ 604:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   if(FSMC_Bank == FSMC_Bank2_NAND)
+ 17970              		.loc 1 604 0
+ 17971 000e 7B68     		ldr	r3, [r7, #4]
+ 17972 0010 102B     		cmp	r3, #16
+ 17973 0012 06D1     		bne	.L36
+ 605:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   {
+ 606:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     /* Get the ECCR2 register value */
+ 607:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     eccval = FSMC_Bank2->ECCR2;
+ 17974              		.loc 1 607 0
+ 17975 0014 4FF06003 		mov	r3, #96
+ 17976 0018 CAF20003 		movt	r3, 40960
+ 17977 001c 5B69     		ldr	r3, [r3, #20]
+ 17978 001e FB60     		str	r3, [r7, #12]
+ 17979 0020 05E0     		b	.L37
+ 17980              	.L36:
+ 608:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   }
+ 609:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   else
+ 610:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   {
+ 611:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     /* Get the ECCR3 register value */
+ 612:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     eccval = FSMC_Bank3->ECCR3;
+ 17981              		.loc 1 612 0
+ 17982 0022 4FF08003 		mov	r3, #128
+ 17983 0026 CAF20003 		movt	r3, 40960
+ 17984 002a 5B69     		ldr	r3, [r3, #20]
+ 17985 002c FB60     		str	r3, [r7, #12]
+ 17986              	.L37:
+ 613:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   }
+ 614:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   /* Return the error correction code value */
+ 615:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   return(eccval);
+ 17987              		.loc 1 615 0
+ 17988 002e FB68     		ldr	r3, [r7, #12]
+ 616:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** }
+ 17989              		.loc 1 616 0
+ 17990 0030 1846     		mov	r0, r3
+ 17991 0032 07F11407 		add	r7, r7, #20
+ 17992 0036 BD46     		mov	sp, r7
+ 17993 0038 80BC     		pop	{r7}
+ 17994 003a 7047     		bx	lr
+ 17995              		.cfi_endproc
+ 17996              	.LFE42:
+ 17998              		.section	.text.FSMC_ITConfig,"ax",%progbits
+ 17999              		.align	2
+ 18000              		.global	FSMC_ITConfig
+ 18001              		.thumb
+ 18002              		.thumb_func
+ 18004              	FSMC_ITConfig:
+ 18005              	.LFB43:
+ 617:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** 
+ 618:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** /**
+ 619:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @brief  Enables or disables the specified FSMC interrupts.
+ 620:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @param  FSMC_Bank: specifies the FSMC Bank to be used
+ 621:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *   This parameter can be one of the following values:
+ 622:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *     @arg FSMC_Bank2_NAND: FSMC Bank2 NAND 
+ 623:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *     @arg FSMC_Bank3_NAND: FSMC Bank3 NAND
+ 624:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *     @arg FSMC_Bank4_PCCARD: FSMC Bank4 PCCARD
+ 625:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @param  FSMC_IT: specifies the FSMC interrupt sources to be enabled or disabled.
+ 626:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *   This parameter can be any combination of the following values:
+ 627:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *     @arg FSMC_IT_RisingEdge: Rising edge detection interrupt. 
+ 628:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *     @arg FSMC_IT_Level: Level edge detection interrupt.
+ 629:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *     @arg FSMC_IT_FallingEdge: Falling edge detection interrupt.
+ 630:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @param  NewState: new state of the specified FSMC interrupts.
+ 631:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *   This parameter can be: ENABLE or DISABLE.
+ 632:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @retval None
+ 633:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   */
+ 634:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** void FSMC_ITConfig(uint32_t FSMC_Bank, uint32_t FSMC_IT, FunctionalState NewState)
+ 635:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** {
+ 18006              		.loc 1 635 0
+ 18007              		.cfi_startproc
+ 18008              		@ args = 0, pretend = 0, frame = 16
+ 18009              		@ frame_needed = 1, uses_anonymous_args = 0
+ 18010              		@ link register save eliminated.
+ 18011 0000 80B4     		push	{r7}
+ 18012              	.LCFI41:
+ 18013              		.cfi_def_cfa_offset 4
+ 18014 0002 85B0     		sub	sp, sp, #20
+ 18015              	.LCFI42:
+ 18016              		.cfi_def_cfa_offset 24
+ 18017 0004 00AF     		add	r7, sp, #0
+ 18018              		.cfi_offset 7, -4
+ 18019              	.LCFI43:
+ 18020              		.cfi_def_cfa_register 7
+ 18021 0006 F860     		str	r0, [r7, #12]
+ 18022 0008 B960     		str	r1, [r7, #8]
+ 18023 000a 1346     		mov	r3, r2
+ 18024 000c FB71     		strb	r3, [r7, #7]
+ 636:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param(IS_FSMC_IT_BANK(FSMC_Bank));
+ 637:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param(IS_FSMC_IT(FSMC_IT));	
+ 638:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param(IS_FUNCTIONAL_STATE(NewState));
+ 639:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   
+ 640:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   if (NewState != DISABLE)
+ 18025              		.loc 1 640 0
+ 18026 000e FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 18027 0010 002B     		cmp	r3, #0
+ 18028 0012 33D0     		beq	.L39
+ 641:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   {
+ 642:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     /* Enable the selected FSMC_Bank2 interrupts */
+ 643:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     if(FSMC_Bank == FSMC_Bank2_NAND)
+ 18029              		.loc 1 643 0
+ 18030 0014 FB68     		ldr	r3, [r7, #12]
+ 18031 0016 102B     		cmp	r3, #16
+ 18032 0018 0ED1     		bne	.L40
+ 644:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     {
+ 645:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****       FSMC_Bank2->SR2 |= FSMC_IT;
+ 18033              		.loc 1 645 0
+ 18034 001a 4FF06003 		mov	r3, #96
+ 18035 001e CAF20003 		movt	r3, 40960
+ 18036 0022 4FF06002 		mov	r2, #96
+ 18037 0026 CAF20002 		movt	r2, 40960
+ 18038 002a 5268     		ldr	r2, [r2, #4]
+ 18039 002c 1146     		mov	r1, r2
+ 18040 002e BA68     		ldr	r2, [r7, #8]
+ 18041 0030 41EA0202 		orr	r2, r1, r2
+ 18042 0034 5A60     		str	r2, [r3, #4]
+ 18043 0036 5AE0     		b	.L38
+ 18044              	.L40:
+ 646:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     }
+ 647:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     /* Enable the selected FSMC_Bank3 interrupts */
+ 648:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     else if (FSMC_Bank == FSMC_Bank3_NAND)
+ 18045              		.loc 1 648 0
+ 18046 0038 FB68     		ldr	r3, [r7, #12]
+ 18047 003a B3F5807F 		cmp	r3, #256
+ 18048 003e 0ED1     		bne	.L42
+ 649:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     {
+ 650:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****       FSMC_Bank3->SR3 |= FSMC_IT;
+ 18049              		.loc 1 650 0
+ 18050 0040 4FF08003 		mov	r3, #128
+ 18051 0044 CAF20003 		movt	r3, 40960
+ 18052 0048 4FF08002 		mov	r2, #128
+ 18053 004c CAF20002 		movt	r2, 40960
+ 18054 0050 5268     		ldr	r2, [r2, #4]
+ 18055 0052 1146     		mov	r1, r2
+ 18056 0054 BA68     		ldr	r2, [r7, #8]
+ 18057 0056 41EA0202 		orr	r2, r1, r2
+ 18058 005a 5A60     		str	r2, [r3, #4]
+ 18059 005c 47E0     		b	.L38
+ 18060              	.L42:
+ 651:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     }
+ 652:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     /* Enable the selected FSMC_Bank4 interrupts */
+ 653:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     else
+ 654:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     {
+ 655:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****       FSMC_Bank4->SR4 |= FSMC_IT;    
+ 18061              		.loc 1 655 0
+ 18062 005e 4FF0A003 		mov	r3, #160
+ 18063 0062 CAF20003 		movt	r3, 40960
+ 18064 0066 4FF0A002 		mov	r2, #160
+ 18065 006a CAF20002 		movt	r2, 40960
+ 18066 006e 5268     		ldr	r2, [r2, #4]
+ 18067 0070 1146     		mov	r1, r2
+ 18068 0072 BA68     		ldr	r2, [r7, #8]
+ 18069 0074 41EA0202 		orr	r2, r1, r2
+ 18070 0078 5A60     		str	r2, [r3, #4]
+ 18071 007a 38E0     		b	.L38
+ 18072              	.L39:
+ 656:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     }
+ 657:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   }
+ 658:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   else
+ 659:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   {
+ 660:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     /* Disable the selected FSMC_Bank2 interrupts */
+ 661:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     if(FSMC_Bank == FSMC_Bank2_NAND)
+ 18073              		.loc 1 661 0
+ 18074 007c FB68     		ldr	r3, [r7, #12]
+ 18075 007e 102B     		cmp	r3, #16
+ 18076 0080 10D1     		bne	.L43
+ 662:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     {
+ 663:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****       
+ 664:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****       FSMC_Bank2->SR2 &= (uint32_t)~FSMC_IT;
+ 18077              		.loc 1 664 0
+ 18078 0082 4FF06003 		mov	r3, #96
+ 18079 0086 CAF20003 		movt	r3, 40960
+ 18080 008a 4FF06002 		mov	r2, #96
+ 18081 008e CAF20002 		movt	r2, 40960
+ 18082 0092 5268     		ldr	r2, [r2, #4]
+ 18083 0094 1146     		mov	r1, r2
+ 18084 0096 BA68     		ldr	r2, [r7, #8]
+ 18085 0098 6FEA0202 		mvn	r2, r2
+ 18086 009c 01EA0202 		and	r2, r1, r2
+ 18087 00a0 5A60     		str	r2, [r3, #4]
+ 18088 00a2 24E0     		b	.L38
+ 18089              	.L43:
+ 665:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     }
+ 666:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     /* Disable the selected FSMC_Bank3 interrupts */
+ 667:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     else if (FSMC_Bank == FSMC_Bank3_NAND)
+ 18090              		.loc 1 667 0
+ 18091 00a4 FB68     		ldr	r3, [r7, #12]
+ 18092 00a6 B3F5807F 		cmp	r3, #256
+ 18093 00aa 10D1     		bne	.L44
+ 668:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     {
+ 669:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****       FSMC_Bank3->SR3 &= (uint32_t)~FSMC_IT;
+ 18094              		.loc 1 669 0
+ 18095 00ac 4FF08003 		mov	r3, #128
+ 18096 00b0 CAF20003 		movt	r3, 40960
+ 18097 00b4 4FF08002 		mov	r2, #128
+ 18098 00b8 CAF20002 		movt	r2, 40960
+ 18099 00bc 5268     		ldr	r2, [r2, #4]
+ 18100 00be 1146     		mov	r1, r2
+ 18101 00c0 BA68     		ldr	r2, [r7, #8]
+ 18102 00c2 6FEA0202 		mvn	r2, r2
+ 18103 00c6 01EA0202 		and	r2, r1, r2
+ 18104 00ca 5A60     		str	r2, [r3, #4]
+ 18105 00cc 0FE0     		b	.L38
+ 18106              	.L44:
+ 670:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     }
+ 671:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     /* Disable the selected FSMC_Bank4 interrupts */
+ 672:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     else
+ 673:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     {
+ 674:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****       FSMC_Bank4->SR4 &= (uint32_t)~FSMC_IT;    
+ 18107              		.loc 1 674 0
+ 18108 00ce 4FF0A003 		mov	r3, #160
+ 18109 00d2 CAF20003 		movt	r3, 40960
+ 18110 00d6 4FF0A002 		mov	r2, #160
+ 18111 00da CAF20002 		movt	r2, 40960
+ 18112 00de 5268     		ldr	r2, [r2, #4]
+ 18113 00e0 1146     		mov	r1, r2
+ 18114 00e2 BA68     		ldr	r2, [r7, #8]
+ 18115 00e4 6FEA0202 		mvn	r2, r2
+ 18116 00e8 01EA0202 		and	r2, r1, r2
+ 18117 00ec 5A60     		str	r2, [r3, #4]
+ 18118              	.L38:
+ 675:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     }
+ 676:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   }
+ 677:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** }
+ 18119              		.loc 1 677 0
+ 18120 00ee 07F11407 		add	r7, r7, #20
+ 18121 00f2 BD46     		mov	sp, r7
+ 18122 00f4 80BC     		pop	{r7}
+ 18123 00f6 7047     		bx	lr
+ 18124              		.cfi_endproc
+ 18125              	.LFE43:
+ 18127              		.section	.text.FSMC_GetFlagStatus,"ax",%progbits
+ 18128              		.align	2
+ 18129              		.global	FSMC_GetFlagStatus
+ 18130              		.thumb
+ 18131              		.thumb_func
+ 18133              	FSMC_GetFlagStatus:
+ 18134              	.LFB44:
+ 678:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** 
+ 679:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** /**
+ 680:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @brief  Checks whether the specified FSMC flag is set or not.
+ 681:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @param  FSMC_Bank: specifies the FSMC Bank to be used
+ 682:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *   This parameter can be one of the following values:
+ 683:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *     @arg FSMC_Bank2_NAND: FSMC Bank2 NAND 
+ 684:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *     @arg FSMC_Bank3_NAND: FSMC Bank3 NAND
+ 685:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *     @arg FSMC_Bank4_PCCARD: FSMC Bank4 PCCARD
+ 686:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @param  FSMC_FLAG: specifies the flag to check.
+ 687:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *   This parameter can be one of the following values:
+ 688:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *     @arg FSMC_FLAG_RisingEdge: Rising egde detection Flag.
+ 689:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *     @arg FSMC_FLAG_Level: Level detection Flag.
+ 690:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *     @arg FSMC_FLAG_FallingEdge: Falling egde detection Flag.
+ 691:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *     @arg FSMC_FLAG_FEMPT: Fifo empty Flag. 
+ 692:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @retval The new state of FSMC_FLAG (SET or RESET).
+ 693:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   */
+ 694:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** FlagStatus FSMC_GetFlagStatus(uint32_t FSMC_Bank, uint32_t FSMC_FLAG)
+ 695:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** {
+ 18135              		.loc 1 695 0
+ 18136              		.cfi_startproc
+ 18137              		@ args = 0, pretend = 0, frame = 16
+ 18138              		@ frame_needed = 1, uses_anonymous_args = 0
+ 18139              		@ link register save eliminated.
+ 18140 0000 80B4     		push	{r7}
+ 18141              	.LCFI44:
+ 18142              		.cfi_def_cfa_offset 4
+ 18143 0002 85B0     		sub	sp, sp, #20
+ 18144              	.LCFI45:
+ 18145              		.cfi_def_cfa_offset 24
+ 18146 0004 00AF     		add	r7, sp, #0
+ 18147              		.cfi_offset 7, -4
+ 18148              	.LCFI46:
+ 18149              		.cfi_def_cfa_register 7
+ 18150 0006 7860     		str	r0, [r7, #4]
+ 18151 0008 3960     		str	r1, [r7, #0]
+ 696:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   FlagStatus bitstatus = RESET;
+ 18152              		.loc 1 696 0
+ 18153 000a 4FF00003 		mov	r3, #0
+ 18154 000e FB73     		strb	r3, [r7, #15]
+ 697:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   uint32_t tmpsr = 0x00000000;
+ 18155              		.loc 1 697 0
+ 18156 0010 4FF00003 		mov	r3, #0
+ 18157 0014 BB60     		str	r3, [r7, #8]
+ 698:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   
+ 699:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   /* Check the parameters */
+ 700:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param(IS_FSMC_GETFLAG_BANK(FSMC_Bank));
+ 701:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param(IS_FSMC_GET_FLAG(FSMC_FLAG));
+ 702:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   
+ 703:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   if(FSMC_Bank == FSMC_Bank2_NAND)
+ 18158              		.loc 1 703 0
+ 18159 0016 7B68     		ldr	r3, [r7, #4]
+ 18160 0018 102B     		cmp	r3, #16
+ 18161 001a 06D1     		bne	.L46
+ 704:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   {
+ 705:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     tmpsr = FSMC_Bank2->SR2;
+ 18162              		.loc 1 705 0
+ 18163 001c 4FF06003 		mov	r3, #96
+ 18164 0020 CAF20003 		movt	r3, 40960
+ 18165 0024 5B68     		ldr	r3, [r3, #4]
+ 18166 0026 BB60     		str	r3, [r7, #8]
+ 18167 0028 10E0     		b	.L47
+ 18168              	.L46:
+ 706:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   }  
+ 707:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   else if(FSMC_Bank == FSMC_Bank3_NAND)
+ 18169              		.loc 1 707 0
+ 18170 002a 7B68     		ldr	r3, [r7, #4]
+ 18171 002c B3F5807F 		cmp	r3, #256
+ 18172 0030 06D1     		bne	.L48
+ 708:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   {
+ 709:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     tmpsr = FSMC_Bank3->SR3;
+ 18173              		.loc 1 709 0
+ 18174 0032 4FF08003 		mov	r3, #128
+ 18175 0036 CAF20003 		movt	r3, 40960
+ 18176 003a 5B68     		ldr	r3, [r3, #4]
+ 18177 003c BB60     		str	r3, [r7, #8]
+ 18178 003e 05E0     		b	.L47
+ 18179              	.L48:
+ 710:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   }
+ 711:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   /* FSMC_Bank4_PCCARD*/
+ 712:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   else
+ 713:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   {
+ 714:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     tmpsr = FSMC_Bank4->SR4;
+ 18180              		.loc 1 714 0
+ 18181 0040 4FF0A003 		mov	r3, #160
+ 18182 0044 CAF20003 		movt	r3, 40960
+ 18183 0048 5B68     		ldr	r3, [r3, #4]
+ 18184 004a BB60     		str	r3, [r7, #8]
+ 18185              	.L47:
+ 715:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   } 
+ 716:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   
+ 717:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   /* Get the flag status */
+ 718:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   if ((tmpsr & FSMC_FLAG) != (uint16_t)RESET )
+ 18186              		.loc 1 718 0
+ 18187 004c BA68     		ldr	r2, [r7, #8]
+ 18188 004e 3B68     		ldr	r3, [r7, #0]
+ 18189 0050 02EA0303 		and	r3, r2, r3
+ 18190 0054 002B     		cmp	r3, #0
+ 18191 0056 03D0     		beq	.L49
+ 719:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   {
+ 720:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     bitstatus = SET;
+ 18192              		.loc 1 720 0
+ 18193 0058 4FF00103 		mov	r3, #1
+ 18194 005c FB73     		strb	r3, [r7, #15]
+ 18195 005e 02E0     		b	.L50
+ 18196              	.L49:
+ 721:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   }
+ 722:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   else
+ 723:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   {
+ 724:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     bitstatus = RESET;
+ 18197              		.loc 1 724 0
+ 18198 0060 4FF00003 		mov	r3, #0
+ 18199 0064 FB73     		strb	r3, [r7, #15]
+ 18200              	.L50:
+ 725:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   }
+ 726:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   /* Return the flag status */
+ 727:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   return bitstatus;
+ 18201              		.loc 1 727 0
+ 18202 0066 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 728:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** }
+ 18203              		.loc 1 728 0
+ 18204 0068 1846     		mov	r0, r3
+ 18205 006a 07F11407 		add	r7, r7, #20
+ 18206 006e BD46     		mov	sp, r7
+ 18207 0070 80BC     		pop	{r7}
+ 18208 0072 7047     		bx	lr
+ 18209              		.cfi_endproc
+ 18210              	.LFE44:
+ 18212              		.section	.text.FSMC_ClearFlag,"ax",%progbits
+ 18213              		.align	2
+ 18214              		.global	FSMC_ClearFlag
+ 18215              		.thumb
+ 18216              		.thumb_func
+ 18218              	FSMC_ClearFlag:
+ 18219              	.LFB45:
+ 729:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** 
+ 730:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** /**
+ 731:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @brief  Clears the FSMC’s pending flags.
+ 732:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @param  FSMC_Bank: specifies the FSMC Bank to be used
+ 733:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *   This parameter can be one of the following values:
+ 734:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *     @arg FSMC_Bank2_NAND: FSMC Bank2 NAND 
+ 735:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *     @arg FSMC_Bank3_NAND: FSMC Bank3 NAND
+ 736:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *     @arg FSMC_Bank4_PCCARD: FSMC Bank4 PCCARD
+ 737:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @param  FSMC_FLAG: specifies the flag to clear.
+ 738:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *   This parameter can be any combination of the following values:
+ 739:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *     @arg FSMC_FLAG_RisingEdge: Rising egde detection Flag.
+ 740:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *     @arg FSMC_FLAG_Level: Level detection Flag.
+ 741:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *     @arg FSMC_FLAG_FallingEdge: Falling egde detection Flag.
+ 742:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @retval None
+ 743:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   */
+ 744:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** void FSMC_ClearFlag(uint32_t FSMC_Bank, uint32_t FSMC_FLAG)
+ 745:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** {
+ 18220              		.loc 1 745 0
+ 18221              		.cfi_startproc
+ 18222              		@ args = 0, pretend = 0, frame = 8
+ 18223              		@ frame_needed = 1, uses_anonymous_args = 0
+ 18224              		@ link register save eliminated.
+ 18225 0000 80B4     		push	{r7}
+ 18226              	.LCFI47:
+ 18227              		.cfi_def_cfa_offset 4
+ 18228 0002 83B0     		sub	sp, sp, #12
+ 18229              	.LCFI48:
+ 18230              		.cfi_def_cfa_offset 16
+ 18231 0004 00AF     		add	r7, sp, #0
+ 18232              		.cfi_offset 7, -4
+ 18233              	.LCFI49:
+ 18234              		.cfi_def_cfa_register 7
+ 18235 0006 7860     		str	r0, [r7, #4]
+ 18236 0008 3960     		str	r1, [r7, #0]
+ 746:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****  /* Check the parameters */
+ 747:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param(IS_FSMC_GETFLAG_BANK(FSMC_Bank));
+ 748:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param(IS_FSMC_CLEAR_FLAG(FSMC_FLAG)) ;
+ 749:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     
+ 750:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   if(FSMC_Bank == FSMC_Bank2_NAND)
+ 18237              		.loc 1 750 0
+ 18238 000a 7B68     		ldr	r3, [r7, #4]
+ 18239 000c 102B     		cmp	r3, #16
+ 18240 000e 10D1     		bne	.L52
+ 751:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   {
+ 752:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     FSMC_Bank2->SR2 &= ~FSMC_FLAG; 
+ 18241              		.loc 1 752 0
+ 18242 0010 4FF06003 		mov	r3, #96
+ 18243 0014 CAF20003 		movt	r3, 40960
+ 18244 0018 4FF06002 		mov	r2, #96
+ 18245 001c CAF20002 		movt	r2, 40960
+ 18246 0020 5268     		ldr	r2, [r2, #4]
+ 18247 0022 1146     		mov	r1, r2
+ 18248 0024 3A68     		ldr	r2, [r7, #0]
+ 18249 0026 6FEA0202 		mvn	r2, r2
+ 18250 002a 01EA0202 		and	r2, r1, r2
+ 18251 002e 5A60     		str	r2, [r3, #4]
+ 18252 0030 24E0     		b	.L51
+ 18253              	.L52:
+ 753:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   }  
+ 754:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   else if(FSMC_Bank == FSMC_Bank3_NAND)
+ 18254              		.loc 1 754 0
+ 18255 0032 7B68     		ldr	r3, [r7, #4]
+ 18256 0034 B3F5807F 		cmp	r3, #256
+ 18257 0038 10D1     		bne	.L54
+ 755:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   {
+ 756:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     FSMC_Bank3->SR3 &= ~FSMC_FLAG;
+ 18258              		.loc 1 756 0
+ 18259 003a 4FF08003 		mov	r3, #128
+ 18260 003e CAF20003 		movt	r3, 40960
+ 18261 0042 4FF08002 		mov	r2, #128
+ 18262 0046 CAF20002 		movt	r2, 40960
+ 18263 004a 5268     		ldr	r2, [r2, #4]
+ 18264 004c 1146     		mov	r1, r2
+ 18265 004e 3A68     		ldr	r2, [r7, #0]
+ 18266 0050 6FEA0202 		mvn	r2, r2
+ 18267 0054 01EA0202 		and	r2, r1, r2
+ 18268 0058 5A60     		str	r2, [r3, #4]
+ 18269 005a 0FE0     		b	.L51
+ 18270              	.L54:
+ 757:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   }
+ 758:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   /* FSMC_Bank4_PCCARD*/
+ 759:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   else
+ 760:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   {
+ 761:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     FSMC_Bank4->SR4 &= ~FSMC_FLAG;
+ 18271              		.loc 1 761 0
+ 18272 005c 4FF0A003 		mov	r3, #160
+ 18273 0060 CAF20003 		movt	r3, 40960
+ 18274 0064 4FF0A002 		mov	r2, #160
+ 18275 0068 CAF20002 		movt	r2, 40960
+ 18276 006c 5268     		ldr	r2, [r2, #4]
+ 18277 006e 1146     		mov	r1, r2
+ 18278 0070 3A68     		ldr	r2, [r7, #0]
+ 18279 0072 6FEA0202 		mvn	r2, r2
+ 18280 0076 01EA0202 		and	r2, r1, r2
+ 18281 007a 5A60     		str	r2, [r3, #4]
+ 18282              	.L51:
+ 762:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   }
+ 763:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** }
+ 18283              		.loc 1 763 0
+ 18284 007c 07F10C07 		add	r7, r7, #12
+ 18285 0080 BD46     		mov	sp, r7
+ 18286 0082 80BC     		pop	{r7}
+ 18287 0084 7047     		bx	lr
+ 18288              		.cfi_endproc
+ 18289              	.LFE45:
+ 18291 0086 00BF     		.section	.text.FSMC_GetITStatus,"ax",%progbits
+ 18292              		.align	2
+ 18293              		.global	FSMC_GetITStatus
+ 18294              		.thumb
+ 18295              		.thumb_func
+ 18297              	FSMC_GetITStatus:
+ 18298              	.LFB46:
+ 764:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** 
+ 765:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** /**
+ 766:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @brief  Checks whether the specified FSMC interrupt has occurred or not.
+ 767:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @param  FSMC_Bank: specifies the FSMC Bank to be used
+ 768:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *   This parameter can be one of the following values:
+ 769:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *     @arg FSMC_Bank2_NAND: FSMC Bank2 NAND 
+ 770:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *     @arg FSMC_Bank3_NAND: FSMC Bank3 NAND
+ 771:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *     @arg FSMC_Bank4_PCCARD: FSMC Bank4 PCCARD
+ 772:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @param  FSMC_IT: specifies the FSMC interrupt source to check.
+ 773:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *   This parameter can be one of the following values:
+ 774:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *     @arg FSMC_IT_RisingEdge: Rising edge detection interrupt. 
+ 775:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *     @arg FSMC_IT_Level: Level edge detection interrupt.
+ 776:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *     @arg FSMC_IT_FallingEdge: Falling edge detection interrupt. 
+ 777:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @retval The new state of FSMC_IT (SET or RESET).
+ 778:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   */
+ 779:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** ITStatus FSMC_GetITStatus(uint32_t FSMC_Bank, uint32_t FSMC_IT)
+ 780:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** {
+ 18299              		.loc 1 780 0
+ 18300              		.cfi_startproc
+ 18301              		@ args = 0, pretend = 0, frame = 24
+ 18302              		@ frame_needed = 1, uses_anonymous_args = 0
+ 18303              		@ link register save eliminated.
+ 18304 0000 80B4     		push	{r7}
+ 18305              	.LCFI50:
+ 18306              		.cfi_def_cfa_offset 4
+ 18307 0002 87B0     		sub	sp, sp, #28
+ 18308              	.LCFI51:
+ 18309              		.cfi_def_cfa_offset 32
+ 18310 0004 00AF     		add	r7, sp, #0
+ 18311              		.cfi_offset 7, -4
+ 18312              	.LCFI52:
+ 18313              		.cfi_def_cfa_register 7
+ 18314 0006 7860     		str	r0, [r7, #4]
+ 18315 0008 3960     		str	r1, [r7, #0]
+ 781:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   ITStatus bitstatus = RESET;
+ 18316              		.loc 1 781 0
+ 18317 000a 4FF00003 		mov	r3, #0
+ 18318 000e FB75     		strb	r3, [r7, #23]
+ 782:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   uint32_t tmpsr = 0x0, itstatus = 0x0, itenable = 0x0; 
+ 18319              		.loc 1 782 0
+ 18320 0010 4FF00003 		mov	r3, #0
+ 18321 0014 3B61     		str	r3, [r7, #16]
+ 18322 0016 4FF00003 		mov	r3, #0
+ 18323 001a FB60     		str	r3, [r7, #12]
+ 18324 001c 4FF00003 		mov	r3, #0
+ 18325 0020 BB60     		str	r3, [r7, #8]
+ 783:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   
+ 784:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   /* Check the parameters */
+ 785:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param(IS_FSMC_IT_BANK(FSMC_Bank));
+ 786:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param(IS_FSMC_GET_IT(FSMC_IT));
+ 787:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   
+ 788:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   if(FSMC_Bank == FSMC_Bank2_NAND)
+ 18326              		.loc 1 788 0
+ 18327 0022 7B68     		ldr	r3, [r7, #4]
+ 18328 0024 102B     		cmp	r3, #16
+ 18329 0026 06D1     		bne	.L56
+ 789:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   {
+ 790:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     tmpsr = FSMC_Bank2->SR2;
+ 18330              		.loc 1 790 0
+ 18331 0028 4FF06003 		mov	r3, #96
+ 18332 002c CAF20003 		movt	r3, 40960
+ 18333 0030 5B68     		ldr	r3, [r3, #4]
+ 18334 0032 3B61     		str	r3, [r7, #16]
+ 18335 0034 10E0     		b	.L57
+ 18336              	.L56:
+ 791:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   }  
+ 792:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   else if(FSMC_Bank == FSMC_Bank3_NAND)
+ 18337              		.loc 1 792 0
+ 18338 0036 7B68     		ldr	r3, [r7, #4]
+ 18339 0038 B3F5807F 		cmp	r3, #256
+ 18340 003c 06D1     		bne	.L58
+ 793:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   {
+ 794:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     tmpsr = FSMC_Bank3->SR3;
+ 18341              		.loc 1 794 0
+ 18342 003e 4FF08003 		mov	r3, #128
+ 18343 0042 CAF20003 		movt	r3, 40960
+ 18344 0046 5B68     		ldr	r3, [r3, #4]
+ 18345 0048 3B61     		str	r3, [r7, #16]
+ 18346 004a 05E0     		b	.L57
+ 18347              	.L58:
+ 795:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   }
+ 796:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   /* FSMC_Bank4_PCCARD*/
+ 797:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   else
+ 798:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   {
+ 799:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     tmpsr = FSMC_Bank4->SR4;
+ 18348              		.loc 1 799 0
+ 18349 004c 4FF0A003 		mov	r3, #160
+ 18350 0050 CAF20003 		movt	r3, 40960
+ 18351 0054 5B68     		ldr	r3, [r3, #4]
+ 18352 0056 3B61     		str	r3, [r7, #16]
+ 18353              	.L57:
+ 800:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   } 
+ 801:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   
+ 802:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   itstatus = tmpsr & FSMC_IT;
+ 18354              		.loc 1 802 0
+ 18355 0058 3A69     		ldr	r2, [r7, #16]
+ 18356 005a 3B68     		ldr	r3, [r7, #0]
+ 18357 005c 02EA0303 		and	r3, r2, r3
+ 18358 0060 FB60     		str	r3, [r7, #12]
+ 803:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   
+ 804:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   itenable = tmpsr & (FSMC_IT >> 3);
+ 18359              		.loc 1 804 0
+ 18360 0062 3B68     		ldr	r3, [r7, #0]
+ 18361 0064 4FEAD302 		lsr	r2, r3, #3
+ 18362 0068 3B69     		ldr	r3, [r7, #16]
+ 18363 006a 02EA0303 		and	r3, r2, r3
+ 18364 006e BB60     		str	r3, [r7, #8]
+ 805:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   if ((itstatus != (uint32_t)RESET)  && (itenable != (uint32_t)RESET))
+ 18365              		.loc 1 805 0
+ 18366 0070 FB68     		ldr	r3, [r7, #12]
+ 18367 0072 002B     		cmp	r3, #0
+ 18368 0074 06D0     		beq	.L59
+ 18369              		.loc 1 805 0 is_stmt 0 discriminator 1
+ 18370 0076 BB68     		ldr	r3, [r7, #8]
+ 18371 0078 002B     		cmp	r3, #0
+ 18372 007a 03D0     		beq	.L59
+ 806:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   {
+ 807:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     bitstatus = SET;
+ 18373              		.loc 1 807 0 is_stmt 1
+ 18374 007c 4FF00103 		mov	r3, #1
+ 18375 0080 FB75     		strb	r3, [r7, #23]
+ 18376 0082 02E0     		b	.L60
+ 18377              	.L59:
+ 808:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   }
+ 809:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   else
+ 810:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   {
+ 811:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     bitstatus = RESET;
+ 18378              		.loc 1 811 0
+ 18379 0084 4FF00003 		mov	r3, #0
+ 18380 0088 FB75     		strb	r3, [r7, #23]
+ 18381              	.L60:
+ 812:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   }
+ 813:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   return bitstatus; 
+ 18382              		.loc 1 813 0
+ 18383 008a FB7D     		ldrb	r3, [r7, #23]	@ zero_extendqisi2
+ 814:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** }
+ 18384              		.loc 1 814 0
+ 18385 008c 1846     		mov	r0, r3
+ 18386 008e 07F11C07 		add	r7, r7, #28
+ 18387 0092 BD46     		mov	sp, r7
+ 18388 0094 80BC     		pop	{r7}
+ 18389 0096 7047     		bx	lr
+ 18390              		.cfi_endproc
+ 18391              	.LFE46:
+ 18393              		.section	.text.FSMC_ClearITPendingBit,"ax",%progbits
+ 18394              		.align	2
+ 18395              		.global	FSMC_ClearITPendingBit
+ 18396              		.thumb
+ 18397              		.thumb_func
+ 18399              	FSMC_ClearITPendingBit:
+ 18400              	.LFB47:
+ 815:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** 
+ 816:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** /**
+ 817:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @brief  Clears the FSMC’s interrupt pending bits.
+ 818:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @param  FSMC_Bank: specifies the FSMC Bank to be used
+ 819:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *   This parameter can be one of the following values:
+ 820:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *     @arg FSMC_Bank2_NAND: FSMC Bank2 NAND 
+ 821:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *     @arg FSMC_Bank3_NAND: FSMC Bank3 NAND
+ 822:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *     @arg FSMC_Bank4_PCCARD: FSMC Bank4 PCCARD
+ 823:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @param  FSMC_IT: specifies the interrupt pending bit to clear.
+ 824:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *   This parameter can be any combination of the following values:
+ 825:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *     @arg FSMC_IT_RisingEdge: Rising edge detection interrupt. 
+ 826:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *     @arg FSMC_IT_Level: Level edge detection interrupt.
+ 827:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   *     @arg FSMC_IT_FallingEdge: Falling edge detection interrupt.
+ 828:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   * @retval None
+ 829:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   */
+ 830:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** void FSMC_ClearITPendingBit(uint32_t FSMC_Bank, uint32_t FSMC_IT)
+ 831:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** {
+ 18401              		.loc 1 831 0
+ 18402              		.cfi_startproc
+ 18403              		@ args = 0, pretend = 0, frame = 8
+ 18404              		@ frame_needed = 1, uses_anonymous_args = 0
+ 18405              		@ link register save eliminated.
+ 18406 0000 80B4     		push	{r7}
+ 18407              	.LCFI53:
+ 18408              		.cfi_def_cfa_offset 4
+ 18409 0002 83B0     		sub	sp, sp, #12
+ 18410              	.LCFI54:
+ 18411              		.cfi_def_cfa_offset 16
+ 18412 0004 00AF     		add	r7, sp, #0
+ 18413              		.cfi_offset 7, -4
+ 18414              	.LCFI55:
+ 18415              		.cfi_def_cfa_register 7
+ 18416 0006 7860     		str	r0, [r7, #4]
+ 18417 0008 3960     		str	r1, [r7, #0]
+ 832:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   /* Check the parameters */
+ 833:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param(IS_FSMC_IT_BANK(FSMC_Bank));
+ 834:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   assert_param(IS_FSMC_IT(FSMC_IT));
+ 835:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     
+ 836:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   if(FSMC_Bank == FSMC_Bank2_NAND)
+ 18418              		.loc 1 836 0
+ 18419 000a 7B68     		ldr	r3, [r7, #4]
+ 18420 000c 102B     		cmp	r3, #16
+ 18421 000e 12D1     		bne	.L62
+ 837:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   {
+ 838:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     FSMC_Bank2->SR2 &= ~(FSMC_IT >> 3); 
+ 18422              		.loc 1 838 0
+ 18423 0010 4FF06003 		mov	r3, #96
+ 18424 0014 CAF20003 		movt	r3, 40960
+ 18425 0018 4FF06002 		mov	r2, #96
+ 18426 001c CAF20002 		movt	r2, 40960
+ 18427 0020 5268     		ldr	r2, [r2, #4]
+ 18428 0022 1146     		mov	r1, r2
+ 18429 0024 3A68     		ldr	r2, [r7, #0]
+ 18430 0026 4FEAD202 		lsr	r2, r2, #3
+ 18431 002a 6FEA0202 		mvn	r2, r2
+ 18432 002e 01EA0202 		and	r2, r1, r2
+ 18433 0032 5A60     		str	r2, [r3, #4]
+ 18434 0034 28E0     		b	.L61
+ 18435              	.L62:
+ 839:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   }  
+ 840:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   else if(FSMC_Bank == FSMC_Bank3_NAND)
+ 18436              		.loc 1 840 0
+ 18437 0036 7B68     		ldr	r3, [r7, #4]
+ 18438 0038 B3F5807F 		cmp	r3, #256
+ 18439 003c 12D1     		bne	.L64
+ 841:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   {
+ 842:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     FSMC_Bank3->SR3 &= ~(FSMC_IT >> 3);
+ 18440              		.loc 1 842 0
+ 18441 003e 4FF08003 		mov	r3, #128
+ 18442 0042 CAF20003 		movt	r3, 40960
+ 18443 0046 4FF08002 		mov	r2, #128
+ 18444 004a CAF20002 		movt	r2, 40960
+ 18445 004e 5268     		ldr	r2, [r2, #4]
+ 18446 0050 1146     		mov	r1, r2
+ 18447 0052 3A68     		ldr	r2, [r7, #0]
+ 18448 0054 4FEAD202 		lsr	r2, r2, #3
+ 18449 0058 6FEA0202 		mvn	r2, r2
+ 18450 005c 01EA0202 		and	r2, r1, r2
+ 18451 0060 5A60     		str	r2, [r3, #4]
+ 18452 0062 11E0     		b	.L61
+ 18453              	.L64:
+ 843:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   }
+ 844:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   /* FSMC_Bank4_PCCARD*/
+ 845:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   else
+ 846:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   {
+ 847:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****     FSMC_Bank4->SR4 &= ~(FSMC_IT >> 3);
+ 18454              		.loc 1 847 0
+ 18455 0064 4FF0A003 		mov	r3, #160
+ 18456 0068 CAF20003 		movt	r3, 40960
+ 18457 006c 4FF0A002 		mov	r2, #160
+ 18458 0070 CAF20002 		movt	r2, 40960
+ 18459 0074 5268     		ldr	r2, [r2, #4]
+ 18460 0076 1146     		mov	r1, r2
+ 18461 0078 3A68     		ldr	r2, [r7, #0]
+ 18462 007a 4FEAD202 		lsr	r2, r2, #3
+ 18463 007e 6FEA0202 		mvn	r2, r2
+ 18464 0082 01EA0202 		and	r2, r1, r2
+ 18465 0086 5A60     		str	r2, [r3, #4]
+ 18466              	.L61:
+ 848:../target/stm32/stdperiph/src/stm32f10x_fsmc.c ****   }
+ 849:../target/stm32/stdperiph/src/stm32f10x_fsmc.c **** }
+ 18467              		.loc 1 849 0
+ 18468 0088 07F10C07 		add	r7, r7, #12
+ 18469 008c BD46     		mov	sp, r7
+ 18470 008e 80BC     		pop	{r7}
+ 18471 0090 7047     		bx	lr
+ 18472              		.cfi_endproc
+ 18473              	.LFE47:
+ 18475 0092 00BF     		.text
+ 18476              	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 stm32f10x_fsmc.c
+     /tmp/cc3LXLPH.s:16568  .text.FSMC_NORSRAMDeInit:00000000 $t
+     /tmp/cc3LXLPH.s:16573  .text.FSMC_NORSRAMDeInit:00000000 FSMC_NORSRAMDeInit
+     /tmp/cc3LXLPH.s:16629  .text.FSMC_NANDDeInit:00000000 $t
+     /tmp/cc3LXLPH.s:16634  .text.FSMC_NANDDeInit:00000000 FSMC_NANDDeInit
+     /tmp/cc3LXLPH.s:16708  .text.FSMC_PCCARDDeInit:00000000 $t
+     /tmp/cc3LXLPH.s:16713  .text.FSMC_PCCARDDeInit:00000000 FSMC_PCCARDDeInit
+     /tmp/cc3LXLPH.s:16760  .text.FSMC_NORSRAMInit:00000000 $t
+     /tmp/cc3LXLPH.s:16765  .text.FSMC_NORSRAMInit:00000000 FSMC_NORSRAMInit
+     /tmp/cc3LXLPH.s:16984  .text.FSMC_NANDInit:00000000 $t
+     /tmp/cc3LXLPH.s:16989  .text.FSMC_NANDInit:00000000 FSMC_NANDInit
+     /tmp/cc3LXLPH.s:17146  .text.FSMC_PCCARDInit:00000000 $t
+     /tmp/cc3LXLPH.s:17151  .text.FSMC_PCCARDInit:00000000 FSMC_PCCARDInit
+     /tmp/cc3LXLPH.s:17285  .text.FSMC_NORSRAMStructInit:00000000 $t
+     /tmp/cc3LXLPH.s:17290  .text.FSMC_NORSRAMStructInit:00000000 FSMC_NORSRAMStructInit
+     /tmp/cc3LXLPH.s:17439  .text.FSMC_NANDStructInit:00000000 $t
+     /tmp/cc3LXLPH.s:17444  .text.FSMC_NANDStructInit:00000000 FSMC_NANDStructInit
+     /tmp/cc3LXLPH.s:17539  .text.FSMC_PCCARDStructInit:00000000 $t
+     /tmp/cc3LXLPH.s:17544  .text.FSMC_PCCARDStructInit:00000000 FSMC_PCCARDStructInit
+     /tmp/cc3LXLPH.s:17643  .text.FSMC_NORSRAMCmd:00000000 $t
+     /tmp/cc3LXLPH.s:17648  .text.FSMC_NORSRAMCmd:00000000 FSMC_NORSRAMCmd
+     /tmp/cc3LXLPH.s:17703  .text.FSMC_NANDCmd:00000000 $t
+     /tmp/cc3LXLPH.s:17708  .text.FSMC_NANDCmd:00000000 FSMC_NANDCmd
+     /tmp/cc3LXLPH.s:17794  .text.FSMC_PCCARDCmd:00000000 $t
+     /tmp/cc3LXLPH.s:17799  .text.FSMC_PCCARDCmd:00000000 FSMC_PCCARDCmd
+     /tmp/cc3LXLPH.s:17853  .text.FSMC_NANDECCCmd:00000000 $t
+     /tmp/cc3LXLPH.s:17858  .text.FSMC_NANDECCCmd:00000000 FSMC_NANDECCCmd
+     /tmp/cc3LXLPH.s:17944  .text.FSMC_GetECC:00000000 $t
+     /tmp/cc3LXLPH.s:17949  .text.FSMC_GetECC:00000000 FSMC_GetECC
+     /tmp/cc3LXLPH.s:17999  .text.FSMC_ITConfig:00000000 $t
+     /tmp/cc3LXLPH.s:18004  .text.FSMC_ITConfig:00000000 FSMC_ITConfig
+     /tmp/cc3LXLPH.s:18128  .text.FSMC_GetFlagStatus:00000000 $t
+     /tmp/cc3LXLPH.s:18133  .text.FSMC_GetFlagStatus:00000000 FSMC_GetFlagStatus
+     /tmp/cc3LXLPH.s:18213  .text.FSMC_ClearFlag:00000000 $t
+     /tmp/cc3LXLPH.s:18218  .text.FSMC_ClearFlag:00000000 FSMC_ClearFlag
+     /tmp/cc3LXLPH.s:18292  .text.FSMC_GetITStatus:00000000 $t
+     /tmp/cc3LXLPH.s:18297  .text.FSMC_GetITStatus:00000000 FSMC_GetITStatus
+     /tmp/cc3LXLPH.s:18394  .text.FSMC_ClearITPendingBit:00000000 $t
+     /tmp/cc3LXLPH.s:18399  .text.FSMC_ClearITPendingBit:00000000 FSMC_ClearITPendingBit
+                     .debug_frame:00000010 $d
+
+NO UNDEFINED SYMBOLS

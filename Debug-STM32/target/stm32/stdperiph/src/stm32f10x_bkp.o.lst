@@ -1,0 +1,812 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"stm32f10x_bkp.c"
+  23              	.Ltext0:
+  24              		.file 1 "../target/stm32/stdperiph/src/stm32f10x_bkp.c"
+ 16452              		.align	2
+ 16453              		.global	BKP_DeInit
+ 16454              		.thumb
+ 16455              		.thumb_func
+ 16457              	BKP_DeInit:
+ 16458              	.LFB29:
+   1:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** /**
+   2:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   ******************************************************************************
+   3:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   * @file    stm32f10x_bkp.c
+   4:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   * @author  MCD Application Team
+   5:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   * @version V3.4.0
+   6:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   * @date    10/15/2010
+   7:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   * @brief   This file provides all the BKP firmware functions.
+   8:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   ******************************************************************************
+   9:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   * @copy
+  10:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   *
+  11:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   * THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
+  12:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
+  13:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   * TIME. AS A RESULT, STMICROELECTRONICS SHALL NOT BE HELD LIABLE FOR ANY
+  14:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   * DIRECT, INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING
+  15:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   * FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
+  16:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
+  17:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   *
+  18:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   * <h2><center>&copy; COPYRIGHT 2010 STMicroelectronics</center></h2>
+  19:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   */ 
+  20:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** 
+  21:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** /* Includes ------------------------------------------------------------------*/
+  22:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** #include "stm32f10x_bkp.h"
+  23:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** #include "stm32f10x_rcc.h"
+  24:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** 
+  25:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** /** @addtogroup STM32F10x_StdPeriph_Driver
+  26:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   * @{
+  27:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   */
+  28:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** 
+  29:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** /** @defgroup BKP 
+  30:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   * @brief BKP driver modules
+  31:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   * @{
+  32:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   */
+  33:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** 
+  34:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** /** @defgroup BKP_Private_TypesDefinitions
+  35:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   * @{
+  36:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   */
+  37:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** 
+  38:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** /**
+  39:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   * @}
+  40:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   */
+  41:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** 
+  42:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** /** @defgroup BKP_Private_Defines
+  43:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   * @{
+  44:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   */
+  45:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** 
+  46:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** /* ------------ BKP registers bit address in the alias region --------------- */
+  47:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** #define BKP_OFFSET        (BKP_BASE - PERIPH_BASE)
+  48:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** 
+  49:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** /* --- CR Register ----*/
+  50:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** 
+  51:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** /* Alias word address of TPAL bit */
+  52:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** #define CR_OFFSET         (BKP_OFFSET + 0x30)
+  53:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** #define TPAL_BitNumber    0x01
+  54:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** #define CR_TPAL_BB        (PERIPH_BB_BASE + (CR_OFFSET * 32) + (TPAL_BitNumber * 4))
+  55:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** 
+  56:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** /* Alias word address of TPE bit */
+  57:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** #define TPE_BitNumber     0x00
+  58:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** #define CR_TPE_BB         (PERIPH_BB_BASE + (CR_OFFSET * 32) + (TPE_BitNumber * 4))
+  59:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** 
+  60:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** /* --- CSR Register ---*/
+  61:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** 
+  62:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** /* Alias word address of TPIE bit */
+  63:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** #define CSR_OFFSET        (BKP_OFFSET + 0x34)
+  64:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** #define TPIE_BitNumber    0x02
+  65:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** #define CSR_TPIE_BB       (PERIPH_BB_BASE + (CSR_OFFSET * 32) + (TPIE_BitNumber * 4))
+  66:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** 
+  67:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** /* Alias word address of TIF bit */
+  68:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** #define TIF_BitNumber     0x09
+  69:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** #define CSR_TIF_BB        (PERIPH_BB_BASE + (CSR_OFFSET * 32) + (TIF_BitNumber * 4))
+  70:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** 
+  71:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** /* Alias word address of TEF bit */
+  72:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** #define TEF_BitNumber     0x08
+  73:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** #define CSR_TEF_BB        (PERIPH_BB_BASE + (CSR_OFFSET * 32) + (TEF_BitNumber * 4))
+  74:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** 
+  75:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** /* ---------------------- BKP registers bit mask ------------------------ */
+  76:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** 
+  77:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** /* RTCCR register bit mask */
+  78:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** #define RTCCR_CAL_MASK    ((uint16_t)0xFF80)
+  79:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** #define RTCCR_MASK        ((uint16_t)0xFC7F)
+  80:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** 
+  81:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** /**
+  82:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   * @}
+  83:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   */ 
+  84:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** 
+  85:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** 
+  86:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** /** @defgroup BKP_Private_Macros
+  87:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   * @{
+  88:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   */
+  89:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** 
+  90:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** /**
+  91:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   * @}
+  92:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   */
+  93:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** 
+  94:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** /** @defgroup BKP_Private_Variables
+  95:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   * @{
+  96:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   */
+  97:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** 
+  98:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** /**
+  99:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   * @}
+ 100:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   */
+ 101:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** 
+ 102:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** /** @defgroup BKP_Private_FunctionPrototypes
+ 103:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   * @{
+ 104:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   */
+ 105:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** 
+ 106:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** /**
+ 107:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   * @}
+ 108:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   */
+ 109:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** 
+ 110:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** /** @defgroup BKP_Private_Functions
+ 111:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   * @{
+ 112:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   */
+ 113:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** 
+ 114:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** /**
+ 115:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   * @brief  Deinitializes the BKP peripheral registers to their default reset values.
+ 116:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   * @param  None
+ 117:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   * @retval None
+ 118:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   */
+ 119:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** void BKP_DeInit(void)
+ 120:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** {
+ 16459              		.loc 1 120 0
+ 16460              		.cfi_startproc
+ 16461              		@ args = 0, pretend = 0, frame = 0
+ 16462              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16463 0000 80B5     		push	{r7, lr}
+ 16464              	.LCFI0:
+ 16465              		.cfi_def_cfa_offset 8
+ 16466 0002 00AF     		add	r7, sp, #0
+ 16467              		.cfi_offset 14, -4
+ 16468              		.cfi_offset 7, -8
+ 16469              	.LCFI1:
+ 16470              		.cfi_def_cfa_register 7
+ 121:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   RCC_BackupResetCmd(ENABLE);
+ 16471              		.loc 1 121 0
+ 16472 0004 4FF00100 		mov	r0, #1
+ 16473 0008 FFF7FEFF 		bl	RCC_BackupResetCmd
+ 122:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   RCC_BackupResetCmd(DISABLE);
+ 16474              		.loc 1 122 0
+ 16475 000c 4FF00000 		mov	r0, #0
+ 16476 0010 FFF7FEFF 		bl	RCC_BackupResetCmd
+ 123:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** }
+ 16477              		.loc 1 123 0
+ 16478 0014 80BD     		pop	{r7, pc}
+ 16479              		.cfi_endproc
+ 16480              	.LFE29:
+ 16482 0016 00BF     		.section	.text.BKP_TamperPinLevelConfig,"ax",%progbits
+ 16483              		.align	2
+ 16484              		.global	BKP_TamperPinLevelConfig
+ 16485              		.thumb
+ 16486              		.thumb_func
+ 16488              	BKP_TamperPinLevelConfig:
+ 16489              	.LFB30:
+ 124:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** 
+ 125:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** /**
+ 126:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   * @brief  Configures the Tamper Pin active level.
+ 127:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   * @param  BKP_TamperPinLevel: specifies the Tamper Pin active level.
+ 128:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   *   This parameter can be one of the following values:
+ 129:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   *     @arg BKP_TamperPinLevel_High: Tamper pin active on high level
+ 130:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   *     @arg BKP_TamperPinLevel_Low: Tamper pin active on low level
+ 131:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   * @retval None
+ 132:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   */
+ 133:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** void BKP_TamperPinLevelConfig(uint16_t BKP_TamperPinLevel)
+ 134:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** {
+ 16490              		.loc 1 134 0
+ 16491              		.cfi_startproc
+ 16492              		@ args = 0, pretend = 0, frame = 8
+ 16493              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16494              		@ link register save eliminated.
+ 16495 0000 80B4     		push	{r7}
+ 16496              	.LCFI2:
+ 16497              		.cfi_def_cfa_offset 4
+ 16498 0002 83B0     		sub	sp, sp, #12
+ 16499              	.LCFI3:
+ 16500              		.cfi_def_cfa_offset 16
+ 16501 0004 00AF     		add	r7, sp, #0
+ 16502              		.cfi_offset 7, -4
+ 16503              	.LCFI4:
+ 16504              		.cfi_def_cfa_register 7
+ 16505 0006 0346     		mov	r3, r0
+ 16506 0008 FB80     		strh	r3, [r7, #6]	@ movhi
+ 135:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   /* Check the parameters */
+ 136:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   assert_param(IS_BKP_TAMPER_PIN_LEVEL(BKP_TamperPinLevel));
+ 137:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   *(__IO uint32_t *) CR_TPAL_BB = BKP_TamperPinLevel;
+ 16507              		.loc 1 137 0
+ 16508 000a 48F20463 		movw	r3, #34308
+ 16509 000e C4F20D23 		movt	r3, 16909
+ 16510 0012 FA88     		ldrh	r2, [r7, #6]
+ 16511 0014 1A60     		str	r2, [r3, #0]
+ 138:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** }
+ 16512              		.loc 1 138 0
+ 16513 0016 07F10C07 		add	r7, r7, #12
+ 16514 001a BD46     		mov	sp, r7
+ 16515 001c 80BC     		pop	{r7}
+ 16516 001e 7047     		bx	lr
+ 16517              		.cfi_endproc
+ 16518              	.LFE30:
+ 16520              		.section	.text.BKP_TamperPinCmd,"ax",%progbits
+ 16521              		.align	2
+ 16522              		.global	BKP_TamperPinCmd
+ 16523              		.thumb
+ 16524              		.thumb_func
+ 16526              	BKP_TamperPinCmd:
+ 16527              	.LFB31:
+ 139:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** 
+ 140:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** /**
+ 141:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   * @brief  Enables or disables the Tamper Pin activation.
+ 142:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   * @param  NewState: new state of the Tamper Pin activation.
+ 143:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   *   This parameter can be: ENABLE or DISABLE.
+ 144:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   * @retval None
+ 145:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   */
+ 146:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** void BKP_TamperPinCmd(FunctionalState NewState)
+ 147:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** {
+ 16528              		.loc 1 147 0
+ 16529              		.cfi_startproc
+ 16530              		@ args = 0, pretend = 0, frame = 8
+ 16531              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16532              		@ link register save eliminated.
+ 16533 0000 80B4     		push	{r7}
+ 16534              	.LCFI5:
+ 16535              		.cfi_def_cfa_offset 4
+ 16536 0002 83B0     		sub	sp, sp, #12
+ 16537              	.LCFI6:
+ 16538              		.cfi_def_cfa_offset 16
+ 16539 0004 00AF     		add	r7, sp, #0
+ 16540              		.cfi_offset 7, -4
+ 16541              	.LCFI7:
+ 16542              		.cfi_def_cfa_register 7
+ 16543 0006 0346     		mov	r3, r0
+ 16544 0008 FB71     		strb	r3, [r7, #7]
+ 148:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   /* Check the parameters */
+ 149:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   assert_param(IS_FUNCTIONAL_STATE(NewState));
+ 150:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   *(__IO uint32_t *) CR_TPE_BB = (uint32_t)NewState;
+ 16545              		.loc 1 150 0
+ 16546 000a 4FF40643 		mov	r3, #34304
+ 16547 000e C4F20D23 		movt	r3, 16909
+ 16548 0012 FA79     		ldrb	r2, [r7, #7]	@ zero_extendqisi2
+ 16549 0014 1A60     		str	r2, [r3, #0]
+ 151:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** }
+ 16550              		.loc 1 151 0
+ 16551 0016 07F10C07 		add	r7, r7, #12
+ 16552 001a BD46     		mov	sp, r7
+ 16553 001c 80BC     		pop	{r7}
+ 16554 001e 7047     		bx	lr
+ 16555              		.cfi_endproc
+ 16556              	.LFE31:
+ 16558              		.section	.text.BKP_ITConfig,"ax",%progbits
+ 16559              		.align	2
+ 16560              		.global	BKP_ITConfig
+ 16561              		.thumb
+ 16562              		.thumb_func
+ 16564              	BKP_ITConfig:
+ 16565              	.LFB32:
+ 152:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** 
+ 153:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** /**
+ 154:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   * @brief  Enables or disables the Tamper Pin Interrupt.
+ 155:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   * @param  NewState: new state of the Tamper Pin Interrupt.
+ 156:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   *   This parameter can be: ENABLE or DISABLE.
+ 157:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   * @retval None
+ 158:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   */
+ 159:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** void BKP_ITConfig(FunctionalState NewState)
+ 160:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** {
+ 16566              		.loc 1 160 0
+ 16567              		.cfi_startproc
+ 16568              		@ args = 0, pretend = 0, frame = 8
+ 16569              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16570              		@ link register save eliminated.
+ 16571 0000 80B4     		push	{r7}
+ 16572              	.LCFI8:
+ 16573              		.cfi_def_cfa_offset 4
+ 16574 0002 83B0     		sub	sp, sp, #12
+ 16575              	.LCFI9:
+ 16576              		.cfi_def_cfa_offset 16
+ 16577 0004 00AF     		add	r7, sp, #0
+ 16578              		.cfi_offset 7, -4
+ 16579              	.LCFI10:
+ 16580              		.cfi_def_cfa_register 7
+ 16581 0006 0346     		mov	r3, r0
+ 16582 0008 FB71     		strb	r3, [r7, #7]
+ 161:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   /* Check the parameters */
+ 162:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   assert_param(IS_FUNCTIONAL_STATE(NewState));
+ 163:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   *(__IO uint32_t *) CSR_TPIE_BB = (uint32_t)NewState;
+ 16583              		.loc 1 163 0
+ 16584 000a 48F28863 		movw	r3, #34440
+ 16585 000e C4F20D23 		movt	r3, 16909
+ 16586 0012 FA79     		ldrb	r2, [r7, #7]	@ zero_extendqisi2
+ 16587 0014 1A60     		str	r2, [r3, #0]
+ 164:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** }
+ 16588              		.loc 1 164 0
+ 16589 0016 07F10C07 		add	r7, r7, #12
+ 16590 001a BD46     		mov	sp, r7
+ 16591 001c 80BC     		pop	{r7}
+ 16592 001e 7047     		bx	lr
+ 16593              		.cfi_endproc
+ 16594              	.LFE32:
+ 16596              		.section	.text.BKP_RTCOutputConfig,"ax",%progbits
+ 16597              		.align	2
+ 16598              		.global	BKP_RTCOutputConfig
+ 16599              		.thumb
+ 16600              		.thumb_func
+ 16602              	BKP_RTCOutputConfig:
+ 16603              	.LFB33:
+ 165:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** 
+ 166:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** /**
+ 167:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   * @brief  Select the RTC output source to output on the Tamper pin.
+ 168:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   * @param  BKP_RTCOutputSource: specifies the RTC output source.
+ 169:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   *   This parameter can be one of the following values:
+ 170:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   *     @arg BKP_RTCOutputSource_None: no RTC output on the Tamper pin.
+ 171:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   *     @arg BKP_RTCOutputSource_CalibClock: output the RTC clock with frequency
+ 172:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   *                                          divided by 64 on the Tamper pin.
+ 173:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   *     @arg BKP_RTCOutputSource_Alarm: output the RTC Alarm pulse signal on
+ 174:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   *                                     the Tamper pin.
+ 175:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   *     @arg BKP_RTCOutputSource_Second: output the RTC Second pulse signal on
+ 176:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   *                                      the Tamper pin.  
+ 177:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   * @retval None
+ 178:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   */
+ 179:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** void BKP_RTCOutputConfig(uint16_t BKP_RTCOutputSource)
+ 180:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** {
+ 16604              		.loc 1 180 0
+ 16605              		.cfi_startproc
+ 16606              		@ args = 0, pretend = 0, frame = 16
+ 16607              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16608              		@ link register save eliminated.
+ 16609 0000 80B4     		push	{r7}
+ 16610              	.LCFI11:
+ 16611              		.cfi_def_cfa_offset 4
+ 16612 0002 85B0     		sub	sp, sp, #20
+ 16613              	.LCFI12:
+ 16614              		.cfi_def_cfa_offset 24
+ 16615 0004 00AF     		add	r7, sp, #0
+ 16616              		.cfi_offset 7, -4
+ 16617              	.LCFI13:
+ 16618              		.cfi_def_cfa_register 7
+ 16619 0006 0346     		mov	r3, r0
+ 16620 0008 FB80     		strh	r3, [r7, #6]	@ movhi
+ 181:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   uint16_t tmpreg = 0;
+ 16621              		.loc 1 181 0
+ 16622 000a 4FF00003 		mov	r3, #0
+ 16623 000e FB81     		strh	r3, [r7, #14]	@ movhi
+ 182:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   /* Check the parameters */
+ 183:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   assert_param(IS_BKP_RTC_OUTPUT_SOURCE(BKP_RTCOutputSource));
+ 184:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   tmpreg = BKP->RTCCR;
+ 16624              		.loc 1 184 0
+ 16625 0010 4FF4D843 		mov	r3, #27648
+ 16626 0014 C4F20003 		movt	r3, 16384
+ 16627 0018 9B8D     		ldrh	r3, [r3, #44]	@ movhi
+ 16628 001a FB81     		strh	r3, [r7, #14]	@ movhi
+ 185:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   /* Clear CCO, ASOE and ASOS bits */
+ 186:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   tmpreg &= RTCCR_MASK;
+ 16629              		.loc 1 186 0
+ 16630 001c FB89     		ldrh	r3, [r7, #14]	@ movhi
+ 16631 001e 23F46073 		bic	r3, r3, #896
+ 16632 0022 FB81     		strh	r3, [r7, #14]	@ movhi
+ 187:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   
+ 188:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   /* Set CCO, ASOE and ASOS bits according to BKP_RTCOutputSource value */
+ 189:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   tmpreg |= BKP_RTCOutputSource;
+ 16633              		.loc 1 189 0
+ 16634 0024 FA89     		ldrh	r2, [r7, #14]	@ movhi
+ 16635 0026 FB88     		ldrh	r3, [r7, #6]	@ movhi
+ 16636 0028 42EA0303 		orr	r3, r2, r3
+ 16637 002c FB81     		strh	r3, [r7, #14]	@ movhi
+ 190:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   /* Store the new value */
+ 191:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   BKP->RTCCR = tmpreg;
+ 16638              		.loc 1 191 0
+ 16639 002e 4FF4D843 		mov	r3, #27648
+ 16640 0032 C4F20003 		movt	r3, 16384
+ 16641 0036 FA89     		ldrh	r2, [r7, #14]	@ movhi
+ 16642 0038 9A85     		strh	r2, [r3, #44]	@ movhi
+ 192:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** }
+ 16643              		.loc 1 192 0
+ 16644 003a 07F11407 		add	r7, r7, #20
+ 16645 003e BD46     		mov	sp, r7
+ 16646 0040 80BC     		pop	{r7}
+ 16647 0042 7047     		bx	lr
+ 16648              		.cfi_endproc
+ 16649              	.LFE33:
+ 16651              		.section	.text.BKP_SetRTCCalibrationValue,"ax",%progbits
+ 16652              		.align	2
+ 16653              		.global	BKP_SetRTCCalibrationValue
+ 16654              		.thumb
+ 16655              		.thumb_func
+ 16657              	BKP_SetRTCCalibrationValue:
+ 16658              	.LFB34:
+ 193:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** 
+ 194:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** /**
+ 195:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   * @brief  Sets RTC Clock Calibration value.
+ 196:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   * @param  CalibrationValue: specifies the RTC Clock Calibration value.
+ 197:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   *   This parameter must be a number between 0 and 0x7F.
+ 198:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   * @retval None
+ 199:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   */
+ 200:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** void BKP_SetRTCCalibrationValue(uint8_t CalibrationValue)
+ 201:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** {
+ 16659              		.loc 1 201 0
+ 16660              		.cfi_startproc
+ 16661              		@ args = 0, pretend = 0, frame = 16
+ 16662              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16663              		@ link register save eliminated.
+ 16664 0000 80B4     		push	{r7}
+ 16665              	.LCFI14:
+ 16666              		.cfi_def_cfa_offset 4
+ 16667 0002 85B0     		sub	sp, sp, #20
+ 16668              	.LCFI15:
+ 16669              		.cfi_def_cfa_offset 24
+ 16670 0004 00AF     		add	r7, sp, #0
+ 16671              		.cfi_offset 7, -4
+ 16672              	.LCFI16:
+ 16673              		.cfi_def_cfa_register 7
+ 16674 0006 0346     		mov	r3, r0
+ 16675 0008 FB71     		strb	r3, [r7, #7]
+ 202:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   uint16_t tmpreg = 0;
+ 16676              		.loc 1 202 0
+ 16677 000a 4FF00003 		mov	r3, #0
+ 16678 000e FB81     		strh	r3, [r7, #14]	@ movhi
+ 203:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   /* Check the parameters */
+ 204:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   assert_param(IS_BKP_CALIBRATION_VALUE(CalibrationValue));
+ 205:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   tmpreg = BKP->RTCCR;
+ 16679              		.loc 1 205 0
+ 16680 0010 4FF4D843 		mov	r3, #27648
+ 16681 0014 C4F20003 		movt	r3, 16384
+ 16682 0018 9B8D     		ldrh	r3, [r3, #44]	@ movhi
+ 16683 001a FB81     		strh	r3, [r7, #14]	@ movhi
+ 206:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   /* Clear CAL[6:0] bits */
+ 207:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   tmpreg &= RTCCR_CAL_MASK;
+ 16684              		.loc 1 207 0
+ 16685 001c FB89     		ldrh	r3, [r7, #14]	@ movhi
+ 16686 001e 23F07F03 		bic	r3, r3, #127
+ 16687 0022 FB81     		strh	r3, [r7, #14]	@ movhi
+ 208:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   /* Set CAL[6:0] bits according to CalibrationValue value */
+ 209:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   tmpreg |= CalibrationValue;
+ 16688              		.loc 1 209 0
+ 16689 0024 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 16690 0026 9AB2     		uxth	r2, r3
+ 16691 0028 FB89     		ldrh	r3, [r7, #14]	@ movhi
+ 16692 002a 42EA0303 		orr	r3, r2, r3
+ 16693 002e FB81     		strh	r3, [r7, #14]	@ movhi
+ 210:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   /* Store the new value */
+ 211:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   BKP->RTCCR = tmpreg;
+ 16694              		.loc 1 211 0
+ 16695 0030 4FF4D843 		mov	r3, #27648
+ 16696 0034 C4F20003 		movt	r3, 16384
+ 16697 0038 FA89     		ldrh	r2, [r7, #14]	@ movhi
+ 16698 003a 9A85     		strh	r2, [r3, #44]	@ movhi
+ 212:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** }
+ 16699              		.loc 1 212 0
+ 16700 003c 07F11407 		add	r7, r7, #20
+ 16701 0040 BD46     		mov	sp, r7
+ 16702 0042 80BC     		pop	{r7}
+ 16703 0044 7047     		bx	lr
+ 16704              		.cfi_endproc
+ 16705              	.LFE34:
+ 16707 0046 00BF     		.section	.text.BKP_WriteBackupRegister,"ax",%progbits
+ 16708              		.align	2
+ 16709              		.global	BKP_WriteBackupRegister
+ 16710              		.thumb
+ 16711              		.thumb_func
+ 16713              	BKP_WriteBackupRegister:
+ 16714              	.LFB35:
+ 213:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** 
+ 214:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** /**
+ 215:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   * @brief  Writes user data to the specified Data Backup Register.
+ 216:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   * @param  BKP_DR: specifies the Data Backup Register.
+ 217:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   *   This parameter can be BKP_DRx where x:[1, 42]
+ 218:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   * @param  Data: data to write
+ 219:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   * @retval None
+ 220:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   */
+ 221:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** void BKP_WriteBackupRegister(uint16_t BKP_DR, uint16_t Data)
+ 222:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** {
+ 16715              		.loc 1 222 0
+ 16716              		.cfi_startproc
+ 16717              		@ args = 0, pretend = 0, frame = 16
+ 16718              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16719              		@ link register save eliminated.
+ 16720 0000 80B4     		push	{r7}
+ 16721              	.LCFI17:
+ 16722              		.cfi_def_cfa_offset 4
+ 16723 0002 85B0     		sub	sp, sp, #20
+ 16724              	.LCFI18:
+ 16725              		.cfi_def_cfa_offset 24
+ 16726 0004 00AF     		add	r7, sp, #0
+ 16727              		.cfi_offset 7, -4
+ 16728              	.LCFI19:
+ 16729              		.cfi_def_cfa_register 7
+ 16730 0006 0246     		mov	r2, r0
+ 16731 0008 0B46     		mov	r3, r1
+ 16732 000a FA80     		strh	r2, [r7, #6]	@ movhi
+ 16733 000c BB80     		strh	r3, [r7, #4]	@ movhi
+ 223:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   __IO uint32_t tmp = 0;
+ 16734              		.loc 1 223 0
+ 16735 000e 4FF00003 		mov	r3, #0
+ 16736 0012 FB60     		str	r3, [r7, #12]
+ 224:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** 
+ 225:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   /* Check the parameters */
+ 226:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   assert_param(IS_BKP_DR(BKP_DR));
+ 227:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** 
+ 228:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   tmp = (uint32_t)BKP_BASE; 
+ 16737              		.loc 1 228 0
+ 16738 0014 4FF4D843 		mov	r3, #27648
+ 16739 0018 C4F20003 		movt	r3, 16384
+ 16740 001c FB60     		str	r3, [r7, #12]
+ 229:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   tmp += BKP_DR;
+ 16741              		.loc 1 229 0
+ 16742 001e FA88     		ldrh	r2, [r7, #6]
+ 16743 0020 FB68     		ldr	r3, [r7, #12]
+ 16744 0022 D318     		adds	r3, r2, r3
+ 16745 0024 FB60     		str	r3, [r7, #12]
+ 230:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** 
+ 231:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   *(__IO uint32_t *) tmp = Data;
+ 16746              		.loc 1 231 0
+ 16747 0026 FB68     		ldr	r3, [r7, #12]
+ 16748 0028 BA88     		ldrh	r2, [r7, #4]
+ 16749 002a 1A60     		str	r2, [r3, #0]
+ 232:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** }
+ 16750              		.loc 1 232 0
+ 16751 002c 07F11407 		add	r7, r7, #20
+ 16752 0030 BD46     		mov	sp, r7
+ 16753 0032 80BC     		pop	{r7}
+ 16754 0034 7047     		bx	lr
+ 16755              		.cfi_endproc
+ 16756              	.LFE35:
+ 16758 0036 00BF     		.section	.text.BKP_ReadBackupRegister,"ax",%progbits
+ 16759              		.align	2
+ 16760              		.global	BKP_ReadBackupRegister
+ 16761              		.thumb
+ 16762              		.thumb_func
+ 16764              	BKP_ReadBackupRegister:
+ 16765              	.LFB36:
+ 233:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** 
+ 234:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** /**
+ 235:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   * @brief  Reads data from the specified Data Backup Register.
+ 236:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   * @param  BKP_DR: specifies the Data Backup Register.
+ 237:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   *   This parameter can be BKP_DRx where x:[1, 42]
+ 238:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   * @retval The content of the specified Data Backup Register
+ 239:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   */
+ 240:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** uint16_t BKP_ReadBackupRegister(uint16_t BKP_DR)
+ 241:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** {
+ 16766              		.loc 1 241 0
+ 16767              		.cfi_startproc
+ 16768              		@ args = 0, pretend = 0, frame = 16
+ 16769              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16770              		@ link register save eliminated.
+ 16771 0000 80B4     		push	{r7}
+ 16772              	.LCFI20:
+ 16773              		.cfi_def_cfa_offset 4
+ 16774 0002 85B0     		sub	sp, sp, #20
+ 16775              	.LCFI21:
+ 16776              		.cfi_def_cfa_offset 24
+ 16777 0004 00AF     		add	r7, sp, #0
+ 16778              		.cfi_offset 7, -4
+ 16779              	.LCFI22:
+ 16780              		.cfi_def_cfa_register 7
+ 16781 0006 0346     		mov	r3, r0
+ 16782 0008 FB80     		strh	r3, [r7, #6]	@ movhi
+ 242:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   __IO uint32_t tmp = 0;
+ 16783              		.loc 1 242 0
+ 16784 000a 4FF00003 		mov	r3, #0
+ 16785 000e FB60     		str	r3, [r7, #12]
+ 243:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** 
+ 244:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   /* Check the parameters */
+ 245:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   assert_param(IS_BKP_DR(BKP_DR));
+ 246:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** 
+ 247:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   tmp = (uint32_t)BKP_BASE; 
+ 16786              		.loc 1 247 0
+ 16787 0010 4FF4D843 		mov	r3, #27648
+ 16788 0014 C4F20003 		movt	r3, 16384
+ 16789 0018 FB60     		str	r3, [r7, #12]
+ 248:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   tmp += BKP_DR;
+ 16790              		.loc 1 248 0
+ 16791 001a FA88     		ldrh	r2, [r7, #6]
+ 16792 001c FB68     		ldr	r3, [r7, #12]
+ 16793 001e D318     		adds	r3, r2, r3
+ 16794 0020 FB60     		str	r3, [r7, #12]
+ 249:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** 
+ 250:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   return (*(__IO uint16_t *) tmp);
+ 16795              		.loc 1 250 0
+ 16796 0022 FB68     		ldr	r3, [r7, #12]
+ 16797 0024 1B88     		ldrh	r3, [r3, #0]	@ movhi
+ 16798 0026 9BB2     		uxth	r3, r3
+ 251:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** }
+ 16799              		.loc 1 251 0
+ 16800 0028 1846     		mov	r0, r3
+ 16801 002a 07F11407 		add	r7, r7, #20
+ 16802 002e BD46     		mov	sp, r7
+ 16803 0030 80BC     		pop	{r7}
+ 16804 0032 7047     		bx	lr
+ 16805              		.cfi_endproc
+ 16806              	.LFE36:
+ 16808              		.section	.text.BKP_GetFlagStatus,"ax",%progbits
+ 16809              		.align	2
+ 16810              		.global	BKP_GetFlagStatus
+ 16811              		.thumb
+ 16812              		.thumb_func
+ 16814              	BKP_GetFlagStatus:
+ 16815              	.LFB37:
+ 252:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** 
+ 253:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** /**
+ 254:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   * @brief  Checks whether the Tamper Pin Event flag is set or not.
+ 255:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   * @param  None
+ 256:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   * @retval The new state of the Tamper Pin Event flag (SET or RESET).
+ 257:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   */
+ 258:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** FlagStatus BKP_GetFlagStatus(void)
+ 259:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** {
+ 16816              		.loc 1 259 0
+ 16817              		.cfi_startproc
+ 16818              		@ args = 0, pretend = 0, frame = 0
+ 16819              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16820              		@ link register save eliminated.
+ 16821 0000 80B4     		push	{r7}
+ 16822              	.LCFI23:
+ 16823              		.cfi_def_cfa_offset 4
+ 16824 0002 00AF     		add	r7, sp, #0
+ 16825              		.cfi_offset 7, -4
+ 16826              	.LCFI24:
+ 16827              		.cfi_def_cfa_register 7
+ 260:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   return (FlagStatus)(*(__IO uint32_t *) CSR_TEF_BB);
+ 16828              		.loc 1 260 0
+ 16829 0004 48F2A063 		movw	r3, #34464
+ 16830 0008 C4F20D23 		movt	r3, 16909
+ 16831 000c 1B68     		ldr	r3, [r3, #0]
+ 16832 000e DBB2     		uxtb	r3, r3
+ 261:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** }
+ 16833              		.loc 1 261 0
+ 16834 0010 1846     		mov	r0, r3
+ 16835 0012 BD46     		mov	sp, r7
+ 16836 0014 80BC     		pop	{r7}
+ 16837 0016 7047     		bx	lr
+ 16838              		.cfi_endproc
+ 16839              	.LFE37:
+ 16841              		.section	.text.BKP_ClearFlag,"ax",%progbits
+ 16842              		.align	2
+ 16843              		.global	BKP_ClearFlag
+ 16844              		.thumb
+ 16845              		.thumb_func
+ 16847              	BKP_ClearFlag:
+ 16848              	.LFB38:
+ 262:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** 
+ 263:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** /**
+ 264:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   * @brief  Clears Tamper Pin Event pending flag.
+ 265:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   * @param  None
+ 266:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   * @retval None
+ 267:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   */
+ 268:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** void BKP_ClearFlag(void)
+ 269:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** {
+ 16849              		.loc 1 269 0
+ 16850              		.cfi_startproc
+ 16851              		@ args = 0, pretend = 0, frame = 0
+ 16852              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16853              		@ link register save eliminated.
+ 16854 0000 80B4     		push	{r7}
+ 16855              	.LCFI25:
+ 16856              		.cfi_def_cfa_offset 4
+ 16857 0002 00AF     		add	r7, sp, #0
+ 16858              		.cfi_offset 7, -4
+ 16859              	.LCFI26:
+ 16860              		.cfi_def_cfa_register 7
+ 270:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   /* Set CTE bit to clear Tamper Pin Event flag */
+ 271:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   BKP->CSR |= BKP_CSR_CTE;
+ 16861              		.loc 1 271 0
+ 16862 0004 4FF4D843 		mov	r3, #27648
+ 16863 0008 C4F20003 		movt	r3, 16384
+ 16864 000c 4FF4D842 		mov	r2, #27648
+ 16865 0010 C4F20002 		movt	r2, 16384
+ 16866 0014 928E     		ldrh	r2, [r2, #52]	@ movhi
+ 16867 0016 92B2     		uxth	r2, r2
+ 16868 0018 42F00102 		orr	r2, r2, #1
+ 16869 001c 92B2     		uxth	r2, r2
+ 16870 001e 9A86     		strh	r2, [r3, #52]	@ movhi
+ 272:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** }
+ 16871              		.loc 1 272 0
+ 16872 0020 BD46     		mov	sp, r7
+ 16873 0022 80BC     		pop	{r7}
+ 16874 0024 7047     		bx	lr
+ 16875              		.cfi_endproc
+ 16876              	.LFE38:
+ 16878 0026 00BF     		.section	.text.BKP_GetITStatus,"ax",%progbits
+ 16879              		.align	2
+ 16880              		.global	BKP_GetITStatus
+ 16881              		.thumb
+ 16882              		.thumb_func
+ 16884              	BKP_GetITStatus:
+ 16885              	.LFB39:
+ 273:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** 
+ 274:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** /**
+ 275:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   * @brief  Checks whether the Tamper Pin Interrupt has occurred or not.
+ 276:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   * @param  None
+ 277:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   * @retval The new state of the Tamper Pin Interrupt (SET or RESET).
+ 278:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   */
+ 279:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** ITStatus BKP_GetITStatus(void)
+ 280:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** {
+ 16886              		.loc 1 280 0
+ 16887              		.cfi_startproc
+ 16888              		@ args = 0, pretend = 0, frame = 0
+ 16889              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16890              		@ link register save eliminated.
+ 16891 0000 80B4     		push	{r7}
+ 16892              	.LCFI27:
+ 16893              		.cfi_def_cfa_offset 4
+ 16894 0002 00AF     		add	r7, sp, #0
+ 16895              		.cfi_offset 7, -4
+ 16896              	.LCFI28:
+ 16897              		.cfi_def_cfa_register 7
+ 281:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   return (ITStatus)(*(__IO uint32_t *) CSR_TIF_BB);
+ 16898              		.loc 1 281 0
+ 16899 0004 48F2A463 		movw	r3, #34468
+ 16900 0008 C4F20D23 		movt	r3, 16909
+ 16901 000c 1B68     		ldr	r3, [r3, #0]
+ 16902 000e DBB2     		uxtb	r3, r3
+ 282:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** }
+ 16903              		.loc 1 282 0
+ 16904 0010 1846     		mov	r0, r3
+ 16905 0012 BD46     		mov	sp, r7
+ 16906 0014 80BC     		pop	{r7}
+ 16907 0016 7047     		bx	lr
+ 16908              		.cfi_endproc
+ 16909              	.LFE39:
+ 16911              		.section	.text.BKP_ClearITPendingBit,"ax",%progbits
+ 16912              		.align	2
+ 16913              		.global	BKP_ClearITPendingBit
+ 16914              		.thumb
+ 16915              		.thumb_func
+ 16917              	BKP_ClearITPendingBit:
+ 16918              	.LFB40:
+ 283:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** 
+ 284:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** /**
+ 285:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   * @brief  Clears Tamper Pin Interrupt pending bit.
+ 286:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   * @param  None
+ 287:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   * @retval None
+ 288:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   */
+ 289:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** void BKP_ClearITPendingBit(void)
+ 290:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** {
+ 16919              		.loc 1 290 0
+ 16920              		.cfi_startproc
+ 16921              		@ args = 0, pretend = 0, frame = 0
+ 16922              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16923              		@ link register save eliminated.
+ 16924 0000 80B4     		push	{r7}
+ 16925              	.LCFI29:
+ 16926              		.cfi_def_cfa_offset 4
+ 16927 0002 00AF     		add	r7, sp, #0
+ 16928              		.cfi_offset 7, -4
+ 16929              	.LCFI30:
+ 16930              		.cfi_def_cfa_register 7
+ 291:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   /* Set CTI bit to clear Tamper Pin Interrupt pending bit */
+ 292:../target/stm32/stdperiph/src/stm32f10x_bkp.c ****   BKP->CSR |= BKP_CSR_CTI;
+ 16931              		.loc 1 292 0
+ 16932 0004 4FF4D843 		mov	r3, #27648
+ 16933 0008 C4F20003 		movt	r3, 16384
+ 16934 000c 4FF4D842 		mov	r2, #27648
+ 16935 0010 C4F20002 		movt	r2, 16384
+ 16936 0014 928E     		ldrh	r2, [r2, #52]	@ movhi
+ 16937 0016 92B2     		uxth	r2, r2
+ 16938 0018 42F00202 		orr	r2, r2, #2
+ 16939 001c 92B2     		uxth	r2, r2
+ 16940 001e 9A86     		strh	r2, [r3, #52]	@ movhi
+ 293:../target/stm32/stdperiph/src/stm32f10x_bkp.c **** }
+ 16941              		.loc 1 293 0
+ 16942 0020 BD46     		mov	sp, r7
+ 16943 0022 80BC     		pop	{r7}
+ 16944 0024 7047     		bx	lr
+ 16945              		.cfi_endproc
+ 16946              	.LFE40:
+ 16948 0026 00BF     		.text
+ 16949              	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 stm32f10x_bkp.c
+     /tmp/cc88Y2av.s:16452  .text.BKP_DeInit:00000000 $t
+     /tmp/cc88Y2av.s:16457  .text.BKP_DeInit:00000000 BKP_DeInit
+     /tmp/cc88Y2av.s:16483  .text.BKP_TamperPinLevelConfig:00000000 $t
+     /tmp/cc88Y2av.s:16488  .text.BKP_TamperPinLevelConfig:00000000 BKP_TamperPinLevelConfig
+     /tmp/cc88Y2av.s:16521  .text.BKP_TamperPinCmd:00000000 $t
+     /tmp/cc88Y2av.s:16526  .text.BKP_TamperPinCmd:00000000 BKP_TamperPinCmd
+     /tmp/cc88Y2av.s:16559  .text.BKP_ITConfig:00000000 $t
+     /tmp/cc88Y2av.s:16564  .text.BKP_ITConfig:00000000 BKP_ITConfig
+     /tmp/cc88Y2av.s:16597  .text.BKP_RTCOutputConfig:00000000 $t
+     /tmp/cc88Y2av.s:16602  .text.BKP_RTCOutputConfig:00000000 BKP_RTCOutputConfig
+     /tmp/cc88Y2av.s:16652  .text.BKP_SetRTCCalibrationValue:00000000 $t
+     /tmp/cc88Y2av.s:16657  .text.BKP_SetRTCCalibrationValue:00000000 BKP_SetRTCCalibrationValue
+     /tmp/cc88Y2av.s:16708  .text.BKP_WriteBackupRegister:00000000 $t
+     /tmp/cc88Y2av.s:16713  .text.BKP_WriteBackupRegister:00000000 BKP_WriteBackupRegister
+     /tmp/cc88Y2av.s:16759  .text.BKP_ReadBackupRegister:00000000 $t
+     /tmp/cc88Y2av.s:16764  .text.BKP_ReadBackupRegister:00000000 BKP_ReadBackupRegister
+     /tmp/cc88Y2av.s:16809  .text.BKP_GetFlagStatus:00000000 $t
+     /tmp/cc88Y2av.s:16814  .text.BKP_GetFlagStatus:00000000 BKP_GetFlagStatus
+     /tmp/cc88Y2av.s:16842  .text.BKP_ClearFlag:00000000 $t
+     /tmp/cc88Y2av.s:16847  .text.BKP_ClearFlag:00000000 BKP_ClearFlag
+     /tmp/cc88Y2av.s:16879  .text.BKP_GetITStatus:00000000 $t
+     /tmp/cc88Y2av.s:16884  .text.BKP_GetITStatus:00000000 BKP_GetITStatus
+     /tmp/cc88Y2av.s:16912  .text.BKP_ClearITPendingBit:00000000 $t
+     /tmp/cc88Y2av.s:16917  .text.BKP_ClearITPendingBit:00000000 BKP_ClearITPendingBit
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+RCC_BackupResetCmd

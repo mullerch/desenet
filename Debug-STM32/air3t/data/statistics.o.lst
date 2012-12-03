@@ -1,0 +1,835 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"statistics.cpp"
+  23              	.Ltext0:
+  24              		.file 1 "../air3t/data/statistics.cpp"
+ 3915              		.align	2
+ 3916              		.thumb
+ 3917              		.thumb_func
+ 3919              	_ZL20__gthread_key_deletei:
+ 3920              	.LFB433:
+   1:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Threads compatibility routines for libgcc2 and libobjc.  */
+   2:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Compile this one with gcc.  */
+   3:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Copyright (C) 1997, 1999, 2000, 2004, 2008, 2009
+   4:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****    Free Software Foundation, Inc.
+   5:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+   6:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** This file is part of GCC.
+   7:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+   8:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** GCC is free software; you can redistribute it and/or modify it under
+   9:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** the terms of the GNU General Public License as published by the Free
+  10:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** Software Foundation; either version 3, or (at your option) any later
+  11:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** version.
+  12:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  13:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** GCC is distributed in the hope that it will be useful, but WITHOUT ANY
+  14:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** WARRANTY; without even the implied warranty of MERCHANTABILITY or
+  15:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+  16:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** for more details.
+  17:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  18:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** Under Section 7 of GPL version 3, you are granted additional
+  19:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** permissions described in the GCC Runtime Library Exception, version
+  20:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 3.1, as published by the Free Software Foundation.
+  21:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  22:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** You should have received a copy of the GNU General Public License and
+  23:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** a copy of the GCC Runtime Library Exception along with this program;
+  24:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
+  25:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** <http://www.gnu.org/licenses/>.  */
+  26:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  27:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** #ifndef _GLIBCXX_GCC_GTHR_SINGLE_H
+  28:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** #define _GLIBCXX_GCC_GTHR_SINGLE_H
+  29:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  30:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Just provide compatibility for mutex handling.  */
+  31:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  32:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** typedef int __gthread_key_t;
+  33:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** typedef int __gthread_once_t;
+  34:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** typedef int __gthread_mutex_t;
+  35:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** typedef int __gthread_recursive_mutex_t;
+  36:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  37:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** #define __GTHREAD_ONCE_INIT 0
+  38:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** #define __GTHREAD_MUTEX_INIT 0
+  39:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** #define __GTHREAD_RECURSIVE_MUTEX_INIT 0
+  40:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  41:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** #define _GLIBCXX_UNUSED __attribute__((unused))
+  42:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  43:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** #ifdef _LIBOBJC
+  44:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  45:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Thread local storage for a single thread */
+  46:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static void *thread_local_storage = NULL;
+  47:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  48:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Backend initialization functions */
+  49:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  50:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Initialize the threads subsystem.  */
+  51:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+  52:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_init_thread_system (void)
+  53:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+  54:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   /* No thread support available */
+  55:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return -1;
+  56:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+  57:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  58:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Close the threads subsystem.  */
+  59:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+  60:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_close_thread_system (void)
+  61:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+  62:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   /* No thread support available */
+  63:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return -1;
+  64:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+  65:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  66:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Backend thread functions */
+  67:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  68:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Create a new thread of execution.  */
+  69:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline objc_thread_t
+  70:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_thread_detach (void (* func)(void *), void * arg _GLIBCXX_UNUSED)
+  71:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+  72:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   /* No thread support available */
+  73:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return NULL;
+  74:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+  75:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  76:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Set the current thread's priority.  */
+  77:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+  78:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_thread_set_priority (int priority _GLIBCXX_UNUSED)
+  79:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+  80:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   /* No thread support available */
+  81:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return -1;
+  82:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+  83:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  84:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Return the current thread's priority.  */
+  85:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+  86:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_thread_get_priority (void)
+  87:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+  88:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return OBJC_THREAD_INTERACTIVE_PRIORITY;
+  89:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+  90:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  91:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Yield our process time to another thread.  */
+  92:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline void
+  93:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_thread_yield (void)
+  94:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+  95:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return;
+  96:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+  97:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  98:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Terminate the current thread.  */
+  99:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+ 100:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_thread_exit (void)
+ 101:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 102:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   /* No thread support available */
+ 103:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   /* Should we really exit the program */
+ 104:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   /* exit (&__objc_thread_exit_status); */
+ 105:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return -1;
+ 106:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 107:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 108:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Returns an integer value which uniquely describes a thread.  */
+ 109:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline objc_thread_t
+ 110:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_thread_id (void)
+ 111:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 112:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   /* No thread support, use 1.  */
+ 113:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return (objc_thread_t) 1;
+ 114:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 115:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 116:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Sets the thread's local storage pointer.  */
+ 117:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+ 118:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_thread_set_data (void *value)
+ 119:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 120:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   thread_local_storage = value;
+ 121:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return 0;
+ 122:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 123:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 124:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Returns the thread's local storage pointer.  */
+ 125:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline void *
+ 126:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_thread_get_data (void)
+ 127:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 128:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return thread_local_storage;
+ 129:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 130:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 131:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Backend mutex functions */
+ 132:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 133:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Allocate a mutex.  */
+ 134:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+ 135:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_mutex_allocate (objc_mutex_t mutex _GLIBCXX_UNUSED)
+ 136:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 137:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return 0;
+ 138:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 139:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 140:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Deallocate a mutex.  */
+ 141:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+ 142:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_mutex_deallocate (objc_mutex_t mutex _GLIBCXX_UNUSED)
+ 143:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 144:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return 0;
+ 145:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 146:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 147:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Grab a lock on a mutex.  */
+ 148:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+ 149:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_mutex_lock (objc_mutex_t mutex _GLIBCXX_UNUSED)
+ 150:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 151:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   /* There can only be one thread, so we always get the lock */
+ 152:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return 0;
+ 153:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 154:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 155:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Try to grab a lock on a mutex.  */
+ 156:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+ 157:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_mutex_trylock (objc_mutex_t mutex _GLIBCXX_UNUSED)
+ 158:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 159:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   /* There can only be one thread, so we always get the lock */
+ 160:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return 0;
+ 161:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 162:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 163:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Unlock the mutex */
+ 164:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+ 165:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_mutex_unlock (objc_mutex_t mutex _GLIBCXX_UNUSED)
+ 166:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 167:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return 0;
+ 168:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 169:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 170:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Backend condition mutex functions */
+ 171:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 172:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Allocate a condition.  */
+ 173:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+ 174:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_condition_allocate (objc_condition_t condition _GLIBCXX_UNUSED)
+ 175:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 176:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return 0;
+ 177:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 178:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 179:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Deallocate a condition.  */
+ 180:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+ 181:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_condition_deallocate (objc_condition_t condition _GLIBCXX_UNUSED)
+ 182:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 183:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return 0;
+ 184:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 185:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 186:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Wait on the condition */
+ 187:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+ 188:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_condition_wait (objc_condition_t condition _GLIBCXX_UNUSED,
+ 189:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 			       objc_mutex_t mutex _GLIBCXX_UNUSED)
+ 190:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 191:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return 0;
+ 192:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 193:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 194:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Wake up all threads waiting on this condition.  */
+ 195:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+ 196:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_condition_broadcast (objc_condition_t condition _GLIBCXX_UNUSED)
+ 197:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 198:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return 0;
+ 199:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 200:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 201:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Wake up one thread waiting on this condition.  */
+ 202:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+ 203:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_condition_signal (objc_condition_t condition _GLIBCXX_UNUSED)
+ 204:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 205:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return 0;
+ 206:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 207:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 208:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** #else /* _LIBOBJC */
+ 209:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 210:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+ 211:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_active_p (void)
+ 212:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 213:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return 0;
+ 214:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 215:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 216:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+ 217:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_once (__gthread_once_t *__once _GLIBCXX_UNUSED, void (*__func) (void) _GLIBCXX_UNUSED)
+ 218:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 219:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return 0;
+ 220:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 221:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 222:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int _GLIBCXX_UNUSED
+ 223:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_key_create (__gthread_key_t *__key _GLIBCXX_UNUSED, void (*__func) (void *) _GLIBCXX_UNUS
+ 224:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 225:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return 0;
+ 226:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 227:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 228:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static int _GLIBCXX_UNUSED
+ 229:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_key_delete (__gthread_key_t __key _GLIBCXX_UNUSED)
+ 230:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 3921              		.loc 70 230 0
+ 3922              		.cfi_startproc
+ 3923              		@ args = 0, pretend = 0, frame = 8
+ 3924              		@ frame_needed = 1, uses_anonymous_args = 0
+ 3925              		@ link register save eliminated.
+ 3926 0000 80B4     		push	{r7}
+ 3927              	.LCFI0:
+ 3928              		.cfi_def_cfa_offset 4
+ 3929 0002 83B0     		sub	sp, sp, #12
+ 3930              	.LCFI1:
+ 3931              		.cfi_def_cfa_offset 16
+ 3932 0004 00AF     		add	r7, sp, #0
+ 3933              		.cfi_offset 7, -4
+ 3934              	.LCFI2:
+ 3935              		.cfi_def_cfa_register 7
+ 3936 0006 7860     		str	r0, [r7, #4]
+ 231:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return 0;
+ 3937              		.loc 70 231 0
+ 3938 0008 4FF00003 		mov	r3, #0
+ 232:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 3939              		.loc 70 232 0
+ 3940 000c 1846     		mov	r0, r3
+ 3941 000e 07F10C07 		add	r7, r7, #12
+ 3942 0012 BD46     		mov	sp, r7
+ 3943 0014 80BC     		pop	{r7}
+ 3944 0016 7047     		bx	lr
+ 3945              		.cfi_endproc
+ 3946              	.LFE433:
+ 3948              		.section	.text._ZN5Air3T10StatisticsC2ERNS_5ModelE,"ax",%progbits
+ 3949              		.align	2
+ 3950              		.global	_ZN5Air3T10StatisticsC2ERNS_5ModelE
+ 3951              		.thumb
+ 3952              		.thumb_func
+ 3954              	_ZN5Air3T10StatisticsC2ERNS_5ModelE:
+ 3955              	.LFB865:
+   1:../air3t/data/statistics.cpp **** #include "Statistics"
+   2:../air3t/data/statistics.cpp **** #include "Model"
+   3:../air3t/data/statistics.cpp **** 
+   4:../air3t/data/statistics.cpp **** namespace Air3T
+   5:../air3t/data/statistics.cpp **** {
+   6:../air3t/data/statistics.cpp **** 	Statistics::Statistics( Model & model ) : _model( model )
+ 3956              		.loc 1 6 0
+ 3957              		.cfi_startproc
+ 3958              		@ args = 0, pretend = 0, frame = 8
+ 3959              		@ frame_needed = 1, uses_anonymous_args = 0
+ 3960 0000 80B5     		push	{r7, lr}
+ 3961              	.LCFI3:
+ 3962              		.cfi_def_cfa_offset 8
+ 3963 0002 82B0     		sub	sp, sp, #8
+ 3964              	.LCFI4:
+ 3965              		.cfi_def_cfa_offset 16
+ 3966 0004 00AF     		add	r7, sp, #0
+ 3967              		.cfi_offset 14, -4
+ 3968              		.cfi_offset 7, -8
+ 3969              	.LCFI5:
+ 3970              		.cfi_def_cfa_register 7
+ 3971 0006 7860     		str	r0, [r7, #4]
+ 3972 0008 3960     		str	r1, [r7, #0]
+ 3973              	.LBB2:
+ 3974              		.loc 1 6 0
+ 3975 000a 7B68     		ldr	r3, [r7, #4]
+ 3976 000c 064A     		ldr	r2, .L4
+ 3977 000e 1A60     		str	r2, [r3, #0]
+ 3978 0010 7B68     		ldr	r3, [r7, #4]
+ 3979 0012 3A68     		ldr	r2, [r7, #0]
+ 3980 0014 1A61     		str	r2, [r3, #16]
+   7:../air3t/data/statistics.cpp **** 	{
+   8:../air3t/data/statistics.cpp **** 		reset();
+ 3981              		.loc 1 8 0
+ 3982 0016 7868     		ldr	r0, [r7, #4]
+ 3983 0018 FFF7FEFF 		bl	_ZN5Air3T10Statistics5resetEv
+ 3984              	.LBE2:
+   9:../air3t/data/statistics.cpp **** 	}
+ 3985              		.loc 1 9 0
+ 3986 001c 7B68     		ldr	r3, [r7, #4]
+ 3987 001e 1846     		mov	r0, r3
+ 3988 0020 07F10807 		add	r7, r7, #8
+ 3989 0024 BD46     		mov	sp, r7
+ 3990 0026 80BD     		pop	{r7, pc}
+ 3991              	.L5:
+ 3992              		.align	2
+ 3993              	.L4:
+ 3994 0028 08000000 		.word	_ZTVN5Air3T10StatisticsE+8
+ 3995              		.cfi_endproc
+ 3996              	.LFE865:
+ 3998              		.global	_ZN5Air3T10StatisticsC1ERNS_5ModelE
+ 3999              		.thumb_set _ZN5Air3T10StatisticsC1ERNS_5ModelE,_ZN5Air3T10StatisticsC2ERNS_5ModelE
+ 4000              		.section	.text._ZN5Air3T10StatisticsD2Ev,"ax",%progbits
+ 4001              		.align	2
+ 4002              		.global	_ZN5Air3T10StatisticsD2Ev
+ 4003              		.thumb
+ 4004              		.thumb_func
+ 4006              	_ZN5Air3T10StatisticsD2Ev:
+ 4007              	.LFB868:
+  10:../air3t/data/statistics.cpp **** 
+  11:../air3t/data/statistics.cpp **** 	Statistics::~Statistics()
+ 4008              		.loc 1 11 0
+ 4009              		.cfi_startproc
+ 4010              		@ args = 0, pretend = 0, frame = 8
+ 4011              		@ frame_needed = 1, uses_anonymous_args = 0
+ 4012 0000 80B5     		push	{r7, lr}
+ 4013              	.LCFI6:
+ 4014              		.cfi_def_cfa_offset 8
+ 4015 0002 82B0     		sub	sp, sp, #8
+ 4016              	.LCFI7:
+ 4017              		.cfi_def_cfa_offset 16
+ 4018 0004 00AF     		add	r7, sp, #0
+ 4019              		.cfi_offset 14, -4
+ 4020              		.cfi_offset 7, -8
+ 4021              	.LCFI8:
+ 4022              		.cfi_def_cfa_register 7
+ 4023 0006 7860     		str	r0, [r7, #4]
+ 4024              	.LBB3:
+ 4025              		.loc 1 11 0
+ 4026 0008 7B68     		ldr	r3, [r7, #4]
+ 4027 000a 094A     		ldr	r2, .L9
+ 4028 000c 1A60     		str	r2, [r3, #0]
+ 4029              	.LBE3:
+  12:../air3t/data/statistics.cpp **** 	{}
+ 4030              		.loc 1 12 0
+ 4031 000e 4FF00003 		mov	r3, #0
+ 4032 0012 03F00103 		and	r3, r3, #1
+ 4033 0016 DBB2     		uxtb	r3, r3
+ 4034 0018 002B     		cmp	r3, #0
+ 4035 001a 02D0     		beq	.L8
+ 4036              		.loc 1 12 0 is_stmt 0 discriminator 1
+ 4037 001c 7868     		ldr	r0, [r7, #4]
+ 4038 001e FFF7FEFF 		bl	_ZdlPv
+ 4039              	.L8:
+ 4040              		.loc 1 12 0 discriminator 2
+ 4041 0022 7B68     		ldr	r3, [r7, #4]
+ 4042 0024 1846     		mov	r0, r3
+ 4043 0026 07F10807 		add	r7, r7, #8
+ 4044 002a BD46     		mov	sp, r7
+ 4045 002c 80BD     		pop	{r7, pc}
+ 4046              	.L10:
+ 4047 002e 00BF     		.align	2
+ 4048              	.L9:
+ 4049 0030 08000000 		.word	_ZTVN5Air3T10StatisticsE+8
+ 4050              		.cfi_endproc
+ 4051              	.LFE868:
+ 4053              		.global	_ZN5Air3T10StatisticsD1Ev
+ 4054              		.thumb_set _ZN5Air3T10StatisticsD1Ev,_ZN5Air3T10StatisticsD2Ev
+ 4055              		.section	.text._ZN5Air3T10StatisticsD0Ev,"ax",%progbits
+ 4056              		.align	2
+ 4057              		.global	_ZN5Air3T10StatisticsD0Ev
+ 4058              		.thumb
+ 4059              		.thumb_func
+ 4061              	_ZN5Air3T10StatisticsD0Ev:
+ 4062              	.LFB870:
+  11:../air3t/data/statistics.cpp **** 	Statistics::~Statistics()
+ 4063              		.loc 1 11 0 is_stmt 1
+ 4064              		.cfi_startproc
+ 4065              		@ args = 0, pretend = 0, frame = 8
+ 4066              		@ frame_needed = 1, uses_anonymous_args = 0
+ 4067 0000 80B5     		push	{r7, lr}
+ 4068              	.LCFI9:
+ 4069              		.cfi_def_cfa_offset 8
+ 4070 0002 82B0     		sub	sp, sp, #8
+ 4071              	.LCFI10:
+ 4072              		.cfi_def_cfa_offset 16
+ 4073 0004 00AF     		add	r7, sp, #0
+ 4074              		.cfi_offset 14, -4
+ 4075              		.cfi_offset 7, -8
+ 4076              	.LCFI11:
+ 4077              		.cfi_def_cfa_register 7
+ 4078 0006 7860     		str	r0, [r7, #4]
+ 4079              		.loc 1 12 0
+ 4080 0008 7868     		ldr	r0, [r7, #4]
+ 4081 000a FFF7FEFF 		bl	_ZN5Air3T10StatisticsD1Ev
+ 4082 000e 7868     		ldr	r0, [r7, #4]
+ 4083 0010 FFF7FEFF 		bl	_ZdlPv
+ 4084 0014 7B68     		ldr	r3, [r7, #4]
+ 4085 0016 1846     		mov	r0, r3
+ 4086 0018 07F10807 		add	r7, r7, #8
+ 4087 001c BD46     		mov	sp, r7
+ 4088 001e 80BD     		pop	{r7, pc}
+ 4089              		.cfi_endproc
+ 4090              	.LFE870:
+ 4092              		.section	.text._ZNK5Air3T10Statistics11gamesPlayedEv,"ax",%progbits
+ 4093              		.align	2
+ 4094              		.global	_ZNK5Air3T10Statistics11gamesPlayedEv
+ 4095              		.thumb
+ 4096              		.thumb_func
+ 4098              	_ZNK5Air3T10Statistics11gamesPlayedEv:
+ 4099              	.LFB871:
+  13:../air3t/data/statistics.cpp **** 
+  14:../air3t/data/statistics.cpp **** 	int Statistics::gamesPlayed() const
+  15:../air3t/data/statistics.cpp **** 	{
+ 4100              		.loc 1 15 0
+ 4101              		.cfi_startproc
+ 4102              		@ args = 0, pretend = 0, frame = 8
+ 4103              		@ frame_needed = 1, uses_anonymous_args = 0
+ 4104              		@ link register save eliminated.
+ 4105 0000 80B4     		push	{r7}
+ 4106              	.LCFI12:
+ 4107              		.cfi_def_cfa_offset 4
+ 4108 0002 83B0     		sub	sp, sp, #12
+ 4109              	.LCFI13:
+ 4110              		.cfi_def_cfa_offset 16
+ 4111 0004 00AF     		add	r7, sp, #0
+ 4112              		.cfi_offset 7, -4
+ 4113              	.LCFI14:
+ 4114              		.cfi_def_cfa_register 7
+ 4115 0006 7860     		str	r0, [r7, #4]
+  16:../air3t/data/statistics.cpp **** 		return _won + _tie + _lost;
+ 4116              		.loc 1 16 0
+ 4117 0008 7B68     		ldr	r3, [r7, #4]
+ 4118 000a 5A68     		ldr	r2, [r3, #4]
+ 4119 000c 7B68     		ldr	r3, [r7, #4]
+ 4120 000e 9B68     		ldr	r3, [r3, #8]
+ 4121 0010 D218     		adds	r2, r2, r3
+ 4122 0012 7B68     		ldr	r3, [r7, #4]
+ 4123 0014 DB68     		ldr	r3, [r3, #12]
+ 4124 0016 D318     		adds	r3, r2, r3
+  17:../air3t/data/statistics.cpp **** 	}
+ 4125              		.loc 1 17 0
+ 4126 0018 1846     		mov	r0, r3
+ 4127 001a 07F10C07 		add	r7, r7, #12
+ 4128 001e BD46     		mov	sp, r7
+ 4129 0020 80BC     		pop	{r7}
+ 4130 0022 7047     		bx	lr
+ 4131              		.cfi_endproc
+ 4132              	.LFE871:
+ 4134              		.section	.text._ZNK5Air3T10Statistics8gamesWonEv,"ax",%progbits
+ 4135              		.align	2
+ 4136              		.global	_ZNK5Air3T10Statistics8gamesWonEv
+ 4137              		.thumb
+ 4138              		.thumb_func
+ 4140              	_ZNK5Air3T10Statistics8gamesWonEv:
+ 4141              	.LFB872:
+  18:../air3t/data/statistics.cpp **** 
+  19:../air3t/data/statistics.cpp **** 	int Statistics::gamesWon() const
+  20:../air3t/data/statistics.cpp **** 	{
+ 4142              		.loc 1 20 0
+ 4143              		.cfi_startproc
+ 4144              		@ args = 0, pretend = 0, frame = 8
+ 4145              		@ frame_needed = 1, uses_anonymous_args = 0
+ 4146              		@ link register save eliminated.
+ 4147 0000 80B4     		push	{r7}
+ 4148              	.LCFI15:
+ 4149              		.cfi_def_cfa_offset 4
+ 4150 0002 83B0     		sub	sp, sp, #12
+ 4151              	.LCFI16:
+ 4152              		.cfi_def_cfa_offset 16
+ 4153 0004 00AF     		add	r7, sp, #0
+ 4154              		.cfi_offset 7, -4
+ 4155              	.LCFI17:
+ 4156              		.cfi_def_cfa_register 7
+ 4157 0006 7860     		str	r0, [r7, #4]
+  21:../air3t/data/statistics.cpp **** 		return _won;
+ 4158              		.loc 1 21 0
+ 4159 0008 7B68     		ldr	r3, [r7, #4]
+ 4160 000a 5B68     		ldr	r3, [r3, #4]
+  22:../air3t/data/statistics.cpp **** 	}
+ 4161              		.loc 1 22 0
+ 4162 000c 1846     		mov	r0, r3
+ 4163 000e 07F10C07 		add	r7, r7, #12
+ 4164 0012 BD46     		mov	sp, r7
+ 4165 0014 80BC     		pop	{r7}
+ 4166 0016 7047     		bx	lr
+ 4167              		.cfi_endproc
+ 4168              	.LFE872:
+ 4170              		.section	.text._ZN5Air3T10Statistics17incrementGamesWonEv,"ax",%progbits
+ 4171              		.align	2
+ 4172              		.global	_ZN5Air3T10Statistics17incrementGamesWonEv
+ 4173              		.thumb
+ 4174              		.thumb_func
+ 4176              	_ZN5Air3T10Statistics17incrementGamesWonEv:
+ 4177              	.LFB873:
+  23:../air3t/data/statistics.cpp **** 
+  24:../air3t/data/statistics.cpp **** 	void Statistics::incrementGamesWon()
+  25:../air3t/data/statistics.cpp **** 	{
+ 4178              		.loc 1 25 0
+ 4179              		.cfi_startproc
+ 4180              		@ args = 0, pretend = 0, frame = 8
+ 4181              		@ frame_needed = 1, uses_anonymous_args = 0
+ 4182 0000 80B5     		push	{r7, lr}
+ 4183              	.LCFI18:
+ 4184              		.cfi_def_cfa_offset 8
+ 4185 0002 82B0     		sub	sp, sp, #8
+ 4186              	.LCFI19:
+ 4187              		.cfi_def_cfa_offset 16
+ 4188 0004 00AF     		add	r7, sp, #0
+ 4189              		.cfi_offset 14, -4
+ 4190              		.cfi_offset 7, -8
+ 4191              	.LCFI20:
+ 4192              		.cfi_def_cfa_register 7
+ 4193 0006 7860     		str	r0, [r7, #4]
+  26:../air3t/data/statistics.cpp **** 		++_won;
+ 4194              		.loc 1 26 0
+ 4195 0008 7B68     		ldr	r3, [r7, #4]
+ 4196 000a 5B68     		ldr	r3, [r3, #4]
+ 4197 000c 03F10102 		add	r2, r3, #1
+ 4198 0010 7B68     		ldr	r3, [r7, #4]
+ 4199 0012 5A60     		str	r2, [r3, #4]
+  27:../air3t/data/statistics.cpp **** 		_model._update( Model::StatisticsSection );
+ 4200              		.loc 1 27 0
+ 4201 0014 7B68     		ldr	r3, [r7, #4]
+ 4202 0016 1B69     		ldr	r3, [r3, #16]
+ 4203 0018 1846     		mov	r0, r3
+ 4204 001a 4FF00301 		mov	r1, #3
+ 4205 001e FFF7FEFF 		bl	_ZN5Air3T5Model7_updateEi
+  28:../air3t/data/statistics.cpp **** 	}
+ 4206              		.loc 1 28 0
+ 4207 0022 07F10807 		add	r7, r7, #8
+ 4208 0026 BD46     		mov	sp, r7
+ 4209 0028 80BD     		pop	{r7, pc}
+ 4210              		.cfi_endproc
+ 4211              	.LFE873:
+ 4213 002a 00BF     		.section	.text._ZNK5Air3T10Statistics8gamesTieEv,"ax",%progbits
+ 4214              		.align	2
+ 4215              		.global	_ZNK5Air3T10Statistics8gamesTieEv
+ 4216              		.thumb
+ 4217              		.thumb_func
+ 4219              	_ZNK5Air3T10Statistics8gamesTieEv:
+ 4220              	.LFB874:
+  29:../air3t/data/statistics.cpp **** 
+  30:../air3t/data/statistics.cpp **** 	int Statistics::gamesTie() const
+  31:../air3t/data/statistics.cpp **** 	{
+ 4221              		.loc 1 31 0
+ 4222              		.cfi_startproc
+ 4223              		@ args = 0, pretend = 0, frame = 8
+ 4224              		@ frame_needed = 1, uses_anonymous_args = 0
+ 4225              		@ link register save eliminated.
+ 4226 0000 80B4     		push	{r7}
+ 4227              	.LCFI21:
+ 4228              		.cfi_def_cfa_offset 4
+ 4229 0002 83B0     		sub	sp, sp, #12
+ 4230              	.LCFI22:
+ 4231              		.cfi_def_cfa_offset 16
+ 4232 0004 00AF     		add	r7, sp, #0
+ 4233              		.cfi_offset 7, -4
+ 4234              	.LCFI23:
+ 4235              		.cfi_def_cfa_register 7
+ 4236 0006 7860     		str	r0, [r7, #4]
+  32:../air3t/data/statistics.cpp **** 		return _tie;
+ 4237              		.loc 1 32 0
+ 4238 0008 7B68     		ldr	r3, [r7, #4]
+ 4239 000a 9B68     		ldr	r3, [r3, #8]
+  33:../air3t/data/statistics.cpp **** 	}
+ 4240              		.loc 1 33 0
+ 4241 000c 1846     		mov	r0, r3
+ 4242 000e 07F10C07 		add	r7, r7, #12
+ 4243 0012 BD46     		mov	sp, r7
+ 4244 0014 80BC     		pop	{r7}
+ 4245 0016 7047     		bx	lr
+ 4246              		.cfi_endproc
+ 4247              	.LFE874:
+ 4249              		.section	.text._ZN5Air3T10Statistics17incrementGamesTieEv,"ax",%progbits
+ 4250              		.align	2
+ 4251              		.global	_ZN5Air3T10Statistics17incrementGamesTieEv
+ 4252              		.thumb
+ 4253              		.thumb_func
+ 4255              	_ZN5Air3T10Statistics17incrementGamesTieEv:
+ 4256              	.LFB875:
+  34:../air3t/data/statistics.cpp **** 
+  35:../air3t/data/statistics.cpp **** 	void Statistics::incrementGamesTie()
+  36:../air3t/data/statistics.cpp **** 	{
+ 4257              		.loc 1 36 0
+ 4258              		.cfi_startproc
+ 4259              		@ args = 0, pretend = 0, frame = 8
+ 4260              		@ frame_needed = 1, uses_anonymous_args = 0
+ 4261 0000 80B5     		push	{r7, lr}
+ 4262              	.LCFI24:
+ 4263              		.cfi_def_cfa_offset 8
+ 4264 0002 82B0     		sub	sp, sp, #8
+ 4265              	.LCFI25:
+ 4266              		.cfi_def_cfa_offset 16
+ 4267 0004 00AF     		add	r7, sp, #0
+ 4268              		.cfi_offset 14, -4
+ 4269              		.cfi_offset 7, -8
+ 4270              	.LCFI26:
+ 4271              		.cfi_def_cfa_register 7
+ 4272 0006 7860     		str	r0, [r7, #4]
+  37:../air3t/data/statistics.cpp **** 		++_tie;
+ 4273              		.loc 1 37 0
+ 4274 0008 7B68     		ldr	r3, [r7, #4]
+ 4275 000a 9B68     		ldr	r3, [r3, #8]
+ 4276 000c 03F10102 		add	r2, r3, #1
+ 4277 0010 7B68     		ldr	r3, [r7, #4]
+ 4278 0012 9A60     		str	r2, [r3, #8]
+  38:../air3t/data/statistics.cpp **** 		_model._update( Model::StatisticsSection );
+ 4279              		.loc 1 38 0
+ 4280 0014 7B68     		ldr	r3, [r7, #4]
+ 4281 0016 1B69     		ldr	r3, [r3, #16]
+ 4282 0018 1846     		mov	r0, r3
+ 4283 001a 4FF00301 		mov	r1, #3
+ 4284 001e FFF7FEFF 		bl	_ZN5Air3T5Model7_updateEi
+  39:../air3t/data/statistics.cpp **** 	}
+ 4285              		.loc 1 39 0
+ 4286 0022 07F10807 		add	r7, r7, #8
+ 4287 0026 BD46     		mov	sp, r7
+ 4288 0028 80BD     		pop	{r7, pc}
+ 4289              		.cfi_endproc
+ 4290              	.LFE875:
+ 4292 002a 00BF     		.section	.text._ZNK5Air3T10Statistics9gamesLostEv,"ax",%progbits
+ 4293              		.align	2
+ 4294              		.global	_ZNK5Air3T10Statistics9gamesLostEv
+ 4295              		.thumb
+ 4296              		.thumb_func
+ 4298              	_ZNK5Air3T10Statistics9gamesLostEv:
+ 4299              	.LFB876:
+  40:../air3t/data/statistics.cpp **** 
+  41:../air3t/data/statistics.cpp **** 	int Statistics::gamesLost() const
+  42:../air3t/data/statistics.cpp **** 	{
+ 4300              		.loc 1 42 0
+ 4301              		.cfi_startproc
+ 4302              		@ args = 0, pretend = 0, frame = 8
+ 4303              		@ frame_needed = 1, uses_anonymous_args = 0
+ 4304              		@ link register save eliminated.
+ 4305 0000 80B4     		push	{r7}
+ 4306              	.LCFI27:
+ 4307              		.cfi_def_cfa_offset 4
+ 4308 0002 83B0     		sub	sp, sp, #12
+ 4309              	.LCFI28:
+ 4310              		.cfi_def_cfa_offset 16
+ 4311 0004 00AF     		add	r7, sp, #0
+ 4312              		.cfi_offset 7, -4
+ 4313              	.LCFI29:
+ 4314              		.cfi_def_cfa_register 7
+ 4315 0006 7860     		str	r0, [r7, #4]
+  43:../air3t/data/statistics.cpp **** 		return _lost;
+ 4316              		.loc 1 43 0
+ 4317 0008 7B68     		ldr	r3, [r7, #4]
+ 4318 000a DB68     		ldr	r3, [r3, #12]
+  44:../air3t/data/statistics.cpp **** 	}
+ 4319              		.loc 1 44 0
+ 4320 000c 1846     		mov	r0, r3
+ 4321 000e 07F10C07 		add	r7, r7, #12
+ 4322 0012 BD46     		mov	sp, r7
+ 4323 0014 80BC     		pop	{r7}
+ 4324 0016 7047     		bx	lr
+ 4325              		.cfi_endproc
+ 4326              	.LFE876:
+ 4328              		.section	.text._ZN5Air3T10Statistics18incrementGamesLostEv,"ax",%progbits
+ 4329              		.align	2
+ 4330              		.global	_ZN5Air3T10Statistics18incrementGamesLostEv
+ 4331              		.thumb
+ 4332              		.thumb_func
+ 4334              	_ZN5Air3T10Statistics18incrementGamesLostEv:
+ 4335              	.LFB877:
+  45:../air3t/data/statistics.cpp **** 
+  46:../air3t/data/statistics.cpp **** 	void Statistics::incrementGamesLost()
+  47:../air3t/data/statistics.cpp **** 	{
+ 4336              		.loc 1 47 0
+ 4337              		.cfi_startproc
+ 4338              		@ args = 0, pretend = 0, frame = 8
+ 4339              		@ frame_needed = 1, uses_anonymous_args = 0
+ 4340 0000 80B5     		push	{r7, lr}
+ 4341              	.LCFI30:
+ 4342              		.cfi_def_cfa_offset 8
+ 4343 0002 82B0     		sub	sp, sp, #8
+ 4344              	.LCFI31:
+ 4345              		.cfi_def_cfa_offset 16
+ 4346 0004 00AF     		add	r7, sp, #0
+ 4347              		.cfi_offset 14, -4
+ 4348              		.cfi_offset 7, -8
+ 4349              	.LCFI32:
+ 4350              		.cfi_def_cfa_register 7
+ 4351 0006 7860     		str	r0, [r7, #4]
+  48:../air3t/data/statistics.cpp **** 		++_lost;
+ 4352              		.loc 1 48 0
+ 4353 0008 7B68     		ldr	r3, [r7, #4]
+ 4354 000a DB68     		ldr	r3, [r3, #12]
+ 4355 000c 03F10102 		add	r2, r3, #1
+ 4356 0010 7B68     		ldr	r3, [r7, #4]
+ 4357 0012 DA60     		str	r2, [r3, #12]
+  49:../air3t/data/statistics.cpp **** 		_model._update( Model::StatisticsSection );
+ 4358              		.loc 1 49 0
+ 4359 0014 7B68     		ldr	r3, [r7, #4]
+ 4360 0016 1B69     		ldr	r3, [r3, #16]
+ 4361 0018 1846     		mov	r0, r3
+ 4362 001a 4FF00301 		mov	r1, #3
+ 4363 001e FFF7FEFF 		bl	_ZN5Air3T5Model7_updateEi
+  50:../air3t/data/statistics.cpp **** 	}
+ 4364              		.loc 1 50 0
+ 4365 0022 07F10807 		add	r7, r7, #8
+ 4366 0026 BD46     		mov	sp, r7
+ 4367 0028 80BD     		pop	{r7, pc}
+ 4368              		.cfi_endproc
+ 4369              	.LFE877:
+ 4371 002a 00BF     		.section	.text._ZN5Air3T10Statistics5resetEv,"ax",%progbits
+ 4372              		.align	2
+ 4373              		.global	_ZN5Air3T10Statistics5resetEv
+ 4374              		.thumb
+ 4375              		.thumb_func
+ 4377              	_ZN5Air3T10Statistics5resetEv:
+ 4378              	.LFB878:
+  51:../air3t/data/statistics.cpp **** 
+  52:../air3t/data/statistics.cpp **** 	void Statistics::reset()
+  53:../air3t/data/statistics.cpp **** 	{
+ 4379              		.loc 1 53 0
+ 4380              		.cfi_startproc
+ 4381              		@ args = 0, pretend = 0, frame = 8
+ 4382              		@ frame_needed = 1, uses_anonymous_args = 0
+ 4383 0000 80B5     		push	{r7, lr}
+ 4384              	.LCFI33:
+ 4385              		.cfi_def_cfa_offset 8
+ 4386 0002 82B0     		sub	sp, sp, #8
+ 4387              	.LCFI34:
+ 4388              		.cfi_def_cfa_offset 16
+ 4389 0004 00AF     		add	r7, sp, #0
+ 4390              		.cfi_offset 14, -4
+ 4391              		.cfi_offset 7, -8
+ 4392              	.LCFI35:
+ 4393              		.cfi_def_cfa_register 7
+ 4394 0006 7860     		str	r0, [r7, #4]
+  54:../air3t/data/statistics.cpp **** 		_won = 0;
+ 4395              		.loc 1 54 0
+ 4396 0008 7B68     		ldr	r3, [r7, #4]
+ 4397 000a 4FF00002 		mov	r2, #0
+ 4398 000e 5A60     		str	r2, [r3, #4]
+  55:../air3t/data/statistics.cpp **** 		_tie = 0;
+ 4399              		.loc 1 55 0
+ 4400 0010 7B68     		ldr	r3, [r7, #4]
+ 4401 0012 4FF00002 		mov	r2, #0
+ 4402 0016 9A60     		str	r2, [r3, #8]
+  56:../air3t/data/statistics.cpp **** 		_lost = 0;
+ 4403              		.loc 1 56 0
+ 4404 0018 7B68     		ldr	r3, [r7, #4]
+ 4405 001a 4FF00002 		mov	r2, #0
+ 4406 001e DA60     		str	r2, [r3, #12]
+  57:../air3t/data/statistics.cpp **** 
+  58:../air3t/data/statistics.cpp **** 		_model._update( Model::StatisticsSection );
+ 4407              		.loc 1 58 0
+ 4408 0020 7B68     		ldr	r3, [r7, #4]
+ 4409 0022 1B69     		ldr	r3, [r3, #16]
+ 4410 0024 1846     		mov	r0, r3
+ 4411 0026 4FF00301 		mov	r1, #3
+ 4412 002a FFF7FEFF 		bl	_ZN5Air3T5Model7_updateEi
+  59:../air3t/data/statistics.cpp **** 	}
+ 4413              		.loc 1 59 0
+ 4414 002e 07F10807 		add	r7, r7, #8
+ 4415 0032 BD46     		mov	sp, r7
+ 4416 0034 80BD     		pop	{r7, pc}
+ 4417              		.cfi_endproc
+ 4418              	.LFE878:
+ 4420              		.global	_ZTVN5Air3T10StatisticsE
+ 4421 0036 00BF     		.section	.rodata._ZTVN5Air3T10StatisticsE,"a",%progbits
+ 4422              		.align	3
+ 4425              	_ZTVN5Air3T10StatisticsE:
+ 4426 0000 00000000 		.word	0
+ 4427 0004 00000000 		.word	0
+ 4428 0008 00000000 		.word	_ZN5Air3T10StatisticsD1Ev
+ 4429 000c 00000000 		.word	_ZN5Air3T10StatisticsD0Ev
+ 4430              		.text
+ 4431              	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 statistics.cpp
+     /tmp/ccrEJgC1.s:3915   .text._ZL20__gthread_key_deletei:00000000 $t
+     /tmp/ccrEJgC1.s:3919   .text._ZL20__gthread_key_deletei:00000000 _ZL20__gthread_key_deletei
+     /tmp/ccrEJgC1.s:3949   .text._ZN5Air3T10StatisticsC2ERNS_5ModelE:00000000 $t
+     /tmp/ccrEJgC1.s:3954   .text._ZN5Air3T10StatisticsC2ERNS_5ModelE:00000000 _ZN5Air3T10StatisticsC2ERNS_5ModelE
+     /tmp/ccrEJgC1.s:4377   .text._ZN5Air3T10Statistics5resetEv:00000000 _ZN5Air3T10Statistics5resetEv
+     /tmp/ccrEJgC1.s:3994   .text._ZN5Air3T10StatisticsC2ERNS_5ModelE:00000028 $d
+     /tmp/ccrEJgC1.s:4425   .rodata._ZTVN5Air3T10StatisticsE:00000000 _ZTVN5Air3T10StatisticsE
+     /tmp/ccrEJgC1.s:3954   .text._ZN5Air3T10StatisticsC2ERNS_5ModelE:00000000 _ZN5Air3T10StatisticsC1ERNS_5ModelE
+     /tmp/ccrEJgC1.s:4001   .text._ZN5Air3T10StatisticsD2Ev:00000000 $t
+     /tmp/ccrEJgC1.s:4006   .text._ZN5Air3T10StatisticsD2Ev:00000000 _ZN5Air3T10StatisticsD2Ev
+     /tmp/ccrEJgC1.s:4049   .text._ZN5Air3T10StatisticsD2Ev:00000030 $d
+     /tmp/ccrEJgC1.s:4006   .text._ZN5Air3T10StatisticsD2Ev:00000000 _ZN5Air3T10StatisticsD1Ev
+     /tmp/ccrEJgC1.s:4056   .text._ZN5Air3T10StatisticsD0Ev:00000000 $t
+     /tmp/ccrEJgC1.s:4061   .text._ZN5Air3T10StatisticsD0Ev:00000000 _ZN5Air3T10StatisticsD0Ev
+     /tmp/ccrEJgC1.s:4093   .text._ZNK5Air3T10Statistics11gamesPlayedEv:00000000 $t
+     /tmp/ccrEJgC1.s:4098   .text._ZNK5Air3T10Statistics11gamesPlayedEv:00000000 _ZNK5Air3T10Statistics11gamesPlayedEv
+     /tmp/ccrEJgC1.s:4135   .text._ZNK5Air3T10Statistics8gamesWonEv:00000000 $t
+     /tmp/ccrEJgC1.s:4140   .text._ZNK5Air3T10Statistics8gamesWonEv:00000000 _ZNK5Air3T10Statistics8gamesWonEv
+     /tmp/ccrEJgC1.s:4171   .text._ZN5Air3T10Statistics17incrementGamesWonEv:00000000 $t
+     /tmp/ccrEJgC1.s:4176   .text._ZN5Air3T10Statistics17incrementGamesWonEv:00000000 _ZN5Air3T10Statistics17incrementGamesWonEv
+     /tmp/ccrEJgC1.s:4214   .text._ZNK5Air3T10Statistics8gamesTieEv:00000000 $t
+     /tmp/ccrEJgC1.s:4219   .text._ZNK5Air3T10Statistics8gamesTieEv:00000000 _ZNK5Air3T10Statistics8gamesTieEv
+     /tmp/ccrEJgC1.s:4250   .text._ZN5Air3T10Statistics17incrementGamesTieEv:00000000 $t
+     /tmp/ccrEJgC1.s:4255   .text._ZN5Air3T10Statistics17incrementGamesTieEv:00000000 _ZN5Air3T10Statistics17incrementGamesTieEv
+     /tmp/ccrEJgC1.s:4293   .text._ZNK5Air3T10Statistics9gamesLostEv:00000000 $t
+     /tmp/ccrEJgC1.s:4298   .text._ZNK5Air3T10Statistics9gamesLostEv:00000000 _ZNK5Air3T10Statistics9gamesLostEv
+     /tmp/ccrEJgC1.s:4329   .text._ZN5Air3T10Statistics18incrementGamesLostEv:00000000 $t
+     /tmp/ccrEJgC1.s:4334   .text._ZN5Air3T10Statistics18incrementGamesLostEv:00000000 _ZN5Air3T10Statistics18incrementGamesLostEv
+     /tmp/ccrEJgC1.s:4372   .text._ZN5Air3T10Statistics5resetEv:00000000 $t
+     /tmp/ccrEJgC1.s:4422   .rodata._ZTVN5Air3T10StatisticsE:00000000 $d
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+_ZdlPv
+_ZN5Air3T5Model7_updateEi

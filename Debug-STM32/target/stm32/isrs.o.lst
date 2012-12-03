@@ -1,0 +1,1509 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"isrs.cpp"
+  23              	.Ltext0:
+  24              		.file 1 "../target/stm32/isrs.cpp"
+ 1927              		.align	2
+ 1928              	.LC0:
+ 1929 0000 5761726E 		.ascii	"Warning: Exit Application\000"
+ 1929      696E673A 
+ 1929      20457869 
+ 1929      74204170 
+ 1929      706C6963 
+ 1930              		.section	.text._Z12resetHandlerv,"ax",%progbits
+ 1931              		.align	2
+ 1932              		.global	_Z12resetHandlerv
+ 1933              		.thumb
+ 1934              		.thumb_func
+ 1936              	_Z12resetHandlerv:
+ 1937              	.LFB5:
+   1:../target/stm32/isrs.cpp **** #include <inc/config.h>
+   2:../target/stm32/isrs.cpp **** #include <startup/startup.h>
+   3:../target/stm32/isrs.cpp **** #include <trace/trace.h>
+   4:../target/stm32/isrs.cpp **** 
+   5:../target/stm32/isrs.cpp **** extern int main();
+   6:../target/stm32/isrs.cpp **** 
+   7:../target/stm32/isrs.cpp **** /**
+   8:../target/stm32/isrs.cpp ****  * Default Interrupt Service Routines
+   9:../target/stm32/isrs.cpp ****  */
+  10:../target/stm32/isrs.cpp **** 
+  11:../target/stm32/isrs.cpp **** void resetHandler()
+  12:../target/stm32/isrs.cpp **** {
+ 1938              		.loc 1 12 0
+ 1939              		.cfi_startproc
+ 1940              		@ args = 0, pretend = 0, frame = 0
+ 1941              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1942 0000 80B5     		push	{r7, lr}
+ 1943              	.LCFI0:
+ 1944              		.cfi_def_cfa_offset 8
+ 1945 0002 00AF     		add	r7, sp, #0
+ 1946              		.cfi_offset 14, -4
+ 1947              		.cfi_offset 7, -8
+ 1948              	.LCFI1:
+ 1949              		.cfi_def_cfa_register 7
+  13:../target/stm32/isrs.cpp **** 	// Call system startup initialization
+  14:../target/stm32/isrs.cpp ****     Startup::init();
+ 1950              		.loc 1 14 0
+ 1951 0004 FFF7FEFF 		bl	_ZN7Startup4initEv
+  15:../target/stm32/isrs.cpp **** 
+  16:../target/stm32/isrs.cpp ****     // Call the application's entry point.
+  17:../target/stm32/isrs.cpp ****     main();
+ 1952              		.loc 1 17 0
+ 1953 0008 FFF7FEFF 		bl	main
+  18:../target/stm32/isrs.cpp **** 
+  19:../target/stm32/isrs.cpp ****     Trace::out("Warning: Exit Application");
+ 1954              		.loc 1 19 0
+ 1955 000c 40F20000 		movw	r0, #:lower16:.LC0
+ 1956 0010 C0F20000 		movt	r0, #:upper16:.LC0
+ 1957 0014 FFF7FEFF 		bl	_ZN5Trace3outEPKcz
+  20:../target/stm32/isrs.cpp **** 
+  21:../target/stm32/isrs.cpp ****     // Call global/static destructors
+  22:../target/stm32/isrs.cpp ****     fini_array();
+ 1958              		.loc 1 22 0
+ 1959 0018 FFF7FEFF 		bl	_Z10fini_arrayv
+  23:../target/stm32/isrs.cpp **** }
+ 1960              		.loc 1 23 0
+ 1961 001c 80BD     		pop	{r7, pc}
+ 1962              		.cfi_endproc
+ 1963              	.LFE5:
+ 1965 001e 00BF     		.section	.rodata
+ 1966 001a 0000     		.align	2
+ 1967              	.LC1:
+ 1968 001c 4572726F 		.ascii	"Error: NMI Handler!\000"
+ 1968      723A204E 
+ 1968      4D492048 
+ 1968      616E646C 
+ 1968      65722100 
+ 1969              		.section	.text._Z11nmi_handlerv,"ax",%progbits
+ 1970              		.align	2
+ 1971              		.global	_Z11nmi_handlerv
+ 1972              		.thumb
+ 1973              		.thumb_func
+ 1975              	_Z11nmi_handlerv:
+ 1976              	.LFB6:
+  24:../target/stm32/isrs.cpp **** 
+  25:../target/stm32/isrs.cpp **** void nmi_handler(void) { Trace::out("Error: NMI Handler!"); while(1){} }
+ 1977              		.loc 1 25 0
+ 1978              		.cfi_startproc
+ 1979              		@ args = 0, pretend = 0, frame = 0
+ 1980              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1981 0000 80B5     		push	{r7, lr}
+ 1982              	.LCFI2:
+ 1983              		.cfi_def_cfa_offset 8
+ 1984 0002 00AF     		add	r7, sp, #0
+ 1985              		.cfi_offset 14, -4
+ 1986              		.cfi_offset 7, -8
+ 1987              	.LCFI3:
+ 1988              		.cfi_def_cfa_register 7
+ 1989              		.loc 1 25 0
+ 1990 0004 40F20000 		movw	r0, #:lower16:.LC1
+ 1991 0008 C0F20000 		movt	r0, #:upper16:.LC1
+ 1992 000c FFF7FEFF 		bl	_ZN5Trace3outEPKcz
+ 1993              	.L3:
+ 1994              		.loc 1 25 0 is_stmt 0 discriminator 1
+ 1995 0010 FEE7     		b	.L3
+ 1996              		.cfi_endproc
+ 1997              	.LFE6:
+ 1999 0012 00BF     		.section	.rodata
+ 2000              		.align	2
+ 2001              	.LC2:
+ 2002 0030 4572726F 		.ascii	"Error: Hard Fault Handler!\000"
+ 2002      723A2048 
+ 2002      61726420 
+ 2002      4661756C 
+ 2002      74204861 
+ 2003              		.section	.text._Z17hardfault_handlerv,"ax",%progbits
+ 2004              		.align	2
+ 2005              		.global	_Z17hardfault_handlerv
+ 2006              		.thumb
+ 2007              		.thumb_func
+ 2009              	_Z17hardfault_handlerv:
+ 2010              	.LFB7:
+  26:../target/stm32/isrs.cpp **** void hardfault_handler(void) { Trace::out("Error: Hard Fault Handler!"); while(1){} }
+ 2011              		.loc 1 26 0 is_stmt 1
+ 2012              		.cfi_startproc
+ 2013              		@ args = 0, pretend = 0, frame = 0
+ 2014              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2015 0000 80B5     		push	{r7, lr}
+ 2016              	.LCFI4:
+ 2017              		.cfi_def_cfa_offset 8
+ 2018 0002 00AF     		add	r7, sp, #0
+ 2019              		.cfi_offset 14, -4
+ 2020              		.cfi_offset 7, -8
+ 2021              	.LCFI5:
+ 2022              		.cfi_def_cfa_register 7
+ 2023              		.loc 1 26 0
+ 2024 0004 40F20000 		movw	r0, #:lower16:.LC2
+ 2025 0008 C0F20000 		movt	r0, #:upper16:.LC2
+ 2026 000c FFF7FEFF 		bl	_ZN5Trace3outEPKcz
+ 2027              	.L5:
+ 2028              		.loc 1 26 0 is_stmt 0 discriminator 1
+ 2029 0010 FEE7     		b	.L5
+ 2030              		.cfi_endproc
+ 2031              	.LFE7:
+ 2033 0012 00BF     		.section	.text._Z18MemManageExceptionv,"ax",%progbits
+ 2034              		.align	2
+ 2035              		.global	_Z18MemManageExceptionv
+ 2036              		.thumb
+ 2037              		.thumb_func
+ 2039              	_Z18MemManageExceptionv:
+ 2040              	.LFB8:
+  27:../target/stm32/isrs.cpp **** void MemManageException() {}
+ 2041              		.loc 1 27 0 is_stmt 1
+ 2042              		.cfi_startproc
+ 2043              		@ args = 0, pretend = 0, frame = 0
+ 2044              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2045              		@ link register save eliminated.
+ 2046 0000 80B4     		push	{r7}
+ 2047              	.LCFI6:
+ 2048              		.cfi_def_cfa_offset 4
+ 2049 0002 00AF     		add	r7, sp, #0
+ 2050              		.cfi_offset 7, -4
+ 2051              	.LCFI7:
+ 2052              		.cfi_def_cfa_register 7
+ 2053              		.loc 1 27 0
+ 2054 0004 BD46     		mov	sp, r7
+ 2055 0006 80BC     		pop	{r7}
+ 2056 0008 7047     		bx	lr
+ 2057              		.cfi_endproc
+ 2058              	.LFE8:
+ 2060 000a 00BF     		.section	.rodata
+ 2061 004b 00       		.align	2
+ 2062              	.LC3:
+ 2063 004c 4572726F 		.ascii	"Error: Bus Fault Exception!\000"
+ 2063      723A2042 
+ 2063      75732046 
+ 2063      61756C74 
+ 2063      20457863 
+ 2064              		.section	.text._Z17BusFaultExceptionv,"ax",%progbits
+ 2065              		.align	2
+ 2066              		.global	_Z17BusFaultExceptionv
+ 2067              		.thumb
+ 2068              		.thumb_func
+ 2070              	_Z17BusFaultExceptionv:
+ 2071              	.LFB9:
+  28:../target/stm32/isrs.cpp **** void BusFaultException() { Trace::out("Error: Bus Fault Exception!"); while(1){} }
+ 2072              		.loc 1 28 0
+ 2073              		.cfi_startproc
+ 2074              		@ args = 0, pretend = 0, frame = 0
+ 2075              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2076 0000 80B5     		push	{r7, lr}
+ 2077              	.LCFI8:
+ 2078              		.cfi_def_cfa_offset 8
+ 2079 0002 00AF     		add	r7, sp, #0
+ 2080              		.cfi_offset 14, -4
+ 2081              		.cfi_offset 7, -8
+ 2082              	.LCFI9:
+ 2083              		.cfi_def_cfa_register 7
+ 2084              		.loc 1 28 0
+ 2085 0004 40F20000 		movw	r0, #:lower16:.LC3
+ 2086 0008 C0F20000 		movt	r0, #:upper16:.LC3
+ 2087 000c FFF7FEFF 		bl	_ZN5Trace3outEPKcz
+ 2088              	.L8:
+ 2089              		.loc 1 28 0 is_stmt 0 discriminator 1
+ 2090 0010 FEE7     		b	.L8
+ 2091              		.cfi_endproc
+ 2092              	.LFE9:
+ 2094 0012 00BF     		.section	.text._Z19UsageFaultExceptionv,"ax",%progbits
+ 2095              		.align	2
+ 2096              		.global	_Z19UsageFaultExceptionv
+ 2097              		.thumb
+ 2098              		.thumb_func
+ 2100              	_Z19UsageFaultExceptionv:
+ 2101              	.LFB10:
+  29:../target/stm32/isrs.cpp **** void UsageFaultException() {}
+ 2102              		.loc 1 29 0 is_stmt 1
+ 2103              		.cfi_startproc
+ 2104              		@ args = 0, pretend = 0, frame = 0
+ 2105              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2106              		@ link register save eliminated.
+ 2107 0000 80B4     		push	{r7}
+ 2108              	.LCFI10:
+ 2109              		.cfi_def_cfa_offset 4
+ 2110 0002 00AF     		add	r7, sp, #0
+ 2111              		.cfi_offset 7, -4
+ 2112              	.LCFI11:
+ 2113              		.cfi_def_cfa_register 7
+ 2114              		.loc 1 29 0
+ 2115 0004 BD46     		mov	sp, r7
+ 2116 0006 80BC     		pop	{r7}
+ 2117 0008 7047     		bx	lr
+ 2118              		.cfi_endproc
+ 2119              	.LFE10:
+ 2121 000a 00BF     		.section	.text._Z10SVCHandlerv,"ax",%progbits
+ 2122              		.align	2
+ 2123              		.global	_Z10SVCHandlerv
+ 2124              		.thumb
+ 2125              		.thumb_func
+ 2127              	_Z10SVCHandlerv:
+ 2128              	.LFB11:
+  30:../target/stm32/isrs.cpp **** void SVCHandler() {}
+ 2129              		.loc 1 30 0
+ 2130              		.cfi_startproc
+ 2131              		@ args = 0, pretend = 0, frame = 0
+ 2132              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2133              		@ link register save eliminated.
+ 2134 0000 80B4     		push	{r7}
+ 2135              	.LCFI12:
+ 2136              		.cfi_def_cfa_offset 4
+ 2137 0002 00AF     		add	r7, sp, #0
+ 2138              		.cfi_offset 7, -4
+ 2139              	.LCFI13:
+ 2140              		.cfi_def_cfa_register 7
+ 2141              		.loc 1 30 0
+ 2142 0004 BD46     		mov	sp, r7
+ 2143 0006 80BC     		pop	{r7}
+ 2144 0008 7047     		bx	lr
+ 2145              		.cfi_endproc
+ 2146              	.LFE11:
+ 2148 000a 00BF     		.section	.text._Z12DebugMonitorv,"ax",%progbits
+ 2149              		.align	2
+ 2150              		.global	_Z12DebugMonitorv
+ 2151              		.thumb
+ 2152              		.thumb_func
+ 2154              	_Z12DebugMonitorv:
+ 2155              	.LFB12:
+  31:../target/stm32/isrs.cpp **** void DebugMonitor() {}
+ 2156              		.loc 1 31 0
+ 2157              		.cfi_startproc
+ 2158              		@ args = 0, pretend = 0, frame = 0
+ 2159              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2160              		@ link register save eliminated.
+ 2161 0000 80B4     		push	{r7}
+ 2162              	.LCFI14:
+ 2163              		.cfi_def_cfa_offset 4
+ 2164 0002 00AF     		add	r7, sp, #0
+ 2165              		.cfi_offset 7, -4
+ 2166              	.LCFI15:
+ 2167              		.cfi_def_cfa_register 7
+ 2168              		.loc 1 31 0
+ 2169 0004 BD46     		mov	sp, r7
+ 2170 0006 80BC     		pop	{r7}
+ 2171 0008 7047     		bx	lr
+ 2172              		.cfi_endproc
+ 2173              	.LFE12:
+ 2175 000a 00BF     		.section	.text._Z7PendSVCv,"ax",%progbits
+ 2176              		.align	2
+ 2177              		.global	_Z7PendSVCv
+ 2178              		.thumb
+ 2179              		.thumb_func
+ 2181              	_Z7PendSVCv:
+ 2182              	.LFB13:
+  32:../target/stm32/isrs.cpp **** void PendSVC() {}
+ 2183              		.loc 1 32 0
+ 2184              		.cfi_startproc
+ 2185              		@ args = 0, pretend = 0, frame = 0
+ 2186              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2187              		@ link register save eliminated.
+ 2188 0000 80B4     		push	{r7}
+ 2189              	.LCFI16:
+ 2190              		.cfi_def_cfa_offset 4
+ 2191 0002 00AF     		add	r7, sp, #0
+ 2192              		.cfi_offset 7, -4
+ 2193              	.LCFI17:
+ 2194              		.cfi_def_cfa_register 7
+ 2195              		.loc 1 32 0
+ 2196 0004 BD46     		mov	sp, r7
+ 2197 0006 80BC     		pop	{r7}
+ 2198 0008 7047     		bx	lr
+ 2199              		.cfi_endproc
+ 2200              	.LFE13:
+ 2202 000a 00BF     		.section	.text._Z15WWDG_IRQHandlerv,"ax",%progbits
+ 2203              		.align	2
+ 2204              		.global	_Z15WWDG_IRQHandlerv
+ 2205              		.thumb
+ 2206              		.thumb_func
+ 2208              	_Z15WWDG_IRQHandlerv:
+ 2209              	.LFB14:
+  33:../target/stm32/isrs.cpp **** //void SysTickHandler {}		// Defined in XFTimeoutManager.cpp
+  34:../target/stm32/isrs.cpp **** void WWDG_IRQHandler() {}
+ 2210              		.loc 1 34 0
+ 2211              		.cfi_startproc
+ 2212              		@ args = 0, pretend = 0, frame = 0
+ 2213              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2214              		@ link register save eliminated.
+ 2215 0000 80B4     		push	{r7}
+ 2216              	.LCFI18:
+ 2217              		.cfi_def_cfa_offset 4
+ 2218 0002 00AF     		add	r7, sp, #0
+ 2219              		.cfi_offset 7, -4
+ 2220              	.LCFI19:
+ 2221              		.cfi_def_cfa_register 7
+ 2222              		.loc 1 34 0
+ 2223 0004 BD46     		mov	sp, r7
+ 2224 0006 80BC     		pop	{r7}
+ 2225 0008 7047     		bx	lr
+ 2226              		.cfi_endproc
+ 2227              	.LFE14:
+ 2229 000a 00BF     		.section	.text._Z14PVD_IRQHandlerv,"ax",%progbits
+ 2230              		.align	2
+ 2231              		.global	_Z14PVD_IRQHandlerv
+ 2232              		.thumb
+ 2233              		.thumb_func
+ 2235              	_Z14PVD_IRQHandlerv:
+ 2236              	.LFB15:
+  35:../target/stm32/isrs.cpp **** void PVD_IRQHandler() {}
+ 2237              		.loc 1 35 0
+ 2238              		.cfi_startproc
+ 2239              		@ args = 0, pretend = 0, frame = 0
+ 2240              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2241              		@ link register save eliminated.
+ 2242 0000 80B4     		push	{r7}
+ 2243              	.LCFI20:
+ 2244              		.cfi_def_cfa_offset 4
+ 2245 0002 00AF     		add	r7, sp, #0
+ 2246              		.cfi_offset 7, -4
+ 2247              	.LCFI21:
+ 2248              		.cfi_def_cfa_register 7
+ 2249              		.loc 1 35 0
+ 2250 0004 BD46     		mov	sp, r7
+ 2251 0006 80BC     		pop	{r7}
+ 2252 0008 7047     		bx	lr
+ 2253              		.cfi_endproc
+ 2254              	.LFE15:
+ 2256 000a 00BF     		.section	.text._Z17TAMPER_IRQHandlerv,"ax",%progbits
+ 2257              		.align	2
+ 2258              		.global	_Z17TAMPER_IRQHandlerv
+ 2259              		.thumb
+ 2260              		.thumb_func
+ 2262              	_Z17TAMPER_IRQHandlerv:
+ 2263              	.LFB16:
+  36:../target/stm32/isrs.cpp **** void TAMPER_IRQHandler() {}
+ 2264              		.loc 1 36 0
+ 2265              		.cfi_startproc
+ 2266              		@ args = 0, pretend = 0, frame = 0
+ 2267              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2268              		@ link register save eliminated.
+ 2269 0000 80B4     		push	{r7}
+ 2270              	.LCFI22:
+ 2271              		.cfi_def_cfa_offset 4
+ 2272 0002 00AF     		add	r7, sp, #0
+ 2273              		.cfi_offset 7, -4
+ 2274              	.LCFI23:
+ 2275              		.cfi_def_cfa_register 7
+ 2276              		.loc 1 36 0
+ 2277 0004 BD46     		mov	sp, r7
+ 2278 0006 80BC     		pop	{r7}
+ 2279 0008 7047     		bx	lr
+ 2280              		.cfi_endproc
+ 2281              	.LFE16:
+ 2283 000a 00BF     		.section	.text._Z14RTC_IRQHandlerv,"ax",%progbits
+ 2284              		.align	2
+ 2285              		.global	_Z14RTC_IRQHandlerv
+ 2286              		.thumb
+ 2287              		.thumb_func
+ 2289              	_Z14RTC_IRQHandlerv:
+ 2290              	.LFB17:
+  37:../target/stm32/isrs.cpp **** void RTC_IRQHandler() {}
+ 2291              		.loc 1 37 0
+ 2292              		.cfi_startproc
+ 2293              		@ args = 0, pretend = 0, frame = 0
+ 2294              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2295              		@ link register save eliminated.
+ 2296 0000 80B4     		push	{r7}
+ 2297              	.LCFI24:
+ 2298              		.cfi_def_cfa_offset 4
+ 2299 0002 00AF     		add	r7, sp, #0
+ 2300              		.cfi_offset 7, -4
+ 2301              	.LCFI25:
+ 2302              		.cfi_def_cfa_register 7
+ 2303              		.loc 1 37 0
+ 2304 0004 BD46     		mov	sp, r7
+ 2305 0006 80BC     		pop	{r7}
+ 2306 0008 7047     		bx	lr
+ 2307              		.cfi_endproc
+ 2308              	.LFE17:
+ 2310 000a 00BF     		.section	.text._Z16FLASH_IRQHandlerv,"ax",%progbits
+ 2311              		.align	2
+ 2312              		.global	_Z16FLASH_IRQHandlerv
+ 2313              		.thumb
+ 2314              		.thumb_func
+ 2316              	_Z16FLASH_IRQHandlerv:
+ 2317              	.LFB18:
+  38:../target/stm32/isrs.cpp **** void FLASH_IRQHandler() {}
+ 2318              		.loc 1 38 0
+ 2319              		.cfi_startproc
+ 2320              		@ args = 0, pretend = 0, frame = 0
+ 2321              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2322              		@ link register save eliminated.
+ 2323 0000 80B4     		push	{r7}
+ 2324              	.LCFI26:
+ 2325              		.cfi_def_cfa_offset 4
+ 2326 0002 00AF     		add	r7, sp, #0
+ 2327              		.cfi_offset 7, -4
+ 2328              	.LCFI27:
+ 2329              		.cfi_def_cfa_register 7
+ 2330              		.loc 1 38 0
+ 2331 0004 BD46     		mov	sp, r7
+ 2332 0006 80BC     		pop	{r7}
+ 2333 0008 7047     		bx	lr
+ 2334              		.cfi_endproc
+ 2335              	.LFE18:
+ 2337 000a 00BF     		.section	.text._Z14RCC_IRQHandlerv,"ax",%progbits
+ 2338              		.align	2
+ 2339              		.global	_Z14RCC_IRQHandlerv
+ 2340              		.thumb
+ 2341              		.thumb_func
+ 2343              	_Z14RCC_IRQHandlerv:
+ 2344              	.LFB19:
+  39:../target/stm32/isrs.cpp **** void RCC_IRQHandler() {}
+ 2345              		.loc 1 39 0
+ 2346              		.cfi_startproc
+ 2347              		@ args = 0, pretend = 0, frame = 0
+ 2348              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2349              		@ link register save eliminated.
+ 2350 0000 80B4     		push	{r7}
+ 2351              	.LCFI28:
+ 2352              		.cfi_def_cfa_offset 4
+ 2353 0002 00AF     		add	r7, sp, #0
+ 2354              		.cfi_offset 7, -4
+ 2355              	.LCFI29:
+ 2356              		.cfi_def_cfa_register 7
+ 2357              		.loc 1 39 0
+ 2358 0004 BD46     		mov	sp, r7
+ 2359 0006 80BC     		pop	{r7}
+ 2360 0008 7047     		bx	lr
+ 2361              		.cfi_endproc
+ 2362              	.LFE19:
+ 2364 000a 00BF     		.section	.text._Z16EXTI0_IRQHandlerv,"ax",%progbits
+ 2365              		.align	2
+ 2366              		.global	_Z16EXTI0_IRQHandlerv
+ 2367              		.thumb
+ 2368              		.thumb_func
+ 2370              	_Z16EXTI0_IRQHandlerv:
+ 2371              	.LFB20:
+  40:../target/stm32/isrs.cpp **** void EXTI0_IRQHandler() {}
+ 2372              		.loc 1 40 0
+ 2373              		.cfi_startproc
+ 2374              		@ args = 0, pretend = 0, frame = 0
+ 2375              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2376              		@ link register save eliminated.
+ 2377 0000 80B4     		push	{r7}
+ 2378              	.LCFI30:
+ 2379              		.cfi_def_cfa_offset 4
+ 2380 0002 00AF     		add	r7, sp, #0
+ 2381              		.cfi_offset 7, -4
+ 2382              	.LCFI31:
+ 2383              		.cfi_def_cfa_register 7
+ 2384              		.loc 1 40 0
+ 2385 0004 BD46     		mov	sp, r7
+ 2386 0006 80BC     		pop	{r7}
+ 2387 0008 7047     		bx	lr
+ 2388              		.cfi_endproc
+ 2389              	.LFE20:
+ 2391 000a 00BF     		.section	.text._Z16EXTI1_IRQHandlerv,"ax",%progbits
+ 2392              		.align	2
+ 2393              		.global	_Z16EXTI1_IRQHandlerv
+ 2394              		.thumb
+ 2395              		.thumb_func
+ 2397              	_Z16EXTI1_IRQHandlerv:
+ 2398              	.LFB21:
+  41:../target/stm32/isrs.cpp **** void EXTI1_IRQHandler() {}
+ 2399              		.loc 1 41 0
+ 2400              		.cfi_startproc
+ 2401              		@ args = 0, pretend = 0, frame = 0
+ 2402              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2403              		@ link register save eliminated.
+ 2404 0000 80B4     		push	{r7}
+ 2405              	.LCFI32:
+ 2406              		.cfi_def_cfa_offset 4
+ 2407 0002 00AF     		add	r7, sp, #0
+ 2408              		.cfi_offset 7, -4
+ 2409              	.LCFI33:
+ 2410              		.cfi_def_cfa_register 7
+ 2411              		.loc 1 41 0
+ 2412 0004 BD46     		mov	sp, r7
+ 2413 0006 80BC     		pop	{r7}
+ 2414 0008 7047     		bx	lr
+ 2415              		.cfi_endproc
+ 2416              	.LFE21:
+ 2418 000a 00BF     		.section	.text._Z16EXTI2_IRQHandlerv,"ax",%progbits
+ 2419              		.align	2
+ 2420              		.global	_Z16EXTI2_IRQHandlerv
+ 2421              		.thumb
+ 2422              		.thumb_func
+ 2424              	_Z16EXTI2_IRQHandlerv:
+ 2425              	.LFB22:
+  42:../target/stm32/isrs.cpp **** void EXTI2_IRQHandler() {}
+ 2426              		.loc 1 42 0
+ 2427              		.cfi_startproc
+ 2428              		@ args = 0, pretend = 0, frame = 0
+ 2429              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2430              		@ link register save eliminated.
+ 2431 0000 80B4     		push	{r7}
+ 2432              	.LCFI34:
+ 2433              		.cfi_def_cfa_offset 4
+ 2434 0002 00AF     		add	r7, sp, #0
+ 2435              		.cfi_offset 7, -4
+ 2436              	.LCFI35:
+ 2437              		.cfi_def_cfa_register 7
+ 2438              		.loc 1 42 0
+ 2439 0004 BD46     		mov	sp, r7
+ 2440 0006 80BC     		pop	{r7}
+ 2441 0008 7047     		bx	lr
+ 2442              		.cfi_endproc
+ 2443              	.LFE22:
+ 2445 000a 00BF     		.section	.text._Z16EXTI3_IRQHandlerv,"ax",%progbits
+ 2446              		.align	2
+ 2447              		.global	_Z16EXTI3_IRQHandlerv
+ 2448              		.thumb
+ 2449              		.thumb_func
+ 2451              	_Z16EXTI3_IRQHandlerv:
+ 2452              	.LFB23:
+  43:../target/stm32/isrs.cpp **** void EXTI3_IRQHandler() {}
+ 2453              		.loc 1 43 0
+ 2454              		.cfi_startproc
+ 2455              		@ args = 0, pretend = 0, frame = 0
+ 2456              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2457              		@ link register save eliminated.
+ 2458 0000 80B4     		push	{r7}
+ 2459              	.LCFI36:
+ 2460              		.cfi_def_cfa_offset 4
+ 2461 0002 00AF     		add	r7, sp, #0
+ 2462              		.cfi_offset 7, -4
+ 2463              	.LCFI37:
+ 2464              		.cfi_def_cfa_register 7
+ 2465              		.loc 1 43 0
+ 2466 0004 BD46     		mov	sp, r7
+ 2467 0006 80BC     		pop	{r7}
+ 2468 0008 7047     		bx	lr
+ 2469              		.cfi_endproc
+ 2470              	.LFE23:
+ 2472 000a 00BF     		.section	.text._Z16EXTI4_IRQHandlerv,"ax",%progbits
+ 2473              		.align	2
+ 2474              		.global	_Z16EXTI4_IRQHandlerv
+ 2475              		.thumb
+ 2476              		.thumb_func
+ 2478              	_Z16EXTI4_IRQHandlerv:
+ 2479              	.LFB24:
+  44:../target/stm32/isrs.cpp **** void EXTI4_IRQHandler() {}
+ 2480              		.loc 1 44 0
+ 2481              		.cfi_startproc
+ 2482              		@ args = 0, pretend = 0, frame = 0
+ 2483              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2484              		@ link register save eliminated.
+ 2485 0000 80B4     		push	{r7}
+ 2486              	.LCFI38:
+ 2487              		.cfi_def_cfa_offset 4
+ 2488 0002 00AF     		add	r7, sp, #0
+ 2489              		.cfi_offset 7, -4
+ 2490              	.LCFI39:
+ 2491              		.cfi_def_cfa_register 7
+ 2492              		.loc 1 44 0
+ 2493 0004 BD46     		mov	sp, r7
+ 2494 0006 80BC     		pop	{r7}
+ 2495 0008 7047     		bx	lr
+ 2496              		.cfi_endproc
+ 2497              	.LFE24:
+ 2499 000a 00BF     		.section	.text._Z22DMAChannel1_IRQHandlerv,"ax",%progbits
+ 2500              		.align	2
+ 2501              		.global	_Z22DMAChannel1_IRQHandlerv
+ 2502              		.thumb
+ 2503              		.thumb_func
+ 2505              	_Z22DMAChannel1_IRQHandlerv:
+ 2506              	.LFB25:
+  45:../target/stm32/isrs.cpp **** void DMAChannel1_IRQHandler() {}
+ 2507              		.loc 1 45 0
+ 2508              		.cfi_startproc
+ 2509              		@ args = 0, pretend = 0, frame = 0
+ 2510              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2511              		@ link register save eliminated.
+ 2512 0000 80B4     		push	{r7}
+ 2513              	.LCFI40:
+ 2514              		.cfi_def_cfa_offset 4
+ 2515 0002 00AF     		add	r7, sp, #0
+ 2516              		.cfi_offset 7, -4
+ 2517              	.LCFI41:
+ 2518              		.cfi_def_cfa_register 7
+ 2519              		.loc 1 45 0
+ 2520 0004 BD46     		mov	sp, r7
+ 2521 0006 80BC     		pop	{r7}
+ 2522 0008 7047     		bx	lr
+ 2523              		.cfi_endproc
+ 2524              	.LFE25:
+ 2526 000a 00BF     		.section	.text._Z22DMAChannel2_IRQHandlerv,"ax",%progbits
+ 2527              		.align	2
+ 2528              		.global	_Z22DMAChannel2_IRQHandlerv
+ 2529              		.thumb
+ 2530              		.thumb_func
+ 2532              	_Z22DMAChannel2_IRQHandlerv:
+ 2533              	.LFB26:
+  46:../target/stm32/isrs.cpp **** void DMAChannel2_IRQHandler() {}
+ 2534              		.loc 1 46 0
+ 2535              		.cfi_startproc
+ 2536              		@ args = 0, pretend = 0, frame = 0
+ 2537              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2538              		@ link register save eliminated.
+ 2539 0000 80B4     		push	{r7}
+ 2540              	.LCFI42:
+ 2541              		.cfi_def_cfa_offset 4
+ 2542 0002 00AF     		add	r7, sp, #0
+ 2543              		.cfi_offset 7, -4
+ 2544              	.LCFI43:
+ 2545              		.cfi_def_cfa_register 7
+ 2546              		.loc 1 46 0
+ 2547 0004 BD46     		mov	sp, r7
+ 2548 0006 80BC     		pop	{r7}
+ 2549 0008 7047     		bx	lr
+ 2550              		.cfi_endproc
+ 2551              	.LFE26:
+ 2553 000a 00BF     		.section	.text._Z22DMAChannel3_IRQHandlerv,"ax",%progbits
+ 2554              		.align	2
+ 2555              		.global	_Z22DMAChannel3_IRQHandlerv
+ 2556              		.thumb
+ 2557              		.thumb_func
+ 2559              	_Z22DMAChannel3_IRQHandlerv:
+ 2560              	.LFB27:
+  47:../target/stm32/isrs.cpp **** void DMAChannel3_IRQHandler() {}
+ 2561              		.loc 1 47 0
+ 2562              		.cfi_startproc
+ 2563              		@ args = 0, pretend = 0, frame = 0
+ 2564              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2565              		@ link register save eliminated.
+ 2566 0000 80B4     		push	{r7}
+ 2567              	.LCFI44:
+ 2568              		.cfi_def_cfa_offset 4
+ 2569 0002 00AF     		add	r7, sp, #0
+ 2570              		.cfi_offset 7, -4
+ 2571              	.LCFI45:
+ 2572              		.cfi_def_cfa_register 7
+ 2573              		.loc 1 47 0
+ 2574 0004 BD46     		mov	sp, r7
+ 2575 0006 80BC     		pop	{r7}
+ 2576 0008 7047     		bx	lr
+ 2577              		.cfi_endproc
+ 2578              	.LFE27:
+ 2580 000a 00BF     		.section	.text._Z22DMAChannel4_IRQHandlerv,"ax",%progbits
+ 2581              		.align	2
+ 2582              		.global	_Z22DMAChannel4_IRQHandlerv
+ 2583              		.thumb
+ 2584              		.thumb_func
+ 2586              	_Z22DMAChannel4_IRQHandlerv:
+ 2587              	.LFB28:
+  48:../target/stm32/isrs.cpp **** void DMAChannel4_IRQHandler() {}
+ 2588              		.loc 1 48 0
+ 2589              		.cfi_startproc
+ 2590              		@ args = 0, pretend = 0, frame = 0
+ 2591              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2592              		@ link register save eliminated.
+ 2593 0000 80B4     		push	{r7}
+ 2594              	.LCFI46:
+ 2595              		.cfi_def_cfa_offset 4
+ 2596 0002 00AF     		add	r7, sp, #0
+ 2597              		.cfi_offset 7, -4
+ 2598              	.LCFI47:
+ 2599              		.cfi_def_cfa_register 7
+ 2600              		.loc 1 48 0
+ 2601 0004 BD46     		mov	sp, r7
+ 2602 0006 80BC     		pop	{r7}
+ 2603 0008 7047     		bx	lr
+ 2604              		.cfi_endproc
+ 2605              	.LFE28:
+ 2607 000a 00BF     		.section	.text._Z22DMAChannel5_IRQHandlerv,"ax",%progbits
+ 2608              		.align	2
+ 2609              		.global	_Z22DMAChannel5_IRQHandlerv
+ 2610              		.thumb
+ 2611              		.thumb_func
+ 2613              	_Z22DMAChannel5_IRQHandlerv:
+ 2614              	.LFB29:
+  49:../target/stm32/isrs.cpp **** void DMAChannel5_IRQHandler() {}
+ 2615              		.loc 1 49 0
+ 2616              		.cfi_startproc
+ 2617              		@ args = 0, pretend = 0, frame = 0
+ 2618              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2619              		@ link register save eliminated.
+ 2620 0000 80B4     		push	{r7}
+ 2621              	.LCFI48:
+ 2622              		.cfi_def_cfa_offset 4
+ 2623 0002 00AF     		add	r7, sp, #0
+ 2624              		.cfi_offset 7, -4
+ 2625              	.LCFI49:
+ 2626              		.cfi_def_cfa_register 7
+ 2627              		.loc 1 49 0
+ 2628 0004 BD46     		mov	sp, r7
+ 2629 0006 80BC     		pop	{r7}
+ 2630 0008 7047     		bx	lr
+ 2631              		.cfi_endproc
+ 2632              	.LFE29:
+ 2634 000a 00BF     		.section	.text._Z22DMAChannel6_IRQHandlerv,"ax",%progbits
+ 2635              		.align	2
+ 2636              		.global	_Z22DMAChannel6_IRQHandlerv
+ 2637              		.thumb
+ 2638              		.thumb_func
+ 2640              	_Z22DMAChannel6_IRQHandlerv:
+ 2641              	.LFB30:
+  50:../target/stm32/isrs.cpp **** void DMAChannel6_IRQHandler() {}
+ 2642              		.loc 1 50 0
+ 2643              		.cfi_startproc
+ 2644              		@ args = 0, pretend = 0, frame = 0
+ 2645              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2646              		@ link register save eliminated.
+ 2647 0000 80B4     		push	{r7}
+ 2648              	.LCFI50:
+ 2649              		.cfi_def_cfa_offset 4
+ 2650 0002 00AF     		add	r7, sp, #0
+ 2651              		.cfi_offset 7, -4
+ 2652              	.LCFI51:
+ 2653              		.cfi_def_cfa_register 7
+ 2654              		.loc 1 50 0
+ 2655 0004 BD46     		mov	sp, r7
+ 2656 0006 80BC     		pop	{r7}
+ 2657 0008 7047     		bx	lr
+ 2658              		.cfi_endproc
+ 2659              	.LFE30:
+ 2661 000a 00BF     		.section	.text._Z22DMAChannel7_IRQHandlerv,"ax",%progbits
+ 2662              		.align	2
+ 2663              		.global	_Z22DMAChannel7_IRQHandlerv
+ 2664              		.thumb
+ 2665              		.thumb_func
+ 2667              	_Z22DMAChannel7_IRQHandlerv:
+ 2668              	.LFB31:
+  51:../target/stm32/isrs.cpp **** void DMAChannel7_IRQHandler() {}
+ 2669              		.loc 1 51 0
+ 2670              		.cfi_startproc
+ 2671              		@ args = 0, pretend = 0, frame = 0
+ 2672              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2673              		@ link register save eliminated.
+ 2674 0000 80B4     		push	{r7}
+ 2675              	.LCFI52:
+ 2676              		.cfi_def_cfa_offset 4
+ 2677 0002 00AF     		add	r7, sp, #0
+ 2678              		.cfi_offset 7, -4
+ 2679              	.LCFI53:
+ 2680              		.cfi_def_cfa_register 7
+ 2681              		.loc 1 51 0
+ 2682 0004 BD46     		mov	sp, r7
+ 2683 0006 80BC     		pop	{r7}
+ 2684 0008 7047     		bx	lr
+ 2685              		.cfi_endproc
+ 2686              	.LFE31:
+ 2688 000a 00BF     		.section	.text._Z14ADC_IRQHandlerv,"ax",%progbits
+ 2689              		.align	2
+ 2690              		.global	_Z14ADC_IRQHandlerv
+ 2691              		.thumb
+ 2692              		.thumb_func
+ 2694              	_Z14ADC_IRQHandlerv:
+ 2695              	.LFB32:
+  52:../target/stm32/isrs.cpp **** void ADC_IRQHandler() {}
+ 2696              		.loc 1 52 0
+ 2697              		.cfi_startproc
+ 2698              		@ args = 0, pretend = 0, frame = 0
+ 2699              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2700              		@ link register save eliminated.
+ 2701 0000 80B4     		push	{r7}
+ 2702              	.LCFI54:
+ 2703              		.cfi_def_cfa_offset 4
+ 2704 0002 00AF     		add	r7, sp, #0
+ 2705              		.cfi_offset 7, -4
+ 2706              	.LCFI55:
+ 2707              		.cfi_def_cfa_register 7
+ 2708              		.loc 1 52 0
+ 2709 0004 BD46     		mov	sp, r7
+ 2710 0006 80BC     		pop	{r7}
+ 2711 0008 7047     		bx	lr
+ 2712              		.cfi_endproc
+ 2713              	.LFE32:
+ 2715 000a 00BF     		.section	.text._Z24USB_HP_CAN_TX_IRQHandlerv,"ax",%progbits
+ 2716              		.align	2
+ 2717              		.global	_Z24USB_HP_CAN_TX_IRQHandlerv
+ 2718              		.thumb
+ 2719              		.thumb_func
+ 2721              	_Z24USB_HP_CAN_TX_IRQHandlerv:
+ 2722              	.LFB33:
+  53:../target/stm32/isrs.cpp **** void USB_HP_CAN_TX_IRQHandler() {}
+ 2723              		.loc 1 53 0
+ 2724              		.cfi_startproc
+ 2725              		@ args = 0, pretend = 0, frame = 0
+ 2726              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2727              		@ link register save eliminated.
+ 2728 0000 80B4     		push	{r7}
+ 2729              	.LCFI56:
+ 2730              		.cfi_def_cfa_offset 4
+ 2731 0002 00AF     		add	r7, sp, #0
+ 2732              		.cfi_offset 7, -4
+ 2733              	.LCFI57:
+ 2734              		.cfi_def_cfa_register 7
+ 2735              		.loc 1 53 0
+ 2736 0004 BD46     		mov	sp, r7
+ 2737 0006 80BC     		pop	{r7}
+ 2738 0008 7047     		bx	lr
+ 2739              		.cfi_endproc
+ 2740              	.LFE33:
+ 2742 000a 00BF     		.section	.text._Z25USB_LP_CAN_RX0_IRQHandlerv,"ax",%progbits
+ 2743              		.align	2
+ 2744              		.global	_Z25USB_LP_CAN_RX0_IRQHandlerv
+ 2745              		.thumb
+ 2746              		.thumb_func
+ 2748              	_Z25USB_LP_CAN_RX0_IRQHandlerv:
+ 2749              	.LFB34:
+  54:../target/stm32/isrs.cpp **** #if (USE_USB_TRACE == 0)
+  55:../target/stm32/isrs.cpp **** 	void USB_LP_CAN_RX0_IRQHandler() {}			// Defined in usb-vcom-hw-config.h
+ 2750              		.loc 1 55 0
+ 2751              		.cfi_startproc
+ 2752              		@ args = 0, pretend = 0, frame = 0
+ 2753              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2754              		@ link register save eliminated.
+ 2755 0000 80B4     		push	{r7}
+ 2756              	.LCFI58:
+ 2757              		.cfi_def_cfa_offset 4
+ 2758 0002 00AF     		add	r7, sp, #0
+ 2759              		.cfi_offset 7, -4
+ 2760              	.LCFI59:
+ 2761              		.cfi_def_cfa_register 7
+ 2762              		.loc 1 55 0
+ 2763 0004 BD46     		mov	sp, r7
+ 2764 0006 80BC     		pop	{r7}
+ 2765 0008 7047     		bx	lr
+ 2766              		.cfi_endproc
+ 2767              	.LFE34:
+ 2769 000a 00BF     		.section	.text._Z18CAN_RX1_IRQHandlerv,"ax",%progbits
+ 2770              		.align	2
+ 2771              		.global	_Z18CAN_RX1_IRQHandlerv
+ 2772              		.thumb
+ 2773              		.thumb_func
+ 2775              	_Z18CAN_RX1_IRQHandlerv:
+ 2776              	.LFB35:
+  56:../target/stm32/isrs.cpp **** #endif
+  57:../target/stm32/isrs.cpp **** void CAN_RX1_IRQHandler() {}
+ 2777              		.loc 1 57 0
+ 2778              		.cfi_startproc
+ 2779              		@ args = 0, pretend = 0, frame = 0
+ 2780              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2781              		@ link register save eliminated.
+ 2782 0000 80B4     		push	{r7}
+ 2783              	.LCFI60:
+ 2784              		.cfi_def_cfa_offset 4
+ 2785 0002 00AF     		add	r7, sp, #0
+ 2786              		.cfi_offset 7, -4
+ 2787              	.LCFI61:
+ 2788              		.cfi_def_cfa_register 7
+ 2789              		.loc 1 57 0
+ 2790 0004 BD46     		mov	sp, r7
+ 2791 0006 80BC     		pop	{r7}
+ 2792 0008 7047     		bx	lr
+ 2793              		.cfi_endproc
+ 2794              	.LFE35:
+ 2796 000a 00BF     		.section	.text._Z18CAN_SCE_IRQHandlerv,"ax",%progbits
+ 2797              		.align	2
+ 2798              		.global	_Z18CAN_SCE_IRQHandlerv
+ 2799              		.thumb
+ 2800              		.thumb_func
+ 2802              	_Z18CAN_SCE_IRQHandlerv:
+ 2803              	.LFB36:
+  58:../target/stm32/isrs.cpp **** void CAN_SCE_IRQHandler() {}
+ 2804              		.loc 1 58 0
+ 2805              		.cfi_startproc
+ 2806              		@ args = 0, pretend = 0, frame = 0
+ 2807              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2808              		@ link register save eliminated.
+ 2809 0000 80B4     		push	{r7}
+ 2810              	.LCFI62:
+ 2811              		.cfi_def_cfa_offset 4
+ 2812 0002 00AF     		add	r7, sp, #0
+ 2813              		.cfi_offset 7, -4
+ 2814              	.LCFI63:
+ 2815              		.cfi_def_cfa_register 7
+ 2816              		.loc 1 58 0
+ 2817 0004 BD46     		mov	sp, r7
+ 2818 0006 80BC     		pop	{r7}
+ 2819 0008 7047     		bx	lr
+ 2820              		.cfi_endproc
+ 2821              	.LFE36:
+ 2823 000a 00BF     		.section	.text._Z19TIM1_BRK_IRQHandlerv,"ax",%progbits
+ 2824              		.align	2
+ 2825              		.global	_Z19TIM1_BRK_IRQHandlerv
+ 2826              		.thumb
+ 2827              		.thumb_func
+ 2829              	_Z19TIM1_BRK_IRQHandlerv:
+ 2830              	.LFB37:
+  59:../target/stm32/isrs.cpp **** //void EXTI9_5_IRQHandler() {}					// Defined in board/board-isrs.cpp
+  60:../target/stm32/isrs.cpp **** void TIM1_BRK_IRQHandler() {}
+ 2831              		.loc 1 60 0
+ 2832              		.cfi_startproc
+ 2833              		@ args = 0, pretend = 0, frame = 0
+ 2834              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2835              		@ link register save eliminated.
+ 2836 0000 80B4     		push	{r7}
+ 2837              	.LCFI64:
+ 2838              		.cfi_def_cfa_offset 4
+ 2839 0002 00AF     		add	r7, sp, #0
+ 2840              		.cfi_offset 7, -4
+ 2841              	.LCFI65:
+ 2842              		.cfi_def_cfa_register 7
+ 2843              		.loc 1 60 0
+ 2844 0004 BD46     		mov	sp, r7
+ 2845 0006 80BC     		pop	{r7}
+ 2846 0008 7047     		bx	lr
+ 2847              		.cfi_endproc
+ 2848              	.LFE37:
+ 2850 000a 00BF     		.section	.text._Z18TIM1_UP_IRQHandlerv,"ax",%progbits
+ 2851              		.align	2
+ 2852              		.global	_Z18TIM1_UP_IRQHandlerv
+ 2853              		.thumb
+ 2854              		.thumb_func
+ 2856              	_Z18TIM1_UP_IRQHandlerv:
+ 2857              	.LFB38:
+  61:../target/stm32/isrs.cpp **** void TIM1_UP_IRQHandler() {}
+ 2858              		.loc 1 61 0
+ 2859              		.cfi_startproc
+ 2860              		@ args = 0, pretend = 0, frame = 0
+ 2861              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2862              		@ link register save eliminated.
+ 2863 0000 80B4     		push	{r7}
+ 2864              	.LCFI66:
+ 2865              		.cfi_def_cfa_offset 4
+ 2866 0002 00AF     		add	r7, sp, #0
+ 2867              		.cfi_offset 7, -4
+ 2868              	.LCFI67:
+ 2869              		.cfi_def_cfa_register 7
+ 2870              		.loc 1 61 0
+ 2871 0004 BD46     		mov	sp, r7
+ 2872 0006 80BC     		pop	{r7}
+ 2873 0008 7047     		bx	lr
+ 2874              		.cfi_endproc
+ 2875              	.LFE38:
+ 2877 000a 00BF     		.section	.text._Z24TIM1_TRG_CCUP_IRQHandlerv,"ax",%progbits
+ 2878              		.align	2
+ 2879              		.global	_Z24TIM1_TRG_CCUP_IRQHandlerv
+ 2880              		.thumb
+ 2881              		.thumb_func
+ 2883              	_Z24TIM1_TRG_CCUP_IRQHandlerv:
+ 2884              	.LFB39:
+  62:../target/stm32/isrs.cpp **** void TIM1_TRG_CCUP_IRQHandler() {}
+ 2885              		.loc 1 62 0
+ 2886              		.cfi_startproc
+ 2887              		@ args = 0, pretend = 0, frame = 0
+ 2888              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2889              		@ link register save eliminated.
+ 2890 0000 80B4     		push	{r7}
+ 2891              	.LCFI68:
+ 2892              		.cfi_def_cfa_offset 4
+ 2893 0002 00AF     		add	r7, sp, #0
+ 2894              		.cfi_offset 7, -4
+ 2895              	.LCFI69:
+ 2896              		.cfi_def_cfa_register 7
+ 2897              		.loc 1 62 0
+ 2898 0004 BD46     		mov	sp, r7
+ 2899 0006 80BC     		pop	{r7}
+ 2900 0008 7047     		bx	lr
+ 2901              		.cfi_endproc
+ 2902              	.LFE39:
+ 2904 000a 00BF     		.section	.text._Z18TIM1_CC_IRQHandlerv,"ax",%progbits
+ 2905              		.align	2
+ 2906              		.global	_Z18TIM1_CC_IRQHandlerv
+ 2907              		.thumb
+ 2908              		.thumb_func
+ 2910              	_Z18TIM1_CC_IRQHandlerv:
+ 2911              	.LFB40:
+  63:../target/stm32/isrs.cpp **** void TIM1_CC_IRQHandler() {}
+ 2912              		.loc 1 63 0
+ 2913              		.cfi_startproc
+ 2914              		@ args = 0, pretend = 0, frame = 0
+ 2915              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2916              		@ link register save eliminated.
+ 2917 0000 80B4     		push	{r7}
+ 2918              	.LCFI70:
+ 2919              		.cfi_def_cfa_offset 4
+ 2920 0002 00AF     		add	r7, sp, #0
+ 2921              		.cfi_offset 7, -4
+ 2922              	.LCFI71:
+ 2923              		.cfi_def_cfa_register 7
+ 2924              		.loc 1 63 0
+ 2925 0004 BD46     		mov	sp, r7
+ 2926 0006 80BC     		pop	{r7}
+ 2927 0008 7047     		bx	lr
+ 2928              		.cfi_endproc
+ 2929              	.LFE40:
+ 2931 000a 00BF     		.section	.text._Z15TIM2_IRQHandlerv,"ax",%progbits
+ 2932              		.align	2
+ 2933              		.global	_Z15TIM2_IRQHandlerv
+ 2934              		.thumb
+ 2935              		.thumb_func
+ 2937              	_Z15TIM2_IRQHandlerv:
+ 2938              	.LFB41:
+  64:../target/stm32/isrs.cpp **** void TIM2_IRQHandler() {}
+ 2939              		.loc 1 64 0
+ 2940              		.cfi_startproc
+ 2941              		@ args = 0, pretend = 0, frame = 0
+ 2942              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2943              		@ link register save eliminated.
+ 2944 0000 80B4     		push	{r7}
+ 2945              	.LCFI72:
+ 2946              		.cfi_def_cfa_offset 4
+ 2947 0002 00AF     		add	r7, sp, #0
+ 2948              		.cfi_offset 7, -4
+ 2949              	.LCFI73:
+ 2950              		.cfi_def_cfa_register 7
+ 2951              		.loc 1 64 0
+ 2952 0004 BD46     		mov	sp, r7
+ 2953 0006 80BC     		pop	{r7}
+ 2954 0008 7047     		bx	lr
+ 2955              		.cfi_endproc
+ 2956              	.LFE41:
+ 2958 000a 00BF     		.section	.text._Z15TIM3_IRQHandlerv,"ax",%progbits
+ 2959              		.align	2
+ 2960              		.global	_Z15TIM3_IRQHandlerv
+ 2961              		.thumb
+ 2962              		.thumb_func
+ 2964              	_Z15TIM3_IRQHandlerv:
+ 2965              	.LFB42:
+  65:../target/stm32/isrs.cpp **** void TIM3_IRQHandler() {}
+ 2966              		.loc 1 65 0
+ 2967              		.cfi_startproc
+ 2968              		@ args = 0, pretend = 0, frame = 0
+ 2969              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2970              		@ link register save eliminated.
+ 2971 0000 80B4     		push	{r7}
+ 2972              	.LCFI74:
+ 2973              		.cfi_def_cfa_offset 4
+ 2974 0002 00AF     		add	r7, sp, #0
+ 2975              		.cfi_offset 7, -4
+ 2976              	.LCFI75:
+ 2977              		.cfi_def_cfa_register 7
+ 2978              		.loc 1 65 0
+ 2979 0004 BD46     		mov	sp, r7
+ 2980 0006 80BC     		pop	{r7}
+ 2981 0008 7047     		bx	lr
+ 2982              		.cfi_endproc
+ 2983              	.LFE42:
+ 2985 000a 00BF     		.section	.text._Z15TIM4_IRQHandlerv,"ax",%progbits
+ 2986              		.align	2
+ 2987              		.global	_Z15TIM4_IRQHandlerv
+ 2988              		.thumb
+ 2989              		.thumb_func
+ 2991              	_Z15TIM4_IRQHandlerv:
+ 2992              	.LFB43:
+  66:../target/stm32/isrs.cpp **** void TIM4_IRQHandler() {}
+ 2993              		.loc 1 66 0
+ 2994              		.cfi_startproc
+ 2995              		@ args = 0, pretend = 0, frame = 0
+ 2996              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2997              		@ link register save eliminated.
+ 2998 0000 80B4     		push	{r7}
+ 2999              	.LCFI76:
+ 3000              		.cfi_def_cfa_offset 4
+ 3001 0002 00AF     		add	r7, sp, #0
+ 3002              		.cfi_offset 7, -4
+ 3003              	.LCFI77:
+ 3004              		.cfi_def_cfa_register 7
+ 3005              		.loc 1 66 0
+ 3006 0004 BD46     		mov	sp, r7
+ 3007 0006 80BC     		pop	{r7}
+ 3008 0008 7047     		bx	lr
+ 3009              		.cfi_endproc
+ 3010              	.LFE43:
+ 3012 000a 00BF     		.section	.text._Z18I2C1_EV_IRQHandlerv,"ax",%progbits
+ 3013              		.align	2
+ 3014              		.global	_Z18I2C1_EV_IRQHandlerv
+ 3015              		.thumb
+ 3016              		.thumb_func
+ 3018              	_Z18I2C1_EV_IRQHandlerv:
+ 3019              	.LFB44:
+  67:../target/stm32/isrs.cpp **** void I2C1_EV_IRQHandler() {}
+ 3020              		.loc 1 67 0
+ 3021              		.cfi_startproc
+ 3022              		@ args = 0, pretend = 0, frame = 0
+ 3023              		@ frame_needed = 1, uses_anonymous_args = 0
+ 3024              		@ link register save eliminated.
+ 3025 0000 80B4     		push	{r7}
+ 3026              	.LCFI78:
+ 3027              		.cfi_def_cfa_offset 4
+ 3028 0002 00AF     		add	r7, sp, #0
+ 3029              		.cfi_offset 7, -4
+ 3030              	.LCFI79:
+ 3031              		.cfi_def_cfa_register 7
+ 3032              		.loc 1 67 0
+ 3033 0004 BD46     		mov	sp, r7
+ 3034 0006 80BC     		pop	{r7}
+ 3035 0008 7047     		bx	lr
+ 3036              		.cfi_endproc
+ 3037              	.LFE44:
+ 3039 000a 00BF     		.section	.text._Z18I2C1_ER_IRQHandlerv,"ax",%progbits
+ 3040              		.align	2
+ 3041              		.global	_Z18I2C1_ER_IRQHandlerv
+ 3042              		.thumb
+ 3043              		.thumb_func
+ 3045              	_Z18I2C1_ER_IRQHandlerv:
+ 3046              	.LFB45:
+  68:../target/stm32/isrs.cpp **** void I2C1_ER_IRQHandler() {}
+ 3047              		.loc 1 68 0
+ 3048              		.cfi_startproc
+ 3049              		@ args = 0, pretend = 0, frame = 0
+ 3050              		@ frame_needed = 1, uses_anonymous_args = 0
+ 3051              		@ link register save eliminated.
+ 3052 0000 80B4     		push	{r7}
+ 3053              	.LCFI80:
+ 3054              		.cfi_def_cfa_offset 4
+ 3055 0002 00AF     		add	r7, sp, #0
+ 3056              		.cfi_offset 7, -4
+ 3057              	.LCFI81:
+ 3058              		.cfi_def_cfa_register 7
+ 3059              		.loc 1 68 0
+ 3060 0004 BD46     		mov	sp, r7
+ 3061 0006 80BC     		pop	{r7}
+ 3062 0008 7047     		bx	lr
+ 3063              		.cfi_endproc
+ 3064              	.LFE45:
+ 3066 000a 00BF     		.section	.text._Z18I2C2_EV_IRQHandlerv,"ax",%progbits
+ 3067              		.align	2
+ 3068              		.global	_Z18I2C2_EV_IRQHandlerv
+ 3069              		.thumb
+ 3070              		.thumb_func
+ 3072              	_Z18I2C2_EV_IRQHandlerv:
+ 3073              	.LFB46:
+  69:../target/stm32/isrs.cpp **** void I2C2_EV_IRQHandler() {}
+ 3074              		.loc 1 69 0
+ 3075              		.cfi_startproc
+ 3076              		@ args = 0, pretend = 0, frame = 0
+ 3077              		@ frame_needed = 1, uses_anonymous_args = 0
+ 3078              		@ link register save eliminated.
+ 3079 0000 80B4     		push	{r7}
+ 3080              	.LCFI82:
+ 3081              		.cfi_def_cfa_offset 4
+ 3082 0002 00AF     		add	r7, sp, #0
+ 3083              		.cfi_offset 7, -4
+ 3084              	.LCFI83:
+ 3085              		.cfi_def_cfa_register 7
+ 3086              		.loc 1 69 0
+ 3087 0004 BD46     		mov	sp, r7
+ 3088 0006 80BC     		pop	{r7}
+ 3089 0008 7047     		bx	lr
+ 3090              		.cfi_endproc
+ 3091              	.LFE46:
+ 3093 000a 00BF     		.section	.text._Z18I2C2_ER_IRQHandlerv,"ax",%progbits
+ 3094              		.align	2
+ 3095              		.global	_Z18I2C2_ER_IRQHandlerv
+ 3096              		.thumb
+ 3097              		.thumb_func
+ 3099              	_Z18I2C2_ER_IRQHandlerv:
+ 3100              	.LFB47:
+  70:../target/stm32/isrs.cpp **** void I2C2_ER_IRQHandler() {}
+ 3101              		.loc 1 70 0
+ 3102              		.cfi_startproc
+ 3103              		@ args = 0, pretend = 0, frame = 0
+ 3104              		@ frame_needed = 1, uses_anonymous_args = 0
+ 3105              		@ link register save eliminated.
+ 3106 0000 80B4     		push	{r7}
+ 3107              	.LCFI84:
+ 3108              		.cfi_def_cfa_offset 4
+ 3109 0002 00AF     		add	r7, sp, #0
+ 3110              		.cfi_offset 7, -4
+ 3111              	.LCFI85:
+ 3112              		.cfi_def_cfa_register 7
+ 3113              		.loc 1 70 0
+ 3114 0004 BD46     		mov	sp, r7
+ 3115 0006 80BC     		pop	{r7}
+ 3116 0008 7047     		bx	lr
+ 3117              		.cfi_endproc
+ 3118              	.LFE47:
+ 3120 000a 00BF     		.section	.text._Z15SPI1_IRQHandlerv,"ax",%progbits
+ 3121              		.align	2
+ 3122              		.global	_Z15SPI1_IRQHandlerv
+ 3123              		.thumb
+ 3124              		.thumb_func
+ 3126              	_Z15SPI1_IRQHandlerv:
+ 3127              	.LFB48:
+  71:../target/stm32/isrs.cpp **** void SPI1_IRQHandler() {}
+ 3128              		.loc 1 71 0
+ 3129              		.cfi_startproc
+ 3130              		@ args = 0, pretend = 0, frame = 0
+ 3131              		@ frame_needed = 1, uses_anonymous_args = 0
+ 3132              		@ link register save eliminated.
+ 3133 0000 80B4     		push	{r7}
+ 3134              	.LCFI86:
+ 3135              		.cfi_def_cfa_offset 4
+ 3136 0002 00AF     		add	r7, sp, #0
+ 3137              		.cfi_offset 7, -4
+ 3138              	.LCFI87:
+ 3139              		.cfi_def_cfa_register 7
+ 3140              		.loc 1 71 0
+ 3141 0004 BD46     		mov	sp, r7
+ 3142 0006 80BC     		pop	{r7}
+ 3143 0008 7047     		bx	lr
+ 3144              		.cfi_endproc
+ 3145              	.LFE48:
+ 3147 000a 00BF     		.section	.text._Z15SPI2_IRQHandlerv,"ax",%progbits
+ 3148              		.align	2
+ 3149              		.global	_Z15SPI2_IRQHandlerv
+ 3150              		.thumb
+ 3151              		.thumb_func
+ 3153              	_Z15SPI2_IRQHandlerv:
+ 3154              	.LFB49:
+  72:../target/stm32/isrs.cpp **** void SPI2_IRQHandler() {}
+ 3155              		.loc 1 72 0
+ 3156              		.cfi_startproc
+ 3157              		@ args = 0, pretend = 0, frame = 0
+ 3158              		@ frame_needed = 1, uses_anonymous_args = 0
+ 3159              		@ link register save eliminated.
+ 3160 0000 80B4     		push	{r7}
+ 3161              	.LCFI88:
+ 3162              		.cfi_def_cfa_offset 4
+ 3163 0002 00AF     		add	r7, sp, #0
+ 3164              		.cfi_offset 7, -4
+ 3165              	.LCFI89:
+ 3166              		.cfi_def_cfa_register 7
+ 3167              		.loc 1 72 0
+ 3168 0004 BD46     		mov	sp, r7
+ 3169 0006 80BC     		pop	{r7}
+ 3170 0008 7047     		bx	lr
+ 3171              		.cfi_endproc
+ 3172              	.LFE49:
+ 3174 000a 00BF     		.section	.text._Z17USART1_IRQHandlerv,"ax",%progbits
+ 3175              		.align	2
+ 3176              		.global	_Z17USART1_IRQHandlerv
+ 3177              		.thumb
+ 3178              		.thumb_func
+ 3180              	_Z17USART1_IRQHandlerv:
+ 3181              	.LFB50:
+  73:../target/stm32/isrs.cpp **** void USART1_IRQHandler() {}
+ 3182              		.loc 1 73 0
+ 3183              		.cfi_startproc
+ 3184              		@ args = 0, pretend = 0, frame = 0
+ 3185              		@ frame_needed = 1, uses_anonymous_args = 0
+ 3186              		@ link register save eliminated.
+ 3187 0000 80B4     		push	{r7}
+ 3188              	.LCFI90:
+ 3189              		.cfi_def_cfa_offset 4
+ 3190 0002 00AF     		add	r7, sp, #0
+ 3191              		.cfi_offset 7, -4
+ 3192              	.LCFI91:
+ 3193              		.cfi_def_cfa_register 7
+ 3194              		.loc 1 73 0
+ 3195 0004 BD46     		mov	sp, r7
+ 3196 0006 80BC     		pop	{r7}
+ 3197 0008 7047     		bx	lr
+ 3198              		.cfi_endproc
+ 3199              	.LFE50:
+ 3201 000a 00BF     		.section	.text._Z17USART3_IRQHandlerv,"ax",%progbits
+ 3202              		.align	2
+ 3203              		.global	_Z17USART3_IRQHandlerv
+ 3204              		.thumb
+ 3205              		.thumb_func
+ 3207              	_Z17USART3_IRQHandlerv:
+ 3208              	.LFB51:
+  74:../target/stm32/isrs.cpp **** #if (USE_USART2_TRACE == 0)
+  75:../target/stm32/isrs.cpp **** 	void USART2_IRQHandler() {}					// Defined in uart.cpp
+  76:../target/stm32/isrs.cpp **** #endif
+  77:../target/stm32/isrs.cpp **** void USART3_IRQHandler() {}
+ 3209              		.loc 1 77 0
+ 3210              		.cfi_startproc
+ 3211              		@ args = 0, pretend = 0, frame = 0
+ 3212              		@ frame_needed = 1, uses_anonymous_args = 0
+ 3213              		@ link register save eliminated.
+ 3214 0000 80B4     		push	{r7}
+ 3215              	.LCFI92:
+ 3216              		.cfi_def_cfa_offset 4
+ 3217 0002 00AF     		add	r7, sp, #0
+ 3218              		.cfi_offset 7, -4
+ 3219              	.LCFI93:
+ 3220              		.cfi_def_cfa_register 7
+ 3221              		.loc 1 77 0
+ 3222 0004 BD46     		mov	sp, r7
+ 3223 0006 80BC     		pop	{r7}
+ 3224 0008 7047     		bx	lr
+ 3225              		.cfi_endproc
+ 3226              	.LFE51:
+ 3228 000a 00BF     		.section	.text._Z20EXTI15_10_IRQHandlerv,"ax",%progbits
+ 3229              		.align	2
+ 3230              		.global	_Z20EXTI15_10_IRQHandlerv
+ 3231              		.thumb
+ 3232              		.thumb_func
+ 3234              	_Z20EXTI15_10_IRQHandlerv:
+ 3235              	.LFB52:
+  78:../target/stm32/isrs.cpp **** void EXTI15_10_IRQHandler() {}
+ 3236              		.loc 1 78 0
+ 3237              		.cfi_startproc
+ 3238              		@ args = 0, pretend = 0, frame = 0
+ 3239              		@ frame_needed = 1, uses_anonymous_args = 0
+ 3240              		@ link register save eliminated.
+ 3241 0000 80B4     		push	{r7}
+ 3242              	.LCFI94:
+ 3243              		.cfi_def_cfa_offset 4
+ 3244 0002 00AF     		add	r7, sp, #0
+ 3245              		.cfi_offset 7, -4
+ 3246              	.LCFI95:
+ 3247              		.cfi_def_cfa_register 7
+ 3248              		.loc 1 78 0
+ 3249 0004 BD46     		mov	sp, r7
+ 3250 0006 80BC     		pop	{r7}
+ 3251 0008 7047     		bx	lr
+ 3252              		.cfi_endproc
+ 3253              	.LFE52:
+ 3255 000a 00BF     		.section	.text._Z19RTCAlarm_IRQHandlerv,"ax",%progbits
+ 3256              		.align	2
+ 3257              		.global	_Z19RTCAlarm_IRQHandlerv
+ 3258              		.thumb
+ 3259              		.thumb_func
+ 3261              	_Z19RTCAlarm_IRQHandlerv:
+ 3262              	.LFB53:
+  79:../target/stm32/isrs.cpp **** void RTCAlarm_IRQHandler() {}
+ 3263              		.loc 1 79 0
+ 3264              		.cfi_startproc
+ 3265              		@ args = 0, pretend = 0, frame = 0
+ 3266              		@ frame_needed = 1, uses_anonymous_args = 0
+ 3267              		@ link register save eliminated.
+ 3268 0000 80B4     		push	{r7}
+ 3269              	.LCFI96:
+ 3270              		.cfi_def_cfa_offset 4
+ 3271 0002 00AF     		add	r7, sp, #0
+ 3272              		.cfi_offset 7, -4
+ 3273              	.LCFI97:
+ 3274              		.cfi_def_cfa_register 7
+ 3275              		.loc 1 79 0
+ 3276 0004 BD46     		mov	sp, r7
+ 3277 0006 80BC     		pop	{r7}
+ 3278 0008 7047     		bx	lr
+ 3279              		.cfi_endproc
+ 3280              	.LFE53:
+ 3282 000a 00BF     		.section	.text._Z20USBWakeUp_IRQHandlerv,"ax",%progbits
+ 3283              		.align	2
+ 3284              		.global	_Z20USBWakeUp_IRQHandlerv
+ 3285              		.thumb
+ 3286              		.thumb_func
+ 3288              	_Z20USBWakeUp_IRQHandlerv:
+ 3289              	.LFB54:
+  80:../target/stm32/isrs.cpp **** void USBWakeUp_IRQHandler() {}
+ 3290              		.loc 1 80 0
+ 3291              		.cfi_startproc
+ 3292              		@ args = 0, pretend = 0, frame = 0
+ 3293              		@ frame_needed = 1, uses_anonymous_args = 0
+ 3294              		@ link register save eliminated.
+ 3295 0000 80B4     		push	{r7}
+ 3296              	.LCFI98:
+ 3297              		.cfi_def_cfa_offset 4
+ 3298 0002 00AF     		add	r7, sp, #0
+ 3299              		.cfi_offset 7, -4
+ 3300              	.LCFI99:
+ 3301              		.cfi_def_cfa_register 7
+ 3302              		.loc 1 80 0
+ 3303 0004 BD46     		mov	sp, r7
+ 3304 0006 80BC     		pop	{r7}
+ 3305 0008 7047     		bx	lr
+ 3306              		.cfi_endproc
+ 3307              	.LFE54:
+ 3309 000a 00BF     		.text
+ 3310              	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 isrs.cpp
+     /tmp/ccq0woEi.s:1927   .rodata:00000000 $d
+     /tmp/ccq0woEi.s:1928   .rodata:00000000 .LC0
+     /tmp/ccq0woEi.s:1931   .text._Z12resetHandlerv:00000000 $t
+     /tmp/ccq0woEi.s:1936   .text._Z12resetHandlerv:00000000 _Z12resetHandlerv
+     /tmp/ccq0woEi.s:1967   .rodata:0000001c .LC1
+     /tmp/ccq0woEi.s:1970   .text._Z11nmi_handlerv:00000000 $t
+     /tmp/ccq0woEi.s:1975   .text._Z11nmi_handlerv:00000000 _Z11nmi_handlerv
+     /tmp/ccq0woEi.s:2001   .rodata:00000030 .LC2
+     /tmp/ccq0woEi.s:2004   .text._Z17hardfault_handlerv:00000000 $t
+     /tmp/ccq0woEi.s:2009   .text._Z17hardfault_handlerv:00000000 _Z17hardfault_handlerv
+     /tmp/ccq0woEi.s:2034   .text._Z18MemManageExceptionv:00000000 $t
+     /tmp/ccq0woEi.s:2039   .text._Z18MemManageExceptionv:00000000 _Z18MemManageExceptionv
+     /tmp/ccq0woEi.s:2062   .rodata:0000004c .LC3
+     /tmp/ccq0woEi.s:2065   .text._Z17BusFaultExceptionv:00000000 $t
+     /tmp/ccq0woEi.s:2070   .text._Z17BusFaultExceptionv:00000000 _Z17BusFaultExceptionv
+     /tmp/ccq0woEi.s:2095   .text._Z19UsageFaultExceptionv:00000000 $t
+     /tmp/ccq0woEi.s:2100   .text._Z19UsageFaultExceptionv:00000000 _Z19UsageFaultExceptionv
+     /tmp/ccq0woEi.s:2122   .text._Z10SVCHandlerv:00000000 $t
+     /tmp/ccq0woEi.s:2127   .text._Z10SVCHandlerv:00000000 _Z10SVCHandlerv
+     /tmp/ccq0woEi.s:2149   .text._Z12DebugMonitorv:00000000 $t
+     /tmp/ccq0woEi.s:2154   .text._Z12DebugMonitorv:00000000 _Z12DebugMonitorv
+     /tmp/ccq0woEi.s:2176   .text._Z7PendSVCv:00000000 $t
+     /tmp/ccq0woEi.s:2181   .text._Z7PendSVCv:00000000 _Z7PendSVCv
+     /tmp/ccq0woEi.s:2203   .text._Z15WWDG_IRQHandlerv:00000000 $t
+     /tmp/ccq0woEi.s:2208   .text._Z15WWDG_IRQHandlerv:00000000 _Z15WWDG_IRQHandlerv
+     /tmp/ccq0woEi.s:2230   .text._Z14PVD_IRQHandlerv:00000000 $t
+     /tmp/ccq0woEi.s:2235   .text._Z14PVD_IRQHandlerv:00000000 _Z14PVD_IRQHandlerv
+     /tmp/ccq0woEi.s:2257   .text._Z17TAMPER_IRQHandlerv:00000000 $t
+     /tmp/ccq0woEi.s:2262   .text._Z17TAMPER_IRQHandlerv:00000000 _Z17TAMPER_IRQHandlerv
+     /tmp/ccq0woEi.s:2284   .text._Z14RTC_IRQHandlerv:00000000 $t
+     /tmp/ccq0woEi.s:2289   .text._Z14RTC_IRQHandlerv:00000000 _Z14RTC_IRQHandlerv
+     /tmp/ccq0woEi.s:2311   .text._Z16FLASH_IRQHandlerv:00000000 $t
+     /tmp/ccq0woEi.s:2316   .text._Z16FLASH_IRQHandlerv:00000000 _Z16FLASH_IRQHandlerv
+     /tmp/ccq0woEi.s:2338   .text._Z14RCC_IRQHandlerv:00000000 $t
+     /tmp/ccq0woEi.s:2343   .text._Z14RCC_IRQHandlerv:00000000 _Z14RCC_IRQHandlerv
+     /tmp/ccq0woEi.s:2365   .text._Z16EXTI0_IRQHandlerv:00000000 $t
+     /tmp/ccq0woEi.s:2370   .text._Z16EXTI0_IRQHandlerv:00000000 _Z16EXTI0_IRQHandlerv
+     /tmp/ccq0woEi.s:2392   .text._Z16EXTI1_IRQHandlerv:00000000 $t
+     /tmp/ccq0woEi.s:2397   .text._Z16EXTI1_IRQHandlerv:00000000 _Z16EXTI1_IRQHandlerv
+     /tmp/ccq0woEi.s:2419   .text._Z16EXTI2_IRQHandlerv:00000000 $t
+     /tmp/ccq0woEi.s:2424   .text._Z16EXTI2_IRQHandlerv:00000000 _Z16EXTI2_IRQHandlerv
+     /tmp/ccq0woEi.s:2446   .text._Z16EXTI3_IRQHandlerv:00000000 $t
+     /tmp/ccq0woEi.s:2451   .text._Z16EXTI3_IRQHandlerv:00000000 _Z16EXTI3_IRQHandlerv
+     /tmp/ccq0woEi.s:2473   .text._Z16EXTI4_IRQHandlerv:00000000 $t
+     /tmp/ccq0woEi.s:2478   .text._Z16EXTI4_IRQHandlerv:00000000 _Z16EXTI4_IRQHandlerv
+     /tmp/ccq0woEi.s:2500   .text._Z22DMAChannel1_IRQHandlerv:00000000 $t
+     /tmp/ccq0woEi.s:2505   .text._Z22DMAChannel1_IRQHandlerv:00000000 _Z22DMAChannel1_IRQHandlerv
+     /tmp/ccq0woEi.s:2527   .text._Z22DMAChannel2_IRQHandlerv:00000000 $t
+     /tmp/ccq0woEi.s:2532   .text._Z22DMAChannel2_IRQHandlerv:00000000 _Z22DMAChannel2_IRQHandlerv
+     /tmp/ccq0woEi.s:2554   .text._Z22DMAChannel3_IRQHandlerv:00000000 $t
+     /tmp/ccq0woEi.s:2559   .text._Z22DMAChannel3_IRQHandlerv:00000000 _Z22DMAChannel3_IRQHandlerv
+     /tmp/ccq0woEi.s:2581   .text._Z22DMAChannel4_IRQHandlerv:00000000 $t
+     /tmp/ccq0woEi.s:2586   .text._Z22DMAChannel4_IRQHandlerv:00000000 _Z22DMAChannel4_IRQHandlerv
+     /tmp/ccq0woEi.s:2608   .text._Z22DMAChannel5_IRQHandlerv:00000000 $t
+     /tmp/ccq0woEi.s:2613   .text._Z22DMAChannel5_IRQHandlerv:00000000 _Z22DMAChannel5_IRQHandlerv
+     /tmp/ccq0woEi.s:2635   .text._Z22DMAChannel6_IRQHandlerv:00000000 $t
+     /tmp/ccq0woEi.s:2640   .text._Z22DMAChannel6_IRQHandlerv:00000000 _Z22DMAChannel6_IRQHandlerv
+     /tmp/ccq0woEi.s:2662   .text._Z22DMAChannel7_IRQHandlerv:00000000 $t
+     /tmp/ccq0woEi.s:2667   .text._Z22DMAChannel7_IRQHandlerv:00000000 _Z22DMAChannel7_IRQHandlerv
+     /tmp/ccq0woEi.s:2689   .text._Z14ADC_IRQHandlerv:00000000 $t
+     /tmp/ccq0woEi.s:2694   .text._Z14ADC_IRQHandlerv:00000000 _Z14ADC_IRQHandlerv
+     /tmp/ccq0woEi.s:2716   .text._Z24USB_HP_CAN_TX_IRQHandlerv:00000000 $t
+     /tmp/ccq0woEi.s:2721   .text._Z24USB_HP_CAN_TX_IRQHandlerv:00000000 _Z24USB_HP_CAN_TX_IRQHandlerv
+     /tmp/ccq0woEi.s:2743   .text._Z25USB_LP_CAN_RX0_IRQHandlerv:00000000 $t
+     /tmp/ccq0woEi.s:2748   .text._Z25USB_LP_CAN_RX0_IRQHandlerv:00000000 _Z25USB_LP_CAN_RX0_IRQHandlerv
+     /tmp/ccq0woEi.s:2770   .text._Z18CAN_RX1_IRQHandlerv:00000000 $t
+     /tmp/ccq0woEi.s:2775   .text._Z18CAN_RX1_IRQHandlerv:00000000 _Z18CAN_RX1_IRQHandlerv
+     /tmp/ccq0woEi.s:2797   .text._Z18CAN_SCE_IRQHandlerv:00000000 $t
+     /tmp/ccq0woEi.s:2802   .text._Z18CAN_SCE_IRQHandlerv:00000000 _Z18CAN_SCE_IRQHandlerv
+     /tmp/ccq0woEi.s:2824   .text._Z19TIM1_BRK_IRQHandlerv:00000000 $t
+     /tmp/ccq0woEi.s:2829   .text._Z19TIM1_BRK_IRQHandlerv:00000000 _Z19TIM1_BRK_IRQHandlerv
+     /tmp/ccq0woEi.s:2851   .text._Z18TIM1_UP_IRQHandlerv:00000000 $t
+     /tmp/ccq0woEi.s:2856   .text._Z18TIM1_UP_IRQHandlerv:00000000 _Z18TIM1_UP_IRQHandlerv
+     /tmp/ccq0woEi.s:2878   .text._Z24TIM1_TRG_CCUP_IRQHandlerv:00000000 $t
+     /tmp/ccq0woEi.s:2883   .text._Z24TIM1_TRG_CCUP_IRQHandlerv:00000000 _Z24TIM1_TRG_CCUP_IRQHandlerv
+     /tmp/ccq0woEi.s:2905   .text._Z18TIM1_CC_IRQHandlerv:00000000 $t
+     /tmp/ccq0woEi.s:2910   .text._Z18TIM1_CC_IRQHandlerv:00000000 _Z18TIM1_CC_IRQHandlerv
+     /tmp/ccq0woEi.s:2932   .text._Z15TIM2_IRQHandlerv:00000000 $t
+     /tmp/ccq0woEi.s:2937   .text._Z15TIM2_IRQHandlerv:00000000 _Z15TIM2_IRQHandlerv
+     /tmp/ccq0woEi.s:2959   .text._Z15TIM3_IRQHandlerv:00000000 $t
+     /tmp/ccq0woEi.s:2964   .text._Z15TIM3_IRQHandlerv:00000000 _Z15TIM3_IRQHandlerv
+     /tmp/ccq0woEi.s:2986   .text._Z15TIM4_IRQHandlerv:00000000 $t
+     /tmp/ccq0woEi.s:2991   .text._Z15TIM4_IRQHandlerv:00000000 _Z15TIM4_IRQHandlerv
+     /tmp/ccq0woEi.s:3013   .text._Z18I2C1_EV_IRQHandlerv:00000000 $t
+     /tmp/ccq0woEi.s:3018   .text._Z18I2C1_EV_IRQHandlerv:00000000 _Z18I2C1_EV_IRQHandlerv
+     /tmp/ccq0woEi.s:3040   .text._Z18I2C1_ER_IRQHandlerv:00000000 $t
+     /tmp/ccq0woEi.s:3045   .text._Z18I2C1_ER_IRQHandlerv:00000000 _Z18I2C1_ER_IRQHandlerv
+     /tmp/ccq0woEi.s:3067   .text._Z18I2C2_EV_IRQHandlerv:00000000 $t
+     /tmp/ccq0woEi.s:3072   .text._Z18I2C2_EV_IRQHandlerv:00000000 _Z18I2C2_EV_IRQHandlerv
+     /tmp/ccq0woEi.s:3094   .text._Z18I2C2_ER_IRQHandlerv:00000000 $t
+     /tmp/ccq0woEi.s:3099   .text._Z18I2C2_ER_IRQHandlerv:00000000 _Z18I2C2_ER_IRQHandlerv
+     /tmp/ccq0woEi.s:3121   .text._Z15SPI1_IRQHandlerv:00000000 $t
+     /tmp/ccq0woEi.s:3126   .text._Z15SPI1_IRQHandlerv:00000000 _Z15SPI1_IRQHandlerv
+     /tmp/ccq0woEi.s:3148   .text._Z15SPI2_IRQHandlerv:00000000 $t
+     /tmp/ccq0woEi.s:3153   .text._Z15SPI2_IRQHandlerv:00000000 _Z15SPI2_IRQHandlerv
+     /tmp/ccq0woEi.s:3175   .text._Z17USART1_IRQHandlerv:00000000 $t
+     /tmp/ccq0woEi.s:3180   .text._Z17USART1_IRQHandlerv:00000000 _Z17USART1_IRQHandlerv
+     /tmp/ccq0woEi.s:3202   .text._Z17USART3_IRQHandlerv:00000000 $t
+     /tmp/ccq0woEi.s:3207   .text._Z17USART3_IRQHandlerv:00000000 _Z17USART3_IRQHandlerv
+     /tmp/ccq0woEi.s:3229   .text._Z20EXTI15_10_IRQHandlerv:00000000 $t
+     /tmp/ccq0woEi.s:3234   .text._Z20EXTI15_10_IRQHandlerv:00000000 _Z20EXTI15_10_IRQHandlerv
+     /tmp/ccq0woEi.s:3256   .text._Z19RTCAlarm_IRQHandlerv:00000000 $t
+     /tmp/ccq0woEi.s:3261   .text._Z19RTCAlarm_IRQHandlerv:00000000 _Z19RTCAlarm_IRQHandlerv
+     /tmp/ccq0woEi.s:3283   .text._Z20USBWakeUp_IRQHandlerv:00000000 $t
+     /tmp/ccq0woEi.s:3288   .text._Z20USBWakeUp_IRQHandlerv:00000000 _Z20USBWakeUp_IRQHandlerv
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+_ZN7Startup4initEv
+main
+_ZN5Trace3outEPKcz
+_Z10fini_arrayv

@@ -1,0 +1,266 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"usb_mem.c"
+  23              	.Ltext0:
+  24              		.file 1 "../target/stm32/vcom/usb_mem.c"
+ 16441              		.align	2
+ 16442              		.global	UserToPMABufferCopy
+ 16443              		.thumb
+ 16444              		.thumb_func
+ 16446              	UserToPMABufferCopy:
+ 16447              	.LFB29:
+   1:../target/stm32/vcom/usb_mem.c **** /******************** (C) COPYRIGHT 2007 STMicroelectronics ********************
+   2:../target/stm32/vcom/usb_mem.c **** * File Name          : usb_mem.c
+   3:../target/stm32/vcom/usb_mem.c **** * Author             : MCD Application Team
+   4:../target/stm32/vcom/usb_mem.c **** * Version            : V1.0
+   5:../target/stm32/vcom/usb_mem.c **** * Date               : 10/08/2007
+   6:../target/stm32/vcom/usb_mem.c **** * Description        : Utility functions for memory transfers to/from PMA
+   7:../target/stm32/vcom/usb_mem.c **** ********************************************************************************
+   8:../target/stm32/vcom/usb_mem.c **** * THE PRESENT SOFTWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
+   9:../target/stm32/vcom/usb_mem.c **** * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE TIME.
+  10:../target/stm32/vcom/usb_mem.c **** * AS A RESULT, STMICROELECTRONICS SHALL NOT BE HELD LIABLE FOR ANY DIRECT,
+  11:../target/stm32/vcom/usb_mem.c **** * INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING FROM THE
+  12:../target/stm32/vcom/usb_mem.c **** * CONTENT OF SUCH SOFTWARE AND/OR THE USE MADE BY CUSTOMERS OF THE CODING
+  13:../target/stm32/vcom/usb_mem.c **** * INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
+  14:../target/stm32/vcom/usb_mem.c **** *******************************************************************************/
+  15:../target/stm32/vcom/usb_mem.c **** 
+  16:../target/stm32/vcom/usb_mem.c **** /* Includes ------------------------------------------------------------------*/
+  17:../target/stm32/vcom/usb_mem.c **** #include "usb_lib.h"
+  18:../target/stm32/vcom/usb_mem.c **** 
+  19:../target/stm32/vcom/usb_mem.c **** /* Private typedef -----------------------------------------------------------*/
+  20:../target/stm32/vcom/usb_mem.c **** /* Private define ------------------------------------------------------------*/
+  21:../target/stm32/vcom/usb_mem.c **** /* Private macro -------------------------------------------------------------*/
+  22:../target/stm32/vcom/usb_mem.c **** /* Private variables ---------------------------------------------------------*/
+  23:../target/stm32/vcom/usb_mem.c **** /* Extern variables ----------------------------------------------------------*/
+  24:../target/stm32/vcom/usb_mem.c **** /* Private function prototypes -----------------------------------------------*/
+  25:../target/stm32/vcom/usb_mem.c **** /* Private functions ---------------------------------------------------------*/
+  26:../target/stm32/vcom/usb_mem.c **** /*******************************************************************************
+  27:../target/stm32/vcom/usb_mem.c **** * Function Name  : UserToPMABufferCopy
+  28:../target/stm32/vcom/usb_mem.c **** * Description    : Copy a buffer from user memory area to packet memory area (PMA)
+  29:../target/stm32/vcom/usb_mem.c **** * Input          : - pbUsrBuf: pointer to user memory area.
+  30:../target/stm32/vcom/usb_mem.c **** *                  - wPMABufAddr: address into PMA.
+  31:../target/stm32/vcom/usb_mem.c **** *                  - wNBytes: no. of bytes to be copied.
+  32:../target/stm32/vcom/usb_mem.c **** * Output         : None.
+  33:../target/stm32/vcom/usb_mem.c **** * Return         : None	.
+  34:../target/stm32/vcom/usb_mem.c **** *******************************************************************************/
+  35:../target/stm32/vcom/usb_mem.c **** void UserToPMABufferCopy(const u8 *pbUsrBuf, u16 wPMABufAddr, u16 wNBytes)
+  36:../target/stm32/vcom/usb_mem.c **** {
+ 16448              		.loc 1 36 0
+ 16449              		.cfi_startproc
+ 16450              		@ args = 0, pretend = 0, frame = 32
+ 16451              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16452              		@ link register save eliminated.
+ 16453 0000 80B4     		push	{r7}
+ 16454              	.LCFI0:
+ 16455              		.cfi_def_cfa_offset 4
+ 16456 0002 89B0     		sub	sp, sp, #36
+ 16457              	.LCFI1:
+ 16458              		.cfi_def_cfa_offset 40
+ 16459 0004 00AF     		add	r7, sp, #0
+ 16460              		.cfi_offset 7, -4
+ 16461              	.LCFI2:
+ 16462              		.cfi_def_cfa_register 7
+ 16463 0006 7860     		str	r0, [r7, #4]
+ 16464 0008 1346     		mov	r3, r2
+ 16465 000a 0A46     		mov	r2, r1	@ movhi
+ 16466 000c 7A80     		strh	r2, [r7, #2]	@ movhi
+ 16467 000e 3B80     		strh	r3, [r7, #0]	@ movhi
+  37:../target/stm32/vcom/usb_mem.c ****   u32 n = (wNBytes + 1) >> 1;   /* n = (wNBytes + 1) / 2 */
+ 16468              		.loc 1 37 0
+ 16469 0010 3B88     		ldrh	r3, [r7, #0]
+ 16470 0012 03F10103 		add	r3, r3, #1
+ 16471 0016 4FEA6303 		asr	r3, r3, #1
+ 16472 001a 7B61     		str	r3, [r7, #20]
+  38:../target/stm32/vcom/usb_mem.c ****   u32 i, temp1, temp2;
+  39:../target/stm32/vcom/usb_mem.c ****   u16 *pdwVal;
+  40:../target/stm32/vcom/usb_mem.c ****   pdwVal = (u16 *)(wPMABufAddr * 2 + PMAAddr);
+ 16473              		.loc 1 40 0
+ 16474 001c 7B88     		ldrh	r3, [r7, #2]
+ 16475 001e 03F10053 		add	r3, r3, #536870912
+ 16476 0022 03F54053 		add	r3, r3, #12288
+ 16477 0026 4FEA4303 		lsl	r3, r3, #1
+ 16478 002a BB61     		str	r3, [r7, #24]
+  41:../target/stm32/vcom/usb_mem.c ****   for (i = n; i != 0; i--)
+ 16479              		.loc 1 41 0
+ 16480 002c 7B69     		ldr	r3, [r7, #20]
+ 16481 002e FB61     		str	r3, [r7, #28]
+ 16482 0030 23E0     		b	.L2
+ 16483              	.L3:
+  42:../target/stm32/vcom/usb_mem.c ****   {
+  43:../target/stm32/vcom/usb_mem.c ****     temp1 = (u16) * pbUsrBuf;
+ 16484              		.loc 1 43 0 discriminator 2
+ 16485 0032 7B68     		ldr	r3, [r7, #4]
+ 16486 0034 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 16487 0036 3B61     		str	r3, [r7, #16]
+  44:../target/stm32/vcom/usb_mem.c ****     pbUsrBuf++;
+ 16488              		.loc 1 44 0 discriminator 2
+ 16489 0038 7B68     		ldr	r3, [r7, #4]
+ 16490 003a 03F10103 		add	r3, r3, #1
+ 16491 003e 7B60     		str	r3, [r7, #4]
+  45:../target/stm32/vcom/usb_mem.c ****     temp2 = temp1 | (u16) * pbUsrBuf << 8;
+ 16492              		.loc 1 45 0 discriminator 2
+ 16493 0040 7B68     		ldr	r3, [r7, #4]
+ 16494 0042 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 16495 0044 4FEA0323 		lsl	r3, r3, #8
+ 16496 0048 1A46     		mov	r2, r3
+ 16497 004a 3B69     		ldr	r3, [r7, #16]
+ 16498 004c 42EA0303 		orr	r3, r2, r3
+ 16499 0050 FB60     		str	r3, [r7, #12]
+  46:../target/stm32/vcom/usb_mem.c ****     *pdwVal++ = temp2;
+ 16500              		.loc 1 46 0 discriminator 2
+ 16501 0052 FB68     		ldr	r3, [r7, #12]
+ 16502 0054 9AB2     		uxth	r2, r3
+ 16503 0056 BB69     		ldr	r3, [r7, #24]
+ 16504 0058 1A80     		strh	r2, [r3, #0]	@ movhi
+ 16505 005a BB69     		ldr	r3, [r7, #24]
+ 16506 005c 03F10203 		add	r3, r3, #2
+ 16507 0060 BB61     		str	r3, [r7, #24]
+  47:../target/stm32/vcom/usb_mem.c ****     pdwVal++;
+ 16508              		.loc 1 47 0 discriminator 2
+ 16509 0062 BB69     		ldr	r3, [r7, #24]
+ 16510 0064 03F10203 		add	r3, r3, #2
+ 16511 0068 BB61     		str	r3, [r7, #24]
+  48:../target/stm32/vcom/usb_mem.c ****     pbUsrBuf++;
+ 16512              		.loc 1 48 0 discriminator 2
+ 16513 006a 7B68     		ldr	r3, [r7, #4]
+ 16514 006c 03F10103 		add	r3, r3, #1
+ 16515 0070 7B60     		str	r3, [r7, #4]
+  41:../target/stm32/vcom/usb_mem.c ****   for (i = n; i != 0; i--)
+ 16516              		.loc 1 41 0 discriminator 2
+ 16517 0072 FB69     		ldr	r3, [r7, #28]
+ 16518 0074 03F1FF33 		add	r3, r3, #-1
+ 16519 0078 FB61     		str	r3, [r7, #28]
+ 16520              	.L2:
+  41:../target/stm32/vcom/usb_mem.c ****   for (i = n; i != 0; i--)
+ 16521              		.loc 1 41 0 is_stmt 0 discriminator 1
+ 16522 007a FB69     		ldr	r3, [r7, #28]
+ 16523 007c 002B     		cmp	r3, #0
+ 16524 007e D8D1     		bne	.L3
+  49:../target/stm32/vcom/usb_mem.c ****   }
+  50:../target/stm32/vcom/usb_mem.c **** }
+ 16525              		.loc 1 50 0 is_stmt 1
+ 16526 0080 07F12407 		add	r7, r7, #36
+ 16527 0084 BD46     		mov	sp, r7
+ 16528 0086 80BC     		pop	{r7}
+ 16529 0088 7047     		bx	lr
+ 16530              		.cfi_endproc
+ 16531              	.LFE29:
+ 16533 008a 00BF     		.section	.text.PMAToUserBufferCopy,"ax",%progbits
+ 16534              		.align	2
+ 16535              		.global	PMAToUserBufferCopy
+ 16536              		.thumb
+ 16537              		.thumb_func
+ 16539              	PMAToUserBufferCopy:
+ 16540              	.LFB30:
+  51:../target/stm32/vcom/usb_mem.c **** /*******************************************************************************
+  52:../target/stm32/vcom/usb_mem.c **** * Function Name  : PMAToUserBufferCopy
+  53:../target/stm32/vcom/usb_mem.c **** * Description    : Copy a buffer from user memory area to packet memory area (PMA)
+  54:../target/stm32/vcom/usb_mem.c **** * Input          : - pbUsrBuf    = pointer to user memory area.
+  55:../target/stm32/vcom/usb_mem.c **** *                  - wPMABufAddr = address into PMA.
+  56:../target/stm32/vcom/usb_mem.c **** *                  - wNBytes     = no. of bytes to be copied.
+  57:../target/stm32/vcom/usb_mem.c **** * Output         : None.
+  58:../target/stm32/vcom/usb_mem.c **** * Return         : None.
+  59:../target/stm32/vcom/usb_mem.c **** *******************************************************************************/
+  60:../target/stm32/vcom/usb_mem.c **** void PMAToUserBufferCopy(u8 *pbUsrBuf, u16 wPMABufAddr, u16 wNBytes)
+  61:../target/stm32/vcom/usb_mem.c **** {
+ 16541              		.loc 1 61 0
+ 16542              		.cfi_startproc
+ 16543              		@ args = 0, pretend = 0, frame = 24
+ 16544              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16545              		@ link register save eliminated.
+ 16546 0000 80B4     		push	{r7}
+ 16547              	.LCFI3:
+ 16548              		.cfi_def_cfa_offset 4
+ 16549 0002 87B0     		sub	sp, sp, #28
+ 16550              	.LCFI4:
+ 16551              		.cfi_def_cfa_offset 32
+ 16552 0004 00AF     		add	r7, sp, #0
+ 16553              		.cfi_offset 7, -4
+ 16554              	.LCFI5:
+ 16555              		.cfi_def_cfa_register 7
+ 16556 0006 7860     		str	r0, [r7, #4]
+ 16557 0008 1346     		mov	r3, r2
+ 16558 000a 0A46     		mov	r2, r1	@ movhi
+ 16559 000c 7A80     		strh	r2, [r7, #2]	@ movhi
+ 16560 000e 3B80     		strh	r3, [r7, #0]	@ movhi
+  62:../target/stm32/vcom/usb_mem.c ****   u32 n = (wNBytes + 1) >> 1;/* /2*/
+ 16561              		.loc 1 62 0
+ 16562 0010 3B88     		ldrh	r3, [r7, #0]
+ 16563 0012 03F10103 		add	r3, r3, #1
+ 16564 0016 4FEA6303 		asr	r3, r3, #1
+ 16565 001a FB60     		str	r3, [r7, #12]
+  63:../target/stm32/vcom/usb_mem.c ****   u32 i;
+  64:../target/stm32/vcom/usb_mem.c ****   u32 *pdwVal;
+  65:../target/stm32/vcom/usb_mem.c ****   pdwVal = (u32 *)(wPMABufAddr * 2 + PMAAddr);
+ 16566              		.loc 1 65 0
+ 16567 001c 7B88     		ldrh	r3, [r7, #2]
+ 16568 001e 03F10053 		add	r3, r3, #536870912
+ 16569 0022 03F54053 		add	r3, r3, #12288
+ 16570 0026 4FEA4303 		lsl	r3, r3, #1
+ 16571 002a 3B61     		str	r3, [r7, #16]
+  66:../target/stm32/vcom/usb_mem.c ****   for (i = n; i != 0; i--)
+ 16572              		.loc 1 66 0
+ 16573 002c FB68     		ldr	r3, [r7, #12]
+ 16574 002e 7B61     		str	r3, [r7, #20]
+ 16575 0030 14E0     		b	.L5
+ 16576              	.L6:
+  67:../target/stm32/vcom/usb_mem.c ****   {
+  68:../target/stm32/vcom/usb_mem.c ****     *(u16*)pbUsrBuf++ = *pdwVal++;
+ 16577              		.loc 1 68 0 discriminator 2
+ 16578 0032 7B68     		ldr	r3, [r7, #4]
+ 16579 0034 3A69     		ldr	r2, [r7, #16]
+ 16580 0036 1268     		ldr	r2, [r2, #0]
+ 16581 0038 92B2     		uxth	r2, r2
+ 16582 003a 1A80     		strh	r2, [r3, #0]	@ movhi
+ 16583 003c 7B68     		ldr	r3, [r7, #4]
+ 16584 003e 03F10103 		add	r3, r3, #1
+ 16585 0042 7B60     		str	r3, [r7, #4]
+ 16586 0044 3B69     		ldr	r3, [r7, #16]
+ 16587 0046 03F10403 		add	r3, r3, #4
+ 16588 004a 3B61     		str	r3, [r7, #16]
+  69:../target/stm32/vcom/usb_mem.c ****     pbUsrBuf++;
+ 16589              		.loc 1 69 0 discriminator 2
+ 16590 004c 7B68     		ldr	r3, [r7, #4]
+ 16591 004e 03F10103 		add	r3, r3, #1
+ 16592 0052 7B60     		str	r3, [r7, #4]
+  66:../target/stm32/vcom/usb_mem.c ****   for (i = n; i != 0; i--)
+ 16593              		.loc 1 66 0 discriminator 2
+ 16594 0054 7B69     		ldr	r3, [r7, #20]
+ 16595 0056 03F1FF33 		add	r3, r3, #-1
+ 16596 005a 7B61     		str	r3, [r7, #20]
+ 16597              	.L5:
+  66:../target/stm32/vcom/usb_mem.c ****   for (i = n; i != 0; i--)
+ 16598              		.loc 1 66 0 is_stmt 0 discriminator 1
+ 16599 005c 7B69     		ldr	r3, [r7, #20]
+ 16600 005e 002B     		cmp	r3, #0
+ 16601 0060 E7D1     		bne	.L6
+  70:../target/stm32/vcom/usb_mem.c ****   }
+  71:../target/stm32/vcom/usb_mem.c **** }
+ 16602              		.loc 1 71 0 is_stmt 1
+ 16603 0062 07F11C07 		add	r7, r7, #28
+ 16604 0066 BD46     		mov	sp, r7
+ 16605 0068 80BC     		pop	{r7}
+ 16606 006a 7047     		bx	lr
+ 16607              		.cfi_endproc
+ 16608              	.LFE30:
+ 16610              		.text
+ 16611              	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 usb_mem.c
+     /tmp/ccgvEHts.s:16441  .text.UserToPMABufferCopy:00000000 $t
+     /tmp/ccgvEHts.s:16446  .text.UserToPMABufferCopy:00000000 UserToPMABufferCopy
+     /tmp/ccgvEHts.s:16534  .text.PMAToUserBufferCopy:00000000 $t
+     /tmp/ccgvEHts.s:16539  .text.PMAToUserBufferCopy:00000000 PMAToUserBufferCopy
+                     .debug_frame:00000010 $d
+
+NO UNDEFINED SYMBOLS

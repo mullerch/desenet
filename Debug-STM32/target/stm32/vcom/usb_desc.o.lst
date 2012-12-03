@@ -1,0 +1,262 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"usb_desc.c"
+  23              	.Ltext0:
+  24              		.file 1 "../target/stm32/vcom/usb_desc.c"
+ 16495              		.align	2
+ 16498              	Virtual_Com_Port_DeviceDescriptor:
+ 16499 0000 12       		.byte	18
+ 16500 0001 01       		.byte	1
+ 16501 0002 00       		.byte	0
+ 16502 0003 02       		.byte	2
+ 16503 0004 02       		.byte	2
+ 16504 0005 00       		.byte	0
+ 16505 0006 00       		.byte	0
+ 16506 0007 40       		.byte	64
+ 16507 0008 83       		.byte	-125
+ 16508 0009 04       		.byte	4
+ 16509 000a 40       		.byte	64
+ 16510 000b 57       		.byte	87
+ 16511 000c 00       		.byte	0
+ 16512 000d 01       		.byte	1
+ 16513 000e 01       		.byte	1
+ 16514 000f 02       		.byte	2
+ 16515 0010 03       		.byte	3
+ 16516 0011 01       		.byte	1
+ 16517              		.global	Virtual_Com_Port_ConfigDescriptor
+ 16518 0012 0000     		.section	.rodata.Virtual_Com_Port_ConfigDescriptor,"a",%progbits
+ 16519              		.align	2
+ 16522              	Virtual_Com_Port_ConfigDescriptor:
+ 16523 0000 09       		.byte	9
+ 16524 0001 02       		.byte	2
+ 16525 0002 43       		.byte	67
+ 16526 0003 00       		.byte	0
+ 16527 0004 02       		.byte	2
+ 16528 0005 01       		.byte	1
+ 16529 0006 00       		.byte	0
+ 16530 0007 C0       		.byte	-64
+ 16531 0008 00       		.byte	0
+ 16532 0009 09       		.byte	9
+ 16533 000a 04       		.byte	4
+ 16534 000b 00       		.byte	0
+ 16535 000c 00       		.byte	0
+ 16536 000d 01       		.byte	1
+ 16537 000e 02       		.byte	2
+ 16538 000f 02       		.byte	2
+ 16539 0010 01       		.byte	1
+ 16540 0011 00       		.byte	0
+ 16541 0012 05       		.byte	5
+ 16542 0013 24       		.byte	36
+ 16543 0014 00       		.byte	0
+ 16544 0015 10       		.byte	16
+ 16545 0016 01       		.byte	1
+ 16546 0017 05       		.byte	5
+ 16547 0018 24       		.byte	36
+ 16548 0019 01       		.byte	1
+ 16549 001a 00       		.byte	0
+ 16550 001b 01       		.byte	1
+ 16551 001c 04       		.byte	4
+ 16552 001d 24       		.byte	36
+ 16553 001e 02       		.byte	2
+ 16554 001f 02       		.byte	2
+ 16555 0020 05       		.byte	5
+ 16556 0021 24       		.byte	36
+ 16557 0022 06       		.byte	6
+ 16558 0023 00       		.byte	0
+ 16559 0024 01       		.byte	1
+ 16560 0025 07       		.byte	7
+ 16561 0026 05       		.byte	5
+ 16562 0027 82       		.byte	-126
+ 16563 0028 03       		.byte	3
+ 16564 0029 08       		.byte	8
+ 16565 002a 00       		.byte	0
+ 16566 002b FF       		.byte	-1
+ 16567 002c 09       		.byte	9
+ 16568 002d 04       		.byte	4
+ 16569 002e 01       		.byte	1
+ 16570 002f 00       		.byte	0
+ 16571 0030 02       		.byte	2
+ 16572 0031 0A       		.byte	10
+ 16573 0032 00       		.byte	0
+ 16574 0033 00       		.byte	0
+ 16575 0034 00       		.byte	0
+ 16576 0035 07       		.byte	7
+ 16577 0036 05       		.byte	5
+ 16578 0037 03       		.byte	3
+ 16579 0038 02       		.byte	2
+ 16580 0039 40       		.byte	64
+ 16581 003a 00       		.byte	0
+ 16582 003b 00       		.byte	0
+ 16583 003c 07       		.byte	7
+ 16584 003d 05       		.byte	5
+ 16585 003e 81       		.byte	-127
+ 16586 003f 02       		.byte	2
+ 16587 0040 40       		.byte	64
+ 16588 0041 00       		.byte	0
+ 16589 0042 00       		.byte	0
+ 16590              		.global	Virtual_Com_Port_StringLangID
+ 16591 0043 00       		.section	.rodata.Virtual_Com_Port_StringLangID,"a",%progbits
+ 16592              		.align	2
+ 16595              	Virtual_Com_Port_StringLangID:
+ 16596 0000 04       		.byte	4
+ 16597 0001 03       		.byte	3
+ 16598 0002 09       		.byte	9
+ 16599 0003 04       		.byte	4
+ 16600              		.global	Virtual_Com_Port_StringVendor
+ 16601              		.section	.rodata.Virtual_Com_Port_StringVendor,"a",%progbits
+ 16602              		.align	2
+ 16605              	Virtual_Com_Port_StringVendor:
+ 16606 0000 26       		.byte	38
+ 16607 0001 03       		.byte	3
+ 16608 0002 53       		.byte	83
+ 16609 0003 00       		.byte	0
+ 16610 0004 54       		.byte	84
+ 16611 0005 00       		.byte	0
+ 16612 0006 4D       		.byte	77
+ 16613 0007 00       		.byte	0
+ 16614 0008 69       		.byte	105
+ 16615 0009 00       		.byte	0
+ 16616 000a 63       		.byte	99
+ 16617 000b 00       		.byte	0
+ 16618 000c 72       		.byte	114
+ 16619 000d 00       		.byte	0
+ 16620 000e 6F       		.byte	111
+ 16621 000f 00       		.byte	0
+ 16622 0010 65       		.byte	101
+ 16623 0011 00       		.byte	0
+ 16624 0012 6C       		.byte	108
+ 16625 0013 00       		.byte	0
+ 16626 0014 65       		.byte	101
+ 16627 0015 00       		.byte	0
+ 16628 0016 63       		.byte	99
+ 16629 0017 00       		.byte	0
+ 16630 0018 74       		.byte	116
+ 16631 0019 00       		.byte	0
+ 16632 001a 72       		.byte	114
+ 16633 001b 00       		.byte	0
+ 16634 001c 6F       		.byte	111
+ 16635 001d 00       		.byte	0
+ 16636 001e 6E       		.byte	110
+ 16637 001f 00       		.byte	0
+ 16638 0020 69       		.byte	105
+ 16639 0021 00       		.byte	0
+ 16640 0022 63       		.byte	99
+ 16641 0023 00       		.byte	0
+ 16642 0024 73       		.byte	115
+ 16643 0025 00       		.byte	0
+ 16644              		.global	Virtual_Com_Port_StringProduct
+ 16645 0026 0000     		.section	.rodata.Virtual_Com_Port_StringProduct,"a",%progbits
+ 16646              		.align	2
+ 16649              	Virtual_Com_Port_StringProduct:
+ 16650 0000 32       		.byte	50
+ 16651 0001 03       		.byte	3
+ 16652 0002 53       		.byte	83
+ 16653 0003 00       		.byte	0
+ 16654 0004 54       		.byte	84
+ 16655 0005 00       		.byte	0
+ 16656 0006 4D       		.byte	77
+ 16657 0007 00       		.byte	0
+ 16658 0008 33       		.byte	51
+ 16659 0009 00       		.byte	0
+ 16660 000a 32       		.byte	50
+ 16661 000b 00       		.byte	0
+ 16662 000c 20       		.byte	32
+ 16663 000d 00       		.byte	0
+ 16664 000e 56       		.byte	86
+ 16665 000f 00       		.byte	0
+ 16666 0010 69       		.byte	105
+ 16667 0011 00       		.byte	0
+ 16668 0012 72       		.byte	114
+ 16669 0013 00       		.byte	0
+ 16670 0014 74       		.byte	116
+ 16671 0015 00       		.byte	0
+ 16672 0016 75       		.byte	117
+ 16673 0017 00       		.byte	0
+ 16674 0018 61       		.byte	97
+ 16675 0019 00       		.byte	0
+ 16676 001a 6C       		.byte	108
+ 16677 001b 00       		.byte	0
+ 16678 001c 20       		.byte	32
+ 16679 001d 00       		.byte	0
+ 16680 001e 43       		.byte	67
+ 16681 001f 00       		.byte	0
+ 16682 0020 4F       		.byte	79
+ 16683 0021 00       		.byte	0
+ 16684 0022 4D       		.byte	77
+ 16685 0023 00       		.byte	0
+ 16686 0024 20       		.byte	32
+ 16687 0025 00       		.byte	0
+ 16688 0026 50       		.byte	80
+ 16689 0027 00       		.byte	0
+ 16690 0028 6F       		.byte	111
+ 16691 0029 00       		.byte	0
+ 16692 002a 72       		.byte	114
+ 16693 002b 00       		.byte	0
+ 16694 002c 74       		.byte	116
+ 16695 002d 00       		.byte	0
+ 16696 002e 20       		.byte	32
+ 16697 002f 00       		.byte	0
+ 16698 0030 20       		.byte	32
+ 16699 0031 00       		.byte	0
+ 16700              		.global	Virtual_Com_Port_StringSerial
+ 16701 0032 0000     		.section	.rodata.Virtual_Com_Port_StringSerial,"a",%progbits
+ 16702              		.align	2
+ 16705              	Virtual_Com_Port_StringSerial:
+ 16706 0000 16       		.byte	22
+ 16707 0001 03       		.byte	3
+ 16708 0002 44       		.byte	68
+ 16709 0003 00       		.byte	0
+ 16710 0004 65       		.byte	101
+ 16711 0005 00       		.byte	0
+ 16712 0006 6D       		.byte	109
+ 16713 0007 00       		.byte	0
+ 16714 0008 6F       		.byte	111
+ 16715 0009 00       		.byte	0
+ 16716 000a 20       		.byte	32
+ 16717 000b 00       		.byte	0
+ 16718 000c 31       		.byte	49
+ 16719 000d 00       		.byte	0
+ 16720 000e 2E       		.byte	46
+ 16721 000f 00       		.byte	0
+ 16722 0010 30       		.byte	48
+ 16723 0011 00       		.byte	0
+ 16724 0012 30       		.byte	48
+ 16725 0013 00       		.byte	0
+ 16726 0014 30       		.byte	48
+ 16727 0015 00       		.byte	0
+ 16728              		.global	Virtual_Com_Port_StringEmpty
+ 16729 0016 0000     		.section	.rodata.Virtual_Com_Port_StringEmpty,"a",%progbits
+ 16730              		.align	2
+ 16733              	Virtual_Com_Port_StringEmpty:
+ 16734 0000 02       		.byte	2
+ 16735 0001 03       		.byte	3
+ 16736 0002 0000     		.text
+ 16737              	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 usb_desc.c
+     /tmp/ccmL9HtR.s:16498  .rodata.Virtual_Com_Port_DeviceDescriptor:00000000 Virtual_Com_Port_DeviceDescriptor
+     /tmp/ccmL9HtR.s:16495  .rodata.Virtual_Com_Port_DeviceDescriptor:00000000 $d
+     /tmp/ccmL9HtR.s:16522  .rodata.Virtual_Com_Port_ConfigDescriptor:00000000 Virtual_Com_Port_ConfigDescriptor
+     /tmp/ccmL9HtR.s:16519  .rodata.Virtual_Com_Port_ConfigDescriptor:00000000 $d
+     /tmp/ccmL9HtR.s:16595  .rodata.Virtual_Com_Port_StringLangID:00000000 Virtual_Com_Port_StringLangID
+     /tmp/ccmL9HtR.s:16592  .rodata.Virtual_Com_Port_StringLangID:00000000 $d
+     /tmp/ccmL9HtR.s:16605  .rodata.Virtual_Com_Port_StringVendor:00000000 Virtual_Com_Port_StringVendor
+     /tmp/ccmL9HtR.s:16602  .rodata.Virtual_Com_Port_StringVendor:00000000 $d
+     /tmp/ccmL9HtR.s:16649  .rodata.Virtual_Com_Port_StringProduct:00000000 Virtual_Com_Port_StringProduct
+     /tmp/ccmL9HtR.s:16646  .rodata.Virtual_Com_Port_StringProduct:00000000 $d
+     /tmp/ccmL9HtR.s:16705  .rodata.Virtual_Com_Port_StringSerial:00000000 Virtual_Com_Port_StringSerial
+     /tmp/ccmL9HtR.s:16702  .rodata.Virtual_Com_Port_StringSerial:00000000 $d
+     /tmp/ccmL9HtR.s:16733  .rodata.Virtual_Com_Port_StringEmpty:00000000 Virtual_Com_Port_StringEmpty
+     /tmp/ccmL9HtR.s:16730  .rodata.Virtual_Com_Port_StringEmpty:00000000 $d
+
+NO UNDEFINED SYMBOLS

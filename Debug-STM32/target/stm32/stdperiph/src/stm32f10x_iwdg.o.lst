@@ -1,0 +1,431 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"stm32f10x_iwdg.c"
+  23              	.Ltext0:
+  24              		.file 1 "../target/stm32/stdperiph/src/stm32f10x_iwdg.c"
+ 15795              		.align	2
+ 15796              		.global	IWDG_WriteAccessCmd
+ 15797              		.thumb
+ 15798              		.thumb_func
+ 15800              	IWDG_WriteAccessCmd:
+ 15801              	.LFB29:
+   1:../target/stm32/stdperiph/src/stm32f10x_iwdg.c **** /**
+   2:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   ******************************************************************************
+   3:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   * @file    stm32f10x_iwdg.c
+   4:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   * @author  MCD Application Team
+   5:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   * @version V3.4.0
+   6:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   * @date    10/15/2010
+   7:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   * @brief   This file provides all the IWDG firmware functions.
+   8:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   ******************************************************************************
+   9:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   * @copy
+  10:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   *
+  11:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   * THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
+  12:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
+  13:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   * TIME. AS A RESULT, STMICROELECTRONICS SHALL NOT BE HELD LIABLE FOR ANY
+  14:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   * DIRECT, INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING
+  15:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   * FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
+  16:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
+  17:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   *
+  18:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   * <h2><center>&copy; COPYRIGHT 2010 STMicroelectronics</center></h2>
+  19:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   */ 
+  20:../target/stm32/stdperiph/src/stm32f10x_iwdg.c **** 
+  21:../target/stm32/stdperiph/src/stm32f10x_iwdg.c **** /* Includes ------------------------------------------------------------------*/
+  22:../target/stm32/stdperiph/src/stm32f10x_iwdg.c **** #include "stm32f10x_iwdg.h"
+  23:../target/stm32/stdperiph/src/stm32f10x_iwdg.c **** 
+  24:../target/stm32/stdperiph/src/stm32f10x_iwdg.c **** /** @addtogroup STM32F10x_StdPeriph_Driver
+  25:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   * @{
+  26:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   */
+  27:../target/stm32/stdperiph/src/stm32f10x_iwdg.c **** 
+  28:../target/stm32/stdperiph/src/stm32f10x_iwdg.c **** /** @defgroup IWDG 
+  29:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   * @brief IWDG driver modules
+  30:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   * @{
+  31:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   */ 
+  32:../target/stm32/stdperiph/src/stm32f10x_iwdg.c **** 
+  33:../target/stm32/stdperiph/src/stm32f10x_iwdg.c **** /** @defgroup IWDG_Private_TypesDefinitions
+  34:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   * @{
+  35:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   */
+  36:../target/stm32/stdperiph/src/stm32f10x_iwdg.c **** 
+  37:../target/stm32/stdperiph/src/stm32f10x_iwdg.c **** /**
+  38:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   * @}
+  39:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   */
+  40:../target/stm32/stdperiph/src/stm32f10x_iwdg.c **** 
+  41:../target/stm32/stdperiph/src/stm32f10x_iwdg.c **** /** @defgroup IWDG_Private_Defines
+  42:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   * @{
+  43:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   */ 
+  44:../target/stm32/stdperiph/src/stm32f10x_iwdg.c **** 
+  45:../target/stm32/stdperiph/src/stm32f10x_iwdg.c **** /* ---------------------- IWDG registers bit mask ----------------------------*/
+  46:../target/stm32/stdperiph/src/stm32f10x_iwdg.c **** 
+  47:../target/stm32/stdperiph/src/stm32f10x_iwdg.c **** /* KR register bit mask */
+  48:../target/stm32/stdperiph/src/stm32f10x_iwdg.c **** #define KR_KEY_Reload    ((uint16_t)0xAAAA)
+  49:../target/stm32/stdperiph/src/stm32f10x_iwdg.c **** #define KR_KEY_Enable    ((uint16_t)0xCCCC)
+  50:../target/stm32/stdperiph/src/stm32f10x_iwdg.c **** 
+  51:../target/stm32/stdperiph/src/stm32f10x_iwdg.c **** /**
+  52:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   * @}
+  53:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   */ 
+  54:../target/stm32/stdperiph/src/stm32f10x_iwdg.c **** 
+  55:../target/stm32/stdperiph/src/stm32f10x_iwdg.c **** /** @defgroup IWDG_Private_Macros
+  56:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   * @{
+  57:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   */
+  58:../target/stm32/stdperiph/src/stm32f10x_iwdg.c **** 
+  59:../target/stm32/stdperiph/src/stm32f10x_iwdg.c **** /**
+  60:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   * @}
+  61:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   */
+  62:../target/stm32/stdperiph/src/stm32f10x_iwdg.c **** 
+  63:../target/stm32/stdperiph/src/stm32f10x_iwdg.c **** /** @defgroup IWDG_Private_Variables
+  64:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   * @{
+  65:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   */
+  66:../target/stm32/stdperiph/src/stm32f10x_iwdg.c **** 
+  67:../target/stm32/stdperiph/src/stm32f10x_iwdg.c **** /**
+  68:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   * @}
+  69:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   */
+  70:../target/stm32/stdperiph/src/stm32f10x_iwdg.c **** 
+  71:../target/stm32/stdperiph/src/stm32f10x_iwdg.c **** /** @defgroup IWDG_Private_FunctionPrototypes
+  72:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   * @{
+  73:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   */
+  74:../target/stm32/stdperiph/src/stm32f10x_iwdg.c **** 
+  75:../target/stm32/stdperiph/src/stm32f10x_iwdg.c **** /**
+  76:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   * @}
+  77:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   */
+  78:../target/stm32/stdperiph/src/stm32f10x_iwdg.c **** 
+  79:../target/stm32/stdperiph/src/stm32f10x_iwdg.c **** /** @defgroup IWDG_Private_Functions
+  80:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   * @{
+  81:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   */
+  82:../target/stm32/stdperiph/src/stm32f10x_iwdg.c **** 
+  83:../target/stm32/stdperiph/src/stm32f10x_iwdg.c **** /**
+  84:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   * @brief  Enables or disables write access to IWDG_PR and IWDG_RLR registers.
+  85:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   * @param  IWDG_WriteAccess: new state of write access to IWDG_PR and IWDG_RLR registers.
+  86:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   *   This parameter can be one of the following values:
+  87:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   *     @arg IWDG_WriteAccess_Enable: Enable write access to IWDG_PR and IWDG_RLR registers
+  88:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   *     @arg IWDG_WriteAccess_Disable: Disable write access to IWDG_PR and IWDG_RLR registers
+  89:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   * @retval None
+  90:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   */
+  91:../target/stm32/stdperiph/src/stm32f10x_iwdg.c **** void IWDG_WriteAccessCmd(uint16_t IWDG_WriteAccess)
+  92:../target/stm32/stdperiph/src/stm32f10x_iwdg.c **** {
+ 15802              		.loc 1 92 0
+ 15803              		.cfi_startproc
+ 15804              		@ args = 0, pretend = 0, frame = 8
+ 15805              		@ frame_needed = 1, uses_anonymous_args = 0
+ 15806              		@ link register save eliminated.
+ 15807 0000 80B4     		push	{r7}
+ 15808              	.LCFI0:
+ 15809              		.cfi_def_cfa_offset 4
+ 15810 0002 83B0     		sub	sp, sp, #12
+ 15811              	.LCFI1:
+ 15812              		.cfi_def_cfa_offset 16
+ 15813 0004 00AF     		add	r7, sp, #0
+ 15814              		.cfi_offset 7, -4
+ 15815              	.LCFI2:
+ 15816              		.cfi_def_cfa_register 7
+ 15817 0006 0346     		mov	r3, r0
+ 15818 0008 FB80     		strh	r3, [r7, #6]	@ movhi
+  93:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   /* Check the parameters */
+  94:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   assert_param(IS_IWDG_WRITE_ACCESS(IWDG_WriteAccess));
+  95:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   IWDG->KR = IWDG_WriteAccess;
+ 15819              		.loc 1 95 0
+ 15820 000a 4FF44053 		mov	r3, #12288
+ 15821 000e C4F20003 		movt	r3, 16384
+ 15822 0012 FA88     		ldrh	r2, [r7, #6]
+ 15823 0014 1A60     		str	r2, [r3, #0]
+  96:../target/stm32/stdperiph/src/stm32f10x_iwdg.c **** }
+ 15824              		.loc 1 96 0
+ 15825 0016 07F10C07 		add	r7, r7, #12
+ 15826 001a BD46     		mov	sp, r7
+ 15827 001c 80BC     		pop	{r7}
+ 15828 001e 7047     		bx	lr
+ 15829              		.cfi_endproc
+ 15830              	.LFE29:
+ 15832              		.section	.text.IWDG_SetPrescaler,"ax",%progbits
+ 15833              		.align	2
+ 15834              		.global	IWDG_SetPrescaler
+ 15835              		.thumb
+ 15836              		.thumb_func
+ 15838              	IWDG_SetPrescaler:
+ 15839              	.LFB30:
+  97:../target/stm32/stdperiph/src/stm32f10x_iwdg.c **** 
+  98:../target/stm32/stdperiph/src/stm32f10x_iwdg.c **** /**
+  99:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   * @brief  Sets IWDG Prescaler value.
+ 100:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   * @param  IWDG_Prescaler: specifies the IWDG Prescaler value.
+ 101:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   *   This parameter can be one of the following values:
+ 102:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   *     @arg IWDG_Prescaler_4: IWDG prescaler set to 4
+ 103:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   *     @arg IWDG_Prescaler_8: IWDG prescaler set to 8
+ 104:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   *     @arg IWDG_Prescaler_16: IWDG prescaler set to 16
+ 105:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   *     @arg IWDG_Prescaler_32: IWDG prescaler set to 32
+ 106:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   *     @arg IWDG_Prescaler_64: IWDG prescaler set to 64
+ 107:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   *     @arg IWDG_Prescaler_128: IWDG prescaler set to 128
+ 108:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   *     @arg IWDG_Prescaler_256: IWDG prescaler set to 256
+ 109:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   * @retval None
+ 110:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   */
+ 111:../target/stm32/stdperiph/src/stm32f10x_iwdg.c **** void IWDG_SetPrescaler(uint8_t IWDG_Prescaler)
+ 112:../target/stm32/stdperiph/src/stm32f10x_iwdg.c **** {
+ 15840              		.loc 1 112 0
+ 15841              		.cfi_startproc
+ 15842              		@ args = 0, pretend = 0, frame = 8
+ 15843              		@ frame_needed = 1, uses_anonymous_args = 0
+ 15844              		@ link register save eliminated.
+ 15845 0000 80B4     		push	{r7}
+ 15846              	.LCFI3:
+ 15847              		.cfi_def_cfa_offset 4
+ 15848 0002 83B0     		sub	sp, sp, #12
+ 15849              	.LCFI4:
+ 15850              		.cfi_def_cfa_offset 16
+ 15851 0004 00AF     		add	r7, sp, #0
+ 15852              		.cfi_offset 7, -4
+ 15853              	.LCFI5:
+ 15854              		.cfi_def_cfa_register 7
+ 15855 0006 0346     		mov	r3, r0
+ 15856 0008 FB71     		strb	r3, [r7, #7]
+ 113:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   /* Check the parameters */
+ 114:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   assert_param(IS_IWDG_PRESCALER(IWDG_Prescaler));
+ 115:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   IWDG->PR = IWDG_Prescaler;
+ 15857              		.loc 1 115 0
+ 15858 000a 4FF44053 		mov	r3, #12288
+ 15859 000e C4F20003 		movt	r3, 16384
+ 15860 0012 FA79     		ldrb	r2, [r7, #7]	@ zero_extendqisi2
+ 15861 0014 5A60     		str	r2, [r3, #4]
+ 116:../target/stm32/stdperiph/src/stm32f10x_iwdg.c **** }
+ 15862              		.loc 1 116 0
+ 15863 0016 07F10C07 		add	r7, r7, #12
+ 15864 001a BD46     		mov	sp, r7
+ 15865 001c 80BC     		pop	{r7}
+ 15866 001e 7047     		bx	lr
+ 15867              		.cfi_endproc
+ 15868              	.LFE30:
+ 15870              		.section	.text.IWDG_SetReload,"ax",%progbits
+ 15871              		.align	2
+ 15872              		.global	IWDG_SetReload
+ 15873              		.thumb
+ 15874              		.thumb_func
+ 15876              	IWDG_SetReload:
+ 15877              	.LFB31:
+ 117:../target/stm32/stdperiph/src/stm32f10x_iwdg.c **** 
+ 118:../target/stm32/stdperiph/src/stm32f10x_iwdg.c **** /**
+ 119:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   * @brief  Sets IWDG Reload value.
+ 120:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   * @param  Reload: specifies the IWDG Reload value.
+ 121:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   *   This parameter must be a number between 0 and 0x0FFF.
+ 122:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   * @retval None
+ 123:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   */
+ 124:../target/stm32/stdperiph/src/stm32f10x_iwdg.c **** void IWDG_SetReload(uint16_t Reload)
+ 125:../target/stm32/stdperiph/src/stm32f10x_iwdg.c **** {
+ 15878              		.loc 1 125 0
+ 15879              		.cfi_startproc
+ 15880              		@ args = 0, pretend = 0, frame = 8
+ 15881              		@ frame_needed = 1, uses_anonymous_args = 0
+ 15882              		@ link register save eliminated.
+ 15883 0000 80B4     		push	{r7}
+ 15884              	.LCFI6:
+ 15885              		.cfi_def_cfa_offset 4
+ 15886 0002 83B0     		sub	sp, sp, #12
+ 15887              	.LCFI7:
+ 15888              		.cfi_def_cfa_offset 16
+ 15889 0004 00AF     		add	r7, sp, #0
+ 15890              		.cfi_offset 7, -4
+ 15891              	.LCFI8:
+ 15892              		.cfi_def_cfa_register 7
+ 15893 0006 0346     		mov	r3, r0
+ 15894 0008 FB80     		strh	r3, [r7, #6]	@ movhi
+ 126:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   /* Check the parameters */
+ 127:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   assert_param(IS_IWDG_RELOAD(Reload));
+ 128:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   IWDG->RLR = Reload;
+ 15895              		.loc 1 128 0
+ 15896 000a 4FF44053 		mov	r3, #12288
+ 15897 000e C4F20003 		movt	r3, 16384
+ 15898 0012 FA88     		ldrh	r2, [r7, #6]
+ 15899 0014 9A60     		str	r2, [r3, #8]
+ 129:../target/stm32/stdperiph/src/stm32f10x_iwdg.c **** }
+ 15900              		.loc 1 129 0
+ 15901 0016 07F10C07 		add	r7, r7, #12
+ 15902 001a BD46     		mov	sp, r7
+ 15903 001c 80BC     		pop	{r7}
+ 15904 001e 7047     		bx	lr
+ 15905              		.cfi_endproc
+ 15906              	.LFE31:
+ 15908              		.section	.text.IWDG_ReloadCounter,"ax",%progbits
+ 15909              		.align	2
+ 15910              		.global	IWDG_ReloadCounter
+ 15911              		.thumb
+ 15912              		.thumb_func
+ 15914              	IWDG_ReloadCounter:
+ 15915              	.LFB32:
+ 130:../target/stm32/stdperiph/src/stm32f10x_iwdg.c **** 
+ 131:../target/stm32/stdperiph/src/stm32f10x_iwdg.c **** /**
+ 132:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   * @brief  Reloads IWDG counter with value defined in the reload register
+ 133:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   *   (write access to IWDG_PR and IWDG_RLR registers disabled).
+ 134:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   * @param  None
+ 135:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   * @retval None
+ 136:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   */
+ 137:../target/stm32/stdperiph/src/stm32f10x_iwdg.c **** void IWDG_ReloadCounter(void)
+ 138:../target/stm32/stdperiph/src/stm32f10x_iwdg.c **** {
+ 15916              		.loc 1 138 0
+ 15917              		.cfi_startproc
+ 15918              		@ args = 0, pretend = 0, frame = 0
+ 15919              		@ frame_needed = 1, uses_anonymous_args = 0
+ 15920              		@ link register save eliminated.
+ 15921 0000 80B4     		push	{r7}
+ 15922              	.LCFI9:
+ 15923              		.cfi_def_cfa_offset 4
+ 15924 0002 00AF     		add	r7, sp, #0
+ 15925              		.cfi_offset 7, -4
+ 15926              	.LCFI10:
+ 15927              		.cfi_def_cfa_register 7
+ 139:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   IWDG->KR = KR_KEY_Reload;
+ 15928              		.loc 1 139 0
+ 15929 0004 4FF44053 		mov	r3, #12288
+ 15930 0008 C4F20003 		movt	r3, 16384
+ 15931 000c 4AF6AA22 		movw	r2, #43690
+ 15932 0010 1A60     		str	r2, [r3, #0]
+ 140:../target/stm32/stdperiph/src/stm32f10x_iwdg.c **** }
+ 15933              		.loc 1 140 0
+ 15934 0012 BD46     		mov	sp, r7
+ 15935 0014 80BC     		pop	{r7}
+ 15936 0016 7047     		bx	lr
+ 15937              		.cfi_endproc
+ 15938              	.LFE32:
+ 15940              		.section	.text.IWDG_Enable,"ax",%progbits
+ 15941              		.align	2
+ 15942              		.global	IWDG_Enable
+ 15943              		.thumb
+ 15944              		.thumb_func
+ 15946              	IWDG_Enable:
+ 15947              	.LFB33:
+ 141:../target/stm32/stdperiph/src/stm32f10x_iwdg.c **** 
+ 142:../target/stm32/stdperiph/src/stm32f10x_iwdg.c **** /**
+ 143:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   * @brief  Enables IWDG (write access to IWDG_PR and IWDG_RLR registers disabled).
+ 144:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   * @param  None
+ 145:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   * @retval None
+ 146:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   */
+ 147:../target/stm32/stdperiph/src/stm32f10x_iwdg.c **** void IWDG_Enable(void)
+ 148:../target/stm32/stdperiph/src/stm32f10x_iwdg.c **** {
+ 15948              		.loc 1 148 0
+ 15949              		.cfi_startproc
+ 15950              		@ args = 0, pretend = 0, frame = 0
+ 15951              		@ frame_needed = 1, uses_anonymous_args = 0
+ 15952              		@ link register save eliminated.
+ 15953 0000 80B4     		push	{r7}
+ 15954              	.LCFI11:
+ 15955              		.cfi_def_cfa_offset 4
+ 15956 0002 00AF     		add	r7, sp, #0
+ 15957              		.cfi_offset 7, -4
+ 15958              	.LCFI12:
+ 15959              		.cfi_def_cfa_register 7
+ 149:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   IWDG->KR = KR_KEY_Enable;
+ 15960              		.loc 1 149 0
+ 15961 0004 4FF44053 		mov	r3, #12288
+ 15962 0008 C4F20003 		movt	r3, 16384
+ 15963 000c 4CF6CC42 		movw	r2, #52428
+ 15964 0010 1A60     		str	r2, [r3, #0]
+ 150:../target/stm32/stdperiph/src/stm32f10x_iwdg.c **** }
+ 15965              		.loc 1 150 0
+ 15966 0012 BD46     		mov	sp, r7
+ 15967 0014 80BC     		pop	{r7}
+ 15968 0016 7047     		bx	lr
+ 15969              		.cfi_endproc
+ 15970              	.LFE33:
+ 15972              		.section	.text.IWDG_GetFlagStatus,"ax",%progbits
+ 15973              		.align	2
+ 15974              		.global	IWDG_GetFlagStatus
+ 15975              		.thumb
+ 15976              		.thumb_func
+ 15978              	IWDG_GetFlagStatus:
+ 15979              	.LFB34:
+ 151:../target/stm32/stdperiph/src/stm32f10x_iwdg.c **** 
+ 152:../target/stm32/stdperiph/src/stm32f10x_iwdg.c **** /**
+ 153:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   * @brief  Checks whether the specified IWDG flag is set or not.
+ 154:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   * @param  IWDG_FLAG: specifies the flag to check.
+ 155:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   *   This parameter can be one of the following values:
+ 156:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   *     @arg IWDG_FLAG_PVU: Prescaler Value Update on going
+ 157:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   *     @arg IWDG_FLAG_RVU: Reload Value Update on going
+ 158:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   * @retval The new state of IWDG_FLAG (SET or RESET).
+ 159:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   */
+ 160:../target/stm32/stdperiph/src/stm32f10x_iwdg.c **** FlagStatus IWDG_GetFlagStatus(uint16_t IWDG_FLAG)
+ 161:../target/stm32/stdperiph/src/stm32f10x_iwdg.c **** {
+ 15980              		.loc 1 161 0
+ 15981              		.cfi_startproc
+ 15982              		@ args = 0, pretend = 0, frame = 16
+ 15983              		@ frame_needed = 1, uses_anonymous_args = 0
+ 15984              		@ link register save eliminated.
+ 15985 0000 80B4     		push	{r7}
+ 15986              	.LCFI13:
+ 15987              		.cfi_def_cfa_offset 4
+ 15988 0002 85B0     		sub	sp, sp, #20
+ 15989              	.LCFI14:
+ 15990              		.cfi_def_cfa_offset 24
+ 15991 0004 00AF     		add	r7, sp, #0
+ 15992              		.cfi_offset 7, -4
+ 15993              	.LCFI15:
+ 15994              		.cfi_def_cfa_register 7
+ 15995 0006 0346     		mov	r3, r0
+ 15996 0008 FB80     		strh	r3, [r7, #6]	@ movhi
+ 162:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   FlagStatus bitstatus = RESET;
+ 15997              		.loc 1 162 0
+ 15998 000a 4FF00003 		mov	r3, #0
+ 15999 000e FB73     		strb	r3, [r7, #15]
+ 163:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   /* Check the parameters */
+ 164:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   assert_param(IS_IWDG_FLAG(IWDG_FLAG));
+ 165:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   if ((IWDG->SR & IWDG_FLAG) != (uint32_t)RESET)
+ 16000              		.loc 1 165 0
+ 16001 0010 4FF44053 		mov	r3, #12288
+ 16002 0014 C4F20003 		movt	r3, 16384
+ 16003 0018 DB68     		ldr	r3, [r3, #12]
+ 16004 001a 1A46     		mov	r2, r3
+ 16005 001c FB88     		ldrh	r3, [r7, #6]
+ 16006 001e 02EA0303 		and	r3, r2, r3
+ 16007 0022 002B     		cmp	r3, #0
+ 16008 0024 03D0     		beq	.L7
+ 166:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   {
+ 167:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****     bitstatus = SET;
+ 16009              		.loc 1 167 0
+ 16010 0026 4FF00103 		mov	r3, #1
+ 16011 002a FB73     		strb	r3, [r7, #15]
+ 16012 002c 02E0     		b	.L8
+ 16013              	.L7:
+ 168:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   }
+ 169:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   else
+ 170:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   {
+ 171:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****     bitstatus = RESET;
+ 16014              		.loc 1 171 0
+ 16015 002e 4FF00003 		mov	r3, #0
+ 16016 0032 FB73     		strb	r3, [r7, #15]
+ 16017              	.L8:
+ 172:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   }
+ 173:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   /* Return the flag status */
+ 174:../target/stm32/stdperiph/src/stm32f10x_iwdg.c ****   return bitstatus;
+ 16018              		.loc 1 174 0
+ 16019 0034 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 175:../target/stm32/stdperiph/src/stm32f10x_iwdg.c **** }
+ 16020              		.loc 1 175 0
+ 16021 0036 1846     		mov	r0, r3
+ 16022 0038 07F11407 		add	r7, r7, #20
+ 16023 003c BD46     		mov	sp, r7
+ 16024 003e 80BC     		pop	{r7}
+ 16025 0040 7047     		bx	lr
+ 16026              		.cfi_endproc
+ 16027              	.LFE34:
+ 16029 0042 00BF     		.text
+ 16030              	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 stm32f10x_iwdg.c
+     /tmp/ccpkPbak.s:15795  .text.IWDG_WriteAccessCmd:00000000 $t
+     /tmp/ccpkPbak.s:15800  .text.IWDG_WriteAccessCmd:00000000 IWDG_WriteAccessCmd
+     /tmp/ccpkPbak.s:15833  .text.IWDG_SetPrescaler:00000000 $t
+     /tmp/ccpkPbak.s:15838  .text.IWDG_SetPrescaler:00000000 IWDG_SetPrescaler
+     /tmp/ccpkPbak.s:15871  .text.IWDG_SetReload:00000000 $t
+     /tmp/ccpkPbak.s:15876  .text.IWDG_SetReload:00000000 IWDG_SetReload
+     /tmp/ccpkPbak.s:15909  .text.IWDG_ReloadCounter:00000000 $t
+     /tmp/ccpkPbak.s:15914  .text.IWDG_ReloadCounter:00000000 IWDG_ReloadCounter
+     /tmp/ccpkPbak.s:15941  .text.IWDG_Enable:00000000 $t
+     /tmp/ccpkPbak.s:15946  .text.IWDG_Enable:00000000 IWDG_Enable
+     /tmp/ccpkPbak.s:15973  .text.IWDG_GetFlagStatus:00000000 $t
+     /tmp/ccpkPbak.s:15978  .text.IWDG_GetFlagStatus:00000000 IWDG_GetFlagStatus
+                     .debug_frame:00000010 $d
+
+NO UNDEFINED SYMBOLS

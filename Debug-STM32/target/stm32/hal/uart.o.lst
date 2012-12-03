@@ -1,0 +1,1035 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"uart.cpp"
+  23              	.Ltext0:
+  24              		.file 1 "../target/stm32/hal/uart.cpp"
+ 17865              		.align	2
+ 17868              	_ZN4Uart6_sUartE:
+ 17869 0000 00000000 		.space	12
+ 17869      00000000 
+ 17869      00000000 
+ 17870              		.global	_ZN4Uart13_sInitializedE
+ 17871              		.section	.bss._ZN4Uart13_sInitializedE,"aw",%nobits
+ 17872              		.align	2
+ 17875              	_ZN4Uart13_sInitializedE:
+ 17876 0000 000000   		.space	3
+ 17877 0003 00       		.section	.rodata
+ 17878              		.align	2
+ 17879              	.LC0:
+ 17880 0000 2E2E2F74 		.ascii	"../target/stm32/hal/uart.cpp\000"
+ 17880      61726765 
+ 17880      742F7374 
+ 17880      6D33322F 
+ 17880      68616C2F 
+ 17881 001d 000000   		.align	2
+ 17882              	.LC1:
+ 17883 0020 75617274 		.ascii	"uartNbr >= 0 && uartNbr < UART_COUNT\000"
+ 17883      4E627220 
+ 17883      3E3D2030 
+ 17883      20262620 
+ 17883      75617274 
+ 17884 0045 000000   		.align	2
+ 17885              	.LC2:
+ 17886 0048 66616C73 		.ascii	"false\000"
+ 17886      6500
+ 17887 004e 0000     		.section	.text._ZN4UartC2Eh,"ax",%progbits
+ 17888              		.align	2
+ 17889              		.global	_ZN4UartC2Eh
+ 17890              		.thumb
+ 17891              		.thumb_func
+ 17893              	_ZN4UartC2Eh:
+ 17894              	.LFB32:
+   1:../target/stm32/hal/uart.cpp **** #include <inc/config.h>
+   2:../target/stm32/hal/uart.cpp **** #include <target.h>
+   3:../target/stm32/hal/uart.cpp **** #include <stm32f10x_usart.h>
+   4:../target/stm32/hal/uart.cpp **** #include "uart.h"
+   5:../target/stm32/hal/uart.cpp **** 
+   6:../target/stm32/hal/uart.cpp **** Uart * Uart::_sUart[Uart::UART_COUNT];				// Comment: Startup script should initialize pointers to 
+   7:../target/stm32/hal/uart.cpp **** bool Uart::_sInitialized[Uart::UART_COUNT];			// Same for other arrays
+   8:../target/stm32/hal/uart.cpp **** 
+   9:../target/stm32/hal/uart.cpp **** Uart::Uart(const unsigned char uartNbr)
+ 17895              		.loc 1 9 0
+ 17896              		.cfi_startproc
+ 17897              		@ args = 0, pretend = 0, frame = 8
+ 17898              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17899 0000 80B5     		push	{r7, lr}
+ 17900              	.LCFI0:
+ 17901              		.cfi_def_cfa_offset 8
+ 17902 0002 82B0     		sub	sp, sp, #8
+ 17903              	.LCFI1:
+ 17904              		.cfi_def_cfa_offset 16
+ 17905 0004 00AF     		add	r7, sp, #0
+ 17906              		.cfi_offset 14, -4
+ 17907              		.cfi_offset 7, -8
+ 17908              	.LCFI2:
+ 17909              		.cfi_def_cfa_register 7
+ 17910 0006 7860     		str	r0, [r7, #4]
+ 17911 0008 0B46     		mov	r3, r1
+ 17912 000a FB70     		strb	r3, [r7, #3]
+ 17913              	.LBB2:
+  10:../target/stm32/hal/uart.cpp ****  : _uartNbr(-1),
+  11:../target/stm32/hal/uart.cpp ****    _pUart(NULL)
+ 17914              		.loc 1 11 0
+ 17915 000c 7B68     		ldr	r3, [r7, #4]
+ 17916 000e 3C4A     		ldr	r2, .L11
+ 17917 0010 1A60     		str	r2, [r3, #0]
+ 17918 0012 7B68     		ldr	r3, [r7, #4]
+ 17919 0014 4FF0FF02 		mov	r2, #255
+ 17920 0018 1A71     		strb	r2, [r3, #4]
+ 17921 001a 7B68     		ldr	r3, [r7, #4]
+ 17922 001c 4FF00002 		mov	r2, #0
+ 17923 0020 9A60     		str	r2, [r3, #8]
+  12:../target/stm32/hal/uart.cpp **** {
+  13:../target/stm32/hal/uart.cpp **** 	assert(uartNbr >= 0 && uartNbr < UART_COUNT);
+ 17924              		.loc 1 13 0
+ 17925 0022 FB78     		ldrb	r3, [r7, #3]	@ zero_extendqisi2
+ 17926 0024 022B     		cmp	r3, #2
+ 17927 0026 0FD9     		bls	.L2
+ 17928              		.loc 1 13 0 is_stmt 0 discriminator 1
+ 17929 0028 40F20000 		movw	r0, #:lower16:.LC0
+ 17930 002c C0F20000 		movt	r0, #:upper16:.LC0
+ 17931 0030 4FF00D01 		mov	r1, #13
+ 17932 0034 40F20002 		movw	r2, #:lower16:_ZZN4UartC1EhE19__PRETTY_FUNCTION__
+ 17933 0038 C0F20002 		movt	r2, #:upper16:_ZZN4UartC1EhE19__PRETTY_FUNCTION__
+ 17934 003c 40F20003 		movw	r3, #:lower16:.LC1
+ 17935 0040 C0F20003 		movt	r3, #:upper16:.LC1
+ 17936 0044 FFF7FEFF 		bl	__assert_func
+ 17937              	.L2:
+  14:../target/stm32/hal/uart.cpp **** 
+  15:../target/stm32/hal/uart.cpp **** 	if (uartNbr >= 0 && uartNbr < UART_COUNT)
+ 17938              		.loc 1 15 0 is_stmt 1
+ 17939 0048 FB78     		ldrb	r3, [r7, #3]	@ zero_extendqisi2
+ 17940 004a 022B     		cmp	r3, #2
+ 17941 004c 51D8     		bhi	.L3
+  16:../target/stm32/hal/uart.cpp **** 	{
+  17:../target/stm32/hal/uart.cpp **** 		if (!_sUart[uartNbr])
+ 17942              		.loc 1 17 0
+ 17943 004e FA78     		ldrb	r2, [r7, #3]	@ zero_extendqisi2
+ 17944 0050 40F20003 		movw	r3, #:lower16:_ZN4Uart6_sUartE
+ 17945 0054 C0F20003 		movt	r3, #:upper16:_ZN4Uart6_sUartE
+ 17946 0058 53F82230 		ldr	r3, [r3, r2, lsl #2]
+ 17947 005c 002B     		cmp	r3, #0
+ 17948 005e 38D1     		bne	.L4
+  18:../target/stm32/hal/uart.cpp **** 		{
+  19:../target/stm32/hal/uart.cpp **** 			// Register instance
+  20:../target/stm32/hal/uart.cpp **** 			_sUart[uartNbr] = this;
+ 17949              		.loc 1 20 0
+ 17950 0060 FA78     		ldrb	r2, [r7, #3]	@ zero_extendqisi2
+ 17951 0062 40F20003 		movw	r3, #:lower16:_ZN4Uart6_sUartE
+ 17952 0066 C0F20003 		movt	r3, #:upper16:_ZN4Uart6_sUartE
+ 17953 006a 7968     		ldr	r1, [r7, #4]
+ 17954 006c 43F82210 		str	r1, [r3, r2, lsl #2]
+  21:../target/stm32/hal/uart.cpp **** 			_uartNbr = uartNbr;
+ 17955              		.loc 1 21 0
+ 17956 0070 7B68     		ldr	r3, [r7, #4]
+ 17957 0072 FA78     		ldrb	r2, [r7, #3]
+ 17958 0074 1A71     		strb	r2, [r3, #4]
+  22:../target/stm32/hal/uart.cpp **** 
+  23:../target/stm32/hal/uart.cpp **** 			// Init _pUart
+  24:../target/stm32/hal/uart.cpp **** 			switch(_uartNbr)
+ 17959              		.loc 1 24 0
+ 17960 0076 7B68     		ldr	r3, [r7, #4]
+ 17961 0078 1B79     		ldrb	r3, [r3, #4]	@ zero_extendqisi2
+ 17962 007a 012B     		cmp	r3, #1
+ 17963 007c 0AD0     		beq	.L7
+ 17964 007e 022B     		cmp	r3, #2
+ 17965 0080 0FD0     		beq	.L8
+ 17966 0082 002B     		cmp	r3, #0
+ 17967 0084 15D1     		bne	.L10
+ 17968              	.L6:
+  25:../target/stm32/hal/uart.cpp **** 			{
+  26:../target/stm32/hal/uart.cpp **** 			case 0:
+  27:../target/stm32/hal/uart.cpp **** 				_pUart = USART1;
+ 17969              		.loc 1 27 0
+ 17970 0086 7A68     		ldr	r2, [r7, #4]
+ 17971 0088 4FF46053 		mov	r3, #14336
+ 17972 008c C4F20103 		movt	r3, 16385
+ 17973 0090 9360     		str	r3, [r2, #8]
+  28:../target/stm32/hal/uart.cpp **** 				break;
+ 17974              		.loc 1 28 0
+ 17975 0092 2EE0     		b	.L3
+ 17976              	.L7:
+  29:../target/stm32/hal/uart.cpp **** 			case 1:
+  30:../target/stm32/hal/uart.cpp **** 				_pUart = USART2;
+ 17977              		.loc 1 30 0
+ 17978 0094 7A68     		ldr	r2, [r7, #4]
+ 17979 0096 4FF48843 		mov	r3, #17408
+ 17980 009a C4F20003 		movt	r3, 16384
+ 17981 009e 9360     		str	r3, [r2, #8]
+  31:../target/stm32/hal/uart.cpp **** 				break;
+ 17982              		.loc 1 31 0
+ 17983 00a0 27E0     		b	.L3
+ 17984              	.L8:
+  32:../target/stm32/hal/uart.cpp **** 			case 2:
+  33:../target/stm32/hal/uart.cpp **** 				_pUart = USART3;
+ 17985              		.loc 1 33 0
+ 17986 00a2 7A68     		ldr	r2, [r7, #4]
+ 17987 00a4 4FF49043 		mov	r3, #18432
+ 17988 00a8 C4F20003 		movt	r3, 16384
+ 17989 00ac 9360     		str	r3, [r2, #8]
+  34:../target/stm32/hal/uart.cpp **** 				break;
+ 17990              		.loc 1 34 0
+ 17991 00ae 00BF     		nop
+ 17992 00b0 1FE0     		b	.L3
+ 17993              	.L10:
+  35:../target/stm32/hal/uart.cpp **** 			default:
+  36:../target/stm32/hal/uart.cpp **** 				assert(false);
+ 17994              		.loc 1 36 0
+ 17995 00b2 40F20000 		movw	r0, #:lower16:.LC0
+ 17996 00b6 C0F20000 		movt	r0, #:upper16:.LC0
+ 17997 00ba 4FF02401 		mov	r1, #36
+ 17998 00be 40F20002 		movw	r2, #:lower16:_ZZN4UartC1EhE19__PRETTY_FUNCTION__
+ 17999 00c2 C0F20002 		movt	r2, #:upper16:_ZZN4UartC1EhE19__PRETTY_FUNCTION__
+ 18000 00c6 40F20003 		movw	r3, #:lower16:.LC2
+ 18001 00ca C0F20003 		movt	r3, #:upper16:.LC2
+ 18002 00ce FFF7FEFF 		bl	__assert_func
+ 18003              	.L4:
+  37:../target/stm32/hal/uart.cpp **** 			}
+  38:../target/stm32/hal/uart.cpp **** 		}
+  39:../target/stm32/hal/uart.cpp **** 		else
+  40:../target/stm32/hal/uart.cpp **** 		{
+  41:../target/stm32/hal/uart.cpp **** 			assert(false); 	// Error: Instance for specified UART already exists.
+ 18004              		.loc 1 41 0
+ 18005 00d2 40F20000 		movw	r0, #:lower16:.LC0
+ 18006 00d6 C0F20000 		movt	r0, #:upper16:.LC0
+ 18007 00da 4FF02901 		mov	r1, #41
+ 18008 00de 40F20002 		movw	r2, #:lower16:_ZZN4UartC1EhE19__PRETTY_FUNCTION__
+ 18009 00e2 C0F20002 		movt	r2, #:upper16:_ZZN4UartC1EhE19__PRETTY_FUNCTION__
+ 18010 00e6 40F20003 		movw	r3, #:lower16:.LC2
+ 18011 00ea C0F20003 		movt	r3, #:upper16:.LC2
+ 18012 00ee FFF7FEFF 		bl	__assert_func
+ 18013              	.L3:
+ 18014              	.LBE2:
+  42:../target/stm32/hal/uart.cpp **** 		}
+  43:../target/stm32/hal/uart.cpp **** 	}
+  44:../target/stm32/hal/uart.cpp **** }
+ 18015              		.loc 1 44 0
+ 18016 00f2 7B68     		ldr	r3, [r7, #4]
+ 18017 00f4 1846     		mov	r0, r3
+ 18018 00f6 07F10807 		add	r7, r7, #8
+ 18019 00fa BD46     		mov	sp, r7
+ 18020 00fc 80BD     		pop	{r7, pc}
+ 18021              	.L12:
+ 18022 00fe 00BF     		.align	2
+ 18023              	.L11:
+ 18024 0100 08000000 		.word	_ZTV4Uart+8
+ 18025              		.cfi_endproc
+ 18026              	.LFE32:
+ 18028              		.global	_ZN4UartC1Eh
+ 18029              		.thumb_set _ZN4UartC1Eh,_ZN4UartC2Eh
+ 18030              		.section	.text._ZN4UartD2Ev,"ax",%progbits
+ 18031              		.align	2
+ 18032              		.global	_ZN4UartD2Ev
+ 18033              		.thumb
+ 18034              		.thumb_func
+ 18036              	_ZN4UartD2Ev:
+ 18037              	.LFB35:
+  45:../target/stm32/hal/uart.cpp **** 
+  46:../target/stm32/hal/uart.cpp **** Uart::~Uart()
+ 18038              		.loc 1 46 0
+ 18039              		.cfi_startproc
+ 18040              		@ args = 0, pretend = 0, frame = 8
+ 18041              		@ frame_needed = 1, uses_anonymous_args = 0
+ 18042 0000 80B5     		push	{r7, lr}
+ 18043              	.LCFI3:
+ 18044              		.cfi_def_cfa_offset 8
+ 18045 0002 82B0     		sub	sp, sp, #8
+ 18046              	.LCFI4:
+ 18047              		.cfi_def_cfa_offset 16
+ 18048 0004 00AF     		add	r7, sp, #0
+ 18049              		.cfi_offset 14, -4
+ 18050              		.cfi_offset 7, -8
+ 18051              	.LCFI5:
+ 18052              		.cfi_def_cfa_register 7
+ 18053 0006 7860     		str	r0, [r7, #4]
+ 18054              	.LBB3:
+ 18055              		.loc 1 46 0
+ 18056 0008 7B68     		ldr	r3, [r7, #4]
+ 18057 000a 094A     		ldr	r2, .L16
+ 18058 000c 1A60     		str	r2, [r3, #0]
+ 18059              	.LBE3:
+  47:../target/stm32/hal/uart.cpp **** {
+  48:../target/stm32/hal/uart.cpp **** 
+  49:../target/stm32/hal/uart.cpp **** }
+ 18060              		.loc 1 49 0
+ 18061 000e 4FF00003 		mov	r3, #0
+ 18062 0012 03F00103 		and	r3, r3, #1
+ 18063 0016 DBB2     		uxtb	r3, r3
+ 18064 0018 002B     		cmp	r3, #0
+ 18065 001a 02D0     		beq	.L15
+ 18066              		.loc 1 49 0 is_stmt 0 discriminator 1
+ 18067 001c 7868     		ldr	r0, [r7, #4]
+ 18068 001e FFF7FEFF 		bl	_ZdlPv
+ 18069              	.L15:
+ 18070              		.loc 1 49 0 discriminator 2
+ 18071 0022 7B68     		ldr	r3, [r7, #4]
+ 18072 0024 1846     		mov	r0, r3
+ 18073 0026 07F10807 		add	r7, r7, #8
+ 18074 002a BD46     		mov	sp, r7
+ 18075 002c 80BD     		pop	{r7, pc}
+ 18076              	.L17:
+ 18077 002e 00BF     		.align	2
+ 18078              	.L16:
+ 18079 0030 08000000 		.word	_ZTV4Uart+8
+ 18080              		.cfi_endproc
+ 18081              	.LFE35:
+ 18083              		.global	_ZN4UartD1Ev
+ 18084              		.thumb_set _ZN4UartD1Ev,_ZN4UartD2Ev
+ 18085              		.section	.text._ZN4UartD0Ev,"ax",%progbits
+ 18086              		.align	2
+ 18087              		.global	_ZN4UartD0Ev
+ 18088              		.thumb
+ 18089              		.thumb_func
+ 18091              	_ZN4UartD0Ev:
+ 18092              	.LFB37:
+  46:../target/stm32/hal/uart.cpp **** Uart::~Uart()
+ 18093              		.loc 1 46 0 is_stmt 1
+ 18094              		.cfi_startproc
+ 18095              		@ args = 0, pretend = 0, frame = 8
+ 18096              		@ frame_needed = 1, uses_anonymous_args = 0
+ 18097 0000 80B5     		push	{r7, lr}
+ 18098              	.LCFI6:
+ 18099              		.cfi_def_cfa_offset 8
+ 18100 0002 82B0     		sub	sp, sp, #8
+ 18101              	.LCFI7:
+ 18102              		.cfi_def_cfa_offset 16
+ 18103 0004 00AF     		add	r7, sp, #0
+ 18104              		.cfi_offset 14, -4
+ 18105              		.cfi_offset 7, -8
+ 18106              	.LCFI8:
+ 18107              		.cfi_def_cfa_register 7
+ 18108 0006 7860     		str	r0, [r7, #4]
+ 18109              		.loc 1 49 0
+ 18110 0008 7868     		ldr	r0, [r7, #4]
+ 18111 000a FFF7FEFF 		bl	_ZN4UartD1Ev
+ 18112 000e 7868     		ldr	r0, [r7, #4]
+ 18113 0010 FFF7FEFF 		bl	_ZdlPv
+ 18114 0014 7B68     		ldr	r3, [r7, #4]
+ 18115 0016 1846     		mov	r0, r3
+ 18116 0018 07F10807 		add	r7, r7, #8
+ 18117 001c BD46     		mov	sp, r7
+ 18118 001e 80BD     		pop	{r7, pc}
+ 18119              		.cfi_endproc
+ 18120              	.LFE37:
+ 18122              		.section	.text._ZN4Uart10initializeEm,"ax",%progbits
+ 18123              		.align	2
+ 18124              		.global	_ZN4Uart10initializeEm
+ 18125              		.thumb
+ 18126              		.thumb_func
+ 18128              	_ZN4Uart10initializeEm:
+ 18129              	.LFB38:
+  50:../target/stm32/hal/uart.cpp **** 
+  51:../target/stm32/hal/uart.cpp **** bool Uart::initialize(const unsigned long baudRate)
+  52:../target/stm32/hal/uart.cpp **** {
+ 18130              		.loc 1 52 0
+ 18131              		.cfi_startproc
+ 18132              		@ args = 0, pretend = 0, frame = 40
+ 18133              		@ frame_needed = 1, uses_anonymous_args = 0
+ 18134 0000 80B5     		push	{r7, lr}
+ 18135              	.LCFI9:
+ 18136              		.cfi_def_cfa_offset 8
+ 18137 0002 8AB0     		sub	sp, sp, #40
+ 18138              	.LCFI10:
+ 18139              		.cfi_def_cfa_offset 48
+ 18140 0004 00AF     		add	r7, sp, #0
+ 18141              		.cfi_offset 14, -4
+ 18142              		.cfi_offset 7, -8
+ 18143              	.LCFI11:
+ 18144              		.cfi_def_cfa_register 7
+ 18145 0006 7860     		str	r0, [r7, #4]
+ 18146 0008 3960     		str	r1, [r7, #0]
+ 18147              	.LBB4:
+  53:../target/stm32/hal/uart.cpp **** 	if (_uartNbr == 0 || _uartNbr == 2)
+ 18148              		.loc 1 53 0
+ 18149 000a 7B68     		ldr	r3, [r7, #4]
+ 18150 000c 1B79     		ldrb	r3, [r3, #4]	@ zero_extendqisi2
+ 18151 000e 002B     		cmp	r3, #0
+ 18152 0010 03D0     		beq	.L21
+ 18153              		.loc 1 53 0 is_stmt 0 discriminator 1
+ 18154 0012 7B68     		ldr	r3, [r7, #4]
+ 18155 0014 1B79     		ldrb	r3, [r3, #4]	@ zero_extendqisi2
+ 18156 0016 022B     		cmp	r3, #2
+ 18157 0018 0FD1     		bne	.L22
+ 18158              	.L21:
+  54:../target/stm32/hal/uart.cpp **** 	{
+  55:../target/stm32/hal/uart.cpp **** 		// TODO: implement
+  56:../target/stm32/hal/uart.cpp **** 		assert(false);
+ 18159              		.loc 1 56 0 is_stmt 1
+ 18160 001a 40F20000 		movw	r0, #:lower16:.LC0
+ 18161 001e C0F20000 		movt	r0, #:upper16:.LC0
+ 18162 0022 4FF03801 		mov	r1, #56
+ 18163 0026 40F20002 		movw	r2, #:lower16:_ZZN4Uart10initializeEmE19__PRETTY_FUNCTION__
+ 18164 002a C0F20002 		movt	r2, #:upper16:_ZZN4Uart10initializeEmE19__PRETTY_FUNCTION__
+ 18165 002e 40F20003 		movw	r3, #:lower16:.LC2
+ 18166 0032 C0F20003 		movt	r3, #:upper16:.LC2
+ 18167 0036 FFF7FEFF 		bl	__assert_func
+ 18168              	.L22:
+ 18169              	.LBB5:
+  57:../target/stm32/hal/uart.cpp **** 	}
+  58:../target/stm32/hal/uart.cpp **** 
+  59:../target/stm32/hal/uart.cpp **** 	if (_uartNbr == 1)
+ 18170              		.loc 1 59 0
+ 18171 003a 7B68     		ldr	r3, [r7, #4]
+ 18172 003c 1B79     		ldrb	r3, [r3, #4]	@ zero_extendqisi2
+ 18173 003e 012B     		cmp	r3, #1
+ 18174 0040 40F09D80 		bne	.L23
+ 18175              	.LBB6:
+  60:../target/stm32/hal/uart.cpp **** 	{	// Initialization for USART2
+  61:../target/stm32/hal/uart.cpp **** 
+  62:../target/stm32/hal/uart.cpp **** 		GPIO_InitTypeDef gpioInitStructure;
+  63:../target/stm32/hal/uart.cpp **** 		USART_ClockInitTypeDef  usartClockInitStructure;
+  64:../target/stm32/hal/uart.cpp **** 		NVIC_InitTypeDef nvicInitStructure;
+  65:../target/stm32/hal/uart.cpp **** 		USART_InitTypeDef usartInitStructure;
+  66:../target/stm32/hal/uart.cpp **** 
+  67:../target/stm32/hal/uart.cpp **** 		// Enable clock for needed peripherals
+  68:../target/stm32/hal/uart.cpp **** 		RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA | RCC_APB2Periph_AFIO, ENABLE);
+ 18176              		.loc 1 68 0
+ 18177 0044 4FF00500 		mov	r0, #5
+ 18178 0048 4FF00101 		mov	r1, #1
+ 18179 004c FFF7FEFF 		bl	RCC_APB2PeriphClockCmd
+  69:../target/stm32/hal/uart.cpp **** 		RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART2, ENABLE);
+ 18180              		.loc 1 69 0
+ 18181 0050 4FF40030 		mov	r0, #131072
+ 18182 0054 4FF00101 		mov	r1, #1
+ 18183 0058 FFF7FEFF 		bl	RCC_APB1PeriphClockCmd
+  70:../target/stm32/hal/uart.cpp **** 
+  71:../target/stm32/hal/uart.cpp **** 		// Tx Line Config
+  72:../target/stm32/hal/uart.cpp **** 		gpioInitStructure.GPIO_Pin = GPIO_Pin_2;			// UART2 Tx PA.2
+ 18184              		.loc 1 72 0
+ 18185 005c 4FF00403 		mov	r3, #4
+ 18186 0060 BB84     		strh	r3, [r7, #36]	@ movhi
+  73:../target/stm32/hal/uart.cpp **** 		gpioInitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+ 18187              		.loc 1 73 0
+ 18188 0062 4FF01803 		mov	r3, #24
+ 18189 0066 87F82730 		strb	r3, [r7, #39]
+  74:../target/stm32/hal/uart.cpp **** 		gpioInitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+ 18190              		.loc 1 74 0
+ 18191 006a 4FF00303 		mov	r3, #3
+ 18192 006e 87F82630 		strb	r3, [r7, #38]
+  75:../target/stm32/hal/uart.cpp **** 		GPIO_Init(GPIOA, &gpioInitStructure);
+ 18193              		.loc 1 75 0
+ 18194 0072 07F12403 		add	r3, r7, #36
+ 18195 0076 4FF40060 		mov	r0, #2048
+ 18196 007a C4F20100 		movt	r0, 16385
+ 18197 007e 1946     		mov	r1, r3
+ 18198 0080 FFF7FEFF 		bl	GPIO_Init
+  76:../target/stm32/hal/uart.cpp **** 
+  77:../target/stm32/hal/uart.cpp **** 		// Rx Line Config
+  78:../target/stm32/hal/uart.cpp **** 		gpioInitStructure.GPIO_Pin = GPIO_Pin_3;			// UART2 Rx PA.3
+ 18199              		.loc 1 78 0
+ 18200 0084 4FF00803 		mov	r3, #8
+ 18201 0088 BB84     		strh	r3, [r7, #36]	@ movhi
+  79:../target/stm32/hal/uart.cpp **** 		gpioInitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+ 18202              		.loc 1 79 0
+ 18203 008a 4FF00403 		mov	r3, #4
+ 18204 008e 87F82730 		strb	r3, [r7, #39]
+  80:../target/stm32/hal/uart.cpp **** 		gpioInitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+ 18205              		.loc 1 80 0
+ 18206 0092 4FF00303 		mov	r3, #3
+ 18207 0096 87F82630 		strb	r3, [r7, #38]
+  81:../target/stm32/hal/uart.cpp **** 		GPIO_Init(GPIOA, &gpioInitStructure);
+ 18208              		.loc 1 81 0
+ 18209 009a 07F12403 		add	r3, r7, #36
+ 18210 009e 4FF40060 		mov	r0, #2048
+ 18211 00a2 C4F20100 		movt	r0, 16385
+ 18212 00a6 1946     		mov	r1, r3
+ 18213 00a8 FFF7FEFF 		bl	GPIO_Init
+  82:../target/stm32/hal/uart.cpp **** 
+  83:../target/stm32/hal/uart.cpp **** // Do not call code below in case you are using the SP1
+  84:../target/stm32/hal/uart.cpp **** // USRT2_CK and SPI1_NSS are on the same pin.
+  85:../target/stm32/hal/uart.cpp **** //		gpioInitStructure.GPIO_Pin = GPIO_Pin_4;
+  86:../target/stm32/hal/uart.cpp **** //		gpioInitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  87:../target/stm32/hal/uart.cpp **** //		gpioInitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+  88:../target/stm32/hal/uart.cpp **** //		GPIO_Init(GPIOA, &gpioInitStructure);
+  89:../target/stm32/hal/uart.cpp **** 
+  90:../target/stm32/hal/uart.cpp **** 		// Init clock for USART
+  91:../target/stm32/hal/uart.cpp **** 		usartClockInitStructure.USART_Clock = USART_Clock_Disable;
+ 18214              		.loc 1 91 0
+ 18215 00ac 4FF00003 		mov	r3, #0
+ 18216 00b0 BB83     		strh	r3, [r7, #28]	@ movhi
+  92:../target/stm32/hal/uart.cpp **** 		usartClockInitStructure.USART_CPOL = USART_CPOL_Low;
+ 18217              		.loc 1 92 0
+ 18218 00b2 4FF00003 		mov	r3, #0
+ 18219 00b6 FB83     		strh	r3, [r7, #30]	@ movhi
+  93:../target/stm32/hal/uart.cpp **** 		usartClockInitStructure.USART_CPHA = USART_CPHA_2Edge;
+ 18220              		.loc 1 93 0
+ 18221 00b8 4FF40073 		mov	r3, #512
+ 18222 00bc 3B84     		strh	r3, [r7, #32]	@ movhi
+  94:../target/stm32/hal/uart.cpp **** 		usartClockInitStructure.USART_LastBit = USART_LastBit_Disable;
+ 18223              		.loc 1 94 0
+ 18224 00be 4FF00003 		mov	r3, #0
+ 18225 00c2 7B84     		strh	r3, [r7, #34]	@ movhi
+  95:../target/stm32/hal/uart.cpp **** 		USART_ClockInit(_pUart, &usartClockInitStructure);
+ 18226              		.loc 1 95 0
+ 18227 00c4 7B68     		ldr	r3, [r7, #4]
+ 18228 00c6 9A68     		ldr	r2, [r3, #8]
+ 18229 00c8 07F11C03 		add	r3, r7, #28
+ 18230 00cc 1046     		mov	r0, r2
+ 18231 00ce 1946     		mov	r1, r3
+ 18232 00d0 FFF7FEFF 		bl	USART_ClockInit
+  96:../target/stm32/hal/uart.cpp **** 
+  97:../target/stm32/hal/uart.cpp **** 		// Enable USART2 interrupt
+  98:../target/stm32/hal/uart.cpp **** 		nvicInitStructure.NVIC_IRQChannel = USART2_IRQn;
+ 18233              		.loc 1 98 0
+ 18234 00d4 4FF02603 		mov	r3, #38
+ 18235 00d8 3B76     		strb	r3, [r7, #24]
+  99:../target/stm32/hal/uart.cpp **** 		nvicInitStructure.NVIC_IRQChannelPreemptionPriority = 0x05;
+ 18236              		.loc 1 99 0
+ 18237 00da 4FF00503 		mov	r3, #5
+ 18238 00de 7B76     		strb	r3, [r7, #25]
+ 100:../target/stm32/hal/uart.cpp **** 		nvicInitStructure.NVIC_IRQChannelSubPriority = 0x00;
+ 18239              		.loc 1 100 0
+ 18240 00e0 4FF00003 		mov	r3, #0
+ 18241 00e4 BB76     		strb	r3, [r7, #26]
+ 101:../target/stm32/hal/uart.cpp **** 		nvicInitStructure.NVIC_IRQChannelCmd = ENABLE;		// Enable USART2 interrupt
+ 18242              		.loc 1 101 0
+ 18243 00e6 4FF00103 		mov	r3, #1
+ 18244 00ea FB76     		strb	r3, [r7, #27]
+ 102:../target/stm32/hal/uart.cpp **** 		NVIC_Init(&nvicInitStructure);
+ 18245              		.loc 1 102 0
+ 18246 00ec 07F11803 		add	r3, r7, #24
+ 18247 00f0 1846     		mov	r0, r3
+ 18248 00f2 FFF7FEFF 		bl	NVIC_Init
+ 103:../target/stm32/hal/uart.cpp **** 
+ 104:../target/stm32/hal/uart.cpp **** 		// Configure USART
+ 105:../target/stm32/hal/uart.cpp **** 		usartInitStructure.USART_BaudRate = baudRate;
+ 18249              		.loc 1 105 0
+ 18250 00f6 3B68     		ldr	r3, [r7, #0]
+ 18251 00f8 BB60     		str	r3, [r7, #8]
+ 106:../target/stm32/hal/uart.cpp **** 		usartInitStructure.USART_WordLength = USART_WordLength_8b;
+ 18252              		.loc 1 106 0
+ 18253 00fa 4FF00003 		mov	r3, #0
+ 18254 00fe BB81     		strh	r3, [r7, #12]	@ movhi
+ 107:../target/stm32/hal/uart.cpp **** 		usartInitStructure.USART_StopBits = USART_StopBits_1;
+ 18255              		.loc 1 107 0
+ 18256 0100 4FF00003 		mov	r3, #0
+ 18257 0104 FB81     		strh	r3, [r7, #14]	@ movhi
+ 108:../target/stm32/hal/uart.cpp **** 		usartInitStructure.USART_Parity = USART_Parity_No;
+ 18258              		.loc 1 108 0
+ 18259 0106 4FF00003 		mov	r3, #0
+ 18260 010a 3B82     		strh	r3, [r7, #16]	@ movhi
+ 109:../target/stm32/hal/uart.cpp **** 		usartInitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
+ 18261              		.loc 1 109 0
+ 18262 010c 4FF00003 		mov	r3, #0
+ 18263 0110 BB82     		strh	r3, [r7, #20]	@ movhi
+ 110:../target/stm32/hal/uart.cpp **** 		usartInitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;
+ 18264              		.loc 1 110 0
+ 18265 0112 4FF00C03 		mov	r3, #12
+ 18266 0116 7B82     		strh	r3, [r7, #18]	@ movhi
+ 111:../target/stm32/hal/uart.cpp **** 		USART_Init(_pUart, &usartInitStructure);
+ 18267              		.loc 1 111 0
+ 18268 0118 7B68     		ldr	r3, [r7, #4]
+ 18269 011a 9A68     		ldr	r2, [r3, #8]
+ 18270 011c 07F10803 		add	r3, r7, #8
+ 18271 0120 1046     		mov	r0, r2
+ 18272 0122 1946     		mov	r1, r3
+ 18273 0124 FFF7FEFF 		bl	USART_Init
+ 112:../target/stm32/hal/uart.cpp **** 
+ 113:../target/stm32/hal/uart.cpp **** 		// Clear pending interrupts
+ 114:../target/stm32/hal/uart.cpp **** 		USART_ClearITPendingBit(_pUart, USART_IT_RXNE);
+ 18274              		.loc 1 114 0
+ 18275 0128 7B68     		ldr	r3, [r7, #4]
+ 18276 012a 9B68     		ldr	r3, [r3, #8]
+ 18277 012c 1846     		mov	r0, r3
+ 18278 012e 40F22551 		movw	r1, #1317
+ 18279 0132 FFF7FEFF 		bl	USART_ClearITPendingBit
+ 115:../target/stm32/hal/uart.cpp **** 		USART_ClearITPendingBit(_pUart, USART_IT_TC);
+ 18280              		.loc 1 115 0
+ 18281 0136 7B68     		ldr	r3, [r7, #4]
+ 18282 0138 9B68     		ldr	r3, [r3, #8]
+ 18283 013a 1846     		mov	r0, r3
+ 18284 013c 40F22661 		movw	r1, #1574
+ 18285 0140 FFF7FEFF 		bl	USART_ClearITPendingBit
+ 116:../target/stm32/hal/uart.cpp **** 
+ 117:../target/stm32/hal/uart.cpp **** 		// Enable USART Receive interrupts
+ 118:../target/stm32/hal/uart.cpp **** 		USART_ITConfig(_pUart, USART_IT_RXNE, ENABLE);
+ 18286              		.loc 1 118 0
+ 18287 0144 7B68     		ldr	r3, [r7, #4]
+ 18288 0146 9B68     		ldr	r3, [r3, #8]
+ 18289 0148 1846     		mov	r0, r3
+ 18290 014a 40F22551 		movw	r1, #1317
+ 18291 014e 4FF00102 		mov	r2, #1
+ 18292 0152 FFF7FEFF 		bl	USART_ITConfig
+ 119:../target/stm32/hal/uart.cpp **** 
+ 120:../target/stm32/hal/uart.cpp **** 		// Insider hack:
+ 121:../target/stm32/hal/uart.cpp **** 		// In order to output USART2_CK, the SSOE bit in the SPI1_CR2
+ 122:../target/stm32/hal/uart.cpp **** 		// register must be set to configure the pin in output mode.
+ 123:../target/stm32/hal/uart.cpp **** 		SPI1->CR2 |= SPI_CR2_SSOE;
+ 18293              		.loc 1 123 0
+ 18294 0156 4FF44053 		mov	r3, #12288
+ 18295 015a C4F20103 		movt	r3, 16385
+ 18296 015e 4FF44052 		mov	r2, #12288
+ 18297 0162 C4F20102 		movt	r2, 16385
+ 18298 0166 9288     		ldrh	r2, [r2, #4]	@ movhi
+ 18299 0168 92B2     		uxth	r2, r2
+ 18300 016a 42F00402 		orr	r2, r2, #4
+ 18301 016e 92B2     		uxth	r2, r2
+ 18302 0170 9A80     		strh	r2, [r3, #4]	@ movhi
+ 124:../target/stm32/hal/uart.cpp **** 
+ 125:../target/stm32/hal/uart.cpp **** 		// Enable UARt
+ 126:../target/stm32/hal/uart.cpp **** 		enable();
+ 18303              		.loc 1 126 0
+ 18304 0172 7868     		ldr	r0, [r7, #4]
+ 18305 0174 FFF7FEFF 		bl	_ZN4Uart6enableEv
+ 127:../target/stm32/hal/uart.cpp **** 
+ 128:../target/stm32/hal/uart.cpp **** 		return true;
+ 18306              		.loc 1 128 0
+ 18307 0178 4FF00103 		mov	r3, #1
+ 18308 017c 01E0     		b	.L24
+ 18309              	.L23:
+ 18310              	.LBE6:
+ 18311              	.LBE5:
+ 129:../target/stm32/hal/uart.cpp **** 	}
+ 130:../target/stm32/hal/uart.cpp **** 
+ 131:../target/stm32/hal/uart.cpp **** 	return false;
+ 18312              		.loc 1 131 0
+ 18313 017e 4FF00003 		mov	r3, #0
+ 18314              	.L24:
+ 18315              	.LBE4:
+ 132:../target/stm32/hal/uart.cpp **** }
+ 18316              		.loc 1 132 0
+ 18317 0182 1846     		mov	r0, r3
+ 18318 0184 07F12807 		add	r7, r7, #40
+ 18319 0188 BD46     		mov	sp, r7
+ 18320 018a 80BD     		pop	{r7, pc}
+ 18321              		.cfi_endproc
+ 18322              	.LFE38:
+ 18324              		.section	.text._ZN4Uart6enableEv,"ax",%progbits
+ 18325              		.align	2
+ 18326              		.global	_ZN4Uart6enableEv
+ 18327              		.thumb
+ 18328              		.thumb_func
+ 18330              	_ZN4Uart6enableEv:
+ 18331              	.LFB39:
+ 133:../target/stm32/hal/uart.cpp **** 
+ 134:../target/stm32/hal/uart.cpp **** bool Uart::enable()
+ 135:../target/stm32/hal/uart.cpp **** {
+ 18332              		.loc 1 135 0
+ 18333              		.cfi_startproc
+ 18334              		@ args = 0, pretend = 0, frame = 8
+ 18335              		@ frame_needed = 1, uses_anonymous_args = 0
+ 18336 0000 80B5     		push	{r7, lr}
+ 18337              	.LCFI12:
+ 18338              		.cfi_def_cfa_offset 8
+ 18339 0002 82B0     		sub	sp, sp, #8
+ 18340              	.LCFI13:
+ 18341              		.cfi_def_cfa_offset 16
+ 18342 0004 00AF     		add	r7, sp, #0
+ 18343              		.cfi_offset 14, -4
+ 18344              		.cfi_offset 7, -8
+ 18345              	.LCFI14:
+ 18346              		.cfi_def_cfa_register 7
+ 18347 0006 7860     		str	r0, [r7, #4]
+ 136:../target/stm32/hal/uart.cpp **** 	  // Enable the usart
+ 137:../target/stm32/hal/uart.cpp **** 	  USART_Cmd(_pUart, ENABLE);
+ 18348              		.loc 1 137 0
+ 18349 0008 7B68     		ldr	r3, [r7, #4]
+ 18350 000a 9B68     		ldr	r3, [r3, #8]
+ 18351 000c 1846     		mov	r0, r3
+ 18352 000e 4FF00101 		mov	r1, #1
+ 18353 0012 FFF7FEFF 		bl	USART_Cmd
+ 138:../target/stm32/hal/uart.cpp **** 	  return true;
+ 18354              		.loc 1 138 0
+ 18355 0016 4FF00103 		mov	r3, #1
+ 139:../target/stm32/hal/uart.cpp **** }
+ 18356              		.loc 1 139 0
+ 18357 001a 1846     		mov	r0, r3
+ 18358 001c 07F10807 		add	r7, r7, #8
+ 18359 0020 BD46     		mov	sp, r7
+ 18360 0022 80BD     		pop	{r7, pc}
+ 18361              		.cfi_endproc
+ 18362              	.LFE39:
+ 18364              		.section	.text._ZN4Uart7disableEv,"ax",%progbits
+ 18365              		.align	2
+ 18366              		.global	_ZN4Uart7disableEv
+ 18367              		.thumb
+ 18368              		.thumb_func
+ 18370              	_ZN4Uart7disableEv:
+ 18371              	.LFB40:
+ 140:../target/stm32/hal/uart.cpp **** 
+ 141:../target/stm32/hal/uart.cpp **** bool Uart::disable()
+ 142:../target/stm32/hal/uart.cpp **** {
+ 18372              		.loc 1 142 0
+ 18373              		.cfi_startproc
+ 18374              		@ args = 0, pretend = 0, frame = 8
+ 18375              		@ frame_needed = 1, uses_anonymous_args = 0
+ 18376 0000 80B5     		push	{r7, lr}
+ 18377              	.LCFI15:
+ 18378              		.cfi_def_cfa_offset 8
+ 18379 0002 82B0     		sub	sp, sp, #8
+ 18380              	.LCFI16:
+ 18381              		.cfi_def_cfa_offset 16
+ 18382 0004 00AF     		add	r7, sp, #0
+ 18383              		.cfi_offset 14, -4
+ 18384              		.cfi_offset 7, -8
+ 18385              	.LCFI17:
+ 18386              		.cfi_def_cfa_register 7
+ 18387 0006 7860     		str	r0, [r7, #4]
+ 143:../target/stm32/hal/uart.cpp **** 	  // enable the usart
+ 144:../target/stm32/hal/uart.cpp **** 	  USART_Cmd(_pUart, DISABLE);
+ 18388              		.loc 1 144 0
+ 18389 0008 7B68     		ldr	r3, [r7, #4]
+ 18390 000a 9B68     		ldr	r3, [r3, #8]
+ 18391 000c 1846     		mov	r0, r3
+ 18392 000e 4FF00001 		mov	r1, #0
+ 18393 0012 FFF7FEFF 		bl	USART_Cmd
+ 145:../target/stm32/hal/uart.cpp **** 	  return true;
+ 18394              		.loc 1 145 0
+ 18395 0016 4FF00103 		mov	r3, #1
+ 146:../target/stm32/hal/uart.cpp **** }
+ 18396              		.loc 1 146 0
+ 18397 001a 1846     		mov	r0, r3
+ 18398 001c 07F10807 		add	r7, r7, #8
+ 18399 0020 BD46     		mov	sp, r7
+ 18400 0022 80BD     		pop	{r7, pc}
+ 18401              		.cfi_endproc
+ 18402              	.LFE40:
+ 18404              		.section	.text._ZN4Uart5writeEPKcj,"ax",%progbits
+ 18405              		.align	2
+ 18406              		.global	_ZN4Uart5writeEPKcj
+ 18407              		.thumb
+ 18408              		.thumb_func
+ 18410              	_ZN4Uart5writeEPKcj:
+ 18411              	.LFB41:
+ 147:../target/stm32/hal/uart.cpp **** 
+ 148:../target/stm32/hal/uart.cpp **** 
+ 149:../target/stm32/hal/uart.cpp **** void Uart::write(const char * str,
+ 150:../target/stm32/hal/uart.cpp **** 				 unsigned int length /* = 0 */)
+ 151:../target/stm32/hal/uart.cpp **** {
+ 18412              		.loc 1 151 0
+ 18413              		.cfi_startproc
+ 18414              		@ args = 0, pretend = 0, frame = 24
+ 18415              		@ frame_needed = 1, uses_anonymous_args = 0
+ 18416 0000 80B5     		push	{r7, lr}
+ 18417              	.LCFI18:
+ 18418              		.cfi_def_cfa_offset 8
+ 18419 0002 86B0     		sub	sp, sp, #24
+ 18420              	.LCFI19:
+ 18421              		.cfi_def_cfa_offset 32
+ 18422 0004 00AF     		add	r7, sp, #0
+ 18423              		.cfi_offset 14, -4
+ 18424              		.cfi_offset 7, -8
+ 18425              	.LCFI20:
+ 18426              		.cfi_def_cfa_register 7
+ 18427 0006 F860     		str	r0, [r7, #12]
+ 18428 0008 B960     		str	r1, [r7, #8]
+ 18429 000a 7A60     		str	r2, [r7, #4]
+ 18430              	.LBB7:
+ 152:../target/stm32/hal/uart.cpp **** 	if (!length)
+ 18431              		.loc 1 152 0
+ 18432 000c 7B68     		ldr	r3, [r7, #4]
+ 18433 000e 002B     		cmp	r3, #0
+ 18434 0010 03D1     		bne	.L28
+ 153:../target/stm32/hal/uart.cpp **** 	{
+ 154:../target/stm32/hal/uart.cpp **** 		length = strlen(str);
+ 18435              		.loc 1 154 0
+ 18436 0012 B868     		ldr	r0, [r7, #8]
+ 18437 0014 FFF7FEFF 		bl	strlen
+ 18438 0018 7860     		str	r0, [r7, #4]
+ 18439              	.L28:
+ 18440              	.LBB8:
+ 155:../target/stm32/hal/uart.cpp **** 	}
+ 156:../target/stm32/hal/uart.cpp **** 
+ 157:../target/stm32/hal/uart.cpp **** 	for (unsigned int i = 0; i < length; i++)
+ 18441              		.loc 1 157 0
+ 18442 001a 4FF00003 		mov	r3, #0
+ 18443 001e 7B61     		str	r3, [r7, #20]
+ 18444 0020 1DE0     		b	.L29
+ 18445              	.L31:
+ 158:../target/stm32/hal/uart.cpp **** 	{
+ 159:../target/stm32/hal/uart.cpp **** 		// Send next character
+ 160:../target/stm32/hal/uart.cpp **** 		USART_SendData(_pUart, str[i]);
+ 18446              		.loc 1 160 0
+ 18447 0022 FB68     		ldr	r3, [r7, #12]
+ 18448 0024 9A68     		ldr	r2, [r3, #8]
+ 18449 0026 B968     		ldr	r1, [r7, #8]
+ 18450 0028 7B69     		ldr	r3, [r7, #20]
+ 18451 002a CB18     		adds	r3, r1, r3
+ 18452 002c 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 18453 002e 1046     		mov	r0, r2
+ 18454 0030 1946     		mov	r1, r3
+ 18455 0032 FFF7FEFF 		bl	USART_SendData
+ 161:../target/stm32/hal/uart.cpp **** 
+ 162:../target/stm32/hal/uart.cpp **** 		// Wait until previous character got transfered
+ 163:../target/stm32/hal/uart.cpp **** 		while (USART_GetFlagStatus(_pUart, USART_FLAG_TXE) == RESET);
+ 18456              		.loc 1 163 0
+ 18457 0036 00BF     		nop
+ 18458              	.L30:
+ 18459              		.loc 1 163 0 is_stmt 0 discriminator 1
+ 18460 0038 FB68     		ldr	r3, [r7, #12]
+ 18461 003a 9B68     		ldr	r3, [r3, #8]
+ 18462 003c 1846     		mov	r0, r3
+ 18463 003e 4FF08001 		mov	r1, #128
+ 18464 0042 FFF7FEFF 		bl	USART_GetFlagStatus
+ 18465 0046 0346     		mov	r3, r0
+ 18466 0048 002B     		cmp	r3, #0
+ 18467 004a 14BF     		ite	ne
+ 18468 004c 0023     		movne	r3, #0
+ 18469 004e 0123     		moveq	r3, #1
+ 18470 0050 DBB2     		uxtb	r3, r3
+ 18471 0052 002B     		cmp	r3, #0
+ 18472 0054 F0D1     		bne	.L30
+ 157:../target/stm32/hal/uart.cpp **** 	for (unsigned int i = 0; i < length; i++)
+ 18473              		.loc 1 157 0 is_stmt 1
+ 18474 0056 7B69     		ldr	r3, [r7, #20]
+ 18475 0058 03F10103 		add	r3, r3, #1
+ 18476 005c 7B61     		str	r3, [r7, #20]
+ 18477              	.L29:
+ 157:../target/stm32/hal/uart.cpp **** 	for (unsigned int i = 0; i < length; i++)
+ 18478              		.loc 1 157 0 is_stmt 0 discriminator 1
+ 18479 005e 7A69     		ldr	r2, [r7, #20]
+ 18480 0060 7B68     		ldr	r3, [r7, #4]
+ 18481 0062 9A42     		cmp	r2, r3
+ 18482 0064 2CBF     		ite	cs
+ 18483 0066 0023     		movcs	r3, #0
+ 18484 0068 0123     		movcc	r3, #1
+ 18485 006a DBB2     		uxtb	r3, r3
+ 18486 006c 002B     		cmp	r3, #0
+ 18487 006e D8D1     		bne	.L31
+ 18488              	.LBE8:
+ 18489              	.LBE7:
+ 164:../target/stm32/hal/uart.cpp **** 	}
+ 165:../target/stm32/hal/uart.cpp **** }
+ 18490              		.loc 1 165 0 is_stmt 1
+ 18491 0070 07F11807 		add	r7, r7, #24
+ 18492 0074 BD46     		mov	sp, r7
+ 18493 0076 80BD     		pop	{r7, pc}
+ 18494              		.cfi_endproc
+ 18495              	.LFE41:
+ 18497              		.section	.text._ZN4Uart5onIsrEv,"ax",%progbits
+ 18498              		.align	2
+ 18499              		.global	_ZN4Uart5onIsrEv
+ 18500              		.thumb
+ 18501              		.thumb_func
+ 18503              	_ZN4Uart5onIsrEv:
+ 18504              	.LFB42:
+ 166:../target/stm32/hal/uart.cpp **** 
+ 167:../target/stm32/hal/uart.cpp **** 
+ 168:../target/stm32/hal/uart.cpp **** void Uart::onIsr()
+ 169:../target/stm32/hal/uart.cpp **** {
+ 18505              		.loc 1 169 0
+ 18506              		.cfi_startproc
+ 18507              		@ args = 0, pretend = 0, frame = 8
+ 18508              		@ frame_needed = 1, uses_anonymous_args = 0
+ 18509              		@ link register save eliminated.
+ 18510 0000 80B4     		push	{r7}
+ 18511              	.LCFI21:
+ 18512              		.cfi_def_cfa_offset 4
+ 18513 0002 83B0     		sub	sp, sp, #12
+ 18514              	.LCFI22:
+ 18515              		.cfi_def_cfa_offset 16
+ 18516 0004 00AF     		add	r7, sp, #0
+ 18517              		.cfi_offset 7, -4
+ 18518              	.LCFI23:
+ 18519              		.cfi_def_cfa_register 7
+ 18520 0006 7860     		str	r0, [r7, #4]
+ 170:../target/stm32/hal/uart.cpp **** 
+ 171:../target/stm32/hal/uart.cpp **** }
+ 18521              		.loc 1 171 0
+ 18522 0008 07F10C07 		add	r7, r7, #12
+ 18523 000c BD46     		mov	sp, r7
+ 18524 000e 80BC     		pop	{r7}
+ 18525 0010 7047     		bx	lr
+ 18526              		.cfi_endproc
+ 18527              	.LFE42:
+ 18529 0012 00BF     		.section	.text._Z17USART2_IRQHandlerv,"ax",%progbits
+ 18530              		.align	2
+ 18531              		.global	_Z17USART2_IRQHandlerv
+ 18532              		.thumb
+ 18533              		.thumb_func
+ 18535              	_Z17USART2_IRQHandlerv:
+ 18536              	.LFB43:
+ 172:../target/stm32/hal/uart.cpp **** 
+ 173:../target/stm32/hal/uart.cpp **** #if (USE_USART2_TRACE != 0)
+ 174:../target/stm32/hal/uart.cpp **** /**
+ 175:../target/stm32/hal/uart.cpp ****  * Interrupt Service Routine (ISR) for USART2
+ 176:../target/stm32/hal/uart.cpp ****  */
+ 177:../target/stm32/hal/uart.cpp **** void USART2_IRQHandler()
+ 178:../target/stm32/hal/uart.cpp **** {
+ 18537              		.loc 1 178 0
+ 18538              		.cfi_startproc
+ 18539              		@ args = 0, pretend = 0, frame = 8
+ 18540              		@ frame_needed = 1, uses_anonymous_args = 0
+ 18541 0000 80B5     		push	{r7, lr}
+ 18542              	.LCFI24:
+ 18543              		.cfi_def_cfa_offset 8
+ 18544 0002 82B0     		sub	sp, sp, #8
+ 18545              	.LCFI25:
+ 18546              		.cfi_def_cfa_offset 16
+ 18547 0004 00AF     		add	r7, sp, #0
+ 18548              		.cfi_offset 14, -4
+ 18549              		.cfi_offset 7, -8
+ 18550              	.LCFI26:
+ 18551              		.cfi_def_cfa_register 7
+ 18552              	.LBB9:
+ 179:../target/stm32/hal/uart.cpp **** 	unsigned char value;
+ 180:../target/stm32/hal/uart.cpp **** 
+ 181:../target/stm32/hal/uart.cpp **** 	// Check overrun
+ 182:../target/stm32/hal/uart.cpp **** 	if (USART_GetITStatus(USART2, USART_FLAG_ORE) == SET)
+ 18553              		.loc 1 182 0
+ 18554 0006 4FF48840 		mov	r0, #17408
+ 18555 000a C4F20000 		movt	r0, 16384
+ 18556 000e 4FF00801 		mov	r1, #8
+ 18557 0012 FFF7FEFF 		bl	USART_GetITStatus
+ 18558 0016 0346     		mov	r3, r0
+ 18559 0018 012B     		cmp	r3, #1
+ 18560 001a 14BF     		ite	ne
+ 18561 001c 0023     		movne	r3, #0
+ 18562 001e 0123     		moveq	r3, #1
+ 18563 0020 DBB2     		uxtb	r3, r3
+ 18564 0022 002B     		cmp	r3, #0
+ 18565 0024 0DD0     		beq	.L34
+ 183:../target/stm32/hal/uart.cpp **** 	{
+ 184:../target/stm32/hal/uart.cpp **** 		// Clear ORE flag by reading first SR and then DR
+ 185:../target/stm32/hal/uart.cpp **** 		value = USART3->SR;	// Read status then...
+ 18566              		.loc 1 185 0
+ 18567 0026 4FF49043 		mov	r3, #18432
+ 18568 002a C4F20003 		movt	r3, 16384
+ 18569 002e 1B88     		ldrh	r3, [r3, #0]	@ movhi
+ 18570 0030 9BB2     		uxth	r3, r3
+ 18571 0032 FB71     		strb	r3, [r7, #7]
+ 186:../target/stm32/hal/uart.cpp **** 		value = USART3->DR;	// Read data
+ 18572              		.loc 1 186 0
+ 18573 0034 4FF49043 		mov	r3, #18432
+ 18574 0038 C4F20003 		movt	r3, 16384
+ 18575 003c 9B88     		ldrh	r3, [r3, #4]	@ movhi
+ 18576 003e 9BB2     		uxth	r3, r3
+ 18577 0040 FB71     		strb	r3, [r7, #7]
+ 18578              	.L34:
+ 187:../target/stm32/hal/uart.cpp **** 	}
+ 188:../target/stm32/hal/uart.cpp **** 
+ 189:../target/stm32/hal/uart.cpp **** 	// Check new character in RX register
+ 190:../target/stm32/hal/uart.cpp **** 	if(USART_GetITStatus(USART2, USART_IT_RXNE) == SET)
+ 18579              		.loc 1 190 0
+ 18580 0042 4FF48840 		mov	r0, #17408
+ 18581 0046 C4F20000 		movt	r0, 16384
+ 18582 004a 40F22551 		movw	r1, #1317
+ 18583 004e FFF7FEFF 		bl	USART_GetITStatus
+ 18584 0052 0346     		mov	r3, r0
+ 18585 0054 012B     		cmp	r3, #1
+ 18586 0056 14BF     		ite	ne
+ 18587 0058 0023     		movne	r3, #0
+ 18588 005a 0123     		moveq	r3, #1
+ 18589 005c DBB2     		uxtb	r3, r3
+ 18590 005e 002B     		cmp	r3, #0
+ 18591 0060 0FD0     		beq	.L33
+ 191:../target/stm32/hal/uart.cpp **** 	{
+ 192:../target/stm32/hal/uart.cpp **** 		USART_ClearFlag(USART2,USART_FLAG_RXNE);
+ 18592              		.loc 1 192 0
+ 18593 0062 4FF48840 		mov	r0, #17408
+ 18594 0066 C4F20000 		movt	r0, 16384
+ 18595 006a 4FF02001 		mov	r1, #32
+ 18596 006e FFF7FEFF 		bl	USART_ClearFlag
+ 193:../target/stm32/hal/uart.cpp **** 		value = USART_ReceiveData(USART2);
+ 18597              		.loc 1 193 0
+ 18598 0072 4FF48840 		mov	r0, #17408
+ 18599 0076 C4F20000 		movt	r0, 16384
+ 18600 007a FFF7FEFF 		bl	USART_ReceiveData
+ 18601 007e 0346     		mov	r3, r0
+ 18602 0080 FB71     		strb	r3, [r7, #7]
+ 18603              	.L33:
+ 18604              	.LBE9:
+ 194:../target/stm32/hal/uart.cpp **** 
+ 195:../target/stm32/hal/uart.cpp **** 		// TODO: Buffer received data in a buffer
+ 196:../target/stm32/hal/uart.cpp **** 	}
+ 197:../target/stm32/hal/uart.cpp **** }
+ 18605              		.loc 1 197 0
+ 18606 0082 07F10807 		add	r7, r7, #8
+ 18607 0086 BD46     		mov	sp, r7
+ 18608 0088 80BD     		pop	{r7, pc}
+ 18609              		.cfi_endproc
+ 18610              	.LFE43:
+ 18612              		.global	_ZTV4Uart
+ 18613 008a 00BF     		.section	.rodata._ZTV4Uart,"a",%progbits
+ 18614              		.align	3
+ 18617              	_ZTV4Uart:
+ 18618 0000 00000000 		.word	0
+ 18619 0004 00000000 		.word	0
+ 18620 0008 00000000 		.word	_ZN4UartD1Ev
+ 18621 000c 00000000 		.word	_ZN4UartD0Ev
+ 18622              		.section	.rodata._ZZN4Uart10initializeEmE19__PRETTY_FUNCTION__,"a",%progbits
+ 18623              		.align	2
+ 18626              	_ZZN4Uart10initializeEmE19__PRETTY_FUNCTION__:
+ 18627 0000 626F6F6C 		.ascii	"bool Uart::initialize(long unsigned int)\000"
+ 18627      20556172 
+ 18627      743A3A69 
+ 18627      6E697469 
+ 18627      616C697A 
+ 18628 0029 000000   		.section	.rodata._ZZN4UartC1EhE19__PRETTY_FUNCTION__,"a",%progbits
+ 18629              		.align	2
+ 18632              	_ZZN4UartC1EhE19__PRETTY_FUNCTION__:
+ 18633 0000 55617274 		.ascii	"Uart::Uart(unsigned char)\000"
+ 18633      3A3A5561 
+ 18633      72742875 
+ 18633      6E736967 
+ 18633      6E656420 
+ 18634 001a 0000     		.text
+ 18635              	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 uart.cpp
+     /tmp/ccCnim3n.s:17868  .bss._ZN4Uart6_sUartE:00000000 _ZN4Uart6_sUartE
+     /tmp/ccCnim3n.s:17865  .bss._ZN4Uart6_sUartE:00000000 $d
+     /tmp/ccCnim3n.s:17875  .bss._ZN4Uart13_sInitializedE:00000000 _ZN4Uart13_sInitializedE
+     /tmp/ccCnim3n.s:17872  .bss._ZN4Uart13_sInitializedE:00000000 $d
+     /tmp/ccCnim3n.s:17878  .rodata:00000000 $d
+     /tmp/ccCnim3n.s:17879  .rodata:00000000 .LC0
+     /tmp/ccCnim3n.s:17882  .rodata:00000020 .LC1
+     /tmp/ccCnim3n.s:17885  .rodata:00000048 .LC2
+     /tmp/ccCnim3n.s:17888  .text._ZN4UartC2Eh:00000000 $t
+     /tmp/ccCnim3n.s:17893  .text._ZN4UartC2Eh:00000000 _ZN4UartC2Eh
+     /tmp/ccCnim3n.s:18632  .rodata._ZZN4UartC1EhE19__PRETTY_FUNCTION__:00000000 _ZZN4UartC1EhE19__PRETTY_FUNCTION__
+     /tmp/ccCnim3n.s:18024  .text._ZN4UartC2Eh:00000100 $d
+     /tmp/ccCnim3n.s:18617  .rodata._ZTV4Uart:00000000 _ZTV4Uart
+     /tmp/ccCnim3n.s:17893  .text._ZN4UartC2Eh:00000000 _ZN4UartC1Eh
+     /tmp/ccCnim3n.s:18031  .text._ZN4UartD2Ev:00000000 $t
+     /tmp/ccCnim3n.s:18036  .text._ZN4UartD2Ev:00000000 _ZN4UartD2Ev
+     /tmp/ccCnim3n.s:18079  .text._ZN4UartD2Ev:00000030 $d
+     /tmp/ccCnim3n.s:18036  .text._ZN4UartD2Ev:00000000 _ZN4UartD1Ev
+     /tmp/ccCnim3n.s:18086  .text._ZN4UartD0Ev:00000000 $t
+     /tmp/ccCnim3n.s:18091  .text._ZN4UartD0Ev:00000000 _ZN4UartD0Ev
+     /tmp/ccCnim3n.s:18123  .text._ZN4Uart10initializeEm:00000000 $t
+     /tmp/ccCnim3n.s:18128  .text._ZN4Uart10initializeEm:00000000 _ZN4Uart10initializeEm
+     /tmp/ccCnim3n.s:18626  .rodata._ZZN4Uart10initializeEmE19__PRETTY_FUNCTION__:00000000 _ZZN4Uart10initializeEmE19__PRETTY_FUNCTION__
+     /tmp/ccCnim3n.s:18330  .text._ZN4Uart6enableEv:00000000 _ZN4Uart6enableEv
+     /tmp/ccCnim3n.s:18325  .text._ZN4Uart6enableEv:00000000 $t
+     /tmp/ccCnim3n.s:18365  .text._ZN4Uart7disableEv:00000000 $t
+     /tmp/ccCnim3n.s:18370  .text._ZN4Uart7disableEv:00000000 _ZN4Uart7disableEv
+     /tmp/ccCnim3n.s:18405  .text._ZN4Uart5writeEPKcj:00000000 $t
+     /tmp/ccCnim3n.s:18410  .text._ZN4Uart5writeEPKcj:00000000 _ZN4Uart5writeEPKcj
+     /tmp/ccCnim3n.s:18498  .text._ZN4Uart5onIsrEv:00000000 $t
+     /tmp/ccCnim3n.s:18503  .text._ZN4Uart5onIsrEv:00000000 _ZN4Uart5onIsrEv
+     /tmp/ccCnim3n.s:18530  .text._Z17USART2_IRQHandlerv:00000000 $t
+     /tmp/ccCnim3n.s:18535  .text._Z17USART2_IRQHandlerv:00000000 _Z17USART2_IRQHandlerv
+     /tmp/ccCnim3n.s:18614  .rodata._ZTV4Uart:00000000 $d
+     /tmp/ccCnim3n.s:18623  .rodata._ZZN4Uart10initializeEmE19__PRETTY_FUNCTION__:00000000 $d
+     /tmp/ccCnim3n.s:18629  .rodata._ZZN4UartC1EhE19__PRETTY_FUNCTION__:00000000 $d
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+__assert_func
+_ZdlPv
+RCC_APB2PeriphClockCmd
+RCC_APB1PeriphClockCmd
+GPIO_Init
+USART_ClockInit
+NVIC_Init
+USART_Init
+USART_ClearITPendingBit
+USART_ITConfig
+USART_Cmd
+strlen
+USART_SendData
+USART_GetFlagStatus
+USART_GetITStatus
+USART_ClearFlag
+USART_ReceiveData

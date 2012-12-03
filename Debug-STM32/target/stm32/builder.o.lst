@@ -1,0 +1,3164 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"builder.cpp"
+  23              	.Ltext0:
+  24              		.file 1 "../target/stm32/builder.cpp"
+ 20277              		.align	2
+ 20278              		.weak	_ZN8IBuilderC2Ev
+ 20279              		.thumb
+ 20280              		.thumb_func
+ 20282              	_ZN8IBuilderC2Ev:
+ 20283              	.LFB44:
+   1:/home/desem/workspace/desenet/interfaces/ibuilder.h **** #pragma once
+   2:/home/desem/workspace/desenet/interfaces/ibuilder.h **** 
+   3:/home/desem/workspace/desenet/interfaces/ibuilder.h **** #ifndef NULL
+   4:/home/desem/workspace/desenet/interfaces/ibuilder.h **** #define NULL 0
+   5:/home/desem/workspace/desenet/interfaces/ibuilder.h **** #endif
+   6:/home/desem/workspace/desenet/interfaces/ibuilder.h **** 
+   7:/home/desem/workspace/desenet/interfaces/ibuilder.h **** /**
+   8:/home/desem/workspace/desenet/interfaces/ibuilder.h ****  * @ingroup interfaces
+   9:/home/desem/workspace/desenet/interfaces/ibuilder.h ****  * @brief This Interfaces has to be implemented by a system builder in order to create the needed i
+  10:/home/desem/workspace/desenet/interfaces/ibuilder.h ****  * 		  that implement these interfaces and to initialize the relations between these objects.
+  11:/home/desem/workspace/desenet/interfaces/ibuilder.h ****  */
+  12:/home/desem/workspace/desenet/interfaces/ibuilder.h **** class IBuilder
+  13:/home/desem/workspace/desenet/interfaces/ibuilder.h **** {
+  14:/home/desem/workspace/desenet/interfaces/ibuilder.h **** protected:
+  15:/home/desem/workspace/desenet/interfaces/ibuilder.h **** 	// It is just an interface, so constructor and destructor should be not public.
+  16:/home/desem/workspace/desenet/interfaces/ibuilder.h **** 	explicit IBuilder() {}
+ 20284              		.loc 35 16 0
+ 20285              		.cfi_startproc
+ 20286              		@ args = 0, pretend = 0, frame = 8
+ 20287              		@ frame_needed = 1, uses_anonymous_args = 0
+ 20288              		@ link register save eliminated.
+ 20289 0000 80B4     		push	{r7}
+ 20290              	.LCFI0:
+ 20291              		.cfi_def_cfa_offset 4
+ 20292 0002 83B0     		sub	sp, sp, #12
+ 20293              	.LCFI1:
+ 20294              		.cfi_def_cfa_offset 16
+ 20295 0004 00AF     		add	r7, sp, #0
+ 20296              		.cfi_offset 7, -4
+ 20297              	.LCFI2:
+ 20298              		.cfi_def_cfa_register 7
+ 20299 0006 7860     		str	r0, [r7, #4]
+ 20300              	.LBB2:
+ 20301              		.loc 35 16 0
+ 20302 0008 7B68     		ldr	r3, [r7, #4]
+ 20303 000a 044A     		ldr	r2, .L3
+ 20304 000c 1A60     		str	r2, [r3, #0]
+ 20305              	.LBE2:
+ 20306 000e 7B68     		ldr	r3, [r7, #4]
+ 20307 0010 1846     		mov	r0, r3
+ 20308 0012 07F10C07 		add	r7, r7, #12
+ 20309 0016 BD46     		mov	sp, r7
+ 20310 0018 80BC     		pop	{r7}
+ 20311 001a 7047     		bx	lr
+ 20312              	.L4:
+ 20313              		.align	2
+ 20314              	.L3:
+ 20315 001c 08000000 		.word	_ZTV8IBuilder+8
+ 20316              		.cfi_endproc
+ 20317              	.LFE44:
+ 20319              		.weak	_ZN8IBuilderC1Ev
+ 20320              		.thumb_set _ZN8IBuilderC1Ev,_ZN8IBuilderC2Ev
+ 20321              		.section	.text._ZN8IBuilderD2Ev,"axG",%progbits,_ZN8IBuilderD5Ev,comdat
+ 20322              		.align	2
+ 20323              		.weak	_ZN8IBuilderD2Ev
+ 20324              		.thumb
+ 20325              		.thumb_func
+ 20327              	_ZN8IBuilderD2Ev:
+ 20328              	.LFB47:
+  17:/home/desem/workspace/desenet/interfaces/ibuilder.h **** 	virtual ~IBuilder() {}
+ 20329              		.loc 35 17 0
+ 20330              		.cfi_startproc
+ 20331              		@ args = 0, pretend = 0, frame = 8
+ 20332              		@ frame_needed = 1, uses_anonymous_args = 0
+ 20333 0000 80B5     		push	{r7, lr}
+ 20334              	.LCFI3:
+ 20335              		.cfi_def_cfa_offset 8
+ 20336 0002 82B0     		sub	sp, sp, #8
+ 20337              	.LCFI4:
+ 20338              		.cfi_def_cfa_offset 16
+ 20339 0004 00AF     		add	r7, sp, #0
+ 20340              		.cfi_offset 14, -4
+ 20341              		.cfi_offset 7, -8
+ 20342              	.LCFI5:
+ 20343              		.cfi_def_cfa_register 7
+ 20344 0006 7860     		str	r0, [r7, #4]
+ 20345              	.LBB3:
+ 20346              		.loc 35 17 0
+ 20347 0008 7B68     		ldr	r3, [r7, #4]
+ 20348 000a 094A     		ldr	r2, .L8
+ 20349 000c 1A60     		str	r2, [r3, #0]
+ 20350              	.LBE3:
+ 20351 000e 4FF00003 		mov	r3, #0
+ 20352 0012 03F00103 		and	r3, r3, #1
+ 20353 0016 DBB2     		uxtb	r3, r3
+ 20354 0018 002B     		cmp	r3, #0
+ 20355 001a 02D0     		beq	.L7
+ 20356              		.loc 35 17 0 is_stmt 0 discriminator 1
+ 20357 001c 7868     		ldr	r0, [r7, #4]
+ 20358 001e FFF7FEFF 		bl	_ZdlPv
+ 20359              	.L7:
+ 20360              		.loc 35 17 0 discriminator 2
+ 20361 0022 7B68     		ldr	r3, [r7, #4]
+ 20362 0024 1846     		mov	r0, r3
+ 20363 0026 07F10807 		add	r7, r7, #8
+ 20364 002a BD46     		mov	sp, r7
+ 20365 002c 80BD     		pop	{r7, pc}
+ 20366              	.L9:
+ 20367 002e 00BF     		.align	2
+ 20368              	.L8:
+ 20369 0030 08000000 		.word	_ZTV8IBuilder+8
+ 20370              		.cfi_endproc
+ 20371              	.LFE47:
+ 20373              		.weak	_ZN8IBuilderD1Ev
+ 20374              		.thumb_set _ZN8IBuilderD1Ev,_ZN8IBuilderD2Ev
+ 20375              		.section	.text._ZN8IBuilderD0Ev,"axG",%progbits,_ZN8IBuilderD5Ev,comdat
+ 20376              		.align	2
+ 20377              		.weak	_ZN8IBuilderD0Ev
+ 20378              		.thumb
+ 20379              		.thumb_func
+ 20381              	_ZN8IBuilderD0Ev:
+ 20382              	.LFB49:
+ 20383              		.loc 35 17 0 is_stmt 1
+ 20384              		.cfi_startproc
+ 20385              		@ args = 0, pretend = 0, frame = 8
+ 20386              		@ frame_needed = 1, uses_anonymous_args = 0
+ 20387 0000 80B5     		push	{r7, lr}
+ 20388              	.LCFI6:
+ 20389              		.cfi_def_cfa_offset 8
+ 20390 0002 82B0     		sub	sp, sp, #8
+ 20391              	.LCFI7:
+ 20392              		.cfi_def_cfa_offset 16
+ 20393 0004 00AF     		add	r7, sp, #0
+ 20394              		.cfi_offset 14, -4
+ 20395              		.cfi_offset 7, -8
+ 20396              	.LCFI8:
+ 20397              		.cfi_def_cfa_register 7
+ 20398 0006 7860     		str	r0, [r7, #4]
+ 20399              		.loc 35 17 0
+ 20400 0008 7868     		ldr	r0, [r7, #4]
+ 20401 000a FFF7FEFF 		bl	_ZN8IBuilderD1Ev
+ 20402 000e 7868     		ldr	r0, [r7, #4]
+ 20403 0010 FFF7FEFF 		bl	_ZdlPv
+ 20404 0014 7B68     		ldr	r3, [r7, #4]
+ 20405 0016 1846     		mov	r0, r3
+ 20406 0018 07F10807 		add	r7, r7, #8
+ 20407 001c BD46     		mov	sp, r7
+ 20408 001e 80BD     		pop	{r7, pc}
+ 20409              		.cfi_endproc
+ 20410              	.LFE49:
+ 20412              		.section	.text._ZN8IXFEventC2ENS_10eEventTypeEiP11IXFReactive,"axG",%progbits,_ZN8IXFEventC5ENS_10
+ 20413              		.align	2
+ 20414              		.weak	_ZN8IXFEventC2ENS_10eEventTypeEiP11IXFReactive
+ 20415              		.thumb
+ 20416              		.thumb_func
+ 20418              	_ZN8IXFEventC2ENS_10eEventTypeEiP11IXFReactive:
+ 20419              	.LFB51:
+   1:/home/desem/workspace/desenet/xf/ixfevent.h **** #ifndef IXFEVENT_H
+   2:/home/desem/workspace/desenet/xf/ixfevent.h **** #define IXFEVENT_H
+   3:/home/desem/workspace/desenet/xf/ixfevent.h **** 
+   4:/home/desem/workspace/desenet/xf/ixfevent.h **** 
+   5:/home/desem/workspace/desenet/xf/ixfevent.h **** class IXFReactive;
+   6:/home/desem/workspace/desenet/xf/ixfevent.h **** 
+   7:/home/desem/workspace/desenet/xf/ixfevent.h **** 
+   8:/home/desem/workspace/desenet/xf/ixfevent.h **** /**
+   9:/home/desem/workspace/desenet/xf/ixfevent.h ****  * @ingroup xf
+  10:/home/desem/workspace/desenet/xf/ixfevent.h ****  * Interface for an event. The abstract methods defined in this interface
+  11:/home/desem/workspace/desenet/xf/ixfevent.h ****  * need to be reimplemented in its derived classes. These methods are
+  12:/home/desem/workspace/desenet/xf/ixfevent.h ****  * used by other classes in the framework (ex. XFThread, XFReactive).
+  13:/home/desem/workspace/desenet/xf/ixfevent.h ****  *
+  14:/home/desem/workspace/desenet/xf/ixfevent.h ****  * Requirements:
+  15:/home/desem/workspace/desenet/xf/ixfevent.h ****  * - Needs to hold a property which allows to distinguish between different
+  16:/home/desem/workspace/desenet/xf/ixfevent.h ****  *   types of events.
+  17:/home/desem/workspace/desenet/xf/ixfevent.h ****  * - Use an enumeration to define the type for the type property.
+  18:/home/desem/workspace/desenet/xf/ixfevent.h ****  * - The type property needs to be set at initialization time and cannot be
+  19:/home/desem/workspace/desenet/xf/ixfevent.h ****  *   changed afterwards.
+  20:/home/desem/workspace/desenet/xf/ixfevent.h ****  */
+  21:/home/desem/workspace/desenet/xf/ixfevent.h **** class IXFEvent
+  22:/home/desem/workspace/desenet/xf/ixfevent.h **** {
+  23:/home/desem/workspace/desenet/xf/ixfevent.h **** public:
+  24:/home/desem/workspace/desenet/xf/ixfevent.h **** 	/**
+  25:/home/desem/workspace/desenet/xf/ixfevent.h **** 	 * Defines the types of events
+  26:/home/desem/workspace/desenet/xf/ixfevent.h **** 	 */
+  27:/home/desem/workspace/desenet/xf/ixfevent.h **** 	typedef enum
+  28:/home/desem/workspace/desenet/xf/ixfevent.h **** 	{
+  29:/home/desem/workspace/desenet/xf/ixfevent.h **** 		Unknown			= 0,		///< Unknown state (not initialized)
+  30:/home/desem/workspace/desenet/xf/ixfevent.h **** 		Initial			= 1,		///< Initial pseudo-state
+  31:/home/desem/workspace/desenet/xf/ixfevent.h **** 		NullTransition	= 2,		///< Event generated by the state machine to define a null transition
+  32:/home/desem/workspace/desenet/xf/ixfevent.h **** 		Event			= 3,		///< Normal event
+  33:/home/desem/workspace/desenet/xf/ixfevent.h **** 		Timeout			= 4,		///< Defines a timeout event.
+  34:/home/desem/workspace/desenet/xf/ixfevent.h **** 		Terminate		= -1		///< Defines a terminate state. Will end the state machine.
+  35:/home/desem/workspace/desenet/xf/ixfevent.h **** 	} eEventType;
+  36:/home/desem/workspace/desenet/xf/ixfevent.h **** 
+  37:/home/desem/workspace/desenet/xf/ixfevent.h **** public :
+  38:/home/desem/workspace/desenet/xf/ixfevent.h **** 	/**
+  39:/home/desem/workspace/desenet/xf/ixfevent.h **** 	 * Default class constructor
+  40:/home/desem/workspace/desenet/xf/ixfevent.h **** 	 */
+  41:/home/desem/workspace/desenet/xf/ixfevent.h **** 	IXFEvent(eEventType eventType, int id, IXFReactive * pBehavior) : _eventType(eventType), _id(id), 
+ 20420              		.loc 42 41 0
+ 20421              		.cfi_startproc
+ 20422              		@ args = 0, pretend = 0, frame = 16
+ 20423              		@ frame_needed = 1, uses_anonymous_args = 0
+ 20424 0000 80B5     		push	{r7, lr}
+ 20425              	.LCFI9:
+ 20426              		.cfi_def_cfa_offset 8
+ 20427 0002 84B0     		sub	sp, sp, #16
+ 20428              	.LCFI10:
+ 20429              		.cfi_def_cfa_offset 24
+ 20430 0004 00AF     		add	r7, sp, #0
+ 20431              		.cfi_offset 14, -4
+ 20432              		.cfi_offset 7, -8
+ 20433              	.LCFI11:
+ 20434              		.cfi_def_cfa_register 7
+ 20435 0006 F860     		str	r0, [r7, #12]
+ 20436 0008 7A60     		str	r2, [r7, #4]
+ 20437 000a 3B60     		str	r3, [r7, #0]
+ 20438 000c 0B46     		mov	r3, r1
+ 20439 000e FB72     		strb	r3, [r7, #11]
+ 20440              	.LBB4:
+ 20441              		.loc 42 41 0
+ 20442 0010 FB68     		ldr	r3, [r7, #12]
+ 20443 0012 0E4A     		ldr	r2, .L14
+ 20444 0014 1A60     		str	r2, [r3, #0]
+ 20445 0016 FB68     		ldr	r3, [r7, #12]
+ 20446 0018 FA7A     		ldrb	r2, [r7, #11]
+ 20447 001a 1A71     		strb	r2, [r3, #4]
+ 20448 001c FB68     		ldr	r3, [r7, #12]
+ 20449 001e 7A68     		ldr	r2, [r7, #4]
+ 20450 0020 9A60     		str	r2, [r3, #8]
+ 20451 0022 FB68     		ldr	r3, [r7, #12]
+ 20452 0024 03F10C03 		add	r3, r3, #12
+ 20453 0028 1846     		mov	r0, r3
+ 20454 002a FFF7FEFF 		bl	_ZN8IXFEvent13_tEventStatusC1Ev
+ 20455 002e FB68     		ldr	r3, [r7, #12]
+ 20456 0030 3A68     		ldr	r2, [r7, #0]
+ 20457 0032 1A61     		str	r2, [r3, #16]
+ 20458 0034 FA68     		ldr	r2, [r7, #12]
+ 20459 0036 137B     		ldrb	r3, [r2, #12]
+ 20460 0038 43F00103 		orr	r3, r3, #1
+ 20461 003c 1373     		strb	r3, [r2, #12]
+ 20462              	.LBE4:
+ 20463 003e FB68     		ldr	r3, [r7, #12]
+ 20464 0040 1846     		mov	r0, r3
+ 20465 0042 07F11007 		add	r7, r7, #16
+ 20466 0046 BD46     		mov	sp, r7
+ 20467 0048 80BD     		pop	{r7, pc}
+ 20468              	.L15:
+ 20469 004a 00BF     		.align	2
+ 20470              	.L14:
+ 20471 004c 08000000 		.word	_ZTV8IXFEvent+8
+ 20472              		.cfi_endproc
+ 20473              	.LFE51:
+ 20475              		.weak	_ZN8IXFEventC1ENS_10eEventTypeEiP11IXFReactive
+ 20476              		.thumb_set _ZN8IXFEventC1ENS_10eEventTypeEiP11IXFReactive,_ZN8IXFEventC2ENS_10eEventTypeEiP11IXFRe
+ 20477              		.section	.text._ZN8IXFEventD2Ev,"axG",%progbits,_ZN8IXFEventD5Ev,comdat
+ 20478              		.align	2
+ 20479              		.weak	_ZN8IXFEventD2Ev
+ 20480              		.thumb
+ 20481              		.thumb_func
+ 20483              	_ZN8IXFEventD2Ev:
+ 20484              	.LFB54:
+  42:/home/desem/workspace/desenet/xf/ixfevent.h **** 	virtual ~IXFEvent() {}		///< Class destructor
+ 20485              		.loc 42 42 0
+ 20486              		.cfi_startproc
+ 20487              		@ args = 0, pretend = 0, frame = 8
+ 20488              		@ frame_needed = 1, uses_anonymous_args = 0
+ 20489 0000 80B5     		push	{r7, lr}
+ 20490              	.LCFI12:
+ 20491              		.cfi_def_cfa_offset 8
+ 20492 0002 82B0     		sub	sp, sp, #8
+ 20493              	.LCFI13:
+ 20494              		.cfi_def_cfa_offset 16
+ 20495 0004 00AF     		add	r7, sp, #0
+ 20496              		.cfi_offset 14, -4
+ 20497              		.cfi_offset 7, -8
+ 20498              	.LCFI14:
+ 20499              		.cfi_def_cfa_register 7
+ 20500 0006 7860     		str	r0, [r7, #4]
+ 20501              	.LBB5:
+ 20502              		.loc 42 42 0
+ 20503 0008 7B68     		ldr	r3, [r7, #4]
+ 20504 000a 094A     		ldr	r2, .L19
+ 20505 000c 1A60     		str	r2, [r3, #0]
+ 20506              	.LBE5:
+ 20507 000e 4FF00003 		mov	r3, #0
+ 20508 0012 03F00103 		and	r3, r3, #1
+ 20509 0016 DBB2     		uxtb	r3, r3
+ 20510 0018 002B     		cmp	r3, #0
+ 20511 001a 02D0     		beq	.L18
+ 20512              		.loc 42 42 0 is_stmt 0 discriminator 1
+ 20513 001c 7868     		ldr	r0, [r7, #4]
+ 20514 001e FFF7FEFF 		bl	_ZdlPv
+ 20515              	.L18:
+ 20516              		.loc 42 42 0 discriminator 2
+ 20517 0022 7B68     		ldr	r3, [r7, #4]
+ 20518 0024 1846     		mov	r0, r3
+ 20519 0026 07F10807 		add	r7, r7, #8
+ 20520 002a BD46     		mov	sp, r7
+ 20521 002c 80BD     		pop	{r7, pc}
+ 20522              	.L20:
+ 20523 002e 00BF     		.align	2
+ 20524              	.L19:
+ 20525 0030 08000000 		.word	_ZTV8IXFEvent+8
+ 20526              		.cfi_endproc
+ 20527              	.LFE54:
+ 20529              		.weak	_ZN8IXFEventD1Ev
+ 20530              		.thumb_set _ZN8IXFEventD1Ev,_ZN8IXFEventD2Ev
+ 20531              		.section	.text._ZN8IXFEventD0Ev,"axG",%progbits,_ZN8IXFEventD5Ev,comdat
+ 20532              		.align	2
+ 20533              		.weak	_ZN8IXFEventD0Ev
+ 20534              		.thumb
+ 20535              		.thumb_func
+ 20537              	_ZN8IXFEventD0Ev:
+ 20538              	.LFB56:
+ 20539              		.loc 42 42 0 is_stmt 1
+ 20540              		.cfi_startproc
+ 20541              		@ args = 0, pretend = 0, frame = 8
+ 20542              		@ frame_needed = 1, uses_anonymous_args = 0
+ 20543 0000 80B5     		push	{r7, lr}
+ 20544              	.LCFI15:
+ 20545              		.cfi_def_cfa_offset 8
+ 20546 0002 82B0     		sub	sp, sp, #8
+ 20547              	.LCFI16:
+ 20548              		.cfi_def_cfa_offset 16
+ 20549 0004 00AF     		add	r7, sp, #0
+ 20550              		.cfi_offset 14, -4
+ 20551              		.cfi_offset 7, -8
+ 20552              	.LCFI17:
+ 20553              		.cfi_def_cfa_register 7
+ 20554 0006 7860     		str	r0, [r7, #4]
+ 20555              		.loc 42 42 0
+ 20556 0008 7868     		ldr	r0, [r7, #4]
+ 20557 000a FFF7FEFF 		bl	_ZN8IXFEventD1Ev
+ 20558 000e 7868     		ldr	r0, [r7, #4]
+ 20559 0010 FFF7FEFF 		bl	_ZdlPv
+ 20560 0014 7B68     		ldr	r3, [r7, #4]
+ 20561 0016 1846     		mov	r0, r3
+ 20562 0018 07F10807 		add	r7, r7, #8
+ 20563 001c BD46     		mov	sp, r7
+ 20564 001e 80BD     		pop	{r7, pc}
+ 20565              		.cfi_endproc
+ 20566              	.LFE56:
+ 20568              		.section	.text._ZNK8IXFEvent12getEventTypeEv,"axG",%progbits,_ZNK8IXFEvent12getEventTypeEv,comdat
+ 20569              		.align	2
+ 20570              		.weak	_ZNK8IXFEvent12getEventTypeEv
+ 20571              		.thumb
+ 20572              		.thumb_func
+ 20574              	_ZNK8IXFEvent12getEventTypeEv:
+ 20575              	.LFB57:
+  43:/home/desem/workspace/desenet/xf/ixfevent.h **** 
+  44:/home/desem/workspace/desenet/xf/ixfevent.h **** 	/** \brief Returns the type of the event.
+  45:/home/desem/workspace/desenet/xf/ixfevent.h **** 	 *
+  46:/home/desem/workspace/desenet/xf/ixfevent.h **** 	 * Can be used to distinguish between an event or a timeout.
+  47:/home/desem/workspace/desenet/xf/ixfevent.h **** 	 */
+  48:/home/desem/workspace/desenet/xf/ixfevent.h **** 	inline eEventType getEventType() const { return _eventType; }
+ 20576              		.loc 42 48 0
+ 20577              		.cfi_startproc
+ 20578              		@ args = 0, pretend = 0, frame = 8
+ 20579              		@ frame_needed = 1, uses_anonymous_args = 0
+ 20580              		@ link register save eliminated.
+ 20581 0000 80B4     		push	{r7}
+ 20582              	.LCFI18:
+ 20583              		.cfi_def_cfa_offset 4
+ 20584 0002 83B0     		sub	sp, sp, #12
+ 20585              	.LCFI19:
+ 20586              		.cfi_def_cfa_offset 16
+ 20587 0004 00AF     		add	r7, sp, #0
+ 20588              		.cfi_offset 7, -4
+ 20589              	.LCFI20:
+ 20590              		.cfi_def_cfa_register 7
+ 20591 0006 7860     		str	r0, [r7, #4]
+ 20592              		.loc 42 48 0
+ 20593 0008 7B68     		ldr	r3, [r7, #4]
+ 20594 000a 1B79     		ldrb	r3, [r3, #4]	@ zero_extendqisi2
+ 20595 000c 5BB2     		sxtb	r3, r3
+ 20596 000e 1846     		mov	r0, r3
+ 20597 0010 07F10C07 		add	r7, r7, #12
+ 20598 0014 BD46     		mov	sp, r7
+ 20599 0016 80BC     		pop	{r7}
+ 20600 0018 7047     		bx	lr
+ 20601              		.cfi_endproc
+ 20602              	.LFE57:
+ 20604 001a 00BF     		.section	.text._ZNK8IXFEvent5getIdEv,"axG",%progbits,_ZNK8IXFEvent5getIdEv,comdat
+ 20605              		.align	2
+ 20606              		.weak	_ZNK8IXFEvent5getIdEv
+ 20607              		.thumb
+ 20608              		.thumb_func
+ 20610              	_ZNK8IXFEvent5getIdEv:
+ 20611              	.LFB60:
+  49:/home/desem/workspace/desenet/xf/ixfevent.h **** 
+  50:/home/desem/workspace/desenet/xf/ixfevent.h **** 	/** \brief Returns pointer to behavioral class.
+  51:/home/desem/workspace/desenet/xf/ixfevent.h **** 	 *
+  52:/home/desem/workspace/desenet/xf/ixfevent.h **** 	 * Returns a pointer to the behavioral class processing the event (see #_pBehavior).
+  53:/home/desem/workspace/desenet/xf/ixfevent.h **** 	 */
+  54:/home/desem/workspace/desenet/xf/ixfevent.h **** 	inline IXFReactive * getBehavior() const { return _pBehavior; }
+  55:/home/desem/workspace/desenet/xf/ixfevent.h **** 
+  56:/home/desem/workspace/desenet/xf/ixfevent.h **** 	/** \brief Sets pointer to behavioral class (see #_pBehavior).
+  57:/home/desem/workspace/desenet/xf/ixfevent.h **** 	 * Sets the behavior in which the event should be executed.
+  58:/home/desem/workspace/desenet/xf/ixfevent.h **** 	 */
+  59:/home/desem/workspace/desenet/xf/ixfevent.h **** 	inline void setBehavior(IXFReactive * pBehavior) { _pBehavior = pBehavior; }
+  60:/home/desem/workspace/desenet/xf/ixfevent.h **** 
+  61:/home/desem/workspace/desenet/xf/ixfevent.h **** 	inline int getId() const { return _id; }		///< Returns #_id identifying the event in the behaviors
+ 20612              		.loc 42 61 0
+ 20613              		.cfi_startproc
+ 20614              		@ args = 0, pretend = 0, frame = 8
+ 20615              		@ frame_needed = 1, uses_anonymous_args = 0
+ 20616              		@ link register save eliminated.
+ 20617 0000 80B4     		push	{r7}
+ 20618              	.LCFI21:
+ 20619              		.cfi_def_cfa_offset 4
+ 20620 0002 83B0     		sub	sp, sp, #12
+ 20621              	.LCFI22:
+ 20622              		.cfi_def_cfa_offset 16
+ 20623 0004 00AF     		add	r7, sp, #0
+ 20624              		.cfi_offset 7, -4
+ 20625              	.LCFI23:
+ 20626              		.cfi_def_cfa_register 7
+ 20627 0006 7860     		str	r0, [r7, #4]
+ 20628              		.loc 42 61 0
+ 20629 0008 7B68     		ldr	r3, [r7, #4]
+ 20630 000a 9B68     		ldr	r3, [r3, #8]
+ 20631 000c 1846     		mov	r0, r3
+ 20632 000e 07F10C07 		add	r7, r7, #12
+ 20633 0012 BD46     		mov	sp, r7
+ 20634 0014 80BC     		pop	{r7}
+ 20635 0016 7047     		bx	lr
+ 20636              		.cfi_endproc
+ 20637              	.LFE60:
+ 20639              		.section	.text._ZN8IXFEvent13_tEventStatusC2Ev,"axG",%progbits,_ZN8IXFEvent13_tEventStatusC5Ev,com
+ 20640              		.align	2
+ 20641              		.weak	_ZN8IXFEvent13_tEventStatusC2Ev
+ 20642              		.thumb
+ 20643              		.thumb_func
+ 20645              	_ZN8IXFEvent13_tEventStatusC2Ev:
+ 20646              	.LFB64:
+  62:/home/desem/workspace/desenet/xf/ixfevent.h **** 
+  63:/home/desem/workspace/desenet/xf/ixfevent.h **** 	/**
+  64:/home/desem/workspace/desenet/xf/ixfevent.h **** 	 * Marks the event as non-deletable. Used for static events.
+  65:/home/desem/workspace/desenet/xf/ixfevent.h **** 	 */
+  66:/home/desem/workspace/desenet/xf/ixfevent.h **** 	inline void setShouldDelete(bool bShouldDelete = true) { _eventStatus.shouldDelete = bShouldDelete
+  67:/home/desem/workspace/desenet/xf/ixfevent.h **** 
+  68:/home/desem/workspace/desenet/xf/ixfevent.h **** 	/** \brief Returns true in case the event should be deleted
+  69:/home/desem/workspace/desenet/xf/ixfevent.h **** 	 * Used by XFThread to check if the event should be delete after consume
+  70:/home/desem/workspace/desenet/xf/ixfevent.h **** 	 */
+  71:/home/desem/workspace/desenet/xf/ixfevent.h **** 	inline bool shouldDelete() const { return _eventStatus.shouldDelete; }
+  72:/home/desem/workspace/desenet/xf/ixfevent.h **** 
+  73:/home/desem/workspace/desenet/xf/ixfevent.h **** protected:
+  74:/home/desem/workspace/desenet/xf/ixfevent.h **** 	typedef struct _tEventStatus
+  75:/home/desem/workspace/desenet/xf/ixfevent.h **** 	{
+  76:/home/desem/workspace/desenet/xf/ixfevent.h **** 		unsigned char shouldDelete : 1;	///< True in case the event should be deleted after consume.
+  77:/home/desem/workspace/desenet/xf/ixfevent.h **** 
+  78:/home/desem/workspace/desenet/xf/ixfevent.h **** 		_tEventStatus()
+ 20647              		.loc 42 78 0
+ 20648              		.cfi_startproc
+ 20649              		@ args = 0, pretend = 0, frame = 8
+ 20650              		@ frame_needed = 1, uses_anonymous_args = 0
+ 20651              		@ link register save eliminated.
+ 20652 0000 80B4     		push	{r7}
+ 20653              	.LCFI24:
+ 20654              		.cfi_def_cfa_offset 4
+ 20655 0002 83B0     		sub	sp, sp, #12
+ 20656              	.LCFI25:
+ 20657              		.cfi_def_cfa_offset 16
+ 20658 0004 00AF     		add	r7, sp, #0
+ 20659              		.cfi_offset 7, -4
+ 20660              	.LCFI26:
+ 20661              		.cfi_def_cfa_register 7
+ 20662 0006 7860     		str	r0, [r7, #4]
+ 20663              	.LBB6:
+  79:/home/desem/workspace/desenet/xf/ixfevent.h **** 		{
+  80:/home/desem/workspace/desenet/xf/ixfevent.h **** 			shouldDelete = true;
+ 20664              		.loc 42 80 0
+ 20665 0008 7A68     		ldr	r2, [r7, #4]
+ 20666 000a 1378     		ldrb	r3, [r2, #0]
+ 20667 000c 43F00103 		orr	r3, r3, #1
+ 20668 0010 1370     		strb	r3, [r2, #0]
+ 20669              	.LBE6:
+  81:/home/desem/workspace/desenet/xf/ixfevent.h **** 		}
+ 20670              		.loc 42 81 0
+ 20671 0012 7B68     		ldr	r3, [r7, #4]
+ 20672 0014 1846     		mov	r0, r3
+ 20673 0016 07F10C07 		add	r7, r7, #12
+ 20674 001a BD46     		mov	sp, r7
+ 20675 001c 80BC     		pop	{r7}
+ 20676 001e 7047     		bx	lr
+ 20677              		.cfi_endproc
+ 20678              	.LFE64:
+ 20680              		.weak	_ZN8IXFEvent13_tEventStatusC1Ev
+ 20681              		.thumb_set _ZN8IXFEvent13_tEventStatusC1Ev,_ZN8IXFEvent13_tEventStatusC2Ev
+ 20682              		.section	.text._ZN11EventStatusC2ENS_12eEventStatusE,"axG",%progbits,_ZN11EventStatusC5ENS_12eEven
+ 20683              		.align	2
+ 20684              		.weak	_ZN11EventStatusC2ENS_12eEventStatusE
+ 20685              		.thumb
+ 20686              		.thumb_func
+ 20688              	_ZN11EventStatusC2ENS_12eEventStatusE:
+ 20689              	.LFB771:
+   1:/home/desem/workspace/desenet/xf/xfeventstatus.h **** #ifndef XFEVENTSTATUS_H
+   2:/home/desem/workspace/desenet/xf/xfeventstatus.h **** #define XFEVENTSTATUS_H
+   3:/home/desem/workspace/desenet/xf/xfeventstatus.h **** 
+   4:/home/desem/workspace/desenet/xf/xfeventstatus.h **** 
+   5:/home/desem/workspace/desenet/xf/xfeventstatus.h **** /**
+   6:/home/desem/workspace/desenet/xf/xfeventstatus.h ****  * @ingroup xf
+   7:/home/desem/workspace/desenet/xf/xfeventstatus.h ****  * The EventStatus is used after consumption of an event. It gives an
+   8:/home/desem/workspace/desenet/xf/xfeventstatus.h ****  * information on how the event was consument and how the framework should
+   9:/home/desem/workspace/desenet/xf/xfeventstatus.h ****  * react.
+  10:/home/desem/workspace/desenet/xf/xfeventstatus.h ****  */
+  11:/home/desem/workspace/desenet/xf/xfeventstatus.h **** class EventStatus
+  12:/home/desem/workspace/desenet/xf/xfeventstatus.h **** {
+  13:/home/desem/workspace/desenet/xf/xfeventstatus.h **** public:
+  14:/home/desem/workspace/desenet/xf/xfeventstatus.h **** 	/**
+  15:/home/desem/workspace/desenet/xf/xfeventstatus.h **** 	 * Status values about the event processed.
+  16:/home/desem/workspace/desenet/xf/xfeventstatus.h **** 	 *
+  17:/home/desem/workspace/desenet/xf/xfeventstatus.h **** 	 * \see XFReactive::process
+  18:/home/desem/workspace/desenet/xf/xfeventstatus.h **** 	 */
+  19:/home/desem/workspace/desenet/xf/xfeventstatus.h **** 	typedef enum
+  20:/home/desem/workspace/desenet/xf/xfeventstatus.h **** 	{
+  21:/home/desem/workspace/desenet/xf/xfeventstatus.h **** 		Unknown			= 0,
+  22:/home/desem/workspace/desenet/xf/xfeventstatus.h **** 		Consumed		= 0x0001,
+  23:/home/desem/workspace/desenet/xf/xfeventstatus.h **** 		NotConsumed		= 0x0002,
+  24:/home/desem/workspace/desenet/xf/xfeventstatus.h **** 		Terminate		= 0x0004
+  25:/home/desem/workspace/desenet/xf/xfeventstatus.h **** 	} eEventStatus;
+  26:/home/desem/workspace/desenet/xf/xfeventstatus.h **** 
+  27:/home/desem/workspace/desenet/xf/xfeventstatus.h **** 	/**
+  28:/home/desem/workspace/desenet/xf/xfeventstatus.h **** 	 * Constructor
+  29:/home/desem/workspace/desenet/xf/xfeventstatus.h **** 	 *
+  30:/home/desem/workspace/desenet/xf/xfeventstatus.h **** 	 * \param eventStatus Initial value of the event status.
+  31:/home/desem/workspace/desenet/xf/xfeventstatus.h **** 	 */
+  32:/home/desem/workspace/desenet/xf/xfeventstatus.h **** 	EventStatus(eEventStatus eventStatus = Unknown) : _status(eventStatus) {}
+ 20690              		.loc 77 32 0
+ 20691              		.cfi_startproc
+ 20692              		@ args = 0, pretend = 0, frame = 8
+ 20693              		@ frame_needed = 1, uses_anonymous_args = 0
+ 20694              		@ link register save eliminated.
+ 20695 0000 80B4     		push	{r7}
+ 20696              	.LCFI27:
+ 20697              		.cfi_def_cfa_offset 4
+ 20698 0002 83B0     		sub	sp, sp, #12
+ 20699              	.LCFI28:
+ 20700              		.cfi_def_cfa_offset 16
+ 20701 0004 00AF     		add	r7, sp, #0
+ 20702              		.cfi_offset 7, -4
+ 20703              	.LCFI29:
+ 20704              		.cfi_def_cfa_register 7
+ 20705 0006 7860     		str	r0, [r7, #4]
+ 20706 0008 0B46     		mov	r3, r1
+ 20707 000a FB70     		strb	r3, [r7, #3]
+ 20708              	.LBB7:
+ 20709              		.loc 77 32 0
+ 20710 000c 7B68     		ldr	r3, [r7, #4]
+ 20711 000e FA78     		ldrb	r2, [r7, #3]
+ 20712 0010 1A70     		strb	r2, [r3, #0]
+ 20713              	.LBE7:
+ 20714 0012 7B68     		ldr	r3, [r7, #4]
+ 20715 0014 1846     		mov	r0, r3
+ 20716 0016 07F10C07 		add	r7, r7, #12
+ 20717 001a BD46     		mov	sp, r7
+ 20718 001c 80BC     		pop	{r7}
+ 20719 001e 7047     		bx	lr
+ 20720              		.cfi_endproc
+ 20721              	.LFE771:
+ 20723              		.weak	_ZN11EventStatusC1ENS_12eEventStatusE
+ 20724              		.thumb_set _ZN11EventStatusC1ENS_12eEventStatusE,_ZN11EventStatusC2ENS_12eEventStatusE
+ 20725              		.section	.text._ZL20__gthread_key_deletei,"ax",%progbits
+ 20726              		.align	2
+ 20727              		.thumb
+ 20728              		.thumb_func
+ 20730              	_ZL20__gthread_key_deletei:
+ 20731              	.LFB1032:
+   1:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Threads compatibility routines for libgcc2 and libobjc.  */
+   2:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Compile this one with gcc.  */
+   3:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Copyright (C) 1997, 1999, 2000, 2004, 2008, 2009
+   4:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****    Free Software Foundation, Inc.
+   5:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+   6:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** This file is part of GCC.
+   7:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+   8:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** GCC is free software; you can redistribute it and/or modify it under
+   9:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** the terms of the GNU General Public License as published by the Free
+  10:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** Software Foundation; either version 3, or (at your option) any later
+  11:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** version.
+  12:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  13:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** GCC is distributed in the hope that it will be useful, but WITHOUT ANY
+  14:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** WARRANTY; without even the implied warranty of MERCHANTABILITY or
+  15:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+  16:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** for more details.
+  17:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  18:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** Under Section 7 of GPL version 3, you are granted additional
+  19:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** permissions described in the GCC Runtime Library Exception, version
+  20:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 3.1, as published by the Free Software Foundation.
+  21:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  22:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** You should have received a copy of the GNU General Public License and
+  23:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** a copy of the GCC Runtime Library Exception along with this program;
+  24:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
+  25:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** <http://www.gnu.org/licenses/>.  */
+  26:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  27:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** #ifndef _GLIBCXX_GCC_GTHR_SINGLE_H
+  28:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** #define _GLIBCXX_GCC_GTHR_SINGLE_H
+  29:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  30:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Just provide compatibility for mutex handling.  */
+  31:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  32:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** typedef int __gthread_key_t;
+  33:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** typedef int __gthread_once_t;
+  34:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** typedef int __gthread_mutex_t;
+  35:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** typedef int __gthread_recursive_mutex_t;
+  36:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  37:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** #define __GTHREAD_ONCE_INIT 0
+  38:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** #define __GTHREAD_MUTEX_INIT 0
+  39:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** #define __GTHREAD_RECURSIVE_MUTEX_INIT 0
+  40:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  41:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** #define _GLIBCXX_UNUSED __attribute__((unused))
+  42:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  43:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** #ifdef _LIBOBJC
+  44:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  45:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Thread local storage for a single thread */
+  46:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static void *thread_local_storage = NULL;
+  47:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  48:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Backend initialization functions */
+  49:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  50:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Initialize the threads subsystem.  */
+  51:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+  52:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_init_thread_system (void)
+  53:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+  54:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   /* No thread support available */
+  55:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return -1;
+  56:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+  57:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  58:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Close the threads subsystem.  */
+  59:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+  60:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_close_thread_system (void)
+  61:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+  62:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   /* No thread support available */
+  63:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return -1;
+  64:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+  65:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  66:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Backend thread functions */
+  67:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  68:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Create a new thread of execution.  */
+  69:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline objc_thread_t
+  70:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_thread_detach (void (* func)(void *), void * arg _GLIBCXX_UNUSED)
+  71:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+  72:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   /* No thread support available */
+  73:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return NULL;
+  74:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+  75:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  76:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Set the current thread's priority.  */
+  77:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+  78:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_thread_set_priority (int priority _GLIBCXX_UNUSED)
+  79:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+  80:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   /* No thread support available */
+  81:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return -1;
+  82:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+  83:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  84:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Return the current thread's priority.  */
+  85:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+  86:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_thread_get_priority (void)
+  87:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+  88:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return OBJC_THREAD_INTERACTIVE_PRIORITY;
+  89:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+  90:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  91:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Yield our process time to another thread.  */
+  92:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline void
+  93:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_thread_yield (void)
+  94:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+  95:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return;
+  96:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+  97:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+  98:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Terminate the current thread.  */
+  99:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+ 100:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_thread_exit (void)
+ 101:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 102:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   /* No thread support available */
+ 103:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   /* Should we really exit the program */
+ 104:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   /* exit (&__objc_thread_exit_status); */
+ 105:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return -1;
+ 106:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 107:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 108:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Returns an integer value which uniquely describes a thread.  */
+ 109:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline objc_thread_t
+ 110:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_thread_id (void)
+ 111:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 112:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   /* No thread support, use 1.  */
+ 113:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return (objc_thread_t) 1;
+ 114:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 115:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 116:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Sets the thread's local storage pointer.  */
+ 117:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+ 118:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_thread_set_data (void *value)
+ 119:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 120:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   thread_local_storage = value;
+ 121:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return 0;
+ 122:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 123:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 124:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Returns the thread's local storage pointer.  */
+ 125:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline void *
+ 126:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_thread_get_data (void)
+ 127:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 128:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return thread_local_storage;
+ 129:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 130:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 131:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Backend mutex functions */
+ 132:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 133:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Allocate a mutex.  */
+ 134:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+ 135:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_mutex_allocate (objc_mutex_t mutex _GLIBCXX_UNUSED)
+ 136:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 137:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return 0;
+ 138:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 139:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 140:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Deallocate a mutex.  */
+ 141:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+ 142:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_mutex_deallocate (objc_mutex_t mutex _GLIBCXX_UNUSED)
+ 143:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 144:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return 0;
+ 145:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 146:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 147:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Grab a lock on a mutex.  */
+ 148:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+ 149:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_mutex_lock (objc_mutex_t mutex _GLIBCXX_UNUSED)
+ 150:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 151:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   /* There can only be one thread, so we always get the lock */
+ 152:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return 0;
+ 153:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 154:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 155:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Try to grab a lock on a mutex.  */
+ 156:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+ 157:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_mutex_trylock (objc_mutex_t mutex _GLIBCXX_UNUSED)
+ 158:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 159:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   /* There can only be one thread, so we always get the lock */
+ 160:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return 0;
+ 161:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 162:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 163:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Unlock the mutex */
+ 164:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+ 165:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_mutex_unlock (objc_mutex_t mutex _GLIBCXX_UNUSED)
+ 166:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 167:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return 0;
+ 168:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 169:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 170:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Backend condition mutex functions */
+ 171:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 172:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Allocate a condition.  */
+ 173:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+ 174:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_condition_allocate (objc_condition_t condition _GLIBCXX_UNUSED)
+ 175:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 176:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return 0;
+ 177:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 178:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 179:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Deallocate a condition.  */
+ 180:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+ 181:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_condition_deallocate (objc_condition_t condition _GLIBCXX_UNUSED)
+ 182:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 183:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return 0;
+ 184:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 185:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 186:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Wait on the condition */
+ 187:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+ 188:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_condition_wait (objc_condition_t condition _GLIBCXX_UNUSED,
+ 189:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 			       objc_mutex_t mutex _GLIBCXX_UNUSED)
+ 190:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 191:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return 0;
+ 192:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 193:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 194:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Wake up all threads waiting on this condition.  */
+ 195:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+ 196:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_condition_broadcast (objc_condition_t condition _GLIBCXX_UNUSED)
+ 197:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 198:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return 0;
+ 199:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 200:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 201:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** /* Wake up one thread waiting on this condition.  */
+ 202:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+ 203:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_objc_condition_signal (objc_condition_t condition _GLIBCXX_UNUSED)
+ 204:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 205:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return 0;
+ 206:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 207:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 208:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** #else /* _LIBOBJC */
+ 209:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 210:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+ 211:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_active_p (void)
+ 212:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 213:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return 0;
+ 214:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 215:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 216:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int
+ 217:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_once (__gthread_once_t *__once _GLIBCXX_UNUSED, void (*__func) (void) _GLIBCXX_UNUSED)
+ 218:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 219:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return 0;
+ 220:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 221:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 222:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static inline int _GLIBCXX_UNUSED
+ 223:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_key_create (__gthread_key_t *__key _GLIBCXX_UNUSED, void (*__func) (void *) _GLIBCXX_UNUS
+ 224:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 225:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return 0;
+ 226:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 227:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** 
+ 228:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** static int _GLIBCXX_UNUSED
+ 229:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** __gthread_key_delete (__gthread_key_t __key _GLIBCXX_UNUSED)
+ 230:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** {
+ 20732              		.loc 129 230 0
+ 20733              		.cfi_startproc
+ 20734              		@ args = 0, pretend = 0, frame = 8
+ 20735              		@ frame_needed = 1, uses_anonymous_args = 0
+ 20736              		@ link register save eliminated.
+ 20737 0000 80B4     		push	{r7}
+ 20738              	.LCFI30:
+ 20739              		.cfi_def_cfa_offset 4
+ 20740 0002 83B0     		sub	sp, sp, #12
+ 20741              	.LCFI31:
+ 20742              		.cfi_def_cfa_offset 16
+ 20743 0004 00AF     		add	r7, sp, #0
+ 20744              		.cfi_offset 7, -4
+ 20745              	.LCFI32:
+ 20746              		.cfi_def_cfa_register 7
+ 20747 0006 7860     		str	r0, [r7, #4]
+ 231:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h ****   return 0;
+ 20748              		.loc 129 231 0
+ 20749 0008 4FF00003 		mov	r3, #0
+ 232:/opt/toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/c++/4.5.2/arm-none-eabi/thumb/bits/gthr-single.h **** }
+ 20750              		.loc 129 232 0
+ 20751 000c 1846     		mov	r0, r3
+ 20752 000e 07F10C07 		add	r7, r7, #12
+ 20753 0012 BD46     		mov	sp, r7
+ 20754 0014 80BC     		pop	{r7}
+ 20755 0016 7047     		bx	lr
+ 20756              		.cfi_endproc
+ 20757              	.LFE1032:
+ 20759              		.section	.text._ZN5Air3T9GameField5FieldC2Ejj,"axG",%progbits,_ZN5Air3T9GameField5FieldC5Ejj,comda
+ 20760              		.align	2
+ 20761              		.weak	_ZN5Air3T9GameField5FieldC2Ejj
+ 20762              		.thumb
+ 20763              		.thumb_func
+ 20765              	_ZN5Air3T9GameField5FieldC2Ejj:
+ 20766              	.LFB1281:
+   1:/home/desem/workspace/desenet/air3t/ui/../data/gamefield.h **** #pragma once
+   2:/home/desem/workspace/desenet/air3t/ui/../data/gamefield.h **** #include <stdint.h>
+   3:/home/desem/workspace/desenet/air3t/ui/../data/gamefield.h **** 
+   4:/home/desem/workspace/desenet/air3t/ui/../data/gamefield.h **** namespace Air3T
+   5:/home/desem/workspace/desenet/air3t/ui/../data/gamefield.h **** {
+   6:/home/desem/workspace/desenet/air3t/ui/../data/gamefield.h **** 	class Model;
+   7:/home/desem/workspace/desenet/air3t/ui/../data/gamefield.h **** 
+   8:/home/desem/workspace/desenet/air3t/ui/../data/gamefield.h **** 	/**
+   9:/home/desem/workspace/desenet/air3t/ui/../data/gamefield.h **** 	 * @ingroup data
+  10:/home/desem/workspace/desenet/air3t/ui/../data/gamefield.h **** 	 * @brief Represents a TicTacToe game field.
+  11:/home/desem/workspace/desenet/air3t/ui/../data/gamefield.h **** 	 *
+  12:/home/desem/workspace/desenet/air3t/ui/../data/gamefield.h **** 	 * A tic tac toe gamefield has 9 fields which can have basically 3 states:
+  13:/home/desem/workspace/desenet/air3t/ui/../data/gamefield.h **** 	 * - No player's symbol is placed : GameField::None.
+  14:/home/desem/workspace/desenet/air3t/ui/../data/gamefield.h **** 	 * - Player one (circle) symbol is placed: GameField::Circle.
+  15:/home/desem/workspace/desenet/air3t/ui/../data/gamefield.h **** 	 * - Player two (cross) symbol is placed: GameField::Cross.
+  16:/home/desem/workspace/desenet/air3t/ui/../data/gamefield.h **** 	 *
+  17:/home/desem/workspace/desenet/air3t/ui/../data/gamefield.h **** 	 * The states can be read or set using the accessor/mutator methods symbol() and setSymbol(). Note
+  18:/home/desem/workspace/desenet/air3t/ui/../data/gamefield.h **** 	 * you need to pass a Field object that contains the coordinates of the field in the 3x3 2 dimensi
+  19:/home/desem/workspace/desenet/air3t/ui/../data/gamefield.h **** 	 *
+  20:/home/desem/workspace/desenet/air3t/ui/../data/gamefield.h **** 	 * The GameField is part of the data model and if a value of the gamefield changes the observer of
+  21:/home/desem/workspace/desenet/air3t/ui/../data/gamefield.h **** 	 */
+  22:/home/desem/workspace/desenet/air3t/ui/../data/gamefield.h **** 	class GameField
+  23:/home/desem/workspace/desenet/air3t/ui/../data/gamefield.h **** 	{
+  24:/home/desem/workspace/desenet/air3t/ui/../data/gamefield.h **** 		friend class Model;
+  25:/home/desem/workspace/desenet/air3t/ui/../data/gamefield.h **** 
+  26:/home/desem/workspace/desenet/air3t/ui/../data/gamefield.h **** 	public:
+  27:/home/desem/workspace/desenet/air3t/ui/../data/gamefield.h **** 		/**
+  28:/home/desem/workspace/desenet/air3t/ui/../data/gamefield.h **** 		 * @brief The value each field of the GameField can have plus a special value to indicate that no
+  29:/home/desem/workspace/desenet/air3t/ui/../data/gamefield.h **** 		 * (a tie).
+  30:/home/desem/workspace/desenet/air3t/ui/../data/gamefield.h **** 		 */
+  31:/home/desem/workspace/desenet/air3t/ui/../data/gamefield.h **** 		enum Symbol
+  32:/home/desem/workspace/desenet/air3t/ui/../data/gamefield.h **** 		{
+  33:/home/desem/workspace/desenet/air3t/ui/../data/gamefield.h **** 			None	=  0 ,		///< @brief No symbol was placed onto the field.
+  34:/home/desem/workspace/desenet/air3t/ui/../data/gamefield.h **** 			Circle	=  1 ,		///< @brief A circle was placed onto the field.
+  35:/home/desem/workspace/desenet/air3t/ui/../data/gamefield.h **** 			Cross	= -1 ,		///< @brief A cross was placed onto the field.
+  36:/home/desem/workspace/desenet/air3t/ui/../data/gamefield.h **** 			Tie		= 2			///< @brief Not a symbol, but winner() returns this if there was a tie.
+  37:/home/desem/workspace/desenet/air3t/ui/../data/gamefield.h **** 		};
+  38:/home/desem/workspace/desenet/air3t/ui/../data/gamefield.h **** 
+  39:/home/desem/workspace/desenet/air3t/ui/../data/gamefield.h **** 		/**
+  40:/home/desem/workspace/desenet/air3t/ui/../data/gamefield.h **** 		 * @brief Identifies a Field inside the GameField.
+  41:/home/desem/workspace/desenet/air3t/ui/../data/gamefield.h **** 		 *
+  42:/home/desem/workspace/desenet/air3t/ui/../data/gamefield.h **** 		 * Basically a field object is nothing other than two dimensional coordinates to address a field 
+  43:/home/desem/workspace/desenet/air3t/ui/../data/gamefield.h **** 		 */
+  44:/home/desem/workspace/desenet/air3t/ui/../data/gamefield.h **** 		class Field
+  45:/home/desem/workspace/desenet/air3t/ui/../data/gamefield.h **** 		{
+  46:/home/desem/workspace/desenet/air3t/ui/../data/gamefield.h **** 		public:
+  47:/home/desem/workspace/desenet/air3t/ui/../data/gamefield.h **** 			/**
+  48:/home/desem/workspace/desenet/air3t/ui/../data/gamefield.h **** 			 * @brief Creates a Field coordinates object with the given x and y components.
+  49:/home/desem/workspace/desenet/air3t/ui/../data/gamefield.h **** 			 *
+  50:/home/desem/workspace/desenet/air3t/ui/../data/gamefield.h **** 			 * @param x	X coordinate. Defaults to 0.
+  51:/home/desem/workspace/desenet/air3t/ui/../data/gamefield.h **** 			 * @param y	Y coordinate. Defaults to 0.
+  52:/home/desem/workspace/desenet/air3t/ui/../data/gamefield.h **** 			 */
+  53:/home/desem/workspace/desenet/air3t/ui/../data/gamefield.h **** 			inline Field( unsigned int x = 0 , unsigned int y = 0 ) : x( x ) , y( y ) {};
+ 20767              		.loc 148 53 0
+ 20768              		.cfi_startproc
+ 20769              		@ args = 0, pretend = 0, frame = 16
+ 20770              		@ frame_needed = 1, uses_anonymous_args = 0
+ 20771              		@ link register save eliminated.
+ 20772 0000 80B4     		push	{r7}
+ 20773              	.LCFI33:
+ 20774              		.cfi_def_cfa_offset 4
+ 20775 0002 85B0     		sub	sp, sp, #20
+ 20776              	.LCFI34:
+ 20777              		.cfi_def_cfa_offset 24
+ 20778 0004 00AF     		add	r7, sp, #0
+ 20779              		.cfi_offset 7, -4
+ 20780              	.LCFI35:
+ 20781              		.cfi_def_cfa_register 7
+ 20782 0006 F860     		str	r0, [r7, #12]
+ 20783 0008 B960     		str	r1, [r7, #8]
+ 20784 000a 7A60     		str	r2, [r7, #4]
+ 20785              	.LBB8:
+ 20786              		.loc 148 53 0
+ 20787 000c FB68     		ldr	r3, [r7, #12]
+ 20788 000e BA68     		ldr	r2, [r7, #8]
+ 20789 0010 1A60     		str	r2, [r3, #0]
+ 20790 0012 FB68     		ldr	r3, [r7, #12]
+ 20791 0014 7A68     		ldr	r2, [r7, #4]
+ 20792 0016 5A60     		str	r2, [r3, #4]
+ 20793              	.LBE8:
+ 20794 0018 FB68     		ldr	r3, [r7, #12]
+ 20795 001a 1846     		mov	r0, r3
+ 20796 001c 07F11407 		add	r7, r7, #20
+ 20797 0020 BD46     		mov	sp, r7
+ 20798 0022 80BC     		pop	{r7}
+ 20799 0024 7047     		bx	lr
+ 20800              		.cfi_endproc
+ 20801              	.LFE1281:
+ 20803              		.weak	_ZN5Air3T9GameField5FieldC1Ejj
+ 20804              		.thumb_set _ZN5Air3T9GameField5FieldC1Ejj,_ZN5Air3T9GameField5FieldC2Ejj
+ 20805 0026 00BF     		.section	.text._ZN5Air3T13IViewObserverC2Ev,"axG",%progbits,_ZN5Air3T13IViewObserverC5Ev,comdat
+ 20806              		.align	2
+ 20807              		.weak	_ZN5Air3T13IViewObserverC2Ev
+ 20808              		.thumb
+ 20809              		.thumb_func
+ 20811              	_ZN5Air3T13IViewObserverC2Ev:
+ 20812              	.LFB1284:
+   1:/home/desem/workspace/desenet/air3t/ui/iviewobserver.h **** #pragma once
+   2:/home/desem/workspace/desenet/air3t/ui/iviewobserver.h **** #include "../data/GameField"
+   3:/home/desem/workspace/desenet/air3t/ui/iviewobserver.h **** 
+   4:/home/desem/workspace/desenet/air3t/ui/iviewobserver.h **** namespace Air3T
+   5:/home/desem/workspace/desenet/air3t/ui/iviewobserver.h **** {
+   6:/home/desem/workspace/desenet/air3t/ui/iviewobserver.h **** 	/**
+   7:/home/desem/workspace/desenet/air3t/ui/iviewobserver.h **** 	 * @ingroup ui
+   8:/home/desem/workspace/desenet/air3t/ui/iviewobserver.h **** 	 * @brief Interface to retrieve events from the any view.
+   9:/home/desem/workspace/desenet/air3t/ui/iviewobserver.h **** 	 */
+  10:/home/desem/workspace/desenet/air3t/ui/iviewobserver.h **** 	class IViewObserver
+  11:/home/desem/workspace/desenet/air3t/ui/iviewobserver.h **** 	{
+  12:/home/desem/workspace/desenet/air3t/ui/iviewobserver.h **** 	protected:
+  13:/home/desem/workspace/desenet/air3t/ui/iviewobserver.h **** 		// It is an interface, only subclasses can be instantiated.
+  14:/home/desem/workspace/desenet/air3t/ui/iviewobserver.h **** 		explicit IViewObserver() {}
+ 20813              		.loc 146 14 0
+ 20814              		.cfi_startproc
+ 20815              		@ args = 0, pretend = 0, frame = 8
+ 20816              		@ frame_needed = 1, uses_anonymous_args = 0
+ 20817              		@ link register save eliminated.
+ 20818 0000 80B4     		push	{r7}
+ 20819              	.LCFI36:
+ 20820              		.cfi_def_cfa_offset 4
+ 20821 0002 83B0     		sub	sp, sp, #12
+ 20822              	.LCFI37:
+ 20823              		.cfi_def_cfa_offset 16
+ 20824 0004 00AF     		add	r7, sp, #0
+ 20825              		.cfi_offset 7, -4
+ 20826              	.LCFI38:
+ 20827              		.cfi_def_cfa_register 7
+ 20828 0006 7860     		str	r0, [r7, #4]
+ 20829              	.LBB9:
+ 20830              		.loc 146 14 0
+ 20831 0008 7B68     		ldr	r3, [r7, #4]
+ 20832 000a 044A     		ldr	r2, .L34
+ 20833 000c 1A60     		str	r2, [r3, #0]
+ 20834              	.LBE9:
+ 20835 000e 7B68     		ldr	r3, [r7, #4]
+ 20836 0010 1846     		mov	r0, r3
+ 20837 0012 07F10C07 		add	r7, r7, #12
+ 20838 0016 BD46     		mov	sp, r7
+ 20839 0018 80BC     		pop	{r7}
+ 20840 001a 7047     		bx	lr
+ 20841              	.L35:
+ 20842              		.align	2
+ 20843              	.L34:
+ 20844 001c 08000000 		.word	_ZTVN5Air3T13IViewObserverE+8
+ 20845              		.cfi_endproc
+ 20846              	.LFE1284:
+ 20848              		.weak	_ZN5Air3T13IViewObserverC1Ev
+ 20849              		.thumb_set _ZN5Air3T13IViewObserverC1Ev,_ZN5Air3T13IViewObserverC2Ev
+ 20850              		.section	.text._ZN5Air3T13IViewObserverD2Ev,"axG",%progbits,_ZN5Air3T13IViewObserverD5Ev,comdat
+ 20851              		.align	2
+ 20852              		.weak	_ZN5Air3T13IViewObserverD2Ev
+ 20853              		.thumb
+ 20854              		.thumb_func
+ 20856              	_ZN5Air3T13IViewObserverD2Ev:
+ 20857              	.LFB1287:
+  15:/home/desem/workspace/desenet/air3t/ui/iviewobserver.h **** 		virtual ~IViewObserver() {}
+ 20858              		.loc 146 15 0
+ 20859              		.cfi_startproc
+ 20860              		@ args = 0, pretend = 0, frame = 8
+ 20861              		@ frame_needed = 1, uses_anonymous_args = 0
+ 20862 0000 80B5     		push	{r7, lr}
+ 20863              	.LCFI39:
+ 20864              		.cfi_def_cfa_offset 8
+ 20865 0002 82B0     		sub	sp, sp, #8
+ 20866              	.LCFI40:
+ 20867              		.cfi_def_cfa_offset 16
+ 20868 0004 00AF     		add	r7, sp, #0
+ 20869              		.cfi_offset 14, -4
+ 20870              		.cfi_offset 7, -8
+ 20871              	.LCFI41:
+ 20872              		.cfi_def_cfa_register 7
+ 20873 0006 7860     		str	r0, [r7, #4]
+ 20874              	.LBB10:
+ 20875              		.loc 146 15 0
+ 20876 0008 7B68     		ldr	r3, [r7, #4]
+ 20877 000a 094A     		ldr	r2, .L39
+ 20878 000c 1A60     		str	r2, [r3, #0]
+ 20879              	.LBE10:
+ 20880 000e 4FF00003 		mov	r3, #0
+ 20881 0012 03F00103 		and	r3, r3, #1
+ 20882 0016 DBB2     		uxtb	r3, r3
+ 20883 0018 002B     		cmp	r3, #0
+ 20884 001a 02D0     		beq	.L38
+ 20885              		.loc 146 15 0 is_stmt 0 discriminator 1
+ 20886 001c 7868     		ldr	r0, [r7, #4]
+ 20887 001e FFF7FEFF 		bl	_ZdlPv
+ 20888              	.L38:
+ 20889              		.loc 146 15 0 discriminator 2
+ 20890 0022 7B68     		ldr	r3, [r7, #4]
+ 20891 0024 1846     		mov	r0, r3
+ 20892 0026 07F10807 		add	r7, r7, #8
+ 20893 002a BD46     		mov	sp, r7
+ 20894 002c 80BD     		pop	{r7, pc}
+ 20895              	.L40:
+ 20896 002e 00BF     		.align	2
+ 20897              	.L39:
+ 20898 0030 08000000 		.word	_ZTVN5Air3T13IViewObserverE+8
+ 20899              		.cfi_endproc
+ 20900              	.LFE1287:
+ 20902              		.weak	_ZN5Air3T13IViewObserverD1Ev
+ 20903              		.thumb_set _ZN5Air3T13IViewObserverD1Ev,_ZN5Air3T13IViewObserverD2Ev
+ 20904              		.section	.text._ZN5Air3T13IViewObserverD0Ev,"axG",%progbits,_ZN5Air3T13IViewObserverD5Ev,comdat
+ 20905              		.align	2
+ 20906              		.weak	_ZN5Air3T13IViewObserverD0Ev
+ 20907              		.thumb
+ 20908              		.thumb_func
+ 20910              	_ZN5Air3T13IViewObserverD0Ev:
+ 20911              	.LFB1289:
+ 20912              		.loc 146 15 0 is_stmt 1
+ 20913              		.cfi_startproc
+ 20914              		@ args = 0, pretend = 0, frame = 8
+ 20915              		@ frame_needed = 1, uses_anonymous_args = 0
+ 20916 0000 80B5     		push	{r7, lr}
+ 20917              	.LCFI42:
+ 20918              		.cfi_def_cfa_offset 8
+ 20919 0002 82B0     		sub	sp, sp, #8
+ 20920              	.LCFI43:
+ 20921              		.cfi_def_cfa_offset 16
+ 20922 0004 00AF     		add	r7, sp, #0
+ 20923              		.cfi_offset 14, -4
+ 20924              		.cfi_offset 7, -8
+ 20925              	.LCFI44:
+ 20926              		.cfi_def_cfa_register 7
+ 20927 0006 7860     		str	r0, [r7, #4]
+ 20928              		.loc 146 15 0
+ 20929 0008 7868     		ldr	r0, [r7, #4]
+ 20930 000a FFF7FEFF 		bl	_ZN5Air3T13IViewObserverD1Ev
+ 20931 000e 7868     		ldr	r0, [r7, #4]
+ 20932 0010 FFF7FEFF 		bl	_ZdlPv
+ 20933 0014 7B68     		ldr	r3, [r7, #4]
+ 20934 0016 1846     		mov	r0, r3
+ 20935 0018 07F10807 		add	r7, r7, #8
+ 20936 001c BD46     		mov	sp, r7
+ 20937 001e 80BD     		pop	{r7, pc}
+ 20938              		.cfi_endproc
+ 20939              	.LFE1289:
+ 20941              		.section	.text._ZN5Air3T13IViewObserver20onMenuPointSelectionEi,"axG",%progbits,_ZN5Air3T13IViewOb
+ 20942              		.align	2
+ 20943              		.weak	_ZN5Air3T13IViewObserver20onMenuPointSelectionEi
+ 20944              		.thumb
+ 20945              		.thumb_func
+ 20947              	_ZN5Air3T13IViewObserver20onMenuPointSelectionEi:
+ 20948              	.LFB1290:
+  16:/home/desem/workspace/desenet/air3t/ui/iviewobserver.h **** 
+  17:/home/desem/workspace/desenet/air3t/ui/iviewobserver.h **** 	public:
+  18:/home/desem/workspace/desenet/air3t/ui/iviewobserver.h **** 		/**
+  19:/home/desem/workspace/desenet/air3t/ui/iviewobserver.h **** 		 * @brief A menu point on a MenuView was selected.
+  20:/home/desem/workspace/desenet/air3t/ui/iviewobserver.h **** 		 *
+  21:/home/desem/workspace/desenet/air3t/ui/iviewobserver.h **** 		 * This means that the cursor was one one menu entry and the user pressed the joystick down.
+  22:/home/desem/workspace/desenet/air3t/ui/iviewobserver.h **** 		 *
+  23:/home/desem/workspace/desenet/air3t/ui/iviewobserver.h **** 		 * @param menuPointIndex The index of the selected menu point.
+  24:/home/desem/workspace/desenet/air3t/ui/iviewobserver.h **** 		 */
+  25:/home/desem/workspace/desenet/air3t/ui/iviewobserver.h **** 		virtual void onMenuPointSelection( int menuPointIndex ) {}
+ 20949              		.loc 146 25 0
+ 20950              		.cfi_startproc
+ 20951              		@ args = 0, pretend = 0, frame = 8
+ 20952              		@ frame_needed = 1, uses_anonymous_args = 0
+ 20953              		@ link register save eliminated.
+ 20954 0000 80B4     		push	{r7}
+ 20955              	.LCFI45:
+ 20956              		.cfi_def_cfa_offset 4
+ 20957 0002 83B0     		sub	sp, sp, #12
+ 20958              	.LCFI46:
+ 20959              		.cfi_def_cfa_offset 16
+ 20960 0004 00AF     		add	r7, sp, #0
+ 20961              		.cfi_offset 7, -4
+ 20962              	.LCFI47:
+ 20963              		.cfi_def_cfa_register 7
+ 20964 0006 7860     		str	r0, [r7, #4]
+ 20965 0008 3960     		str	r1, [r7, #0]
+ 20966              		.loc 146 25 0
+ 20967 000a 07F10C07 		add	r7, r7, #12
+ 20968 000e BD46     		mov	sp, r7
+ 20969 0010 80BC     		pop	{r7}
+ 20970 0012 7047     		bx	lr
+ 20971              		.cfi_endproc
+ 20972              	.LFE1290:
+ 20974              		.section	.text._ZN5Air3T13IViewObserver20onGameFieldSelectionERKNS_9GameField5FieldE,"axG",%progbi
+ 20975              		.align	2
+ 20976              		.weak	_ZN5Air3T13IViewObserver20onGameFieldSelectionERKNS_9GameField5FieldE
+ 20977              		.thumb
+ 20978              		.thumb_func
+ 20980              	_ZN5Air3T13IViewObserver20onGameFieldSelectionERKNS_9GameField5FieldE:
+ 20981              	.LFB1291:
+  26:/home/desem/workspace/desenet/air3t/ui/iviewobserver.h **** 
+  27:/home/desem/workspace/desenet/air3t/ui/iviewobserver.h **** 		/**
+  28:/home/desem/workspace/desenet/air3t/ui/iviewobserver.h **** 		 * @brief The user has selected a field on the gamefield.
+  29:/home/desem/workspace/desenet/air3t/ui/iviewobserver.h **** 		 *
+  30:/home/desem/workspace/desenet/air3t/ui/iviewobserver.h **** 		 * This means he choose a field with the cursor and pressed the joystick down to select that fiel
+  31:/home/desem/workspace/desenet/air3t/ui/iviewobserver.h **** 		 *
+  32:/home/desem/workspace/desenet/air3t/ui/iviewobserver.h **** 		 * @param field The selected field.
+  33:/home/desem/workspace/desenet/air3t/ui/iviewobserver.h **** 		 */
+  34:/home/desem/workspace/desenet/air3t/ui/iviewobserver.h **** 		virtual void onGameFieldSelection( const GameField::Field & field ) {}
+ 20982              		.loc 146 34 0
+ 20983              		.cfi_startproc
+ 20984              		@ args = 0, pretend = 0, frame = 8
+ 20985              		@ frame_needed = 1, uses_anonymous_args = 0
+ 20986              		@ link register save eliminated.
+ 20987 0000 80B4     		push	{r7}
+ 20988              	.LCFI48:
+ 20989              		.cfi_def_cfa_offset 4
+ 20990 0002 83B0     		sub	sp, sp, #12
+ 20991              	.LCFI49:
+ 20992              		.cfi_def_cfa_offset 16
+ 20993 0004 00AF     		add	r7, sp, #0
+ 20994              		.cfi_offset 7, -4
+ 20995              	.LCFI50:
+ 20996              		.cfi_def_cfa_register 7
+ 20997 0006 7860     		str	r0, [r7, #4]
+ 20998 0008 3960     		str	r1, [r7, #0]
+ 20999              		.loc 146 34 0
+ 21000 000a 07F10C07 		add	r7, r7, #12
+ 21001 000e BD46     		mov	sp, r7
+ 21002 0010 80BC     		pop	{r7}
+ 21003 0012 7047     		bx	lr
+ 21004              		.cfi_endproc
+ 21005              	.LFE1291:
+ 21007              		.section	.text._ZN5Air3T13IViewObserver17onTextViewProceedEv,"axG",%progbits,_ZN5Air3T13IViewObser
+ 21008              		.align	2
+ 21009              		.weak	_ZN5Air3T13IViewObserver17onTextViewProceedEv
+ 21010              		.thumb
+ 21011              		.thumb_func
+ 21013              	_ZN5Air3T13IViewObserver17onTextViewProceedEv:
+ 21014              	.LFB1292:
+  35:/home/desem/workspace/desenet/air3t/ui/iviewobserver.h **** 
+  36:/home/desem/workspace/desenet/air3t/ui/iviewobserver.h **** 		/**
+  37:/home/desem/workspace/desenet/air3t/ui/iviewobserver.h **** 		 * @brief The user has pressed or moved the joystick into any direction on the text view.
+  38:/home/desem/workspace/desenet/air3t/ui/iviewobserver.h **** 		 */
+  39:/home/desem/workspace/desenet/air3t/ui/iviewobserver.h **** 		virtual void onTextViewProceed() {}
+ 21015              		.loc 146 39 0
+ 21016              		.cfi_startproc
+ 21017              		@ args = 0, pretend = 0, frame = 8
+ 21018              		@ frame_needed = 1, uses_anonymous_args = 0
+ 21019              		@ link register save eliminated.
+ 21020 0000 80B4     		push	{r7}
+ 21021              	.LCFI51:
+ 21022              		.cfi_def_cfa_offset 4
+ 21023 0002 83B0     		sub	sp, sp, #12
+ 21024              	.LCFI52:
+ 21025              		.cfi_def_cfa_offset 16
+ 21026 0004 00AF     		add	r7, sp, #0
+ 21027              		.cfi_offset 7, -4
+ 21028              	.LCFI53:
+ 21029              		.cfi_def_cfa_register 7
+ 21030 0006 7860     		str	r0, [r7, #4]
+ 21031              		.loc 146 39 0
+ 21032 0008 07F10C07 		add	r7, r7, #12
+ 21033 000c BD46     		mov	sp, r7
+ 21034 000e 80BC     		pop	{r7}
+ 21035 0010 7047     		bx	lr
+ 21036              		.cfi_endproc
+ 21037              	.LFE1292:
+ 21039 0012 00BF     		.section	.text._ZN18LocalTTTController19FieldSelectionEventC2ERKN5Air3T9GameField5FieldE,"axG",%pr
+ 21040              		.align	2
+ 21041              		.weak	_ZN18LocalTTTController19FieldSelectionEventC2ERKN5Air3T9GameField5FieldE
+ 21042              		.thumb
+ 21043              		.thumb_func
+ 21045              	_ZN18LocalTTTController19FieldSelectionEventC2ERKN5Air3T9GameField5FieldE:
+ 21046              	.LFB1411:
+   1:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** #pragma once
+   2:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** #include <xf/xfreactive.h>
+   3:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** #include <air3t/ui/IViewObserver>
+   4:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** #include <air3t/data/Model>
+   5:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** #include <air3t/ui/GameView>
+   6:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** #include <IAir3TFactory>
+   7:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** #include <utils/MonochromeDisplayPainter>
+   8:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** #include <IJoystick>
+   9:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 
+  10:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 
+  11:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** /**
+  12:/home/desem/workspace/desenet/test/localtttcontroller.hpp ****  * @ingroup test
+  13:/home/desem/workspace/desenet/test/localtttcontroller.hpp ****  * Lets the user play a local TicTacToe game and tests the XF, the joystick, the display and the MV
+  14:/home/desem/workspace/desenet/test/localtttcontroller.hpp ****  * game.
+  15:/home/desem/workspace/desenet/test/localtttcontroller.hpp ****  *
+  16:/home/desem/workspace/desenet/test/localtttcontroller.hpp ****  * The FSM of the LocalTTTController looks like this:
+  17:/home/desem/workspace/desenet/test/localtttcontroller.hpp ****  * @image html LocalTTTController.png
+  18:/home/desem/workspace/desenet/test/localtttcontroller.hpp ****  */
+  19:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** class LocalTTTController : public Air3T::IViewObserver , public XFReactive
+  20:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** {
+  21:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** public:
+  22:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 	/**
+  23:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 	 * Event pushed into the event queue if the user has selected a field to place his symbol.
+  24:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 	 */
+  25:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 	class FieldSelectionEvent : public IXFEvent
+  26:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 	{
+  27:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 	public:
+  28:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 		static const int Id = 1;
+  29:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 		FieldSelectionEvent( const Air3T::GameField::Field & field )
+ 21047              		.loc 144 29 0
+ 21048              		.cfi_startproc
+ 21049              		@ args = 0, pretend = 0, frame = 8
+ 21050              		@ frame_needed = 1, uses_anonymous_args = 0
+ 21051 0000 80B5     		push	{r7, lr}
+ 21052              	.LCFI54:
+ 21053              		.cfi_def_cfa_offset 8
+ 21054 0002 82B0     		sub	sp, sp, #8
+ 21055              	.LCFI55:
+ 21056              		.cfi_def_cfa_offset 16
+ 21057 0004 00AF     		add	r7, sp, #0
+ 21058              		.cfi_offset 14, -4
+ 21059              		.cfi_offset 7, -8
+ 21060              	.LCFI56:
+ 21061              		.cfi_def_cfa_register 7
+ 21062 0006 7860     		str	r0, [r7, #4]
+ 21063 0008 3960     		str	r1, [r7, #0]
+ 21064              	.LBB11:
+  30:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 			: IXFEvent( Event , Id , NULL ) , _field( field ) {}
+ 21065              		.loc 144 30 0
+ 21066 000a 7B68     		ldr	r3, [r7, #4]
+ 21067 000c 1846     		mov	r0, r3
+ 21068 000e 4FF00301 		mov	r1, #3
+ 21069 0012 4FF00102 		mov	r2, #1
+ 21070 0016 4FF00003 		mov	r3, #0
+ 21071 001a FFF7FEFF 		bl	_ZN8IXFEventC2ENS_10eEventTypeEiP11IXFReactive
+ 21072 001e 7B68     		ldr	r3, [r7, #4]
+ 21073 0020 074A     		ldr	r2, .L48
+ 21074 0022 1A60     		str	r2, [r3, #0]
+ 21075 0024 7B68     		ldr	r3, [r7, #4]
+ 21076 0026 3A68     		ldr	r2, [r7, #0]
+ 21077 0028 03F11403 		add	r3, r3, #20
+ 21078 002c 92E80300 		ldmia	r2, {r0, r1}
+ 21079 0030 83E80300 		stmia	r3, {r0, r1}
+ 21080              	.LBE11:
+ 21081 0034 7B68     		ldr	r3, [r7, #4]
+ 21082 0036 1846     		mov	r0, r3
+ 21083 0038 07F10807 		add	r7, r7, #8
+ 21084 003c BD46     		mov	sp, r7
+ 21085 003e 80BD     		pop	{r7, pc}
+ 21086              	.L49:
+ 21087              		.align	2
+ 21088              	.L48:
+ 21089 0040 08000000 		.word	_ZTVN18LocalTTTController19FieldSelectionEventE+8
+ 21090              		.cfi_endproc
+ 21091              	.LFE1411:
+ 21093              		.weak	_ZN18LocalTTTController19FieldSelectionEventC1ERKN5Air3T9GameField5FieldE
+ 21094              		.thumb_set _ZN18LocalTTTController19FieldSelectionEventC1ERKN5Air3T9GameField5FieldE,_ZN18LocalTTT
+ 21095              		.section	.text._ZNK18LocalTTTController19FieldSelectionEvent5fieldEv,"axG",%progbits,_ZNK18LocalTT
+ 21096              		.align	2
+ 21097              		.weak	_ZNK18LocalTTTController19FieldSelectionEvent5fieldEv
+ 21098              		.thumb
+ 21099              		.thumb_func
+ 21101              	_ZNK18LocalTTTController19FieldSelectionEvent5fieldEv:
+ 21102              	.LFB1413:
+  31:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 		inline const Air3T::GameField::Field field() const { return _field; }
+ 21103              		.loc 144 31 0
+ 21104              		.cfi_startproc
+ 21105              		@ args = 0, pretend = 0, frame = 8
+ 21106              		@ frame_needed = 1, uses_anonymous_args = 0
+ 21107              		@ link register save eliminated.
+ 21108 0000 80B4     		push	{r7}
+ 21109              	.LCFI57:
+ 21110              		.cfi_def_cfa_offset 4
+ 21111 0002 83B0     		sub	sp, sp, #12
+ 21112              	.LCFI58:
+ 21113              		.cfi_def_cfa_offset 16
+ 21114 0004 00AF     		add	r7, sp, #0
+ 21115              		.cfi_offset 7, -4
+ 21116              	.LCFI59:
+ 21117              		.cfi_def_cfa_register 7
+ 21118 0006 0346     		mov	r3, r0
+ 21119 0008 7960     		str	r1, [r7, #4]
+ 21120              		.loc 144 31 0
+ 21121 000a 7968     		ldr	r1, [r7, #4]
+ 21122 000c 1A46     		mov	r2, r3
+ 21123 000e 01F11401 		add	r1, r1, #20
+ 21124 0012 03C9     		ldmia	r1, {r0, r1}
+ 21125 0014 82E80300 		stmia	r2, {r0, r1}
+ 21126 0018 1846     		mov	r0, r3
+ 21127 001a 07F10C07 		add	r7, r7, #12
+ 21128 001e BD46     		mov	sp, r7
+ 21129 0020 80BC     		pop	{r7}
+ 21130 0022 7047     		bx	lr
+ 21131              		.cfi_endproc
+ 21132              	.LFE1413:
+ 21134              		.section	.text._ZN18LocalTTTControllerC2Ev,"axG",%progbits,_ZN18LocalTTTControllerC5Ev,comdat
+ 21135              		.align	2
+ 21136              		.weak	_ZN18LocalTTTControllerC2Ev
+ 21137              		.thumb
+ 21138              		.thumb_func
+ 21140              	_ZN18LocalTTTControllerC2Ev:
+ 21141              	.LFB1415:
+  32:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 	private:
+  33:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 		Air3T::GameField::Field _field;
+  34:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 	};
+  35:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 
+  36:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 	/**
+  37:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 	 * Initilizes the local game controller, the paint system, the model and the used game view.
+  38:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 	 */
+  39:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 	LocalTTTController() : _state( InitialState ) , _view( NULL )
+ 21142              		.loc 144 39 0
+ 21143              		.cfi_startproc
+ 21144              		@ args = 0, pretend = 0, frame = 8
+ 21145              		@ frame_needed = 1, uses_anonymous_args = 0
+ 21146 0000 90B5     		push	{r4, r7, lr}
+ 21147              	.LCFI60:
+ 21148              		.cfi_def_cfa_offset 12
+ 21149 0002 83B0     		sub	sp, sp, #12
+ 21150              	.LCFI61:
+ 21151              		.cfi_def_cfa_offset 24
+ 21152 0004 00AF     		add	r7, sp, #0
+ 21153              		.cfi_offset 14, -4
+ 21154              		.cfi_offset 7, -8
+ 21155              		.cfi_offset 4, -12
+ 21156              	.LCFI62:
+ 21157              		.cfi_def_cfa_register 7
+ 21158 0006 7860     		str	r0, [r7, #4]
+ 21159              	.LBB12:
+ 21160              		.loc 144 39 0
+ 21161 0008 7B68     		ldr	r3, [r7, #4]
+ 21162 000a 1846     		mov	r0, r3
+ 21163 000c FFF7FEFF 		bl	_ZN5Air3T13IViewObserverC2Ev
+ 21164 0010 7B68     		ldr	r3, [r7, #4]
+ 21165 0012 03F10403 		add	r3, r3, #4
+ 21166 0016 1846     		mov	r0, r3
+ 21167 0018 4FF00001 		mov	r1, #0
+ 21168 001c FFF7FEFF 		bl	_ZN10XFReactiveC2EP8XFThread
+ 21169 0020 7B68     		ldr	r3, [r7, #4]
+ 21170 0022 3C4A     		ldr	r2, .L53
+ 21171 0024 1A60     		str	r2, [r3, #0]
+ 21172 0026 7B68     		ldr	r3, [r7, #4]
+ 21173 0028 3B4A     		ldr	r2, .L53+4
+ 21174 002a 5A60     		str	r2, [r3, #4]
+ 21175 002c 7B68     		ldr	r3, [r7, #4]
+ 21176 002e 4FF00002 		mov	r2, #0
+ 21177 0032 1A74     		strb	r2, [r3, #16]
+ 21178 0034 7B68     		ldr	r3, [r7, #4]
+ 21179 0036 03F11403 		add	r3, r3, #20
+ 21180 003a 1846     		mov	r0, r3
+ 21181 003c FFF7FEFF 		bl	_ZN5Air3T5ModelC1Ev
+ 21182 0040 7B68     		ldr	r3, [r7, #4]
+ 21183 0042 4FF00002 		mov	r2, #0
+ 21184 0046 DA64     		str	r2, [r3, #76]
+ 21185 0048 7B68     		ldr	r3, [r7, #4]
+ 21186 004a 03F15003 		add	r3, r3, #80
+ 21187 004e 1846     		mov	r0, r3
+ 21188 0050 4FF00001 		mov	r1, #0
+ 21189 0054 4FF00102 		mov	r2, #1
+ 21190 0058 FFF7FEFF 		bl	_ZN24MonochromeDisplayPainterC1EP18IMonochromeDisplayb
+  40:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 	{
+  41:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 		// Initialize the game.
+  42:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 		_painter.begin( &IAir3TFactory::factory().monochromeDisplay() );
+ 21191              		.loc 144 42 0
+ 21192 005c 7B68     		ldr	r3, [r7, #4]
+ 21193 005e 03F15004 		add	r4, r3, #80
+ 21194 0062 4FF00000 		mov	r0, #0
+ 21195 0066 4FF00001 		mov	r1, #0
+ 21196 006a FFF7FEFF 		bl	_ZN13IAir3TFactory7factoryEiPPc
+ 21197 006e 0346     		mov	r3, r0
+ 21198 0070 1A68     		ldr	r2, [r3, #0]
+ 21199 0072 02F10C02 		add	r2, r2, #12
+ 21200 0076 1268     		ldr	r2, [r2, #0]
+ 21201 0078 1846     		mov	r0, r3
+ 21202 007a 9047     		blx	r2
+ 21203 007c 0346     		mov	r3, r0
+ 21204 007e 2046     		mov	r0, r4
+ 21205 0080 1946     		mov	r1, r3
+ 21206 0082 FFF7FEFF 		bl	_ZN24MonochromeDisplayPainter5beginEP18IMonochromeDisplay
+  43:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 
+  44:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 		// Initialize the game view.
+  45:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 		_view = new Air3T::GameView( _painter , _model );
+ 21207              		.loc 144 45 0
+ 21208 0086 4FF01C00 		mov	r0, #28
+ 21209 008a FFF7FEFF 		bl	_Znwj
+ 21210 008e 0446     		mov	r4, r0
+ 21211 0090 2146     		mov	r1, r4
+ 21212 0092 7B68     		ldr	r3, [r7, #4]
+ 21213 0094 03F15002 		add	r2, r3, #80
+ 21214 0098 7B68     		ldr	r3, [r7, #4]
+ 21215 009a 03F11403 		add	r3, r3, #20
+ 21216 009e 0846     		mov	r0, r1
+ 21217 00a0 1146     		mov	r1, r2
+ 21218 00a2 1A46     		mov	r2, r3
+ 21219 00a4 FFF7FEFF 		bl	_ZN5Air3T8GameViewC1ER24MonochromeDisplayPainterRKNS_5ModelE
+ 21220 00a8 2246     		mov	r2, r4
+ 21221 00aa 7B68     		ldr	r3, [r7, #4]
+ 21222 00ac DA64     		str	r2, [r3, #76]
+  46:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 		_view->setObserver( this );
+ 21223              		.loc 144 46 0
+ 21224 00ae 7B68     		ldr	r3, [r7, #4]
+ 21225 00b0 DB6C     		ldr	r3, [r3, #76]
+ 21226 00b2 1A46     		mov	r2, r3
+ 21227 00b4 7B68     		ldr	r3, [r7, #4]
+ 21228 00b6 1046     		mov	r0, r2
+ 21229 00b8 1946     		mov	r1, r3
+ 21230 00ba FFF7FEFF 		bl	_ZN5Air3T4View11setObserverEPNS_13IViewObserverE
+  47:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 		_model.registerView( _view );
+ 21231              		.loc 144 47 0
+ 21232 00be 7B68     		ldr	r3, [r7, #4]
+ 21233 00c0 03F11402 		add	r2, r3, #20
+ 21234 00c4 7B68     		ldr	r3, [r7, #4]
+ 21235 00c6 DB6C     		ldr	r3, [r3, #76]
+ 21236 00c8 1046     		mov	r0, r2
+ 21237 00ca 1946     		mov	r1, r3
+ 21238 00cc FFF7FEFF 		bl	_ZN5Air3T5Model12registerViewEPNS_5IViewE
+  48:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 
+  49:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 		// Initialize the joystick with myself as observer.
+  50:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 		IAir3TFactory::factory().joystick().setObserver( _view );
+ 21239              		.loc 144 50 0
+ 21240 00d0 4FF00000 		mov	r0, #0
+ 21241 00d4 4FF00001 		mov	r1, #0
+ 21242 00d8 FFF7FEFF 		bl	_ZN13IAir3TFactory7factoryEiPPc
+ 21243 00dc 0346     		mov	r3, r0
+ 21244 00de 1A68     		ldr	r2, [r3, #0]
+ 21245 00e0 02F11002 		add	r2, r2, #16
+ 21246 00e4 1268     		ldr	r2, [r2, #0]
+ 21247 00e6 1846     		mov	r0, r3
+ 21248 00e8 9047     		blx	r2
+ 21249 00ea 0346     		mov	r3, r0
+ 21250 00ec 1A68     		ldr	r2, [r3, #0]
+ 21251 00ee 02F10C02 		add	r2, r2, #12
+ 21252 00f2 1268     		ldr	r2, [r2, #0]
+ 21253 00f4 7968     		ldr	r1, [r7, #4]
+ 21254 00f6 C96C     		ldr	r1, [r1, #76]
+ 21255 00f8 1846     		mov	r0, r3
+ 21256 00fa 9047     		blx	r2
+  51:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 
+  52:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 		// Start FSM.
+  53:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 		startBehavior();
+ 21257              		.loc 144 53 0
+ 21258 00fc 7B68     		ldr	r3, [r7, #4]
+ 21259 00fe 03F10403 		add	r3, r3, #4
+ 21260 0102 1846     		mov	r0, r3
+ 21261 0104 FFF7FEFF 		bl	_ZN10XFReactive13startBehaviorEv
+ 21262              	.LBE12:
+  54:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 	}
+ 21263              		.loc 144 54 0
+ 21264 0108 7B68     		ldr	r3, [r7, #4]
+ 21265 010a 1846     		mov	r0, r3
+ 21266 010c 07F10C07 		add	r7, r7, #12
+ 21267 0110 BD46     		mov	sp, r7
+ 21268 0112 90BD     		pop	{r4, r7, pc}
+ 21269              	.L54:
+ 21270              		.align	2
+ 21271              	.L53:
+ 21272 0114 08000000 		.word	_ZTV18LocalTTTController+8
+ 21273 0118 28000000 		.word	_ZTV18LocalTTTController+40
+ 21274              		.cfi_endproc
+ 21275              	.LFE1415:
+ 21277              		.weak	_ZN18LocalTTTControllerC1Ev
+ 21278              		.thumb_set _ZN18LocalTTTControllerC1Ev,_ZN18LocalTTTControllerC2Ev
+ 21279              		.section	.text._ZN18LocalTTTControllerD2Ev,"axG",%progbits,_ZN18LocalTTTControllerD5Ev,comdat
+ 21280              		.align	2
+ 21281              		.weak	_ZN18LocalTTTControllerD2Ev
+ 21282              		.thumb
+ 21283              		.thumb_func
+ 21285              	_ZN18LocalTTTControllerD2Ev:
+ 21286              	.LFB1418:
+  55:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 
+  56:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 	/**
+  57:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 	 * Free dynamically allocated memory.
+  58:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 	 */
+  59:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 	virtual ~LocalTTTController()
+ 21287              		.loc 144 59 0
+ 21288              		.cfi_startproc
+ 21289              		@ args = 0, pretend = 0, frame = 8
+ 21290              		@ frame_needed = 1, uses_anonymous_args = 0
+ 21291 0000 80B5     		push	{r7, lr}
+ 21292              	.LCFI63:
+ 21293              		.cfi_def_cfa_offset 8
+ 21294 0002 82B0     		sub	sp, sp, #8
+ 21295              	.LCFI64:
+ 21296              		.cfi_def_cfa_offset 16
+ 21297 0004 00AF     		add	r7, sp, #0
+ 21298              		.cfi_offset 14, -4
+ 21299              		.cfi_offset 7, -8
+ 21300              	.LCFI65:
+ 21301              		.cfi_def_cfa_register 7
+ 21302 0006 7860     		str	r0, [r7, #4]
+ 21303              	.LBB13:
+  60:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 	{
+ 21304              		.loc 144 60 0
+ 21305 0008 7B68     		ldr	r3, [r7, #4]
+ 21306 000a 1C4A     		ldr	r2, .L59
+ 21307 000c 1A60     		str	r2, [r3, #0]
+ 21308 000e 7B68     		ldr	r3, [r7, #4]
+ 21309 0010 1B4A     		ldr	r2, .L59+4
+ 21310 0012 5A60     		str	r2, [r3, #4]
+  61:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 		delete _view;
+ 21311              		.loc 144 61 0
+ 21312 0014 7B68     		ldr	r3, [r7, #4]
+ 21313 0016 DB6C     		ldr	r3, [r3, #76]
+ 21314 0018 002B     		cmp	r3, #0
+ 21315 001a 09D0     		beq	.L56
+ 21316              		.loc 144 61 0 is_stmt 0 discriminator 1
+ 21317 001c 7B68     		ldr	r3, [r7, #4]
+ 21318 001e DB6C     		ldr	r3, [r3, #76]
+ 21319 0020 1B68     		ldr	r3, [r3, #0]
+ 21320 0022 03F10403 		add	r3, r3, #4
+ 21321 0026 1B68     		ldr	r3, [r3, #0]
+ 21322 0028 7A68     		ldr	r2, [r7, #4]
+ 21323 002a D26C     		ldr	r2, [r2, #76]
+ 21324 002c 1046     		mov	r0, r2
+ 21325 002e 9847     		blx	r3
+ 21326              	.L56:
+  60:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 	{
+ 21327              		.loc 144 60 0 is_stmt 1
+ 21328 0030 7B68     		ldr	r3, [r7, #4]
+ 21329 0032 03F15003 		add	r3, r3, #80
+  62:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 	}
+ 21330              		.loc 144 62 0
+ 21331 0036 1846     		mov	r0, r3
+ 21332 0038 FFF7FEFF 		bl	_ZN24MonochromeDisplayPainterD1Ev
+  60:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 	{
+ 21333              		.loc 144 60 0
+ 21334 003c 7B68     		ldr	r3, [r7, #4]
+ 21335 003e 03F11403 		add	r3, r3, #20
+ 21336              		.loc 144 62 0
+ 21337 0042 1846     		mov	r0, r3
+ 21338 0044 FFF7FEFF 		bl	_ZN5Air3T5ModelD1Ev
+  60:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 	{
+ 21339              		.loc 144 60 0
+ 21340 0048 7B68     		ldr	r3, [r7, #4]
+ 21341 004a 03F10403 		add	r3, r3, #4
+ 21342              		.loc 144 62 0
+ 21343 004e 1846     		mov	r0, r3
+ 21344 0050 FFF7FEFF 		bl	_ZN10XFReactiveD2Ev
+  60:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 	{
+ 21345              		.loc 144 60 0
+ 21346 0054 7B68     		ldr	r3, [r7, #4]
+ 21347              		.loc 144 62 0
+ 21348 0056 1846     		mov	r0, r3
+ 21349 0058 FFF7FEFF 		bl	_ZN5Air3T13IViewObserverD2Ev
+ 21350              	.LBE13:
+ 21351 005c 4FF00003 		mov	r3, #0
+ 21352 0060 03F00103 		and	r3, r3, #1
+ 21353 0064 DBB2     		uxtb	r3, r3
+ 21354 0066 002B     		cmp	r3, #0
+ 21355 0068 02D0     		beq	.L58
+ 21356              		.loc 144 62 0 is_stmt 0 discriminator 2
+ 21357 006a 7868     		ldr	r0, [r7, #4]
+ 21358 006c FFF7FEFF 		bl	_ZdlPv
+ 21359              	.L58:
+ 21360              		.loc 144 62 0 discriminator 3
+ 21361 0070 7B68     		ldr	r3, [r7, #4]
+ 21362 0072 1846     		mov	r0, r3
+ 21363 0074 07F10807 		add	r7, r7, #8
+ 21364 0078 BD46     		mov	sp, r7
+ 21365 007a 80BD     		pop	{r7, pc}
+ 21366              	.L60:
+ 21367              		.align	2
+ 21368              	.L59:
+ 21369 007c 08000000 		.word	_ZTV18LocalTTTController+8
+ 21370 0080 28000000 		.word	_ZTV18LocalTTTController+40
+ 21371              		.cfi_endproc
+ 21372              	.LFE1418:
+ 21374              		.weak	_ZN18LocalTTTControllerD1Ev
+ 21375              		.thumb_set _ZN18LocalTTTControllerD1Ev,_ZN18LocalTTTControllerD2Ev
+ 21376              		.thumb_set .LTHUNK0,_ZN18LocalTTTControllerD1Ev
+ 21377              		.section	.text._ZN18LocalTTTControllerD1Ev,"axG",%progbits,_ZThn4_N18LocalTTTControllerD1Ev,comdat
+ 21378              		.align	2
+ 21379              		.weak	_ZThn4_N18LocalTTTControllerD1Ev
+ 21380              		.thumb
+ 21381              		.thumb_func
+ 21383              	_ZThn4_N18LocalTTTControllerD1Ev:
+ 21384 0000 A0F10400 		sub	r0, r0, #4
+ 21385 0004 FFF7FEBF 		b	.LTHUNK0
+ 21387              		.section	.text._ZN18LocalTTTControllerD0Ev,"axG",%progbits,_ZN18LocalTTTControllerD5Ev,comdat
+ 21388              		.align	2
+ 21389              		.weak	_ZN18LocalTTTControllerD0Ev
+ 21390              		.thumb
+ 21391              		.thumb_func
+ 21393              	_ZN18LocalTTTControllerD0Ev:
+ 21394              	.LFB1420:
+  59:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 	virtual ~LocalTTTController()
+ 21395              		.loc 144 59 0 is_stmt 1
+ 21396              		.cfi_startproc
+ 21397              		@ args = 0, pretend = 0, frame = 8
+ 21398              		@ frame_needed = 1, uses_anonymous_args = 0
+ 21399 0000 80B5     		push	{r7, lr}
+ 21400              	.LCFI66:
+ 21401              		.cfi_def_cfa_offset 8
+ 21402 0002 82B0     		sub	sp, sp, #8
+ 21403              	.LCFI67:
+ 21404              		.cfi_def_cfa_offset 16
+ 21405 0004 00AF     		add	r7, sp, #0
+ 21406              		.cfi_offset 14, -4
+ 21407              		.cfi_offset 7, -8
+ 21408              	.LCFI68:
+ 21409              		.cfi_def_cfa_register 7
+ 21410 0006 7860     		str	r0, [r7, #4]
+ 21411              		.loc 144 62 0
+ 21412 0008 7868     		ldr	r0, [r7, #4]
+ 21413 000a FFF7FEFF 		bl	_ZN18LocalTTTControllerD1Ev
+ 21414 000e 7868     		ldr	r0, [r7, #4]
+ 21415 0010 FFF7FEFF 		bl	_ZdlPv
+ 21416 0014 7B68     		ldr	r3, [r7, #4]
+ 21417 0016 1846     		mov	r0, r3
+ 21418 0018 07F10807 		add	r7, r7, #8
+ 21419 001c BD46     		mov	sp, r7
+ 21420 001e 80BD     		pop	{r7, pc}
+ 21421              		.cfi_endproc
+ 21422              	.LFE1420:
+ 21424              		.thumb_set .LTHUNK1,_ZN18LocalTTTControllerD0Ev
+ 21425              		.align	2
+ 21426              		.weak	_ZThn4_N18LocalTTTControllerD0Ev
+ 21427              		.thumb
+ 21428              		.thumb_func
+ 21430              	_ZThn4_N18LocalTTTControllerD0Ev:
+ 21431 0020 A0F10400 		sub	r0, r0, #4
+ 21432 0024 ECE7     		b	.LTHUNK1
+ 21434 0026 00BF     		.section	.text._ZN18LocalTTTController12processEventEv,"axG",%progbits,_ZN18LocalTTTController12pr
+ 21435              		.align	2
+ 21436              		.weak	_ZN18LocalTTTController12processEventEv
+ 21437              		.thumb
+ 21438              		.thumb_func
+ 21440              	_ZN18LocalTTTController12processEventEv:
+ 21441              	.LFB1421:
+  63:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 
+  64:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 	/**
+  65:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 	 * FSM implementation.
+  66:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 	 */
+  67:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 	EventStatus processEvent()
+ 21442              		.loc 144 67 0
+ 21443              		.cfi_startproc
+ 21444              		@ args = 0, pretend = 0, frame = 80
+ 21445              		@ frame_needed = 1, uses_anonymous_args = 0
+ 21446 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+ 21447              	.LCFI69:
+ 21448              		.cfi_def_cfa_offset 20
+ 21449 0002 95B0     		sub	sp, sp, #84
+ 21450              	.LCFI70:
+ 21451              		.cfi_def_cfa_offset 104
+ 21452 0004 00AF     		add	r7, sp, #0
+ 21453              		.cfi_offset 14, -4
+ 21454              		.cfi_offset 7, -8
+ 21455              		.cfi_offset 6, -12
+ 21456              		.cfi_offset 5, -16
+ 21457              		.cfi_offset 4, -20
+ 21458              	.LCFI71:
+ 21459              		.cfi_def_cfa_register 7
+ 21460 0006 7860     		str	r0, [r7, #4]
+ 21461              	.LBB14:
+  68:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 	{
+  69:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 		EventStatus status = EventStatus::NotConsumed;
+ 21462              		.loc 144 69 0
+ 21463 0008 07F10803 		add	r3, r7, #8
+ 21464 000c 1846     		mov	r0, r3
+ 21465 000e 4FF00201 		mov	r1, #2
+ 21466 0012 FFF7FEFF 		bl	_ZN11EventStatusC1ENS_12eEventStatusE
+  70:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 
+  71:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 		// Get event.
+  72:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 		IXFEvent * event = getCurrentEvent();
+ 21467              		.loc 144 72 0
+ 21468 0016 7B68     		ldr	r3, [r7, #4]
+ 21469 0018 03F10403 		add	r3, r3, #4
+ 21470 001c 1846     		mov	r0, r3
+ 21471 001e FFF7FEFF 		bl	_ZNK10XFReactive15getCurrentEventEv
+ 21472 0022 F864     		str	r0, [r7, #76]
+  73:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 
+  74:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 		// Calculate transitions.
+  75:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 		State _oldState = _state;
+ 21473              		.loc 144 75 0
+ 21474 0024 7B68     		ldr	r3, [r7, #4]
+ 21475 0026 1B7C     		ldrb	r3, [r3, #16]
+ 21476 0028 87F84B30 		strb	r3, [r7, #75]
+  76:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 		switch( _state )
+ 21477              		.loc 144 76 0
+ 21478 002c 7B68     		ldr	r3, [r7, #4]
+ 21479 002e 1B7C     		ldrb	r3, [r3, #16]	@ zero_extendqisi2
+ 21480 0030 062B     		cmp	r3, #6
+ 21481 0032 00F21181 		bhi	.L64
+ 21482 0036 01A2     		adr	r2, .L72
+ 21483 0038 52F823F0 		ldr	pc, [r2, r3, lsl #2]
+ 21484              		.align	2
+ 21485              	.L72:
+ 21486 003c 59000000 		.word	.L65+1
+ 21487 0040 8D000000 		.word	.L66+1
+ 21488 0044 C1000000 		.word	.L67+1
+ 21489 0048 05010000 		.word	.L68+1
+ 21490 004c 67010000 		.word	.L69+1
+ 21491 0050 A9010000 		.word	.L70+1
+ 21492 0054 0B020000 		.word	.L71+1
+ 21493              	.L65:
+  77:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 		{
+  78:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 			case InitialState:
+  79:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 				if ( event->getEventType() == IXFEvent::Initial )
+ 21494              		.loc 144 79 0
+ 21495 0058 F86C     		ldr	r0, [r7, #76]
+ 21496 005a FFF7FEFF 		bl	_ZNK8IXFEvent12getEventTypeEv
+ 21497 005e 0346     		mov	r3, r0
+ 21498 0060 012B     		cmp	r3, #1
+ 21499 0062 14BF     		ite	ne
+ 21500 0064 0023     		movne	r3, #0
+ 21501 0066 0123     		moveq	r3, #1
+ 21502 0068 DBB2     		uxtb	r3, r3
+ 21503 006a 002B     		cmp	r3, #0
+ 21504 006c 00F0E780 		beq	.L98
+  80:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 				{
+  81:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 					_state = StartGameState;
+ 21505              		.loc 144 81 0
+ 21506 0070 7B68     		ldr	r3, [r7, #4]
+ 21507 0072 4FF00102 		mov	r2, #1
+ 21508 0076 1A74     		strb	r2, [r3, #16]
+  82:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 					status = EventStatus::Consumed;
+ 21509              		.loc 144 82 0
+ 21510 0078 07F10C03 		add	r3, r7, #12
+ 21511 007c 1846     		mov	r0, r3
+ 21512 007e 4FF00101 		mov	r1, #1
+ 21513 0082 FFF7FEFF 		bl	_ZN11EventStatusC1ENS_12eEventStatusE
+ 21514 0086 3B7B     		ldrb	r3, [r7, #12]
+ 21515 0088 3B72     		strb	r3, [r7, #8]
+  83:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 				}
+  84:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 				break;
+ 21516              		.loc 144 84 0
+ 21517 008a E5E0     		b	.L64
+ 21518              	.L66:
+  85:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 
+  86:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 			case StartGameState:
+  87:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 				if ( event->getEventType() == IXFEvent::NullTransition )
+ 21519              		.loc 144 87 0
+ 21520 008c F86C     		ldr	r0, [r7, #76]
+ 21521 008e FFF7FEFF 		bl	_ZNK8IXFEvent12getEventTypeEv
+ 21522 0092 0346     		mov	r3, r0
+ 21523 0094 022B     		cmp	r3, #2
+ 21524 0096 14BF     		ite	ne
+ 21525 0098 0023     		movne	r3, #0
+ 21526 009a 0123     		moveq	r3, #1
+ 21527 009c DBB2     		uxtb	r3, r3
+ 21528 009e 002B     		cmp	r3, #0
+ 21529 00a0 00F0CF80 		beq	.L99
+  88:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 				{
+  89:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 					_state = WaitForPlayer1State;
+ 21530              		.loc 144 89 0
+ 21531 00a4 7B68     		ldr	r3, [r7, #4]
+ 21532 00a6 4FF00202 		mov	r2, #2
+ 21533 00aa 1A74     		strb	r2, [r3, #16]
+  90:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 					status = EventStatus::Consumed;
+ 21534              		.loc 144 90 0
+ 21535 00ac 07F11003 		add	r3, r7, #16
+ 21536 00b0 1846     		mov	r0, r3
+ 21537 00b2 4FF00101 		mov	r1, #1
+ 21538 00b6 FFF7FEFF 		bl	_ZN11EventStatusC1ENS_12eEventStatusE
+ 21539 00ba 3B7C     		ldrb	r3, [r7, #16]
+ 21540 00bc 3B72     		strb	r3, [r7, #8]
+  91:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 				}
+  92:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 				break;
+ 21541              		.loc 144 92 0
+ 21542 00be CBE0     		b	.L64
+ 21543              	.L67:
+  93:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 
+  94:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 			case WaitForPlayer1State:
+  95:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 				if ( event->getEventType() == IXFEvent::Event &&
+ 21544              		.loc 144 95 0
+ 21545 00c0 F86C     		ldr	r0, [r7, #76]
+ 21546 00c2 FFF7FEFF 		bl	_ZNK8IXFEvent12getEventTypeEv
+ 21547 00c6 0346     		mov	r3, r0
+ 21548 00c8 032B     		cmp	r3, #3
+ 21549 00ca 08D1     		bne	.L75
+  96:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 					 event->getId() == FieldSelectionEvent::Id )
+ 21550              		.loc 144 96 0 discriminator 1
+ 21551 00cc F86C     		ldr	r0, [r7, #76]
+ 21552 00ce FFF7FEFF 		bl	_ZNK8IXFEvent5getIdEv
+ 21553 00d2 0346     		mov	r3, r0
+  95:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 				if ( event->getEventType() == IXFEvent::Event &&
+ 21554              		.loc 144 95 0 discriminator 1
+ 21555 00d4 012B     		cmp	r3, #1
+ 21556 00d6 02D1     		bne	.L75
+  95:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 				if ( event->getEventType() == IXFEvent::Event &&
+ 21557              		.loc 144 95 0 is_stmt 0 discriminator 3
+ 21558 00d8 4FF00103 		mov	r3, #1
+ 21559 00dc 01E0     		b	.L76
+ 21560              	.L75:
+  95:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 				if ( event->getEventType() == IXFEvent::Event &&
+ 21561              		.loc 144 95 0 discriminator 2
+ 21562 00de 4FF00003 		mov	r3, #0
+ 21563              	.L76:
+  95:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 				if ( event->getEventType() == IXFEvent::Event &&
+ 21564              		.loc 144 95 0 discriminator 4
+ 21565 00e2 002B     		cmp	r3, #0
+ 21566 00e4 00F0AF80 		beq	.L100
+  97:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 					{
+  98:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 						_state = PlacePlayer1SymbolState;
+ 21567              		.loc 144 98 0 is_stmt 1
+ 21568 00e8 7B68     		ldr	r3, [r7, #4]
+ 21569 00ea 4FF00302 		mov	r2, #3
+ 21570 00ee 1A74     		strb	r2, [r3, #16]
+  99:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 						status = EventStatus::Consumed;
+ 21571              		.loc 144 99 0
+ 21572 00f0 07F11403 		add	r3, r7, #20
+ 21573 00f4 1846     		mov	r0, r3
+ 21574 00f6 4FF00101 		mov	r1, #1
+ 21575 00fa FFF7FEFF 		bl	_ZN11EventStatusC1ENS_12eEventStatusE
+ 21576 00fe 3B7D     		ldrb	r3, [r7, #20]
+ 21577 0100 3B72     		strb	r3, [r7, #8]
+ 100:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 					}
+ 101:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 				break;
+ 21578              		.loc 144 101 0
+ 21579 0102 A9E0     		b	.L64
+ 21580              	.L68:
+ 102:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 
+ 103:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 			case PlacePlayer1SymbolState:
+ 104:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 				if ( event->getEventType() == IXFEvent::NullTransition )
+ 21581              		.loc 144 104 0
+ 21582 0104 F86C     		ldr	r0, [r7, #76]
+ 21583 0106 FFF7FEFF 		bl	_ZNK8IXFEvent12getEventTypeEv
+ 21584 010a 0346     		mov	r3, r0
+ 21585 010c 022B     		cmp	r3, #2
+ 21586 010e 14BF     		ite	ne
+ 21587 0110 0023     		movne	r3, #0
+ 21588 0112 0123     		moveq	r3, #1
+ 21589 0114 DBB2     		uxtb	r3, r3
+ 21590 0116 002B     		cmp	r3, #0
+ 21591 0118 00F09780 		beq	.L101
+ 105:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 				{
+ 106:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 					if ( _model.gamefield().winner() != Air3T::GameField::None )
+ 21592              		.loc 144 106 0
+ 21593 011c 7B68     		ldr	r3, [r7, #4]
+ 21594 011e 03F11403 		add	r3, r3, #20
+ 21595 0122 1846     		mov	r0, r3
+ 21596 0124 FFF7FEFF 		bl	_ZN5Air3T5Model9gamefieldEv
+ 21597 0128 0346     		mov	r3, r0
+ 21598 012a 1846     		mov	r0, r3
+ 21599 012c FFF7FEFF 		bl	_ZNK5Air3T9GameField6winnerEv
+ 21600 0130 0346     		mov	r3, r0
+ 21601 0132 002B     		cmp	r3, #0
+ 21602 0134 0CBF     		ite	eq
+ 21603 0136 0023     		moveq	r3, #0
+ 21604 0138 0123     		movne	r3, #1
+ 21605 013a DBB2     		uxtb	r3, r3
+ 21606 013c 002B     		cmp	r3, #0
+ 21607 013e 04D0     		beq	.L79
+ 107:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 						_state = ShowWinnerState;
+ 21608              		.loc 144 107 0
+ 21609 0140 7B68     		ldr	r3, [r7, #4]
+ 21610 0142 4FF00602 		mov	r2, #6
+ 21611 0146 1A74     		strb	r2, [r3, #16]
+ 21612 0148 03E0     		b	.L80
+ 21613              	.L79:
+ 108:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 					else
+ 109:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 						_state = WaitForPlayer2State;
+ 21614              		.loc 144 109 0
+ 21615 014a 7B68     		ldr	r3, [r7, #4]
+ 21616 014c 4FF00402 		mov	r2, #4
+ 21617 0150 1A74     		strb	r2, [r3, #16]
+ 21618              	.L80:
+ 110:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 					status = EventStatus::Consumed;
+ 21619              		.loc 144 110 0
+ 21620 0152 07F11803 		add	r3, r7, #24
+ 21621 0156 1846     		mov	r0, r3
+ 21622 0158 4FF00101 		mov	r1, #1
+ 21623 015c FFF7FEFF 		bl	_ZN11EventStatusC1ENS_12eEventStatusE
+ 21624 0160 3B7E     		ldrb	r3, [r7, #24]
+ 21625 0162 3B72     		strb	r3, [r7, #8]
+ 111:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 				}
+ 112:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 				break;
+ 21626              		.loc 144 112 0
+ 21627 0164 78E0     		b	.L64
+ 21628              	.L69:
+ 113:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 
+ 114:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 			case WaitForPlayer2State:
+ 115:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 				if ( event->getEventType() == IXFEvent::Event &&
+ 21629              		.loc 144 115 0
+ 21630 0166 F86C     		ldr	r0, [r7, #76]
+ 21631 0168 FFF7FEFF 		bl	_ZNK8IXFEvent12getEventTypeEv
+ 21632 016c 0346     		mov	r3, r0
+ 21633 016e 032B     		cmp	r3, #3
+ 21634 0170 08D1     		bne	.L81
+ 116:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 					 event->getId() == FieldSelectionEvent::Id )
+ 21635              		.loc 144 116 0 discriminator 1
+ 21636 0172 F86C     		ldr	r0, [r7, #76]
+ 21637 0174 FFF7FEFF 		bl	_ZNK8IXFEvent5getIdEv
+ 21638 0178 0346     		mov	r3, r0
+ 115:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 				if ( event->getEventType() == IXFEvent::Event &&
+ 21639              		.loc 144 115 0 discriminator 1
+ 21640 017a 012B     		cmp	r3, #1
+ 21641 017c 02D1     		bne	.L81
+ 115:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 				if ( event->getEventType() == IXFEvent::Event &&
+ 21642              		.loc 144 115 0 is_stmt 0 discriminator 3
+ 21643 017e 4FF00103 		mov	r3, #1
+ 21644 0182 01E0     		b	.L82
+ 21645              	.L81:
+ 115:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 				if ( event->getEventType() == IXFEvent::Event &&
+ 21646              		.loc 144 115 0 discriminator 2
+ 21647 0184 4FF00003 		mov	r3, #0
+ 21648              	.L82:
+ 115:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 				if ( event->getEventType() == IXFEvent::Event &&
+ 21649              		.loc 144 115 0 discriminator 4
+ 21650 0188 002B     		cmp	r3, #0
+ 21651 018a 60D0     		beq	.L102
+ 117:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 				{
+ 118:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 					_state = PlacePlayer2SymbolState;
+ 21652              		.loc 144 118 0 is_stmt 1
+ 21653 018c 7B68     		ldr	r3, [r7, #4]
+ 21654 018e 4FF00502 		mov	r2, #5
+ 21655 0192 1A74     		strb	r2, [r3, #16]
+ 119:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 					status = EventStatus::Consumed;
+ 21656              		.loc 144 119 0
+ 21657 0194 07F11C03 		add	r3, r7, #28
+ 21658 0198 1846     		mov	r0, r3
+ 21659 019a 4FF00101 		mov	r1, #1
+ 21660 019e FFF7FEFF 		bl	_ZN11EventStatusC1ENS_12eEventStatusE
+ 21661 01a2 3B7F     		ldrb	r3, [r7, #28]
+ 21662 01a4 3B72     		strb	r3, [r7, #8]
+ 120:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 				}
+ 121:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 				break;
+ 21663              		.loc 144 121 0
+ 21664 01a6 57E0     		b	.L64
+ 21665              	.L70:
+ 122:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 
+ 123:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 			case PlacePlayer2SymbolState:
+ 124:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 				if ( event->getEventType() == IXFEvent::NullTransition )
+ 21666              		.loc 144 124 0
+ 21667 01a8 F86C     		ldr	r0, [r7, #76]
+ 21668 01aa FFF7FEFF 		bl	_ZNK8IXFEvent12getEventTypeEv
+ 21669 01ae 0346     		mov	r3, r0
+ 21670 01b0 022B     		cmp	r3, #2
+ 21671 01b2 14BF     		ite	ne
+ 21672 01b4 0023     		movne	r3, #0
+ 21673 01b6 0123     		moveq	r3, #1
+ 21674 01b8 DBB2     		uxtb	r3, r3
+ 21675 01ba 002B     		cmp	r3, #0
+ 21676 01bc 49D0     		beq	.L103
+ 125:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 				{
+ 126:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 					if ( _model.gamefield().winner() != Air3T::GameField::None )
+ 21677              		.loc 144 126 0
+ 21678 01be 7B68     		ldr	r3, [r7, #4]
+ 21679 01c0 03F11403 		add	r3, r3, #20
+ 21680 01c4 1846     		mov	r0, r3
+ 21681 01c6 FFF7FEFF 		bl	_ZN5Air3T5Model9gamefieldEv
+ 21682 01ca 0346     		mov	r3, r0
+ 21683 01cc 1846     		mov	r0, r3
+ 21684 01ce FFF7FEFF 		bl	_ZNK5Air3T9GameField6winnerEv
+ 21685 01d2 0346     		mov	r3, r0
+ 21686 01d4 002B     		cmp	r3, #0
+ 21687 01d6 0CBF     		ite	eq
+ 21688 01d8 0023     		moveq	r3, #0
+ 21689 01da 0123     		movne	r3, #1
+ 21690 01dc DBB2     		uxtb	r3, r3
+ 21691 01de 002B     		cmp	r3, #0
+ 21692 01e0 04D0     		beq	.L85
+ 127:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 						_state = ShowWinnerState;
+ 21693              		.loc 144 127 0
+ 21694 01e2 7B68     		ldr	r3, [r7, #4]
+ 21695 01e4 4FF00602 		mov	r2, #6
+ 21696 01e8 1A74     		strb	r2, [r3, #16]
+ 21697 01ea 03E0     		b	.L86
+ 21698              	.L85:
+ 128:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 					else
+ 129:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 						_state = WaitForPlayer1State;
+ 21699              		.loc 144 129 0
+ 21700 01ec 7B68     		ldr	r3, [r7, #4]
+ 21701 01ee 4FF00202 		mov	r2, #2
+ 21702 01f2 1A74     		strb	r2, [r3, #16]
+ 21703              	.L86:
+ 130:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 					status = EventStatus::Consumed;
+ 21704              		.loc 144 130 0
+ 21705 01f4 07F12003 		add	r3, r7, #32
+ 21706 01f8 1846     		mov	r0, r3
+ 21707 01fa 4FF00101 		mov	r1, #1
+ 21708 01fe FFF7FEFF 		bl	_ZN11EventStatusC1ENS_12eEventStatusE
+ 21709 0202 97F82030 		ldrb	r3, [r7, #32]
+ 21710 0206 3B72     		strb	r3, [r7, #8]
+ 131:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 				}
+ 132:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 				break;
+ 21711              		.loc 144 132 0
+ 21712 0208 26E0     		b	.L64
+ 21713              	.L71:
+ 133:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 
+ 134:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 			case ShowWinnerState:
+ 135:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 				if ( event->getEventType() == IXFEvent::Timeout )
+ 21714              		.loc 144 135 0
+ 21715 020a F86C     		ldr	r0, [r7, #76]
+ 21716 020c FFF7FEFF 		bl	_ZNK8IXFEvent12getEventTypeEv
+ 21717 0210 0346     		mov	r3, r0
+ 21718 0212 042B     		cmp	r3, #4
+ 21719 0214 14BF     		ite	ne
+ 21720 0216 0023     		movne	r3, #0
+ 21721 0218 0123     		moveq	r3, #1
+ 21722 021a DBB2     		uxtb	r3, r3
+ 21723 021c 002B     		cmp	r3, #0
+ 21724 021e 1AD0     		beq	.L104
+ 136:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 				{
+ 137:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 					_state = StartGameState;
+ 21725              		.loc 144 137 0
+ 21726 0220 7B68     		ldr	r3, [r7, #4]
+ 21727 0222 4FF00102 		mov	r2, #1
+ 21728 0226 1A74     		strb	r2, [r3, #16]
+ 138:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 					status = EventStatus::Consumed;
+ 21729              		.loc 144 138 0
+ 21730 0228 07F12403 		add	r3, r7, #36
+ 21731 022c 1846     		mov	r0, r3
+ 21732 022e 4FF00101 		mov	r1, #1
+ 21733 0232 FFF7FEFF 		bl	_ZN11EventStatusC1ENS_12eEventStatusE
+ 21734 0236 97F82430 		ldrb	r3, [r7, #36]
+ 21735 023a 3B72     		strb	r3, [r7, #8]
+ 139:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 				}
+ 140:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 				break;
+ 21736              		.loc 144 140 0
+ 21737 023c 0CE0     		b	.L64
+ 21738              	.L98:
+  84:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 				break;
+ 21739              		.loc 144 84 0
+ 21740 023e 00BF     		nop
+ 21741 0240 0AE0     		b	.L64
+ 21742              	.L99:
+  92:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 				break;
+ 21743              		.loc 144 92 0
+ 21744 0242 00BF     		nop
+ 21745 0244 08E0     		b	.L64
+ 21746              	.L100:
+ 101:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 				break;
+ 21747              		.loc 144 101 0
+ 21748 0246 00BF     		nop
+ 21749 0248 06E0     		b	.L64
+ 21750              	.L101:
+ 112:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 				break;
+ 21751              		.loc 144 112 0
+ 21752 024a 00BF     		nop
+ 21753 024c 04E0     		b	.L64
+ 21754              	.L102:
+ 121:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 				break;
+ 21755              		.loc 144 121 0
+ 21756 024e 00BF     		nop
+ 21757 0250 02E0     		b	.L64
+ 21758              	.L103:
+ 132:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 				break;
+ 21759              		.loc 144 132 0
+ 21760 0252 00BF     		nop
+ 21761 0254 00E0     		b	.L64
+ 21762              	.L104:
+ 21763              		.loc 144 140 0
+ 21764 0256 00BF     		nop
+ 21765              	.L64:
+ 21766              	.LBB15:
+ 141:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 		}
+ 142:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 
+ 143:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 		// Execute on entry code.
+ 144:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 		if ( _state != _oldState )
+ 21767              		.loc 144 144 0
+ 21768 0258 7B68     		ldr	r3, [r7, #4]
+ 21769 025a 1B7C     		ldrb	r3, [r3, #16]	@ zero_extendqisi2
+ 21770 025c 97F84B20 		ldrb	r2, [r7, #75]	@ zero_extendqisi2
+ 21771 0260 9A42     		cmp	r2, r3
+ 21772 0262 00F0EC80 		beq	.L88
+ 21773              	.LBB16:
+ 21774              	.LBB17:
+ 145:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 		{
+ 146:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 			switch( _state )
+ 21775              		.loc 144 146 0
+ 21776 0266 7B68     		ldr	r3, [r7, #4]
+ 21777 0268 1B7C     		ldrb	r3, [r3, #16]	@ zero_extendqisi2
+ 21778 026a 062B     		cmp	r3, #6
+ 21779 026c 00F2E780 		bhi	.L88
+ 21780 0270 01A2     		adr	r2, .L97
+ 21781 0272 52F823F0 		ldr	pc, [r2, r3, lsl #2]
+ 21782 0276 00BF     		.align	2
+ 21783              	.L97:
+ 21784 0278 95020000 		.word	.L90+1
+ 21785 027c C9020000 		.word	.L91+1
+ 21786 0280 3F040000 		.word	.L88+1
+ 21787 0284 41030000 		.word	.L93+1
+ 21788 0288 3F040000 		.word	.L88+1
+ 21789 028c A3030000 		.word	.L95+1
+ 21790 0290 05040000 		.word	.L96+1
+ 21791              	.L90:
+ 21792              	.LBB18:
+ 147:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 			{
+ 148:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 				case InitialState:
+ 149:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 					GEN( XFNullTransition() );
+ 21793              		.loc 144 149 0
+ 21794 0294 7B68     		ldr	r3, [r7, #4]
+ 21795 0296 5B68     		ldr	r3, [r3, #4]
+ 21796 0298 03F10C03 		add	r3, r3, #12
+ 21797 029c 1D68     		ldr	r5, [r3, #0]
+ 21798 029e 7B68     		ldr	r3, [r7, #4]
+ 21799 02a0 03F10406 		add	r6, r3, #4
+ 21800 02a4 4FF01400 		mov	r0, #20
+ 21801 02a8 FFF7FEFF 		bl	_Znwj
+ 21802 02ac 0446     		mov	r4, r0
+ 21803 02ae 2346     		mov	r3, r4
+ 21804 02b0 1846     		mov	r0, r3
+ 21805 02b2 4FF00001 		mov	r1, #0
+ 21806 02b6 4FF00002 		mov	r2, #0
+ 21807 02ba FFF7FEFF 		bl	_ZN16XFNullTransitionC1EiP11IXFReactive
+ 21808 02be 2346     		mov	r3, r4
+ 21809 02c0 3046     		mov	r0, r6
+ 21810 02c2 1946     		mov	r1, r3
+ 21811 02c4 A847     		blx	r5
+ 150:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 					break;
+ 21812              		.loc 144 150 0
+ 21813 02c6 BAE0     		b	.L88
+ 21814              	.L91:
+ 151:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 
+ 152:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 				case StartGameState:
+ 153:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 
+ 154:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 					_model.gamefield().clear();
+ 21815              		.loc 144 154 0
+ 21816 02c8 7B68     		ldr	r3, [r7, #4]
+ 21817 02ca 03F11403 		add	r3, r3, #20
+ 21818 02ce 1846     		mov	r0, r3
+ 21819 02d0 FFF7FEFF 		bl	_ZN5Air3T5Model9gamefieldEv
+ 21820 02d4 0346     		mov	r3, r0
+ 21821 02d6 1846     		mov	r0, r3
+ 21822 02d8 FFF7FEFF 		bl	_ZN5Air3T9GameField5clearEv
+ 155:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 					_view->setCursorPosition( Air3T::GameField::Field( 0 , 0 ) );
+ 21823              		.loc 144 155 0
+ 21824 02dc 7B68     		ldr	r3, [r7, #4]
+ 21825 02de DC6C     		ldr	r4, [r3, #76]
+ 21826 02e0 07F12803 		add	r3, r7, #40
+ 21827 02e4 1846     		mov	r0, r3
+ 21828 02e6 4FF00001 		mov	r1, #0
+ 21829 02ea 4FF00002 		mov	r2, #0
+ 21830 02ee FFF7FEFF 		bl	_ZN5Air3T9GameField5FieldC1Ejj
+ 21831 02f2 07F12803 		add	r3, r7, #40
+ 21832 02f6 2046     		mov	r0, r4
+ 21833 02f8 1946     		mov	r1, r3
+ 21834 02fa FFF7FEFF 		bl	_ZN5Air3T8GameView17setCursorPositionERKNS_9GameField5FieldE
+ 156:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 					_view->setCursorEnabled( true );
+ 21835              		.loc 144 156 0
+ 21836 02fe 7B68     		ldr	r3, [r7, #4]
+ 21837 0300 DB6C     		ldr	r3, [r3, #76]
+ 21838 0302 1846     		mov	r0, r3
+ 21839 0304 4FF00101 		mov	r1, #1
+ 21840 0308 FFF7FEFF 		bl	_ZN5Air3T8GameView16setCursorEnabledEb
+ 157:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 
+ 158:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 					GEN( XFNullTransition() );
+ 21841              		.loc 144 158 0
+ 21842 030c 7B68     		ldr	r3, [r7, #4]
+ 21843 030e 5B68     		ldr	r3, [r3, #4]
+ 21844 0310 03F10C03 		add	r3, r3, #12
+ 21845 0314 1D68     		ldr	r5, [r3, #0]
+ 21846 0316 7B68     		ldr	r3, [r7, #4]
+ 21847 0318 03F10406 		add	r6, r3, #4
+ 21848 031c 4FF01400 		mov	r0, #20
+ 21849 0320 FFF7FEFF 		bl	_Znwj
+ 21850 0324 0446     		mov	r4, r0
+ 21851 0326 2346     		mov	r3, r4
+ 21852 0328 1846     		mov	r0, r3
+ 21853 032a 4FF00001 		mov	r1, #0
+ 21854 032e 4FF00002 		mov	r2, #0
+ 21855 0332 FFF7FEFF 		bl	_ZN16XFNullTransitionC1EiP11IXFReactive
+ 21856 0336 2346     		mov	r3, r4
+ 21857 0338 3046     		mov	r0, r6
+ 21858 033a 1946     		mov	r1, r3
+ 21859 033c A847     		blx	r5
+ 159:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 					break;
+ 21860              		.loc 144 159 0
+ 21861 033e 7EE0     		b	.L88
+ 21862              	.L93:
+ 21863              	.LBB19:
+ 160:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 
+ 161:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 				case WaitForPlayer1State:
+ 162:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 					break;
+ 163:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 
+ 164:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 				case PlacePlayer1SymbolState:
+ 165:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 					{
+ 166:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 						FieldSelectionEvent *se = static_cast<FieldSelectionEvent *>( event );
+ 21864              		.loc 144 166 0
+ 21865 0340 FB6C     		ldr	r3, [r7, #76]
+ 21866 0342 7B64     		str	r3, [r7, #68]
+ 167:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 
+ 168:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 						_model.gamefield().setSymbol( se->field() , Air3T::GameField::Circle );
+ 21867              		.loc 144 168 0
+ 21868 0344 7B68     		ldr	r3, [r7, #4]
+ 21869 0346 03F11403 		add	r3, r3, #20
+ 21870 034a 1846     		mov	r0, r3
+ 21871 034c FFF7FEFF 		bl	_ZN5Air3T5Model9gamefieldEv
+ 21872 0350 0446     		mov	r4, r0
+ 21873 0352 07F13003 		add	r3, r7, #48
+ 21874 0356 1846     		mov	r0, r3
+ 21875 0358 796C     		ldr	r1, [r7, #68]
+ 21876 035a FFF7FEFF 		bl	_ZNK18LocalTTTController19FieldSelectionEvent5fieldEv
+ 21877 035e 07F13003 		add	r3, r7, #48
+ 21878 0362 2046     		mov	r0, r4
+ 21879 0364 1946     		mov	r1, r3
+ 21880 0366 4FF00102 		mov	r2, #1
+ 21881 036a FFF7FEFF 		bl	_ZN5Air3T9GameField9setSymbolERKNS0_5FieldENS0_6SymbolE
+ 169:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 
+ 170:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 						GEN( XFNullTransition() );
+ 21882              		.loc 144 170 0
+ 21883 036e 7B68     		ldr	r3, [r7, #4]
+ 21884 0370 5B68     		ldr	r3, [r3, #4]
+ 21885 0372 03F10C03 		add	r3, r3, #12
+ 21886 0376 1D68     		ldr	r5, [r3, #0]
+ 21887 0378 7B68     		ldr	r3, [r7, #4]
+ 21888 037a 03F10406 		add	r6, r3, #4
+ 21889 037e 4FF01400 		mov	r0, #20
+ 21890 0382 FFF7FEFF 		bl	_Znwj
+ 21891 0386 0446     		mov	r4, r0
+ 21892 0388 2346     		mov	r3, r4
+ 21893 038a 1846     		mov	r0, r3
+ 21894 038c 4FF00001 		mov	r1, #0
+ 21895 0390 4FF00002 		mov	r2, #0
+ 21896 0394 FFF7FEFF 		bl	_ZN16XFNullTransitionC1EiP11IXFReactive
+ 21897 0398 2346     		mov	r3, r4
+ 21898 039a 3046     		mov	r0, r6
+ 21899 039c 1946     		mov	r1, r3
+ 21900 039e A847     		blx	r5
+ 21901              	.LBE19:
+ 171:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 					}
+ 172:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 					break;
+ 21902              		.loc 144 172 0
+ 21903 03a0 4DE0     		b	.L88
+ 21904              	.L95:
+ 21905              	.LBB20:
+ 173:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 
+ 174:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 				case WaitForPlayer2State:
+ 175:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 					break;
+ 176:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 
+ 177:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 				case PlacePlayer2SymbolState:
+ 178:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 					{
+ 179:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 						FieldSelectionEvent *se = static_cast<FieldSelectionEvent *>( event );
+ 21906              		.loc 144 179 0
+ 21907 03a2 FB6C     		ldr	r3, [r7, #76]
+ 21908 03a4 3B64     		str	r3, [r7, #64]
+ 180:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 
+ 181:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 						_model.gamefield().setSymbol( se->field() , Air3T::GameField::Cross );
+ 21909              		.loc 144 181 0
+ 21910 03a6 7B68     		ldr	r3, [r7, #4]
+ 21911 03a8 03F11403 		add	r3, r3, #20
+ 21912 03ac 1846     		mov	r0, r3
+ 21913 03ae FFF7FEFF 		bl	_ZN5Air3T5Model9gamefieldEv
+ 21914 03b2 0446     		mov	r4, r0
+ 21915 03b4 07F13803 		add	r3, r7, #56
+ 21916 03b8 1846     		mov	r0, r3
+ 21917 03ba 396C     		ldr	r1, [r7, #64]
+ 21918 03bc FFF7FEFF 		bl	_ZNK18LocalTTTController19FieldSelectionEvent5fieldEv
+ 21919 03c0 07F13803 		add	r3, r7, #56
+ 21920 03c4 2046     		mov	r0, r4
+ 21921 03c6 1946     		mov	r1, r3
+ 21922 03c8 4FF0FF32 		mov	r2, #-1
+ 21923 03cc FFF7FEFF 		bl	_ZN5Air3T9GameField9setSymbolERKNS0_5FieldENS0_6SymbolE
+ 182:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 
+ 183:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 						GEN( XFNullTransition() );
+ 21924              		.loc 144 183 0
+ 21925 03d0 7B68     		ldr	r3, [r7, #4]
+ 21926 03d2 5B68     		ldr	r3, [r3, #4]
+ 21927 03d4 03F10C03 		add	r3, r3, #12
+ 21928 03d8 1D68     		ldr	r5, [r3, #0]
+ 21929 03da 7B68     		ldr	r3, [r7, #4]
+ 21930 03dc 03F10406 		add	r6, r3, #4
+ 21931 03e0 4FF01400 		mov	r0, #20
+ 21932 03e4 FFF7FEFF 		bl	_Znwj
+ 21933 03e8 0446     		mov	r4, r0
+ 21934 03ea 2346     		mov	r3, r4
+ 21935 03ec 1846     		mov	r0, r3
+ 21936 03ee 4FF00001 		mov	r1, #0
+ 21937 03f2 4FF00002 		mov	r2, #0
+ 21938 03f6 FFF7FEFF 		bl	_ZN16XFNullTransitionC1EiP11IXFReactive
+ 21939 03fa 2346     		mov	r3, r4
+ 21940 03fc 3046     		mov	r0, r6
+ 21941 03fe 1946     		mov	r1, r3
+ 21942 0400 A847     		blx	r5
+ 21943              	.LBE20:
+ 184:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 					}
+ 185:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 					break;
+ 21944              		.loc 144 185 0
+ 21945 0402 1CE0     		b	.L88
+ 21946              	.L96:
+ 186:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 
+ 187:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 				case ShowWinnerState:
+ 188:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 					_view->setCursorEnabled( false );
+ 21947              		.loc 144 188 0
+ 21948 0404 7B68     		ldr	r3, [r7, #4]
+ 21949 0406 DB6C     		ldr	r3, [r3, #76]
+ 21950 0408 1846     		mov	r0, r3
+ 21951 040a 4FF00001 		mov	r1, #0
+ 21952 040e FFF7FEFF 		bl	_ZN5Air3T8GameView16setCursorEnabledEb
+ 189:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 					getThread()->scheduleTimeout( 0 , 2500 , this );
+ 21953              		.loc 144 189 0
+ 21954 0412 7B68     		ldr	r3, [r7, #4]
+ 21955 0414 5B68     		ldr	r3, [r3, #4]
+ 21956 0416 03F11803 		add	r3, r3, #24
+ 21957 041a 1B68     		ldr	r3, [r3, #0]
+ 21958 041c 7A68     		ldr	r2, [r7, #4]
+ 21959 041e 02F10402 		add	r2, r2, #4
+ 21960 0422 1046     		mov	r0, r2
+ 21961 0424 9847     		blx	r3
+ 21962 0426 0246     		mov	r2, r0
+ 21963 0428 7B68     		ldr	r3, [r7, #4]
+ 21964 042a 03F10403 		add	r3, r3, #4
+ 21965 042e 1046     		mov	r0, r2
+ 21966 0430 4FF00001 		mov	r1, #0
+ 21967 0434 40F6C412 		movw	r2, #2500
+ 21968 0438 FFF7FEFF 		bl	_ZN8XFThread15scheduleTimeoutEiiP11IXFReactive
+ 190:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 					break;
+ 21969              		.loc 144 190 0
+ 21970 043c 00BF     		nop
+ 21971              	.L88:
+ 21972              	.LBE18:
+ 21973              	.LBE17:
+ 21974              	.LBE16:
+ 21975              	.LBE15:
+ 191:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 			}
+ 192:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 		}
+ 193:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 
+ 194:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 		return status;
+ 21976              		.loc 144 194 0
+ 21977 043e 3B7A     		ldrb	r3, [r7, #8]
+ 21978              	.LBE14:
+ 195:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 	}
+ 21979              		.loc 144 195 0
+ 21980 0440 1846     		mov	r0, r3
+ 21981 0442 07F15407 		add	r7, r7, #84
+ 21982 0446 BD46     		mov	sp, r7
+ 21983 0448 F0BD     		pop	{r4, r5, r6, r7, pc}
+ 21984              		.cfi_endproc
+ 21985              	.LFE1421:
+ 21987              		.thumb_set .LTHUNK2,_ZN18LocalTTTController12processEventEv
+ 21988 044a 00BF     		.align	2
+ 21989              		.weak	_ZThn4_N18LocalTTTController12processEventEv
+ 21990              		.thumb
+ 21991              		.thumb_func
+ 21993              	_ZThn4_N18LocalTTTController12processEventEv:
+ 21994 044c A0F10400 		sub	r0, r0, #4
+ 21995 0450 D6E5     		b	.LTHUNK2
+ 21997 0452 00BF     		.section	.text._ZN18LocalTTTController20onGameFieldSelectionERKN5Air3T9GameField5FieldE,"axG",%pro
+ 21998              		.align	2
+ 21999              		.weak	_ZN18LocalTTTController20onGameFieldSelectionERKN5Air3T9GameField5FieldE
+ 22000              		.thumb
+ 22001              		.thumb_func
+ 22003              	_ZN18LocalTTTController20onGameFieldSelectionERKN5Air3T9GameField5FieldE:
+ 22004              	.LFB1422:
+ 196:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 
+ 197:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 	/**
+ 198:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 	 * Handle the event when the user has selected a field to place his symbol.
+ 199:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 	 */
+ 200:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 	void onGameFieldSelection( const Air3T::GameField::Field & field )
+ 22005              		.loc 144 200 0
+ 22006              		.cfi_startproc
+ 22007              		@ args = 0, pretend = 0, frame = 8
+ 22008              		@ frame_needed = 1, uses_anonymous_args = 0
+ 22009 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+ 22010              	.LCFI72:
+ 22011              		.cfi_def_cfa_offset 20
+ 22012 0002 83B0     		sub	sp, sp, #12
+ 22013              	.LCFI73:
+ 22014              		.cfi_def_cfa_offset 32
+ 22015 0004 00AF     		add	r7, sp, #0
+ 22016              		.cfi_offset 14, -4
+ 22017              		.cfi_offset 7, -8
+ 22018              		.cfi_offset 6, -12
+ 22019              		.cfi_offset 5, -16
+ 22020              		.cfi_offset 4, -20
+ 22021              	.LCFI74:
+ 22022              		.cfi_def_cfa_register 7
+ 22023 0006 7860     		str	r0, [r7, #4]
+ 22024 0008 3960     		str	r1, [r7, #0]
+ 201:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 	{
+ 202:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 		// Convert the method call into an event...
+ 203:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 		GEN( FieldSelectionEvent( field ) );
+ 22025              		.loc 144 203 0
+ 22026 000a 7B68     		ldr	r3, [r7, #4]
+ 22027 000c 5B68     		ldr	r3, [r3, #4]
+ 22028 000e 03F10C03 		add	r3, r3, #12
+ 22029 0012 1D68     		ldr	r5, [r3, #0]
+ 22030 0014 7B68     		ldr	r3, [r7, #4]
+ 22031 0016 03F10406 		add	r6, r3, #4
+ 22032 001a 4FF01C00 		mov	r0, #28
+ 22033 001e FFF7FEFF 		bl	_Znwj
+ 22034 0022 0446     		mov	r4, r0
+ 22035 0024 2346     		mov	r3, r4
+ 22036 0026 1846     		mov	r0, r3
+ 22037 0028 3968     		ldr	r1, [r7, #0]
+ 22038 002a FFF7FEFF 		bl	_ZN18LocalTTTController19FieldSelectionEventC1ERKN5Air3T9GameField5FieldE
+ 22039 002e 2346     		mov	r3, r4
+ 22040 0030 3046     		mov	r0, r6
+ 22041 0032 1946     		mov	r1, r3
+ 22042 0034 A847     		blx	r5
+ 204:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 	}
+ 22043              		.loc 144 204 0
+ 22044 0036 07F10C07 		add	r7, r7, #12
+ 22045 003a BD46     		mov	sp, r7
+ 22046 003c F0BD     		pop	{r4, r5, r6, r7, pc}
+ 22047              		.cfi_endproc
+ 22048              	.LFE1422:
+ 22050 003e 00BF     		.section	.text._ZN7BuilderC2Ev,"ax",%progbits
+ 22051              		.align	2
+ 22052              		.global	_ZN7BuilderC2Ev
+ 22053              		.thumb
+ 22054              		.thumb_func
+ 22056              	_ZN7BuilderC2Ev:
+ 22057              	.LFB1424:
+   1:../target/stm32/builder.cpp **** #include "inc/config.h"
+   2:../target/stm32/builder.cpp **** #include <IAir3TFactory>
+   3:../target/stm32/builder.cpp **** #include <hal/uart.h>
+   4:../target/stm32/builder.cpp **** #include <trace/trace.h>
+   5:../target/stm32/builder.cpp **** #include "inc/builder.h"
+   6:../target/stm32/builder.cpp **** #include "inc/factory.h"
+   7:../target/stm32/builder.cpp **** #include <board/joystick.h>
+   8:../target/stm32/builder.cpp **** #include <IPhyTransceiver>
+   9:../target/stm32/builder.cpp **** #include <IMonochromeDisplay>
+  10:../target/stm32/builder.cpp **** #include <utils/MonochromeDisplayPainter>
+  11:../target/stm32/builder.cpp **** #include <phy/Frame>
+  12:../target/stm32/builder.cpp **** 
+  13:../target/stm32/builder.cpp **** #if (USE_USB_TRACE != 0)
+  14:../target/stm32/builder.cpp **** #	include <board/usb-vcom/usb-vcom.h>
+  15:../target/stm32/builder.cpp **** #endif
+  16:../target/stm32/builder.cpp **** 
+  17:../target/stm32/builder.cpp **** #ifdef LEDBLINK_TESTER
+  18:../target/stm32/builder.cpp **** #	include <test/ledblinker.hpp>
+  19:../target/stm32/builder.cpp **** #endif
+  20:../target/stm32/builder.cpp **** 
+  21:../target/stm32/builder.cpp **** #ifdef PAINT_TESTER
+  22:../target/stm32/builder.cpp **** #	include <test/painttester.hpp>
+  23:../target/stm32/builder.cpp **** #endif
+  24:../target/stm32/builder.cpp **** 
+  25:../target/stm32/builder.cpp **** #ifdef FSM_TESTER
+  26:../target/stm32/builder.cpp **** #	include <test/simpleFsm.hpp>
+  27:../target/stm32/builder.cpp **** #endif
+  28:../target/stm32/builder.cpp **** 
+  29:../target/stm32/builder.cpp **** #ifdef LOCALTTT_TESTER
+  30:../target/stm32/builder.cpp **** #	include <test/localtttcontroller.hpp>
+  31:../target/stm32/builder.cpp **** #endif
+  32:../target/stm32/builder.cpp **** 
+  33:../target/stm32/builder.cpp **** #ifdef PHY_TESTER
+  34:../target/stm32/builder.cpp **** #	include <test/phytester.hpp>
+  35:../target/stm32/builder.cpp **** #endif
+  36:../target/stm32/builder.cpp **** 
+  37:../target/stm32/builder.cpp **** #ifdef AIR3T_APPLICATION
+  38:../target/stm32/builder.cpp **** #	include <desenet/application/Application>
+  39:../target/stm32/builder.cpp **** #	include <desenet/datalink/DataLink>
+  40:../target/stm32/builder.cpp **** #	include <air3t/logic/Controller>
+  41:../target/stm32/builder.cpp **** 
+  42:../target/stm32/builder.cpp **** 	using namespace DeSeNet;
+  43:../target/stm32/builder.cpp **** #endif
+  44:../target/stm32/builder.cpp **** 
+  45:../target/stm32/builder.cpp **** 
+  46:../target/stm32/builder.cpp **** Builder::Builder()
+ 22058              		.loc 1 46 0
+ 22059              		.cfi_startproc
+ 22060              		@ args = 0, pretend = 0, frame = 8
+ 22061              		@ frame_needed = 1, uses_anonymous_args = 0
+ 22062 0000 80B5     		push	{r7, lr}
+ 22063              	.LCFI75:
+ 22064              		.cfi_def_cfa_offset 8
+ 22065 0002 82B0     		sub	sp, sp, #8
+ 22066              	.LCFI76:
+ 22067              		.cfi_def_cfa_offset 16
+ 22068 0004 00AF     		add	r7, sp, #0
+ 22069              		.cfi_offset 14, -4
+ 22070              		.cfi_offset 7, -8
+ 22071              	.LCFI77:
+ 22072              		.cfi_def_cfa_register 7
+ 22073 0006 7860     		str	r0, [r7, #4]
+ 22074              	.LBB21:
+ 22075              		.loc 1 46 0
+ 22076 0008 7B68     		ldr	r3, [r7, #4]
+ 22077 000a 1846     		mov	r0, r3
+ 22078 000c FFF7FEFF 		bl	_ZN8IBuilderC2Ev
+ 22079 0010 7B68     		ldr	r3, [r7, #4]
+ 22080 0012 044A     		ldr	r2, .L108
+ 22081 0014 1A60     		str	r2, [r3, #0]
+ 22082              	.LBE21:
+  47:../target/stm32/builder.cpp **** {
+  48:../target/stm32/builder.cpp **** 
+  49:../target/stm32/builder.cpp **** }
+ 22083              		.loc 1 49 0
+ 22084 0016 7B68     		ldr	r3, [r7, #4]
+ 22085 0018 1846     		mov	r0, r3
+ 22086 001a 07F10807 		add	r7, r7, #8
+ 22087 001e BD46     		mov	sp, r7
+ 22088 0020 80BD     		pop	{r7, pc}
+ 22089              	.L109:
+ 22090 0022 00BF     		.align	2
+ 22091              	.L108:
+ 22092 0024 08000000 		.word	_ZTV7Builder+8
+ 22093              		.cfi_endproc
+ 22094              	.LFE1424:
+ 22096              		.global	_ZN7BuilderC1Ev
+ 22097              		.thumb_set _ZN7BuilderC1Ev,_ZN7BuilderC2Ev
+ 22098              		.section	.text._ZN7BuilderD2Ev,"ax",%progbits
+ 22099              		.align	2
+ 22100              		.global	_ZN7BuilderD2Ev
+ 22101              		.thumb
+ 22102              		.thumb_func
+ 22104              	_ZN7BuilderD2Ev:
+ 22105              	.LFB1427:
+  50:../target/stm32/builder.cpp **** 
+  51:../target/stm32/builder.cpp **** Builder::~Builder()
+ 22106              		.loc 1 51 0
+ 22107              		.cfi_startproc
+ 22108              		@ args = 0, pretend = 0, frame = 8
+ 22109              		@ frame_needed = 1, uses_anonymous_args = 0
+ 22110 0000 80B5     		push	{r7, lr}
+ 22111              	.LCFI78:
+ 22112              		.cfi_def_cfa_offset 8
+ 22113 0002 82B0     		sub	sp, sp, #8
+ 22114              	.LCFI79:
+ 22115              		.cfi_def_cfa_offset 16
+ 22116 0004 00AF     		add	r7, sp, #0
+ 22117              		.cfi_offset 14, -4
+ 22118              		.cfi_offset 7, -8
+ 22119              	.LCFI80:
+ 22120              		.cfi_def_cfa_register 7
+ 22121 0006 7860     		str	r0, [r7, #4]
+ 22122              	.LBB22:
+ 22123              		.loc 1 51 0
+ 22124 0008 7B68     		ldr	r3, [r7, #4]
+ 22125 000a 0B4A     		ldr	r2, .L113
+ 22126 000c 1A60     		str	r2, [r3, #0]
+ 22127 000e 7B68     		ldr	r3, [r7, #4]
+  52:../target/stm32/builder.cpp **** {
+  53:../target/stm32/builder.cpp **** 
+  54:../target/stm32/builder.cpp **** }
+ 22128              		.loc 1 54 0
+ 22129 0010 1846     		mov	r0, r3
+ 22130 0012 FFF7FEFF 		bl	_ZN8IBuilderD2Ev
+ 22131              	.LBE22:
+ 22132 0016 4FF00003 		mov	r3, #0
+ 22133 001a 03F00103 		and	r3, r3, #1
+ 22134 001e DBB2     		uxtb	r3, r3
+ 22135 0020 002B     		cmp	r3, #0
+ 22136 0022 02D0     		beq	.L112
+ 22137              		.loc 1 54 0 is_stmt 0 discriminator 2
+ 22138 0024 7868     		ldr	r0, [r7, #4]
+ 22139 0026 FFF7FEFF 		bl	_ZdlPv
+ 22140              	.L112:
+ 22141              		.loc 1 54 0 discriminator 3
+ 22142 002a 7B68     		ldr	r3, [r7, #4]
+ 22143 002c 1846     		mov	r0, r3
+ 22144 002e 07F10807 		add	r7, r7, #8
+ 22145 0032 BD46     		mov	sp, r7
+ 22146 0034 80BD     		pop	{r7, pc}
+ 22147              	.L114:
+ 22148 0036 00BF     		.align	2
+ 22149              	.L113:
+ 22150 0038 08000000 		.word	_ZTV7Builder+8
+ 22151              		.cfi_endproc
+ 22152              	.LFE1427:
+ 22154              		.global	_ZN7BuilderD1Ev
+ 22155              		.thumb_set _ZN7BuilderD1Ev,_ZN7BuilderD2Ev
+ 22156              		.section	.text._ZN7BuilderD0Ev,"ax",%progbits
+ 22157              		.align	2
+ 22158              		.global	_ZN7BuilderD0Ev
+ 22159              		.thumb
+ 22160              		.thumb_func
+ 22162              	_ZN7BuilderD0Ev:
+ 22163              	.LFB1429:
+  51:../target/stm32/builder.cpp **** Builder::~Builder()
+ 22164              		.loc 1 51 0 is_stmt 1
+ 22165              		.cfi_startproc
+ 22166              		@ args = 0, pretend = 0, frame = 8
+ 22167              		@ frame_needed = 1, uses_anonymous_args = 0
+ 22168 0000 80B5     		push	{r7, lr}
+ 22169              	.LCFI81:
+ 22170              		.cfi_def_cfa_offset 8
+ 22171 0002 82B0     		sub	sp, sp, #8
+ 22172              	.LCFI82:
+ 22173              		.cfi_def_cfa_offset 16
+ 22174 0004 00AF     		add	r7, sp, #0
+ 22175              		.cfi_offset 14, -4
+ 22176              		.cfi_offset 7, -8
+ 22177              	.LCFI83:
+ 22178              		.cfi_def_cfa_register 7
+ 22179 0006 7860     		str	r0, [r7, #4]
+ 22180              		.loc 1 54 0
+ 22181 0008 7868     		ldr	r0, [r7, #4]
+ 22182 000a FFF7FEFF 		bl	_ZN7BuilderD1Ev
+ 22183 000e 7868     		ldr	r0, [r7, #4]
+ 22184 0010 FFF7FEFF 		bl	_ZdlPv
+ 22185 0014 7B68     		ldr	r3, [r7, #4]
+ 22186 0016 1846     		mov	r0, r3
+ 22187 0018 07F10807 		add	r7, r7, #8
+ 22188 001c BD46     		mov	sp, r7
+ 22189 001e 80BD     		pop	{r7, pc}
+ 22190              		.cfi_endproc
+ 22191              	.LFE1429:
+ 22193              		.section	.rodata
+ 22194              		.align	2
+ 22195              	.LC0:
+ 22196 0000 2D2D2D2D 		.ascii	"---------------------------------------------------"
+ 22196      2D2D2D2D 
+ 22196      2D2D2D2D 
+ 22196      2D2D2D2D 
+ 22196      2D2D2D2D 
+ 22197 0033 2D2D2D2D 		.ascii	"------------\000"
+ 22197      2D2D2D2D 
+ 22197      2D2D2D2D 
+ 22197      00
+ 22198              		.align	2
+ 22199              	.LC1:
+ 22200 0040 496E6974 		.ascii	"Initializing application...\000"
+ 22200      69616C69 
+ 22200      7A696E67 
+ 22200      20617070 
+ 22200      6C696361 
+ 22201              		.align	2
+ 22202              	.LC2:
+ 22203 005c 53746172 		.ascii	"Starting application...\000"
+ 22203      74696E67 
+ 22203      20617070 
+ 22203      6C696361 
+ 22203      74696F6E 
+ 22204              		.section	.text._ZN7Builder16buildApplicationEiPPc,"ax",%progbits
+ 22205              		.align	2
+ 22206              		.global	_ZN7Builder16buildApplicationEiPPc
+ 22207              		.thumb
+ 22208              		.thumb_func
+ 22210              	_ZN7Builder16buildApplicationEiPPc:
+ 22211              	.LFB1430:
+  55:../target/stm32/builder.cpp **** 
+  56:../target/stm32/builder.cpp **** bool Builder::buildApplication(int argc, char ** argv)
+  57:../target/stm32/builder.cpp **** {
+ 22212              		.loc 1 57 0
+ 22213              		.cfi_startproc
+ 22214              		@ args = 0, pretend = 0, frame = 24
+ 22215              		@ frame_needed = 1, uses_anonymous_args = 0
+ 22216 0000 80B5     		push	{r7, lr}
+ 22217              	.LCFI84:
+ 22218              		.cfi_def_cfa_offset 8
+ 22219 0002 86B0     		sub	sp, sp, #24
+ 22220              	.LCFI85:
+ 22221              		.cfi_def_cfa_offset 32
+ 22222 0004 00AF     		add	r7, sp, #0
+ 22223              		.cfi_offset 14, -4
+ 22224              		.cfi_offset 7, -8
+ 22225              	.LCFI86:
+ 22226              		.cfi_def_cfa_register 7
+ 22227 0006 F860     		str	r0, [r7, #12]
+ 22228 0008 B960     		str	r1, [r7, #8]
+ 22229 000a 7A60     		str	r2, [r7, #4]
+ 22230              	.LBB23:
+  58:../target/stm32/builder.cpp **** 	Factory & factory =  static_cast<Factory &>(IAir3TFactory::factory(argc, argv));
+ 22231              		.loc 1 58 0
+ 22232 000c B868     		ldr	r0, [r7, #8]
+ 22233 000e 7968     		ldr	r1, [r7, #4]
+ 22234 0010 FFF7FEFF 		bl	_ZN13IAir3TFactory7factoryEiPPc
+ 22235 0014 0346     		mov	r3, r0
+ 22236 0016 7B61     		str	r3, [r7, #20]
+  59:../target/stm32/builder.cpp **** 
+  60:../target/stm32/builder.cpp **** 	// Initialize frame pool used by Frame instances
+  61:../target/stm32/builder.cpp **** 	Frame::initializeFramePool(3);
+ 22237              		.loc 1 61 0
+ 22238 0018 4FF00300 		mov	r0, #3
+ 22239 001c 4FF00001 		mov	r1, #0
+ 22240 0020 FFF7FEFF 		bl	_ZN5Frame19initializeFramePoolEjPPh
+  62:../target/stm32/builder.cpp **** 
+  63:../target/stm32/builder.cpp **** #if (USE_USART2_TRACE != 0)
+  64:../target/stm32/builder.cpp **** 	// Create instance of UART (USART2)
+  65:../target/stm32/builder.cpp **** 	factory.uart(1).initialize(115200);
+ 22241              		.loc 1 65 0
+ 22242 0024 7869     		ldr	r0, [r7, #20]
+ 22243 0026 4FF00101 		mov	r1, #1
+ 22244 002a FFF7FEFF 		bl	_ZN7Factory4uartEh
+ 22245 002e 0346     		mov	r3, r0
+ 22246 0030 1846     		mov	r0, r3
+ 22247 0032 4FF4E131 		mov	r1, #115200
+ 22248 0036 FFF7FEFF 		bl	_ZN4Uart10initializeEm
+  66:../target/stm32/builder.cpp **** #endif
+  67:../target/stm32/builder.cpp **** 
+  68:../target/stm32/builder.cpp **** #if (USE_USB_TRACE != 0)
+  69:../target/stm32/builder.cpp ****     // Init board specific stuff for VCOM over USB
+  70:../target/stm32/builder.cpp ****     board::usbVcomHwConfigInit();
+  71:../target/stm32/builder.cpp **** #endif
+  72:../target/stm32/builder.cpp **** 
+  73:../target/stm32/builder.cpp **** 	Trace::out("---------------------------------------------------------------");
+ 22249              		.loc 1 73 0
+ 22250 003a 40F20000 		movw	r0, #:lower16:.LC0
+ 22251 003e C0F20000 		movt	r0, #:upper16:.LC0
+ 22252 0042 FFF7FEFF 		bl	_ZN5Trace3outEPKcz
+  74:../target/stm32/builder.cpp **** 	Trace::out("Initializing application...");
+ 22253              		.loc 1 74 0
+ 22254 0046 40F20000 		movw	r0, #:lower16:.LC1
+ 22255 004a C0F20000 		movt	r0, #:upper16:.LC1
+ 22256 004e FFF7FEFF 		bl	_ZN5Trace3outEPKcz
+  75:../target/stm32/builder.cpp **** 
+  76:../target/stm32/builder.cpp **** 	// Create instance representing the joystick buttons and initialize it
+  77:../target/stm32/builder.cpp **** 	factory.joystick().initialize();
+ 22257              		.loc 1 77 0
+ 22258 0052 7B69     		ldr	r3, [r7, #20]
+ 22259 0054 1B68     		ldr	r3, [r3, #0]
+ 22260 0056 03F11003 		add	r3, r3, #16
+ 22261 005a 1B68     		ldr	r3, [r3, #0]
+ 22262 005c 7869     		ldr	r0, [r7, #20]
+ 22263 005e 9847     		blx	r3
+ 22264 0060 0346     		mov	r3, r0
+ 22265 0062 1A68     		ldr	r2, [r3, #0]
+ 22266 0064 02F10802 		add	r2, r2, #8
+ 22267 0068 1268     		ldr	r2, [r2, #0]
+ 22268 006a 1846     		mov	r0, r3
+ 22269 006c 9047     		blx	r2
+  78:../target/stm32/builder.cpp **** 
+  79:../target/stm32/builder.cpp **** 	// Initialize the LedController
+  80:../target/stm32/builder.cpp **** 	factory.led().initialize();
+ 22270              		.loc 1 80 0
+ 22271 006e 7B69     		ldr	r3, [r7, #20]
+ 22272 0070 1B68     		ldr	r3, [r3, #0]
+ 22273 0072 03F11403 		add	r3, r3, #20
+ 22274 0076 1B68     		ldr	r3, [r3, #0]
+ 22275 0078 7869     		ldr	r0, [r7, #20]
+ 22276 007a 9847     		blx	r3
+ 22277 007c 0346     		mov	r3, r0
+ 22278 007e 1A68     		ldr	r2, [r3, #0]
+ 22279 0080 02F10802 		add	r2, r2, #8
+ 22280 0084 1268     		ldr	r2, [r2, #0]
+ 22281 0086 1846     		mov	r0, r3
+ 22282 0088 9047     		blx	r2
+  81:../target/stm32/builder.cpp **** 
+  82:../target/stm32/builder.cpp **** 	// Initialize SPI used by monochrome display & nRF chip
+  83:../target/stm32/builder.cpp **** 	factory.sharedSpi().initialize();
+ 22283              		.loc 1 83 0
+ 22284 008a 7869     		ldr	r0, [r7, #20]
+ 22285 008c FFF7FEFF 		bl	_ZN7Factory9sharedSpiEv
+ 22286 0090 0346     		mov	r3, r0
+ 22287 0092 1846     		mov	r0, r3
+ 22288 0094 FFF7FEFF 		bl	_ZN19DisplayNrfSharedSpi10initializeEv
+  84:../target/stm32/builder.cpp **** 
+  85:../target/stm32/builder.cpp **** 	// Initialize display
+  86:../target/stm32/builder.cpp **** 	factory.monochromeDisplay().initialize();
+ 22289              		.loc 1 86 0
+ 22290 0098 7B69     		ldr	r3, [r7, #20]
+ 22291 009a 1B68     		ldr	r3, [r3, #0]
+ 22292 009c 03F10C03 		add	r3, r3, #12
+ 22293 00a0 1B68     		ldr	r3, [r3, #0]
+ 22294 00a2 7869     		ldr	r0, [r7, #20]
+ 22295 00a4 9847     		blx	r3
+ 22296 00a6 0346     		mov	r3, r0
+ 22297 00a8 1A68     		ldr	r2, [r3, #0]
+ 22298 00aa 02F11002 		add	r2, r2, #16
+ 22299 00ae 1268     		ldr	r2, [r2, #0]
+ 22300 00b0 1846     		mov	r0, r3
+ 22301 00b2 9047     		blx	r2
+  87:../target/stm32/builder.cpp **** 
+  88:../target/stm32/builder.cpp **** #ifdef LEDBLINK_TESTER
+  89:../target/stm32/builder.cpp **** 	new LEDBlinker( factory.led() );
+  90:../target/stm32/builder.cpp **** #endif
+  91:../target/stm32/builder.cpp **** 
+  92:../target/stm32/builder.cpp **** #ifdef PAINT_TESTER
+  93:../target/stm32/builder.cpp **** 	new PaintTester(factory.joystick() , factory.monochromeDisplay());
+  94:../target/stm32/builder.cpp **** 
+  95:../target/stm32/builder.cpp **** 	MonochromeDisplayPainter painter(&factory.monochromeDisplay(), false);
+  96:../target/stm32/builder.cpp **** 	painter.clear();
+  97:../target/stm32/builder.cpp **** 	painter.drawText(IMonochromeDisplay::Point(15, 3*8), "Ready...", IMonochromeDisplay::Black);
+  98:../target/stm32/builder.cpp **** 	painter.end();
+  99:../target/stm32/builder.cpp **** #endif
+ 100:../target/stm32/builder.cpp **** 
+ 101:../target/stm32/builder.cpp **** #ifdef FSM_TESTER
+ 102:../target/stm32/builder.cpp **** 	new CdPlayerHandler();
+ 103:../target/stm32/builder.cpp **** #endif
+ 104:../target/stm32/builder.cpp **** 
+ 105:../target/stm32/builder.cpp **** #ifdef LOCALTTT_TESTER
+ 106:../target/stm32/builder.cpp **** 	new LocalTTTController();
+ 22302              		.loc 1 106 0
+ 22303 00b4 4FF06400 		mov	r0, #100
+ 22304 00b8 FFF7FEFF 		bl	_Znwj
+ 22305 00bc 0346     		mov	r3, r0
+ 22306 00be 1846     		mov	r0, r3
+ 22307 00c0 FFF7FEFF 		bl	_ZN18LocalTTTControllerC1Ev
+ 107:../target/stm32/builder.cpp **** #endif
+ 108:../target/stm32/builder.cpp **** 
+ 109:../target/stm32/builder.cpp **** #ifdef PHY_TESTER
+ 110:../target/stm32/builder.cpp **** 	Trace::out("Initializing PhyTester");
+ 111:../target/stm32/builder.cpp **** 	// Create instance of NrfTransceiver and initialize it.
+ 112:../target/stm32/builder.cpp **** 	factory.phyTransceiver().initialize();
+ 113:../target/stm32/builder.cpp **** 
+ 114:../target/stm32/builder.cpp **** 	new PhyTester(factory.phyTransceiver(),
+ 115:../target/stm32/builder.cpp **** 				  factory.joystick(),
+ 116:../target/stm32/builder.cpp **** 				  factory.monochromeDisplay());
+ 117:../target/stm32/builder.cpp **** #endif
+ 118:../target/stm32/builder.cpp **** 
+ 119:../target/stm32/builder.cpp **** #ifdef DATALINK_TESTER
+ 120:../target/stm32/builder.cpp **** 	// Initialize first DataLink. Otherwise DataLinkTester will not work
+ 121:../target/stm32/builder.cpp **** #	if (DATALINK_TESTER_NODE_A == 1)
+ 122:../target/stm32/builder.cpp **** 		// Create Node A
+ 123:../target/stm32/builder.cpp **** 		Trace::out("Creating Node A");
+ 124:../target/stm32/builder.cpp **** 		DataLink().initialize(factory.phyTransceiver(), Node::NodeId::fromHexString("000000000001"));
+ 125:../target/stm32/builder.cpp **** #	else
+ 126:../target/stm32/builder.cpp **** 		// Create Node B
+ 127:../target/stm32/builder.cpp **** 		Trace::out("Creating Node B");
+ 128:../target/stm32/builder.cpp **** 		DataLink().initialize(factory.phyTransceiver(), Node::NodeId::fromHexString("000000000002"));
+ 129:../target/stm32/builder.cpp **** #	endif
+ 130:../target/stm32/builder.cpp **** 	// Initialize data link tester
+ 131:../target/stm32/builder.cpp **** 	static DataLinkTester tester(factory.phyTransceiver() , factory.joystick());
+ 132:../target/stm32/builder.cpp **** #endif
+ 133:../target/stm32/builder.cpp **** 
+ 134:../target/stm32/builder.cpp **** #ifdef AIR3T_APPLICATION
+ 135:../target/stm32/builder.cpp **** 	// Initialize first DataLink. Otherwise DataLinkTester will not work
+ 136:../target/stm32/builder.cpp **** 	Trace::out( "Creating " AIR3T_APPLICATION_NODENAME );
+ 137:../target/stm32/builder.cpp **** 	DataLink().initialize(factory.phyTransceiver(), Node::NodeId::fromHexString( AIR3T_APPLICATION_NOD
+ 138:../target/stm32/builder.cpp **** 	Application().initialize();
+ 139:../target/stm32/builder.cpp **** 	new Air3T::Controller(AIR3T_APPLICATION_NODENAME, factory.monochromeDisplay(), factory.joystick())
+ 140:../target/stm32/builder.cpp **** #endif
+ 141:../target/stm32/builder.cpp **** 
+ 142:../target/stm32/builder.cpp **** 	Trace::out("Starting application...");
+ 22308              		.loc 1 142 0
+ 22309 00c4 40F20000 		movw	r0, #:lower16:.LC2
+ 22310 00c8 C0F20000 		movt	r0, #:upper16:.LC2
+ 22311 00cc FFF7FEFF 		bl	_ZN5Trace3outEPKcz
+ 143:../target/stm32/builder.cpp **** 
+ 144:../target/stm32/builder.cpp **** 	return true;
+ 22312              		.loc 1 144 0
+ 22313 00d0 4FF00103 		mov	r3, #1
+ 22314              	.LBE23:
+ 145:../target/stm32/builder.cpp **** }
+ 22315              		.loc 1 145 0
+ 22316 00d4 1846     		mov	r0, r3
+ 22317 00d6 07F11807 		add	r7, r7, #24
+ 22318 00da BD46     		mov	sp, r7
+ 22319 00dc 80BD     		pop	{r7, pc}
+ 22320              		.cfi_endproc
+ 22321              	.LFE1430:
+ 22323              		.weak	_ZTV18LocalTTTController
+ 22324 00de 00BF     		.section	.rodata._ZTV18LocalTTTController,"aG",%progbits,_ZTV18LocalTTTController,comdat
+ 22325              		.align	3
+ 22328              	_ZTV18LocalTTTController:
+ 22329 0000 00000000 		.word	0
+ 22330 0004 00000000 		.word	0
+ 22331 0008 00000000 		.word	_ZN18LocalTTTControllerD1Ev
+ 22332 000c 00000000 		.word	_ZN18LocalTTTControllerD0Ev
+ 22333 0010 00000000 		.word	_ZN5Air3T13IViewObserver20onMenuPointSelectionEi
+ 22334 0014 00000000 		.word	_ZN18LocalTTTController20onGameFieldSelectionERKN5Air3T9GameField5FieldE
+ 22335 0018 00000000 		.word	_ZN5Air3T13IViewObserver17onTextViewProceedEv
+ 22336 001c 00000000 		.word	_ZN18LocalTTTController12processEventEv
+ 22337 0020 FCFFFFFF 		.word	-4
+ 22338 0024 00000000 		.word	0
+ 22339 0028 00000000 		.word	_ZThn4_N18LocalTTTControllerD1Ev
+ 22340 002c 00000000 		.word	_ZThn4_N18LocalTTTControllerD0Ev
+ 22341 0030 00000000 		.word	_ZN10XFReactive13startBehaviorEv
+ 22342 0034 00000000 		.word	_ZN10XFReactive9pushEventEP8IXFEvent
+ 22343 0038 00000000 		.word	_ZN10XFReactive7processEP8IXFEvent
+ 22344 003c 00000000 		.word	_ZThn4_N18LocalTTTController12processEventEv
+ 22345 0040 00000000 		.word	_ZN10XFReactive9getThreadEv
+ 22346              		.weak	_ZTVN18LocalTTTController19FieldSelectionEventE
+ 22347 0044 00000000 		.section	.rodata._ZTVN18LocalTTTController19FieldSelectionEventE,"aG",%progbits,_ZTVN18LocalTTTCon
+ 22348              		.align	3
+ 22351              	_ZTVN18LocalTTTController19FieldSelectionEventE:
+ 22352 0000 00000000 		.word	0
+ 22353 0004 00000000 		.word	0
+ 22354 0008 00000000 		.word	_ZN18LocalTTTController19FieldSelectionEventD1Ev
+ 22355 000c 00000000 		.word	_ZN18LocalTTTController19FieldSelectionEventD0Ev
+ 22356              		.section	.text._ZN18LocalTTTController19FieldSelectionEventD2Ev,"axG",%progbits,_ZN18LocalTTTContr
+ 22357              		.align	2
+ 22358              		.weak	_ZN18LocalTTTController19FieldSelectionEventD2Ev
+ 22359              		.thumb
+ 22360              		.thumb_func
+ 22362              	_ZN18LocalTTTController19FieldSelectionEventD2Ev:
+ 22363              	.LFB1564:
+  26:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 	{
+ 22364              		.loc 144 26 0
+ 22365              		.cfi_startproc
+ 22366              		@ args = 0, pretend = 0, frame = 8
+ 22367              		@ frame_needed = 1, uses_anonymous_args = 0
+ 22368 0000 80B5     		push	{r7, lr}
+ 22369              	.LCFI87:
+ 22370              		.cfi_def_cfa_offset 8
+ 22371 0002 82B0     		sub	sp, sp, #8
+ 22372              	.LCFI88:
+ 22373              		.cfi_def_cfa_offset 16
+ 22374 0004 00AF     		add	r7, sp, #0
+ 22375              		.cfi_offset 14, -4
+ 22376              		.cfi_offset 7, -8
+ 22377              	.LCFI89:
+ 22378              		.cfi_def_cfa_register 7
+ 22379 0006 7860     		str	r0, [r7, #4]
+ 22380              	.LBB24:
+  26:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 	{
+ 22381              		.loc 144 26 0
+ 22382 0008 7B68     		ldr	r3, [r7, #4]
+ 22383 000a 0B4A     		ldr	r2, .L121
+ 22384 000c 1A60     		str	r2, [r3, #0]
+ 22385 000e 7B68     		ldr	r3, [r7, #4]
+ 22386 0010 1846     		mov	r0, r3
+ 22387 0012 FFF7FEFF 		bl	_ZN8IXFEventD2Ev
+ 22388              	.LBE24:
+ 22389 0016 4FF00003 		mov	r3, #0
+ 22390 001a 03F00103 		and	r3, r3, #1
+ 22391 001e DBB2     		uxtb	r3, r3
+ 22392 0020 002B     		cmp	r3, #0
+ 22393 0022 02D0     		beq	.L120
+  26:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 	{
+ 22394              		.loc 144 26 0 is_stmt 0 discriminator 2
+ 22395 0024 7868     		ldr	r0, [r7, #4]
+ 22396 0026 FFF7FEFF 		bl	_ZdlPv
+ 22397              	.L120:
+  26:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 	{
+ 22398              		.loc 144 26 0 discriminator 3
+ 22399 002a 7B68     		ldr	r3, [r7, #4]
+ 22400 002c 1846     		mov	r0, r3
+ 22401 002e 07F10807 		add	r7, r7, #8
+ 22402 0032 BD46     		mov	sp, r7
+ 22403 0034 80BD     		pop	{r7, pc}
+ 22404              	.L122:
+ 22405 0036 00BF     		.align	2
+ 22406              	.L121:
+ 22407 0038 08000000 		.word	_ZTVN18LocalTTTController19FieldSelectionEventE+8
+ 22408              		.cfi_endproc
+ 22409              	.LFE1564:
+ 22411              		.weak	_ZN18LocalTTTController19FieldSelectionEventD1Ev
+ 22412              		.thumb_set _ZN18LocalTTTController19FieldSelectionEventD1Ev,_ZN18LocalTTTController19FieldSelectio
+ 22413              		.section	.text._ZN18LocalTTTController19FieldSelectionEventD0Ev,"axG",%progbits,_ZN18LocalTTTContr
+ 22414              		.align	2
+ 22415              		.weak	_ZN18LocalTTTController19FieldSelectionEventD0Ev
+ 22416              		.thumb
+ 22417              		.thumb_func
+ 22419              	_ZN18LocalTTTController19FieldSelectionEventD0Ev:
+ 22420              	.LFB1566:
+  26:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 	{
+ 22421              		.loc 144 26 0 is_stmt 1
+ 22422              		.cfi_startproc
+ 22423              		@ args = 0, pretend = 0, frame = 8
+ 22424              		@ frame_needed = 1, uses_anonymous_args = 0
+ 22425 0000 80B5     		push	{r7, lr}
+ 22426              	.LCFI90:
+ 22427              		.cfi_def_cfa_offset 8
+ 22428 0002 82B0     		sub	sp, sp, #8
+ 22429              	.LCFI91:
+ 22430              		.cfi_def_cfa_offset 16
+ 22431 0004 00AF     		add	r7, sp, #0
+ 22432              		.cfi_offset 14, -4
+ 22433              		.cfi_offset 7, -8
+ 22434              	.LCFI92:
+ 22435              		.cfi_def_cfa_register 7
+ 22436 0006 7860     		str	r0, [r7, #4]
+  26:/home/desem/workspace/desenet/test/localtttcontroller.hpp **** 	{
+ 22437              		.loc 144 26 0
+ 22438 0008 7868     		ldr	r0, [r7, #4]
+ 22439 000a FFF7FEFF 		bl	_ZN18LocalTTTController19FieldSelectionEventD1Ev
+ 22440 000e 7868     		ldr	r0, [r7, #4]
+ 22441 0010 FFF7FEFF 		bl	_ZdlPv
+ 22442 0014 7B68     		ldr	r3, [r7, #4]
+ 22443 0016 1846     		mov	r0, r3
+ 22444 0018 07F10807 		add	r7, r7, #8
+ 22445 001c BD46     		mov	sp, r7
+ 22446 001e 80BD     		pop	{r7, pc}
+ 22447              		.cfi_endproc
+ 22448              	.LFE1566:
+ 22450              		.weak	_ZTVN5Air3T13IViewObserverE
+ 22451              		.section	.rodata._ZTVN5Air3T13IViewObserverE,"aG",%progbits,_ZTVN5Air3T13IViewObserverE,comdat
+ 22452              		.align	3
+ 22455              	_ZTVN5Air3T13IViewObserverE:
+ 22456 0000 00000000 		.word	0
+ 22457 0004 00000000 		.word	0
+ 22458 0008 00000000 		.word	_ZN5Air3T13IViewObserverD1Ev
+ 22459 000c 00000000 		.word	_ZN5Air3T13IViewObserverD0Ev
+ 22460 0010 00000000 		.word	_ZN5Air3T13IViewObserver20onMenuPointSelectionEi
+ 22461 0014 00000000 		.word	_ZN5Air3T13IViewObserver20onGameFieldSelectionERKNS_9GameField5FieldE
+ 22462 0018 00000000 		.word	_ZN5Air3T13IViewObserver17onTextViewProceedEv
+ 22463              		.weak	_ZTV8IXFEvent
+ 22464 001c 00000000 		.section	.rodata._ZTV8IXFEvent,"aG",%progbits,_ZTV8IXFEvent,comdat
+ 22465              		.align	3
+ 22468              	_ZTV8IXFEvent:
+ 22469 0000 00000000 		.word	0
+ 22470 0004 00000000 		.word	0
+ 22471 0008 00000000 		.word	_ZN8IXFEventD1Ev
+ 22472 000c 00000000 		.word	_ZN8IXFEventD0Ev
+ 22473              		.global	_ZTV7Builder
+ 22474              		.section	.rodata._ZTV7Builder,"a",%progbits
+ 22475              		.align	3
+ 22478              	_ZTV7Builder:
+ 22479 0000 00000000 		.word	0
+ 22480 0004 00000000 		.word	0
+ 22481 0008 00000000 		.word	_ZN7BuilderD1Ev
+ 22482 000c 00000000 		.word	_ZN7BuilderD0Ev
+ 22483 0010 00000000 		.word	_ZN7Builder16buildApplicationEiPPc
+ 22484              		.weak	_ZTV8IBuilder
+ 22485 0014 00000000 		.section	.rodata._ZTV8IBuilder,"aG",%progbits,_ZTV8IBuilder,comdat
+ 22486              		.align	3
+ 22489              	_ZTV8IBuilder:
+ 22490 0000 00000000 		.word	0
+ 22491 0004 00000000 		.word	0
+ 22492 0008 00000000 		.word	_ZN8IBuilderD1Ev
+ 22493 000c 00000000 		.word	_ZN8IBuilderD0Ev
+ 22494 0010 00000000 		.word	__cxa_pure_virtual
+ 22495 0014 00000000 		.text
+ 22496              	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 builder.cpp
+     /tmp/ccb85YIW.s:20277  .text._ZN8IBuilderC2Ev:00000000 $t
+     /tmp/ccb85YIW.s:20282  .text._ZN8IBuilderC2Ev:00000000 _ZN8IBuilderC2Ev
+     /tmp/ccb85YIW.s:20315  .text._ZN8IBuilderC2Ev:0000001c $d
+     /tmp/ccb85YIW.s:22489  .rodata._ZTV8IBuilder:00000000 _ZTV8IBuilder
+     /tmp/ccb85YIW.s:20282  .text._ZN8IBuilderC2Ev:00000000 _ZN8IBuilderC1Ev
+     /tmp/ccb85YIW.s:20322  .text._ZN8IBuilderD2Ev:00000000 $t
+     /tmp/ccb85YIW.s:20327  .text._ZN8IBuilderD2Ev:00000000 _ZN8IBuilderD2Ev
+     /tmp/ccb85YIW.s:20369  .text._ZN8IBuilderD2Ev:00000030 $d
+     /tmp/ccb85YIW.s:20327  .text._ZN8IBuilderD2Ev:00000000 _ZN8IBuilderD1Ev
+     /tmp/ccb85YIW.s:20376  .text._ZN8IBuilderD0Ev:00000000 $t
+     /tmp/ccb85YIW.s:20381  .text._ZN8IBuilderD0Ev:00000000 _ZN8IBuilderD0Ev
+     /tmp/ccb85YIW.s:20413  .text._ZN8IXFEventC2ENS_10eEventTypeEiP11IXFReactive:00000000 $t
+     /tmp/ccb85YIW.s:20418  .text._ZN8IXFEventC2ENS_10eEventTypeEiP11IXFReactive:00000000 _ZN8IXFEventC2ENS_10eEventTypeEiP11IXFReactive
+     /tmp/ccb85YIW.s:20645  .text._ZN8IXFEvent13_tEventStatusC2Ev:00000000 _ZN8IXFEvent13_tEventStatusC1Ev
+     /tmp/ccb85YIW.s:20471  .text._ZN8IXFEventC2ENS_10eEventTypeEiP11IXFReactive:0000004c $d
+     /tmp/ccb85YIW.s:22468  .rodata._ZTV8IXFEvent:00000000 _ZTV8IXFEvent
+     /tmp/ccb85YIW.s:20418  .text._ZN8IXFEventC2ENS_10eEventTypeEiP11IXFReactive:00000000 _ZN8IXFEventC1ENS_10eEventTypeEiP11IXFReactive
+     /tmp/ccb85YIW.s:20478  .text._ZN8IXFEventD2Ev:00000000 $t
+     /tmp/ccb85YIW.s:20483  .text._ZN8IXFEventD2Ev:00000000 _ZN8IXFEventD2Ev
+     /tmp/ccb85YIW.s:20525  .text._ZN8IXFEventD2Ev:00000030 $d
+     /tmp/ccb85YIW.s:20483  .text._ZN8IXFEventD2Ev:00000000 _ZN8IXFEventD1Ev
+     /tmp/ccb85YIW.s:20532  .text._ZN8IXFEventD0Ev:00000000 $t
+     /tmp/ccb85YIW.s:20537  .text._ZN8IXFEventD0Ev:00000000 _ZN8IXFEventD0Ev
+     /tmp/ccb85YIW.s:20569  .text._ZNK8IXFEvent12getEventTypeEv:00000000 $t
+     /tmp/ccb85YIW.s:20574  .text._ZNK8IXFEvent12getEventTypeEv:00000000 _ZNK8IXFEvent12getEventTypeEv
+     /tmp/ccb85YIW.s:20605  .text._ZNK8IXFEvent5getIdEv:00000000 $t
+     /tmp/ccb85YIW.s:20610  .text._ZNK8IXFEvent5getIdEv:00000000 _ZNK8IXFEvent5getIdEv
+     /tmp/ccb85YIW.s:20640  .text._ZN8IXFEvent13_tEventStatusC2Ev:00000000 $t
+     /tmp/ccb85YIW.s:20645  .text._ZN8IXFEvent13_tEventStatusC2Ev:00000000 _ZN8IXFEvent13_tEventStatusC2Ev
+     /tmp/ccb85YIW.s:20683  .text._ZN11EventStatusC2ENS_12eEventStatusE:00000000 $t
+     /tmp/ccb85YIW.s:20688  .text._ZN11EventStatusC2ENS_12eEventStatusE:00000000 _ZN11EventStatusC2ENS_12eEventStatusE
+     /tmp/ccb85YIW.s:20688  .text._ZN11EventStatusC2ENS_12eEventStatusE:00000000 _ZN11EventStatusC1ENS_12eEventStatusE
+     /tmp/ccb85YIW.s:20726  .text._ZL20__gthread_key_deletei:00000000 $t
+     /tmp/ccb85YIW.s:20730  .text._ZL20__gthread_key_deletei:00000000 _ZL20__gthread_key_deletei
+     /tmp/ccb85YIW.s:20760  .text._ZN5Air3T9GameField5FieldC2Ejj:00000000 $t
+     /tmp/ccb85YIW.s:20765  .text._ZN5Air3T9GameField5FieldC2Ejj:00000000 _ZN5Air3T9GameField5FieldC2Ejj
+     /tmp/ccb85YIW.s:20765  .text._ZN5Air3T9GameField5FieldC2Ejj:00000000 _ZN5Air3T9GameField5FieldC1Ejj
+     /tmp/ccb85YIW.s:20806  .text._ZN5Air3T13IViewObserverC2Ev:00000000 $t
+     /tmp/ccb85YIW.s:20811  .text._ZN5Air3T13IViewObserverC2Ev:00000000 _ZN5Air3T13IViewObserverC2Ev
+     /tmp/ccb85YIW.s:20844  .text._ZN5Air3T13IViewObserverC2Ev:0000001c $d
+     /tmp/ccb85YIW.s:22455  .rodata._ZTVN5Air3T13IViewObserverE:00000000 _ZTVN5Air3T13IViewObserverE
+     /tmp/ccb85YIW.s:20811  .text._ZN5Air3T13IViewObserverC2Ev:00000000 _ZN5Air3T13IViewObserverC1Ev
+     /tmp/ccb85YIW.s:20851  .text._ZN5Air3T13IViewObserverD2Ev:00000000 $t
+     /tmp/ccb85YIW.s:20856  .text._ZN5Air3T13IViewObserverD2Ev:00000000 _ZN5Air3T13IViewObserverD2Ev
+     /tmp/ccb85YIW.s:20898  .text._ZN5Air3T13IViewObserverD2Ev:00000030 $d
+     /tmp/ccb85YIW.s:20856  .text._ZN5Air3T13IViewObserverD2Ev:00000000 _ZN5Air3T13IViewObserverD1Ev
+     /tmp/ccb85YIW.s:20905  .text._ZN5Air3T13IViewObserverD0Ev:00000000 $t
+     /tmp/ccb85YIW.s:20910  .text._ZN5Air3T13IViewObserverD0Ev:00000000 _ZN5Air3T13IViewObserverD0Ev
+     /tmp/ccb85YIW.s:20942  .text._ZN5Air3T13IViewObserver20onMenuPointSelectionEi:00000000 $t
+     /tmp/ccb85YIW.s:20947  .text._ZN5Air3T13IViewObserver20onMenuPointSelectionEi:00000000 _ZN5Air3T13IViewObserver20onMenuPointSelectionEi
+     /tmp/ccb85YIW.s:20975  .text._ZN5Air3T13IViewObserver20onGameFieldSelectionERKNS_9GameField5FieldE:00000000 $t
+     /tmp/ccb85YIW.s:20980  .text._ZN5Air3T13IViewObserver20onGameFieldSelectionERKNS_9GameField5FieldE:00000000 _ZN5Air3T13IViewObserver20onGameFieldSelectionERKNS_9GameField5FieldE
+     /tmp/ccb85YIW.s:21008  .text._ZN5Air3T13IViewObserver17onTextViewProceedEv:00000000 $t
+     /tmp/ccb85YIW.s:21013  .text._ZN5Air3T13IViewObserver17onTextViewProceedEv:00000000 _ZN5Air3T13IViewObserver17onTextViewProceedEv
+     /tmp/ccb85YIW.s:21040  .text._ZN18LocalTTTController19FieldSelectionEventC2ERKN5Air3T9GameField5FieldE:00000000 $t
+     /tmp/ccb85YIW.s:21045  .text._ZN18LocalTTTController19FieldSelectionEventC2ERKN5Air3T9GameField5FieldE:00000000 _ZN18LocalTTTController19FieldSelectionEventC2ERKN5Air3T9GameField5FieldE
+     /tmp/ccb85YIW.s:21089  .text._ZN18LocalTTTController19FieldSelectionEventC2ERKN5Air3T9GameField5FieldE:00000040 $d
+     /tmp/ccb85YIW.s:22351  .rodata._ZTVN18LocalTTTController19FieldSelectionEventE:00000000 _ZTVN18LocalTTTController19FieldSelectionEventE
+     /tmp/ccb85YIW.s:21045  .text._ZN18LocalTTTController19FieldSelectionEventC2ERKN5Air3T9GameField5FieldE:00000000 _ZN18LocalTTTController19FieldSelectionEventC1ERKN5Air3T9GameField5FieldE
+     /tmp/ccb85YIW.s:21096  .text._ZNK18LocalTTTController19FieldSelectionEvent5fieldEv:00000000 $t
+     /tmp/ccb85YIW.s:21101  .text._ZNK18LocalTTTController19FieldSelectionEvent5fieldEv:00000000 _ZNK18LocalTTTController19FieldSelectionEvent5fieldEv
+     /tmp/ccb85YIW.s:21135  .text._ZN18LocalTTTControllerC2Ev:00000000 $t
+     /tmp/ccb85YIW.s:21140  .text._ZN18LocalTTTControllerC2Ev:00000000 _ZN18LocalTTTControllerC2Ev
+     /tmp/ccb85YIW.s:21272  .text._ZN18LocalTTTControllerC2Ev:00000114 $d
+     /tmp/ccb85YIW.s:22328  .rodata._ZTV18LocalTTTController:00000000 _ZTV18LocalTTTController
+     /tmp/ccb85YIW.s:21140  .text._ZN18LocalTTTControllerC2Ev:00000000 _ZN18LocalTTTControllerC1Ev
+     /tmp/ccb85YIW.s:21280  .text._ZN18LocalTTTControllerD2Ev:00000000 $t
+     /tmp/ccb85YIW.s:21285  .text._ZN18LocalTTTControllerD2Ev:00000000 _ZN18LocalTTTControllerD2Ev
+     /tmp/ccb85YIW.s:21369  .text._ZN18LocalTTTControllerD2Ev:0000007c $d
+     /tmp/ccb85YIW.s:21285  .text._ZN18LocalTTTControllerD2Ev:00000000 _ZN18LocalTTTControllerD1Ev
+     /tmp/ccb85YIW.s:21285  .text._ZN18LocalTTTControllerD2Ev:00000000 .LTHUNK0
+     /tmp/ccb85YIW.s:21378  .text._ZN18LocalTTTControllerD1Ev:00000000 $t
+     /tmp/ccb85YIW.s:21383  .text._ZN18LocalTTTControllerD1Ev:00000000 _ZThn4_N18LocalTTTControllerD1Ev
+     /tmp/ccb85YIW.s:21388  .text._ZN18LocalTTTControllerD0Ev:00000000 $t
+     /tmp/ccb85YIW.s:21393  .text._ZN18LocalTTTControllerD0Ev:00000000 _ZN18LocalTTTControllerD0Ev
+     /tmp/ccb85YIW.s:21430  .text._ZN18LocalTTTControllerD0Ev:00000020 _ZThn4_N18LocalTTTControllerD0Ev
+     /tmp/ccb85YIW.s:21435  .text._ZN18LocalTTTController12processEventEv:00000000 $t
+     /tmp/ccb85YIW.s:21440  .text._ZN18LocalTTTController12processEventEv:00000000 _ZN18LocalTTTController12processEventEv
+     /tmp/ccb85YIW.s:21486  .text._ZN18LocalTTTController12processEventEv:0000003c $d
+     /tmp/ccb85YIW.s:21495  .text._ZN18LocalTTTController12processEventEv:00000058 $t
+     /tmp/ccb85YIW.s:21784  .text._ZN18LocalTTTController12processEventEv:00000278 $d
+     /tmp/ccb85YIW.s:21794  .text._ZN18LocalTTTController12processEventEv:00000294 $t
+     /tmp/ccb85YIW.s:21993  .text._ZN18LocalTTTController12processEventEv:0000044c _ZThn4_N18LocalTTTController12processEventEv
+     /tmp/ccb85YIW.s:21998  .text._ZN18LocalTTTController20onGameFieldSelectionERKN5Air3T9GameField5FieldE:00000000 $t
+     /tmp/ccb85YIW.s:22003  .text._ZN18LocalTTTController20onGameFieldSelectionERKN5Air3T9GameField5FieldE:00000000 _ZN18LocalTTTController20onGameFieldSelectionERKN5Air3T9GameField5FieldE
+     /tmp/ccb85YIW.s:22051  .text._ZN7BuilderC2Ev:00000000 $t
+     /tmp/ccb85YIW.s:22056  .text._ZN7BuilderC2Ev:00000000 _ZN7BuilderC2Ev
+     /tmp/ccb85YIW.s:22092  .text._ZN7BuilderC2Ev:00000024 $d
+     /tmp/ccb85YIW.s:22478  .rodata._ZTV7Builder:00000000 _ZTV7Builder
+     /tmp/ccb85YIW.s:22056  .text._ZN7BuilderC2Ev:00000000 _ZN7BuilderC1Ev
+     /tmp/ccb85YIW.s:22099  .text._ZN7BuilderD2Ev:00000000 $t
+     /tmp/ccb85YIW.s:22104  .text._ZN7BuilderD2Ev:00000000 _ZN7BuilderD2Ev
+     /tmp/ccb85YIW.s:22150  .text._ZN7BuilderD2Ev:00000038 $d
+     /tmp/ccb85YIW.s:22104  .text._ZN7BuilderD2Ev:00000000 _ZN7BuilderD1Ev
+     /tmp/ccb85YIW.s:22157  .text._ZN7BuilderD0Ev:00000000 $t
+     /tmp/ccb85YIW.s:22162  .text._ZN7BuilderD0Ev:00000000 _ZN7BuilderD0Ev
+     /tmp/ccb85YIW.s:22194  .rodata:00000000 $d
+     /tmp/ccb85YIW.s:22195  .rodata:00000000 .LC0
+     /tmp/ccb85YIW.s:22199  .rodata:00000040 .LC1
+     /tmp/ccb85YIW.s:22202  .rodata:0000005c .LC2
+     /tmp/ccb85YIW.s:22205  .text._ZN7Builder16buildApplicationEiPPc:00000000 $t
+     /tmp/ccb85YIW.s:22210  .text._ZN7Builder16buildApplicationEiPPc:00000000 _ZN7Builder16buildApplicationEiPPc
+     /tmp/ccb85YIW.s:22325  .rodata._ZTV18LocalTTTController:00000000 $d
+     /tmp/ccb85YIW.s:22348  .rodata._ZTVN18LocalTTTController19FieldSelectionEventE:00000000 $d
+     /tmp/ccb85YIW.s:22362  .text._ZN18LocalTTTController19FieldSelectionEventD2Ev:00000000 _ZN18LocalTTTController19FieldSelectionEventD1Ev
+     /tmp/ccb85YIW.s:22419  .text._ZN18LocalTTTController19FieldSelectionEventD0Ev:00000000 _ZN18LocalTTTController19FieldSelectionEventD0Ev
+     /tmp/ccb85YIW.s:22357  .text._ZN18LocalTTTController19FieldSelectionEventD2Ev:00000000 $t
+     /tmp/ccb85YIW.s:22362  .text._ZN18LocalTTTController19FieldSelectionEventD2Ev:00000000 _ZN18LocalTTTController19FieldSelectionEventD2Ev
+     /tmp/ccb85YIW.s:22407  .text._ZN18LocalTTTController19FieldSelectionEventD2Ev:00000038 $d
+     /tmp/ccb85YIW.s:22414  .text._ZN18LocalTTTController19FieldSelectionEventD0Ev:00000000 $t
+     /tmp/ccb85YIW.s:22452  .rodata._ZTVN5Air3T13IViewObserverE:00000000 $d
+     /tmp/ccb85YIW.s:22465  .rodata._ZTV8IXFEvent:00000000 $d
+     /tmp/ccb85YIW.s:22475  .rodata._ZTV7Builder:00000000 $d
+     /tmp/ccb85YIW.s:22486  .rodata._ZTV8IBuilder:00000000 $d
+                     .debug_frame:00000010 $d
+                           .group:00000000 _ZN8IBuilderC5Ev
+                           .group:00000000 _ZN8IBuilderD5Ev
+                           .group:00000000 _ZN8IXFEventC5ENS_10eEventTypeEiP11IXFReactive
+                           .group:00000000 _ZN8IXFEventD5Ev
+                           .group:00000000 _ZN8IXFEvent13_tEventStatusC5Ev
+                           .group:00000000 _ZN11EventStatusC5ENS_12eEventStatusE
+                           .group:00000000 _ZN5Air3T9GameField5FieldC5Ejj
+                           .group:00000000 _ZN5Air3T13IViewObserverC5Ev
+                           .group:00000000 _ZN5Air3T13IViewObserverD5Ev
+                           .group:00000000 _ZN18LocalTTTController19FieldSelectionEventC5ERKN5Air3T9GameField5FieldE
+                           .group:00000000 _ZN18LocalTTTControllerC5Ev
+                           .group:00000000 _ZN18LocalTTTControllerD5Ev
+                           .group:00000000 _ZN18LocalTTTController19FieldSelectionEventD5Ev
+
+UNDEFINED SYMBOLS
+_ZdlPv
+_ZN10XFReactiveC2EP8XFThread
+_ZN5Air3T5ModelC1Ev
+_ZN24MonochromeDisplayPainterC1EP18IMonochromeDisplayb
+_ZN13IAir3TFactory7factoryEiPPc
+_ZN24MonochromeDisplayPainter5beginEP18IMonochromeDisplay
+_Znwj
+_ZN5Air3T8GameViewC1ER24MonochromeDisplayPainterRKNS_5ModelE
+_ZN5Air3T4View11setObserverEPNS_13IViewObserverE
+_ZN5Air3T5Model12registerViewEPNS_5IViewE
+_ZN10XFReactive13startBehaviorEv
+_ZN24MonochromeDisplayPainterD1Ev
+_ZN5Air3T5ModelD1Ev
+_ZN10XFReactiveD2Ev
+_ZNK10XFReactive15getCurrentEventEv
+_ZN5Air3T5Model9gamefieldEv
+_ZNK5Air3T9GameField6winnerEv
+_ZN16XFNullTransitionC1EiP11IXFReactive
+_ZN5Air3T9GameField5clearEv
+_ZN5Air3T8GameView17setCursorPositionERKNS_9GameField5FieldE
+_ZN5Air3T8GameView16setCursorEnabledEb
+_ZN5Air3T9GameField9setSymbolERKNS0_5FieldENS0_6SymbolE
+_ZN8XFThread15scheduleTimeoutEiiP11IXFReactive
+_ZN5Frame19initializeFramePoolEjPPh
+_ZN7Factory4uartEh
+_ZN4Uart10initializeEm
+_ZN5Trace3outEPKcz
+_ZN7Factory9sharedSpiEv
+_ZN19DisplayNrfSharedSpi10initializeEv
+_ZN10XFReactive9pushEventEP8IXFEvent
+_ZN10XFReactive7processEP8IXFEvent
+_ZN10XFReactive9getThreadEv
+__cxa_pure_virtual

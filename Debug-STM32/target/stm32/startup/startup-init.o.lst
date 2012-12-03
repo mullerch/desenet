@@ -1,0 +1,321 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"startup-init.cpp"
+  23              	.Ltext0:
+  24              		.file 1 "../target/stm32/startup/startup-init.cpp"
+ 650              		.align	2
+ 651              		.global	_Z10init_arrayv
+ 652              		.thumb
+ 653              		.thumb_func
+ 655              	_Z10init_arrayv:
+ 656              	.LFB0:
+   1:../target/stm32/startup/startup-init.cpp **** /*
+   2:../target/stm32/startup/startup-init.cpp ****  * startup-init.cpp
+   3:../target/stm32/startup/startup-init.cpp ****  *
+   4:../target/stm32/startup/startup-init.cpp ****  *  Created on: Feb 14, 2011
+   5:../target/stm32/startup/startup-init.cpp ****  *      Author: sth
+   6:../target/stm32/startup/startup-init.cpp ****  */
+   7:../target/stm32/startup/startup-init.cpp **** 
+   8:../target/stm32/startup/startup-init.cpp **** 
+   9:../target/stm32/startup/startup-init.cpp **** // Variables defined in linker script
+  10:../target/stm32/startup/startup-init.cpp **** extern unsigned long _flash_data;
+  11:../target/stm32/startup/startup-init.cpp **** extern unsigned long _data;
+  12:../target/stm32/startup/startup-init.cpp **** extern unsigned long _edata;
+  13:../target/stm32/startup/startup-init.cpp **** extern unsigned long _bss;
+  14:../target/stm32/startup/startup-init.cpp **** extern unsigned long _ebss;
+  15:../target/stm32/startup/startup-init.cpp **** 
+  16:../target/stm32/startup/startup-init.cpp **** 
+  17:../target/stm32/startup/startup-init.cpp **** // Following function pointers are defined in the linker script
+  18:../target/stm32/startup/startup-init.cpp **** extern "C" void (*__init_array_start []) (void);
+  19:../target/stm32/startup/startup-init.cpp **** extern "C" void (*__init_array_end []) (void);
+  20:../target/stm32/startup/startup-init.cpp **** extern "C" void (*__fini_array_start []) (void);
+  21:../target/stm32/startup/startup-init.cpp **** extern "C" void (*__fini_array_end []) (void);
+  22:../target/stm32/startup/startup-init.cpp **** extern "C" void (*__CTOR_LIST__ []) (void);
+  23:../target/stm32/startup/startup-init.cpp **** 
+  24:../target/stm32/startup/startup-init.cpp **** 
+  25:../target/stm32/startup/startup-init.cpp **** /**
+  26:../target/stm32/startup/startup-init.cpp ****  * Calls global/static constructors
+  27:../target/stm32/startup/startup-init.cpp ****  */
+  28:../target/stm32/startup/startup-init.cpp **** void init_array()
+  29:../target/stm32/startup/startup-init.cpp **** {
+ 657              		.loc 1 29 0
+ 658              		.cfi_startproc
+ 659              		@ args = 0, pretend = 0, frame = 8
+ 660              		@ frame_needed = 1, uses_anonymous_args = 0
+ 661 0000 80B5     		push	{r7, lr}
+ 662              	.LCFI0:
+ 663              		.cfi_def_cfa_offset 8
+ 664 0002 82B0     		sub	sp, sp, #8
+ 665              	.LCFI1:
+ 666              		.cfi_def_cfa_offset 16
+ 667 0004 00AF     		add	r7, sp, #0
+ 668              		.cfi_offset 14, -4
+ 669              		.cfi_offset 7, -8
+ 670              	.LCFI2:
+ 671              		.cfi_def_cfa_register 7
+ 672              	.LBB2:
+  30:../target/stm32/startup/startup-init.cpp ****   unsigned int size;
+  31:../target/stm32/startup/startup-init.cpp **** 
+  32:../target/stm32/startup/startup-init.cpp **** 	size =  __init_array_end - __init_array_start;
+ 673              		.loc 1 32 0
+ 674 0006 40F20002 		movw	r2, #:lower16:__init_array_end
+ 675 000a C0F20002 		movt	r2, #:upper16:__init_array_end
+ 676 000e 40F20003 		movw	r3, #:lower16:__init_array_start
+ 677 0012 C0F20003 		movt	r3, #:upper16:__init_array_start
+ 678 0016 D31A     		subs	r3, r2, r3
+ 679 0018 4FEAA303 		asr	r3, r3, #2
+ 680 001c 3B60     		str	r3, [r7, #0]
+ 681              	.LBB3:
+  33:../target/stm32/startup/startup-init.cpp **** 	for (unsigned int i = 0; i < size; i++)
+ 682              		.loc 1 33 0
+ 683 001e 4FF00003 		mov	r3, #0
+ 684 0022 7B60     		str	r3, [r7, #4]
+ 685 0024 0BE0     		b	.L2
+ 686              	.L3:
+  34:../target/stm32/startup/startup-init.cpp **** 	{
+  35:../target/stm32/startup/startup-init.cpp **** 		__init_array_start [i] ();
+ 687              		.loc 1 35 0 discriminator 2
+ 688 0026 40F20003 		movw	r3, #:lower16:__init_array_start
+ 689 002a C0F20003 		movt	r3, #:upper16:__init_array_start
+ 690 002e 7A68     		ldr	r2, [r7, #4]
+ 691 0030 53F82230 		ldr	r3, [r3, r2, lsl #2]
+ 692 0034 9847     		blx	r3
+  33:../target/stm32/startup/startup-init.cpp **** 	for (unsigned int i = 0; i < size; i++)
+ 693              		.loc 1 33 0 discriminator 2
+ 694 0036 7B68     		ldr	r3, [r7, #4]
+ 695 0038 03F10103 		add	r3, r3, #1
+ 696 003c 7B60     		str	r3, [r7, #4]
+ 697              	.L2:
+  33:../target/stm32/startup/startup-init.cpp **** 	for (unsigned int i = 0; i < size; i++)
+ 698              		.loc 1 33 0 is_stmt 0 discriminator 1
+ 699 003e 7A68     		ldr	r2, [r7, #4]
+ 700 0040 3B68     		ldr	r3, [r7, #0]
+ 701 0042 9A42     		cmp	r2, r3
+ 702 0044 2CBF     		ite	cs
+ 703 0046 0023     		movcs	r3, #0
+ 704 0048 0123     		movcc	r3, #1
+ 705 004a DBB2     		uxtb	r3, r3
+ 706 004c 002B     		cmp	r3, #0
+ 707 004e EAD1     		bne	.L3
+ 708              	.LBE3:
+ 709              	.LBE2:
+  36:../target/stm32/startup/startup-init.cpp **** 	}
+  37:../target/stm32/startup/startup-init.cpp **** }
+ 710              		.loc 1 37 0 is_stmt 1
+ 711 0050 07F10807 		add	r7, r7, #8
+ 712 0054 BD46     		mov	sp, r7
+ 713 0056 80BD     		pop	{r7, pc}
+ 714              		.cfi_endproc
+ 715              	.LFE0:
+ 717              		.section	.text._Z10fini_arrayv,"ax",%progbits
+ 718              		.align	2
+ 719              		.global	_Z10fini_arrayv
+ 720              		.thumb
+ 721              		.thumb_func
+ 723              	_Z10fini_arrayv:
+ 724              	.LFB1:
+  38:../target/stm32/startup/startup-init.cpp **** 
+  39:../target/stm32/startup/startup-init.cpp **** /**
+  40:../target/stm32/startup/startup-init.cpp ****  * Calls global/static destructors
+  41:../target/stm32/startup/startup-init.cpp ****  */
+  42:../target/stm32/startup/startup-init.cpp **** void fini_array()
+  43:../target/stm32/startup/startup-init.cpp **** {
+ 725              		.loc 1 43 0
+ 726              		.cfi_startproc
+ 727              		@ args = 0, pretend = 0, frame = 8
+ 728              		@ frame_needed = 1, uses_anonymous_args = 0
+ 729 0000 80B5     		push	{r7, lr}
+ 730              	.LCFI3:
+ 731              		.cfi_def_cfa_offset 8
+ 732 0002 82B0     		sub	sp, sp, #8
+ 733              	.LCFI4:
+ 734              		.cfi_def_cfa_offset 16
+ 735 0004 00AF     		add	r7, sp, #0
+ 736              		.cfi_offset 14, -4
+ 737              		.cfi_offset 7, -8
+ 738              	.LCFI5:
+ 739              		.cfi_def_cfa_register 7
+ 740              	.LBB4:
+ 741              	.LBB5:
+  44:../target/stm32/startup/startup-init.cpp **** 	for (int i = __fini_array_end - __fini_array_start - 1; i >= 0; i--)
+ 742              		.loc 1 44 0
+ 743 0006 40F20002 		movw	r2, #:lower16:__fini_array_end
+ 744 000a C0F20002 		movt	r2, #:upper16:__fini_array_end
+ 745 000e 40F20003 		movw	r3, #:lower16:__fini_array_start
+ 746 0012 C0F20003 		movt	r3, #:upper16:__fini_array_start
+ 747 0016 D31A     		subs	r3, r2, r3
+ 748 0018 4FEAA303 		asr	r3, r3, #2
+ 749 001c 03F1FF33 		add	r3, r3, #-1
+ 750 0020 7B60     		str	r3, [r7, #4]
+ 751 0022 0BE0     		b	.L5
+ 752              	.L6:
+  45:../target/stm32/startup/startup-init.cpp **** 	{
+  46:../target/stm32/startup/startup-init.cpp **** 		__fini_array_start [i] ();
+ 753              		.loc 1 46 0 discriminator 2
+ 754 0024 40F20003 		movw	r3, #:lower16:__fini_array_start
+ 755 0028 C0F20003 		movt	r3, #:upper16:__fini_array_start
+ 756 002c 7A68     		ldr	r2, [r7, #4]
+ 757 002e 53F82230 		ldr	r3, [r3, r2, lsl #2]
+ 758 0032 9847     		blx	r3
+  44:../target/stm32/startup/startup-init.cpp **** 	for (int i = __fini_array_end - __fini_array_start - 1; i >= 0; i--)
+ 759              		.loc 1 44 0 discriminator 2
+ 760 0034 7B68     		ldr	r3, [r7, #4]
+ 761 0036 03F1FF33 		add	r3, r3, #-1
+ 762 003a 7B60     		str	r3, [r7, #4]
+ 763              	.L5:
+  44:../target/stm32/startup/startup-init.cpp **** 	for (int i = __fini_array_end - __fini_array_start - 1; i >= 0; i--)
+ 764              		.loc 1 44 0 is_stmt 0 discriminator 1
+ 765 003c 7B68     		ldr	r3, [r7, #4]
+ 766 003e 6FEA0303 		mvn	r3, r3
+ 767 0042 4FEAD373 		lsr	r3, r3, #31
+ 768 0046 DBB2     		uxtb	r3, r3
+ 769 0048 002B     		cmp	r3, #0
+ 770 004a EBD1     		bne	.L6
+ 771              	.LBE5:
+ 772              	.LBE4:
+  47:../target/stm32/startup/startup-init.cpp **** 	}
+  48:../target/stm32/startup/startup-init.cpp **** }
+ 773              		.loc 1 48 0 is_stmt 1
+ 774 004c 07F10807 		add	r7, r7, #8
+ 775 0050 BD46     		mov	sp, r7
+ 776 0052 80BD     		pop	{r7, pc}
+ 777              		.cfi_endproc
+ 778              	.LFE1:
+ 780              		.section	.text._Z17__do_global_ctorsv,"ax",%progbits
+ 781              		.align	2
+ 782              		.global	_Z17__do_global_ctorsv
+ 783              		.thumb
+ 784              		.thumb_func
+ 786              	_Z17__do_global_ctorsv:
+ 787              	.LFB2:
+  49:../target/stm32/startup/startup-init.cpp **** 
+  50:../target/stm32/startup/startup-init.cpp **** /**
+  51:../target/stm32/startup/startup-init.cpp ****  * Calls constructors when using arm-elf toolchain
+  52:../target/stm32/startup/startup-init.cpp ****  */
+  53:../target/stm32/startup/startup-init.cpp **** void __do_global_ctors()
+  54:../target/stm32/startup/startup-init.cpp **** {
+ 788              		.loc 1 54 0
+ 789              		.cfi_startproc
+ 790              		@ args = 0, pretend = 0, frame = 8
+ 791              		@ frame_needed = 1, uses_anonymous_args = 0
+ 792 0000 80B5     		push	{r7, lr}
+ 793              	.LCFI6:
+ 794              		.cfi_def_cfa_offset 8
+ 795 0002 82B0     		sub	sp, sp, #8
+ 796              	.LCFI7:
+ 797              		.cfi_def_cfa_offset 16
+ 798 0004 00AF     		add	r7, sp, #0
+ 799              		.cfi_offset 14, -4
+ 800              		.cfi_offset 7, -8
+ 801              	.LCFI8:
+ 802              		.cfi_def_cfa_register 7
+ 803              	.LBB6:
+  55:../target/stm32/startup/startup-init.cpp **** 	unsigned long nptrs = (unsigned long) __CTOR_LIST__[0];
+ 804              		.loc 1 55 0
+ 805 0006 40F20003 		movw	r3, #:lower16:__CTOR_LIST__
+ 806 000a C0F20003 		movt	r3, #:upper16:__CTOR_LIST__
+ 807 000e 1B68     		ldr	r3, [r3, #0]
+ 808 0010 7B60     		str	r3, [r7, #4]
+  56:../target/stm32/startup/startup-init.cpp **** 
+  57:../target/stm32/startup/startup-init.cpp **** 	if (nptrs == (unsigned long)-1)
+ 809              		.loc 1 57 0
+ 810 0012 7B68     		ldr	r3, [r7, #4]
+ 811 0014 B3F1FF3F 		cmp	r3, #-1
+ 812 0018 17D1     		bne	.L8
+  58:../target/stm32/startup/startup-init.cpp **** 	{
+  59:../target/stm32/startup/startup-init.cpp **** 		for (nptrs = 0; __CTOR_LIST__[nptrs + 1] != 0; nptrs++);
+ 813              		.loc 1 59 0
+ 814 001a 4FF00003 		mov	r3, #0
+ 815 001e 7B60     		str	r3, [r7, #4]
+ 816 0020 03E0     		b	.L9
+ 817              	.L10:
+ 818              		.loc 1 59 0 is_stmt 0 discriminator 2
+ 819 0022 7B68     		ldr	r3, [r7, #4]
+ 820 0024 03F10103 		add	r3, r3, #1
+ 821 0028 7B60     		str	r3, [r7, #4]
+ 822              	.L9:
+ 823              		.loc 1 59 0 discriminator 1
+ 824 002a 7B68     		ldr	r3, [r7, #4]
+ 825 002c 03F10102 		add	r2, r3, #1
+ 826 0030 40F20003 		movw	r3, #:lower16:__CTOR_LIST__
+ 827 0034 C0F20003 		movt	r3, #:upper16:__CTOR_LIST__
+ 828 0038 53F82230 		ldr	r3, [r3, r2, lsl #2]
+ 829 003c 002B     		cmp	r3, #0
+ 830 003e 0CBF     		ite	eq
+ 831 0040 0023     		moveq	r3, #0
+ 832 0042 0123     		movne	r3, #1
+ 833 0044 DBB2     		uxtb	r3, r3
+ 834 0046 002B     		cmp	r3, #0
+ 835 0048 EBD1     		bne	.L10
+ 836              	.L8:
+ 837              	.LBB7:
+  60:../target/stm32/startup/startup-init.cpp **** 	}
+  61:../target/stm32/startup/startup-init.cpp **** 
+  62:../target/stm32/startup/startup-init.cpp **** 	for (unsigned i = nptrs; i >= 1; i--)
+ 838              		.loc 1 62 0 is_stmt 1
+ 839 004a 7B68     		ldr	r3, [r7, #4]
+ 840 004c 3B60     		str	r3, [r7, #0]
+ 841 004e 0BE0     		b	.L11
+ 842              	.L12:
+  63:../target/stm32/startup/startup-init.cpp **** 	{
+  64:../target/stm32/startup/startup-init.cpp **** 		__CTOR_LIST__[i]();
+ 843              		.loc 1 64 0 discriminator 2
+ 844 0050 40F20003 		movw	r3, #:lower16:__CTOR_LIST__
+ 845 0054 C0F20003 		movt	r3, #:upper16:__CTOR_LIST__
+ 846 0058 3A68     		ldr	r2, [r7, #0]
+ 847 005a 53F82230 		ldr	r3, [r3, r2, lsl #2]
+ 848 005e 9847     		blx	r3
+  62:../target/stm32/startup/startup-init.cpp **** 	for (unsigned i = nptrs; i >= 1; i--)
+ 849              		.loc 1 62 0 discriminator 2
+ 850 0060 3B68     		ldr	r3, [r7, #0]
+ 851 0062 03F1FF33 		add	r3, r3, #-1
+ 852 0066 3B60     		str	r3, [r7, #0]
+ 853              	.L11:
+  62:../target/stm32/startup/startup-init.cpp **** 	for (unsigned i = nptrs; i >= 1; i--)
+ 854              		.loc 1 62 0 is_stmt 0 discriminator 1
+ 855 0068 3B68     		ldr	r3, [r7, #0]
+ 856 006a 002B     		cmp	r3, #0
+ 857 006c 0CBF     		ite	eq
+ 858 006e 0023     		moveq	r3, #0
+ 859 0070 0123     		movne	r3, #1
+ 860 0072 DBB2     		uxtb	r3, r3
+ 861 0074 002B     		cmp	r3, #0
+ 862 0076 EBD1     		bne	.L12
+ 863              	.LBE7:
+ 864              	.LBE6:
+  65:../target/stm32/startup/startup-init.cpp **** 	}
+  66:../target/stm32/startup/startup-init.cpp **** }
+ 865              		.loc 1 66 0 is_stmt 1
+ 866 0078 07F10807 		add	r7, r7, #8
+ 867 007c BD46     		mov	sp, r7
+ 868 007e 80BD     		pop	{r7, pc}
+ 869              		.cfi_endproc
+ 870              	.LFE2:
+ 872              		.text
+ 873              	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 startup-init.cpp
+     /tmp/ccEUHzET.s:650    .text._Z10init_arrayv:00000000 $t
+     /tmp/ccEUHzET.s:655    .text._Z10init_arrayv:00000000 _Z10init_arrayv
+     /tmp/ccEUHzET.s:718    .text._Z10fini_arrayv:00000000 $t
+     /tmp/ccEUHzET.s:723    .text._Z10fini_arrayv:00000000 _Z10fini_arrayv
+     /tmp/ccEUHzET.s:781    .text._Z17__do_global_ctorsv:00000000 $t
+     /tmp/ccEUHzET.s:786    .text._Z17__do_global_ctorsv:00000000 _Z17__do_global_ctorsv
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+__init_array_end
+__init_array_start
+__fini_array_end
+__fini_array_start
+__CTOR_LIST__

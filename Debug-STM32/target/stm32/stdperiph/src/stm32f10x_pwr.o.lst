@@ -1,0 +1,2019 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"stm32f10x_pwr.c"
+  23              	.Ltext0:
+  24              		.file 1 "../target/stm32/stdperiph/src/stm32f10x_pwr.c"
+ 16329              		.align	2
+ 16330              		.thumb
+ 16331              		.thumb_func
+ 16333              	__WFI:
+ 16334              	.LFB5:
+   1:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /**************************************************************************//**
+   2:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @file     core_cm3.h
+   3:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @brief    CMSIS Cortex-M3 Core Peripheral Access Layer Header File
+   4:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @version  V1.30
+   5:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @date     30. October 2009
+   6:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+   7:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @note
+   8:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * Copyright (C) 2009 ARM Limited. All rights reserved.
+   9:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+  10:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @par
+  11:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * ARM Limited (ARM) is supplying this software for use with Cortex-M 
+  12:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * processor based microcontrollers.  This file can be freely distributed 
+  13:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * within development tools that are supporting such ARM based processors. 
+  14:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+  15:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @par
+  16:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * THIS SOFTWARE IS PROVIDED "AS IS".  NO WARRANTIES, WHETHER EXPRESS, IMPLIED
+  17:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * OR STATUTORY, INCLUDING, BUT NOT LIMITED TO, IMPLIED WARRANTIES OF
+  18:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE APPLY TO THIS SOFTWARE.
+  19:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * ARM SHALL NOT, IN ANY CIRCUMSTANCES, BE LIABLE FOR SPECIAL, INCIDENTAL, OR
+  20:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * CONSEQUENTIAL DAMAGES, FOR ANY REASON WHATSOEVER.
+  21:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+  22:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  ******************************************************************************/
+  23:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+  24:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #ifndef __CM3_CORE_H__
+  25:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define __CM3_CORE_H__
+  26:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+  27:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /** @addtogroup CMSIS_CM3_core_LintCinfiguration CMSIS CM3 Core Lint Configuration
+  28:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+  29:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * List of Lint messages which will be suppressed and not shown:
+  30:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *   - Error 10: \n
+  31:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *     register uint32_t __regBasePri         __asm("basepri"); \n
+  32:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *     Error 10: Expecting ';'
+  33:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * .
+  34:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *   - Error 530: \n
+  35:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *     return(__regBasePri); \n
+  36:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *     Warning 530: Symbol '__regBasePri' (line 264) not initialized
+  37:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * . 
+  38:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *   - Error 550: \n
+  39:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *     __regBasePri = (basePri & 0x1ff); \n
+  40:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *     Warning 550: Symbol '__regBasePri' (line 271) not accessed
+  41:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * .
+  42:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *   - Error 754: \n
+  43:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *     uint32_t RESERVED0[24]; \n
+  44:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *     Info 754: local structure member '<some, not used in the HAL>' (line 109, file ./cm3_core.h)
+  45:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * .
+  46:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *   - Error 750: \n
+  47:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *     #define __CM3_CORE_H__ \n
+  48:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *     Info 750: local macro '__CM3_CORE_H__' (line 43, file./cm3_core.h) not referenced
+  49:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * .
+  50:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *   - Error 528: \n
+  51:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *     static __INLINE void NVIC_DisableIRQ(uint32_t IRQn) \n
+  52:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *     Warning 528: Symbol 'NVIC_DisableIRQ(unsigned int)' (line 419, file ./cm3_core.h) not refere
+  53:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * .
+  54:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *   - Error 751: \n
+  55:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *     } InterruptType_Type; \n
+  56:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *     Info 751: local typedef 'InterruptType_Type' (line 170, file ./cm3_core.h) not referenced
+  57:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * .
+  58:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * Note:  To re-enable a Message, insert a space before 'lint' *
+  59:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+  60:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  */
+  61:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+  62:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /*lint -save */
+  63:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /*lint -e10  */
+  64:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /*lint -e530 */
+  65:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /*lint -e550 */
+  66:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /*lint -e754 */
+  67:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /*lint -e750 */
+  68:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /*lint -e528 */
+  69:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /*lint -e751 */
+  70:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+  71:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+  72:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /** @addtogroup CMSIS_CM3_core_definitions CM3 Core Definitions
+  73:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   This file defines all structures and symbols for CMSIS core:
+  74:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****     - CMSIS version number
+  75:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****     - Cortex-M core registers and bitfields
+  76:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****     - Cortex-M core peripheral base address
+  77:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   @{
+  78:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  */
+  79:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+  80:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #ifdef __cplusplus
+  81:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  extern "C" {
+  82:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #endif 
+  83:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+  84:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define __CM3_CMSIS_VERSION_MAIN  (0x01)                                                       /*!<
+  85:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define __CM3_CMSIS_VERSION_SUB   (0x30)                                                       /*!<
+  86:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define __CM3_CMSIS_VERSION       ((__CM3_CMSIS_VERSION_MAIN << 16) | __CM3_CMSIS_VERSION_SUB) /*!<
+  87:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+  88:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define __CORTEX_M                (0x03)                                                       /*!<
+  89:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+  90:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #include <stdint.h>                           /* Include standard types */
+  91:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+  92:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #if defined (__ICCARM__)
+  93:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   #include <intrinsics.h>                     /* IAR Intrinsics   */
+  94:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #endif
+  95:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+  96:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+  97:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #ifndef __NVIC_PRIO_BITS
+  98:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   #define __NVIC_PRIO_BITS    4               /*!< standard definition for NVIC Priority Bits */
+  99:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #endif
+ 100:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 101:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 102:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 103:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 104:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /**
+ 105:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * IO definitions
+ 106:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+ 107:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * define access restrictions to peripheral registers
+ 108:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  */
+ 109:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 110:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #ifdef __cplusplus
+ 111:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   #define     __I     volatile                /*!< defines 'read only' permissions      */
+ 112:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #else
+ 113:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   #define     __I     volatile const          /*!< defines 'read only' permissions      */
+ 114:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #endif
+ 115:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define     __O     volatile                  /*!< defines 'write only' permissions     */
+ 116:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define     __IO    volatile                  /*!< defines 'read / write' permissions   */
+ 117:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 118:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 119:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 120:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /*******************************************************************************
+ 121:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *                 Register Abstraction
+ 122:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  ******************************************************************************/
+ 123:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /** @addtogroup CMSIS_CM3_core_register CMSIS CM3 Core Register
+ 124:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  @{
+ 125:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** */
+ 126:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 127:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 128:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /** @addtogroup CMSIS_CM3_NVIC CMSIS CM3 NVIC
+ 129:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   memory mapped structure for Nested Vectored Interrupt Controller (NVIC)
+ 130:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   @{
+ 131:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  */
+ 132:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** typedef struct
+ 133:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** {
+ 134:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __IO uint32_t ISER[8];                      /*!< Offset: 0x000  Interrupt Set Enable Register    
+ 135:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****        uint32_t RESERVED0[24];                                   
+ 136:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __IO uint32_t ICER[8];                      /*!< Offset: 0x080  Interrupt Clear Enable Register  
+ 137:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****        uint32_t RSERVED1[24];                                    
+ 138:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __IO uint32_t ISPR[8];                      /*!< Offset: 0x100  Interrupt Set Pending Register   
+ 139:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****        uint32_t RESERVED2[24];                                   
+ 140:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __IO uint32_t ICPR[8];                      /*!< Offset: 0x180  Interrupt Clear Pending Register 
+ 141:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****        uint32_t RESERVED3[24];                                   
+ 142:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __IO uint32_t IABR[8];                      /*!< Offset: 0x200  Interrupt Active bit Register    
+ 143:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****        uint32_t RESERVED4[56];                                   
+ 144:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __IO uint8_t  IP[240];                      /*!< Offset: 0x300  Interrupt Priority Register (8Bit
+ 145:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****        uint32_t RESERVED5[644];                                  
+ 146:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __O  uint32_t STIR;                         /*!< Offset: 0xE00  Software Trigger Interrupt Regist
+ 147:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** }  NVIC_Type;                                               
+ 148:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /*@}*/ /* end of group CMSIS_CM3_NVIC */
+ 149:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 150:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 151:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /** @addtogroup CMSIS_CM3_SCB CMSIS CM3 SCB
+ 152:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   memory mapped structure for System Control Block (SCB)
+ 153:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   @{
+ 154:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  */
+ 155:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** typedef struct
+ 156:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** {
+ 157:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __I  uint32_t CPUID;                        /*!< Offset: 0x00  CPU ID Base Register              
+ 158:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __IO uint32_t ICSR;                         /*!< Offset: 0x04  Interrupt Control State Register  
+ 159:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __IO uint32_t VTOR;                         /*!< Offset: 0x08  Vector Table Offset Register      
+ 160:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __IO uint32_t AIRCR;                        /*!< Offset: 0x0C  Application Interrupt / Reset Cont
+ 161:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __IO uint32_t SCR;                          /*!< Offset: 0x10  System Control Register           
+ 162:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __IO uint32_t CCR;                          /*!< Offset: 0x14  Configuration Control Register    
+ 163:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __IO uint8_t  SHP[12];                      /*!< Offset: 0x18  System Handlers Priority Registers
+ 164:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __IO uint32_t SHCSR;                        /*!< Offset: 0x24  System Handler Control and State R
+ 165:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __IO uint32_t CFSR;                         /*!< Offset: 0x28  Configurable Fault Status Register
+ 166:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __IO uint32_t HFSR;                         /*!< Offset: 0x2C  Hard Fault Status Register        
+ 167:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __IO uint32_t DFSR;                         /*!< Offset: 0x30  Debug Fault Status Register       
+ 168:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __IO uint32_t MMFAR;                        /*!< Offset: 0x34  Mem Manage Address Register       
+ 169:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __IO uint32_t BFAR;                         /*!< Offset: 0x38  Bus Fault Address Register        
+ 170:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __IO uint32_t AFSR;                         /*!< Offset: 0x3C  Auxiliary Fault Status Register   
+ 171:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __I  uint32_t PFR[2];                       /*!< Offset: 0x40  Processor Feature Register        
+ 172:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __I  uint32_t DFR;                          /*!< Offset: 0x48  Debug Feature Register            
+ 173:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __I  uint32_t ADR;                          /*!< Offset: 0x4C  Auxiliary Feature Register        
+ 174:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __I  uint32_t MMFR[4];                      /*!< Offset: 0x50  Memory Model Feature Register     
+ 175:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __I  uint32_t ISAR[5];                      /*!< Offset: 0x60  ISA Feature Register              
+ 176:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** } SCB_Type;                                                
+ 177:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 178:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /* SCB CPUID Register Definitions */
+ 179:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_CPUID_IMPLEMENTER_Pos          24                                             /*!< SCB 
+ 180:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_CPUID_IMPLEMENTER_Msk          (0xFFul << SCB_CPUID_IMPLEMENTER_Pos)          /*!< SCB 
+ 181:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 182:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_CPUID_VARIANT_Pos              20                                             /*!< SCB 
+ 183:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_CPUID_VARIANT_Msk              (0xFul << SCB_CPUID_VARIANT_Pos)               /*!< SCB 
+ 184:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 185:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_CPUID_PARTNO_Pos                4                                             /*!< SCB 
+ 186:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_CPUID_PARTNO_Msk               (0xFFFul << SCB_CPUID_PARTNO_Pos)              /*!< SCB 
+ 187:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 188:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_CPUID_REVISION_Pos              0                                             /*!< SCB 
+ 189:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_CPUID_REVISION_Msk             (0xFul << SCB_CPUID_REVISION_Pos)              /*!< SCB 
+ 190:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 191:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /* SCB Interrupt Control State Register Definitions */
+ 192:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_ICSR_NMIPENDSET_Pos            31                                             /*!< SCB 
+ 193:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_ICSR_NMIPENDSET_Msk            (1ul << SCB_ICSR_NMIPENDSET_Pos)               /*!< SCB 
+ 194:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 195:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_ICSR_PENDSVSET_Pos             28                                             /*!< SCB 
+ 196:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_ICSR_PENDSVSET_Msk             (1ul << SCB_ICSR_PENDSVSET_Pos)                /*!< SCB 
+ 197:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 198:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_ICSR_PENDSVCLR_Pos             27                                             /*!< SCB 
+ 199:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_ICSR_PENDSVCLR_Msk             (1ul << SCB_ICSR_PENDSVCLR_Pos)                /*!< SCB 
+ 200:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 201:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_ICSR_PENDSTSET_Pos             26                                             /*!< SCB 
+ 202:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_ICSR_PENDSTSET_Msk             (1ul << SCB_ICSR_PENDSTSET_Pos)                /*!< SCB 
+ 203:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 204:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_ICSR_PENDSTCLR_Pos             25                                             /*!< SCB 
+ 205:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_ICSR_PENDSTCLR_Msk             (1ul << SCB_ICSR_PENDSTCLR_Pos)                /*!< SCB 
+ 206:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 207:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_ICSR_ISRPREEMPT_Pos            23                                             /*!< SCB 
+ 208:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_ICSR_ISRPREEMPT_Msk            (1ul << SCB_ICSR_ISRPREEMPT_Pos)               /*!< SCB 
+ 209:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 210:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_ICSR_ISRPENDING_Pos            22                                             /*!< SCB 
+ 211:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_ICSR_ISRPENDING_Msk            (1ul << SCB_ICSR_ISRPENDING_Pos)               /*!< SCB 
+ 212:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 213:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_ICSR_VECTPENDING_Pos           12                                             /*!< SCB 
+ 214:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_ICSR_VECTPENDING_Msk           (0x1FFul << SCB_ICSR_VECTPENDING_Pos)          /*!< SCB 
+ 215:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 216:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_ICSR_RETTOBASE_Pos             11                                             /*!< SCB 
+ 217:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_ICSR_RETTOBASE_Msk             (1ul << SCB_ICSR_RETTOBASE_Pos)                /*!< SCB 
+ 218:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 219:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_ICSR_VECTACTIVE_Pos             0                                             /*!< SCB 
+ 220:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_ICSR_VECTACTIVE_Msk            (0x1FFul << SCB_ICSR_VECTACTIVE_Pos)           /*!< SCB 
+ 221:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 222:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /* SCB Interrupt Control State Register Definitions */
+ 223:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_VTOR_TBLBASE_Pos               29                                             /*!< SCB 
+ 224:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_VTOR_TBLBASE_Msk               (0x1FFul << SCB_VTOR_TBLBASE_Pos)              /*!< SCB 
+ 225:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 226:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_VTOR_TBLOFF_Pos                 7                                             /*!< SCB 
+ 227:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_VTOR_TBLOFF_Msk                (0x3FFFFFul << SCB_VTOR_TBLOFF_Pos)            /*!< SCB 
+ 228:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 229:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /* SCB Application Interrupt and Reset Control Register Definitions */
+ 230:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_AIRCR_VECTKEY_Pos              16                                             /*!< SCB 
+ 231:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_AIRCR_VECTKEY_Msk              (0xFFFFul << SCB_AIRCR_VECTKEY_Pos)            /*!< SCB 
+ 232:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 233:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_AIRCR_VECTKEYSTAT_Pos          16                                             /*!< SCB 
+ 234:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_AIRCR_VECTKEYSTAT_Msk          (0xFFFFul << SCB_AIRCR_VECTKEYSTAT_Pos)        /*!< SCB 
+ 235:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 236:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_AIRCR_ENDIANESS_Pos            15                                             /*!< SCB 
+ 237:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_AIRCR_ENDIANESS_Msk            (1ul << SCB_AIRCR_ENDIANESS_Pos)               /*!< SCB 
+ 238:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 239:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_AIRCR_PRIGROUP_Pos              8                                             /*!< SCB 
+ 240:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_AIRCR_PRIGROUP_Msk             (7ul << SCB_AIRCR_PRIGROUP_Pos)                /*!< SCB 
+ 241:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 242:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_AIRCR_SYSRESETREQ_Pos           2                                             /*!< SCB 
+ 243:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_AIRCR_SYSRESETREQ_Msk          (1ul << SCB_AIRCR_SYSRESETREQ_Pos)             /*!< SCB 
+ 244:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 245:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_AIRCR_VECTCLRACTIVE_Pos         1                                             /*!< SCB 
+ 246:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_AIRCR_VECTCLRACTIVE_Msk        (1ul << SCB_AIRCR_VECTCLRACTIVE_Pos)           /*!< SCB 
+ 247:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 248:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_AIRCR_VECTRESET_Pos             0                                             /*!< SCB 
+ 249:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_AIRCR_VECTRESET_Msk            (1ul << SCB_AIRCR_VECTRESET_Pos)               /*!< SCB 
+ 250:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 251:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /* SCB System Control Register Definitions */
+ 252:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_SCR_SEVONPEND_Pos               4                                             /*!< SCB 
+ 253:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_SCR_SEVONPEND_Msk              (1ul << SCB_SCR_SEVONPEND_Pos)                 /*!< SCB 
+ 254:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 255:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_SCR_SLEEPDEEP_Pos               2                                             /*!< SCB 
+ 256:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_SCR_SLEEPDEEP_Msk              (1ul << SCB_SCR_SLEEPDEEP_Pos)                 /*!< SCB 
+ 257:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 258:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_SCR_SLEEPONEXIT_Pos             1                                             /*!< SCB 
+ 259:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_SCR_SLEEPONEXIT_Msk            (1ul << SCB_SCR_SLEEPONEXIT_Pos)               /*!< SCB 
+ 260:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 261:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /* SCB Configuration Control Register Definitions */
+ 262:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_CCR_STKALIGN_Pos                9                                             /*!< SCB 
+ 263:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_CCR_STKALIGN_Msk               (1ul << SCB_CCR_STKALIGN_Pos)                  /*!< SCB 
+ 264:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 265:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_CCR_BFHFNMIGN_Pos               8                                             /*!< SCB 
+ 266:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_CCR_BFHFNMIGN_Msk              (1ul << SCB_CCR_BFHFNMIGN_Pos)                 /*!< SCB 
+ 267:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 268:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_CCR_DIV_0_TRP_Pos               4                                             /*!< SCB 
+ 269:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_CCR_DIV_0_TRP_Msk              (1ul << SCB_CCR_DIV_0_TRP_Pos)                 /*!< SCB 
+ 270:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 271:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_CCR_UNALIGN_TRP_Pos             3                                             /*!< SCB 
+ 272:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_CCR_UNALIGN_TRP_Msk            (1ul << SCB_CCR_UNALIGN_TRP_Pos)               /*!< SCB 
+ 273:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 274:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_CCR_USERSETMPEND_Pos            1                                             /*!< SCB 
+ 275:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_CCR_USERSETMPEND_Msk           (1ul << SCB_CCR_USERSETMPEND_Pos)              /*!< SCB 
+ 276:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 277:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_CCR_NONBASETHRDENA_Pos          0                                             /*!< SCB 
+ 278:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_CCR_NONBASETHRDENA_Msk         (1ul << SCB_CCR_NONBASETHRDENA_Pos)            /*!< SCB 
+ 279:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 280:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /* SCB System Handler Control and State Register Definitions */
+ 281:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_SHCSR_USGFAULTENA_Pos          18                                             /*!< SCB 
+ 282:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_SHCSR_USGFAULTENA_Msk          (1ul << SCB_SHCSR_USGFAULTENA_Pos)             /*!< SCB 
+ 283:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 284:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_SHCSR_BUSFAULTENA_Pos          17                                             /*!< SCB 
+ 285:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_SHCSR_BUSFAULTENA_Msk          (1ul << SCB_SHCSR_BUSFAULTENA_Pos)             /*!< SCB 
+ 286:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 287:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_SHCSR_MEMFAULTENA_Pos          16                                             /*!< SCB 
+ 288:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_SHCSR_MEMFAULTENA_Msk          (1ul << SCB_SHCSR_MEMFAULTENA_Pos)             /*!< SCB 
+ 289:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 290:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_SHCSR_SVCALLPENDED_Pos         15                                             /*!< SCB 
+ 291:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_SHCSR_SVCALLPENDED_Msk         (1ul << SCB_SHCSR_SVCALLPENDED_Pos)            /*!< SCB 
+ 292:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 293:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_SHCSR_BUSFAULTPENDED_Pos       14                                             /*!< SCB 
+ 294:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_SHCSR_BUSFAULTPENDED_Msk       (1ul << SCB_SHCSR_BUSFAULTPENDED_Pos)          /*!< SCB 
+ 295:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 296:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_SHCSR_MEMFAULTPENDED_Pos       13                                             /*!< SCB 
+ 297:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_SHCSR_MEMFAULTPENDED_Msk       (1ul << SCB_SHCSR_MEMFAULTPENDED_Pos)          /*!< SCB 
+ 298:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 299:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_SHCSR_USGFAULTPENDED_Pos       12                                             /*!< SCB 
+ 300:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_SHCSR_USGFAULTPENDED_Msk       (1ul << SCB_SHCSR_USGFAULTPENDED_Pos)          /*!< SCB 
+ 301:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 302:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_SHCSR_SYSTICKACT_Pos           11                                             /*!< SCB 
+ 303:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_SHCSR_SYSTICKACT_Msk           (1ul << SCB_SHCSR_SYSTICKACT_Pos)              /*!< SCB 
+ 304:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 305:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_SHCSR_PENDSVACT_Pos            10                                             /*!< SCB 
+ 306:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_SHCSR_PENDSVACT_Msk            (1ul << SCB_SHCSR_PENDSVACT_Pos)               /*!< SCB 
+ 307:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 308:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_SHCSR_MONITORACT_Pos            8                                             /*!< SCB 
+ 309:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_SHCSR_MONITORACT_Msk           (1ul << SCB_SHCSR_MONITORACT_Pos)              /*!< SCB 
+ 310:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 311:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_SHCSR_SVCALLACT_Pos             7                                             /*!< SCB 
+ 312:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_SHCSR_SVCALLACT_Msk            (1ul << SCB_SHCSR_SVCALLACT_Pos)               /*!< SCB 
+ 313:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****                                      
+ 314:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_SHCSR_USGFAULTACT_Pos           3                                             /*!< SCB 
+ 315:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_SHCSR_USGFAULTACT_Msk          (1ul << SCB_SHCSR_USGFAULTACT_Pos)             /*!< SCB 
+ 316:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 317:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_SHCSR_BUSFAULTACT_Pos           1                                             /*!< SCB 
+ 318:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_SHCSR_BUSFAULTACT_Msk          (1ul << SCB_SHCSR_BUSFAULTACT_Pos)             /*!< SCB 
+ 319:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 320:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_SHCSR_MEMFAULTACT_Pos           0                                             /*!< SCB 
+ 321:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_SHCSR_MEMFAULTACT_Msk          (1ul << SCB_SHCSR_MEMFAULTACT_Pos)             /*!< SCB 
+ 322:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 323:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /* SCB Configurable Fault Status Registers Definitions */
+ 324:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_CFSR_USGFAULTSR_Pos            16                                             /*!< SCB 
+ 325:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_CFSR_USGFAULTSR_Msk            (0xFFFFul << SCB_CFSR_USGFAULTSR_Pos)          /*!< SCB 
+ 326:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 327:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_CFSR_BUSFAULTSR_Pos             8                                             /*!< SCB 
+ 328:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_CFSR_BUSFAULTSR_Msk            (0xFFul << SCB_CFSR_BUSFAULTSR_Pos)            /*!< SCB 
+ 329:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 330:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_CFSR_MEMFAULTSR_Pos             0                                             /*!< SCB 
+ 331:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_CFSR_MEMFAULTSR_Msk            (0xFFul << SCB_CFSR_MEMFAULTSR_Pos)            /*!< SCB 
+ 332:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 333:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /* SCB Hard Fault Status Registers Definitions */
+ 334:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_HFSR_DEBUGEVT_Pos              31                                             /*!< SCB 
+ 335:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_HFSR_DEBUGEVT_Msk              (1ul << SCB_HFSR_DEBUGEVT_Pos)                 /*!< SCB 
+ 336:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 337:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_HFSR_FORCED_Pos                30                                             /*!< SCB 
+ 338:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_HFSR_FORCED_Msk                (1ul << SCB_HFSR_FORCED_Pos)                   /*!< SCB 
+ 339:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 340:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_HFSR_VECTTBL_Pos                1                                             /*!< SCB 
+ 341:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_HFSR_VECTTBL_Msk               (1ul << SCB_HFSR_VECTTBL_Pos)                  /*!< SCB 
+ 342:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 343:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /* SCB Debug Fault Status Register Definitions */
+ 344:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_DFSR_EXTERNAL_Pos               4                                             /*!< SCB 
+ 345:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_DFSR_EXTERNAL_Msk              (1ul << SCB_DFSR_EXTERNAL_Pos)                 /*!< SCB 
+ 346:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 347:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_DFSR_VCATCH_Pos                 3                                             /*!< SCB 
+ 348:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_DFSR_VCATCH_Msk                (1ul << SCB_DFSR_VCATCH_Pos)                   /*!< SCB 
+ 349:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 350:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_DFSR_DWTTRAP_Pos                2                                             /*!< SCB 
+ 351:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_DFSR_DWTTRAP_Msk               (1ul << SCB_DFSR_DWTTRAP_Pos)                  /*!< SCB 
+ 352:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 353:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_DFSR_BKPT_Pos                   1                                             /*!< SCB 
+ 354:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_DFSR_BKPT_Msk                  (1ul << SCB_DFSR_BKPT_Pos)                     /*!< SCB 
+ 355:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 356:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_DFSR_HALTED_Pos                 0                                             /*!< SCB 
+ 357:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_DFSR_HALTED_Msk                (1ul << SCB_DFSR_HALTED_Pos)                   /*!< SCB 
+ 358:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /*@}*/ /* end of group CMSIS_CM3_SCB */
+ 359:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 360:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 361:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /** @addtogroup CMSIS_CM3_SysTick CMSIS CM3 SysTick
+ 362:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   memory mapped structure for SysTick
+ 363:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   @{
+ 364:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  */
+ 365:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** typedef struct
+ 366:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** {
+ 367:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __IO uint32_t CTRL;                         /*!< Offset: 0x00  SysTick Control and Status Registe
+ 368:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __IO uint32_t LOAD;                         /*!< Offset: 0x04  SysTick Reload Value Register     
+ 369:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __IO uint32_t VAL;                          /*!< Offset: 0x08  SysTick Current Value Register    
+ 370:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __I  uint32_t CALIB;                        /*!< Offset: 0x0C  SysTick Calibration Register      
+ 371:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** } SysTick_Type;
+ 372:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 373:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /* SysTick Control / Status Register Definitions */
+ 374:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SysTick_CTRL_COUNTFLAG_Pos         16                                             /*!< SysT
+ 375:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SysTick_CTRL_COUNTFLAG_Msk         (1ul << SysTick_CTRL_COUNTFLAG_Pos)            /*!< SysT
+ 376:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 377:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SysTick_CTRL_CLKSOURCE_Pos          2                                             /*!< SysT
+ 378:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SysTick_CTRL_CLKSOURCE_Msk         (1ul << SysTick_CTRL_CLKSOURCE_Pos)            /*!< SysT
+ 379:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 380:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SysTick_CTRL_TICKINT_Pos            1                                             /*!< SysT
+ 381:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SysTick_CTRL_TICKINT_Msk           (1ul << SysTick_CTRL_TICKINT_Pos)              /*!< SysT
+ 382:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 383:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SysTick_CTRL_ENABLE_Pos             0                                             /*!< SysT
+ 384:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SysTick_CTRL_ENABLE_Msk            (1ul << SysTick_CTRL_ENABLE_Pos)               /*!< SysT
+ 385:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 386:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /* SysTick Reload Register Definitions */
+ 387:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SysTick_LOAD_RELOAD_Pos             0                                             /*!< SysT
+ 388:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SysTick_LOAD_RELOAD_Msk            (0xFFFFFFul << SysTick_LOAD_RELOAD_Pos)        /*!< SysT
+ 389:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 390:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /* SysTick Current Register Definitions */
+ 391:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SysTick_VAL_CURRENT_Pos             0                                             /*!< SysT
+ 392:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SysTick_VAL_CURRENT_Msk            (0xFFFFFFul << SysTick_VAL_CURRENT_Pos)        /*!< SysT
+ 393:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 394:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /* SysTick Calibration Register Definitions */
+ 395:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SysTick_CALIB_NOREF_Pos            31                                             /*!< SysT
+ 396:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SysTick_CALIB_NOREF_Msk            (1ul << SysTick_CALIB_NOREF_Pos)               /*!< SysT
+ 397:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 398:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SysTick_CALIB_SKEW_Pos             30                                             /*!< SysT
+ 399:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SysTick_CALIB_SKEW_Msk             (1ul << SysTick_CALIB_SKEW_Pos)                /*!< SysT
+ 400:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 401:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SysTick_CALIB_TENMS_Pos             0                                             /*!< SysT
+ 402:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SysTick_CALIB_TENMS_Msk            (0xFFFFFFul << SysTick_VAL_CURRENT_Pos)        /*!< SysT
+ 403:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /*@}*/ /* end of group CMSIS_CM3_SysTick */
+ 404:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 405:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 406:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /** @addtogroup CMSIS_CM3_ITM CMSIS CM3 ITM
+ 407:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   memory mapped structure for Instrumentation Trace Macrocell (ITM)
+ 408:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   @{
+ 409:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  */
+ 410:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** typedef struct
+ 411:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** {
+ 412:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __O  union  
+ 413:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   {
+ 414:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****     __O  uint8_t    u8;                       /*!< Offset:       ITM Stimulus Port 8-bit           
+ 415:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****     __O  uint16_t   u16;                      /*!< Offset:       ITM Stimulus Port 16-bit          
+ 416:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****     __O  uint32_t   u32;                      /*!< Offset:       ITM Stimulus Port 32-bit          
+ 417:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   }  PORT [32];                               /*!< Offset: 0x00  ITM Stimulus Port Registers       
+ 418:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****        uint32_t RESERVED0[864];                                 
+ 419:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __IO uint32_t TER;                          /*!< Offset:       ITM Trace Enable Register         
+ 420:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****        uint32_t RESERVED1[15];                                  
+ 421:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __IO uint32_t TPR;                          /*!< Offset:       ITM Trace Privilege Register      
+ 422:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****        uint32_t RESERVED2[15];                                  
+ 423:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __IO uint32_t TCR;                          /*!< Offset:       ITM Trace Control Register        
+ 424:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****        uint32_t RESERVED3[29];                                  
+ 425:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __IO uint32_t IWR;                          /*!< Offset:       ITM Integration Write Register    
+ 426:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __IO uint32_t IRR;                          /*!< Offset:       ITM Integration Read Register     
+ 427:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __IO uint32_t IMCR;                         /*!< Offset:       ITM Integration Mode Control Regis
+ 428:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****        uint32_t RESERVED4[43];                                  
+ 429:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __IO uint32_t LAR;                          /*!< Offset:       ITM Lock Access Register          
+ 430:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __IO uint32_t LSR;                          /*!< Offset:       ITM Lock Status Register          
+ 431:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****        uint32_t RESERVED5[6];                                   
+ 432:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __I  uint32_t PID4;                         /*!< Offset:       ITM Peripheral Identification Regi
+ 433:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __I  uint32_t PID5;                         /*!< Offset:       ITM Peripheral Identification Regi
+ 434:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __I  uint32_t PID6;                         /*!< Offset:       ITM Peripheral Identification Regi
+ 435:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __I  uint32_t PID7;                         /*!< Offset:       ITM Peripheral Identification Regi
+ 436:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __I  uint32_t PID0;                         /*!< Offset:       ITM Peripheral Identification Regi
+ 437:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __I  uint32_t PID1;                         /*!< Offset:       ITM Peripheral Identification Regi
+ 438:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __I  uint32_t PID2;                         /*!< Offset:       ITM Peripheral Identification Regi
+ 439:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __I  uint32_t PID3;                         /*!< Offset:       ITM Peripheral Identification Regi
+ 440:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __I  uint32_t CID0;                         /*!< Offset:       ITM Component  Identification Regi
+ 441:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __I  uint32_t CID1;                         /*!< Offset:       ITM Component  Identification Regi
+ 442:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __I  uint32_t CID2;                         /*!< Offset:       ITM Component  Identification Regi
+ 443:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __I  uint32_t CID3;                         /*!< Offset:       ITM Component  Identification Regi
+ 444:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** } ITM_Type;                                                
+ 445:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 446:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /* ITM Trace Privilege Register Definitions */
+ 447:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define ITM_TPR_PRIVMASK_Pos                0                                             /*!< ITM 
+ 448:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define ITM_TPR_PRIVMASK_Msk               (0xFul << ITM_TPR_PRIVMASK_Pos)                /*!< ITM 
+ 449:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 450:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /* ITM Trace Control Register Definitions */
+ 451:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define ITM_TCR_BUSY_Pos                   23                                             /*!< ITM 
+ 452:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define ITM_TCR_BUSY_Msk                   (1ul << ITM_TCR_BUSY_Pos)                      /*!< ITM 
+ 453:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 454:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define ITM_TCR_ATBID_Pos                  16                                             /*!< ITM 
+ 455:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define ITM_TCR_ATBID_Msk                  (0x7Ful << ITM_TCR_ATBID_Pos)                  /*!< ITM 
+ 456:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 457:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define ITM_TCR_TSPrescale_Pos              8                                             /*!< ITM 
+ 458:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define ITM_TCR_TSPrescale_Msk             (3ul << ITM_TCR_TSPrescale_Pos)                /*!< ITM 
+ 459:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 460:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define ITM_TCR_SWOENA_Pos                  4                                             /*!< ITM 
+ 461:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define ITM_TCR_SWOENA_Msk                 (1ul << ITM_TCR_SWOENA_Pos)                    /*!< ITM 
+ 462:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 463:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define ITM_TCR_DWTENA_Pos                  3                                             /*!< ITM 
+ 464:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define ITM_TCR_DWTENA_Msk                 (1ul << ITM_TCR_DWTENA_Pos)                    /*!< ITM 
+ 465:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 466:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define ITM_TCR_SYNCENA_Pos                 2                                             /*!< ITM 
+ 467:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define ITM_TCR_SYNCENA_Msk                (1ul << ITM_TCR_SYNCENA_Pos)                   /*!< ITM 
+ 468:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 469:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define ITM_TCR_TSENA_Pos                   1                                             /*!< ITM 
+ 470:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define ITM_TCR_TSENA_Msk                  (1ul << ITM_TCR_TSENA_Pos)                     /*!< ITM 
+ 471:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 472:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define ITM_TCR_ITMENA_Pos                  0                                             /*!< ITM 
+ 473:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define ITM_TCR_ITMENA_Msk                 (1ul << ITM_TCR_ITMENA_Pos)                    /*!< ITM 
+ 474:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 475:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /* ITM Integration Write Register Definitions */
+ 476:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define ITM_IWR_ATVALIDM_Pos                0                                             /*!< ITM 
+ 477:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define ITM_IWR_ATVALIDM_Msk               (1ul << ITM_IWR_ATVALIDM_Pos)                  /*!< ITM 
+ 478:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 479:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /* ITM Integration Read Register Definitions */
+ 480:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define ITM_IRR_ATREADYM_Pos                0                                             /*!< ITM 
+ 481:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define ITM_IRR_ATREADYM_Msk               (1ul << ITM_IRR_ATREADYM_Pos)                  /*!< ITM 
+ 482:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 483:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /* ITM Integration Mode Control Register Definitions */
+ 484:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define ITM_IMCR_INTEGRATION_Pos            0                                             /*!< ITM 
+ 485:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define ITM_IMCR_INTEGRATION_Msk           (1ul << ITM_IMCR_INTEGRATION_Pos)              /*!< ITM 
+ 486:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 487:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /* ITM Lock Status Register Definitions */
+ 488:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define ITM_LSR_ByteAcc_Pos                 2                                             /*!< ITM 
+ 489:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define ITM_LSR_ByteAcc_Msk                (1ul << ITM_LSR_ByteAcc_Pos)                   /*!< ITM 
+ 490:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 491:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define ITM_LSR_Access_Pos                  1                                             /*!< ITM 
+ 492:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define ITM_LSR_Access_Msk                 (1ul << ITM_LSR_Access_Pos)                    /*!< ITM 
+ 493:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 494:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define ITM_LSR_Present_Pos                 0                                             /*!< ITM 
+ 495:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define ITM_LSR_Present_Msk                (1ul << ITM_LSR_Present_Pos)                   /*!< ITM 
+ 496:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /*@}*/ /* end of group CMSIS_CM3_ITM */
+ 497:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 498:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 499:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /** @addtogroup CMSIS_CM3_InterruptType CMSIS CM3 Interrupt Type
+ 500:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   memory mapped structure for Interrupt Type
+ 501:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   @{
+ 502:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  */
+ 503:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** typedef struct
+ 504:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** {
+ 505:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****        uint32_t RESERVED0;
+ 506:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __I  uint32_t ICTR;                         /*!< Offset: 0x04  Interrupt Control Type Register */
+ 507:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #if ((defined __CM3_REV) && (__CM3_REV >= 0x200))
+ 508:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __IO uint32_t ACTLR;                        /*!< Offset: 0x08  Auxiliary Control Register      */
+ 509:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #else
+ 510:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****        uint32_t RESERVED1;
+ 511:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #endif
+ 512:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** } InterruptType_Type;
+ 513:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 514:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /* Interrupt Controller Type Register Definitions */
+ 515:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define InterruptType_ICTR_INTLINESNUM_Pos  0                                             /*!< Inte
+ 516:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define InterruptType_ICTR_INTLINESNUM_Msk (0x1Ful << InterruptType_ICTR_INTLINESNUM_Pos) /*!< Inte
+ 517:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 518:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /* Auxiliary Control Register Definitions */
+ 519:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define InterruptType_ACTLR_DISFOLD_Pos     2                                             /*!< Inte
+ 520:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define InterruptType_ACTLR_DISFOLD_Msk    (1ul << InterruptType_ACTLR_DISFOLD_Pos)       /*!< Inte
+ 521:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 522:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define InterruptType_ACTLR_DISDEFWBUF_Pos  1                                             /*!< Inte
+ 523:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define InterruptType_ACTLR_DISDEFWBUF_Msk (1ul << InterruptType_ACTLR_DISDEFWBUF_Pos)    /*!< Inte
+ 524:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 525:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define InterruptType_ACTLR_DISMCYCINT_Pos  0                                             /*!< Inte
+ 526:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define InterruptType_ACTLR_DISMCYCINT_Msk (1ul << InterruptType_ACTLR_DISMCYCINT_Pos)    /*!< Inte
+ 527:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /*@}*/ /* end of group CMSIS_CM3_InterruptType */
+ 528:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 529:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 530:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #if defined (__MPU_PRESENT) && (__MPU_PRESENT == 1)
+ 531:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /** @addtogroup CMSIS_CM3_MPU CMSIS CM3 MPU
+ 532:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   memory mapped structure for Memory Protection Unit (MPU)
+ 533:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   @{
+ 534:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  */
+ 535:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** typedef struct
+ 536:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** {
+ 537:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __I  uint32_t TYPE;                         /*!< Offset: 0x00  MPU Type Register                 
+ 538:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __IO uint32_t CTRL;                         /*!< Offset: 0x04  MPU Control Register              
+ 539:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __IO uint32_t RNR;                          /*!< Offset: 0x08  MPU Region RNRber Register        
+ 540:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __IO uint32_t RBAR;                         /*!< Offset: 0x0C  MPU Region Base Address Register  
+ 541:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __IO uint32_t RASR;                         /*!< Offset: 0x10  MPU Region Attribute and Size Regi
+ 542:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __IO uint32_t RBAR_A1;                      /*!< Offset: 0x14  MPU Alias 1 Region Base Address Re
+ 543:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __IO uint32_t RASR_A1;                      /*!< Offset: 0x18  MPU Alias 1 Region Attribute and S
+ 544:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __IO uint32_t RBAR_A2;                      /*!< Offset: 0x1C  MPU Alias 2 Region Base Address Re
+ 545:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __IO uint32_t RASR_A2;                      /*!< Offset: 0x20  MPU Alias 2 Region Attribute and S
+ 546:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __IO uint32_t RBAR_A3;                      /*!< Offset: 0x24  MPU Alias 3 Region Base Address Re
+ 547:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __IO uint32_t RASR_A3;                      /*!< Offset: 0x28  MPU Alias 3 Region Attribute and S
+ 548:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** } MPU_Type;                                                
+ 549:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 550:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /* MPU Type Register */
+ 551:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define MPU_TYPE_IREGION_Pos               16                                             /*!< MPU 
+ 552:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define MPU_TYPE_IREGION_Msk               (0xFFul << MPU_TYPE_IREGION_Pos)               /*!< MPU 
+ 553:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 554:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define MPU_TYPE_DREGION_Pos                8                                             /*!< MPU 
+ 555:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define MPU_TYPE_DREGION_Msk               (0xFFul << MPU_TYPE_DREGION_Pos)               /*!< MPU 
+ 556:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 557:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define MPU_TYPE_SEPARATE_Pos               0                                             /*!< MPU 
+ 558:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define MPU_TYPE_SEPARATE_Msk              (1ul << MPU_TYPE_SEPARATE_Pos)                 /*!< MPU 
+ 559:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 560:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /* MPU Control Register */
+ 561:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define MPU_CTRL_PRIVDEFENA_Pos             2                                             /*!< MPU 
+ 562:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define MPU_CTRL_PRIVDEFENA_Msk            (1ul << MPU_CTRL_PRIVDEFENA_Pos)               /*!< MPU 
+ 563:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 564:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define MPU_CTRL_HFNMIENA_Pos               1                                             /*!< MPU 
+ 565:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define MPU_CTRL_HFNMIENA_Msk              (1ul << MPU_CTRL_HFNMIENA_Pos)                 /*!< MPU 
+ 566:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 567:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define MPU_CTRL_ENABLE_Pos                 0                                             /*!< MPU 
+ 568:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define MPU_CTRL_ENABLE_Msk                (1ul << MPU_CTRL_ENABLE_Pos)                   /*!< MPU 
+ 569:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 570:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /* MPU Region Number Register */
+ 571:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define MPU_RNR_REGION_Pos                  0                                             /*!< MPU 
+ 572:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define MPU_RNR_REGION_Msk                 (0xFFul << MPU_RNR_REGION_Pos)                 /*!< MPU 
+ 573:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 574:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /* MPU Region Base Address Register */
+ 575:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define MPU_RBAR_ADDR_Pos                   5                                             /*!< MPU 
+ 576:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define MPU_RBAR_ADDR_Msk                  (0x7FFFFFFul << MPU_RBAR_ADDR_Pos)             /*!< MPU 
+ 577:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 578:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define MPU_RBAR_VALID_Pos                  4                                             /*!< MPU 
+ 579:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define MPU_RBAR_VALID_Msk                 (1ul << MPU_RBAR_VALID_Pos)                    /*!< MPU 
+ 580:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 581:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define MPU_RBAR_REGION_Pos                 0                                             /*!< MPU 
+ 582:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define MPU_RBAR_REGION_Msk                (0xFul << MPU_RBAR_REGION_Pos)                 /*!< MPU 
+ 583:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 584:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /* MPU Region Attribute and Size Register */
+ 585:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define MPU_RASR_XN_Pos                    28                                             /*!< MPU 
+ 586:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define MPU_RASR_XN_Msk                    (1ul << MPU_RASR_XN_Pos)                       /*!< MPU 
+ 587:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 588:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define MPU_RASR_AP_Pos                    24                                             /*!< MPU 
+ 589:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define MPU_RASR_AP_Msk                    (7ul << MPU_RASR_AP_Pos)                       /*!< MPU 
+ 590:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 591:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define MPU_RASR_TEX_Pos                   19                                             /*!< MPU 
+ 592:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define MPU_RASR_TEX_Msk                   (7ul << MPU_RASR_TEX_Pos)                      /*!< MPU 
+ 593:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 594:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define MPU_RASR_S_Pos                     18                                             /*!< MPU 
+ 595:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define MPU_RASR_S_Msk                     (1ul << MPU_RASR_S_Pos)                        /*!< MPU 
+ 596:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 597:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define MPU_RASR_C_Pos                     17                                             /*!< MPU 
+ 598:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define MPU_RASR_C_Msk                     (1ul << MPU_RASR_C_Pos)                        /*!< MPU 
+ 599:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 600:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define MPU_RASR_B_Pos                     16                                             /*!< MPU 
+ 601:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define MPU_RASR_B_Msk                     (1ul << MPU_RASR_B_Pos)                        /*!< MPU 
+ 602:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 603:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define MPU_RASR_SRD_Pos                    8                                             /*!< MPU 
+ 604:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define MPU_RASR_SRD_Msk                   (0xFFul << MPU_RASR_SRD_Pos)                   /*!< MPU 
+ 605:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 606:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define MPU_RASR_SIZE_Pos                   1                                             /*!< MPU 
+ 607:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define MPU_RASR_SIZE_Msk                  (0x1Ful << MPU_RASR_SIZE_Pos)                  /*!< MPU 
+ 608:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 609:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define MPU_RASR_ENA_Pos                     0                                            /*!< MPU 
+ 610:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define MPU_RASR_ENA_Msk                    (0x1Ful << MPU_RASR_ENA_Pos)                  /*!< MPU 
+ 611:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 612:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /*@}*/ /* end of group CMSIS_CM3_MPU */
+ 613:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #endif
+ 614:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 615:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 616:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /** @addtogroup CMSIS_CM3_CoreDebug CMSIS CM3 Core Debug
+ 617:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   memory mapped structure for Core Debug Register
+ 618:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   @{
+ 619:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  */
+ 620:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** typedef struct
+ 621:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** {
+ 622:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __IO uint32_t DHCSR;                        /*!< Offset: 0x00  Debug Halting Control and Status R
+ 623:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __O  uint32_t DCRSR;                        /*!< Offset: 0x04  Debug Core Register Selector Regis
+ 624:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __IO uint32_t DCRDR;                        /*!< Offset: 0x08  Debug Core Register Data Register 
+ 625:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __IO uint32_t DEMCR;                        /*!< Offset: 0x0C  Debug Exception and Monitor Contro
+ 626:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** } CoreDebug_Type;
+ 627:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 628:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /* Debug Halting Control and Status Register */
+ 629:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define CoreDebug_DHCSR_DBGKEY_Pos         16                                             /*!< Core
+ 630:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define CoreDebug_DHCSR_DBGKEY_Msk         (0xFFFFul << CoreDebug_DHCSR_DBGKEY_Pos)       /*!< Core
+ 631:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 632:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define CoreDebug_DHCSR_S_RESET_ST_Pos     25                                             /*!< Core
+ 633:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define CoreDebug_DHCSR_S_RESET_ST_Msk     (1ul << CoreDebug_DHCSR_S_RESET_ST_Pos)        /*!< Core
+ 634:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 635:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define CoreDebug_DHCSR_S_RETIRE_ST_Pos    24                                             /*!< Core
+ 636:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define CoreDebug_DHCSR_S_RETIRE_ST_Msk    (1ul << CoreDebug_DHCSR_S_RETIRE_ST_Pos)       /*!< Core
+ 637:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 638:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define CoreDebug_DHCSR_S_LOCKUP_Pos       19                                             /*!< Core
+ 639:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define CoreDebug_DHCSR_S_LOCKUP_Msk       (1ul << CoreDebug_DHCSR_S_LOCKUP_Pos)          /*!< Core
+ 640:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 641:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define CoreDebug_DHCSR_S_SLEEP_Pos        18                                             /*!< Core
+ 642:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define CoreDebug_DHCSR_S_SLEEP_Msk        (1ul << CoreDebug_DHCSR_S_SLEEP_Pos)           /*!< Core
+ 643:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 644:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define CoreDebug_DHCSR_S_HALT_Pos         17                                             /*!< Core
+ 645:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define CoreDebug_DHCSR_S_HALT_Msk         (1ul << CoreDebug_DHCSR_S_HALT_Pos)            /*!< Core
+ 646:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 647:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define CoreDebug_DHCSR_S_REGRDY_Pos       16                                             /*!< Core
+ 648:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define CoreDebug_DHCSR_S_REGRDY_Msk       (1ul << CoreDebug_DHCSR_S_REGRDY_Pos)          /*!< Core
+ 649:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 650:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define CoreDebug_DHCSR_C_SNAPSTALL_Pos     5                                             /*!< Core
+ 651:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define CoreDebug_DHCSR_C_SNAPSTALL_Msk    (1ul << CoreDebug_DHCSR_C_SNAPSTALL_Pos)       /*!< Core
+ 652:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 653:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define CoreDebug_DHCSR_C_MASKINTS_Pos      3                                             /*!< Core
+ 654:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define CoreDebug_DHCSR_C_MASKINTS_Msk     (1ul << CoreDebug_DHCSR_C_MASKINTS_Pos)        /*!< Core
+ 655:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 656:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define CoreDebug_DHCSR_C_STEP_Pos          2                                             /*!< Core
+ 657:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define CoreDebug_DHCSR_C_STEP_Msk         (1ul << CoreDebug_DHCSR_C_STEP_Pos)            /*!< Core
+ 658:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 659:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define CoreDebug_DHCSR_C_HALT_Pos          1                                             /*!< Core
+ 660:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define CoreDebug_DHCSR_C_HALT_Msk         (1ul << CoreDebug_DHCSR_C_HALT_Pos)            /*!< Core
+ 661:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 662:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define CoreDebug_DHCSR_C_DEBUGEN_Pos       0                                             /*!< Core
+ 663:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define CoreDebug_DHCSR_C_DEBUGEN_Msk      (1ul << CoreDebug_DHCSR_C_DEBUGEN_Pos)         /*!< Core
+ 664:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 665:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /* Debug Core Register Selector Register */
+ 666:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define CoreDebug_DCRSR_REGWnR_Pos         16                                             /*!< Core
+ 667:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define CoreDebug_DCRSR_REGWnR_Msk         (1ul << CoreDebug_DCRSR_REGWnR_Pos)            /*!< Core
+ 668:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 669:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define CoreDebug_DCRSR_REGSEL_Pos          0                                             /*!< Core
+ 670:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define CoreDebug_DCRSR_REGSEL_Msk         (0x1Ful << CoreDebug_DCRSR_REGSEL_Pos)         /*!< Core
+ 671:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 672:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /* Debug Exception and Monitor Control Register */
+ 673:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define CoreDebug_DEMCR_TRCENA_Pos         24                                             /*!< Core
+ 674:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define CoreDebug_DEMCR_TRCENA_Msk         (1ul << CoreDebug_DEMCR_TRCENA_Pos)            /*!< Core
+ 675:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 676:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define CoreDebug_DEMCR_MON_REQ_Pos        19                                             /*!< Core
+ 677:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define CoreDebug_DEMCR_MON_REQ_Msk        (1ul << CoreDebug_DEMCR_MON_REQ_Pos)           /*!< Core
+ 678:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 679:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define CoreDebug_DEMCR_MON_STEP_Pos       18                                             /*!< Core
+ 680:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define CoreDebug_DEMCR_MON_STEP_Msk       (1ul << CoreDebug_DEMCR_MON_STEP_Pos)          /*!< Core
+ 681:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 682:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define CoreDebug_DEMCR_MON_PEND_Pos       17                                             /*!< Core
+ 683:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define CoreDebug_DEMCR_MON_PEND_Msk       (1ul << CoreDebug_DEMCR_MON_PEND_Pos)          /*!< Core
+ 684:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 685:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define CoreDebug_DEMCR_MON_EN_Pos         16                                             /*!< Core
+ 686:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define CoreDebug_DEMCR_MON_EN_Msk         (1ul << CoreDebug_DEMCR_MON_EN_Pos)            /*!< Core
+ 687:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 688:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define CoreDebug_DEMCR_VC_HARDERR_Pos     10                                             /*!< Core
+ 689:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define CoreDebug_DEMCR_VC_HARDERR_Msk     (1ul << CoreDebug_DEMCR_VC_HARDERR_Pos)        /*!< Core
+ 690:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 691:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define CoreDebug_DEMCR_VC_INTERR_Pos       9                                             /*!< Core
+ 692:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define CoreDebug_DEMCR_VC_INTERR_Msk      (1ul << CoreDebug_DEMCR_VC_INTERR_Pos)         /*!< Core
+ 693:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 694:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define CoreDebug_DEMCR_VC_BUSERR_Pos       8                                             /*!< Core
+ 695:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define CoreDebug_DEMCR_VC_BUSERR_Msk      (1ul << CoreDebug_DEMCR_VC_BUSERR_Pos)         /*!< Core
+ 696:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 697:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define CoreDebug_DEMCR_VC_STATERR_Pos      7                                             /*!< Core
+ 698:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define CoreDebug_DEMCR_VC_STATERR_Msk     (1ul << CoreDebug_DEMCR_VC_STATERR_Pos)        /*!< Core
+ 699:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 700:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define CoreDebug_DEMCR_VC_CHKERR_Pos       6                                             /*!< Core
+ 701:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define CoreDebug_DEMCR_VC_CHKERR_Msk      (1ul << CoreDebug_DEMCR_VC_CHKERR_Pos)         /*!< Core
+ 702:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 703:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define CoreDebug_DEMCR_VC_NOCPERR_Pos      5                                             /*!< Core
+ 704:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define CoreDebug_DEMCR_VC_NOCPERR_Msk     (1ul << CoreDebug_DEMCR_VC_NOCPERR_Pos)        /*!< Core
+ 705:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 706:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define CoreDebug_DEMCR_VC_MMERR_Pos        4                                             /*!< Core
+ 707:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define CoreDebug_DEMCR_VC_MMERR_Msk       (1ul << CoreDebug_DEMCR_VC_MMERR_Pos)          /*!< Core
+ 708:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 709:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define CoreDebug_DEMCR_VC_CORERESET_Pos    0                                             /*!< Core
+ 710:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define CoreDebug_DEMCR_VC_CORERESET_Msk   (1ul << CoreDebug_DEMCR_VC_CORERESET_Pos)      /*!< Core
+ 711:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /*@}*/ /* end of group CMSIS_CM3_CoreDebug */
+ 712:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 713:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 714:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /* Memory mapping of Cortex-M3 Hardware */
+ 715:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCS_BASE            (0xE000E000)                              /*!< System Control Space Bas
+ 716:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define ITM_BASE            (0xE0000000)                              /*!< ITM Base Address        
+ 717:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define CoreDebug_BASE      (0xE000EDF0)                              /*!< Core Debug Base Address 
+ 718:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SysTick_BASE        (SCS_BASE +  0x0010)                      /*!< SysTick Base Address    
+ 719:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define NVIC_BASE           (SCS_BASE +  0x0100)                      /*!< NVIC Base Address       
+ 720:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB_BASE            (SCS_BASE +  0x0D00)                      /*!< System Control Block Bas
+ 721:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 722:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define InterruptType       ((InterruptType_Type *) SCS_BASE)         /*!< Interrupt Type Register 
+ 723:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SCB                 ((SCB_Type *)           SCB_BASE)         /*!< SCB configuration struct
+ 724:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define SysTick             ((SysTick_Type *)       SysTick_BASE)     /*!< SysTick configuration st
+ 725:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define NVIC                ((NVIC_Type *)          NVIC_BASE)        /*!< NVIC configuration struc
+ 726:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define ITM                 ((ITM_Type *)           ITM_BASE)         /*!< ITM configuration struct
+ 727:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define CoreDebug           ((CoreDebug_Type *)     CoreDebug_BASE)   /*!< Core Debug configuration
+ 728:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 729:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #if defined (__MPU_PRESENT) && (__MPU_PRESENT == 1)
+ 730:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   #define MPU_BASE          (SCS_BASE +  0x0D90)                      /*!< Memory Protection Unit  
+ 731:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   #define MPU               ((MPU_Type*)            MPU_BASE)         /*!< Memory Protection Unit  
+ 732:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #endif
+ 733:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 734:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /*@}*/ /* end of group CMSIS_CM3_core_register */
+ 735:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 736:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 737:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /*******************************************************************************
+ 738:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *                Hardware Abstraction Layer
+ 739:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  ******************************************************************************/
+ 740:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 741:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #if defined ( __CC_ARM   )
+ 742:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   #define __ASM            __asm                                      /*!< asm keyword for ARM Comp
+ 743:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   #define __INLINE         __inline                                   /*!< inline keyword for ARM C
+ 744:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 745:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #elif defined ( __ICCARM__ )
+ 746:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   #define __ASM           __asm                                       /*!< asm keyword for IAR Comp
+ 747:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   #define __INLINE        inline                                      /*!< inline keyword for IAR C
+ 748:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 749:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #elif defined   (  __GNUC__  )
+ 750:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   #define __ASM            __asm                                      /*!< asm keyword for GNU Comp
+ 751:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   #define __INLINE         inline                                     /*!< inline keyword for GNU C
+ 752:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 753:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #elif defined   (  __TASKING__  )
+ 754:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   #define __ASM            __asm                                      /*!< asm keyword for TASKING 
+ 755:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   #define __INLINE         inline                                     /*!< inline keyword for TASKI
+ 756:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 757:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #endif
+ 758:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 759:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 760:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /* ###################  Compiler specific Intrinsics  ########################### */
+ 761:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 762:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #if defined ( __CC_ARM   ) /*------------------RealView Compiler -----------------*/
+ 763:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /* ARM armcc specific functions */
+ 764:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 765:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define __enable_fault_irq                __enable_fiq
+ 766:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define __disable_fault_irq               __disable_fiq
+ 767:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 768:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define __NOP                             __nop
+ 769:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define __WFI                             __wfi
+ 770:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define __WFE                             __wfe
+ 771:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define __SEV                             __sev
+ 772:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define __ISB()                           __isb(0)
+ 773:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define __DSB()                           __dsb(0)
+ 774:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define __DMB()                           __dmb(0)
+ 775:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define __REV                             __rev
+ 776:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define __RBIT                            __rbit
+ 777:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define __LDREXB(ptr)                     ((unsigned char ) __ldrex(ptr))
+ 778:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define __LDREXH(ptr)                     ((unsigned short) __ldrex(ptr))
+ 779:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define __LDREXW(ptr)                     ((unsigned int  ) __ldrex(ptr))
+ 780:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define __STREXB(value, ptr)              __strex(value, ptr)
+ 781:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define __STREXH(value, ptr)              __strex(value, ptr)
+ 782:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define __STREXW(value, ptr)              __strex(value, ptr)
+ 783:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 784:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 785:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /* intrinsic unsigned long long __ldrexd(volatile void *ptr) */
+ 786:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /* intrinsic int __strexd(unsigned long long val, volatile void *ptr) */
+ 787:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /* intrinsic void __enable_irq();     */
+ 788:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /* intrinsic void __disable_irq();    */
+ 789:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 790:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 791:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /**
+ 792:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @brief  Return the Process Stack Pointer
+ 793:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+ 794:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @return ProcessStackPointer
+ 795:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+ 796:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * Return the actual process stack pointer
+ 797:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  */
+ 798:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** extern uint32_t __get_PSP(void);
+ 799:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 800:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /**
+ 801:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @brief  Set the Process Stack Pointer
+ 802:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+ 803:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @param  topOfProcStack  Process Stack Pointer
+ 804:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+ 805:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * Assign the value ProcessStackPointer to the MSP 
+ 806:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * (process stack pointer) Cortex processor register
+ 807:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  */
+ 808:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** extern void __set_PSP(uint32_t topOfProcStack);
+ 809:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 810:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /**
+ 811:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @brief  Return the Main Stack Pointer
+ 812:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+ 813:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @return Main Stack Pointer
+ 814:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+ 815:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * Return the current value of the MSP (main stack pointer)
+ 816:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * Cortex processor register
+ 817:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  */
+ 818:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** extern uint32_t __get_MSP(void);
+ 819:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 820:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /**
+ 821:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @brief  Set the Main Stack Pointer
+ 822:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+ 823:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @param  topOfMainStack  Main Stack Pointer
+ 824:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+ 825:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * Assign the value mainStackPointer to the MSP 
+ 826:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * (main stack pointer) Cortex processor register
+ 827:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  */
+ 828:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** extern void __set_MSP(uint32_t topOfMainStack);
+ 829:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 830:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /**
+ 831:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @brief  Reverse byte order in unsigned short value
+ 832:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+ 833:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @param   value  value to reverse
+ 834:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @return         reversed value
+ 835:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+ 836:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * Reverse byte order in unsigned short value
+ 837:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  */
+ 838:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** extern uint32_t __REV16(uint16_t value);
+ 839:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 840:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /**
+ 841:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @brief  Reverse byte order in signed short value with sign extension to integer
+ 842:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+ 843:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @param   value  value to reverse
+ 844:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @return         reversed value
+ 845:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+ 846:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * Reverse byte order in signed short value with sign extension to integer
+ 847:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  */
+ 848:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** extern int32_t __REVSH(int16_t value);
+ 849:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 850:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 851:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #if (__ARMCC_VERSION < 400000)
+ 852:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 853:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /**
+ 854:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @brief  Remove the exclusive lock created by ldrex
+ 855:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+ 856:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * Removes the exclusive lock which is created by ldrex.
+ 857:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  */
+ 858:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** extern void __CLREX(void);
+ 859:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 860:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /**
+ 861:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @brief  Return the Base Priority value
+ 862:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+ 863:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @return BasePriority
+ 864:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+ 865:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * Return the content of the base priority register
+ 866:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  */
+ 867:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** extern uint32_t __get_BASEPRI(void);
+ 868:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 869:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /**
+ 870:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @brief  Set the Base Priority value
+ 871:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+ 872:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @param  basePri  BasePriority
+ 873:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+ 874:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * Set the base priority register
+ 875:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  */
+ 876:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** extern void __set_BASEPRI(uint32_t basePri);
+ 877:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 878:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /**
+ 879:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @brief  Return the Priority Mask value
+ 880:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+ 881:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @return PriMask
+ 882:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+ 883:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * Return state of the priority mask bit from the priority mask register
+ 884:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  */
+ 885:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** extern uint32_t __get_PRIMASK(void);
+ 886:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 887:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /**
+ 888:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @brief  Set the Priority Mask value
+ 889:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+ 890:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @param   priMask  PriMask
+ 891:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+ 892:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * Set the priority mask bit in the priority mask register
+ 893:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  */
+ 894:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** extern void __set_PRIMASK(uint32_t priMask);
+ 895:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 896:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /**
+ 897:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @brief  Return the Fault Mask value
+ 898:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+ 899:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @return FaultMask
+ 900:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+ 901:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * Return the content of the fault mask register
+ 902:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  */
+ 903:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** extern uint32_t __get_FAULTMASK(void);
+ 904:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 905:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /**
+ 906:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @brief  Set the Fault Mask value
+ 907:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+ 908:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @param  faultMask faultMask value
+ 909:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+ 910:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * Set the fault mask register
+ 911:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  */
+ 912:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** extern void __set_FAULTMASK(uint32_t faultMask);
+ 913:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 914:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /**
+ 915:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @brief  Return the Control Register value
+ 916:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * 
+ 917:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @return Control value
+ 918:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+ 919:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * Return the content of the control register
+ 920:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  */
+ 921:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** extern uint32_t __get_CONTROL(void);
+ 922:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 923:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /**
+ 924:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @brief  Set the Control Register value
+ 925:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+ 926:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @param  control  Control value
+ 927:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+ 928:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * Set the control register
+ 929:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  */
+ 930:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** extern void __set_CONTROL(uint32_t control);
+ 931:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 932:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #else  /* (__ARMCC_VERSION >= 400000)  */
+ 933:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 934:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /**
+ 935:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @brief  Remove the exclusive lock created by ldrex
+ 936:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+ 937:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * Removes the exclusive lock which is created by ldrex.
+ 938:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  */
+ 939:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define __CLREX                           __clrex
+ 940:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 941:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /**
+ 942:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @brief  Return the Base Priority value
+ 943:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+ 944:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @return BasePriority
+ 945:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+ 946:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * Return the content of the base priority register
+ 947:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  */
+ 948:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** static __INLINE uint32_t  __get_BASEPRI(void)
+ 949:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** {
+ 950:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   register uint32_t __regBasePri         __ASM("basepri");
+ 951:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   return(__regBasePri);
+ 952:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** }
+ 953:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 954:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /**
+ 955:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @brief  Set the Base Priority value
+ 956:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+ 957:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @param  basePri  BasePriority
+ 958:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+ 959:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * Set the base priority register
+ 960:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  */
+ 961:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** static __INLINE void __set_BASEPRI(uint32_t basePri)
+ 962:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** {
+ 963:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   register uint32_t __regBasePri         __ASM("basepri");
+ 964:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __regBasePri = (basePri & 0xff);
+ 965:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** }
+ 966:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 967:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /**
+ 968:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @brief  Return the Priority Mask value
+ 969:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+ 970:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @return PriMask
+ 971:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+ 972:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * Return state of the priority mask bit from the priority mask register
+ 973:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  */
+ 974:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** static __INLINE uint32_t __get_PRIMASK(void)
+ 975:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** {
+ 976:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   register uint32_t __regPriMask         __ASM("primask");
+ 977:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   return(__regPriMask);
+ 978:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** }
+ 979:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 980:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /**
+ 981:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @brief  Set the Priority Mask value
+ 982:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+ 983:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @param  priMask  PriMask
+ 984:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+ 985:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * Set the priority mask bit in the priority mask register
+ 986:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  */
+ 987:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** static __INLINE void __set_PRIMASK(uint32_t priMask)
+ 988:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** {
+ 989:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   register uint32_t __regPriMask         __ASM("primask");
+ 990:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __regPriMask = (priMask);
+ 991:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** }
+ 992:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+ 993:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /**
+ 994:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @brief  Return the Fault Mask value
+ 995:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+ 996:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @return FaultMask
+ 997:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+ 998:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * Return the content of the fault mask register
+ 999:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  */
+1000:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** static __INLINE uint32_t __get_FAULTMASK(void)
+1001:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** {
+1002:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   register uint32_t __regFaultMask       __ASM("faultmask");
+1003:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   return(__regFaultMask);
+1004:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** }
+1005:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+1006:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /**
+1007:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @brief  Set the Fault Mask value
+1008:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+1009:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @param  faultMask  faultMask value
+1010:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+1011:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * Set the fault mask register
+1012:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  */
+1013:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** static __INLINE void __set_FAULTMASK(uint32_t faultMask)
+1014:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** {
+1015:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   register uint32_t __regFaultMask       __ASM("faultmask");
+1016:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __regFaultMask = (faultMask & 1);
+1017:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** }
+1018:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+1019:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /**
+1020:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @brief  Return the Control Register value
+1021:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * 
+1022:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @return Control value
+1023:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+1024:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * Return the content of the control register
+1025:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  */
+1026:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** static __INLINE uint32_t __get_CONTROL(void)
+1027:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** {
+1028:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   register uint32_t __regControl         __ASM("control");
+1029:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   return(__regControl);
+1030:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** }
+1031:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+1032:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /**
+1033:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @brief  Set the Control Register value
+1034:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+1035:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @param  control  Control value
+1036:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+1037:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * Set the control register
+1038:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  */
+1039:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** static __INLINE void __set_CONTROL(uint32_t control)
+1040:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** {
+1041:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   register uint32_t __regControl         __ASM("control");
+1042:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****   __regControl = control;
+1043:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** }
+1044:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+1045:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #endif /* __ARMCC_VERSION  */ 
+1046:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+1047:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+1048:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+1049:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #elif (defined (__ICCARM__)) /*------------------ ICC Compiler -------------------*/
+1050:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /* IAR iccarm specific functions */
+1051:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+1052:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define __enable_irq                              __enable_interrupt        /*!< global Interrupt e
+1053:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define __disable_irq                             __disable_interrupt       /*!< global Interrupt d
+1054:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+1055:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** static __INLINE void __enable_fault_irq()         { __ASM ("cpsie f"); }
+1056:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** static __INLINE void __disable_fault_irq()        { __ASM ("cpsid f"); }
+1057:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+1058:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #define __NOP                                     __no_operation            /*!< no operation intri
+1059:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** static __INLINE  void __WFI()                     { __ASM ("wfi"); }
+1060:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** static __INLINE  void __WFE()                     { __ASM ("wfe"); }
+1061:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** static __INLINE  void __SEV()                     { __ASM ("sev"); }
+1062:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** static __INLINE  void __CLREX()                   { __ASM ("clrex"); }
+1063:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+1064:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /* intrinsic void __ISB(void)                                     */
+1065:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /* intrinsic void __DSB(void)                                     */
+1066:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /* intrinsic void __DMB(void)                                     */
+1067:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /* intrinsic void __set_PRIMASK();                                */
+1068:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /* intrinsic void __get_PRIMASK();                                */
+1069:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /* intrinsic void __set_FAULTMASK();                              */
+1070:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /* intrinsic void __get_FAULTMASK();                              */
+1071:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /* intrinsic uint32_t __REV(uint32_t value);                      */
+1072:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /* intrinsic uint32_t __REVSH(uint32_t value);                    */
+1073:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /* intrinsic unsigned long __STREX(unsigned long, unsigned long); */
+1074:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /* intrinsic unsigned long __LDREX(unsigned long *);              */
+1075:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+1076:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+1077:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /**
+1078:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @brief  Return the Process Stack Pointer
+1079:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+1080:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @return ProcessStackPointer
+1081:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+1082:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * Return the actual process stack pointer
+1083:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  */
+1084:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** extern uint32_t __get_PSP(void);
+1085:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+1086:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /**
+1087:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @brief  Set the Process Stack Pointer
+1088:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+1089:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @param  topOfProcStack  Process Stack Pointer
+1090:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+1091:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * Assign the value ProcessStackPointer to the MSP 
+1092:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * (process stack pointer) Cortex processor register
+1093:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  */
+1094:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** extern void __set_PSP(uint32_t topOfProcStack);
+1095:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+1096:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /**
+1097:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @brief  Return the Main Stack Pointer
+1098:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+1099:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @return Main Stack Pointer
+1100:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+1101:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * Return the current value of the MSP (main stack pointer)
+1102:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * Cortex processor register
+1103:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  */
+1104:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** extern uint32_t __get_MSP(void);
+1105:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+1106:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /**
+1107:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @brief  Set the Main Stack Pointer
+1108:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+1109:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @param  topOfMainStack  Main Stack Pointer
+1110:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+1111:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * Assign the value mainStackPointer to the MSP 
+1112:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * (main stack pointer) Cortex processor register
+1113:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  */
+1114:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** extern void __set_MSP(uint32_t topOfMainStack);
+1115:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+1116:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /**
+1117:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @brief  Reverse byte order in unsigned short value
+1118:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+1119:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @param  value  value to reverse
+1120:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @return        reversed value
+1121:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+1122:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * Reverse byte order in unsigned short value
+1123:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  */
+1124:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** extern uint32_t __REV16(uint16_t value);
+1125:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+1126:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /**
+1127:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @brief  Reverse bit order of value
+1128:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+1129:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @param  value  value to reverse
+1130:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @return        reversed value
+1131:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+1132:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * Reverse bit order of value
+1133:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  */
+1134:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** extern uint32_t __RBIT(uint32_t value);
+1135:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+1136:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /**
+1137:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @brief  LDR Exclusive (8 bit)
+1138:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+1139:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @param  *addr  address pointer
+1140:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @return        value of (*address)
+1141:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+1142:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * Exclusive LDR command for 8 bit values)
+1143:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  */
+1144:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** extern uint8_t __LDREXB(uint8_t *addr);
+1145:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+1146:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /**
+1147:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @brief  LDR Exclusive (16 bit)
+1148:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+1149:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @param  *addr  address pointer
+1150:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @return        value of (*address)
+1151:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+1152:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * Exclusive LDR command for 16 bit values
+1153:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  */
+1154:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** extern uint16_t __LDREXH(uint16_t *addr);
+1155:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+1156:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /**
+1157:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @brief  LDR Exclusive (32 bit)
+1158:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+1159:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @param  *addr  address pointer
+1160:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @return        value of (*address)
+1161:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+1162:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * Exclusive LDR command for 32 bit values
+1163:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  */
+1164:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** extern uint32_t __LDREXW(uint32_t *addr);
+1165:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+1166:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /**
+1167:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @brief  STR Exclusive (8 bit)
+1168:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+1169:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @param  value  value to store
+1170:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @param  *addr  address pointer
+1171:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @return        successful / failed
+1172:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+1173:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * Exclusive STR command for 8 bit values
+1174:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  */
+1175:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** extern uint32_t __STREXB(uint8_t value, uint8_t *addr);
+1176:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+1177:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /**
+1178:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @brief  STR Exclusive (16 bit)
+1179:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+1180:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @param  value  value to store
+1181:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @param  *addr  address pointer
+1182:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @return        successful / failed
+1183:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+1184:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * Exclusive STR command for 16 bit values
+1185:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  */
+1186:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** extern uint32_t __STREXH(uint16_t value, uint16_t *addr);
+1187:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+1188:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /**
+1189:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @brief  STR Exclusive (32 bit)
+1190:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+1191:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @param  value  value to store
+1192:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @param  *addr  address pointer
+1193:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * @return        successful / failed
+1194:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  *
+1195:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  * Exclusive STR command for 32 bit values
+1196:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h ****  */
+1197:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** extern uint32_t __STREXW(uint32_t value, uint32_t *addr);
+1198:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+1199:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+1200:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+1201:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** #elif (defined (__GNUC__)) /*------------------ GNU Compiler ---------------------*/
+1202:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** /* GNU gcc specific functions */
+1203:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+1204:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** static __INLINE void __enable_irq()               { __ASM volatile ("cpsie i"); }
+1205:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** static __INLINE void __disable_irq()              { __ASM volatile ("cpsid i"); }
+1206:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+1207:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** static __INLINE void __enable_fault_irq()         { __ASM volatile ("cpsie f"); }
+1208:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** static __INLINE void __disable_fault_irq()        { __ASM volatile ("cpsid f"); }
+1209:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** 
+1210:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** static __INLINE void __NOP()                      { __ASM volatile ("nop"); }
+1211:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** static __INLINE void __WFI()                      { __ASM volatile ("wfi"); }
+ 16335              		.loc 4 1211 0
+ 16336              		.cfi_startproc
+ 16337              		@ args = 0, pretend = 0, frame = 0
+ 16338              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16339              		@ link register save eliminated.
+ 16340 0000 80B4     		push	{r7}
+ 16341              	.LCFI0:
+ 16342              		.cfi_def_cfa_offset 4
+ 16343 0002 00AF     		add	r7, sp, #0
+ 16344              		.cfi_offset 7, -4
+ 16345              	.LCFI1:
+ 16346              		.cfi_def_cfa_register 7
+ 16347              		.loc 4 1211 0
+ 16348              	@ 1211 "/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h" 1
+ 16349 0004 30BF     		wfi
+ 16350              	@ 0 "" 2
+ 16351              		.thumb
+ 16352 0006 BD46     		mov	sp, r7
+ 16353 0008 80BC     		pop	{r7}
+ 16354 000a 7047     		bx	lr
+ 16355              		.cfi_endproc
+ 16356              	.LFE5:
+ 16358              		.section	.text.__WFE,"ax",%progbits
+ 16359              		.align	2
+ 16360              		.thumb
+ 16361              		.thumb_func
+ 16363              	__WFE:
+ 16364              	.LFB6:
+1212:/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h **** static __INLINE void __WFE()                      { __ASM volatile ("wfe"); }
+ 16365              		.loc 4 1212 0
+ 16366              		.cfi_startproc
+ 16367              		@ args = 0, pretend = 0, frame = 0
+ 16368              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16369              		@ link register save eliminated.
+ 16370 0000 80B4     		push	{r7}
+ 16371              	.LCFI2:
+ 16372              		.cfi_def_cfa_offset 4
+ 16373 0002 00AF     		add	r7, sp, #0
+ 16374              		.cfi_offset 7, -4
+ 16375              	.LCFI3:
+ 16376              		.cfi_def_cfa_register 7
+ 16377              		.loc 4 1212 0
+ 16378              	@ 1212 "/home/desem/workspace/desenet/target/stm32/cmsis/core_cm3.h" 1
+ 16379 0004 20BF     		wfe
+ 16380              	@ 0 "" 2
+ 16381              		.thumb
+ 16382 0006 BD46     		mov	sp, r7
+ 16383 0008 80BC     		pop	{r7}
+ 16384 000a 7047     		bx	lr
+ 16385              		.cfi_endproc
+ 16386              	.LFE6:
+ 16388              		.section	.text.PWR_DeInit,"ax",%progbits
+ 16389              		.align	2
+ 16390              		.global	PWR_DeInit
+ 16391              		.thumb
+ 16392              		.thumb_func
+ 16394              	PWR_DeInit:
+ 16395              	.LFB29:
+   1:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** /**
+   2:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   ******************************************************************************
+   3:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   * @file    stm32f10x_pwr.c
+   4:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   * @author  MCD Application Team
+   5:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   * @version V3.4.0
+   6:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   * @date    10/15/2010
+   7:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   * @brief   This file provides all the PWR firmware functions.
+   8:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   ******************************************************************************
+   9:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   * @copy
+  10:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   *
+  11:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   * THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
+  12:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
+  13:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   * TIME. AS A RESULT, STMICROELECTRONICS SHALL NOT BE HELD LIABLE FOR ANY
+  14:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   * DIRECT, INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING
+  15:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   * FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
+  16:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
+  17:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   *
+  18:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   * <h2><center>&copy; COPYRIGHT 2010 STMicroelectronics</center></h2>
+  19:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   */ 
+  20:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** 
+  21:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** /* Includes ------------------------------------------------------------------*/
+  22:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** #include "stm32f10x_pwr.h"
+  23:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** #include "stm32f10x_rcc.h"
+  24:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** 
+  25:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** /** @addtogroup STM32F10x_StdPeriph_Driver
+  26:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   * @{
+  27:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   */
+  28:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** 
+  29:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** /** @defgroup PWR 
+  30:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   * @brief PWR driver modules
+  31:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   * @{
+  32:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   */ 
+  33:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** 
+  34:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** /** @defgroup PWR_Private_TypesDefinitions
+  35:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   * @{
+  36:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   */
+  37:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** 
+  38:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** /**
+  39:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   * @}
+  40:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   */
+  41:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** 
+  42:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** /** @defgroup PWR_Private_Defines
+  43:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   * @{
+  44:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   */
+  45:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** 
+  46:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** /* --------- PWR registers bit address in the alias region ---------- */
+  47:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** #define PWR_OFFSET               (PWR_BASE - PERIPH_BASE)
+  48:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** 
+  49:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** /* --- CR Register ---*/
+  50:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** 
+  51:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** /* Alias word address of DBP bit */
+  52:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** #define CR_OFFSET                (PWR_OFFSET + 0x00)
+  53:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** #define DBP_BitNumber            0x08
+  54:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** #define CR_DBP_BB                (PERIPH_BB_BASE + (CR_OFFSET * 32) + (DBP_BitNumber * 4))
+  55:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** 
+  56:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** /* Alias word address of PVDE bit */
+  57:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** #define PVDE_BitNumber           0x04
+  58:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** #define CR_PVDE_BB               (PERIPH_BB_BASE + (CR_OFFSET * 32) + (PVDE_BitNumber * 4))
+  59:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** 
+  60:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** /* --- CSR Register ---*/
+  61:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** 
+  62:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** /* Alias word address of EWUP bit */
+  63:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** #define CSR_OFFSET               (PWR_OFFSET + 0x04)
+  64:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** #define EWUP_BitNumber           0x08
+  65:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** #define CSR_EWUP_BB              (PERIPH_BB_BASE + (CSR_OFFSET * 32) + (EWUP_BitNumber * 4))
+  66:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** 
+  67:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** /* ------------------ PWR registers bit mask ------------------------ */
+  68:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** 
+  69:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** /* CR register bit mask */
+  70:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** #define CR_DS_MASK               ((uint32_t)0xFFFFFFFC)
+  71:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** #define CR_PLS_MASK              ((uint32_t)0xFFFFFF1F)
+  72:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** 
+  73:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** 
+  74:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** /**
+  75:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   * @}
+  76:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   */
+  77:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** 
+  78:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** /** @defgroup PWR_Private_Macros
+  79:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   * @{
+  80:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   */
+  81:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** 
+  82:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** /**
+  83:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   * @}
+  84:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   */
+  85:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** 
+  86:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** /** @defgroup PWR_Private_Variables
+  87:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   * @{
+  88:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   */
+  89:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** 
+  90:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** /**
+  91:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   * @}
+  92:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   */
+  93:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** 
+  94:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** /** @defgroup PWR_Private_FunctionPrototypes
+  95:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   * @{
+  96:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   */
+  97:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** 
+  98:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** /**
+  99:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   * @}
+ 100:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   */
+ 101:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** 
+ 102:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** /** @defgroup PWR_Private_Functions
+ 103:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   * @{
+ 104:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   */
+ 105:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** 
+ 106:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** /**
+ 107:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   * @brief  Deinitializes the PWR peripheral registers to their default reset values.
+ 108:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   * @param  None
+ 109:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   * @retval None
+ 110:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   */
+ 111:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** void PWR_DeInit(void)
+ 112:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** {
+ 16396              		.loc 1 112 0
+ 16397              		.cfi_startproc
+ 16398              		@ args = 0, pretend = 0, frame = 0
+ 16399              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16400 0000 80B5     		push	{r7, lr}
+ 16401              	.LCFI4:
+ 16402              		.cfi_def_cfa_offset 8
+ 16403 0002 00AF     		add	r7, sp, #0
+ 16404              		.cfi_offset 14, -4
+ 16405              		.cfi_offset 7, -8
+ 16406              	.LCFI5:
+ 16407              		.cfi_def_cfa_register 7
+ 113:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   RCC_APB1PeriphResetCmd(RCC_APB1Periph_PWR, ENABLE);
+ 16408              		.loc 1 113 0
+ 16409 0004 4FF08050 		mov	r0, #268435456
+ 16410 0008 4FF00101 		mov	r1, #1
+ 16411 000c FFF7FEFF 		bl	RCC_APB1PeriphResetCmd
+ 114:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   RCC_APB1PeriphResetCmd(RCC_APB1Periph_PWR, DISABLE);
+ 16412              		.loc 1 114 0
+ 16413 0010 4FF08050 		mov	r0, #268435456
+ 16414 0014 4FF00001 		mov	r1, #0
+ 16415 0018 FFF7FEFF 		bl	RCC_APB1PeriphResetCmd
+ 115:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** }
+ 16416              		.loc 1 115 0
+ 16417 001c 80BD     		pop	{r7, pc}
+ 16418              		.cfi_endproc
+ 16419              	.LFE29:
+ 16421 001e 00BF     		.section	.text.PWR_BackupAccessCmd,"ax",%progbits
+ 16422              		.align	2
+ 16423              		.global	PWR_BackupAccessCmd
+ 16424              		.thumb
+ 16425              		.thumb_func
+ 16427              	PWR_BackupAccessCmd:
+ 16428              	.LFB30:
+ 116:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** 
+ 117:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** /**
+ 118:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   * @brief  Enables or disables access to the RTC and backup registers.
+ 119:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   * @param  NewState: new state of the access to the RTC and backup registers.
+ 120:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   *   This parameter can be: ENABLE or DISABLE.
+ 121:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   * @retval None
+ 122:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   */
+ 123:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** void PWR_BackupAccessCmd(FunctionalState NewState)
+ 124:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** {
+ 16429              		.loc 1 124 0
+ 16430              		.cfi_startproc
+ 16431              		@ args = 0, pretend = 0, frame = 8
+ 16432              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16433              		@ link register save eliminated.
+ 16434 0000 80B4     		push	{r7}
+ 16435              	.LCFI6:
+ 16436              		.cfi_def_cfa_offset 4
+ 16437 0002 83B0     		sub	sp, sp, #12
+ 16438              	.LCFI7:
+ 16439              		.cfi_def_cfa_offset 16
+ 16440 0004 00AF     		add	r7, sp, #0
+ 16441              		.cfi_offset 7, -4
+ 16442              	.LCFI8:
+ 16443              		.cfi_def_cfa_register 7
+ 16444 0006 0346     		mov	r3, r0
+ 16445 0008 FB71     		strb	r3, [r7, #7]
+ 125:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   /* Check the parameters */
+ 126:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   assert_param(IS_FUNCTIONAL_STATE(NewState));
+ 127:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   *(__IO uint32_t *) CR_DBP_BB = (uint32_t)NewState;
+ 16446              		.loc 1 127 0
+ 16447 000a 4FF02003 		mov	r3, #32
+ 16448 000e C4F20E23 		movt	r3, 16910
+ 16449 0012 FA79     		ldrb	r2, [r7, #7]	@ zero_extendqisi2
+ 16450 0014 1A60     		str	r2, [r3, #0]
+ 128:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** }
+ 16451              		.loc 1 128 0
+ 16452 0016 07F10C07 		add	r7, r7, #12
+ 16453 001a BD46     		mov	sp, r7
+ 16454 001c 80BC     		pop	{r7}
+ 16455 001e 7047     		bx	lr
+ 16456              		.cfi_endproc
+ 16457              	.LFE30:
+ 16459              		.section	.text.PWR_PVDCmd,"ax",%progbits
+ 16460              		.align	2
+ 16461              		.global	PWR_PVDCmd
+ 16462              		.thumb
+ 16463              		.thumb_func
+ 16465              	PWR_PVDCmd:
+ 16466              	.LFB31:
+ 129:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** 
+ 130:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** /**
+ 131:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   * @brief  Enables or disables the Power Voltage Detector(PVD).
+ 132:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   * @param  NewState: new state of the PVD.
+ 133:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   *   This parameter can be: ENABLE or DISABLE.
+ 134:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   * @retval None
+ 135:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   */
+ 136:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** void PWR_PVDCmd(FunctionalState NewState)
+ 137:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** {
+ 16467              		.loc 1 137 0
+ 16468              		.cfi_startproc
+ 16469              		@ args = 0, pretend = 0, frame = 8
+ 16470              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16471              		@ link register save eliminated.
+ 16472 0000 80B4     		push	{r7}
+ 16473              	.LCFI9:
+ 16474              		.cfi_def_cfa_offset 4
+ 16475 0002 83B0     		sub	sp, sp, #12
+ 16476              	.LCFI10:
+ 16477              		.cfi_def_cfa_offset 16
+ 16478 0004 00AF     		add	r7, sp, #0
+ 16479              		.cfi_offset 7, -4
+ 16480              	.LCFI11:
+ 16481              		.cfi_def_cfa_register 7
+ 16482 0006 0346     		mov	r3, r0
+ 16483 0008 FB71     		strb	r3, [r7, #7]
+ 138:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   /* Check the parameters */
+ 139:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   assert_param(IS_FUNCTIONAL_STATE(NewState));
+ 140:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   *(__IO uint32_t *) CR_PVDE_BB = (uint32_t)NewState;
+ 16484              		.loc 1 140 0
+ 16485 000a 4FF01003 		mov	r3, #16
+ 16486 000e C4F20E23 		movt	r3, 16910
+ 16487 0012 FA79     		ldrb	r2, [r7, #7]	@ zero_extendqisi2
+ 16488 0014 1A60     		str	r2, [r3, #0]
+ 141:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** }
+ 16489              		.loc 1 141 0
+ 16490 0016 07F10C07 		add	r7, r7, #12
+ 16491 001a BD46     		mov	sp, r7
+ 16492 001c 80BC     		pop	{r7}
+ 16493 001e 7047     		bx	lr
+ 16494              		.cfi_endproc
+ 16495              	.LFE31:
+ 16497              		.section	.text.PWR_PVDLevelConfig,"ax",%progbits
+ 16498              		.align	2
+ 16499              		.global	PWR_PVDLevelConfig
+ 16500              		.thumb
+ 16501              		.thumb_func
+ 16503              	PWR_PVDLevelConfig:
+ 16504              	.LFB32:
+ 142:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** 
+ 143:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** /**
+ 144:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   * @brief  Configures the voltage threshold detected by the Power Voltage Detector(PVD).
+ 145:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   * @param  PWR_PVDLevel: specifies the PVD detection level
+ 146:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   *   This parameter can be one of the following values:
+ 147:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   *     @arg PWR_PVDLevel_2V2: PVD detection level set to 2.2V
+ 148:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   *     @arg PWR_PVDLevel_2V3: PVD detection level set to 2.3V
+ 149:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   *     @arg PWR_PVDLevel_2V4: PVD detection level set to 2.4V
+ 150:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   *     @arg PWR_PVDLevel_2V5: PVD detection level set to 2.5V
+ 151:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   *     @arg PWR_PVDLevel_2V6: PVD detection level set to 2.6V
+ 152:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   *     @arg PWR_PVDLevel_2V7: PVD detection level set to 2.7V
+ 153:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   *     @arg PWR_PVDLevel_2V8: PVD detection level set to 2.8V
+ 154:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   *     @arg PWR_PVDLevel_2V9: PVD detection level set to 2.9V
+ 155:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   * @retval None
+ 156:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   */
+ 157:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** void PWR_PVDLevelConfig(uint32_t PWR_PVDLevel)
+ 158:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** {
+ 16505              		.loc 1 158 0
+ 16506              		.cfi_startproc
+ 16507              		@ args = 0, pretend = 0, frame = 16
+ 16508              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16509              		@ link register save eliminated.
+ 16510 0000 80B4     		push	{r7}
+ 16511              	.LCFI12:
+ 16512              		.cfi_def_cfa_offset 4
+ 16513 0002 85B0     		sub	sp, sp, #20
+ 16514              	.LCFI13:
+ 16515              		.cfi_def_cfa_offset 24
+ 16516 0004 00AF     		add	r7, sp, #0
+ 16517              		.cfi_offset 7, -4
+ 16518              	.LCFI14:
+ 16519              		.cfi_def_cfa_register 7
+ 16520 0006 7860     		str	r0, [r7, #4]
+ 159:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   uint32_t tmpreg = 0;
+ 16521              		.loc 1 159 0
+ 16522 0008 4FF00003 		mov	r3, #0
+ 16523 000c FB60     		str	r3, [r7, #12]
+ 160:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   /* Check the parameters */
+ 161:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   assert_param(IS_PWR_PVD_LEVEL(PWR_PVDLevel));
+ 162:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   tmpreg = PWR->CR;
+ 16524              		.loc 1 162 0
+ 16525 000e 4FF4E043 		mov	r3, #28672
+ 16526 0012 C4F20003 		movt	r3, 16384
+ 16527 0016 1B68     		ldr	r3, [r3, #0]
+ 16528 0018 FB60     		str	r3, [r7, #12]
+ 163:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   /* Clear PLS[7:5] bits */
+ 164:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   tmpreg &= CR_PLS_MASK;
+ 16529              		.loc 1 164 0
+ 16530 001a FB68     		ldr	r3, [r7, #12]
+ 16531 001c 23F0E003 		bic	r3, r3, #224
+ 16532 0020 FB60     		str	r3, [r7, #12]
+ 165:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   /* Set PLS[7:5] bits according to PWR_PVDLevel value */
+ 166:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   tmpreg |= PWR_PVDLevel;
+ 16533              		.loc 1 166 0
+ 16534 0022 FA68     		ldr	r2, [r7, #12]
+ 16535 0024 7B68     		ldr	r3, [r7, #4]
+ 16536 0026 42EA0303 		orr	r3, r2, r3
+ 16537 002a FB60     		str	r3, [r7, #12]
+ 167:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   /* Store the new value */
+ 168:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   PWR->CR = tmpreg;
+ 16538              		.loc 1 168 0
+ 16539 002c 4FF4E043 		mov	r3, #28672
+ 16540 0030 C4F20003 		movt	r3, 16384
+ 16541 0034 FA68     		ldr	r2, [r7, #12]
+ 16542 0036 1A60     		str	r2, [r3, #0]
+ 169:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** }
+ 16543              		.loc 1 169 0
+ 16544 0038 07F11407 		add	r7, r7, #20
+ 16545 003c BD46     		mov	sp, r7
+ 16546 003e 80BC     		pop	{r7}
+ 16547 0040 7047     		bx	lr
+ 16548              		.cfi_endproc
+ 16549              	.LFE32:
+ 16551 0042 00BF     		.section	.text.PWR_WakeUpPinCmd,"ax",%progbits
+ 16552              		.align	2
+ 16553              		.global	PWR_WakeUpPinCmd
+ 16554              		.thumb
+ 16555              		.thumb_func
+ 16557              	PWR_WakeUpPinCmd:
+ 16558              	.LFB33:
+ 170:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** 
+ 171:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** /**
+ 172:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   * @brief  Enables or disables the WakeUp Pin functionality.
+ 173:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   * @param  NewState: new state of the WakeUp Pin functionality.
+ 174:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   *   This parameter can be: ENABLE or DISABLE.
+ 175:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   * @retval None
+ 176:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   */
+ 177:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** void PWR_WakeUpPinCmd(FunctionalState NewState)
+ 178:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** {
+ 16559              		.loc 1 178 0
+ 16560              		.cfi_startproc
+ 16561              		@ args = 0, pretend = 0, frame = 8
+ 16562              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16563              		@ link register save eliminated.
+ 16564 0000 80B4     		push	{r7}
+ 16565              	.LCFI15:
+ 16566              		.cfi_def_cfa_offset 4
+ 16567 0002 83B0     		sub	sp, sp, #12
+ 16568              	.LCFI16:
+ 16569              		.cfi_def_cfa_offset 16
+ 16570 0004 00AF     		add	r7, sp, #0
+ 16571              		.cfi_offset 7, -4
+ 16572              	.LCFI17:
+ 16573              		.cfi_def_cfa_register 7
+ 16574 0006 0346     		mov	r3, r0
+ 16575 0008 FB71     		strb	r3, [r7, #7]
+ 179:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   /* Check the parameters */
+ 180:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   assert_param(IS_FUNCTIONAL_STATE(NewState));
+ 181:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   *(__IO uint32_t *) CSR_EWUP_BB = (uint32_t)NewState;
+ 16576              		.loc 1 181 0
+ 16577 000a 4FF0A003 		mov	r3, #160
+ 16578 000e C4F20E23 		movt	r3, 16910
+ 16579 0012 FA79     		ldrb	r2, [r7, #7]	@ zero_extendqisi2
+ 16580 0014 1A60     		str	r2, [r3, #0]
+ 182:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** }
+ 16581              		.loc 1 182 0
+ 16582 0016 07F10C07 		add	r7, r7, #12
+ 16583 001a BD46     		mov	sp, r7
+ 16584 001c 80BC     		pop	{r7}
+ 16585 001e 7047     		bx	lr
+ 16586              		.cfi_endproc
+ 16587              	.LFE33:
+ 16589              		.section	.text.PWR_EnterSTOPMode,"ax",%progbits
+ 16590              		.align	2
+ 16591              		.global	PWR_EnterSTOPMode
+ 16592              		.thumb
+ 16593              		.thumb_func
+ 16595              	PWR_EnterSTOPMode:
+ 16596              	.LFB34:
+ 183:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** 
+ 184:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** /**
+ 185:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   * @brief  Enters STOP mode.
+ 186:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   * @param  PWR_Regulator: specifies the regulator state in STOP mode.
+ 187:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   *   This parameter can be one of the following values:
+ 188:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   *     @arg PWR_Regulator_ON: STOP mode with regulator ON
+ 189:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   *     @arg PWR_Regulator_LowPower: STOP mode with regulator in low power mode
+ 190:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   * @param  PWR_STOPEntry: specifies if STOP mode in entered with WFI or WFE instruction.
+ 191:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   *   This parameter can be one of the following values:
+ 192:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   *     @arg PWR_STOPEntry_WFI: enter STOP mode with WFI instruction
+ 193:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   *     @arg PWR_STOPEntry_WFE: enter STOP mode with WFE instruction
+ 194:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   * @retval None
+ 195:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   */
+ 196:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** void PWR_EnterSTOPMode(uint32_t PWR_Regulator, uint8_t PWR_STOPEntry)
+ 197:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** {
+ 16597              		.loc 1 197 0
+ 16598              		.cfi_startproc
+ 16599              		@ args = 0, pretend = 0, frame = 16
+ 16600              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16601 0000 80B5     		push	{r7, lr}
+ 16602              	.LCFI18:
+ 16603              		.cfi_def_cfa_offset 8
+ 16604 0002 84B0     		sub	sp, sp, #16
+ 16605              	.LCFI19:
+ 16606              		.cfi_def_cfa_offset 24
+ 16607 0004 00AF     		add	r7, sp, #0
+ 16608              		.cfi_offset 14, -4
+ 16609              		.cfi_offset 7, -8
+ 16610              	.LCFI20:
+ 16611              		.cfi_def_cfa_register 7
+ 16612 0006 7860     		str	r0, [r7, #4]
+ 16613 0008 0B46     		mov	r3, r1
+ 16614 000a FB70     		strb	r3, [r7, #3]
+ 198:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   uint32_t tmpreg = 0;
+ 16615              		.loc 1 198 0
+ 16616 000c 4FF00003 		mov	r3, #0
+ 16617 0010 FB60     		str	r3, [r7, #12]
+ 199:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   /* Check the parameters */
+ 200:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   assert_param(IS_PWR_REGULATOR(PWR_Regulator));
+ 201:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   assert_param(IS_PWR_STOP_ENTRY(PWR_STOPEntry));
+ 202:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   
+ 203:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   /* Select the regulator state in STOP mode ---------------------------------*/
+ 204:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   tmpreg = PWR->CR;
+ 16618              		.loc 1 204 0
+ 16619 0012 4FF4E043 		mov	r3, #28672
+ 16620 0016 C4F20003 		movt	r3, 16384
+ 16621 001a 1B68     		ldr	r3, [r3, #0]
+ 16622 001c FB60     		str	r3, [r7, #12]
+ 205:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   /* Clear PDDS and LPDS bits */
+ 206:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   tmpreg &= CR_DS_MASK;
+ 16623              		.loc 1 206 0
+ 16624 001e FB68     		ldr	r3, [r7, #12]
+ 16625 0020 23F00303 		bic	r3, r3, #3
+ 16626 0024 FB60     		str	r3, [r7, #12]
+ 207:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   /* Set LPDS bit according to PWR_Regulator value */
+ 208:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   tmpreg |= PWR_Regulator;
+ 16627              		.loc 1 208 0
+ 16628 0026 FA68     		ldr	r2, [r7, #12]
+ 16629 0028 7B68     		ldr	r3, [r7, #4]
+ 16630 002a 42EA0303 		orr	r3, r2, r3
+ 16631 002e FB60     		str	r3, [r7, #12]
+ 209:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   /* Store the new value */
+ 210:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   PWR->CR = tmpreg;
+ 16632              		.loc 1 210 0
+ 16633 0030 4FF4E043 		mov	r3, #28672
+ 16634 0034 C4F20003 		movt	r3, 16384
+ 16635 0038 FA68     		ldr	r2, [r7, #12]
+ 16636 003a 1A60     		str	r2, [r3, #0]
+ 211:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   /* Set SLEEPDEEP bit of Cortex System Control Register */
+ 212:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   SCB->SCR |= SCB_SCR_SLEEPDEEP;
+ 16637              		.loc 1 212 0
+ 16638 003c 4FF46D43 		mov	r3, #60672
+ 16639 0040 CEF20003 		movt	r3, 57344
+ 16640 0044 4FF46D42 		mov	r2, #60672
+ 16641 0048 CEF20002 		movt	r2, 57344
+ 16642 004c 1269     		ldr	r2, [r2, #16]
+ 16643 004e 42F00402 		orr	r2, r2, #4
+ 16644 0052 1A61     		str	r2, [r3, #16]
+ 213:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   
+ 214:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   /* Select STOP mode entry --------------------------------------------------*/
+ 215:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   if(PWR_STOPEntry == PWR_STOPEntry_WFI)
+ 16645              		.loc 1 215 0
+ 16646 0054 FB78     		ldrb	r3, [r7, #3]	@ zero_extendqisi2
+ 16647 0056 012B     		cmp	r3, #1
+ 16648 0058 02D1     		bne	.L9
+ 216:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   {   
+ 217:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****     /* Request Wait For Interrupt */
+ 218:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****     __WFI();
+ 16649              		.loc 1 218 0
+ 16650 005a FFF7FEFF 		bl	__WFI
+ 16651 005e 01E0     		b	.L10
+ 16652              	.L9:
+ 219:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   }
+ 220:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   else
+ 221:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   {
+ 222:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****     /* Request Wait For Event */
+ 223:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****     __WFE();
+ 16653              		.loc 1 223 0
+ 16654 0060 FFF7FEFF 		bl	__WFE
+ 16655              	.L10:
+ 224:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   }
+ 225:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   
+ 226:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   /* Reset SLEEPDEEP bit of Cortex System Control Register */
+ 227:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   SCB->SCR &= (uint32_t)~((uint32_t)SCB_SCR_SLEEPDEEP);  
+ 16656              		.loc 1 227 0
+ 16657 0064 4FF46D43 		mov	r3, #60672
+ 16658 0068 CEF20003 		movt	r3, 57344
+ 16659 006c 4FF46D42 		mov	r2, #60672
+ 16660 0070 CEF20002 		movt	r2, 57344
+ 16661 0074 1269     		ldr	r2, [r2, #16]
+ 16662 0076 22F00402 		bic	r2, r2, #4
+ 16663 007a 1A61     		str	r2, [r3, #16]
+ 228:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** }
+ 16664              		.loc 1 228 0
+ 16665 007c 07F11007 		add	r7, r7, #16
+ 16666 0080 BD46     		mov	sp, r7
+ 16667 0082 80BD     		pop	{r7, pc}
+ 16668              		.cfi_endproc
+ 16669              	.LFE34:
+ 16671              		.section	.text.PWR_EnterSTANDBYMode,"ax",%progbits
+ 16672              		.align	2
+ 16673              		.global	PWR_EnterSTANDBYMode
+ 16674              		.thumb
+ 16675              		.thumb_func
+ 16677              	PWR_EnterSTANDBYMode:
+ 16678              	.LFB35:
+ 229:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** 
+ 230:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** /**
+ 231:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   * @brief  Enters STANDBY mode.
+ 232:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   * @param  None
+ 233:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   * @retval None
+ 234:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   */
+ 235:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** void PWR_EnterSTANDBYMode(void)
+ 236:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** {
+ 16679              		.loc 1 236 0
+ 16680              		.cfi_startproc
+ 16681              		@ args = 0, pretend = 0, frame = 0
+ 16682              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16683 0000 80B5     		push	{r7, lr}
+ 16684              	.LCFI21:
+ 16685              		.cfi_def_cfa_offset 8
+ 16686 0002 00AF     		add	r7, sp, #0
+ 16687              		.cfi_offset 14, -4
+ 16688              		.cfi_offset 7, -8
+ 16689              	.LCFI22:
+ 16690              		.cfi_def_cfa_register 7
+ 237:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   /* Clear Wake-up flag */
+ 238:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   PWR->CR |= PWR_CR_CWUF;
+ 16691              		.loc 1 238 0
+ 16692 0004 4FF4E043 		mov	r3, #28672
+ 16693 0008 C4F20003 		movt	r3, 16384
+ 16694 000c 4FF4E042 		mov	r2, #28672
+ 16695 0010 C4F20002 		movt	r2, 16384
+ 16696 0014 1268     		ldr	r2, [r2, #0]
+ 16697 0016 42F00402 		orr	r2, r2, #4
+ 16698 001a 1A60     		str	r2, [r3, #0]
+ 239:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   /* Select STANDBY mode */
+ 240:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   PWR->CR |= PWR_CR_PDDS;
+ 16699              		.loc 1 240 0
+ 16700 001c 4FF4E043 		mov	r3, #28672
+ 16701 0020 C4F20003 		movt	r3, 16384
+ 16702 0024 4FF4E042 		mov	r2, #28672
+ 16703 0028 C4F20002 		movt	r2, 16384
+ 16704 002c 1268     		ldr	r2, [r2, #0]
+ 16705 002e 42F00202 		orr	r2, r2, #2
+ 16706 0032 1A60     		str	r2, [r3, #0]
+ 241:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   /* Set SLEEPDEEP bit of Cortex System Control Register */
+ 242:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   SCB->SCR |= SCB_SCR_SLEEPDEEP;
+ 16707              		.loc 1 242 0
+ 16708 0034 4FF46D43 		mov	r3, #60672
+ 16709 0038 CEF20003 		movt	r3, 57344
+ 16710 003c 4FF46D42 		mov	r2, #60672
+ 16711 0040 CEF20002 		movt	r2, 57344
+ 16712 0044 1269     		ldr	r2, [r2, #16]
+ 16713 0046 42F00402 		orr	r2, r2, #4
+ 16714 004a 1A61     		str	r2, [r3, #16]
+ 243:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** /* This option is used to ensure that store operations are completed */
+ 244:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** #if defined ( __CC_ARM   )
+ 245:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   __force_stores();
+ 246:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** #endif
+ 247:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   /* Request Wait For Interrupt */
+ 248:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   __WFI();
+ 16715              		.loc 1 248 0
+ 16716 004c FFF7FEFF 		bl	__WFI
+ 249:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** }
+ 16717              		.loc 1 249 0
+ 16718 0050 80BD     		pop	{r7, pc}
+ 16719              		.cfi_endproc
+ 16720              	.LFE35:
+ 16722 0052 00BF     		.section	.text.PWR_GetFlagStatus,"ax",%progbits
+ 16723              		.align	2
+ 16724              		.global	PWR_GetFlagStatus
+ 16725              		.thumb
+ 16726              		.thumb_func
+ 16728              	PWR_GetFlagStatus:
+ 16729              	.LFB36:
+ 250:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** 
+ 251:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** /**
+ 252:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   * @brief  Checks whether the specified PWR flag is set or not.
+ 253:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   * @param  PWR_FLAG: specifies the flag to check.
+ 254:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   *   This parameter can be one of the following values:
+ 255:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   *     @arg PWR_FLAG_WU: Wake Up flag
+ 256:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   *     @arg PWR_FLAG_SB: StandBy flag
+ 257:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   *     @arg PWR_FLAG_PVDO: PVD Output
+ 258:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   * @retval The new state of PWR_FLAG (SET or RESET).
+ 259:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   */
+ 260:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** FlagStatus PWR_GetFlagStatus(uint32_t PWR_FLAG)
+ 261:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** {
+ 16730              		.loc 1 261 0
+ 16731              		.cfi_startproc
+ 16732              		@ args = 0, pretend = 0, frame = 16
+ 16733              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16734              		@ link register save eliminated.
+ 16735 0000 80B4     		push	{r7}
+ 16736              	.LCFI23:
+ 16737              		.cfi_def_cfa_offset 4
+ 16738 0002 85B0     		sub	sp, sp, #20
+ 16739              	.LCFI24:
+ 16740              		.cfi_def_cfa_offset 24
+ 16741 0004 00AF     		add	r7, sp, #0
+ 16742              		.cfi_offset 7, -4
+ 16743              	.LCFI25:
+ 16744              		.cfi_def_cfa_register 7
+ 16745 0006 7860     		str	r0, [r7, #4]
+ 262:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   FlagStatus bitstatus = RESET;
+ 16746              		.loc 1 262 0
+ 16747 0008 4FF00003 		mov	r3, #0
+ 16748 000c FB73     		strb	r3, [r7, #15]
+ 263:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   /* Check the parameters */
+ 264:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   assert_param(IS_PWR_GET_FLAG(PWR_FLAG));
+ 265:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   
+ 266:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   if ((PWR->CSR & PWR_FLAG) != (uint32_t)RESET)
+ 16749              		.loc 1 266 0
+ 16750 000e 4FF4E043 		mov	r3, #28672
+ 16751 0012 C4F20003 		movt	r3, 16384
+ 16752 0016 5B68     		ldr	r3, [r3, #4]
+ 16753 0018 1A46     		mov	r2, r3
+ 16754 001a 7B68     		ldr	r3, [r7, #4]
+ 16755 001c 02EA0303 		and	r3, r2, r3
+ 16756 0020 002B     		cmp	r3, #0
+ 16757 0022 03D0     		beq	.L13
+ 267:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   {
+ 268:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****     bitstatus = SET;
+ 16758              		.loc 1 268 0
+ 16759 0024 4FF00103 		mov	r3, #1
+ 16760 0028 FB73     		strb	r3, [r7, #15]
+ 16761 002a 02E0     		b	.L14
+ 16762              	.L13:
+ 269:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   }
+ 270:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   else
+ 271:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   {
+ 272:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****     bitstatus = RESET;
+ 16763              		.loc 1 272 0
+ 16764 002c 4FF00003 		mov	r3, #0
+ 16765 0030 FB73     		strb	r3, [r7, #15]
+ 16766              	.L14:
+ 273:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   }
+ 274:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   /* Return the flag status */
+ 275:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   return bitstatus;
+ 16767              		.loc 1 275 0
+ 16768 0032 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 276:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** }
+ 16769              		.loc 1 276 0
+ 16770 0034 1846     		mov	r0, r3
+ 16771 0036 07F11407 		add	r7, r7, #20
+ 16772 003a BD46     		mov	sp, r7
+ 16773 003c 80BC     		pop	{r7}
+ 16774 003e 7047     		bx	lr
+ 16775              		.cfi_endproc
+ 16776              	.LFE36:
+ 16778              		.section	.text.PWR_ClearFlag,"ax",%progbits
+ 16779              		.align	2
+ 16780              		.global	PWR_ClearFlag
+ 16781              		.thumb
+ 16782              		.thumb_func
+ 16784              	PWR_ClearFlag:
+ 16785              	.LFB37:
+ 277:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** 
+ 278:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** /**
+ 279:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   * @brief  Clears the PWR's pending flags.
+ 280:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   * @param  PWR_FLAG: specifies the flag to clear.
+ 281:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   *   This parameter can be one of the following values:
+ 282:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   *     @arg PWR_FLAG_WU: Wake Up flag
+ 283:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   *     @arg PWR_FLAG_SB: StandBy flag
+ 284:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   * @retval None
+ 285:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   */
+ 286:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** void PWR_ClearFlag(uint32_t PWR_FLAG)
+ 287:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** {
+ 16786              		.loc 1 287 0
+ 16787              		.cfi_startproc
+ 16788              		@ args = 0, pretend = 0, frame = 8
+ 16789              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16790              		@ link register save eliminated.
+ 16791 0000 80B4     		push	{r7}
+ 16792              	.LCFI26:
+ 16793              		.cfi_def_cfa_offset 4
+ 16794 0002 83B0     		sub	sp, sp, #12
+ 16795              	.LCFI27:
+ 16796              		.cfi_def_cfa_offset 16
+ 16797 0004 00AF     		add	r7, sp, #0
+ 16798              		.cfi_offset 7, -4
+ 16799              	.LCFI28:
+ 16800              		.cfi_def_cfa_register 7
+ 16801 0006 7860     		str	r0, [r7, #4]
+ 288:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   /* Check the parameters */
+ 289:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   assert_param(IS_PWR_CLEAR_FLAG(PWR_FLAG));
+ 290:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****          
+ 291:../target/stm32/stdperiph/src/stm32f10x_pwr.c ****   PWR->CR |=  PWR_FLAG << 2;
+ 16802              		.loc 1 291 0
+ 16803 0008 4FF4E043 		mov	r3, #28672
+ 16804 000c C4F20003 		movt	r3, 16384
+ 16805 0010 4FF4E042 		mov	r2, #28672
+ 16806 0014 C4F20002 		movt	r2, 16384
+ 16807 0018 1268     		ldr	r2, [r2, #0]
+ 16808 001a 1146     		mov	r1, r2
+ 16809 001c 7A68     		ldr	r2, [r7, #4]
+ 16810 001e 4FEA8202 		lsl	r2, r2, #2
+ 16811 0022 41EA0202 		orr	r2, r1, r2
+ 16812 0026 1A60     		str	r2, [r3, #0]
+ 292:../target/stm32/stdperiph/src/stm32f10x_pwr.c **** }
+ 16813              		.loc 1 292 0
+ 16814 0028 07F10C07 		add	r7, r7, #12
+ 16815 002c BD46     		mov	sp, r7
+ 16816 002e 80BC     		pop	{r7}
+ 16817 0030 7047     		bx	lr
+ 16818              		.cfi_endproc
+ 16819              	.LFE37:
+ 16821 0032 00BF     		.text
+ 16822              	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 stm32f10x_pwr.c
+     /tmp/ccVswKh7.s:16329  .text.__WFI:00000000 $t
+     /tmp/ccVswKh7.s:16333  .text.__WFI:00000000 __WFI
+     /tmp/ccVswKh7.s:16359  .text.__WFE:00000000 $t
+     /tmp/ccVswKh7.s:16363  .text.__WFE:00000000 __WFE
+     /tmp/ccVswKh7.s:16389  .text.PWR_DeInit:00000000 $t
+     /tmp/ccVswKh7.s:16394  .text.PWR_DeInit:00000000 PWR_DeInit
+     /tmp/ccVswKh7.s:16422  .text.PWR_BackupAccessCmd:00000000 $t
+     /tmp/ccVswKh7.s:16427  .text.PWR_BackupAccessCmd:00000000 PWR_BackupAccessCmd
+     /tmp/ccVswKh7.s:16460  .text.PWR_PVDCmd:00000000 $t
+     /tmp/ccVswKh7.s:16465  .text.PWR_PVDCmd:00000000 PWR_PVDCmd
+     /tmp/ccVswKh7.s:16498  .text.PWR_PVDLevelConfig:00000000 $t
+     /tmp/ccVswKh7.s:16503  .text.PWR_PVDLevelConfig:00000000 PWR_PVDLevelConfig
+     /tmp/ccVswKh7.s:16552  .text.PWR_WakeUpPinCmd:00000000 $t
+     /tmp/ccVswKh7.s:16557  .text.PWR_WakeUpPinCmd:00000000 PWR_WakeUpPinCmd
+     /tmp/ccVswKh7.s:16590  .text.PWR_EnterSTOPMode:00000000 $t
+     /tmp/ccVswKh7.s:16595  .text.PWR_EnterSTOPMode:00000000 PWR_EnterSTOPMode
+     /tmp/ccVswKh7.s:16672  .text.PWR_EnterSTANDBYMode:00000000 $t
+     /tmp/ccVswKh7.s:16677  .text.PWR_EnterSTANDBYMode:00000000 PWR_EnterSTANDBYMode
+     /tmp/ccVswKh7.s:16723  .text.PWR_GetFlagStatus:00000000 $t
+     /tmp/ccVswKh7.s:16728  .text.PWR_GetFlagStatus:00000000 PWR_GetFlagStatus
+     /tmp/ccVswKh7.s:16779  .text.PWR_ClearFlag:00000000 $t
+     /tmp/ccVswKh7.s:16784  .text.PWR_ClearFlag:00000000 PWR_ClearFlag
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+RCC_APB1PeriphResetCmd

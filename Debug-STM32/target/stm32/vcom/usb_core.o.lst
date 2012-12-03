@@ -1,0 +1,3763 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"usb_core.c"
+  23              	.Ltext0:
+  24              		.file 1 "../target/stm32/vcom/usb_core.c"
+ 16473              		.align	2
+ 16474              		.global	Standard_GetConfiguration
+ 16475              		.thumb
+ 16476              		.thumb_func
+ 16478              	Standard_GetConfiguration:
+ 16479              	.LFB29:
+   1:../target/stm32/vcom/usb_core.c **** /******************** (C) COPYRIGHT 2007 STMicroelectronics ********************
+   2:../target/stm32/vcom/usb_core.c **** * File Name          : usb_core.c
+   3:../target/stm32/vcom/usb_core.c **** * Author             : MCD Application Team
+   4:../target/stm32/vcom/usb_core.c **** * Version            : V1.0
+   5:../target/stm32/vcom/usb_core.c **** * Date               : 10/08/2007
+   6:../target/stm32/vcom/usb_core.c **** * Description        : Standard protocol processing (USB v2.0)
+   7:../target/stm32/vcom/usb_core.c **** ********************************************************************************
+   8:../target/stm32/vcom/usb_core.c **** * THE PRESENT SOFTWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
+   9:../target/stm32/vcom/usb_core.c **** * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE TIME.
+  10:../target/stm32/vcom/usb_core.c **** * AS A RESULT, STMICROELECTRONICS SHALL NOT BE HELD LIABLE FOR ANY DIRECT,
+  11:../target/stm32/vcom/usb_core.c **** * INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING FROM THE
+  12:../target/stm32/vcom/usb_core.c **** * CONTENT OF SUCH SOFTWARE AND/OR THE USE MADE BY CUSTOMERS OF THE CODING
+  13:../target/stm32/vcom/usb_core.c **** * INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
+  14:../target/stm32/vcom/usb_core.c **** *******************************************************************************/
+  15:../target/stm32/vcom/usb_core.c **** 
+  16:../target/stm32/vcom/usb_core.c **** /* Includes ------------------------------------------------------------------*/
+  17:../target/stm32/vcom/usb_core.c **** #include "usb_lib.h"
+  18:../target/stm32/vcom/usb_core.c **** /* Private typedef -----------------------------------------------------------*/
+  19:../target/stm32/vcom/usb_core.c **** /* Private define ------------------------------------------------------------*/
+  20:../target/stm32/vcom/usb_core.c **** #define ValBit(VAR,Place)    (VAR & (1 << Place))
+  21:../target/stm32/vcom/usb_core.c **** #define SetBit(VAR,Place)    (VAR |= (1 << Place))
+  22:../target/stm32/vcom/usb_core.c **** #define ClrBit(VAR,Place)    (VAR &= ((1 << Place) ^ 255))
+  23:../target/stm32/vcom/usb_core.c **** 
+  24:../target/stm32/vcom/usb_core.c **** #define Send0LengthData() { _SetEPTxCount(ENDP0, 0); \
+  25:../target/stm32/vcom/usb_core.c ****     vSetEPTxStatus(EP_TX_VALID); \
+  26:../target/stm32/vcom/usb_core.c ****   }
+  27:../target/stm32/vcom/usb_core.c **** 
+  28:../target/stm32/vcom/usb_core.c **** #define vSetEPRxStatus(st) (SaveRState = st)
+  29:../target/stm32/vcom/usb_core.c **** #define vSetEPTxStatus(st) (SaveTState = st)
+  30:../target/stm32/vcom/usb_core.c **** 
+  31:../target/stm32/vcom/usb_core.c **** #define USB_StatusIn() Send0LengthData()
+  32:../target/stm32/vcom/usb_core.c **** #define USB_StatusOut() vSetEPRxStatus(EP_RX_VALID)
+  33:../target/stm32/vcom/usb_core.c **** 
+  34:../target/stm32/vcom/usb_core.c **** #define StatusInfo0 StatusInfo.bw.bb1 /* Reverse bb0 & bb1 */
+  35:../target/stm32/vcom/usb_core.c **** #define StatusInfo1 StatusInfo.bw.bb0
+  36:../target/stm32/vcom/usb_core.c **** 
+  37:../target/stm32/vcom/usb_core.c **** /* Private macro -------------------------------------------------------------*/
+  38:../target/stm32/vcom/usb_core.c **** /* Private variables ---------------------------------------------------------*/
+  39:../target/stm32/vcom/usb_core.c **** u16_u8 StatusInfo;
+  40:../target/stm32/vcom/usb_core.c **** 
+  41:../target/stm32/vcom/usb_core.c **** /* Private function prototypes -----------------------------------------------*/
+  42:../target/stm32/vcom/usb_core.c **** static void DataStageOut(void);
+  43:../target/stm32/vcom/usb_core.c **** static void DataStageIn(void);
+  44:../target/stm32/vcom/usb_core.c **** static void NoData_Setup0(void);
+  45:../target/stm32/vcom/usb_core.c **** static void Data_Setup0(void);
+  46:../target/stm32/vcom/usb_core.c **** /* Private functions ---------------------------------------------------------*/
+  47:../target/stm32/vcom/usb_core.c **** 
+  48:../target/stm32/vcom/usb_core.c **** /*******************************************************************************
+  49:../target/stm32/vcom/usb_core.c **** * Function Name  : Standard_GetConfiguration.
+  50:../target/stm32/vcom/usb_core.c **** * Description    : Return the current configuration variable address.
+  51:../target/stm32/vcom/usb_core.c **** * Input          : Length - How many bytes are needed.
+  52:../target/stm32/vcom/usb_core.c **** * Output         : None.
+  53:../target/stm32/vcom/usb_core.c **** * Return         : Return 1 , if the request is invalid when "Length" is 0.
+  54:../target/stm32/vcom/usb_core.c **** *                  Return "Buffer" if the "Length" is not 0.
+  55:../target/stm32/vcom/usb_core.c **** *******************************************************************************/
+  56:../target/stm32/vcom/usb_core.c **** u8 *Standard_GetConfiguration(u16 Length)
+  57:../target/stm32/vcom/usb_core.c **** {
+ 16480              		.loc 1 57 0
+ 16481              		.cfi_startproc
+ 16482              		@ args = 0, pretend = 0, frame = 8
+ 16483              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16484 0000 80B5     		push	{r7, lr}
+ 16485              	.LCFI0:
+ 16486              		.cfi_def_cfa_offset 8
+ 16487 0002 82B0     		sub	sp, sp, #8
+ 16488              	.LCFI1:
+ 16489              		.cfi_def_cfa_offset 16
+ 16490 0004 00AF     		add	r7, sp, #0
+ 16491              		.cfi_offset 14, -4
+ 16492              		.cfi_offset 7, -8
+ 16493              	.LCFI2:
+ 16494              		.cfi_def_cfa_register 7
+ 16495 0006 0346     		mov	r3, r0
+ 16496 0008 FB80     		strh	r3, [r7, #6]	@ movhi
+  58:../target/stm32/vcom/usb_core.c ****   if (Length == 0)
+ 16497              		.loc 1 58 0
+ 16498 000a FB88     		ldrh	r3, [r7, #6]
+ 16499 000c 002B     		cmp	r3, #0
+ 16500 000e 0AD1     		bne	.L2
+  59:../target/stm32/vcom/usb_core.c ****   {
+  60:../target/stm32/vcom/usb_core.c ****     pInformation->Ctrl_Info.Usb_wLength =
+ 16501              		.loc 1 60 0
+ 16502 0010 40F20003 		movw	r3, #:lower16:pInformation
+ 16503 0014 C0F20003 		movt	r3, #:upper16:pInformation
+ 16504 0018 1B68     		ldr	r3, [r3, #0]
+ 16505 001a 4FF00102 		mov	r2, #1
+ 16506 001e 1A82     		strh	r2, [r3, #16]	@ movhi
+  61:../target/stm32/vcom/usb_core.c ****       sizeof(pInformation->Current_Configuration);
+  62:../target/stm32/vcom/usb_core.c ****     return 0;
+ 16507              		.loc 1 62 0
+ 16508 0020 4FF00003 		mov	r3, #0
+ 16509 0024 0DE0     		b	.L3
+ 16510              	.L2:
+  63:../target/stm32/vcom/usb_core.c ****   }
+  64:../target/stm32/vcom/usb_core.c ****   pUser_Standard_Requests->User_GetConfiguration();
+ 16511              		.loc 1 64 0
+ 16512 0026 40F20003 		movw	r3, #:lower16:pUser_Standard_Requests
+ 16513 002a C0F20003 		movt	r3, #:upper16:pUser_Standard_Requests
+ 16514 002e 1B68     		ldr	r3, [r3, #0]
+ 16515 0030 1B68     		ldr	r3, [r3, #0]
+ 16516 0032 9847     		blx	r3
+  65:../target/stm32/vcom/usb_core.c ****   return (u8 *)&pInformation->Current_Configuration;
+ 16517              		.loc 1 65 0
+ 16518 0034 40F20003 		movw	r3, #:lower16:pInformation
+ 16519 0038 C0F20003 		movt	r3, #:upper16:pInformation
+ 16520 003c 1B68     		ldr	r3, [r3, #0]
+ 16521 003e 03F10A03 		add	r3, r3, #10
+ 16522              	.L3:
+  66:../target/stm32/vcom/usb_core.c **** }
+ 16523              		.loc 1 66 0
+ 16524 0042 1846     		mov	r0, r3
+ 16525 0044 07F10807 		add	r7, r7, #8
+ 16526 0048 BD46     		mov	sp, r7
+ 16527 004a 80BD     		pop	{r7, pc}
+ 16528              		.cfi_endproc
+ 16529              	.LFE29:
+ 16531              		.section	.text.Standard_SetConfiguration,"ax",%progbits
+ 16532              		.align	2
+ 16533              		.global	Standard_SetConfiguration
+ 16534              		.thumb
+ 16535              		.thumb_func
+ 16537              	Standard_SetConfiguration:
+ 16538              	.LFB30:
+  67:../target/stm32/vcom/usb_core.c **** 
+  68:../target/stm32/vcom/usb_core.c **** /*******************************************************************************
+  69:../target/stm32/vcom/usb_core.c **** * Function Name  : Standard_SetConfiguration.
+  70:../target/stm32/vcom/usb_core.c **** * Description    : This routine is called to set the configuration value
+  71:../target/stm32/vcom/usb_core.c **** *                  Then each class should configure device themself.
+  72:../target/stm32/vcom/usb_core.c **** * Input          : None.
+  73:../target/stm32/vcom/usb_core.c **** * Output         : None.
+  74:../target/stm32/vcom/usb_core.c **** * Return         : Return USB_SUCCESS, if the request is performed.
+  75:../target/stm32/vcom/usb_core.c **** *                  Return USB_UNSUPPORT, if the request is invalid.
+  76:../target/stm32/vcom/usb_core.c **** *******************************************************************************/
+  77:../target/stm32/vcom/usb_core.c **** RESULT Standard_SetConfiguration(void)
+  78:../target/stm32/vcom/usb_core.c **** {
+ 16539              		.loc 1 78 0
+ 16540              		.cfi_startproc
+ 16541              		@ args = 0, pretend = 0, frame = 0
+ 16542              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16543 0000 80B5     		push	{r7, lr}
+ 16544              	.LCFI3:
+ 16545              		.cfi_def_cfa_offset 8
+ 16546 0002 00AF     		add	r7, sp, #0
+ 16547              		.cfi_offset 14, -4
+ 16548              		.cfi_offset 7, -8
+ 16549              	.LCFI4:
+ 16550              		.cfi_def_cfa_register 7
+  79:../target/stm32/vcom/usb_core.c **** 
+  80:../target/stm32/vcom/usb_core.c ****   if ((pInformation->USBwValue0 <=
+ 16551              		.loc 1 80 0
+ 16552 0004 40F20003 		movw	r3, #:lower16:pInformation
+ 16553 0008 C0F20003 		movt	r3, #:upper16:pInformation
+ 16554 000c 1B68     		ldr	r3, [r3, #0]
+ 16555 000e DA78     		ldrb	r2, [r3, #3]	@ zero_extendqisi2
+  81:../target/stm32/vcom/usb_core.c ****       Device_Table.Total_Configuration) && (pInformation->USBwValue1 == 0)
+ 16556              		.loc 1 81 0
+ 16557 0010 40F20003 		movw	r3, #:lower16:Device_Table
+ 16558 0014 C0F20003 		movt	r3, #:upper16:Device_Table
+ 16559 0018 5B78     		ldrb	r3, [r3, #1]	@ zero_extendqisi2
+  80:../target/stm32/vcom/usb_core.c ****   if ((pInformation->USBwValue0 <=
+ 16560              		.loc 1 80 0
+ 16561 001a 9A42     		cmp	r2, r3
+ 16562 001c 25D8     		bhi	.L5
+ 16563              		.loc 1 81 0
+ 16564 001e 40F20003 		movw	r3, #:lower16:pInformation
+ 16565 0022 C0F20003 		movt	r3, #:upper16:pInformation
+ 16566 0026 1B68     		ldr	r3, [r3, #0]
+ 16567 0028 9B78     		ldrb	r3, [r3, #2]	@ zero_extendqisi2
+ 16568 002a 002B     		cmp	r3, #0
+ 16569 002c 1DD1     		bne	.L5
+  82:../target/stm32/vcom/usb_core.c ****       && (pInformation->USBwIndex == 0)) /*call Back usb spec 2.0*/
+ 16570              		.loc 1 82 0
+ 16571 002e 40F20003 		movw	r3, #:lower16:pInformation
+ 16572 0032 C0F20003 		movt	r3, #:upper16:pInformation
+ 16573 0036 1B68     		ldr	r3, [r3, #0]
+ 16574 0038 9B88     		ldrh	r3, [r3, #4]
+ 16575 003a 002B     		cmp	r3, #0
+ 16576 003c 15D1     		bne	.L5
+  83:../target/stm32/vcom/usb_core.c ****   {
+  84:../target/stm32/vcom/usb_core.c ****     pInformation->Current_Configuration = pInformation->USBwValue0;
+ 16577              		.loc 1 84 0
+ 16578 003e 40F20003 		movw	r3, #:lower16:pInformation
+ 16579 0042 C0F20003 		movt	r3, #:upper16:pInformation
+ 16580 0046 1A68     		ldr	r2, [r3, #0]
+ 16581 0048 40F20003 		movw	r3, #:lower16:pInformation
+ 16582 004c C0F20003 		movt	r3, #:upper16:pInformation
+ 16583 0050 1B68     		ldr	r3, [r3, #0]
+ 16584 0052 DB78     		ldrb	r3, [r3, #3]	@ zero_extendqisi2
+ 16585 0054 9372     		strb	r3, [r2, #10]
+  85:../target/stm32/vcom/usb_core.c ****     pUser_Standard_Requests->User_SetConfiguration();
+ 16586              		.loc 1 85 0
+ 16587 0056 40F20003 		movw	r3, #:lower16:pUser_Standard_Requests
+ 16588 005a C0F20003 		movt	r3, #:upper16:pUser_Standard_Requests
+ 16589 005e 1B68     		ldr	r3, [r3, #0]
+ 16590 0060 5B68     		ldr	r3, [r3, #4]
+ 16591 0062 9847     		blx	r3
+  86:../target/stm32/vcom/usb_core.c ****     return USB_SUCCESS;
+ 16592              		.loc 1 86 0
+ 16593 0064 4FF00003 		mov	r3, #0
+ 16594 0068 01E0     		b	.L6
+ 16595              	.L5:
+  87:../target/stm32/vcom/usb_core.c ****   }
+  88:../target/stm32/vcom/usb_core.c ****   else
+  89:../target/stm32/vcom/usb_core.c ****   {
+  90:../target/stm32/vcom/usb_core.c ****     return USB_UNSUPPORT;
+ 16596              		.loc 1 90 0
+ 16597 006a 4FF00203 		mov	r3, #2
+ 16598              	.L6:
+  91:../target/stm32/vcom/usb_core.c ****   }
+  92:../target/stm32/vcom/usb_core.c **** }
+ 16599              		.loc 1 92 0
+ 16600 006e 1846     		mov	r0, r3
+ 16601 0070 80BD     		pop	{r7, pc}
+ 16602              		.cfi_endproc
+ 16603              	.LFE30:
+ 16605 0072 00BF     		.section	.text.Standard_GetInterface,"ax",%progbits
+ 16606              		.align	2
+ 16607              		.global	Standard_GetInterface
+ 16608              		.thumb
+ 16609              		.thumb_func
+ 16611              	Standard_GetInterface:
+ 16612              	.LFB31:
+  93:../target/stm32/vcom/usb_core.c **** 
+  94:../target/stm32/vcom/usb_core.c **** /*******************************************************************************
+  95:../target/stm32/vcom/usb_core.c **** * Function Name  : Standard_GetInterface.
+  96:../target/stm32/vcom/usb_core.c **** * Description    : Return the Alternate Setting of the current interface.
+  97:../target/stm32/vcom/usb_core.c **** * Input          : Length - How many bytes are needed.
+  98:../target/stm32/vcom/usb_core.c **** * Output         : None.
+  99:../target/stm32/vcom/usb_core.c **** * Return         : Return 0, if the request is invalid when "Length" is 0.
+ 100:../target/stm32/vcom/usb_core.c **** *                  Return "Buffer" if the "Length" is not 0.
+ 101:../target/stm32/vcom/usb_core.c **** *******************************************************************************/
+ 102:../target/stm32/vcom/usb_core.c **** u8 *Standard_GetInterface(u16 Length)
+ 103:../target/stm32/vcom/usb_core.c **** {
+ 16613              		.loc 1 103 0
+ 16614              		.cfi_startproc
+ 16615              		@ args = 0, pretend = 0, frame = 8
+ 16616              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16617 0000 80B5     		push	{r7, lr}
+ 16618              	.LCFI5:
+ 16619              		.cfi_def_cfa_offset 8
+ 16620 0002 82B0     		sub	sp, sp, #8
+ 16621              	.LCFI6:
+ 16622              		.cfi_def_cfa_offset 16
+ 16623 0004 00AF     		add	r7, sp, #0
+ 16624              		.cfi_offset 14, -4
+ 16625              		.cfi_offset 7, -8
+ 16626              	.LCFI7:
+ 16627              		.cfi_def_cfa_register 7
+ 16628 0006 0346     		mov	r3, r0
+ 16629 0008 FB80     		strh	r3, [r7, #6]	@ movhi
+ 104:../target/stm32/vcom/usb_core.c ****   if (Length == 0)
+ 16630              		.loc 1 104 0
+ 16631 000a FB88     		ldrh	r3, [r7, #6]
+ 16632 000c 002B     		cmp	r3, #0
+ 16633 000e 0AD1     		bne	.L8
+ 105:../target/stm32/vcom/usb_core.c ****   {
+ 106:../target/stm32/vcom/usb_core.c ****     pInformation->Ctrl_Info.Usb_wLength =
+ 16634              		.loc 1 106 0
+ 16635 0010 40F20003 		movw	r3, #:lower16:pInformation
+ 16636 0014 C0F20003 		movt	r3, #:upper16:pInformation
+ 16637 0018 1B68     		ldr	r3, [r3, #0]
+ 16638 001a 4FF00102 		mov	r2, #1
+ 16639 001e 1A82     		strh	r2, [r3, #16]	@ movhi
+ 107:../target/stm32/vcom/usb_core.c ****       sizeof(pInformation->Current_AlternateSetting);
+ 108:../target/stm32/vcom/usb_core.c ****     return 0;
+ 16640              		.loc 1 108 0
+ 16641 0020 4FF00003 		mov	r3, #0
+ 16642 0024 0DE0     		b	.L9
+ 16643              	.L8:
+ 109:../target/stm32/vcom/usb_core.c ****   }
+ 110:../target/stm32/vcom/usb_core.c ****   pUser_Standard_Requests->User_GetInterface();
+ 16644              		.loc 1 110 0
+ 16645 0026 40F20003 		movw	r3, #:lower16:pUser_Standard_Requests
+ 16646 002a C0F20003 		movt	r3, #:upper16:pUser_Standard_Requests
+ 16647 002e 1B68     		ldr	r3, [r3, #0]
+ 16648 0030 9B68     		ldr	r3, [r3, #8]
+ 16649 0032 9847     		blx	r3
+ 111:../target/stm32/vcom/usb_core.c ****   return (u8 *)&pInformation->Current_AlternateSetting;
+ 16650              		.loc 1 111 0
+ 16651 0034 40F20003 		movw	r3, #:lower16:pInformation
+ 16652 0038 C0F20003 		movt	r3, #:upper16:pInformation
+ 16653 003c 1B68     		ldr	r3, [r3, #0]
+ 16654 003e 03F10C03 		add	r3, r3, #12
+ 16655              	.L9:
+ 112:../target/stm32/vcom/usb_core.c **** }
+ 16656              		.loc 1 112 0
+ 16657 0042 1846     		mov	r0, r3
+ 16658 0044 07F10807 		add	r7, r7, #8
+ 16659 0048 BD46     		mov	sp, r7
+ 16660 004a 80BD     		pop	{r7, pc}
+ 16661              		.cfi_endproc
+ 16662              	.LFE31:
+ 16664              		.section	.text.Standard_SetInterface,"ax",%progbits
+ 16665              		.align	2
+ 16666              		.global	Standard_SetInterface
+ 16667              		.thumb
+ 16668              		.thumb_func
+ 16670              	Standard_SetInterface:
+ 16671              	.LFB32:
+ 113:../target/stm32/vcom/usb_core.c **** 
+ 114:../target/stm32/vcom/usb_core.c **** /*******************************************************************************
+ 115:../target/stm32/vcom/usb_core.c **** * Function Name  : Standard_SetInterface.
+ 116:../target/stm32/vcom/usb_core.c **** * Description    : This routine is called to set the interface.
+ 117:../target/stm32/vcom/usb_core.c **** *                  Then each class should configure the interface them self.
+ 118:../target/stm32/vcom/usb_core.c **** * Input          : None.
+ 119:../target/stm32/vcom/usb_core.c **** * Output         : None.
+ 120:../target/stm32/vcom/usb_core.c **** * Return         : - Return USB_SUCCESS, if the request is performed.
+ 121:../target/stm32/vcom/usb_core.c **** *                  - Return USB_UNSUPPORT, if the request is invalid.
+ 122:../target/stm32/vcom/usb_core.c **** *******************************************************************************/
+ 123:../target/stm32/vcom/usb_core.c **** RESULT Standard_SetInterface(void)
+ 124:../target/stm32/vcom/usb_core.c **** {
+ 16672              		.loc 1 124 0
+ 16673              		.cfi_startproc
+ 16674              		@ args = 0, pretend = 0, frame = 8
+ 16675              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16676 0000 80B5     		push	{r7, lr}
+ 16677              	.LCFI8:
+ 16678              		.cfi_def_cfa_offset 8
+ 16679 0002 82B0     		sub	sp, sp, #8
+ 16680              	.LCFI9:
+ 16681              		.cfi_def_cfa_offset 16
+ 16682 0004 00AF     		add	r7, sp, #0
+ 16683              		.cfi_offset 14, -4
+ 16684              		.cfi_offset 7, -8
+ 16685              	.LCFI10:
+ 16686              		.cfi_def_cfa_register 7
+ 125:../target/stm32/vcom/usb_core.c ****   RESULT Re;
+ 126:../target/stm32/vcom/usb_core.c ****   /*Test if the specified Interface and Alternate Setting are supported by
+ 127:../target/stm32/vcom/usb_core.c ****     the application Firmware*/
+ 128:../target/stm32/vcom/usb_core.c ****   Re = (*pProperty->Class_Get_Interface_Setting)(pInformation->USBwIndex0, pInformation->USBwValue0
+ 16687              		.loc 1 128 0
+ 16688 0006 40F20003 		movw	r3, #:lower16:pProperty
+ 16689 000a C0F20003 		movt	r3, #:upper16:pProperty
+ 16690 000e 1B68     		ldr	r3, [r3, #0]
+ 16691 0010 9A69     		ldr	r2, [r3, #24]
+ 16692 0012 40F20003 		movw	r3, #:lower16:pInformation
+ 16693 0016 C0F20003 		movt	r3, #:upper16:pInformation
+ 16694 001a 1B68     		ldr	r3, [r3, #0]
+ 16695 001c 5979     		ldrb	r1, [r3, #5]	@ zero_extendqisi2
+ 16696 001e 40F20003 		movw	r3, #:lower16:pInformation
+ 16697 0022 C0F20003 		movt	r3, #:upper16:pInformation
+ 16698 0026 1B68     		ldr	r3, [r3, #0]
+ 16699 0028 DB78     		ldrb	r3, [r3, #3]	@ zero_extendqisi2
+ 16700 002a 0846     		mov	r0, r1
+ 16701 002c 1946     		mov	r1, r3
+ 16702 002e 9047     		blx	r2
+ 16703 0030 0346     		mov	r3, r0
+ 16704 0032 FB71     		strb	r3, [r7, #7]
+ 129:../target/stm32/vcom/usb_core.c **** 
+ 130:../target/stm32/vcom/usb_core.c ****   if (pInformation->Current_Configuration != 0)
+ 16705              		.loc 1 130 0
+ 16706 0034 40F20003 		movw	r3, #:lower16:pInformation
+ 16707 0038 C0F20003 		movt	r3, #:upper16:pInformation
+ 16708 003c 1B68     		ldr	r3, [r3, #0]
+ 16709 003e 9B7A     		ldrb	r3, [r3, #10]	@ zero_extendqisi2
+ 16710 0040 002B     		cmp	r3, #0
+ 16711 0042 3AD0     		beq	.L11
+ 131:../target/stm32/vcom/usb_core.c ****   {
+ 132:../target/stm32/vcom/usb_core.c ****     if ((Re != USB_SUCCESS) || (pInformation->USBwIndex1 != 0)
+ 16712              		.loc 1 132 0
+ 16713 0044 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 16714 0046 002B     		cmp	r3, #0
+ 16715 0048 0FD1     		bne	.L12
+ 16716              		.loc 1 132 0 is_stmt 0 discriminator 1
+ 16717 004a 40F20003 		movw	r3, #:lower16:pInformation
+ 16718 004e C0F20003 		movt	r3, #:upper16:pInformation
+ 16719 0052 1B68     		ldr	r3, [r3, #0]
+ 16720 0054 1B79     		ldrb	r3, [r3, #4]	@ zero_extendqisi2
+ 16721 0056 002B     		cmp	r3, #0
+ 16722 0058 07D1     		bne	.L12
+ 133:../target/stm32/vcom/usb_core.c ****         || (pInformation->USBwValue1 != 0))
+ 16723              		.loc 1 133 0 is_stmt 1
+ 16724 005a 40F20003 		movw	r3, #:lower16:pInformation
+ 16725 005e C0F20003 		movt	r3, #:upper16:pInformation
+ 16726 0062 1B68     		ldr	r3, [r3, #0]
+ 16727 0064 9B78     		ldrb	r3, [r3, #2]	@ zero_extendqisi2
+ 16728 0066 002B     		cmp	r3, #0
+ 16729 0068 02D0     		beq	.L13
+ 16730              	.L12:
+ 134:../target/stm32/vcom/usb_core.c ****     {
+ 135:../target/stm32/vcom/usb_core.c ****       return  USB_UNSUPPORT;
+ 16731              		.loc 1 135 0
+ 16732 006a 4FF00203 		mov	r3, #2
+ 16733 006e 26E0     		b	.L14
+ 16734              	.L13:
+ 136:../target/stm32/vcom/usb_core.c ****     }
+ 137:../target/stm32/vcom/usb_core.c ****     else if (Re == USB_SUCCESS)
+ 16735              		.loc 1 137 0
+ 16736 0070 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 16737 0072 002B     		cmp	r3, #0
+ 16738 0074 21D1     		bne	.L11
+ 138:../target/stm32/vcom/usb_core.c ****     {
+ 139:../target/stm32/vcom/usb_core.c ****       pUser_Standard_Requests->User_SetInterface();
+ 16739              		.loc 1 139 0
+ 16740 0076 40F20003 		movw	r3, #:lower16:pUser_Standard_Requests
+ 16741 007a C0F20003 		movt	r3, #:upper16:pUser_Standard_Requests
+ 16742 007e 1B68     		ldr	r3, [r3, #0]
+ 16743 0080 DB68     		ldr	r3, [r3, #12]
+ 16744 0082 9847     		blx	r3
+ 140:../target/stm32/vcom/usb_core.c ****       pInformation->Current_Interface = pInformation->USBwIndex0;
+ 16745              		.loc 1 140 0
+ 16746 0084 40F20003 		movw	r3, #:lower16:pInformation
+ 16747 0088 C0F20003 		movt	r3, #:upper16:pInformation
+ 16748 008c 1A68     		ldr	r2, [r3, #0]
+ 16749 008e 40F20003 		movw	r3, #:lower16:pInformation
+ 16750 0092 C0F20003 		movt	r3, #:upper16:pInformation
+ 16751 0096 1B68     		ldr	r3, [r3, #0]
+ 16752 0098 5B79     		ldrb	r3, [r3, #5]	@ zero_extendqisi2
+ 16753 009a D372     		strb	r3, [r2, #11]
+ 141:../target/stm32/vcom/usb_core.c ****       pInformation->Current_AlternateSetting = pInformation->USBwValue0;
+ 16754              		.loc 1 141 0
+ 16755 009c 40F20003 		movw	r3, #:lower16:pInformation
+ 16756 00a0 C0F20003 		movt	r3, #:upper16:pInformation
+ 16757 00a4 1A68     		ldr	r2, [r3, #0]
+ 16758 00a6 40F20003 		movw	r3, #:lower16:pInformation
+ 16759 00aa C0F20003 		movt	r3, #:upper16:pInformation
+ 16760 00ae 1B68     		ldr	r3, [r3, #0]
+ 16761 00b0 DB78     		ldrb	r3, [r3, #3]	@ zero_extendqisi2
+ 16762 00b2 1373     		strb	r3, [r2, #12]
+ 142:../target/stm32/vcom/usb_core.c ****       return USB_SUCCESS;
+ 16763              		.loc 1 142 0
+ 16764 00b4 4FF00003 		mov	r3, #0
+ 16765 00b8 01E0     		b	.L14
+ 16766              	.L11:
+ 143:../target/stm32/vcom/usb_core.c ****     }
+ 144:../target/stm32/vcom/usb_core.c **** 
+ 145:../target/stm32/vcom/usb_core.c ****   }
+ 146:../target/stm32/vcom/usb_core.c **** 
+ 147:../target/stm32/vcom/usb_core.c ****   return USB_UNSUPPORT;
+ 16767              		.loc 1 147 0
+ 16768 00ba 4FF00203 		mov	r3, #2
+ 16769              	.L14:
+ 148:../target/stm32/vcom/usb_core.c **** }
+ 16770              		.loc 1 148 0
+ 16771 00be 1846     		mov	r0, r3
+ 16772 00c0 07F10807 		add	r7, r7, #8
+ 16773 00c4 BD46     		mov	sp, r7
+ 16774 00c6 80BD     		pop	{r7, pc}
+ 16775              		.cfi_endproc
+ 16776              	.LFE32:
+ 16778              		.section	.text.Standard_GetStatus,"ax",%progbits
+ 16779              		.align	2
+ 16780              		.global	Standard_GetStatus
+ 16781              		.thumb
+ 16782              		.thumb_func
+ 16784              	Standard_GetStatus:
+ 16785              	.LFB33:
+ 149:../target/stm32/vcom/usb_core.c **** 
+ 150:../target/stm32/vcom/usb_core.c **** /*******************************************************************************
+ 151:../target/stm32/vcom/usb_core.c **** * Function Name  : Standard_GetStatus.
+ 152:../target/stm32/vcom/usb_core.c **** * Description    : Copy the device request data to "StatusInfo buffer".
+ 153:../target/stm32/vcom/usb_core.c **** * Input          : - Length - How many bytes are needed.
+ 154:../target/stm32/vcom/usb_core.c **** * Output         : None.
+ 155:../target/stm32/vcom/usb_core.c **** * Return         : Return 0, if the request is at end of data block,
+ 156:../target/stm32/vcom/usb_core.c **** *                  or is invalid when "Length" is 0.
+ 157:../target/stm32/vcom/usb_core.c **** *******************************************************************************/
+ 158:../target/stm32/vcom/usb_core.c **** u8 *Standard_GetStatus(u16 Length)
+ 159:../target/stm32/vcom/usb_core.c **** {
+ 16786              		.loc 1 159 0
+ 16787              		.cfi_startproc
+ 16788              		@ args = 0, pretend = 0, frame = 16
+ 16789              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16790 0000 80B5     		push	{r7, lr}
+ 16791              	.LCFI11:
+ 16792              		.cfi_def_cfa_offset 8
+ 16793 0002 84B0     		sub	sp, sp, #16
+ 16794              	.LCFI12:
+ 16795              		.cfi_def_cfa_offset 24
+ 16796 0004 00AF     		add	r7, sp, #0
+ 16797              		.cfi_offset 14, -4
+ 16798              		.cfi_offset 7, -8
+ 16799              	.LCFI13:
+ 16800              		.cfi_def_cfa_register 7
+ 16801 0006 0346     		mov	r3, r0
+ 16802 0008 FB80     		strh	r3, [r7, #6]	@ movhi
+ 160:../target/stm32/vcom/usb_core.c ****   if (Length == 0)
+ 16803              		.loc 1 160 0
+ 16804 000a FB88     		ldrh	r3, [r7, #6]
+ 16805 000c 002B     		cmp	r3, #0
+ 16806 000e 0AD1     		bne	.L16
+ 161:../target/stm32/vcom/usb_core.c ****   {
+ 162:../target/stm32/vcom/usb_core.c ****     pInformation->Ctrl_Info.Usb_wLength = 2;
+ 16807              		.loc 1 162 0
+ 16808 0010 40F20003 		movw	r3, #:lower16:pInformation
+ 16809 0014 C0F20003 		movt	r3, #:upper16:pInformation
+ 16810 0018 1B68     		ldr	r3, [r3, #0]
+ 16811 001a 4FF00202 		mov	r2, #2
+ 16812 001e 1A82     		strh	r2, [r3, #16]	@ movhi
+ 163:../target/stm32/vcom/usb_core.c ****     return 0;
+ 16813              		.loc 1 163 0
+ 16814 0020 4FF00003 		mov	r3, #0
+ 16815 0024 B7E0     		b	.L17
+ 16816              	.L16:
+ 164:../target/stm32/vcom/usb_core.c ****   }
+ 165:../target/stm32/vcom/usb_core.c **** 
+ 166:../target/stm32/vcom/usb_core.c ****   StatusInfo.w = 0;
+ 16817              		.loc 1 166 0
+ 16818 0026 40F20003 		movw	r3, #:lower16:StatusInfo
+ 16819 002a C0F20003 		movt	r3, #:upper16:StatusInfo
+ 16820 002e 4FF00002 		mov	r2, #0
+ 16821 0032 1A80     		strh	r2, [r3, #0]	@ movhi
+ 167:../target/stm32/vcom/usb_core.c ****   /* Reset Status Information */
+ 168:../target/stm32/vcom/usb_core.c **** 
+ 169:../target/stm32/vcom/usb_core.c ****   if (Type_Recipient == (STANDARD_REQUEST | DEVICE_RECIPIENT))
+ 16822              		.loc 1 169 0
+ 16823 0034 40F20003 		movw	r3, #:lower16:pInformation
+ 16824 0038 C0F20003 		movt	r3, #:upper16:pInformation
+ 16825 003c 1B68     		ldr	r3, [r3, #0]
+ 16826 003e 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 16827 0040 03F07F03 		and	r3, r3, #127
+ 16828 0044 002B     		cmp	r3, #0
+ 16829 0046 39D1     		bne	.L18
+ 16830              	.LBB2:
+ 170:../target/stm32/vcom/usb_core.c ****   {
+ 171:../target/stm32/vcom/usb_core.c ****     /*Get Device Status */
+ 172:../target/stm32/vcom/usb_core.c ****     u8 Feature = pInformation->Current_Feature;
+ 16831              		.loc 1 172 0
+ 16832 0048 40F20003 		movw	r3, #:lower16:pInformation
+ 16833 004c C0F20003 		movt	r3, #:upper16:pInformation
+ 16834 0050 1B68     		ldr	r3, [r3, #0]
+ 16835 0052 5B7A     		ldrb	r3, [r3, #9]
+ 16836 0054 FB73     		strb	r3, [r7, #15]
+ 173:../target/stm32/vcom/usb_core.c **** 
+ 174:../target/stm32/vcom/usb_core.c ****     /* Remote Wakeup enabled */
+ 175:../target/stm32/vcom/usb_core.c ****     if (ValBit(Feature, 5))
+ 16837              		.loc 1 175 0
+ 16838 0056 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 16839 0058 03F02003 		and	r3, r3, #32
+ 16840 005c 002B     		cmp	r3, #0
+ 16841 005e 0CD0     		beq	.L19
+ 176:../target/stm32/vcom/usb_core.c ****     {
+ 177:../target/stm32/vcom/usb_core.c ****       SetBit(StatusInfo0, 1);
+ 16842              		.loc 1 177 0
+ 16843 0060 40F20003 		movw	r3, #:lower16:StatusInfo
+ 16844 0064 C0F20003 		movt	r3, #:upper16:StatusInfo
+ 16845 0068 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 16846 006a 43F00203 		orr	r3, r3, #2
+ 16847 006e DAB2     		uxtb	r2, r3
+ 16848 0070 40F20003 		movw	r3, #:lower16:StatusInfo
+ 16849 0074 C0F20003 		movt	r3, #:upper16:StatusInfo
+ 16850 0078 1A70     		strb	r2, [r3, #0]
+ 16851              	.L19:
+ 178:../target/stm32/vcom/usb_core.c ****     }
+ 179:../target/stm32/vcom/usb_core.c **** 
+ 180:../target/stm32/vcom/usb_core.c ****     /* Self-powered */
+ 181:../target/stm32/vcom/usb_core.c ****     if (ValBit(Feature, 6))
+ 16852              		.loc 1 181 0
+ 16853 007a FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 16854 007c 03F04003 		and	r3, r3, #64
+ 16855 0080 002B     		cmp	r3, #0
+ 16856 0082 0DD0     		beq	.L20
+ 182:../target/stm32/vcom/usb_core.c ****     {
+ 183:../target/stm32/vcom/usb_core.c ****       SetBit(StatusInfo0, 0);
+ 16857              		.loc 1 183 0
+ 16858 0084 40F20003 		movw	r3, #:lower16:StatusInfo
+ 16859 0088 C0F20003 		movt	r3, #:upper16:StatusInfo
+ 16860 008c 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 16861 008e 43F00103 		orr	r3, r3, #1
+ 16862 0092 DAB2     		uxtb	r2, r3
+ 16863 0094 40F20003 		movw	r3, #:lower16:StatusInfo
+ 16864 0098 C0F20003 		movt	r3, #:upper16:StatusInfo
+ 16865 009c 1A70     		strb	r2, [r3, #0]
+ 16866 009e 6FE0     		b	.L21
+ 16867              	.L20:
+ 184:../target/stm32/vcom/usb_core.c ****     }
+ 185:../target/stm32/vcom/usb_core.c ****     else /* Bus-powered */
+ 186:../target/stm32/vcom/usb_core.c ****     {
+ 187:../target/stm32/vcom/usb_core.c ****       ClrBit(StatusInfo0, 0);
+ 16868              		.loc 1 187 0
+ 16869 00a0 40F20003 		movw	r3, #:lower16:StatusInfo
+ 16870 00a4 C0F20003 		movt	r3, #:upper16:StatusInfo
+ 16871 00a8 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 16872 00aa 23F00103 		bic	r3, r3, #1
+ 16873 00ae DAB2     		uxtb	r2, r3
+ 16874 00b0 40F20003 		movw	r3, #:lower16:StatusInfo
+ 16875 00b4 C0F20003 		movt	r3, #:upper16:StatusInfo
+ 16876 00b8 1A70     		strb	r2, [r3, #0]
+ 16877 00ba 61E0     		b	.L21
+ 16878              	.L18:
+ 16879              	.LBE2:
+ 188:../target/stm32/vcom/usb_core.c ****     }
+ 189:../target/stm32/vcom/usb_core.c ****   }
+ 190:../target/stm32/vcom/usb_core.c ****   /*Interface Status*/
+ 191:../target/stm32/vcom/usb_core.c ****   else if (Type_Recipient == (STANDARD_REQUEST | INTERFACE_RECIPIENT))
+ 16880              		.loc 1 191 0
+ 16881 00bc 40F20003 		movw	r3, #:lower16:pInformation
+ 16882 00c0 C0F20003 		movt	r3, #:upper16:pInformation
+ 16883 00c4 1B68     		ldr	r3, [r3, #0]
+ 16884 00c6 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 16885 00c8 03F07F03 		and	r3, r3, #127
+ 16886 00cc 012B     		cmp	r3, #1
+ 16887 00ce 04D1     		bne	.L22
+ 192:../target/stm32/vcom/usb_core.c ****   {
+ 193:../target/stm32/vcom/usb_core.c ****     return (u8 *)&StatusInfo;
+ 16888              		.loc 1 193 0
+ 16889 00d0 40F20003 		movw	r3, #:lower16:StatusInfo
+ 16890 00d4 C0F20003 		movt	r3, #:upper16:StatusInfo
+ 16891 00d8 5DE0     		b	.L17
+ 16892              	.L22:
+ 194:../target/stm32/vcom/usb_core.c ****   }
+ 195:../target/stm32/vcom/usb_core.c ****   /*Get EndPoint Status*/
+ 196:../target/stm32/vcom/usb_core.c ****   else if (Type_Recipient == (STANDARD_REQUEST | ENDPOINT_RECIPIENT))
+ 16893              		.loc 1 196 0
+ 16894 00da 40F20003 		movw	r3, #:lower16:pInformation
+ 16895 00de C0F20003 		movt	r3, #:upper16:pInformation
+ 16896 00e2 1B68     		ldr	r3, [r3, #0]
+ 16897 00e4 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 16898 00e6 03F07F03 		and	r3, r3, #127
+ 16899 00ea 022B     		cmp	r3, #2
+ 16900 00ec 45D1     		bne	.L23
+ 16901              	.LBB3:
+ 197:../target/stm32/vcom/usb_core.c ****   {
+ 198:../target/stm32/vcom/usb_core.c ****     u8 Related_Endpoint;
+ 199:../target/stm32/vcom/usb_core.c ****     u8 wIndex0 = pInformation->USBwIndex0;
+ 16902              		.loc 1 199 0
+ 16903 00ee 40F20003 		movw	r3, #:lower16:pInformation
+ 16904 00f2 C0F20003 		movt	r3, #:upper16:pInformation
+ 16905 00f6 1B68     		ldr	r3, [r3, #0]
+ 16906 00f8 5B79     		ldrb	r3, [r3, #5]
+ 16907 00fa BB73     		strb	r3, [r7, #14]
+ 200:../target/stm32/vcom/usb_core.c **** 
+ 201:../target/stm32/vcom/usb_core.c ****     Related_Endpoint = (wIndex0 & 0x0f);
+ 16908              		.loc 1 201 0
+ 16909 00fc BB7B     		ldrb	r3, [r7, #14]
+ 16910 00fe 03F00F03 		and	r3, r3, #15
+ 16911 0102 7B73     		strb	r3, [r7, #13]
+ 202:../target/stm32/vcom/usb_core.c ****     if (ValBit(wIndex0, 7))
+ 16912              		.loc 1 202 0
+ 16913 0104 BB7B     		ldrb	r3, [r7, #14]	@ zero_extendqisi2
+ 16914 0106 5BB2     		sxtb	r3, r3
+ 16915 0108 002B     		cmp	r3, #0
+ 16916 010a 1ADA     		bge	.L24
+ 203:../target/stm32/vcom/usb_core.c ****     {
+ 204:../target/stm32/vcom/usb_core.c ****       /* IN endpoint */
+ 205:../target/stm32/vcom/usb_core.c ****       if (_GetTxStallStatus(Related_Endpoint))
+ 16917              		.loc 1 205 0
+ 16918 010c 7B7B     		ldrb	r3, [r7, #13]	@ zero_extendqisi2
+ 16919 010e 4FEA8303 		lsl	r3, r3, #2
+ 16920 0112 03F18043 		add	r3, r3, #1073741824
+ 16921 0116 03F5B843 		add	r3, r3, #23552
+ 16922 011a 1B68     		ldr	r3, [r3, #0]
+ 16923 011c 9BB2     		uxth	r3, r3
+ 16924 011e 03F03003 		and	r3, r3, #48
+ 16925 0122 102B     		cmp	r3, #16
+ 16926 0124 2CD1     		bne	.L21
+ 206:../target/stm32/vcom/usb_core.c ****       {
+ 207:../target/stm32/vcom/usb_core.c ****         SetBit(StatusInfo0, 0); /* IN Endpoint stalled */
+ 16927              		.loc 1 207 0
+ 16928 0126 40F20003 		movw	r3, #:lower16:StatusInfo
+ 16929 012a C0F20003 		movt	r3, #:upper16:StatusInfo
+ 16930 012e 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 16931 0130 43F00103 		orr	r3, r3, #1
+ 16932 0134 DAB2     		uxtb	r2, r3
+ 16933 0136 40F20003 		movw	r3, #:lower16:StatusInfo
+ 16934 013a C0F20003 		movt	r3, #:upper16:StatusInfo
+ 16935 013e 1A70     		strb	r2, [r3, #0]
+ 16936 0140 1EE0     		b	.L21
+ 16937              	.L24:
+ 208:../target/stm32/vcom/usb_core.c ****       }
+ 209:../target/stm32/vcom/usb_core.c ****     }
+ 210:../target/stm32/vcom/usb_core.c ****     else
+ 211:../target/stm32/vcom/usb_core.c ****     {
+ 212:../target/stm32/vcom/usb_core.c ****       /* OUT endpoint */
+ 213:../target/stm32/vcom/usb_core.c ****       if (_GetRxStallStatus(Related_Endpoint))
+ 16938              		.loc 1 213 0
+ 16939 0142 7B7B     		ldrb	r3, [r7, #13]	@ zero_extendqisi2
+ 16940 0144 4FEA8303 		lsl	r3, r3, #2
+ 16941 0148 03F18043 		add	r3, r3, #1073741824
+ 16942 014c 03F5B843 		add	r3, r3, #23552
+ 16943 0150 1B68     		ldr	r3, [r3, #0]
+ 16944 0152 9BB2     		uxth	r3, r3
+ 16945 0154 03F44053 		and	r3, r3, #12288
+ 16946 0158 B3F5805F 		cmp	r3, #4096
+ 16947 015c 10D1     		bne	.L21
+ 214:../target/stm32/vcom/usb_core.c ****       {
+ 215:../target/stm32/vcom/usb_core.c ****         SetBit(StatusInfo0, 0); /* OUT Endpoint stalled */
+ 16948              		.loc 1 215 0
+ 16949 015e 40F20003 		movw	r3, #:lower16:StatusInfo
+ 16950 0162 C0F20003 		movt	r3, #:upper16:StatusInfo
+ 16951 0166 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 16952 0168 43F00103 		orr	r3, r3, #1
+ 16953 016c DAB2     		uxtb	r2, r3
+ 16954 016e 40F20003 		movw	r3, #:lower16:StatusInfo
+ 16955 0172 C0F20003 		movt	r3, #:upper16:StatusInfo
+ 16956 0176 1A70     		strb	r2, [r3, #0]
+ 16957 0178 02E0     		b	.L21
+ 16958              	.L23:
+ 16959              	.LBE3:
+ 216:../target/stm32/vcom/usb_core.c ****       }
+ 217:../target/stm32/vcom/usb_core.c ****     }
+ 218:../target/stm32/vcom/usb_core.c **** 
+ 219:../target/stm32/vcom/usb_core.c ****   }
+ 220:../target/stm32/vcom/usb_core.c ****   else
+ 221:../target/stm32/vcom/usb_core.c ****   {
+ 222:../target/stm32/vcom/usb_core.c ****     return NULL;
+ 16960              		.loc 1 222 0
+ 16961 017a 4FF00003 		mov	r3, #0
+ 16962 017e 0AE0     		b	.L17
+ 16963              	.L21:
+ 223:../target/stm32/vcom/usb_core.c ****   }
+ 224:../target/stm32/vcom/usb_core.c ****   pUser_Standard_Requests->User_GetStatus();
+ 16964              		.loc 1 224 0
+ 16965 0180 40F20003 		movw	r3, #:lower16:pUser_Standard_Requests
+ 16966 0184 C0F20003 		movt	r3, #:upper16:pUser_Standard_Requests
+ 16967 0188 1B68     		ldr	r3, [r3, #0]
+ 16968 018a 1B69     		ldr	r3, [r3, #16]
+ 16969 018c 9847     		blx	r3
+ 225:../target/stm32/vcom/usb_core.c ****   return (u8 *)&StatusInfo;
+ 16970              		.loc 1 225 0
+ 16971 018e 40F20003 		movw	r3, #:lower16:StatusInfo
+ 16972 0192 C0F20003 		movt	r3, #:upper16:StatusInfo
+ 16973              	.L17:
+ 226:../target/stm32/vcom/usb_core.c **** }
+ 16974              		.loc 1 226 0
+ 16975 0196 1846     		mov	r0, r3
+ 16976 0198 07F11007 		add	r7, r7, #16
+ 16977 019c BD46     		mov	sp, r7
+ 16978 019e 80BD     		pop	{r7, pc}
+ 16979              		.cfi_endproc
+ 16980              	.LFE33:
+ 16982              		.section	.text.Standard_ClearFeature,"ax",%progbits
+ 16983              		.align	2
+ 16984              		.global	Standard_ClearFeature
+ 16985              		.thumb
+ 16986              		.thumb_func
+ 16988              	Standard_ClearFeature:
+ 16989              	.LFB34:
+ 227:../target/stm32/vcom/usb_core.c **** 
+ 228:../target/stm32/vcom/usb_core.c **** /*******************************************************************************
+ 229:../target/stm32/vcom/usb_core.c **** * Function Name  : Standard_ClearFeature.
+ 230:../target/stm32/vcom/usb_core.c **** * Description    : Clear or disable a specific feature.
+ 231:../target/stm32/vcom/usb_core.c **** * Input          : None.
+ 232:../target/stm32/vcom/usb_core.c **** * Output         : None.
+ 233:../target/stm32/vcom/usb_core.c **** * Return         : - Return USB_SUCCESS, if the request is performed.
+ 234:../target/stm32/vcom/usb_core.c **** *                  - Return USB_UNSUPPORT, if the request is invalid.
+ 235:../target/stm32/vcom/usb_core.c **** *******************************************************************************/
+ 236:../target/stm32/vcom/usb_core.c **** RESULT Standard_ClearFeature(void)
+ 237:../target/stm32/vcom/usb_core.c **** {
+ 16990              		.loc 1 237 0
+ 16991              		.cfi_startproc
+ 16992              		@ args = 0, pretend = 0, frame = 24
+ 16993              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16994 0000 90B5     		push	{r4, r7, lr}
+ 16995              	.LCFI14:
+ 16996              		.cfi_def_cfa_offset 12
+ 16997 0002 87B0     		sub	sp, sp, #28
+ 16998              	.LCFI15:
+ 16999              		.cfi_def_cfa_offset 40
+ 17000 0004 00AF     		add	r7, sp, #0
+ 17001              		.cfi_offset 14, -4
+ 17002              		.cfi_offset 7, -8
+ 17003              		.cfi_offset 4, -12
+ 17004              	.LCFI16:
+ 17005              		.cfi_def_cfa_register 7
+ 238:../target/stm32/vcom/usb_core.c ****   u32     Type_Rec = Type_Recipient;
+ 17006              		.loc 1 238 0
+ 17007 0006 40F20003 		movw	r3, #:lower16:pInformation
+ 17008 000a C0F20003 		movt	r3, #:upper16:pInformation
+ 17009 000e 1B68     		ldr	r3, [r3, #0]
+ 17010 0010 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 17011 0012 03F07F03 		and	r3, r3, #127
+ 17012 0016 3B61     		str	r3, [r7, #16]
+ 239:../target/stm32/vcom/usb_core.c ****   u32     Status;
+ 240:../target/stm32/vcom/usb_core.c **** 
+ 241:../target/stm32/vcom/usb_core.c **** 
+ 242:../target/stm32/vcom/usb_core.c ****   if (Type_Rec == (STANDARD_REQUEST | DEVICE_RECIPIENT))
+ 17013              		.loc 1 242 0
+ 17014 0018 3B69     		ldr	r3, [r7, #16]
+ 17015 001a 002B     		cmp	r3, #0
+ 17016 001c 11D1     		bne	.L26
+ 243:../target/stm32/vcom/usb_core.c ****   {/*Device Clear Feature*/
+ 244:../target/stm32/vcom/usb_core.c ****     ClrBit(pInformation->Current_Feature, 5);
+ 17017              		.loc 1 244 0
+ 17018 001e 40F20003 		movw	r3, #:lower16:pInformation
+ 17019 0022 C0F20003 		movt	r3, #:upper16:pInformation
+ 17020 0026 1A68     		ldr	r2, [r3, #0]
+ 17021 0028 40F20003 		movw	r3, #:lower16:pInformation
+ 17022 002c C0F20003 		movt	r3, #:upper16:pInformation
+ 17023 0030 1B68     		ldr	r3, [r3, #0]
+ 17024 0032 5B7A     		ldrb	r3, [r3, #9]	@ zero_extendqisi2
+ 17025 0034 23F02003 		bic	r3, r3, #32
+ 17026 0038 DBB2     		uxtb	r3, r3
+ 17027 003a 5372     		strb	r3, [r2, #9]
+ 245:../target/stm32/vcom/usb_core.c ****     return USB_SUCCESS;
+ 17028              		.loc 1 245 0
+ 17029 003c 4FF00003 		mov	r3, #0
+ 17030 0040 E7E0     		b	.L27
+ 17031              	.L26:
+ 246:../target/stm32/vcom/usb_core.c ****   }
+ 247:../target/stm32/vcom/usb_core.c ****   else if (Type_Rec == (STANDARD_REQUEST | ENDPOINT_RECIPIENT))
+ 17032              		.loc 1 247 0
+ 17033 0042 3B69     		ldr	r3, [r7, #16]
+ 17034 0044 022B     		cmp	r3, #2
+ 17035 0046 40F0E280 		bne	.L28
+ 17036              	.LBB4:
+ 248:../target/stm32/vcom/usb_core.c ****   {/*EndPoint Clear Feature*/
+ 249:../target/stm32/vcom/usb_core.c ****     DEVICE* pDev;
+ 250:../target/stm32/vcom/usb_core.c ****     u32 Related_Endpoint;
+ 251:../target/stm32/vcom/usb_core.c ****     u32 wIndex0;
+ 252:../target/stm32/vcom/usb_core.c ****     u32 rEP;
+ 253:../target/stm32/vcom/usb_core.c **** 
+ 254:../target/stm32/vcom/usb_core.c ****     if ((pInformation->USBwValue != ENDPOINT_STALL)
+ 17037              		.loc 1 254 0
+ 17038 004a 40F20003 		movw	r3, #:lower16:pInformation
+ 17039 004e C0F20003 		movt	r3, #:upper16:pInformation
+ 17040 0052 1B68     		ldr	r3, [r3, #0]
+ 17041 0054 5B88     		ldrh	r3, [r3, #2]
+ 17042 0056 002B     		cmp	r3, #0
+ 17043 0058 07D1     		bne	.L29
+ 255:../target/stm32/vcom/usb_core.c ****         || (pInformation->USBwIndex1 != 0))
+ 17044              		.loc 1 255 0
+ 17045 005a 40F20003 		movw	r3, #:lower16:pInformation
+ 17046 005e C0F20003 		movt	r3, #:upper16:pInformation
+ 17047 0062 1B68     		ldr	r3, [r3, #0]
+ 17048 0064 1B79     		ldrb	r3, [r3, #4]	@ zero_extendqisi2
+ 17049 0066 002B     		cmp	r3, #0
+ 17050 0068 02D0     		beq	.L30
+ 17051              	.L29:
+ 256:../target/stm32/vcom/usb_core.c ****     {
+ 257:../target/stm32/vcom/usb_core.c ****       return USB_UNSUPPORT;
+ 17052              		.loc 1 257 0
+ 17053 006a 4FF00203 		mov	r3, #2
+ 17054 006e D0E0     		b	.L27
+ 17055              	.L30:
+ 258:../target/stm32/vcom/usb_core.c ****     }
+ 259:../target/stm32/vcom/usb_core.c **** 
+ 260:../target/stm32/vcom/usb_core.c ****     pDev = &Device_Table;
+ 17056              		.loc 1 260 0
+ 17057 0070 40F20003 		movw	r3, #:lower16:Device_Table
+ 17058 0074 C0F20003 		movt	r3, #:upper16:Device_Table
+ 17059 0078 FB60     		str	r3, [r7, #12]
+ 261:../target/stm32/vcom/usb_core.c ****     wIndex0 = pInformation->USBwIndex0;
+ 17060              		.loc 1 261 0
+ 17061 007a 40F20003 		movw	r3, #:lower16:pInformation
+ 17062 007e C0F20003 		movt	r3, #:upper16:pInformation
+ 17063 0082 1B68     		ldr	r3, [r3, #0]
+ 17064 0084 5B79     		ldrb	r3, [r3, #5]	@ zero_extendqisi2
+ 17065 0086 BB60     		str	r3, [r7, #8]
+ 262:../target/stm32/vcom/usb_core.c ****     rEP = wIndex0 & ~0x80;
+ 17066              		.loc 1 262 0
+ 17067 0088 BB68     		ldr	r3, [r7, #8]
+ 17068 008a 23F08003 		bic	r3, r3, #128
+ 17069 008e 7B60     		str	r3, [r7, #4]
+ 263:../target/stm32/vcom/usb_core.c ****     Related_Endpoint = ENDP0 + rEP;
+ 17070              		.loc 1 263 0
+ 17071 0090 7B68     		ldr	r3, [r7, #4]
+ 17072 0092 3B60     		str	r3, [r7, #0]
+ 264:../target/stm32/vcom/usb_core.c **** 
+ 265:../target/stm32/vcom/usb_core.c ****     if (ValBit(pInformation->USBwIndex0, 7))
+ 17073              		.loc 1 265 0
+ 17074 0094 40F20003 		movw	r3, #:lower16:pInformation
+ 17075 0098 C0F20003 		movt	r3, #:upper16:pInformation
+ 17076 009c 1B68     		ldr	r3, [r3, #0]
+ 17077 009e 5B79     		ldrb	r3, [r3, #5]	@ zero_extendqisi2
+ 17078 00a0 DBB2     		uxtb	r3, r3
+ 17079 00a2 5BB2     		sxtb	r3, r3
+ 17080 00a4 002B     		cmp	r3, #0
+ 17081 00a6 0CDA     		bge	.L31
+ 266:../target/stm32/vcom/usb_core.c ****     {
+ 267:../target/stm32/vcom/usb_core.c ****       /*Get Status of endpoint & stall the request if the related_ENdpoint
+ 268:../target/stm32/vcom/usb_core.c ****       is Disabled*/
+ 269:../target/stm32/vcom/usb_core.c ****       Status = _GetEPTxStatus(Related_Endpoint);
+ 17082              		.loc 1 269 0
+ 17083 00a8 3B68     		ldr	r3, [r7, #0]
+ 17084 00aa 4FEA8303 		lsl	r3, r3, #2
+ 17085 00ae 03F18043 		add	r3, r3, #1073741824
+ 17086 00b2 03F5B843 		add	r3, r3, #23552
+ 17087 00b6 1B68     		ldr	r3, [r3, #0]
+ 17088 00b8 9BB2     		uxth	r3, r3
+ 17089 00ba 03F03003 		and	r3, r3, #48
+ 17090 00be 7B61     		str	r3, [r7, #20]
+ 17091 00c0 0BE0     		b	.L32
+ 17092              	.L31:
+ 270:../target/stm32/vcom/usb_core.c ****     }
+ 271:../target/stm32/vcom/usb_core.c ****     else
+ 272:../target/stm32/vcom/usb_core.c ****     {
+ 273:../target/stm32/vcom/usb_core.c ****       Status = _GetEPRxStatus(Related_Endpoint);
+ 17093              		.loc 1 273 0
+ 17094 00c2 3B68     		ldr	r3, [r7, #0]
+ 17095 00c4 4FEA8303 		lsl	r3, r3, #2
+ 17096 00c8 03F18043 		add	r3, r3, #1073741824
+ 17097 00cc 03F5B843 		add	r3, r3, #23552
+ 17098 00d0 1B68     		ldr	r3, [r3, #0]
+ 17099 00d2 9BB2     		uxth	r3, r3
+ 17100 00d4 03F44053 		and	r3, r3, #12288
+ 17101 00d8 7B61     		str	r3, [r7, #20]
+ 17102              	.L32:
+ 274:../target/stm32/vcom/usb_core.c ****     }
+ 275:../target/stm32/vcom/usb_core.c **** 
+ 276:../target/stm32/vcom/usb_core.c ****     if ((rEP >= pDev->Total_Endpoint) || (Status == 0)
+ 17103              		.loc 1 276 0
+ 17104 00da FB68     		ldr	r3, [r7, #12]
+ 17105 00dc 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 17106 00de 1A46     		mov	r2, r3
+ 17107 00e0 7B68     		ldr	r3, [r7, #4]
+ 17108 00e2 9A42     		cmp	r2, r3
+ 17109 00e4 0AD9     		bls	.L33
+ 17110              		.loc 1 276 0 is_stmt 0 discriminator 1
+ 17111 00e6 7B69     		ldr	r3, [r7, #20]
+ 17112 00e8 002B     		cmp	r3, #0
+ 17113 00ea 07D0     		beq	.L33
+ 277:../target/stm32/vcom/usb_core.c ****         || (pInformation->Current_Configuration == 0))
+ 17114              		.loc 1 277 0 is_stmt 1
+ 17115 00ec 40F20003 		movw	r3, #:lower16:pInformation
+ 17116 00f0 C0F20003 		movt	r3, #:upper16:pInformation
+ 17117 00f4 1B68     		ldr	r3, [r3, #0]
+ 17118 00f6 9B7A     		ldrb	r3, [r3, #10]	@ zero_extendqisi2
+ 17119 00f8 002B     		cmp	r3, #0
+ 17120 00fa 02D1     		bne	.L34
+ 17121              	.L33:
+ 278:../target/stm32/vcom/usb_core.c ****     {
+ 279:../target/stm32/vcom/usb_core.c ****       return USB_UNSUPPORT;
+ 17122              		.loc 1 279 0
+ 17123 00fc 4FF00203 		mov	r3, #2
+ 17124 0100 87E0     		b	.L27
+ 17125              	.L34:
+ 280:../target/stm32/vcom/usb_core.c ****     }
+ 281:../target/stm32/vcom/usb_core.c **** 
+ 282:../target/stm32/vcom/usb_core.c **** 
+ 283:../target/stm32/vcom/usb_core.c ****     if (wIndex0 & 0x80)
+ 17126              		.loc 1 283 0
+ 17127 0102 BB68     		ldr	r3, [r7, #8]
+ 17128 0104 03F08003 		and	r3, r3, #128
+ 17129 0108 002B     		cmp	r3, #0
+ 17130 010a 19D0     		beq	.L35
+ 284:../target/stm32/vcom/usb_core.c ****     {
+ 285:../target/stm32/vcom/usb_core.c ****       /* IN endpoint */
+ 286:../target/stm32/vcom/usb_core.c ****       if (_GetTxStallStatus(Related_Endpoint ))
+ 17131              		.loc 1 286 0
+ 17132 010c 3B68     		ldr	r3, [r7, #0]
+ 17133 010e 4FEA8303 		lsl	r3, r3, #2
+ 17134 0112 03F18043 		add	r3, r3, #1073741824
+ 17135 0116 03F5B843 		add	r3, r3, #23552
+ 17136 011a 1B68     		ldr	r3, [r3, #0]
+ 17137 011c 9BB2     		uxth	r3, r3
+ 17138 011e 03F03003 		and	r3, r3, #48
+ 17139 0122 102B     		cmp	r3, #16
+ 17140 0124 69D1     		bne	.L36
+ 287:../target/stm32/vcom/usb_core.c ****       {
+ 288:../target/stm32/vcom/usb_core.c ****         ClearDTOG_TX(Related_Endpoint);
+ 17141              		.loc 1 288 0
+ 17142 0126 3B68     		ldr	r3, [r7, #0]
+ 17143 0128 DBB2     		uxtb	r3, r3
+ 17144 012a 1846     		mov	r0, r3
+ 17145 012c FFF7FEFF 		bl	ClearDTOG_TX
+ 289:../target/stm32/vcom/usb_core.c ****         SetEPTxStatus(Related_Endpoint, EP_TX_VALID);
+ 17146              		.loc 1 289 0
+ 17147 0130 3B68     		ldr	r3, [r7, #0]
+ 17148 0132 DBB2     		uxtb	r3, r3
+ 17149 0134 1846     		mov	r0, r3
+ 17150 0136 4FF03001 		mov	r1, #48
+ 17151 013a FFF7FEFF 		bl	SetEPTxStatus
+ 17152 013e 5CE0     		b	.L36
+ 17153              	.L35:
+ 290:../target/stm32/vcom/usb_core.c ****       }
+ 291:../target/stm32/vcom/usb_core.c ****     }
+ 292:../target/stm32/vcom/usb_core.c ****     else
+ 293:../target/stm32/vcom/usb_core.c ****     {
+ 294:../target/stm32/vcom/usb_core.c ****       /* OUT endpoint */
+ 295:../target/stm32/vcom/usb_core.c ****       if (_GetRxStallStatus(Related_Endpoint))
+ 17154              		.loc 1 295 0
+ 17155 0140 3B68     		ldr	r3, [r7, #0]
+ 17156 0142 4FEA8303 		lsl	r3, r3, #2
+ 17157 0146 03F18043 		add	r3, r3, #1073741824
+ 17158 014a 03F5B843 		add	r3, r3, #23552
+ 17159 014e 1B68     		ldr	r3, [r3, #0]
+ 17160 0150 9BB2     		uxth	r3, r3
+ 17161 0152 03F44053 		and	r3, r3, #12288
+ 17162 0156 B3F5805F 		cmp	r3, #4096
+ 17163 015a 4ED1     		bne	.L36
+ 296:../target/stm32/vcom/usb_core.c ****       {
+ 297:../target/stm32/vcom/usb_core.c ****         if (Related_Endpoint == ENDP0)
+ 17164              		.loc 1 297 0
+ 17165 015c 3B68     		ldr	r3, [r7, #0]
+ 17166 015e 002B     		cmp	r3, #0
+ 17167 0160 29D1     		bne	.L37
+ 298:../target/stm32/vcom/usb_core.c ****         {
+ 299:../target/stm32/vcom/usb_core.c ****           /* After clear the STALL, enable the default endpoint receiver */
+ 300:../target/stm32/vcom/usb_core.c ****           SetEPRxCount(Related_Endpoint, Device_Property.MaxPacketSize);
+ 17168              		.loc 1 300 0
+ 17169 0162 3B68     		ldr	r3, [r7, #0]
+ 17170 0164 DAB2     		uxtb	r2, r3
+ 17171 0166 40F20003 		movw	r3, #:lower16:Device_Property
+ 17172 016a C0F20003 		movt	r3, #:upper16:Device_Property
+ 17173 016e 93F82C30 		ldrb	r3, [r3, #44]	@ zero_extendqisi2
+ 17174 0172 1046     		mov	r0, r2
+ 17175 0174 1946     		mov	r1, r3
+ 17176 0176 FFF7FEFF 		bl	SetEPRxCount
+ 17177              	.LBB5:
+ 301:../target/stm32/vcom/usb_core.c ****           _SetEPRxStatus(Related_Endpoint, EP_RX_VALID);
+ 17178              		.loc 1 301 0
+ 17179 017a 3B68     		ldr	r3, [r7, #0]
+ 17180 017c 4FEA8303 		lsl	r3, r3, #2
+ 17181 0180 03F18043 		add	r3, r3, #1073741824
+ 17182 0184 03F5B843 		add	r3, r3, #23552
+ 17183 0188 1B68     		ldr	r3, [r3, #0]
+ 17184 018a 9BB2     		uxth	r3, r3
+ 17185 018c 23F48043 		bic	r3, r3, #16384
+ 17186 0190 23F07003 		bic	r3, r3, #112
+ 17187 0194 9CB2     		uxth	r4, r3
+ 17188 0196 84F48053 		eor	r3, r4, #4096
+ 17189 019a 9CB2     		uxth	r4, r3
+ 17190 019c 84F40053 		eor	r3, r4, #8192
+ 17191 01a0 9CB2     		uxth	r4, r3
+ 17192 01a2 3B68     		ldr	r3, [r7, #0]
+ 17193 01a4 4FEA8303 		lsl	r3, r3, #2
+ 17194 01a8 03F18043 		add	r3, r3, #1073741824
+ 17195 01ac 03F5B843 		add	r3, r3, #23552
+ 17196 01b0 2246     		mov	r2, r4
+ 17197 01b2 1A60     		str	r2, [r3, #0]
+ 17198 01b4 21E0     		b	.L36
+ 17199              	.L37:
+ 17200              	.LBE5:
+ 302:../target/stm32/vcom/usb_core.c ****         }
+ 303:../target/stm32/vcom/usb_core.c ****         else
+ 304:../target/stm32/vcom/usb_core.c ****         {
+ 305:../target/stm32/vcom/usb_core.c ****           ClearDTOG_RX(Related_Endpoint);
+ 17201              		.loc 1 305 0
+ 17202 01b6 3B68     		ldr	r3, [r7, #0]
+ 17203 01b8 DBB2     		uxtb	r3, r3
+ 17204 01ba 1846     		mov	r0, r3
+ 17205 01bc FFF7FEFF 		bl	ClearDTOG_RX
+ 17206              	.LBB6:
+ 306:../target/stm32/vcom/usb_core.c ****           _SetEPRxStatus(Related_Endpoint, EP_RX_VALID);
+ 17207              		.loc 1 306 0
+ 17208 01c0 3B68     		ldr	r3, [r7, #0]
+ 17209 01c2 4FEA8303 		lsl	r3, r3, #2
+ 17210 01c6 03F18043 		add	r3, r3, #1073741824
+ 17211 01ca 03F5B843 		add	r3, r3, #23552
+ 17212 01ce 1B68     		ldr	r3, [r3, #0]
+ 17213 01d0 9BB2     		uxth	r3, r3
+ 17214 01d2 23F48043 		bic	r3, r3, #16384
+ 17215 01d6 23F07003 		bic	r3, r3, #112
+ 17216 01da 9CB2     		uxth	r4, r3
+ 17217 01dc 84F48053 		eor	r3, r4, #4096
+ 17218 01e0 9CB2     		uxth	r4, r3
+ 17219 01e2 84F40053 		eor	r3, r4, #8192
+ 17220 01e6 9CB2     		uxth	r4, r3
+ 17221 01e8 3B68     		ldr	r3, [r7, #0]
+ 17222 01ea 4FEA8303 		lsl	r3, r3, #2
+ 17223 01ee 03F18043 		add	r3, r3, #1073741824
+ 17224 01f2 03F5B843 		add	r3, r3, #23552
+ 17225 01f6 2246     		mov	r2, r4
+ 17226 01f8 1A60     		str	r2, [r3, #0]
+ 17227              	.L36:
+ 17228              	.LBE6:
+ 307:../target/stm32/vcom/usb_core.c ****         }
+ 308:../target/stm32/vcom/usb_core.c ****       }
+ 309:../target/stm32/vcom/usb_core.c ****     }
+ 310:../target/stm32/vcom/usb_core.c ****     pUser_Standard_Requests->User_ClearFeature();
+ 17229              		.loc 1 310 0
+ 17230 01fa 40F20003 		movw	r3, #:lower16:pUser_Standard_Requests
+ 17231 01fe C0F20003 		movt	r3, #:upper16:pUser_Standard_Requests
+ 17232 0202 1B68     		ldr	r3, [r3, #0]
+ 17233 0204 5B69     		ldr	r3, [r3, #20]
+ 17234 0206 9847     		blx	r3
+ 311:../target/stm32/vcom/usb_core.c ****     return USB_SUCCESS;
+ 17235              		.loc 1 311 0
+ 17236 0208 4FF00003 		mov	r3, #0
+ 17237 020c 01E0     		b	.L27
+ 17238              	.L28:
+ 17239              	.LBE4:
+ 312:../target/stm32/vcom/usb_core.c ****   }
+ 313:../target/stm32/vcom/usb_core.c **** 
+ 314:../target/stm32/vcom/usb_core.c ****   return USB_UNSUPPORT;
+ 17240              		.loc 1 314 0
+ 17241 020e 4FF00203 		mov	r3, #2
+ 17242              	.L27:
+ 315:../target/stm32/vcom/usb_core.c **** }
+ 17243              		.loc 1 315 0
+ 17244 0212 1846     		mov	r0, r3
+ 17245 0214 07F11C07 		add	r7, r7, #28
+ 17246 0218 BD46     		mov	sp, r7
+ 17247 021a 90BD     		pop	{r4, r7, pc}
+ 17248              		.cfi_endproc
+ 17249              	.LFE34:
+ 17251              		.section	.text.Standard_SetEndPointFeature,"ax",%progbits
+ 17252              		.align	2
+ 17253              		.global	Standard_SetEndPointFeature
+ 17254              		.thumb
+ 17255              		.thumb_func
+ 17257              	Standard_SetEndPointFeature:
+ 17258              	.LFB35:
+ 316:../target/stm32/vcom/usb_core.c **** 
+ 317:../target/stm32/vcom/usb_core.c **** /*******************************************************************************
+ 318:../target/stm32/vcom/usb_core.c **** * Function Name  : Standard_SetEndPointFeature
+ 319:../target/stm32/vcom/usb_core.c **** * Description    : Set or enable a specific feature of EndPoint
+ 320:../target/stm32/vcom/usb_core.c **** * Input          : None.
+ 321:../target/stm32/vcom/usb_core.c **** * Output         : None.
+ 322:../target/stm32/vcom/usb_core.c **** * Return         : - Return USB_SUCCESS, if the request is performed.
+ 323:../target/stm32/vcom/usb_core.c **** *                  - Return USB_UNSUPPORT, if the request is invalid.
+ 324:../target/stm32/vcom/usb_core.c **** *******************************************************************************/
+ 325:../target/stm32/vcom/usb_core.c **** RESULT Standard_SetEndPointFeature(void)
+ 326:../target/stm32/vcom/usb_core.c **** {
+ 17259              		.loc 1 326 0
+ 17260              		.cfi_startproc
+ 17261              		@ args = 0, pretend = 0, frame = 16
+ 17262              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17263 0000 90B5     		push	{r4, r7, lr}
+ 17264              	.LCFI17:
+ 17265              		.cfi_def_cfa_offset 12
+ 17266 0002 85B0     		sub	sp, sp, #20
+ 17267              	.LCFI18:
+ 17268              		.cfi_def_cfa_offset 32
+ 17269 0004 00AF     		add	r7, sp, #0
+ 17270              		.cfi_offset 14, -4
+ 17271              		.cfi_offset 7, -8
+ 17272              		.cfi_offset 4, -12
+ 17273              	.LCFI19:
+ 17274              		.cfi_def_cfa_register 7
+ 327:../target/stm32/vcom/usb_core.c ****   u32    wIndex0;
+ 328:../target/stm32/vcom/usb_core.c ****   u32    Related_Endpoint;
+ 329:../target/stm32/vcom/usb_core.c ****   u32    rEP;
+ 330:../target/stm32/vcom/usb_core.c ****   u32   Status;
+ 331:../target/stm32/vcom/usb_core.c **** 
+ 332:../target/stm32/vcom/usb_core.c ****   wIndex0 = pInformation->USBwIndex0;
+ 17275              		.loc 1 332 0
+ 17276 0006 40F20003 		movw	r3, #:lower16:pInformation
+ 17277 000a C0F20003 		movt	r3, #:upper16:pInformation
+ 17278 000e 1B68     		ldr	r3, [r3, #0]
+ 17279 0010 5B79     		ldrb	r3, [r3, #5]	@ zero_extendqisi2
+ 17280 0012 BB60     		str	r3, [r7, #8]
+ 333:../target/stm32/vcom/usb_core.c ****   rEP = wIndex0 & ~0x80;
+ 17281              		.loc 1 333 0
+ 17282 0014 BB68     		ldr	r3, [r7, #8]
+ 17283 0016 23F08003 		bic	r3, r3, #128
+ 17284 001a 7B60     		str	r3, [r7, #4]
+ 334:../target/stm32/vcom/usb_core.c ****   Related_Endpoint = ENDP0 + rEP;
+ 17285              		.loc 1 334 0
+ 17286 001c 7B68     		ldr	r3, [r7, #4]
+ 17287 001e 3B60     		str	r3, [r7, #0]
+ 335:../target/stm32/vcom/usb_core.c **** 
+ 336:../target/stm32/vcom/usb_core.c ****   if (ValBit(pInformation->USBwIndex0, 7))
+ 17288              		.loc 1 336 0
+ 17289 0020 40F20003 		movw	r3, #:lower16:pInformation
+ 17290 0024 C0F20003 		movt	r3, #:upper16:pInformation
+ 17291 0028 1B68     		ldr	r3, [r3, #0]
+ 17292 002a 5B79     		ldrb	r3, [r3, #5]	@ zero_extendqisi2
+ 17293 002c DBB2     		uxtb	r3, r3
+ 17294 002e 5BB2     		sxtb	r3, r3
+ 17295 0030 002B     		cmp	r3, #0
+ 17296 0032 0CDA     		bge	.L39
+ 337:../target/stm32/vcom/usb_core.c ****   {
+ 338:../target/stm32/vcom/usb_core.c ****     /* get Status of endpoint & stall the request if the related_ENdpoint
+ 339:../target/stm32/vcom/usb_core.c ****     is Disabled*/
+ 340:../target/stm32/vcom/usb_core.c ****     Status = _GetEPTxStatus(Related_Endpoint);
+ 17297              		.loc 1 340 0
+ 17298 0034 3B68     		ldr	r3, [r7, #0]
+ 17299 0036 4FEA8303 		lsl	r3, r3, #2
+ 17300 003a 03F18043 		add	r3, r3, #1073741824
+ 17301 003e 03F5B843 		add	r3, r3, #23552
+ 17302 0042 1B68     		ldr	r3, [r3, #0]
+ 17303 0044 9BB2     		uxth	r3, r3
+ 17304 0046 03F03003 		and	r3, r3, #48
+ 17305 004a FB60     		str	r3, [r7, #12]
+ 17306 004c 0BE0     		b	.L40
+ 17307              	.L39:
+ 341:../target/stm32/vcom/usb_core.c ****   }
+ 342:../target/stm32/vcom/usb_core.c ****   else
+ 343:../target/stm32/vcom/usb_core.c ****   {
+ 344:../target/stm32/vcom/usb_core.c ****     Status = _GetEPRxStatus(Related_Endpoint);
+ 17308              		.loc 1 344 0
+ 17309 004e 3B68     		ldr	r3, [r7, #0]
+ 17310 0050 4FEA8303 		lsl	r3, r3, #2
+ 17311 0054 03F18043 		add	r3, r3, #1073741824
+ 17312 0058 03F5B843 		add	r3, r3, #23552
+ 17313 005c 1B68     		ldr	r3, [r3, #0]
+ 17314 005e 9BB2     		uxth	r3, r3
+ 17315 0060 03F44053 		and	r3, r3, #12288
+ 17316 0064 FB60     		str	r3, [r7, #12]
+ 17317              	.L40:
+ 345:../target/stm32/vcom/usb_core.c ****   }
+ 346:../target/stm32/vcom/usb_core.c **** 
+ 347:../target/stm32/vcom/usb_core.c ****   if (Related_Endpoint >= Device_Table.Total_Endpoint
+ 17318              		.loc 1 347 0
+ 17319 0066 40F20003 		movw	r3, #:lower16:Device_Table
+ 17320 006a C0F20003 		movt	r3, #:upper16:Device_Table
+ 17321 006e 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 17322 0070 1A46     		mov	r2, r3
+ 17323 0072 3B68     		ldr	r3, [r7, #0]
+ 17324 0074 9A42     		cmp	r2, r3
+ 17325 0076 12D9     		bls	.L41
+ 348:../target/stm32/vcom/usb_core.c ****       || pInformation->USBwValue != 0 || Status == 0
+ 17326              		.loc 1 348 0
+ 17327 0078 40F20003 		movw	r3, #:lower16:pInformation
+ 17328 007c C0F20003 		movt	r3, #:upper16:pInformation
+ 17329 0080 1B68     		ldr	r3, [r3, #0]
+ 17330 0082 5B88     		ldrh	r3, [r3, #2]
+ 17331 0084 002B     		cmp	r3, #0
+ 17332 0086 0AD1     		bne	.L41
+ 17333              		.loc 1 348 0 is_stmt 0 discriminator 1
+ 17334 0088 FB68     		ldr	r3, [r7, #12]
+ 17335 008a 002B     		cmp	r3, #0
+ 17336 008c 07D0     		beq	.L41
+ 349:../target/stm32/vcom/usb_core.c ****       || pInformation->Current_Configuration == 0)
+ 17337              		.loc 1 349 0 is_stmt 1
+ 17338 008e 40F20003 		movw	r3, #:lower16:pInformation
+ 17339 0092 C0F20003 		movt	r3, #:upper16:pInformation
+ 17340 0096 1B68     		ldr	r3, [r3, #0]
+ 17341 0098 9B7A     		ldrb	r3, [r3, #10]	@ zero_extendqisi2
+ 17342 009a 002B     		cmp	r3, #0
+ 17343 009c 02D1     		bne	.L42
+ 17344              	.L41:
+ 350:../target/stm32/vcom/usb_core.c ****   {
+ 351:../target/stm32/vcom/usb_core.c ****     return USB_UNSUPPORT;
+ 17345              		.loc 1 351 0
+ 17346 009e 4FF00203 		mov	r3, #2
+ 17347 00a2 42E0     		b	.L43
+ 17348              	.L42:
+ 352:../target/stm32/vcom/usb_core.c ****   }
+ 353:../target/stm32/vcom/usb_core.c ****   else
+ 354:../target/stm32/vcom/usb_core.c ****   {
+ 355:../target/stm32/vcom/usb_core.c ****     if (wIndex0 & 0x80)
+ 17349              		.loc 1 355 0
+ 17350 00a4 BB68     		ldr	r3, [r7, #8]
+ 17351 00a6 03F08003 		and	r3, r3, #128
+ 17352 00aa 002B     		cmp	r3, #0
+ 17353 00ac 1AD0     		beq	.L44
+ 17354              	.LBB7:
+ 356:../target/stm32/vcom/usb_core.c ****     {
+ 357:../target/stm32/vcom/usb_core.c ****       /* IN endpoint */
+ 358:../target/stm32/vcom/usb_core.c ****       _SetEPTxStatus(Related_Endpoint, EP_TX_STALL);
+ 17355              		.loc 1 358 0
+ 17356 00ae 3B68     		ldr	r3, [r7, #0]
+ 17357 00b0 4FEA8303 		lsl	r3, r3, #2
+ 17358 00b4 03F18043 		add	r3, r3, #1073741824
+ 17359 00b8 03F5B843 		add	r3, r3, #23552
+ 17360 00bc 1B68     		ldr	r3, [r3, #0]
+ 17361 00be 9BB2     		uxth	r3, r3
+ 17362 00c0 23F4E043 		bic	r3, r3, #28672
+ 17363 00c4 23F04003 		bic	r3, r3, #64
+ 17364 00c8 9CB2     		uxth	r4, r3
+ 17365 00ca 84F01003 		eor	r3, r4, #16
+ 17366 00ce 9CB2     		uxth	r4, r3
+ 17367 00d0 3B68     		ldr	r3, [r7, #0]
+ 17368 00d2 4FEA8303 		lsl	r3, r3, #2
+ 17369 00d6 03F18043 		add	r3, r3, #1073741824
+ 17370 00da 03F5B843 		add	r3, r3, #23552
+ 17371 00de 2246     		mov	r2, r4
+ 17372 00e0 1A60     		str	r2, [r3, #0]
+ 17373 00e2 19E0     		b	.L45
+ 17374              	.L44:
+ 17375              	.LBE7:
+ 17376              	.LBB8:
+ 359:../target/stm32/vcom/usb_core.c ****     }
+ 360:../target/stm32/vcom/usb_core.c **** 
+ 361:../target/stm32/vcom/usb_core.c ****     else
+ 362:../target/stm32/vcom/usb_core.c ****     {
+ 363:../target/stm32/vcom/usb_core.c ****       /* OUT endpoint */
+ 364:../target/stm32/vcom/usb_core.c ****       _SetEPRxStatus(Related_Endpoint, EP_RX_STALL);
+ 17377              		.loc 1 364 0
+ 17378 00e4 3B68     		ldr	r3, [r7, #0]
+ 17379 00e6 4FEA8303 		lsl	r3, r3, #2
+ 17380 00ea 03F18043 		add	r3, r3, #1073741824
+ 17381 00ee 03F5B843 		add	r3, r3, #23552
+ 17382 00f2 1B68     		ldr	r3, [r3, #0]
+ 17383 00f4 9BB2     		uxth	r3, r3
+ 17384 00f6 23F48043 		bic	r3, r3, #16384
+ 17385 00fa 23F07003 		bic	r3, r3, #112
+ 17386 00fe 9CB2     		uxth	r4, r3
+ 17387 0100 84F48053 		eor	r3, r4, #4096
+ 17388 0104 9CB2     		uxth	r4, r3
+ 17389 0106 3B68     		ldr	r3, [r7, #0]
+ 17390 0108 4FEA8303 		lsl	r3, r3, #2
+ 17391 010c 03F18043 		add	r3, r3, #1073741824
+ 17392 0110 03F5B843 		add	r3, r3, #23552
+ 17393 0114 2246     		mov	r2, r4
+ 17394 0116 1A60     		str	r2, [r3, #0]
+ 17395              	.L45:
+ 17396              	.LBE8:
+ 365:../target/stm32/vcom/usb_core.c ****     }
+ 366:../target/stm32/vcom/usb_core.c ****   }
+ 367:../target/stm32/vcom/usb_core.c ****   pUser_Standard_Requests->User_SetEndPointFeature();
+ 17397              		.loc 1 367 0
+ 17398 0118 40F20003 		movw	r3, #:lower16:pUser_Standard_Requests
+ 17399 011c C0F20003 		movt	r3, #:upper16:pUser_Standard_Requests
+ 17400 0120 1B68     		ldr	r3, [r3, #0]
+ 17401 0122 9B69     		ldr	r3, [r3, #24]
+ 17402 0124 9847     		blx	r3
+ 368:../target/stm32/vcom/usb_core.c ****   return USB_SUCCESS;
+ 17403              		.loc 1 368 0
+ 17404 0126 4FF00003 		mov	r3, #0
+ 17405              	.L43:
+ 369:../target/stm32/vcom/usb_core.c **** }
+ 17406              		.loc 1 369 0
+ 17407 012a 1846     		mov	r0, r3
+ 17408 012c 07F11407 		add	r7, r7, #20
+ 17409 0130 BD46     		mov	sp, r7
+ 17410 0132 90BD     		pop	{r4, r7, pc}
+ 17411              		.cfi_endproc
+ 17412              	.LFE35:
+ 17414              		.section	.text.Standard_SetDeviceFeature,"ax",%progbits
+ 17415              		.align	2
+ 17416              		.global	Standard_SetDeviceFeature
+ 17417              		.thumb
+ 17418              		.thumb_func
+ 17420              	Standard_SetDeviceFeature:
+ 17421              	.LFB36:
+ 370:../target/stm32/vcom/usb_core.c **** 
+ 371:../target/stm32/vcom/usb_core.c **** /*******************************************************************************
+ 372:../target/stm32/vcom/usb_core.c **** * Function Name  : Standard_SetDeviceFeature.
+ 373:../target/stm32/vcom/usb_core.c **** * Description    : Set or enable a specific feature of Device.
+ 374:../target/stm32/vcom/usb_core.c **** * Input          : None.
+ 375:../target/stm32/vcom/usb_core.c **** * Output         : None.
+ 376:../target/stm32/vcom/usb_core.c **** * Return         : - Return USB_SUCCESS, if the request is performed.
+ 377:../target/stm32/vcom/usb_core.c **** *                  - Return USB_UNSUPPORT, if the request is invalid.
+ 378:../target/stm32/vcom/usb_core.c **** *******************************************************************************/
+ 379:../target/stm32/vcom/usb_core.c **** RESULT Standard_SetDeviceFeature(void)
+ 380:../target/stm32/vcom/usb_core.c **** {
+ 17422              		.loc 1 380 0
+ 17423              		.cfi_startproc
+ 17424              		@ args = 0, pretend = 0, frame = 0
+ 17425              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17426 0000 80B5     		push	{r7, lr}
+ 17427              	.LCFI20:
+ 17428              		.cfi_def_cfa_offset 8
+ 17429 0002 00AF     		add	r7, sp, #0
+ 17430              		.cfi_offset 14, -4
+ 17431              		.cfi_offset 7, -8
+ 17432              	.LCFI21:
+ 17433              		.cfi_def_cfa_register 7
+ 381:../target/stm32/vcom/usb_core.c ****   SetBit(pInformation->Current_Feature, 5);
+ 17434              		.loc 1 381 0
+ 17435 0004 40F20003 		movw	r3, #:lower16:pInformation
+ 17436 0008 C0F20003 		movt	r3, #:upper16:pInformation
+ 17437 000c 1A68     		ldr	r2, [r3, #0]
+ 17438 000e 40F20003 		movw	r3, #:lower16:pInformation
+ 17439 0012 C0F20003 		movt	r3, #:upper16:pInformation
+ 17440 0016 1B68     		ldr	r3, [r3, #0]
+ 17441 0018 5B7A     		ldrb	r3, [r3, #9]	@ zero_extendqisi2
+ 17442 001a 43F02003 		orr	r3, r3, #32
+ 17443 001e DBB2     		uxtb	r3, r3
+ 17444 0020 5372     		strb	r3, [r2, #9]
+ 382:../target/stm32/vcom/usb_core.c ****   pUser_Standard_Requests->User_SetDeviceFeature();
+ 17445              		.loc 1 382 0
+ 17446 0022 40F20003 		movw	r3, #:lower16:pUser_Standard_Requests
+ 17447 0026 C0F20003 		movt	r3, #:upper16:pUser_Standard_Requests
+ 17448 002a 1B68     		ldr	r3, [r3, #0]
+ 17449 002c DB69     		ldr	r3, [r3, #28]
+ 17450 002e 9847     		blx	r3
+ 383:../target/stm32/vcom/usb_core.c ****   return USB_SUCCESS;
+ 17451              		.loc 1 383 0
+ 17452 0030 4FF00003 		mov	r3, #0
+ 384:../target/stm32/vcom/usb_core.c **** }
+ 17453              		.loc 1 384 0
+ 17454 0034 1846     		mov	r0, r3
+ 17455 0036 80BD     		pop	{r7, pc}
+ 17456              		.cfi_endproc
+ 17457              	.LFE36:
+ 17459              		.section	.text.Standard_GetDescriptorData,"ax",%progbits
+ 17460              		.align	2
+ 17461              		.global	Standard_GetDescriptorData
+ 17462              		.thumb
+ 17463              		.thumb_func
+ 17465              	Standard_GetDescriptorData:
+ 17466              	.LFB37:
+ 385:../target/stm32/vcom/usb_core.c **** 
+ 386:../target/stm32/vcom/usb_core.c **** /*******************************************************************************
+ 387:../target/stm32/vcom/usb_core.c **** * Function Name  : Standard_GetDescriptorData.
+ 388:../target/stm32/vcom/usb_core.c **** * Description    : Standard_GetDescriptorData is used for descriptors transfer.
+ 389:../target/stm32/vcom/usb_core.c **** *                : This routine is used for the descriptors resident in Flash
+ 390:../target/stm32/vcom/usb_core.c **** *                  or RAM
+ 391:../target/stm32/vcom/usb_core.c **** *                  pDesc can be in either Flash or RAM
+ 392:../target/stm32/vcom/usb_core.c **** *                  The purpose of this routine is to have a versatile way to
+ 393:../target/stm32/vcom/usb_core.c **** *                  response descriptors request. It allows user to generate
+ 394:../target/stm32/vcom/usb_core.c **** *                  certain descriptors with software or read descriptors from
+ 395:../target/stm32/vcom/usb_core.c **** *                  external storage part by part.
+ 396:../target/stm32/vcom/usb_core.c **** * Input          : - Length - Length of the data in this transfer.
+ 397:../target/stm32/vcom/usb_core.c **** *                  - pDesc - A pointer points to descriptor struct.
+ 398:../target/stm32/vcom/usb_core.c **** *                  The structure gives the initial address of the descriptor and
+ 399:../target/stm32/vcom/usb_core.c **** *                  its original size.
+ 400:../target/stm32/vcom/usb_core.c **** * Output         : None.
+ 401:../target/stm32/vcom/usb_core.c **** * Return         : Address of a part of the descriptor pointed by the Usb_
+ 402:../target/stm32/vcom/usb_core.c **** *                  wOffset The buffer pointed by this address contains at least
+ 403:../target/stm32/vcom/usb_core.c **** *                  Length bytes.
+ 404:../target/stm32/vcom/usb_core.c **** *******************************************************************************/
+ 405:../target/stm32/vcom/usb_core.c **** u8 *Standard_GetDescriptorData(u16 Length, ONE_DESCRIPTOR *pDesc)
+ 406:../target/stm32/vcom/usb_core.c **** {
+ 17467              		.loc 1 406 0
+ 17468              		.cfi_startproc
+ 17469              		@ args = 0, pretend = 0, frame = 16
+ 17470              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17471              		@ link register save eliminated.
+ 17472 0000 80B4     		push	{r7}
+ 17473              	.LCFI22:
+ 17474              		.cfi_def_cfa_offset 4
+ 17475 0002 85B0     		sub	sp, sp, #20
+ 17476              	.LCFI23:
+ 17477              		.cfi_def_cfa_offset 24
+ 17478 0004 00AF     		add	r7, sp, #0
+ 17479              		.cfi_offset 7, -4
+ 17480              	.LCFI24:
+ 17481              		.cfi_def_cfa_register 7
+ 17482 0006 0346     		mov	r3, r0
+ 17483 0008 3960     		str	r1, [r7, #0]
+ 17484 000a FB80     		strh	r3, [r7, #6]	@ movhi
+ 407:../target/stm32/vcom/usb_core.c ****   u32  wOffset;
+ 408:../target/stm32/vcom/usb_core.c **** 
+ 409:../target/stm32/vcom/usb_core.c ****   wOffset = pInformation->Ctrl_Info.Usb_wOffset;
+ 17485              		.loc 1 409 0
+ 17486 000c 40F20003 		movw	r3, #:lower16:pInformation
+ 17487 0010 C0F20003 		movt	r3, #:upper16:pInformation
+ 17488 0014 1B68     		ldr	r3, [r3, #0]
+ 17489 0016 5B8A     		ldrh	r3, [r3, #18]
+ 17490 0018 FB60     		str	r3, [r7, #12]
+ 410:../target/stm32/vcom/usb_core.c ****   if (Length == 0)
+ 17491              		.loc 1 410 0
+ 17492 001a FB88     		ldrh	r3, [r7, #6]
+ 17493 001c 002B     		cmp	r3, #0
+ 17494 001e 0ED1     		bne	.L48
+ 411:../target/stm32/vcom/usb_core.c ****   {
+ 412:../target/stm32/vcom/usb_core.c ****     pInformation->Ctrl_Info.Usb_wLength = pDesc->Descriptor_Size - wOffset;
+ 17495              		.loc 1 412 0
+ 17496 0020 40F20003 		movw	r3, #:lower16:pInformation
+ 17497 0024 C0F20003 		movt	r3, #:upper16:pInformation
+ 17498 0028 1B68     		ldr	r3, [r3, #0]
+ 17499 002a 3A68     		ldr	r2, [r7, #0]
+ 17500 002c 9188     		ldrh	r1, [r2, #4]
+ 17501 002e FA68     		ldr	r2, [r7, #12]
+ 17502 0030 92B2     		uxth	r2, r2
+ 17503 0032 8A1A     		subs	r2, r1, r2
+ 17504 0034 92B2     		uxth	r2, r2
+ 17505 0036 1A82     		strh	r2, [r3, #16]	@ movhi
+ 413:../target/stm32/vcom/usb_core.c ****     return 0;
+ 17506              		.loc 1 413 0
+ 17507 0038 4FF00003 		mov	r3, #0
+ 17508 003c 03E0     		b	.L49
+ 17509              	.L48:
+ 414:../target/stm32/vcom/usb_core.c ****   }
+ 415:../target/stm32/vcom/usb_core.c **** 
+ 416:../target/stm32/vcom/usb_core.c ****   return pDesc->Descriptor + wOffset;
+ 17510              		.loc 1 416 0
+ 17511 003e 3B68     		ldr	r3, [r7, #0]
+ 17512 0040 1A68     		ldr	r2, [r3, #0]
+ 17513 0042 FB68     		ldr	r3, [r7, #12]
+ 17514 0044 D318     		adds	r3, r2, r3
+ 17515              	.L49:
+ 417:../target/stm32/vcom/usb_core.c **** }
+ 17516              		.loc 1 417 0
+ 17517 0046 1846     		mov	r0, r3
+ 17518 0048 07F11407 		add	r7, r7, #20
+ 17519 004c BD46     		mov	sp, r7
+ 17520 004e 80BC     		pop	{r7}
+ 17521 0050 7047     		bx	lr
+ 17522              		.cfi_endproc
+ 17523              	.LFE37:
+ 17525 0052 00BF     		.section	.text.DataStageOut,"ax",%progbits
+ 17526              		.align	2
+ 17527              		.thumb
+ 17528              		.thumb_func
+ 17530              	DataStageOut:
+ 17531              	.LFB38:
+ 418:../target/stm32/vcom/usb_core.c **** 
+ 419:../target/stm32/vcom/usb_core.c **** /*******************************************************************************
+ 420:../target/stm32/vcom/usb_core.c **** * Function Name  : DataStageOut.
+ 421:../target/stm32/vcom/usb_core.c **** * Description    : Data stage of a Control Write Transfer.
+ 422:../target/stm32/vcom/usb_core.c **** * Input          : None.
+ 423:../target/stm32/vcom/usb_core.c **** * Output         : None.
+ 424:../target/stm32/vcom/usb_core.c **** * Return         : None.
+ 425:../target/stm32/vcom/usb_core.c **** *******************************************************************************/
+ 426:../target/stm32/vcom/usb_core.c **** void DataStageOut(void)
+ 427:../target/stm32/vcom/usb_core.c **** {
+ 17532              		.loc 1 427 0
+ 17533              		.cfi_startproc
+ 17534              		@ args = 0, pretend = 0, frame = 16
+ 17535              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17536 0000 80B5     		push	{r7, lr}
+ 17537              	.LCFI25:
+ 17538              		.cfi_def_cfa_offset 8
+ 17539 0002 84B0     		sub	sp, sp, #16
+ 17540              	.LCFI26:
+ 17541              		.cfi_def_cfa_offset 24
+ 17542 0004 00AF     		add	r7, sp, #0
+ 17543              		.cfi_offset 14, -4
+ 17544              		.cfi_offset 7, -8
+ 17545              	.LCFI27:
+ 17546              		.cfi_def_cfa_register 7
+ 428:../target/stm32/vcom/usb_core.c ****   ENDPOINT_INFO *pEPinfo = &pInformation->Ctrl_Info;
+ 17547              		.loc 1 428 0
+ 17548 0006 40F20003 		movw	r3, #:lower16:pInformation
+ 17549 000a C0F20003 		movt	r3, #:upper16:pInformation
+ 17550 000e 1B68     		ldr	r3, [r3, #0]
+ 17551 0010 03F11003 		add	r3, r3, #16
+ 17552 0014 BB60     		str	r3, [r7, #8]
+ 429:../target/stm32/vcom/usb_core.c ****   u32 save_rLength;
+ 430:../target/stm32/vcom/usb_core.c **** 
+ 431:../target/stm32/vcom/usb_core.c ****   save_rLength = pEPinfo->Usb_rLength;
+ 17553              		.loc 1 431 0
+ 17554 0016 BB68     		ldr	r3, [r7, #8]
+ 17555 0018 1B88     		ldrh	r3, [r3, #0]
+ 17556 001a 7B60     		str	r3, [r7, #4]
+ 432:../target/stm32/vcom/usb_core.c **** 
+ 433:../target/stm32/vcom/usb_core.c ****   if (pEPinfo->CopyData && save_rLength)
+ 17557              		.loc 1 433 0
+ 17558 001c BB68     		ldr	r3, [r7, #8]
+ 17559 001e 9B68     		ldr	r3, [r3, #8]
+ 17560 0020 002B     		cmp	r3, #0
+ 17561 0022 2FD0     		beq	.L51
+ 17562              		.loc 1 433 0 is_stmt 0 discriminator 1
+ 17563 0024 7B68     		ldr	r3, [r7, #4]
+ 17564 0026 002B     		cmp	r3, #0
+ 17565 0028 2CD0     		beq	.L51
+ 17566              	.LBB9:
+ 434:../target/stm32/vcom/usb_core.c ****   {
+ 435:../target/stm32/vcom/usb_core.c ****     u8 *Buffer;
+ 436:../target/stm32/vcom/usb_core.c ****     u32 Length;
+ 437:../target/stm32/vcom/usb_core.c **** 
+ 438:../target/stm32/vcom/usb_core.c ****     Length = pEPinfo->PacketSize;
+ 17567              		.loc 1 438 0 is_stmt 1
+ 17568 002a BB68     		ldr	r3, [r7, #8]
+ 17569 002c 9B88     		ldrh	r3, [r3, #4]
+ 17570 002e FB60     		str	r3, [r7, #12]
+ 439:../target/stm32/vcom/usb_core.c ****     if (Length > save_rLength)
+ 17571              		.loc 1 439 0
+ 17572 0030 FA68     		ldr	r2, [r7, #12]
+ 17573 0032 7B68     		ldr	r3, [r7, #4]
+ 17574 0034 9A42     		cmp	r2, r3
+ 17575 0036 01D9     		bls	.L52
+ 440:../target/stm32/vcom/usb_core.c ****     {
+ 441:../target/stm32/vcom/usb_core.c ****       Length = save_rLength;
+ 17576              		.loc 1 441 0
+ 17577 0038 7B68     		ldr	r3, [r7, #4]
+ 17578 003a FB60     		str	r3, [r7, #12]
+ 17579              	.L52:
+ 442:../target/stm32/vcom/usb_core.c ****     }
+ 443:../target/stm32/vcom/usb_core.c **** 
+ 444:../target/stm32/vcom/usb_core.c ****     Buffer = (*pEPinfo->CopyData)(Length);
+ 17580              		.loc 1 444 0
+ 17581 003c BB68     		ldr	r3, [r7, #8]
+ 17582 003e 9B68     		ldr	r3, [r3, #8]
+ 17583 0040 FA68     		ldr	r2, [r7, #12]
+ 17584 0042 92B2     		uxth	r2, r2
+ 17585 0044 1046     		mov	r0, r2
+ 17586 0046 9847     		blx	r3
+ 17587 0048 3860     		str	r0, [r7, #0]
+ 445:../target/stm32/vcom/usb_core.c ****     pEPinfo->Usb_rLength -= Length;
+ 17588              		.loc 1 445 0
+ 17589 004a BB68     		ldr	r3, [r7, #8]
+ 17590 004c 1A88     		ldrh	r2, [r3, #0]
+ 17591 004e FB68     		ldr	r3, [r7, #12]
+ 17592 0050 9BB2     		uxth	r3, r3
+ 17593 0052 D31A     		subs	r3, r2, r3
+ 17594 0054 9AB2     		uxth	r2, r3
+ 17595 0056 BB68     		ldr	r3, [r7, #8]
+ 17596 0058 1A80     		strh	r2, [r3, #0]	@ movhi
+ 446:../target/stm32/vcom/usb_core.c ****     pEPinfo->Usb_rOffset += Length;
+ 17597              		.loc 1 446 0
+ 17598 005a BB68     		ldr	r3, [r7, #8]
+ 17599 005c 5A88     		ldrh	r2, [r3, #2]
+ 17600 005e FB68     		ldr	r3, [r7, #12]
+ 17601 0060 9BB2     		uxth	r3, r3
+ 17602 0062 D318     		adds	r3, r2, r3
+ 17603 0064 9AB2     		uxth	r2, r3
+ 17604 0066 BB68     		ldr	r3, [r7, #8]
+ 17605 0068 5A80     		strh	r2, [r3, #2]	@ movhi
+ 447:../target/stm32/vcom/usb_core.c **** 
+ 448:../target/stm32/vcom/usb_core.c ****     PMAToUserBufferCopy(Buffer, GetEPRxAddr(ENDP0), Length);
+ 17606              		.loc 1 448 0
+ 17607 006a 4FF00000 		mov	r0, #0
+ 17608 006e FFF7FEFF 		bl	GetEPRxAddr
+ 17609 0072 0346     		mov	r3, r0
+ 17610 0074 1A46     		mov	r2, r3
+ 17611 0076 FB68     		ldr	r3, [r7, #12]
+ 17612 0078 9BB2     		uxth	r3, r3
+ 17613 007a 3868     		ldr	r0, [r7, #0]
+ 17614 007c 1146     		mov	r1, r2
+ 17615 007e 1A46     		mov	r2, r3
+ 17616 0080 FFF7FEFF 		bl	PMAToUserBufferCopy
+ 17617              	.L51:
+ 17618              	.LBE9:
+ 449:../target/stm32/vcom/usb_core.c ****   }
+ 450:../target/stm32/vcom/usb_core.c **** 
+ 451:../target/stm32/vcom/usb_core.c ****   if (pEPinfo->Usb_rLength != 0)
+ 17619              		.loc 1 451 0
+ 17620 0084 BB68     		ldr	r3, [r7, #8]
+ 17621 0086 1B88     		ldrh	r3, [r3, #0]
+ 17622 0088 002B     		cmp	r3, #0
+ 17623 008a 13D0     		beq	.L53
+ 452:../target/stm32/vcom/usb_core.c ****   {
+ 453:../target/stm32/vcom/usb_core.c ****     vSetEPRxStatus(EP_RX_VALID);/* re-enable for next data reception */
+ 17624              		.loc 1 453 0
+ 17625 008c 40F20003 		movw	r3, #:lower16:SaveRState
+ 17626 0090 C0F20003 		movt	r3, #:upper16:SaveRState
+ 17627 0094 4FF44052 		mov	r2, #12288
+ 17628 0098 1A80     		strh	r2, [r3, #0]	@ movhi
+ 454:../target/stm32/vcom/usb_core.c ****     SetEPTxCount(ENDP0, 0);
+ 17629              		.loc 1 454 0
+ 17630 009a 4FF00000 		mov	r0, #0
+ 17631 009e 4FF00001 		mov	r1, #0
+ 17632 00a2 FFF7FEFF 		bl	SetEPTxCount
+ 455:../target/stm32/vcom/usb_core.c ****     vSetEPTxStatus(EP_TX_VALID);/* Expect the host to abort the data OUT stage */
+ 17633              		.loc 1 455 0
+ 17634 00a6 40F20003 		movw	r3, #:lower16:SaveTState
+ 17635 00aa C0F20003 		movt	r3, #:upper16:SaveTState
+ 17636 00ae 4FF03002 		mov	r2, #48
+ 17637 00b2 1A80     		strh	r2, [r3, #0]	@ movhi
+ 17638              	.L53:
+ 456:../target/stm32/vcom/usb_core.c ****   }
+ 457:../target/stm32/vcom/usb_core.c ****   /* Set the next State*/
+ 458:../target/stm32/vcom/usb_core.c ****   if (pEPinfo->Usb_rLength >= pEPinfo->PacketSize)
+ 17639              		.loc 1 458 0
+ 17640 00b4 BB68     		ldr	r3, [r7, #8]
+ 17641 00b6 1A88     		ldrh	r2, [r3, #0]
+ 17642 00b8 BB68     		ldr	r3, [r7, #8]
+ 17643 00ba 9B88     		ldrh	r3, [r3, #4]
+ 17644 00bc 9A42     		cmp	r2, r3
+ 17645 00be 08D3     		bcc	.L54
+ 459:../target/stm32/vcom/usb_core.c ****   {
+ 460:../target/stm32/vcom/usb_core.c ****     pInformation->ControlState = OUT_DATA;
+ 17646              		.loc 1 460 0
+ 17647 00c0 40F20003 		movw	r3, #:lower16:pInformation
+ 17648 00c4 C0F20003 		movt	r3, #:upper16:pInformation
+ 17649 00c8 1B68     		ldr	r3, [r3, #0]
+ 17650 00ca 4FF00302 		mov	r2, #3
+ 17651 00ce 1A72     		strb	r2, [r3, #8]
+ 17652 00d0 30E0     		b	.L50
+ 17653              	.L54:
+ 461:../target/stm32/vcom/usb_core.c ****   }
+ 462:../target/stm32/vcom/usb_core.c ****   else
+ 463:../target/stm32/vcom/usb_core.c ****   {
+ 464:../target/stm32/vcom/usb_core.c ****     if (pEPinfo->Usb_rLength > 0)
+ 17654              		.loc 1 464 0
+ 17655 00d2 BB68     		ldr	r3, [r7, #8]
+ 17656 00d4 1B88     		ldrh	r3, [r3, #0]
+ 17657 00d6 002B     		cmp	r3, #0
+ 17658 00d8 08D0     		beq	.L56
+ 465:../target/stm32/vcom/usb_core.c ****     {
+ 466:../target/stm32/vcom/usb_core.c ****       pInformation->ControlState = LAST_OUT_DATA;
+ 17659              		.loc 1 466 0
+ 17660 00da 40F20003 		movw	r3, #:lower16:pInformation
+ 17661 00de C0F20003 		movt	r3, #:upper16:pInformation
+ 17662 00e2 1B68     		ldr	r3, [r3, #0]
+ 17663 00e4 4FF00502 		mov	r2, #5
+ 17664 00e8 1A72     		strb	r2, [r3, #8]
+ 17665 00ea 23E0     		b	.L50
+ 17666              	.L56:
+ 467:../target/stm32/vcom/usb_core.c ****     }
+ 468:../target/stm32/vcom/usb_core.c ****     else if (pEPinfo->Usb_rLength == 0)
+ 17667              		.loc 1 468 0
+ 17668 00ec BB68     		ldr	r3, [r7, #8]
+ 17669 00ee 1B88     		ldrh	r3, [r3, #0]
+ 17670 00f0 002B     		cmp	r3, #0
+ 17671 00f2 1FD1     		bne	.L50
+ 469:../target/stm32/vcom/usb_core.c ****     {
+ 470:../target/stm32/vcom/usb_core.c ****       pInformation->ControlState = WAIT_STATUS_IN;
+ 17672              		.loc 1 470 0
+ 17673 00f4 40F20003 		movw	r3, #:lower16:pInformation
+ 17674 00f8 C0F20003 		movt	r3, #:upper16:pInformation
+ 17675 00fc 1B68     		ldr	r3, [r3, #0]
+ 17676 00fe 4FF00602 		mov	r2, #6
+ 17677 0102 1A72     		strb	r2, [r3, #8]
+ 471:../target/stm32/vcom/usb_core.c ****       USB_StatusIn();
+ 17678              		.loc 1 471 0
+ 17679 0104 45F65043 		movw	r3, #23632
+ 17680 0108 C4F20003 		movt	r3, 16384
+ 17681 010c 1B68     		ldr	r3, [r3, #0]
+ 17682 010e 9BB2     		uxth	r3, r3
+ 17683 0110 1A46     		mov	r2, r3
+ 17684 0112 43F20203 		movw	r3, #12290
+ 17685 0116 C2F20003 		movt	r3, 8192
+ 17686 011a D318     		adds	r3, r2, r3
+ 17687 011c 4FEA4303 		lsl	r3, r3, #1
+ 17688 0120 4FF00002 		mov	r2, #0
+ 17689 0124 1A60     		str	r2, [r3, #0]
+ 17690 0126 40F20003 		movw	r3, #:lower16:SaveTState
+ 17691 012a C0F20003 		movt	r3, #:upper16:SaveTState
+ 17692 012e 4FF03002 		mov	r2, #48
+ 17693 0132 1A80     		strh	r2, [r3, #0]	@ movhi
+ 17694              	.L50:
+ 472:../target/stm32/vcom/usb_core.c ****     }
+ 473:../target/stm32/vcom/usb_core.c ****   }
+ 474:../target/stm32/vcom/usb_core.c **** }
+ 17695              		.loc 1 474 0
+ 17696 0134 07F11007 		add	r7, r7, #16
+ 17697 0138 BD46     		mov	sp, r7
+ 17698 013a 80BD     		pop	{r7, pc}
+ 17699              		.cfi_endproc
+ 17700              	.LFE38:
+ 17702              		.section	.text.DataStageIn,"ax",%progbits
+ 17703              		.align	2
+ 17704              		.thumb
+ 17705              		.thumb_func
+ 17707              	DataStageIn:
+ 17708              	.LFB39:
+ 475:../target/stm32/vcom/usb_core.c **** 
+ 476:../target/stm32/vcom/usb_core.c **** /*******************************************************************************
+ 477:../target/stm32/vcom/usb_core.c **** * Function Name  : DataStageIn.
+ 478:../target/stm32/vcom/usb_core.c **** * Description    : Data stage of a Control Read Transfer.
+ 479:../target/stm32/vcom/usb_core.c **** * Input          : None.
+ 480:../target/stm32/vcom/usb_core.c **** * Output         : None.
+ 481:../target/stm32/vcom/usb_core.c **** * Return         : None.
+ 482:../target/stm32/vcom/usb_core.c **** *******************************************************************************/
+ 483:../target/stm32/vcom/usb_core.c **** void DataStageIn(void)
+ 484:../target/stm32/vcom/usb_core.c **** {
+ 17709              		.loc 1 484 0
+ 17710              		.cfi_startproc
+ 17711              		@ args = 0, pretend = 0, frame = 24
+ 17712              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17713 0000 80B5     		push	{r7, lr}
+ 17714              	.LCFI28:
+ 17715              		.cfi_def_cfa_offset 8
+ 17716 0002 86B0     		sub	sp, sp, #24
+ 17717              	.LCFI29:
+ 17718              		.cfi_def_cfa_offset 32
+ 17719 0004 00AF     		add	r7, sp, #0
+ 17720              		.cfi_offset 14, -4
+ 17721              		.cfi_offset 7, -8
+ 17722              	.LCFI30:
+ 17723              		.cfi_def_cfa_register 7
+ 485:../target/stm32/vcom/usb_core.c ****   ENDPOINT_INFO *pEPinfo = &pInformation->Ctrl_Info;
+ 17724              		.loc 1 485 0
+ 17725 0006 40F20003 		movw	r3, #:lower16:pInformation
+ 17726 000a C0F20003 		movt	r3, #:upper16:pInformation
+ 17727 000e 1B68     		ldr	r3, [r3, #0]
+ 17728 0010 03F11003 		add	r3, r3, #16
+ 17729 0014 FB60     		str	r3, [r7, #12]
+ 486:../target/stm32/vcom/usb_core.c ****   u32 save_wLength = pEPinfo->Usb_wLength;
+ 17730              		.loc 1 486 0
+ 17731 0016 FB68     		ldr	r3, [r7, #12]
+ 17732 0018 1B88     		ldrh	r3, [r3, #0]
+ 17733 001a BB60     		str	r3, [r7, #8]
+ 487:../target/stm32/vcom/usb_core.c ****   u32 ControlState = pInformation->ControlState;
+ 17734              		.loc 1 487 0
+ 17735 001c 40F20003 		movw	r3, #:lower16:pInformation
+ 17736 0020 C0F20003 		movt	r3, #:upper16:pInformation
+ 17737 0024 1B68     		ldr	r3, [r3, #0]
+ 17738 0026 1B7A     		ldrb	r3, [r3, #8]	@ zero_extendqisi2
+ 17739 0028 7B61     		str	r3, [r7, #20]
+ 488:../target/stm32/vcom/usb_core.c **** 
+ 489:../target/stm32/vcom/usb_core.c ****   u8 *DataBuffer;
+ 490:../target/stm32/vcom/usb_core.c ****   u32 Length;
+ 491:../target/stm32/vcom/usb_core.c **** 
+ 492:../target/stm32/vcom/usb_core.c ****   if ((save_wLength == 0) && (ControlState == LAST_IN_DATA))
+ 17740              		.loc 1 492 0
+ 17741 002a BB68     		ldr	r3, [r7, #8]
+ 17742 002c 002B     		cmp	r3, #0
+ 17743 002e 0DD1     		bne	.L58
+ 17744              		.loc 1 492 0 is_stmt 0 discriminator 1
+ 17745 0030 7B69     		ldr	r3, [r7, #20]
+ 17746 0032 042B     		cmp	r3, #4
+ 17747 0034 0AD1     		bne	.L58
+ 493:../target/stm32/vcom/usb_core.c ****   {
+ 494:../target/stm32/vcom/usb_core.c ****     /* no more data to send so STALL the TX Status*/
+ 495:../target/stm32/vcom/usb_core.c ****     ControlState = WAIT_STATUS_OUT;
+ 17748              		.loc 1 495 0 is_stmt 1
+ 17749 0036 4FF00703 		mov	r3, #7
+ 17750 003a 7B61     		str	r3, [r7, #20]
+ 496:../target/stm32/vcom/usb_core.c ****     vSetEPTxStatus(EP_TX_STALL);
+ 17751              		.loc 1 496 0
+ 17752 003c 40F20003 		movw	r3, #:lower16:SaveTState
+ 17753 0040 C0F20003 		movt	r3, #:upper16:SaveTState
+ 17754 0044 4FF01002 		mov	r2, #16
+ 17755 0048 1A80     		strh	r2, [r3, #0]	@ movhi
+ 497:../target/stm32/vcom/usb_core.c ****     goto Expect_Status_Out;
+ 17756              		.loc 1 497 0
+ 17757 004a 4BE0     		b	.L59
+ 17758              	.L58:
+ 498:../target/stm32/vcom/usb_core.c ****   }
+ 499:../target/stm32/vcom/usb_core.c **** 
+ 500:../target/stm32/vcom/usb_core.c ****   Length = pEPinfo->PacketSize;
+ 17759              		.loc 1 500 0
+ 17760 004c FB68     		ldr	r3, [r7, #12]
+ 17761 004e 9B88     		ldrh	r3, [r3, #4]
+ 17762 0050 3B61     		str	r3, [r7, #16]
+ 501:../target/stm32/vcom/usb_core.c ****   ControlState = (save_wLength <= Length) ? LAST_IN_DATA : IN_DATA;
+ 17763              		.loc 1 501 0
+ 17764 0052 BA68     		ldr	r2, [r7, #8]
+ 17765 0054 3B69     		ldr	r3, [r7, #16]
+ 17766 0056 9A42     		cmp	r2, r3
+ 17767 0058 02D8     		bhi	.L60
+ 17768              		.loc 1 501 0 is_stmt 0 discriminator 1
+ 17769 005a 4FF00403 		mov	r3, #4
+ 17770 005e 01E0     		b	.L61
+ 17771              	.L60:
+ 17772              		.loc 1 501 0 discriminator 2
+ 17773 0060 4FF00203 		mov	r3, #2
+ 17774              	.L61:
+ 17775              		.loc 1 501 0 discriminator 3
+ 17776 0064 7B61     		str	r3, [r7, #20]
+ 502:../target/stm32/vcom/usb_core.c **** 
+ 503:../target/stm32/vcom/usb_core.c ****   if (Length > save_wLength)
+ 17777              		.loc 1 503 0 is_stmt 1 discriminator 3
+ 17778 0066 3A69     		ldr	r2, [r7, #16]
+ 17779 0068 BB68     		ldr	r3, [r7, #8]
+ 17780 006a 9A42     		cmp	r2, r3
+ 17781 006c 01D9     		bls	.L62
+ 504:../target/stm32/vcom/usb_core.c ****   {
+ 505:../target/stm32/vcom/usb_core.c ****     Length = save_wLength;
+ 17782              		.loc 1 505 0
+ 17783 006e BB68     		ldr	r3, [r7, #8]
+ 17784 0070 3B61     		str	r3, [r7, #16]
+ 17785              	.L62:
+ 506:../target/stm32/vcom/usb_core.c ****   }
+ 507:../target/stm32/vcom/usb_core.c **** 
+ 508:../target/stm32/vcom/usb_core.c ****   DataBuffer = (*pEPinfo->CopyData)(Length);
+ 17786              		.loc 1 508 0
+ 17787 0072 FB68     		ldr	r3, [r7, #12]
+ 17788 0074 9B68     		ldr	r3, [r3, #8]
+ 17789 0076 3A69     		ldr	r2, [r7, #16]
+ 17790 0078 92B2     		uxth	r2, r2
+ 17791 007a 1046     		mov	r0, r2
+ 17792 007c 9847     		blx	r3
+ 17793 007e 7860     		str	r0, [r7, #4]
+ 509:../target/stm32/vcom/usb_core.c **** 
+ 510:../target/stm32/vcom/usb_core.c ****   UserToPMABufferCopy(DataBuffer, GetEPTxAddr(ENDP0), Length);
+ 17794              		.loc 1 510 0
+ 17795 0080 4FF00000 		mov	r0, #0
+ 17796 0084 FFF7FEFF 		bl	GetEPTxAddr
+ 17797 0088 0346     		mov	r3, r0
+ 17798 008a 1A46     		mov	r2, r3
+ 17799 008c 3B69     		ldr	r3, [r7, #16]
+ 17800 008e 9BB2     		uxth	r3, r3
+ 17801 0090 7868     		ldr	r0, [r7, #4]
+ 17802 0092 1146     		mov	r1, r2
+ 17803 0094 1A46     		mov	r2, r3
+ 17804 0096 FFF7FEFF 		bl	UserToPMABufferCopy
+ 511:../target/stm32/vcom/usb_core.c **** 
+ 512:../target/stm32/vcom/usb_core.c ****   SetEPTxCount(ENDP0, Length);
+ 17805              		.loc 1 512 0
+ 17806 009a 3B69     		ldr	r3, [r7, #16]
+ 17807 009c 9BB2     		uxth	r3, r3
+ 17808 009e 4FF00000 		mov	r0, #0
+ 17809 00a2 1946     		mov	r1, r3
+ 17810 00a4 FFF7FEFF 		bl	SetEPTxCount
+ 513:../target/stm32/vcom/usb_core.c **** 
+ 514:../target/stm32/vcom/usb_core.c ****   pEPinfo->Usb_wLength -= Length;
+ 17811              		.loc 1 514 0
+ 17812 00a8 FB68     		ldr	r3, [r7, #12]
+ 17813 00aa 1A88     		ldrh	r2, [r3, #0]
+ 17814 00ac 3B69     		ldr	r3, [r7, #16]
+ 17815 00ae 9BB2     		uxth	r3, r3
+ 17816 00b0 D31A     		subs	r3, r2, r3
+ 17817 00b2 9AB2     		uxth	r2, r3
+ 17818 00b4 FB68     		ldr	r3, [r7, #12]
+ 17819 00b6 1A80     		strh	r2, [r3, #0]	@ movhi
+ 515:../target/stm32/vcom/usb_core.c ****   pEPinfo->Usb_wOffset += Length;
+ 17820              		.loc 1 515 0
+ 17821 00b8 FB68     		ldr	r3, [r7, #12]
+ 17822 00ba 5A88     		ldrh	r2, [r3, #2]
+ 17823 00bc 3B69     		ldr	r3, [r7, #16]
+ 17824 00be 9BB2     		uxth	r3, r3
+ 17825 00c0 D318     		adds	r3, r2, r3
+ 17826 00c2 9AB2     		uxth	r2, r3
+ 17827 00c4 FB68     		ldr	r3, [r7, #12]
+ 17828 00c6 5A80     		strh	r2, [r3, #2]	@ movhi
+ 516:../target/stm32/vcom/usb_core.c ****   vSetEPTxStatus(EP_TX_VALID);
+ 17829              		.loc 1 516 0
+ 17830 00c8 40F20003 		movw	r3, #:lower16:SaveTState
+ 17831 00cc C0F20003 		movt	r3, #:upper16:SaveTState
+ 17832 00d0 4FF03002 		mov	r2, #48
+ 17833 00d4 1A80     		strh	r2, [r3, #0]	@ movhi
+ 517:../target/stm32/vcom/usb_core.c **** 
+ 518:../target/stm32/vcom/usb_core.c ****   USB_StatusOut();/* Expect the host to abort the data IN stage */
+ 17834              		.loc 1 518 0
+ 17835 00d6 40F20003 		movw	r3, #:lower16:SaveRState
+ 17836 00da C0F20003 		movt	r3, #:upper16:SaveRState
+ 17837 00de 4FF44052 		mov	r2, #12288
+ 17838 00e2 1A80     		strh	r2, [r3, #0]	@ movhi
+ 17839              	.L59:
+ 519:../target/stm32/vcom/usb_core.c **** 
+ 520:../target/stm32/vcom/usb_core.c **** Expect_Status_Out:
+ 521:../target/stm32/vcom/usb_core.c ****   pInformation->ControlState = ControlState;
+ 17840              		.loc 1 521 0
+ 17841 00e4 40F20003 		movw	r3, #:lower16:pInformation
+ 17842 00e8 C0F20003 		movt	r3, #:upper16:pInformation
+ 17843 00ec 1B68     		ldr	r3, [r3, #0]
+ 17844 00ee 7A69     		ldr	r2, [r7, #20]
+ 17845 00f0 D2B2     		uxtb	r2, r2
+ 17846 00f2 1A72     		strb	r2, [r3, #8]
+ 522:../target/stm32/vcom/usb_core.c **** }
+ 17847              		.loc 1 522 0
+ 17848 00f4 07F11807 		add	r7, r7, #24
+ 17849 00f8 BD46     		mov	sp, r7
+ 17850 00fa 80BD     		pop	{r7, pc}
+ 17851              		.cfi_endproc
+ 17852              	.LFE39:
+ 17854              		.section	.text.NoData_Setup0,"ax",%progbits
+ 17855              		.align	2
+ 17856              		.thumb
+ 17857              		.thumb_func
+ 17859              	NoData_Setup0:
+ 17860              	.LFB40:
+ 523:../target/stm32/vcom/usb_core.c **** 
+ 524:../target/stm32/vcom/usb_core.c **** /*******************************************************************************
+ 525:../target/stm32/vcom/usb_core.c **** * Function Name  : NoData_Setup0.
+ 526:../target/stm32/vcom/usb_core.c **** * Description    : Proceed the processing of setup request without data stage.
+ 527:../target/stm32/vcom/usb_core.c **** * Input          : None.
+ 528:../target/stm32/vcom/usb_core.c **** * Output         : None.
+ 529:../target/stm32/vcom/usb_core.c **** * Return         : None.
+ 530:../target/stm32/vcom/usb_core.c **** *******************************************************************************/
+ 531:../target/stm32/vcom/usb_core.c **** void NoData_Setup0(void)
+ 532:../target/stm32/vcom/usb_core.c **** {
+ 17861              		.loc 1 532 0
+ 17862              		.cfi_startproc
+ 17863              		@ args = 0, pretend = 0, frame = 16
+ 17864              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17865 0000 80B5     		push	{r7, lr}
+ 17866              	.LCFI31:
+ 17867              		.cfi_def_cfa_offset 8
+ 17868 0002 84B0     		sub	sp, sp, #16
+ 17869              	.LCFI32:
+ 17870              		.cfi_def_cfa_offset 24
+ 17871 0004 00AF     		add	r7, sp, #0
+ 17872              		.cfi_offset 14, -4
+ 17873              		.cfi_offset 7, -8
+ 17874              	.LCFI33:
+ 17875              		.cfi_def_cfa_register 7
+ 533:../target/stm32/vcom/usb_core.c ****   RESULT Result = USB_UNSUPPORT;
+ 17876              		.loc 1 533 0
+ 17877 0006 4FF00203 		mov	r3, #2
+ 17878 000a FB73     		strb	r3, [r7, #15]
+ 534:../target/stm32/vcom/usb_core.c ****   u32 RequestNo = pInformation->USBbRequest;
+ 17879              		.loc 1 534 0
+ 17880 000c 40F20003 		movw	r3, #:lower16:pInformation
+ 17881 0010 C0F20003 		movt	r3, #:upper16:pInformation
+ 17882 0014 1B68     		ldr	r3, [r3, #0]
+ 17883 0016 5B78     		ldrb	r3, [r3, #1]	@ zero_extendqisi2
+ 17884 0018 7B60     		str	r3, [r7, #4]
+ 535:../target/stm32/vcom/usb_core.c ****   u32 ControlState;
+ 536:../target/stm32/vcom/usb_core.c **** 
+ 537:../target/stm32/vcom/usb_core.c ****   if (Type_Recipient == (STANDARD_REQUEST | DEVICE_RECIPIENT))
+ 17885              		.loc 1 537 0
+ 17886 001a 40F20003 		movw	r3, #:lower16:pInformation
+ 17887 001e C0F20003 		movt	r3, #:upper16:pInformation
+ 17888 0022 1B68     		ldr	r3, [r3, #0]
+ 17889 0024 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 17890 0026 03F07F03 		and	r3, r3, #127
+ 17891 002a 002B     		cmp	r3, #0
+ 17892 002c 40F08180 		bne	.L64
+ 538:../target/stm32/vcom/usb_core.c ****   {
+ 539:../target/stm32/vcom/usb_core.c ****     /* Device Request*/
+ 540:../target/stm32/vcom/usb_core.c ****     /* SET_CONFIGURATION*/
+ 541:../target/stm32/vcom/usb_core.c ****     if (RequestNo == SET_CONFIGURATION)
+ 17893              		.loc 1 541 0
+ 17894 0030 7B68     		ldr	r3, [r7, #4]
+ 17895 0032 092B     		cmp	r3, #9
+ 17896 0034 04D1     		bne	.L65
+ 542:../target/stm32/vcom/usb_core.c ****     {
+ 543:../target/stm32/vcom/usb_core.c ****       Result = Standard_SetConfiguration();
+ 17897              		.loc 1 543 0
+ 17898 0036 FFF7FEFF 		bl	Standard_SetConfiguration
+ 17899 003a 0346     		mov	r3, r0
+ 17900 003c FB73     		strb	r3, [r7, #15]
+ 544:../target/stm32/vcom/usb_core.c ****     }
+ 545:../target/stm32/vcom/usb_core.c **** 
+ 546:../target/stm32/vcom/usb_core.c ****     /*SET ADDRESS*/
+ 547:../target/stm32/vcom/usb_core.c ****     else if (RequestNo == SET_ADDRESS)
+ 548:../target/stm32/vcom/usb_core.c ****     {
+ 549:../target/stm32/vcom/usb_core.c ****       if ((pInformation->USBwValue0 > 127) || (pInformation->USBwValue1 != 0)
+ 550:../target/stm32/vcom/usb_core.c ****           || (pInformation->USBwIndex != 0)
+ 551:../target/stm32/vcom/usb_core.c ****           || (pInformation->Current_Configuration != 0))
+ 552:../target/stm32/vcom/usb_core.c ****         /* Device Address should be 127 or less*/
+ 553:../target/stm32/vcom/usb_core.c ****       {
+ 554:../target/stm32/vcom/usb_core.c ****         ControlState = STALLED;
+ 555:../target/stm32/vcom/usb_core.c ****         goto exit_NoData_Setup0;
+ 556:../target/stm32/vcom/usb_core.c ****       }
+ 557:../target/stm32/vcom/usb_core.c ****       else
+ 558:../target/stm32/vcom/usb_core.c ****       {
+ 559:../target/stm32/vcom/usb_core.c ****         Result = USB_SUCCESS;
+ 560:../target/stm32/vcom/usb_core.c ****       }
+ 561:../target/stm32/vcom/usb_core.c ****     }
+ 562:../target/stm32/vcom/usb_core.c ****     /*SET FEATURE for Device*/
+ 563:../target/stm32/vcom/usb_core.c ****     else if (RequestNo == SET_FEATURE)
+ 564:../target/stm32/vcom/usb_core.c ****     {
+ 565:../target/stm32/vcom/usb_core.c ****       if ((pInformation->USBwValue0 == DEVICE_REMOTE_WAKEUP)
+ 566:../target/stm32/vcom/usb_core.c ****           && (pInformation->USBwIndex == 0)
+ 567:../target/stm32/vcom/usb_core.c ****           && (ValBit(pInformation->Current_Feature, 5)))
+ 568:../target/stm32/vcom/usb_core.c ****       {
+ 569:../target/stm32/vcom/usb_core.c ****         Result = Standard_SetDeviceFeature();
+ 570:../target/stm32/vcom/usb_core.c ****       }
+ 571:../target/stm32/vcom/usb_core.c ****       else
+ 572:../target/stm32/vcom/usb_core.c ****       {
+ 573:../target/stm32/vcom/usb_core.c ****         Result = USB_UNSUPPORT;
+ 574:../target/stm32/vcom/usb_core.c ****       }
+ 575:../target/stm32/vcom/usb_core.c ****     }
+ 576:../target/stm32/vcom/usb_core.c ****     /*Clear FEATURE for Device */
+ 577:../target/stm32/vcom/usb_core.c ****     else if (RequestNo == CLEAR_FEATURE)
+ 578:../target/stm32/vcom/usb_core.c ****     {
+ 579:../target/stm32/vcom/usb_core.c ****       if (pInformation->USBwValue0 == DEVICE_REMOTE_WAKEUP
+ 580:../target/stm32/vcom/usb_core.c ****           && pInformation->USBwIndex == 0
+ 581:../target/stm32/vcom/usb_core.c ****           && ValBit(pInformation->Current_Feature, 5))
+ 582:../target/stm32/vcom/usb_core.c ****       {
+ 583:../target/stm32/vcom/usb_core.c ****         Result = Standard_ClearFeature();
+ 584:../target/stm32/vcom/usb_core.c ****       }
+ 585:../target/stm32/vcom/usb_core.c ****       else
+ 586:../target/stm32/vcom/usb_core.c ****       {
+ 587:../target/stm32/vcom/usb_core.c ****         Result = USB_UNSUPPORT;
+ 17901              		.loc 1 587 0
+ 17902 003e A9E0     		b	.L75
+ 17903              	.L65:
+ 547:../target/stm32/vcom/usb_core.c ****     else if (RequestNo == SET_ADDRESS)
+ 17904              		.loc 1 547 0
+ 17905 0040 7B68     		ldr	r3, [r7, #4]
+ 17906 0042 052B     		cmp	r3, #5
+ 17907 0044 29D1     		bne	.L67
+ 549:../target/stm32/vcom/usb_core.c ****       if ((pInformation->USBwValue0 > 127) || (pInformation->USBwValue1 != 0)
+ 17908              		.loc 1 549 0
+ 17909 0046 40F20003 		movw	r3, #:lower16:pInformation
+ 17910 004a C0F20003 		movt	r3, #:upper16:pInformation
+ 17911 004e 1B68     		ldr	r3, [r3, #0]
+ 17912 0050 DB78     		ldrb	r3, [r3, #3]	@ zero_extendqisi2
+ 17913 0052 DBB2     		uxtb	r3, r3
+ 17914 0054 5BB2     		sxtb	r3, r3
+ 17915 0056 002B     		cmp	r3, #0
+ 17916 0058 17DB     		blt	.L68
+ 549:../target/stm32/vcom/usb_core.c ****       if ((pInformation->USBwValue0 > 127) || (pInformation->USBwValue1 != 0)
+ 17917              		.loc 1 549 0 is_stmt 0 discriminator 1
+ 17918 005a 40F20003 		movw	r3, #:lower16:pInformation
+ 17919 005e C0F20003 		movt	r3, #:upper16:pInformation
+ 17920 0062 1B68     		ldr	r3, [r3, #0]
+ 17921 0064 9B78     		ldrb	r3, [r3, #2]	@ zero_extendqisi2
+ 17922 0066 002B     		cmp	r3, #0
+ 17923 0068 0FD1     		bne	.L68
+ 550:../target/stm32/vcom/usb_core.c ****           || (pInformation->USBwIndex != 0)
+ 17924              		.loc 1 550 0 is_stmt 1
+ 17925 006a 40F20003 		movw	r3, #:lower16:pInformation
+ 17926 006e C0F20003 		movt	r3, #:upper16:pInformation
+ 17927 0072 1B68     		ldr	r3, [r3, #0]
+ 17928 0074 9B88     		ldrh	r3, [r3, #4]
+ 17929 0076 002B     		cmp	r3, #0
+ 17930 0078 07D1     		bne	.L68
+ 551:../target/stm32/vcom/usb_core.c ****           || (pInformation->Current_Configuration != 0))
+ 17931              		.loc 1 551 0
+ 17932 007a 40F20003 		movw	r3, #:lower16:pInformation
+ 17933 007e C0F20003 		movt	r3, #:upper16:pInformation
+ 17934 0082 1B68     		ldr	r3, [r3, #0]
+ 17935 0084 9B7A     		ldrb	r3, [r3, #10]	@ zero_extendqisi2
+ 17936 0086 002B     		cmp	r3, #0
+ 17937 0088 03D0     		beq	.L69
+ 17938              	.L68:
+ 554:../target/stm32/vcom/usb_core.c ****         ControlState = STALLED;
+ 17939              		.loc 1 554 0
+ 17940 008a 4FF00803 		mov	r3, #8
+ 17941 008e BB60     		str	r3, [r7, #8]
+ 555:../target/stm32/vcom/usb_core.c ****         goto exit_NoData_Setup0;
+ 17942              		.loc 1 555 0
+ 17943 0090 B8E0     		b	.L70
+ 17944              	.L69:
+ 559:../target/stm32/vcom/usb_core.c ****         Result = USB_SUCCESS;
+ 17945              		.loc 1 559 0
+ 17946 0092 4FF00003 		mov	r3, #0
+ 17947 0096 FB73     		strb	r3, [r7, #15]
+ 17948              		.loc 1 587 0
+ 17949 0098 7CE0     		b	.L75
+ 17950              	.L67:
+ 563:../target/stm32/vcom/usb_core.c ****     else if (RequestNo == SET_FEATURE)
+ 17951              		.loc 1 563 0
+ 17952 009a 7B68     		ldr	r3, [r7, #4]
+ 17953 009c 032B     		cmp	r3, #3
+ 17954 009e 22D1     		bne	.L71
+ 565:../target/stm32/vcom/usb_core.c ****       if ((pInformation->USBwValue0 == DEVICE_REMOTE_WAKEUP)
+ 17955              		.loc 1 565 0
+ 17956 00a0 40F20003 		movw	r3, #:lower16:pInformation
+ 17957 00a4 C0F20003 		movt	r3, #:upper16:pInformation
+ 17958 00a8 1B68     		ldr	r3, [r3, #0]
+ 17959 00aa DB78     		ldrb	r3, [r3, #3]	@ zero_extendqisi2
+ 17960 00ac 012B     		cmp	r3, #1
+ 17961 00ae 16D1     		bne	.L72
+ 566:../target/stm32/vcom/usb_core.c ****           && (pInformation->USBwIndex == 0)
+ 17962              		.loc 1 566 0
+ 17963 00b0 40F20003 		movw	r3, #:lower16:pInformation
+ 17964 00b4 C0F20003 		movt	r3, #:upper16:pInformation
+ 17965 00b8 1B68     		ldr	r3, [r3, #0]
+ 17966 00ba 9B88     		ldrh	r3, [r3, #4]
+ 17967 00bc 002B     		cmp	r3, #0
+ 17968 00be 0ED1     		bne	.L72
+ 567:../target/stm32/vcom/usb_core.c ****           && (ValBit(pInformation->Current_Feature, 5)))
+ 17969              		.loc 1 567 0
+ 17970 00c0 40F20003 		movw	r3, #:lower16:pInformation
+ 17971 00c4 C0F20003 		movt	r3, #:upper16:pInformation
+ 17972 00c8 1B68     		ldr	r3, [r3, #0]
+ 17973 00ca 5B7A     		ldrb	r3, [r3, #9]	@ zero_extendqisi2
+ 17974 00cc 03F02003 		and	r3, r3, #32
+ 17975 00d0 002B     		cmp	r3, #0
+ 17976 00d2 04D0     		beq	.L72
+ 569:../target/stm32/vcom/usb_core.c ****         Result = Standard_SetDeviceFeature();
+ 17977              		.loc 1 569 0
+ 17978 00d4 FFF7FEFF 		bl	Standard_SetDeviceFeature
+ 17979 00d8 0346     		mov	r3, r0
+ 17980 00da FB73     		strb	r3, [r7, #15]
+ 17981              		.loc 1 587 0
+ 17982 00dc 5AE0     		b	.L75
+ 17983              	.L72:
+ 573:../target/stm32/vcom/usb_core.c ****         Result = USB_UNSUPPORT;
+ 17984              		.loc 1 573 0
+ 17985 00de 4FF00203 		mov	r3, #2
+ 17986 00e2 FB73     		strb	r3, [r7, #15]
+ 17987              		.loc 1 587 0
+ 17988 00e4 56E0     		b	.L75
+ 17989              	.L71:
+ 577:../target/stm32/vcom/usb_core.c ****     else if (RequestNo == CLEAR_FEATURE)
+ 17990              		.loc 1 577 0
+ 17991 00e6 7B68     		ldr	r3, [r7, #4]
+ 17992 00e8 012B     		cmp	r3, #1
+ 17993 00ea 52D1     		bne	.L81
+ 579:../target/stm32/vcom/usb_core.c ****       if (pInformation->USBwValue0 == DEVICE_REMOTE_WAKEUP
+ 17994              		.loc 1 579 0
+ 17995 00ec 40F20003 		movw	r3, #:lower16:pInformation
+ 17996 00f0 C0F20003 		movt	r3, #:upper16:pInformation
+ 17997 00f4 1B68     		ldr	r3, [r3, #0]
+ 17998 00f6 DB78     		ldrb	r3, [r3, #3]	@ zero_extendqisi2
+ 17999 00f8 012B     		cmp	r3, #1
+ 18000 00fa 16D1     		bne	.L74
+ 580:../target/stm32/vcom/usb_core.c ****           && pInformation->USBwIndex == 0
+ 18001              		.loc 1 580 0
+ 18002 00fc 40F20003 		movw	r3, #:lower16:pInformation
+ 18003 0100 C0F20003 		movt	r3, #:upper16:pInformation
+ 18004 0104 1B68     		ldr	r3, [r3, #0]
+ 18005 0106 9B88     		ldrh	r3, [r3, #4]
+ 18006 0108 002B     		cmp	r3, #0
+ 18007 010a 0ED1     		bne	.L74
+ 581:../target/stm32/vcom/usb_core.c ****           && ValBit(pInformation->Current_Feature, 5))
+ 18008              		.loc 1 581 0
+ 18009 010c 40F20003 		movw	r3, #:lower16:pInformation
+ 18010 0110 C0F20003 		movt	r3, #:upper16:pInformation
+ 18011 0114 1B68     		ldr	r3, [r3, #0]
+ 18012 0116 5B7A     		ldrb	r3, [r3, #9]	@ zero_extendqisi2
+ 18013 0118 03F02003 		and	r3, r3, #32
+ 18014 011c 002B     		cmp	r3, #0
+ 18015 011e 04D0     		beq	.L74
+ 583:../target/stm32/vcom/usb_core.c ****         Result = Standard_ClearFeature();
+ 18016              		.loc 1 583 0
+ 18017 0120 FFF7FEFF 		bl	Standard_ClearFeature
+ 18018 0124 0346     		mov	r3, r0
+ 18019 0126 FB73     		strb	r3, [r7, #15]
+ 18020 0128 34E0     		b	.L75
+ 18021              	.L74:
+ 18022              		.loc 1 587 0
+ 18023 012a 4FF00203 		mov	r3, #2
+ 18024 012e FB73     		strb	r3, [r7, #15]
+ 18025 0130 30E0     		b	.L75
+ 18026              	.L64:
+ 588:../target/stm32/vcom/usb_core.c ****       }
+ 589:../target/stm32/vcom/usb_core.c ****     }
+ 590:../target/stm32/vcom/usb_core.c **** 
+ 591:../target/stm32/vcom/usb_core.c ****   }
+ 592:../target/stm32/vcom/usb_core.c **** 
+ 593:../target/stm32/vcom/usb_core.c ****   /* Interface Request*/
+ 594:../target/stm32/vcom/usb_core.c ****   else if (Type_Recipient == (STANDARD_REQUEST | INTERFACE_RECIPIENT))
+ 18027              		.loc 1 594 0
+ 18028 0132 40F20003 		movw	r3, #:lower16:pInformation
+ 18029 0136 C0F20003 		movt	r3, #:upper16:pInformation
+ 18030 013a 1B68     		ldr	r3, [r3, #0]
+ 18031 013c 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 18032 013e 03F07F03 		and	r3, r3, #127
+ 18033 0142 012B     		cmp	r3, #1
+ 18034 0144 07D1     		bne	.L76
+ 595:../target/stm32/vcom/usb_core.c ****   {
+ 596:../target/stm32/vcom/usb_core.c ****     /*SET INTERFACE*/
+ 597:../target/stm32/vcom/usb_core.c ****     if (RequestNo == SET_INTERFACE)
+ 18035              		.loc 1 597 0
+ 18036 0146 7B68     		ldr	r3, [r7, #4]
+ 18037 0148 0B2B     		cmp	r3, #11
+ 18038 014a 23D1     		bne	.L75
+ 598:../target/stm32/vcom/usb_core.c ****     {
+ 599:../target/stm32/vcom/usb_core.c ****       Result = Standard_SetInterface();
+ 18039              		.loc 1 599 0
+ 18040 014c FFF7FEFF 		bl	Standard_SetInterface
+ 18041 0150 0346     		mov	r3, r0
+ 18042 0152 FB73     		strb	r3, [r7, #15]
+ 18043 0154 1EE0     		b	.L75
+ 18044              	.L76:
+ 600:../target/stm32/vcom/usb_core.c ****     }
+ 601:../target/stm32/vcom/usb_core.c ****   }
+ 602:../target/stm32/vcom/usb_core.c **** 
+ 603:../target/stm32/vcom/usb_core.c ****   /* EndPoint Request*/
+ 604:../target/stm32/vcom/usb_core.c ****   else if (Type_Recipient == (STANDARD_REQUEST | ENDPOINT_RECIPIENT))
+ 18045              		.loc 1 604 0
+ 18046 0156 40F20003 		movw	r3, #:lower16:pInformation
+ 18047 015a C0F20003 		movt	r3, #:upper16:pInformation
+ 18048 015e 1B68     		ldr	r3, [r3, #0]
+ 18049 0160 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 18050 0162 03F07F03 		and	r3, r3, #127
+ 18051 0166 022B     		cmp	r3, #2
+ 18052 0168 0FD1     		bne	.L77
+ 605:../target/stm32/vcom/usb_core.c ****   {
+ 606:../target/stm32/vcom/usb_core.c ****     /*CLEAR FEATURE for EndPoint*/
+ 607:../target/stm32/vcom/usb_core.c ****     if (RequestNo == CLEAR_FEATURE)
+ 18053              		.loc 1 607 0
+ 18054 016a 7B68     		ldr	r3, [r7, #4]
+ 18055 016c 012B     		cmp	r3, #1
+ 18056 016e 04D1     		bne	.L78
+ 608:../target/stm32/vcom/usb_core.c ****     {
+ 609:../target/stm32/vcom/usb_core.c ****       Result = Standard_ClearFeature();
+ 18057              		.loc 1 609 0
+ 18058 0170 FFF7FEFF 		bl	Standard_ClearFeature
+ 18059 0174 0346     		mov	r3, r0
+ 18060 0176 FB73     		strb	r3, [r7, #15]
+ 18061 0178 0CE0     		b	.L75
+ 18062              	.L78:
+ 610:../target/stm32/vcom/usb_core.c ****     }
+ 611:../target/stm32/vcom/usb_core.c ****     /* SET FEATURE for EndPoint*/
+ 612:../target/stm32/vcom/usb_core.c ****     else if (RequestNo == SET_FEATURE)
+ 18063              		.loc 1 612 0
+ 18064 017a 7B68     		ldr	r3, [r7, #4]
+ 18065 017c 032B     		cmp	r3, #3
+ 18066 017e 09D1     		bne	.L75
+ 613:../target/stm32/vcom/usb_core.c ****     {
+ 614:../target/stm32/vcom/usb_core.c ****       Result = Standard_SetEndPointFeature();
+ 18067              		.loc 1 614 0
+ 18068 0180 FFF7FEFF 		bl	Standard_SetEndPointFeature
+ 18069 0184 0346     		mov	r3, r0
+ 18070 0186 FB73     		strb	r3, [r7, #15]
+ 18071 0188 04E0     		b	.L75
+ 18072              	.L77:
+ 615:../target/stm32/vcom/usb_core.c ****     }
+ 616:../target/stm32/vcom/usb_core.c ****   }
+ 617:../target/stm32/vcom/usb_core.c ****   else
+ 618:../target/stm32/vcom/usb_core.c ****   {
+ 619:../target/stm32/vcom/usb_core.c ****     Result = USB_UNSUPPORT;
+ 18073              		.loc 1 619 0
+ 18074 018a 4FF00203 		mov	r3, #2
+ 18075 018e FB73     		strb	r3, [r7, #15]
+ 18076 0190 00E0     		b	.L75
+ 18077              	.L81:
+ 587:../target/stm32/vcom/usb_core.c ****         Result = USB_UNSUPPORT;
+ 18078              		.loc 1 587 0
+ 18079 0192 00BF     		nop
+ 18080              	.L75:
+ 620:../target/stm32/vcom/usb_core.c ****   }
+ 621:../target/stm32/vcom/usb_core.c **** 
+ 622:../target/stm32/vcom/usb_core.c **** 
+ 623:../target/stm32/vcom/usb_core.c ****   if (Result != USB_SUCCESS)
+ 18081              		.loc 1 623 0
+ 18082 0194 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 18083 0196 002B     		cmp	r3, #0
+ 18084 0198 12D0     		beq	.L79
+ 624:../target/stm32/vcom/usb_core.c ****   {
+ 625:../target/stm32/vcom/usb_core.c ****     Result = (*pProperty->Class_NoData_Setup)(RequestNo);
+ 18085              		.loc 1 625 0
+ 18086 019a 40F20003 		movw	r3, #:lower16:pProperty
+ 18087 019e C0F20003 		movt	r3, #:upper16:pProperty
+ 18088 01a2 1B68     		ldr	r3, [r3, #0]
+ 18089 01a4 5B69     		ldr	r3, [r3, #20]
+ 18090 01a6 7A68     		ldr	r2, [r7, #4]
+ 18091 01a8 D2B2     		uxtb	r2, r2
+ 18092 01aa 1046     		mov	r0, r2
+ 18093 01ac 9847     		blx	r3
+ 18094 01ae 0346     		mov	r3, r0
+ 18095 01b0 FB73     		strb	r3, [r7, #15]
+ 626:../target/stm32/vcom/usb_core.c ****     if (Result == USB_NOT_READY)
+ 18096              		.loc 1 626 0
+ 18097 01b2 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 18098 01b4 032B     		cmp	r3, #3
+ 18099 01b6 03D1     		bne	.L79
+ 627:../target/stm32/vcom/usb_core.c ****     {
+ 628:../target/stm32/vcom/usb_core.c ****       ControlState = PAUSE;
+ 18100              		.loc 1 628 0
+ 18101 01b8 4FF00903 		mov	r3, #9
+ 18102 01bc BB60     		str	r3, [r7, #8]
+ 629:../target/stm32/vcom/usb_core.c ****       goto exit_NoData_Setup0;
+ 18103              		.loc 1 629 0
+ 18104 01be 21E0     		b	.L70
+ 18105              	.L79:
+ 630:../target/stm32/vcom/usb_core.c ****     }
+ 631:../target/stm32/vcom/usb_core.c ****   }
+ 632:../target/stm32/vcom/usb_core.c **** 
+ 633:../target/stm32/vcom/usb_core.c ****   if (Result != USB_SUCCESS)
+ 18106              		.loc 1 633 0
+ 18107 01c0 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 18108 01c2 002B     		cmp	r3, #0
+ 18109 01c4 03D0     		beq	.L80
+ 634:../target/stm32/vcom/usb_core.c ****   {
+ 635:../target/stm32/vcom/usb_core.c ****     ControlState = STALLED;
+ 18110              		.loc 1 635 0
+ 18111 01c6 4FF00803 		mov	r3, #8
+ 18112 01ca BB60     		str	r3, [r7, #8]
+ 636:../target/stm32/vcom/usb_core.c ****     goto exit_NoData_Setup0;
+ 18113              		.loc 1 636 0
+ 18114 01cc 1AE0     		b	.L70
+ 18115              	.L80:
+ 637:../target/stm32/vcom/usb_core.c ****   }
+ 638:../target/stm32/vcom/usb_core.c **** 
+ 639:../target/stm32/vcom/usb_core.c ****   ControlState = WAIT_STATUS_IN;/* After no data stage SETUP */
+ 18116              		.loc 1 639 0
+ 18117 01ce 4FF00603 		mov	r3, #6
+ 18118 01d2 BB60     		str	r3, [r7, #8]
+ 640:../target/stm32/vcom/usb_core.c **** 
+ 641:../target/stm32/vcom/usb_core.c ****   USB_StatusIn();
+ 18119              		.loc 1 641 0
+ 18120 01d4 45F65043 		movw	r3, #23632
+ 18121 01d8 C4F20003 		movt	r3, 16384
+ 18122 01dc 1B68     		ldr	r3, [r3, #0]
+ 18123 01de 9BB2     		uxth	r3, r3
+ 18124 01e0 1A46     		mov	r2, r3
+ 18125 01e2 43F20203 		movw	r3, #12290
+ 18126 01e6 C2F20003 		movt	r3, 8192
+ 18127 01ea D318     		adds	r3, r2, r3
+ 18128 01ec 4FEA4303 		lsl	r3, r3, #1
+ 18129 01f0 4FF00002 		mov	r2, #0
+ 18130 01f4 1A60     		str	r2, [r3, #0]
+ 18131 01f6 40F20003 		movw	r3, #:lower16:SaveTState
+ 18132 01fa C0F20003 		movt	r3, #:upper16:SaveTState
+ 18133 01fe 4FF03002 		mov	r2, #48
+ 18134 0202 1A80     		strh	r2, [r3, #0]	@ movhi
+ 18135              	.L70:
+ 642:../target/stm32/vcom/usb_core.c **** 
+ 643:../target/stm32/vcom/usb_core.c **** exit_NoData_Setup0:
+ 644:../target/stm32/vcom/usb_core.c ****   pInformation->ControlState = ControlState;
+ 18136              		.loc 1 644 0
+ 18137 0204 40F20003 		movw	r3, #:lower16:pInformation
+ 18138 0208 C0F20003 		movt	r3, #:upper16:pInformation
+ 18139 020c 1B68     		ldr	r3, [r3, #0]
+ 18140 020e BA68     		ldr	r2, [r7, #8]
+ 18141 0210 D2B2     		uxtb	r2, r2
+ 18142 0212 1A72     		strb	r2, [r3, #8]
+ 645:../target/stm32/vcom/usb_core.c ****   return;
+ 646:../target/stm32/vcom/usb_core.c **** }
+ 18143              		.loc 1 646 0
+ 18144 0214 07F11007 		add	r7, r7, #16
+ 18145 0218 BD46     		mov	sp, r7
+ 18146 021a 80BD     		pop	{r7, pc}
+ 18147              		.cfi_endproc
+ 18148              	.LFE40:
+ 18150              		.section	.text.Data_Setup0,"ax",%progbits
+ 18151              		.align	2
+ 18152              		.thumb
+ 18153              		.thumb_func
+ 18155              	Data_Setup0:
+ 18156              	.LFB41:
+ 647:../target/stm32/vcom/usb_core.c **** 
+ 648:../target/stm32/vcom/usb_core.c **** /*******************************************************************************
+ 649:../target/stm32/vcom/usb_core.c **** * Function Name  : Data_Setup0.
+ 650:../target/stm32/vcom/usb_core.c **** * Description    : Proceed the processing of setup request with data stage.
+ 651:../target/stm32/vcom/usb_core.c **** * Input          : None.
+ 652:../target/stm32/vcom/usb_core.c **** * Output         : None.
+ 653:../target/stm32/vcom/usb_core.c **** * Return         : None.
+ 654:../target/stm32/vcom/usb_core.c **** *******************************************************************************/
+ 655:../target/stm32/vcom/usb_core.c **** void Data_Setup0(void)
+ 656:../target/stm32/vcom/usb_core.c **** {
+ 18157              		.loc 1 656 0
+ 18158              		.cfi_startproc
+ 18159              		@ args = 0, pretend = 0, frame = 40
+ 18160              		@ frame_needed = 1, uses_anonymous_args = 0
+ 18161 0000 80B5     		push	{r7, lr}
+ 18162              	.LCFI34:
+ 18163              		.cfi_def_cfa_offset 8
+ 18164 0002 8AB0     		sub	sp, sp, #40
+ 18165              	.LCFI35:
+ 18166              		.cfi_def_cfa_offset 48
+ 18167 0004 00AF     		add	r7, sp, #0
+ 18168              		.cfi_offset 14, -4
+ 18169              		.cfi_offset 7, -8
+ 18170              	.LCFI36:
+ 18171              		.cfi_def_cfa_register 7
+ 657:../target/stm32/vcom/usb_core.c ****   u8 *(*CopyRoutine)(u16);
+ 658:../target/stm32/vcom/usb_core.c ****   RESULT Result;
+ 659:../target/stm32/vcom/usb_core.c ****   u32 Request_No = pInformation->USBbRequest;
+ 18172              		.loc 1 659 0
+ 18173 0006 40F20003 		movw	r3, #:lower16:pInformation
+ 18174 000a C0F20003 		movt	r3, #:upper16:pInformation
+ 18175 000e 1B68     		ldr	r3, [r3, #0]
+ 18176 0010 5B78     		ldrb	r3, [r3, #1]	@ zero_extendqisi2
+ 18177 0012 BB61     		str	r3, [r7, #24]
+ 660:../target/stm32/vcom/usb_core.c **** 
+ 661:../target/stm32/vcom/usb_core.c ****   u32 Related_Endpoint, Reserved;
+ 662:../target/stm32/vcom/usb_core.c ****   u32 wOffset, Status;
+ 663:../target/stm32/vcom/usb_core.c **** 
+ 664:../target/stm32/vcom/usb_core.c **** 
+ 665:../target/stm32/vcom/usb_core.c **** 
+ 666:../target/stm32/vcom/usb_core.c ****   CopyRoutine = NULL;
+ 18178              		.loc 1 666 0
+ 18179 0014 4FF00003 		mov	r3, #0
+ 18180 0018 7B62     		str	r3, [r7, #36]
+ 667:../target/stm32/vcom/usb_core.c ****   wOffset = 0;
+ 18181              		.loc 1 667 0
+ 18182 001a 4FF00003 		mov	r3, #0
+ 18183 001e 7B61     		str	r3, [r7, #20]
+ 668:../target/stm32/vcom/usb_core.c **** 
+ 669:../target/stm32/vcom/usb_core.c ****   if (Request_No == GET_DESCRIPTOR)
+ 18184              		.loc 1 669 0
+ 18185 0020 BB69     		ldr	r3, [r7, #24]
+ 18186 0022 062B     		cmp	r3, #6
+ 18187 0024 33D1     		bne	.L83
+ 670:../target/stm32/vcom/usb_core.c ****   {
+ 671:../target/stm32/vcom/usb_core.c ****     if (Type_Recipient == (STANDARD_REQUEST | DEVICE_RECIPIENT))
+ 18188              		.loc 1 671 0
+ 18189 0026 40F20003 		movw	r3, #:lower16:pInformation
+ 18190 002a C0F20003 		movt	r3, #:upper16:pInformation
+ 18191 002e 1B68     		ldr	r3, [r3, #0]
+ 18192 0030 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 18193 0032 03F07F03 		and	r3, r3, #127
+ 18194 0036 002B     		cmp	r3, #0
+ 18195 0038 40F04681 		bne	.L84
+ 18196              	.LBB10:
+ 672:../target/stm32/vcom/usb_core.c ****     {
+ 673:../target/stm32/vcom/usb_core.c ****       u8 wValue1 = pInformation->USBwValue1;
+ 18197              		.loc 1 673 0
+ 18198 003c 40F20003 		movw	r3, #:lower16:pInformation
+ 18199 0040 C0F20003 		movt	r3, #:upper16:pInformation
+ 18200 0044 1B68     		ldr	r3, [r3, #0]
+ 18201 0046 9B78     		ldrb	r3, [r3, #2]
+ 18202 0048 FB74     		strb	r3, [r7, #19]
+ 674:../target/stm32/vcom/usb_core.c ****       if (wValue1 == DEVICE_DESCRIPTOR)
+ 18203              		.loc 1 674 0
+ 18204 004a FB7C     		ldrb	r3, [r7, #19]	@ zero_extendqisi2
+ 18205 004c 012B     		cmp	r3, #1
+ 18206 004e 07D1     		bne	.L85
+ 675:../target/stm32/vcom/usb_core.c ****       {
+ 676:../target/stm32/vcom/usb_core.c ****         CopyRoutine = pProperty->GetDeviceDescriptor;
+ 18207              		.loc 1 676 0
+ 18208 0050 40F20003 		movw	r3, #:lower16:pProperty
+ 18209 0054 C0F20003 		movt	r3, #:upper16:pProperty
+ 18210 0058 1B68     		ldr	r3, [r3, #0]
+ 18211 005a DB69     		ldr	r3, [r3, #28]
+ 18212 005c 7B62     		str	r3, [r7, #36]
+ 18213 005e 33E1     		b	.L84
+ 18214              	.L85:
+ 677:../target/stm32/vcom/usb_core.c ****       }
+ 678:../target/stm32/vcom/usb_core.c ****       else if (wValue1 == CONFIG_DESCRIPTOR)
+ 18215              		.loc 1 678 0
+ 18216 0060 FB7C     		ldrb	r3, [r7, #19]	@ zero_extendqisi2
+ 18217 0062 022B     		cmp	r3, #2
+ 18218 0064 07D1     		bne	.L86
+ 679:../target/stm32/vcom/usb_core.c ****       {
+ 680:../target/stm32/vcom/usb_core.c ****         CopyRoutine = pProperty->GetConfigDescriptor;
+ 18219              		.loc 1 680 0
+ 18220 0066 40F20003 		movw	r3, #:lower16:pProperty
+ 18221 006a C0F20003 		movt	r3, #:upper16:pProperty
+ 18222 006e 1B68     		ldr	r3, [r3, #0]
+ 18223 0070 1B6A     		ldr	r3, [r3, #32]
+ 18224 0072 7B62     		str	r3, [r7, #36]
+ 18225 0074 28E1     		b	.L84
+ 18226              	.L86:
+ 681:../target/stm32/vcom/usb_core.c ****       }
+ 682:../target/stm32/vcom/usb_core.c ****       else if (wValue1 == STRING_DESCRIPTOR)
+ 18227              		.loc 1 682 0
+ 18228 0076 FB7C     		ldrb	r3, [r7, #19]	@ zero_extendqisi2
+ 18229 0078 032B     		cmp	r3, #3
+ 18230 007a 40F02581 		bne	.L84
+ 683:../target/stm32/vcom/usb_core.c ****       {
+ 684:../target/stm32/vcom/usb_core.c ****         CopyRoutine = pProperty->GetStringDescriptor;
+ 18231              		.loc 1 684 0
+ 18232 007e 40F20003 		movw	r3, #:lower16:pProperty
+ 18233 0082 C0F20003 		movt	r3, #:upper16:pProperty
+ 18234 0086 1B68     		ldr	r3, [r3, #0]
+ 18235 0088 5B6A     		ldr	r3, [r3, #36]
+ 18236 008a 7B62     		str	r3, [r7, #36]
+ 18237 008c 1CE1     		b	.L84
+ 18238              	.L83:
+ 18239              	.LBE10:
+ 685:../target/stm32/vcom/usb_core.c ****       }  /* End of GET_DESCRIPTOR */
+ 686:../target/stm32/vcom/usb_core.c ****     }
+ 687:../target/stm32/vcom/usb_core.c ****   }
+ 688:../target/stm32/vcom/usb_core.c **** 
+ 689:../target/stm32/vcom/usb_core.c ****   /*GET STATUS*/
+ 690:../target/stm32/vcom/usb_core.c ****   else if ((Request_No == GET_STATUS) && (pInformation->USBwValue == 0)
+ 18240              		.loc 1 690 0
+ 18241 008e BB69     		ldr	r3, [r7, #24]
+ 18242 0090 002B     		cmp	r3, #0
+ 18243 0092 40F0B580 		bne	.L87
+ 18244              		.loc 1 690 0 is_stmt 0 discriminator 1
+ 18245 0096 40F20003 		movw	r3, #:lower16:pInformation
+ 18246 009a C0F20003 		movt	r3, #:upper16:pInformation
+ 18247 009e 1B68     		ldr	r3, [r3, #0]
+ 18248 00a0 5B88     		ldrh	r3, [r3, #2]
+ 18249 00a2 002B     		cmp	r3, #0
+ 18250 00a4 40F0AC80 		bne	.L87
+ 691:../target/stm32/vcom/usb_core.c ****            && (pInformation->USBwLength == 0x0002)
+ 18251              		.loc 1 691 0 is_stmt 1
+ 18252 00a8 40F20003 		movw	r3, #:lower16:pInformation
+ 18253 00ac C0F20003 		movt	r3, #:upper16:pInformation
+ 18254 00b0 1B68     		ldr	r3, [r3, #0]
+ 18255 00b2 DB88     		ldrh	r3, [r3, #6]
+ 18256 00b4 022B     		cmp	r3, #2
+ 18257 00b6 40F0A380 		bne	.L87
+ 692:../target/stm32/vcom/usb_core.c ****            && (pInformation->USBwIndex1 == 0))
+ 18258              		.loc 1 692 0
+ 18259 00ba 40F20003 		movw	r3, #:lower16:pInformation
+ 18260 00be C0F20003 		movt	r3, #:upper16:pInformation
+ 18261 00c2 1B68     		ldr	r3, [r3, #0]
+ 18262 00c4 1B79     		ldrb	r3, [r3, #4]	@ zero_extendqisi2
+ 18263 00c6 002B     		cmp	r3, #0
+ 18264 00c8 40F09A80 		bne	.L87
+ 693:../target/stm32/vcom/usb_core.c ****   {
+ 694:../target/stm32/vcom/usb_core.c ****     /* GET STATUS for Device*/
+ 695:../target/stm32/vcom/usb_core.c ****     if ((Type_Recipient == (STANDARD_REQUEST | DEVICE_RECIPIENT))
+ 18265              		.loc 1 695 0
+ 18266 00cc 40F20003 		movw	r3, #:lower16:pInformation
+ 18267 00d0 C0F20003 		movt	r3, #:upper16:pInformation
+ 18268 00d4 1B68     		ldr	r3, [r3, #0]
+ 18269 00d6 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 18270 00d8 03F07F03 		and	r3, r3, #127
+ 18271 00dc 002B     		cmp	r3, #0
+ 18272 00de 0DD1     		bne	.L88
+ 696:../target/stm32/vcom/usb_core.c ****         && (pInformation->USBwIndex == 0))
+ 18273              		.loc 1 696 0
+ 18274 00e0 40F20003 		movw	r3, #:lower16:pInformation
+ 18275 00e4 C0F20003 		movt	r3, #:upper16:pInformation
+ 18276 00e8 1B68     		ldr	r3, [r3, #0]
+ 18277 00ea 9B88     		ldrh	r3, [r3, #4]
+ 18278 00ec 002B     		cmp	r3, #0
+ 18279 00ee 05D1     		bne	.L88
+ 697:../target/stm32/vcom/usb_core.c ****     {
+ 698:../target/stm32/vcom/usb_core.c ****       CopyRoutine = Standard_GetStatus;
+ 18280              		.loc 1 698 0
+ 18281 00f0 40F20003 		movw	r3, #:lower16:Standard_GetStatus
+ 18282 00f4 C0F20003 		movt	r3, #:upper16:Standard_GetStatus
+ 18283 00f8 7B62     		str	r3, [r7, #36]
+ 695:../target/stm32/vcom/usb_core.c ****     if ((Type_Recipient == (STANDARD_REQUEST | DEVICE_RECIPIENT))
+ 18284              		.loc 1 695 0
+ 18285 00fa E5E0     		b	.L84
+ 18286              	.L88:
+ 699:../target/stm32/vcom/usb_core.c ****     }
+ 700:../target/stm32/vcom/usb_core.c **** 
+ 701:../target/stm32/vcom/usb_core.c ****     /* GET STATUS for Interface*/
+ 702:../target/stm32/vcom/usb_core.c ****     else if (Type_Recipient == (STANDARD_REQUEST | INTERFACE_RECIPIENT))
+ 18287              		.loc 1 702 0
+ 18288 00fc 40F20003 		movw	r3, #:lower16:pInformation
+ 18289 0100 C0F20003 		movt	r3, #:upper16:pInformation
+ 18290 0104 1B68     		ldr	r3, [r3, #0]
+ 18291 0106 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 18292 0108 03F07F03 		and	r3, r3, #127
+ 18293 010c 012B     		cmp	r3, #1
+ 18294 010e 22D1     		bne	.L90
+ 703:../target/stm32/vcom/usb_core.c ****     {
+ 704:../target/stm32/vcom/usb_core.c ****       if (((*pProperty->Class_Get_Interface_Setting)(pInformation->USBwIndex0, 0) == USB_SUCCESS)
+ 18295              		.loc 1 704 0
+ 18296 0110 40F20003 		movw	r3, #:lower16:pProperty
+ 18297 0114 C0F20003 		movt	r3, #:upper16:pProperty
+ 18298 0118 1B68     		ldr	r3, [r3, #0]
+ 18299 011a 9A69     		ldr	r2, [r3, #24]
+ 18300 011c 40F20003 		movw	r3, #:lower16:pInformation
+ 18301 0120 C0F20003 		movt	r3, #:upper16:pInformation
+ 18302 0124 1B68     		ldr	r3, [r3, #0]
+ 18303 0126 5B79     		ldrb	r3, [r3, #5]	@ zero_extendqisi2
+ 18304 0128 1846     		mov	r0, r3
+ 18305 012a 4FF00001 		mov	r1, #0
+ 18306 012e 9047     		blx	r2
+ 18307 0130 0346     		mov	r3, r0
+ 18308 0132 002B     		cmp	r3, #0
+ 18309 0134 40F0BD80 		bne	.L103
+ 705:../target/stm32/vcom/usb_core.c ****           && (pInformation->Current_Configuration != 0))
+ 18310              		.loc 1 705 0
+ 18311 0138 40F20003 		movw	r3, #:lower16:pInformation
+ 18312 013c C0F20003 		movt	r3, #:upper16:pInformation
+ 18313 0140 1B68     		ldr	r3, [r3, #0]
+ 18314 0142 9B7A     		ldrb	r3, [r3, #10]	@ zero_extendqisi2
+ 18315 0144 002B     		cmp	r3, #0
+ 18316 0146 00F0B680 		beq	.L104
+ 706:../target/stm32/vcom/usb_core.c ****       {
+ 707:../target/stm32/vcom/usb_core.c ****         CopyRoutine = Standard_GetStatus;
+ 18317              		.loc 1 707 0
+ 18318 014a 40F20003 		movw	r3, #:lower16:Standard_GetStatus
+ 18319 014e C0F20003 		movt	r3, #:upper16:Standard_GetStatus
+ 18320 0152 7B62     		str	r3, [r7, #36]
+ 695:../target/stm32/vcom/usb_core.c ****     if ((Type_Recipient == (STANDARD_REQUEST | DEVICE_RECIPIENT))
+ 18321              		.loc 1 695 0
+ 18322 0154 B8E0     		b	.L84
+ 18323              	.L90:
+ 708:../target/stm32/vcom/usb_core.c ****       }
+ 709:../target/stm32/vcom/usb_core.c ****     }
+ 710:../target/stm32/vcom/usb_core.c **** 
+ 711:../target/stm32/vcom/usb_core.c ****     /* GET STATUS for EndPoint*/
+ 712:../target/stm32/vcom/usb_core.c ****     else if (Type_Recipient == (STANDARD_REQUEST | ENDPOINT_RECIPIENT))
+ 18324              		.loc 1 712 0
+ 18325 0156 40F20003 		movw	r3, #:lower16:pInformation
+ 18326 015a C0F20003 		movt	r3, #:upper16:pInformation
+ 18327 015e 1B68     		ldr	r3, [r3, #0]
+ 18328 0160 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 18329 0162 03F07F03 		and	r3, r3, #127
+ 18330 0166 022B     		cmp	r3, #2
+ 18331 0168 40F0A780 		bne	.L105
+ 713:../target/stm32/vcom/usb_core.c ****     {
+ 714:../target/stm32/vcom/usb_core.c ****       Related_Endpoint = (pInformation->USBwIndex0 & 0x0f);
+ 18332              		.loc 1 714 0
+ 18333 016c 40F20003 		movw	r3, #:lower16:pInformation
+ 18334 0170 C0F20003 		movt	r3, #:upper16:pInformation
+ 18335 0174 1B68     		ldr	r3, [r3, #0]
+ 18336 0176 5B79     		ldrb	r3, [r3, #5]	@ zero_extendqisi2
+ 18337 0178 03F00F03 		and	r3, r3, #15
+ 18338 017c FB60     		str	r3, [r7, #12]
+ 715:../target/stm32/vcom/usb_core.c ****       Reserved = pInformation->USBwIndex0 & 0x70;
+ 18339              		.loc 1 715 0
+ 18340 017e 40F20003 		movw	r3, #:lower16:pInformation
+ 18341 0182 C0F20003 		movt	r3, #:upper16:pInformation
+ 18342 0186 1B68     		ldr	r3, [r3, #0]
+ 18343 0188 5B79     		ldrb	r3, [r3, #5]	@ zero_extendqisi2
+ 18344 018a 03F07003 		and	r3, r3, #112
+ 18345 018e BB60     		str	r3, [r7, #8]
+ 716:../target/stm32/vcom/usb_core.c **** 
+ 717:../target/stm32/vcom/usb_core.c ****       if (ValBit(pInformation->USBwIndex0, 7))
+ 18346              		.loc 1 717 0
+ 18347 0190 40F20003 		movw	r3, #:lower16:pInformation
+ 18348 0194 C0F20003 		movt	r3, #:upper16:pInformation
+ 18349 0198 1B68     		ldr	r3, [r3, #0]
+ 18350 019a 5B79     		ldrb	r3, [r3, #5]	@ zero_extendqisi2
+ 18351 019c DBB2     		uxtb	r3, r3
+ 18352 019e 5BB2     		sxtb	r3, r3
+ 18353 01a0 002B     		cmp	r3, #0
+ 18354 01a2 0CDA     		bge	.L91
+ 718:../target/stm32/vcom/usb_core.c ****       {
+ 719:../target/stm32/vcom/usb_core.c ****         /*Get Status of endpoint & stall the request if the related_ENdpoint
+ 720:../target/stm32/vcom/usb_core.c ****         is Disabled*/
+ 721:../target/stm32/vcom/usb_core.c ****         Status = _GetEPTxStatus(Related_Endpoint);
+ 18355              		.loc 1 721 0
+ 18356 01a4 FB68     		ldr	r3, [r7, #12]
+ 18357 01a6 4FEA8303 		lsl	r3, r3, #2
+ 18358 01aa 03F18043 		add	r3, r3, #1073741824
+ 18359 01ae 03F5B843 		add	r3, r3, #23552
+ 18360 01b2 1B68     		ldr	r3, [r3, #0]
+ 18361 01b4 9BB2     		uxth	r3, r3
+ 18362 01b6 03F03003 		and	r3, r3, #48
+ 18363 01ba FB61     		str	r3, [r7, #28]
+ 18364 01bc 0BE0     		b	.L92
+ 18365              	.L91:
+ 722:../target/stm32/vcom/usb_core.c ****       }
+ 723:../target/stm32/vcom/usb_core.c ****       else
+ 724:../target/stm32/vcom/usb_core.c ****       {
+ 725:../target/stm32/vcom/usb_core.c ****         Status = _GetEPRxStatus(Related_Endpoint);
+ 18366              		.loc 1 725 0
+ 18367 01be FB68     		ldr	r3, [r7, #12]
+ 18368 01c0 4FEA8303 		lsl	r3, r3, #2
+ 18369 01c4 03F18043 		add	r3, r3, #1073741824
+ 18370 01c8 03F5B843 		add	r3, r3, #23552
+ 18371 01cc 1B68     		ldr	r3, [r3, #0]
+ 18372 01ce 9BB2     		uxth	r3, r3
+ 18373 01d0 03F44053 		and	r3, r3, #12288
+ 18374 01d4 FB61     		str	r3, [r7, #28]
+ 18375              	.L92:
+ 726:../target/stm32/vcom/usb_core.c ****       }
+ 727:../target/stm32/vcom/usb_core.c **** 
+ 728:../target/stm32/vcom/usb_core.c ****       if ((Related_Endpoint < Device_Table.Total_Endpoint) && (Reserved == 0)
+ 18376              		.loc 1 728 0
+ 18377 01d6 40F20003 		movw	r3, #:lower16:Device_Table
+ 18378 01da C0F20003 		movt	r3, #:upper16:Device_Table
+ 18379 01de 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 18380 01e0 1A46     		mov	r2, r3
+ 18381 01e2 FB68     		ldr	r3, [r7, #12]
+ 18382 01e4 9A42     		cmp	r2, r3
+ 18383 01e6 6AD9     		bls	.L106
+ 18384              		.loc 1 728 0 is_stmt 0 discriminator 1
+ 18385 01e8 BB68     		ldr	r3, [r7, #8]
+ 18386 01ea 002B     		cmp	r3, #0
+ 18387 01ec 69D1     		bne	.L107
+ 729:../target/stm32/vcom/usb_core.c ****           && (Status != 0))
+ 18388              		.loc 1 729 0 is_stmt 1
+ 18389 01ee FB69     		ldr	r3, [r7, #28]
+ 18390 01f0 002B     		cmp	r3, #0
+ 18391 01f2 68D0     		beq	.L108
+ 730:../target/stm32/vcom/usb_core.c ****       {
+ 731:../target/stm32/vcom/usb_core.c ****         CopyRoutine = Standard_GetStatus;
+ 18392              		.loc 1 731 0
+ 18393 01f4 40F20003 		movw	r3, #:lower16:Standard_GetStatus
+ 18394 01f8 C0F20003 		movt	r3, #:upper16:Standard_GetStatus
+ 18395 01fc 7B62     		str	r3, [r7, #36]
+ 695:../target/stm32/vcom/usb_core.c ****     if ((Type_Recipient == (STANDARD_REQUEST | DEVICE_RECIPIENT))
+ 18396              		.loc 1 695 0
+ 18397 01fe 63E0     		b	.L84
+ 18398              	.L87:
+ 732:../target/stm32/vcom/usb_core.c ****       }
+ 733:../target/stm32/vcom/usb_core.c ****     }
+ 734:../target/stm32/vcom/usb_core.c **** 
+ 735:../target/stm32/vcom/usb_core.c ****   }
+ 736:../target/stm32/vcom/usb_core.c **** 
+ 737:../target/stm32/vcom/usb_core.c ****   /*GET CONFIGURATION*/
+ 738:../target/stm32/vcom/usb_core.c ****   else if (Request_No == GET_CONFIGURATION)
+ 18399              		.loc 1 738 0
+ 18400 0200 BB69     		ldr	r3, [r7, #24]
+ 18401 0202 082B     		cmp	r3, #8
+ 18402 0204 0FD1     		bne	.L93
+ 739:../target/stm32/vcom/usb_core.c ****   {
+ 740:../target/stm32/vcom/usb_core.c ****     if (Type_Recipient == (STANDARD_REQUEST | DEVICE_RECIPIENT))
+ 18403              		.loc 1 740 0
+ 18404 0206 40F20003 		movw	r3, #:lower16:pInformation
+ 18405 020a C0F20003 		movt	r3, #:upper16:pInformation
+ 18406 020e 1B68     		ldr	r3, [r3, #0]
+ 18407 0210 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 18408 0212 03F07F03 		and	r3, r3, #127
+ 18409 0216 002B     		cmp	r3, #0
+ 18410 0218 56D1     		bne	.L84
+ 741:../target/stm32/vcom/usb_core.c ****     {
+ 742:../target/stm32/vcom/usb_core.c ****       CopyRoutine = Standard_GetConfiguration;
+ 18411              		.loc 1 742 0
+ 18412 021a 40F20003 		movw	r3, #:lower16:Standard_GetConfiguration
+ 18413 021e C0F20003 		movt	r3, #:upper16:Standard_GetConfiguration
+ 18414 0222 7B62     		str	r3, [r7, #36]
+ 18415 0224 50E0     		b	.L84
+ 18416              	.L93:
+ 743:../target/stm32/vcom/usb_core.c ****     }
+ 744:../target/stm32/vcom/usb_core.c ****   }
+ 745:../target/stm32/vcom/usb_core.c ****   /*GET INTERFACE*/
+ 746:../target/stm32/vcom/usb_core.c ****   else if (Request_No == GET_INTERFACE)
+ 18417              		.loc 1 746 0
+ 18418 0226 BB69     		ldr	r3, [r7, #24]
+ 18419 0228 0A2B     		cmp	r3, #10
+ 18420 022a 4DD1     		bne	.L84
+ 747:../target/stm32/vcom/usb_core.c ****   {
+ 748:../target/stm32/vcom/usb_core.c ****     if ((Type_Recipient == (STANDARD_REQUEST | INTERFACE_RECIPIENT))
+ 18421              		.loc 1 748 0
+ 18422 022c 40F20003 		movw	r3, #:lower16:pInformation
+ 18423 0230 C0F20003 		movt	r3, #:upper16:pInformation
+ 18424 0234 1B68     		ldr	r3, [r3, #0]
+ 18425 0236 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 18426 0238 03F07F03 		and	r3, r3, #127
+ 18427 023c 012B     		cmp	r3, #1
+ 18428 023e 43D1     		bne	.L84
+ 749:../target/stm32/vcom/usb_core.c ****         && (pInformation->Current_Configuration != 0) && (pInformation->USBwValue == 0)
+ 18429              		.loc 1 749 0
+ 18430 0240 40F20003 		movw	r3, #:lower16:pInformation
+ 18431 0244 C0F20003 		movt	r3, #:upper16:pInformation
+ 18432 0248 1B68     		ldr	r3, [r3, #0]
+ 18433 024a 9B7A     		ldrb	r3, [r3, #10]	@ zero_extendqisi2
+ 18434 024c 002B     		cmp	r3, #0
+ 18435 024e 3BD0     		beq	.L84
+ 18436              		.loc 1 749 0 is_stmt 0 discriminator 1
+ 18437 0250 40F20003 		movw	r3, #:lower16:pInformation
+ 18438 0254 C0F20003 		movt	r3, #:upper16:pInformation
+ 18439 0258 1B68     		ldr	r3, [r3, #0]
+ 18440 025a 5B88     		ldrh	r3, [r3, #2]
+ 18441 025c 002B     		cmp	r3, #0
+ 18442 025e 33D1     		bne	.L84
+ 750:../target/stm32/vcom/usb_core.c ****         && (pInformation->USBwIndex1 == 0) && (pInformation->USBwLength == 0x0001)
+ 18443              		.loc 1 750 0 is_stmt 1
+ 18444 0260 40F20003 		movw	r3, #:lower16:pInformation
+ 18445 0264 C0F20003 		movt	r3, #:upper16:pInformation
+ 18446 0268 1B68     		ldr	r3, [r3, #0]
+ 18447 026a 1B79     		ldrb	r3, [r3, #4]	@ zero_extendqisi2
+ 18448 026c 002B     		cmp	r3, #0
+ 18449 026e 2BD1     		bne	.L84
+ 18450              		.loc 1 750 0 is_stmt 0 discriminator 1
+ 18451 0270 40F20003 		movw	r3, #:lower16:pInformation
+ 18452 0274 C0F20003 		movt	r3, #:upper16:pInformation
+ 18453 0278 1B68     		ldr	r3, [r3, #0]
+ 18454 027a DB88     		ldrh	r3, [r3, #6]
+ 18455 027c 012B     		cmp	r3, #1
+ 18456 027e 23D1     		bne	.L84
+ 751:../target/stm32/vcom/usb_core.c ****         && ((*pProperty->Class_Get_Interface_Setting)(pInformation->USBwIndex0, 0) == USB_SUCCESS))
+ 18457              		.loc 1 751 0 is_stmt 1
+ 18458 0280 40F20003 		movw	r3, #:lower16:pProperty
+ 18459 0284 C0F20003 		movt	r3, #:upper16:pProperty
+ 18460 0288 1B68     		ldr	r3, [r3, #0]
+ 18461 028a 9A69     		ldr	r2, [r3, #24]
+ 18462 028c 40F20003 		movw	r3, #:lower16:pInformation
+ 18463 0290 C0F20003 		movt	r3, #:upper16:pInformation
+ 18464 0294 1B68     		ldr	r3, [r3, #0]
+ 18465 0296 5B79     		ldrb	r3, [r3, #5]	@ zero_extendqisi2
+ 18466 0298 1846     		mov	r0, r3
+ 18467 029a 4FF00001 		mov	r1, #0
+ 18468 029e 9047     		blx	r2
+ 18469 02a0 0346     		mov	r3, r0
+ 18470 02a2 002B     		cmp	r3, #0
+ 18471 02a4 10D1     		bne	.L84
+ 752:../target/stm32/vcom/usb_core.c ****     {
+ 753:../target/stm32/vcom/usb_core.c ****       CopyRoutine = Standard_GetInterface;
+ 18472              		.loc 1 753 0
+ 18473 02a6 40F20003 		movw	r3, #:lower16:Standard_GetInterface
+ 18474 02aa C0F20003 		movt	r3, #:upper16:Standard_GetInterface
+ 18475 02ae 7B62     		str	r3, [r7, #36]
+ 18476 02b0 0AE0     		b	.L84
+ 18477              	.L103:
+ 695:../target/stm32/vcom/usb_core.c ****     if ((Type_Recipient == (STANDARD_REQUEST | DEVICE_RECIPIENT))
+ 18478              		.loc 1 695 0
+ 18479 02b2 00BF     		nop
+ 18480 02b4 08E0     		b	.L84
+ 18481              	.L104:
+ 18482 02b6 00BF     		nop
+ 18483 02b8 06E0     		b	.L84
+ 18484              	.L105:
+ 18485 02ba 00BF     		nop
+ 18486 02bc 04E0     		b	.L84
+ 18487              	.L106:
+ 18488 02be 00BF     		nop
+ 18489 02c0 02E0     		b	.L84
+ 18490              	.L107:
+ 18491 02c2 00BF     		nop
+ 18492 02c4 00E0     		b	.L84
+ 18493              	.L108:
+ 18494 02c6 00BF     		nop
+ 18495              	.L84:
+ 754:../target/stm32/vcom/usb_core.c ****     }
+ 755:../target/stm32/vcom/usb_core.c **** 
+ 756:../target/stm32/vcom/usb_core.c ****   }
+ 757:../target/stm32/vcom/usb_core.c **** 
+ 758:../target/stm32/vcom/usb_core.c **** 
+ 759:../target/stm32/vcom/usb_core.c ****   if (CopyRoutine)
+ 18496              		.loc 1 759 0
+ 18497 02c8 7B6A     		ldr	r3, [r7, #36]
+ 18498 02ca 002B     		cmp	r3, #0
+ 18499 02cc 17D0     		beq	.L94
+ 760:../target/stm32/vcom/usb_core.c ****   {
+ 761:../target/stm32/vcom/usb_core.c ****     pInformation->Ctrl_Info.Usb_wOffset = wOffset;
+ 18500              		.loc 1 761 0
+ 18501 02ce 40F20003 		movw	r3, #:lower16:pInformation
+ 18502 02d2 C0F20003 		movt	r3, #:upper16:pInformation
+ 18503 02d6 1B68     		ldr	r3, [r3, #0]
+ 18504 02d8 7A69     		ldr	r2, [r7, #20]
+ 18505 02da 92B2     		uxth	r2, r2
+ 18506 02dc 5A82     		strh	r2, [r3, #18]	@ movhi
+ 762:../target/stm32/vcom/usb_core.c ****     pInformation->Ctrl_Info.CopyData = CopyRoutine;
+ 18507              		.loc 1 762 0
+ 18508 02de 40F20003 		movw	r3, #:lower16:pInformation
+ 18509 02e2 C0F20003 		movt	r3, #:upper16:pInformation
+ 18510 02e6 1B68     		ldr	r3, [r3, #0]
+ 18511 02e8 7A6A     		ldr	r2, [r7, #36]
+ 18512 02ea 9A61     		str	r2, [r3, #24]
+ 763:../target/stm32/vcom/usb_core.c ****     /* sb in the original the cast to word was directly */
+ 764:../target/stm32/vcom/usb_core.c ****     /* now the cast is made step by step */
+ 765:../target/stm32/vcom/usb_core.c ****     (*CopyRoutine)(0);
+ 18513              		.loc 1 765 0
+ 18514 02ec 7B6A     		ldr	r3, [r7, #36]
+ 18515 02ee 4FF00000 		mov	r0, #0
+ 18516 02f2 9847     		blx	r3
+ 766:../target/stm32/vcom/usb_core.c ****     Result = USB_SUCCESS;
+ 18517              		.loc 1 766 0
+ 18518 02f4 4FF00003 		mov	r3, #0
+ 18519 02f8 87F82330 		strb	r3, [r7, #35]
+ 18520 02fc 1DE0     		b	.L95
+ 18521              	.L94:
+ 767:../target/stm32/vcom/usb_core.c ****   }
+ 768:../target/stm32/vcom/usb_core.c ****   else
+ 769:../target/stm32/vcom/usb_core.c ****   {
+ 770:../target/stm32/vcom/usb_core.c ****     Result = (*pProperty->Class_Data_Setup)(pInformation->USBbRequest);
+ 18522              		.loc 1 770 0
+ 18523 02fe 40F20003 		movw	r3, #:lower16:pProperty
+ 18524 0302 C0F20003 		movt	r3, #:upper16:pProperty
+ 18525 0306 1B68     		ldr	r3, [r3, #0]
+ 18526 0308 1A69     		ldr	r2, [r3, #16]
+ 18527 030a 40F20003 		movw	r3, #:lower16:pInformation
+ 18528 030e C0F20003 		movt	r3, #:upper16:pInformation
+ 18529 0312 1B68     		ldr	r3, [r3, #0]
+ 18530 0314 5B78     		ldrb	r3, [r3, #1]	@ zero_extendqisi2
+ 18531 0316 1846     		mov	r0, r3
+ 18532 0318 9047     		blx	r2
+ 18533 031a 0346     		mov	r3, r0
+ 18534 031c 87F82330 		strb	r3, [r7, #35]
+ 771:../target/stm32/vcom/usb_core.c ****     if (Result == USB_NOT_READY)
+ 18535              		.loc 1 771 0
+ 18536 0320 97F82330 		ldrb	r3, [r7, #35]	@ zero_extendqisi2
+ 18537 0324 032B     		cmp	r3, #3
+ 18538 0326 08D1     		bne	.L95
+ 772:../target/stm32/vcom/usb_core.c ****     {
+ 773:../target/stm32/vcom/usb_core.c ****       pInformation->ControlState = PAUSE;
+ 18539              		.loc 1 773 0
+ 18540 0328 40F20003 		movw	r3, #:lower16:pInformation
+ 18541 032c C0F20003 		movt	r3, #:upper16:pInformation
+ 18542 0330 1B68     		ldr	r3, [r3, #0]
+ 18543 0332 4FF00902 		mov	r2, #9
+ 18544 0336 1A72     		strb	r2, [r3, #8]
+ 774:../target/stm32/vcom/usb_core.c ****       return;
+ 18545              		.loc 1 774 0
+ 18546 0338 6AE0     		b	.L82
+ 18547              	.L95:
+ 775:../target/stm32/vcom/usb_core.c ****     }
+ 776:../target/stm32/vcom/usb_core.c ****   }
+ 777:../target/stm32/vcom/usb_core.c **** 
+ 778:../target/stm32/vcom/usb_core.c ****   if (pInformation->Ctrl_Info.Usb_wLength == 0xFFFF)
+ 18548              		.loc 1 778 0
+ 18549 033a 40F20003 		movw	r3, #:lower16:pInformation
+ 18550 033e C0F20003 		movt	r3, #:upper16:pInformation
+ 18551 0342 1B68     		ldr	r3, [r3, #0]
+ 18552 0344 1A8A     		ldrh	r2, [r3, #16]
+ 18553 0346 4FF6FF73 		movw	r3, #65535
+ 18554 034a 9A42     		cmp	r2, r3
+ 18555 034c 08D1     		bne	.L97
+ 779:../target/stm32/vcom/usb_core.c ****   {
+ 780:../target/stm32/vcom/usb_core.c ****     /* Data is not ready, wait it */
+ 781:../target/stm32/vcom/usb_core.c ****     pInformation->ControlState = PAUSE;
+ 18556              		.loc 1 781 0
+ 18557 034e 40F20003 		movw	r3, #:lower16:pInformation
+ 18558 0352 C0F20003 		movt	r3, #:upper16:pInformation
+ 18559 0356 1B68     		ldr	r3, [r3, #0]
+ 18560 0358 4FF00902 		mov	r2, #9
+ 18561 035c 1A72     		strb	r2, [r3, #8]
+ 782:../target/stm32/vcom/usb_core.c ****     return;
+ 18562              		.loc 1 782 0
+ 18563 035e 57E0     		b	.L82
+ 18564              	.L97:
+ 783:../target/stm32/vcom/usb_core.c ****   }
+ 784:../target/stm32/vcom/usb_core.c ****   if ((Result == USB_UNSUPPORT) || (pInformation->Ctrl_Info.Usb_wLength == 0))
+ 18565              		.loc 1 784 0
+ 18566 0360 97F82330 		ldrb	r3, [r7, #35]	@ zero_extendqisi2
+ 18567 0364 022B     		cmp	r3, #2
+ 18568 0366 07D0     		beq	.L98
+ 18569              		.loc 1 784 0 is_stmt 0 discriminator 1
+ 18570 0368 40F20003 		movw	r3, #:lower16:pInformation
+ 18571 036c C0F20003 		movt	r3, #:upper16:pInformation
+ 18572 0370 1B68     		ldr	r3, [r3, #0]
+ 18573 0372 1B8A     		ldrh	r3, [r3, #16]
+ 18574 0374 002B     		cmp	r3, #0
+ 18575 0376 08D1     		bne	.L99
+ 18576              	.L98:
+ 785:../target/stm32/vcom/usb_core.c ****   {
+ 786:../target/stm32/vcom/usb_core.c ****     /* Unsupported request */
+ 787:../target/stm32/vcom/usb_core.c ****     pInformation->ControlState = STALLED;
+ 18577              		.loc 1 787 0 is_stmt 1
+ 18578 0378 40F20003 		movw	r3, #:lower16:pInformation
+ 18579 037c C0F20003 		movt	r3, #:upper16:pInformation
+ 18580 0380 1B68     		ldr	r3, [r3, #0]
+ 18581 0382 4FF00802 		mov	r2, #8
+ 18582 0386 1A72     		strb	r2, [r3, #8]
+ 788:../target/stm32/vcom/usb_core.c ****     return;
+ 18583              		.loc 1 788 0
+ 18584 0388 42E0     		b	.L82
+ 18585              	.L99:
+ 789:../target/stm32/vcom/usb_core.c ****   }
+ 790:../target/stm32/vcom/usb_core.c **** 
+ 791:../target/stm32/vcom/usb_core.c **** 
+ 792:../target/stm32/vcom/usb_core.c ****   if (ValBit(pInformation->USBbmRequestType, 7))
+ 18586              		.loc 1 792 0
+ 18587 038a 40F20003 		movw	r3, #:lower16:pInformation
+ 18588 038e C0F20003 		movt	r3, #:upper16:pInformation
+ 18589 0392 1B68     		ldr	r3, [r3, #0]
+ 18590 0394 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 18591 0396 DBB2     		uxtb	r3, r3
+ 18592 0398 5BB2     		sxtb	r3, r3
+ 18593 039a 002B     		cmp	r3, #0
+ 18594 039c 28DA     		bge	.L100
+ 18595              	.LBB11:
+ 793:../target/stm32/vcom/usb_core.c ****   {
+ 794:../target/stm32/vcom/usb_core.c ****     /* Device ==> Host */
+ 795:../target/stm32/vcom/usb_core.c ****     u32 wLength = pInformation->USBwLength;
+ 18596              		.loc 1 795 0
+ 18597 039e 40F20003 		movw	r3, #:lower16:pInformation
+ 18598 03a2 C0F20003 		movt	r3, #:upper16:pInformation
+ 18599 03a6 1B68     		ldr	r3, [r3, #0]
+ 18600 03a8 DB88     		ldrh	r3, [r3, #6]
+ 18601 03aa 7B60     		str	r3, [r7, #4]
+ 796:../target/stm32/vcom/usb_core.c **** 
+ 797:../target/stm32/vcom/usb_core.c ****     /* Restrict the data length to be the one host asks */
+ 798:../target/stm32/vcom/usb_core.c ****     if (pInformation->Ctrl_Info.Usb_wLength > wLength)
+ 18602              		.loc 1 798 0
+ 18603 03ac 40F20003 		movw	r3, #:lower16:pInformation
+ 18604 03b0 C0F20003 		movt	r3, #:upper16:pInformation
+ 18605 03b4 1B68     		ldr	r3, [r3, #0]
+ 18606 03b6 1B8A     		ldrh	r3, [r3, #16]
+ 18607 03b8 1A46     		mov	r2, r3
+ 18608 03ba 7B68     		ldr	r3, [r7, #4]
+ 18609 03bc 9A42     		cmp	r2, r3
+ 18610 03be 07D9     		bls	.L101
+ 799:../target/stm32/vcom/usb_core.c ****     {
+ 800:../target/stm32/vcom/usb_core.c ****       pInformation->Ctrl_Info.Usb_wLength = wLength;
+ 18611              		.loc 1 800 0
+ 18612 03c0 40F20003 		movw	r3, #:lower16:pInformation
+ 18613 03c4 C0F20003 		movt	r3, #:upper16:pInformation
+ 18614 03c8 1B68     		ldr	r3, [r3, #0]
+ 18615 03ca 7A68     		ldr	r2, [r7, #4]
+ 18616 03cc 92B2     		uxth	r2, r2
+ 18617 03ce 1A82     		strh	r2, [r3, #16]	@ movhi
+ 18618              	.L101:
+ 801:../target/stm32/vcom/usb_core.c ****     }
+ 802:../target/stm32/vcom/usb_core.c **** 
+ 803:../target/stm32/vcom/usb_core.c ****     pInformation->Ctrl_Info.PacketSize = pProperty->MaxPacketSize;
+ 18619              		.loc 1 803 0
+ 18620 03d0 40F20003 		movw	r3, #:lower16:pInformation
+ 18621 03d4 C0F20003 		movt	r3, #:upper16:pInformation
+ 18622 03d8 1A68     		ldr	r2, [r3, #0]
+ 18623 03da 40F20003 		movw	r3, #:lower16:pProperty
+ 18624 03de C0F20003 		movt	r3, #:upper16:pProperty
+ 18625 03e2 1B68     		ldr	r3, [r3, #0]
+ 18626 03e4 93F82C30 		ldrb	r3, [r3, #44]	@ zero_extendqisi2
+ 18627 03e8 9382     		strh	r3, [r2, #20]	@ movhi
+ 804:../target/stm32/vcom/usb_core.c ****     DataStageIn();
+ 18628              		.loc 1 804 0
+ 18629 03ea FFF7FEFF 		bl	DataStageIn
+ 18630              	.LBE11:
+ 805:../target/stm32/vcom/usb_core.c ****   }
+ 806:../target/stm32/vcom/usb_core.c ****   else
+ 807:../target/stm32/vcom/usb_core.c ****   {
+ 808:../target/stm32/vcom/usb_core.c ****     pInformation->ControlState = OUT_DATA;
+ 809:../target/stm32/vcom/usb_core.c ****     vSetEPRxStatus(EP_RX_VALID);/* enable for next data reception */
+ 810:../target/stm32/vcom/usb_core.c ****   }
+ 811:../target/stm32/vcom/usb_core.c **** 
+ 812:../target/stm32/vcom/usb_core.c ****   return;
+ 18631              		.loc 1 812 0
+ 18632 03ee 0FE0     		b	.L82
+ 18633              	.L100:
+ 808:../target/stm32/vcom/usb_core.c ****     pInformation->ControlState = OUT_DATA;
+ 18634              		.loc 1 808 0
+ 18635 03f0 40F20003 		movw	r3, #:lower16:pInformation
+ 18636 03f4 C0F20003 		movt	r3, #:upper16:pInformation
+ 18637 03f8 1B68     		ldr	r3, [r3, #0]
+ 18638 03fa 4FF00302 		mov	r2, #3
+ 18639 03fe 1A72     		strb	r2, [r3, #8]
+ 809:../target/stm32/vcom/usb_core.c ****     vSetEPRxStatus(EP_RX_VALID);/* enable for next data reception */
+ 18640              		.loc 1 809 0
+ 18641 0400 40F20003 		movw	r3, #:lower16:SaveRState
+ 18642 0404 C0F20003 		movt	r3, #:upper16:SaveRState
+ 18643 0408 4FF44052 		mov	r2, #12288
+ 18644 040c 1A80     		strh	r2, [r3, #0]	@ movhi
+ 18645              		.loc 1 812 0
+ 18646 040e 00BF     		nop
+ 18647              	.L82:
+ 813:../target/stm32/vcom/usb_core.c **** }
+ 18648              		.loc 1 813 0
+ 18649 0410 07F12807 		add	r7, r7, #40
+ 18650 0414 BD46     		mov	sp, r7
+ 18651 0416 80BD     		pop	{r7, pc}
+ 18652              		.cfi_endproc
+ 18653              	.LFE41:
+ 18655              		.section	.text.Setup0_Process,"ax",%progbits
+ 18656              		.align	2
+ 18657              		.global	Setup0_Process
+ 18658              		.thumb
+ 18659              		.thumb_func
+ 18661              	Setup0_Process:
+ 18662              	.LFB42:
+ 814:../target/stm32/vcom/usb_core.c **** 
+ 815:../target/stm32/vcom/usb_core.c **** /*******************************************************************************
+ 816:../target/stm32/vcom/usb_core.c **** * Function Name  : Setup0_Process
+ 817:../target/stm32/vcom/usb_core.c **** * Description    : Get the device request data and dispatch to individual process.
+ 818:../target/stm32/vcom/usb_core.c **** * Input          : None.
+ 819:../target/stm32/vcom/usb_core.c **** * Output         : None.
+ 820:../target/stm32/vcom/usb_core.c **** * Return         : Post0_Process.
+ 821:../target/stm32/vcom/usb_core.c **** *******************************************************************************/
+ 822:../target/stm32/vcom/usb_core.c **** u8 Setup0_Process(void)
+ 823:../target/stm32/vcom/usb_core.c **** {
+ 18663              		.loc 1 823 0
+ 18664              		.cfi_startproc
+ 18665              		@ args = 0, pretend = 0, frame = 8
+ 18666              		@ frame_needed = 1, uses_anonymous_args = 0
+ 18667 0000 90B5     		push	{r4, r7, lr}
+ 18668              	.LCFI37:
+ 18669              		.cfi_def_cfa_offset 12
+ 18670 0002 83B0     		sub	sp, sp, #12
+ 18671              	.LCFI38:
+ 18672              		.cfi_def_cfa_offset 24
+ 18673 0004 00AF     		add	r7, sp, #0
+ 18674              		.cfi_offset 14, -4
+ 18675              		.cfi_offset 7, -8
+ 18676              		.cfi_offset 4, -12
+ 18677              	.LCFI39:
+ 18678              		.cfi_def_cfa_register 7
+ 824:../target/stm32/vcom/usb_core.c **** 
+ 825:../target/stm32/vcom/usb_core.c ****   union
+ 826:../target/stm32/vcom/usb_core.c ****   {
+ 827:../target/stm32/vcom/usb_core.c ****     u8* b;
+ 828:../target/stm32/vcom/usb_core.c ****     u16* w;
+ 829:../target/stm32/vcom/usb_core.c ****   } pBuf;
+ 830:../target/stm32/vcom/usb_core.c **** 
+ 831:../target/stm32/vcom/usb_core.c ****   pBuf.b = PMAAddr + (u8 *)(_GetEPRxAddr(ENDP0) * 2); /* *2 for 32 bits addr */
+ 18679              		.loc 1 831 0
+ 18680 0006 45F65043 		movw	r3, #23632
+ 18681 000a C4F20003 		movt	r3, 16384
+ 18682 000e 1B68     		ldr	r3, [r3, #0]
+ 18683 0010 9BB2     		uxth	r3, r3
+ 18684 0012 1A46     		mov	r2, r3
+ 18685 0014 43F20403 		movw	r3, #12292
+ 18686 0018 C2F20003 		movt	r3, 8192
+ 18687 001c D318     		adds	r3, r2, r3
+ 18688 001e 4FEA4303 		lsl	r3, r3, #1
+ 18689 0022 1B68     		ldr	r3, [r3, #0]
+ 18690 0024 9BB2     		uxth	r3, r3
+ 18691 0026 03F10053 		add	r3, r3, #536870912
+ 18692 002a 03F54053 		add	r3, r3, #12288
+ 18693 002e 4FEA4303 		lsl	r3, r3, #1
+ 18694 0032 7B60     		str	r3, [r7, #4]
+ 832:../target/stm32/vcom/usb_core.c **** 
+ 833:../target/stm32/vcom/usb_core.c ****   if (pInformation->ControlState != PAUSE)
+ 18695              		.loc 1 833 0
+ 18696 0034 40F20003 		movw	r3, #:lower16:pInformation
+ 18697 0038 C0F20003 		movt	r3, #:upper16:pInformation
+ 18698 003c 1B68     		ldr	r3, [r3, #0]
+ 18699 003e 1B7A     		ldrb	r3, [r3, #8]	@ zero_extendqisi2
+ 18700 0040 092B     		cmp	r3, #9
+ 18701 0042 47D0     		beq	.L110
+ 834:../target/stm32/vcom/usb_core.c ****   {
+ 835:../target/stm32/vcom/usb_core.c ****     pInformation->USBbmRequestType = *pBuf.b++; /* bmRequestType */
+ 18702              		.loc 1 835 0
+ 18703 0044 40F20003 		movw	r3, #:lower16:pInformation
+ 18704 0048 C0F20003 		movt	r3, #:upper16:pInformation
+ 18705 004c 1A68     		ldr	r2, [r3, #0]
+ 18706 004e 7B68     		ldr	r3, [r7, #4]
+ 18707 0050 1978     		ldrb	r1, [r3, #0]	@ zero_extendqisi2
+ 18708 0052 1170     		strb	r1, [r2, #0]
+ 18709 0054 03F10103 		add	r3, r3, #1
+ 18710 0058 7B60     		str	r3, [r7, #4]
+ 836:../target/stm32/vcom/usb_core.c ****     pInformation->USBbRequest = *pBuf.b++; /* bRequest */
+ 18711              		.loc 1 836 0
+ 18712 005a 40F20003 		movw	r3, #:lower16:pInformation
+ 18713 005e C0F20003 		movt	r3, #:upper16:pInformation
+ 18714 0062 1A68     		ldr	r2, [r3, #0]
+ 18715 0064 7B68     		ldr	r3, [r7, #4]
+ 18716 0066 1978     		ldrb	r1, [r3, #0]	@ zero_extendqisi2
+ 18717 0068 5170     		strb	r1, [r2, #1]
+ 18718 006a 03F10103 		add	r3, r3, #1
+ 18719 006e 7B60     		str	r3, [r7, #4]
+ 837:../target/stm32/vcom/usb_core.c ****     pBuf.w++;  /* word not accessed because of 32 bits addressing */
+ 18720              		.loc 1 837 0
+ 18721 0070 7B68     		ldr	r3, [r7, #4]
+ 18722 0072 03F10203 		add	r3, r3, #2
+ 18723 0076 7B60     		str	r3, [r7, #4]
+ 838:../target/stm32/vcom/usb_core.c ****     pInformation->USBwValue = ByteSwap(*pBuf.w++); /* wValue */
+ 18724              		.loc 1 838 0
+ 18725 0078 40F20003 		movw	r3, #:lower16:pInformation
+ 18726 007c C0F20003 		movt	r3, #:upper16:pInformation
+ 18727 0080 1C68     		ldr	r4, [r3, #0]
+ 18728 0082 7B68     		ldr	r3, [r7, #4]
+ 18729 0084 1A88     		ldrh	r2, [r3, #0]
+ 18730 0086 03F10203 		add	r3, r3, #2
+ 18731 008a 7B60     		str	r3, [r7, #4]
+ 18732 008c 1046     		mov	r0, r2
+ 18733 008e FFF7FEFF 		bl	ByteSwap
+ 18734 0092 0346     		mov	r3, r0
+ 18735 0094 6380     		strh	r3, [r4, #2]	@ movhi
+ 839:../target/stm32/vcom/usb_core.c ****     pBuf.w++;  /* word not accessed because of 32 bits addressing */
+ 18736              		.loc 1 839 0
+ 18737 0096 7B68     		ldr	r3, [r7, #4]
+ 18738 0098 03F10203 		add	r3, r3, #2
+ 18739 009c 7B60     		str	r3, [r7, #4]
+ 840:../target/stm32/vcom/usb_core.c ****     pInformation->USBwIndex  = ByteSwap(*pBuf.w++); /* wIndex */
+ 18740              		.loc 1 840 0
+ 18741 009e 40F20003 		movw	r3, #:lower16:pInformation
+ 18742 00a2 C0F20003 		movt	r3, #:upper16:pInformation
+ 18743 00a6 1C68     		ldr	r4, [r3, #0]
+ 18744 00a8 7B68     		ldr	r3, [r7, #4]
+ 18745 00aa 1A88     		ldrh	r2, [r3, #0]
+ 18746 00ac 03F10203 		add	r3, r3, #2
+ 18747 00b0 7B60     		str	r3, [r7, #4]
+ 18748 00b2 1046     		mov	r0, r2
+ 18749 00b4 FFF7FEFF 		bl	ByteSwap
+ 18750 00b8 0346     		mov	r3, r0
+ 18751 00ba A380     		strh	r3, [r4, #4]	@ movhi
+ 841:../target/stm32/vcom/usb_core.c ****     pBuf.w++;  /* word not accessed because of 32 bits addressing */
+ 18752              		.loc 1 841 0
+ 18753 00bc 7B68     		ldr	r3, [r7, #4]
+ 18754 00be 03F10203 		add	r3, r3, #2
+ 18755 00c2 7B60     		str	r3, [r7, #4]
+ 842:../target/stm32/vcom/usb_core.c ****     pInformation->USBwLength = *pBuf.w; /* wLength */
+ 18756              		.loc 1 842 0
+ 18757 00c4 40F20003 		movw	r3, #:lower16:pInformation
+ 18758 00c8 C0F20003 		movt	r3, #:upper16:pInformation
+ 18759 00cc 1B68     		ldr	r3, [r3, #0]
+ 18760 00ce 7A68     		ldr	r2, [r7, #4]
+ 18761 00d0 1288     		ldrh	r2, [r2, #0]
+ 18762 00d2 DA80     		strh	r2, [r3, #6]	@ movhi
+ 18763              	.L110:
+ 843:../target/stm32/vcom/usb_core.c ****   }
+ 844:../target/stm32/vcom/usb_core.c **** 
+ 845:../target/stm32/vcom/usb_core.c ****   pInformation->ControlState = SETTING_UP;
+ 18764              		.loc 1 845 0
+ 18765 00d4 40F20003 		movw	r3, #:lower16:pInformation
+ 18766 00d8 C0F20003 		movt	r3, #:upper16:pInformation
+ 18767 00dc 1B68     		ldr	r3, [r3, #0]
+ 18768 00de 4FF00102 		mov	r2, #1
+ 18769 00e2 1A72     		strb	r2, [r3, #8]
+ 846:../target/stm32/vcom/usb_core.c ****   if (pInformation->USBwLength == 0)
+ 18770              		.loc 1 846 0
+ 18771 00e4 40F20003 		movw	r3, #:lower16:pInformation
+ 18772 00e8 C0F20003 		movt	r3, #:upper16:pInformation
+ 18773 00ec 1B68     		ldr	r3, [r3, #0]
+ 18774 00ee DB88     		ldrh	r3, [r3, #6]
+ 18775 00f0 002B     		cmp	r3, #0
+ 18776 00f2 02D1     		bne	.L111
+ 847:../target/stm32/vcom/usb_core.c ****   {
+ 848:../target/stm32/vcom/usb_core.c ****     /* Setup with no data stage */
+ 849:../target/stm32/vcom/usb_core.c ****     NoData_Setup0();
+ 18777              		.loc 1 849 0
+ 18778 00f4 FFF7FEFF 		bl	NoData_Setup0
+ 18779 00f8 01E0     		b	.L112
+ 18780              	.L111:
+ 850:../target/stm32/vcom/usb_core.c ****   }
+ 851:../target/stm32/vcom/usb_core.c ****   else
+ 852:../target/stm32/vcom/usb_core.c ****   {
+ 853:../target/stm32/vcom/usb_core.c ****     /* Setup with data stage */
+ 854:../target/stm32/vcom/usb_core.c ****     Data_Setup0();
+ 18781              		.loc 1 854 0
+ 18782 00fa FFF7FEFF 		bl	Data_Setup0
+ 18783              	.L112:
+ 855:../target/stm32/vcom/usb_core.c ****   }
+ 856:../target/stm32/vcom/usb_core.c ****   return Post0_Process();
+ 18784              		.loc 1 856 0
+ 18785 00fe FFF7FEFF 		bl	Post0_Process
+ 18786 0102 0346     		mov	r3, r0
+ 857:../target/stm32/vcom/usb_core.c **** }
+ 18787              		.loc 1 857 0
+ 18788 0104 1846     		mov	r0, r3
+ 18789 0106 07F10C07 		add	r7, r7, #12
+ 18790 010a BD46     		mov	sp, r7
+ 18791 010c 90BD     		pop	{r4, r7, pc}
+ 18792              		.cfi_endproc
+ 18793              	.LFE42:
+ 18795 010e 00BF     		.section	.text.In0_Process,"ax",%progbits
+ 18796              		.align	2
+ 18797              		.global	In0_Process
+ 18798              		.thumb
+ 18799              		.thumb_func
+ 18801              	In0_Process:
+ 18802              	.LFB43:
+ 858:../target/stm32/vcom/usb_core.c **** 
+ 859:../target/stm32/vcom/usb_core.c **** /*******************************************************************************
+ 860:../target/stm32/vcom/usb_core.c **** * Function Name  : In0_Process
+ 861:../target/stm32/vcom/usb_core.c **** * Description    : Process the IN token on all default endpoint.
+ 862:../target/stm32/vcom/usb_core.c **** * Input          : None.
+ 863:../target/stm32/vcom/usb_core.c **** * Output         : None.
+ 864:../target/stm32/vcom/usb_core.c **** * Return         : Post0_Process.
+ 865:../target/stm32/vcom/usb_core.c **** *******************************************************************************/
+ 866:../target/stm32/vcom/usb_core.c **** u8 In0_Process(void)
+ 867:../target/stm32/vcom/usb_core.c **** {
+ 18803              		.loc 1 867 0
+ 18804              		.cfi_startproc
+ 18805              		@ args = 0, pretend = 0, frame = 8
+ 18806              		@ frame_needed = 1, uses_anonymous_args = 0
+ 18807 0000 80B5     		push	{r7, lr}
+ 18808              	.LCFI40:
+ 18809              		.cfi_def_cfa_offset 8
+ 18810 0002 82B0     		sub	sp, sp, #8
+ 18811              	.LCFI41:
+ 18812              		.cfi_def_cfa_offset 16
+ 18813 0004 00AF     		add	r7, sp, #0
+ 18814              		.cfi_offset 14, -4
+ 18815              		.cfi_offset 7, -8
+ 18816              	.LCFI42:
+ 18817              		.cfi_def_cfa_register 7
+ 868:../target/stm32/vcom/usb_core.c ****   u32 ControlState = pInformation->ControlState;
+ 18818              		.loc 1 868 0
+ 18819 0006 40F20003 		movw	r3, #:lower16:pInformation
+ 18820 000a C0F20003 		movt	r3, #:upper16:pInformation
+ 18821 000e 1B68     		ldr	r3, [r3, #0]
+ 18822 0010 1B7A     		ldrb	r3, [r3, #8]	@ zero_extendqisi2
+ 18823 0012 7B60     		str	r3, [r7, #4]
+ 869:../target/stm32/vcom/usb_core.c **** 
+ 870:../target/stm32/vcom/usb_core.c ****   if ((ControlState == IN_DATA) || (ControlState == LAST_IN_DATA))
+ 18824              		.loc 1 870 0
+ 18825 0014 7B68     		ldr	r3, [r7, #4]
+ 18826 0016 022B     		cmp	r3, #2
+ 18827 0018 02D0     		beq	.L114
+ 18828              		.loc 1 870 0 is_stmt 0 discriminator 1
+ 18829 001a 7B68     		ldr	r3, [r7, #4]
+ 18830 001c 042B     		cmp	r3, #4
+ 18831 001e 09D1     		bne	.L115
+ 18832              	.L114:
+ 871:../target/stm32/vcom/usb_core.c ****   {
+ 872:../target/stm32/vcom/usb_core.c ****     DataStageIn();
+ 18833              		.loc 1 872 0 is_stmt 1
+ 18834 0020 FFF7FEFF 		bl	DataStageIn
+ 873:../target/stm32/vcom/usb_core.c ****     /* ControlState may be changed outside the function */
+ 874:../target/stm32/vcom/usb_core.c ****     ControlState = pInformation->ControlState;
+ 18835              		.loc 1 874 0
+ 18836 0024 40F20003 		movw	r3, #:lower16:pInformation
+ 18837 0028 C0F20003 		movt	r3, #:upper16:pInformation
+ 18838 002c 1B68     		ldr	r3, [r3, #0]
+ 18839 002e 1B7A     		ldrb	r3, [r3, #8]	@ zero_extendqisi2
+ 18840 0030 7B60     		str	r3, [r7, #4]
+ 18841 0032 32E0     		b	.L116
+ 18842              	.L115:
+ 875:../target/stm32/vcom/usb_core.c ****   }
+ 876:../target/stm32/vcom/usb_core.c **** 
+ 877:../target/stm32/vcom/usb_core.c ****   else if (ControlState == WAIT_STATUS_IN)
+ 18843              		.loc 1 877 0
+ 18844 0034 7B68     		ldr	r3, [r7, #4]
+ 18845 0036 062B     		cmp	r3, #6
+ 18846 0038 2CD1     		bne	.L117
+ 878:../target/stm32/vcom/usb_core.c ****   {
+ 879:../target/stm32/vcom/usb_core.c ****     if ((pInformation->USBbRequest == SET_ADDRESS) &&
+ 18847              		.loc 1 879 0
+ 18848 003a 40F20003 		movw	r3, #:lower16:pInformation
+ 18849 003e C0F20003 		movt	r3, #:upper16:pInformation
+ 18850 0042 1B68     		ldr	r3, [r3, #0]
+ 18851 0044 5B78     		ldrb	r3, [r3, #1]	@ zero_extendqisi2
+ 18852 0046 052B     		cmp	r3, #5
+ 18853 0048 19D1     		bne	.L118
+ 880:../target/stm32/vcom/usb_core.c ****         (Type_Recipient == (STANDARD_REQUEST | DEVICE_RECIPIENT)))
+ 18854              		.loc 1 880 0 discriminator 1
+ 18855 004a 40F20003 		movw	r3, #:lower16:pInformation
+ 18856 004e C0F20003 		movt	r3, #:upper16:pInformation
+ 18857 0052 1B68     		ldr	r3, [r3, #0]
+ 18858 0054 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 18859 0056 03F07F03 		and	r3, r3, #127
+ 879:../target/stm32/vcom/usb_core.c ****     if ((pInformation->USBbRequest == SET_ADDRESS) &&
+ 18860              		.loc 1 879 0 discriminator 1
+ 18861 005a 002B     		cmp	r3, #0
+ 18862 005c 0FD1     		bne	.L118
+ 881:../target/stm32/vcom/usb_core.c ****     {
+ 882:../target/stm32/vcom/usb_core.c ****       SetDeviceAddress(pInformation->USBwValue0);
+ 18863              		.loc 1 882 0
+ 18864 005e 40F20003 		movw	r3, #:lower16:pInformation
+ 18865 0062 C0F20003 		movt	r3, #:upper16:pInformation
+ 18866 0066 1B68     		ldr	r3, [r3, #0]
+ 18867 0068 DB78     		ldrb	r3, [r3, #3]	@ zero_extendqisi2
+ 18868 006a 1846     		mov	r0, r3
+ 18869 006c FFF7FEFF 		bl	SetDeviceAddress
+ 883:../target/stm32/vcom/usb_core.c ****       pUser_Standard_Requests->User_SetDeviceAddress();
+ 18870              		.loc 1 883 0
+ 18871 0070 40F20003 		movw	r3, #:lower16:pUser_Standard_Requests
+ 18872 0074 C0F20003 		movt	r3, #:upper16:pUser_Standard_Requests
+ 18873 0078 1B68     		ldr	r3, [r3, #0]
+ 18874 007a 1B6A     		ldr	r3, [r3, #32]
+ 18875 007c 9847     		blx	r3
+ 18876              	.L118:
+ 884:../target/stm32/vcom/usb_core.c ****     }
+ 885:../target/stm32/vcom/usb_core.c ****     (*pProperty->Process_Status_IN)();
+ 18877              		.loc 1 885 0
+ 18878 007e 40F20003 		movw	r3, #:lower16:pProperty
+ 18879 0082 C0F20003 		movt	r3, #:upper16:pProperty
+ 18880 0086 1B68     		ldr	r3, [r3, #0]
+ 18881 0088 9B68     		ldr	r3, [r3, #8]
+ 18882 008a 9847     		blx	r3
+ 886:../target/stm32/vcom/usb_core.c ****     ControlState = STALLED;
+ 18883              		.loc 1 886 0
+ 18884 008c 4FF00803 		mov	r3, #8
+ 18885 0090 7B60     		str	r3, [r7, #4]
+ 18886 0092 02E0     		b	.L116
+ 18887              	.L117:
+ 887:../target/stm32/vcom/usb_core.c ****   }
+ 888:../target/stm32/vcom/usb_core.c **** 
+ 889:../target/stm32/vcom/usb_core.c ****   else
+ 890:../target/stm32/vcom/usb_core.c ****   {
+ 891:../target/stm32/vcom/usb_core.c ****     ControlState = STALLED;
+ 18888              		.loc 1 891 0
+ 18889 0094 4FF00803 		mov	r3, #8
+ 18890 0098 7B60     		str	r3, [r7, #4]
+ 18891              	.L116:
+ 892:../target/stm32/vcom/usb_core.c ****   }
+ 893:../target/stm32/vcom/usb_core.c **** 
+ 894:../target/stm32/vcom/usb_core.c ****   pInformation->ControlState = ControlState;
+ 18892              		.loc 1 894 0
+ 18893 009a 40F20003 		movw	r3, #:lower16:pInformation
+ 18894 009e C0F20003 		movt	r3, #:upper16:pInformation
+ 18895 00a2 1B68     		ldr	r3, [r3, #0]
+ 18896 00a4 7A68     		ldr	r2, [r7, #4]
+ 18897 00a6 D2B2     		uxtb	r2, r2
+ 18898 00a8 1A72     		strb	r2, [r3, #8]
+ 895:../target/stm32/vcom/usb_core.c **** 
+ 896:../target/stm32/vcom/usb_core.c ****   return Post0_Process();
+ 18899              		.loc 1 896 0
+ 18900 00aa FFF7FEFF 		bl	Post0_Process
+ 18901 00ae 0346     		mov	r3, r0
+ 897:../target/stm32/vcom/usb_core.c **** }
+ 18902              		.loc 1 897 0
+ 18903 00b0 1846     		mov	r0, r3
+ 18904 00b2 07F10807 		add	r7, r7, #8
+ 18905 00b6 BD46     		mov	sp, r7
+ 18906 00b8 80BD     		pop	{r7, pc}
+ 18907              		.cfi_endproc
+ 18908              	.LFE43:
+ 18910 00ba 00BF     		.section	.text.Out0_Process,"ax",%progbits
+ 18911              		.align	2
+ 18912              		.global	Out0_Process
+ 18913              		.thumb
+ 18914              		.thumb_func
+ 18916              	Out0_Process:
+ 18917              	.LFB44:
+ 898:../target/stm32/vcom/usb_core.c **** 
+ 899:../target/stm32/vcom/usb_core.c **** /*******************************************************************************
+ 900:../target/stm32/vcom/usb_core.c **** * Function Name  : Out0_Process
+ 901:../target/stm32/vcom/usb_core.c **** * Description    : Process the OUT token on all default endpoint.
+ 902:../target/stm32/vcom/usb_core.c **** * Input          : None.
+ 903:../target/stm32/vcom/usb_core.c **** * Output         : None.
+ 904:../target/stm32/vcom/usb_core.c **** * Return         : Post0_Process.
+ 905:../target/stm32/vcom/usb_core.c **** *******************************************************************************/
+ 906:../target/stm32/vcom/usb_core.c **** u8 Out0_Process(void)
+ 907:../target/stm32/vcom/usb_core.c **** {
+ 18918              		.loc 1 907 0
+ 18919              		.cfi_startproc
+ 18920              		@ args = 0, pretend = 0, frame = 8
+ 18921              		@ frame_needed = 1, uses_anonymous_args = 0
+ 18922 0000 80B5     		push	{r7, lr}
+ 18923              	.LCFI43:
+ 18924              		.cfi_def_cfa_offset 8
+ 18925 0002 82B0     		sub	sp, sp, #8
+ 18926              	.LCFI44:
+ 18927              		.cfi_def_cfa_offset 16
+ 18928 0004 00AF     		add	r7, sp, #0
+ 18929              		.cfi_offset 14, -4
+ 18930              		.cfi_offset 7, -8
+ 18931              	.LCFI45:
+ 18932              		.cfi_def_cfa_register 7
+ 908:../target/stm32/vcom/usb_core.c ****   u32 ControlState = pInformation->ControlState;
+ 18933              		.loc 1 908 0
+ 18934 0006 40F20003 		movw	r3, #:lower16:pInformation
+ 18935 000a C0F20003 		movt	r3, #:upper16:pInformation
+ 18936 000e 1B68     		ldr	r3, [r3, #0]
+ 18937 0010 1B7A     		ldrb	r3, [r3, #8]	@ zero_extendqisi2
+ 18938 0012 7B60     		str	r3, [r7, #4]
+ 909:../target/stm32/vcom/usb_core.c **** 
+ 910:../target/stm32/vcom/usb_core.c ****   if ((ControlState == OUT_DATA) || (ControlState == LAST_OUT_DATA))
+ 18939              		.loc 1 910 0
+ 18940 0014 7B68     		ldr	r3, [r7, #4]
+ 18941 0016 032B     		cmp	r3, #3
+ 18942 0018 02D0     		beq	.L120
+ 18943              		.loc 1 910 0 is_stmt 0 discriminator 1
+ 18944 001a 7B68     		ldr	r3, [r7, #4]
+ 18945 001c 052B     		cmp	r3, #5
+ 18946 001e 09D1     		bne	.L121
+ 18947              	.L120:
+ 911:../target/stm32/vcom/usb_core.c ****   {
+ 912:../target/stm32/vcom/usb_core.c ****     DataStageOut();
+ 18948              		.loc 1 912 0 is_stmt 1
+ 18949 0020 FFF7FEFF 		bl	DataStageOut
+ 913:../target/stm32/vcom/usb_core.c ****     ControlState = pInformation->ControlState; /* may be changed outside the function */
+ 18950              		.loc 1 913 0
+ 18951 0024 40F20003 		movw	r3, #:lower16:pInformation
+ 18952 0028 C0F20003 		movt	r3, #:upper16:pInformation
+ 18953 002c 1B68     		ldr	r3, [r3, #0]
+ 18954 002e 1B7A     		ldrb	r3, [r3, #8]	@ zero_extendqisi2
+ 18955 0030 7B60     		str	r3, [r7, #4]
+ 18956 0032 1AE0     		b	.L122
+ 18957              	.L121:
+ 914:../target/stm32/vcom/usb_core.c ****   }
+ 915:../target/stm32/vcom/usb_core.c **** 
+ 916:../target/stm32/vcom/usb_core.c ****   else if (ControlState == WAIT_STATUS_OUT)
+ 18958              		.loc 1 916 0
+ 18959 0034 7B68     		ldr	r3, [r7, #4]
+ 18960 0036 072B     		cmp	r3, #7
+ 18961 0038 0AD1     		bne	.L123
+ 917:../target/stm32/vcom/usb_core.c ****   {
+ 918:../target/stm32/vcom/usb_core.c ****     (*pProperty->Process_Status_OUT)();
+ 18962              		.loc 1 918 0
+ 18963 003a 40F20003 		movw	r3, #:lower16:pProperty
+ 18964 003e C0F20003 		movt	r3, #:upper16:pProperty
+ 18965 0042 1B68     		ldr	r3, [r3, #0]
+ 18966 0044 DB68     		ldr	r3, [r3, #12]
+ 18967 0046 9847     		blx	r3
+ 919:../target/stm32/vcom/usb_core.c ****     ControlState = STALLED;
+ 18968              		.loc 1 919 0
+ 18969 0048 4FF00803 		mov	r3, #8
+ 18970 004c 7B60     		str	r3, [r7, #4]
+ 18971 004e 0CE0     		b	.L122
+ 18972              	.L123:
+ 920:../target/stm32/vcom/usb_core.c ****   }
+ 921:../target/stm32/vcom/usb_core.c **** 
+ 922:../target/stm32/vcom/usb_core.c ****   else if ((ControlState == IN_DATA) || (ControlState == LAST_IN_DATA))
+ 18973              		.loc 1 922 0
+ 18974 0050 7B68     		ldr	r3, [r7, #4]
+ 18975 0052 022B     		cmp	r3, #2
+ 18976 0054 02D0     		beq	.L124
+ 18977              		.loc 1 922 0 is_stmt 0 discriminator 1
+ 18978 0056 7B68     		ldr	r3, [r7, #4]
+ 18979 0058 042B     		cmp	r3, #4
+ 18980 005a 03D1     		bne	.L125
+ 18981              	.L124:
+ 923:../target/stm32/vcom/usb_core.c ****   {
+ 924:../target/stm32/vcom/usb_core.c ****     /* host aborts the transfer before finish */
+ 925:../target/stm32/vcom/usb_core.c ****     ControlState = STALLED;
+ 18982              		.loc 1 925 0 is_stmt 1
+ 18983 005c 4FF00803 		mov	r3, #8
+ 18984 0060 7B60     		str	r3, [r7, #4]
+ 18985 0062 02E0     		b	.L122
+ 18986              	.L125:
+ 926:../target/stm32/vcom/usb_core.c ****   }
+ 927:../target/stm32/vcom/usb_core.c **** 
+ 928:../target/stm32/vcom/usb_core.c ****   /* Unexpect state, STALL the endpoint */
+ 929:../target/stm32/vcom/usb_core.c ****   else
+ 930:../target/stm32/vcom/usb_core.c ****   {
+ 931:../target/stm32/vcom/usb_core.c ****     ControlState = STALLED;
+ 18987              		.loc 1 931 0
+ 18988 0064 4FF00803 		mov	r3, #8
+ 18989 0068 7B60     		str	r3, [r7, #4]
+ 18990              	.L122:
+ 932:../target/stm32/vcom/usb_core.c ****   }
+ 933:../target/stm32/vcom/usb_core.c **** 
+ 934:../target/stm32/vcom/usb_core.c ****   pInformation->ControlState = ControlState;
+ 18991              		.loc 1 934 0
+ 18992 006a 40F20003 		movw	r3, #:lower16:pInformation
+ 18993 006e C0F20003 		movt	r3, #:upper16:pInformation
+ 18994 0072 1B68     		ldr	r3, [r3, #0]
+ 18995 0074 7A68     		ldr	r2, [r7, #4]
+ 18996 0076 D2B2     		uxtb	r2, r2
+ 18997 0078 1A72     		strb	r2, [r3, #8]
+ 935:../target/stm32/vcom/usb_core.c **** 
+ 936:../target/stm32/vcom/usb_core.c ****   return Post0_Process();
+ 18998              		.loc 1 936 0
+ 18999 007a FFF7FEFF 		bl	Post0_Process
+ 19000 007e 0346     		mov	r3, r0
+ 937:../target/stm32/vcom/usb_core.c **** }
+ 19001              		.loc 1 937 0
+ 19002 0080 1846     		mov	r0, r3
+ 19003 0082 07F10807 		add	r7, r7, #8
+ 19004 0086 BD46     		mov	sp, r7
+ 19005 0088 80BD     		pop	{r7, pc}
+ 19006              		.cfi_endproc
+ 19007              	.LFE44:
+ 19009 008a 00BF     		.section	.text.Post0_Process,"ax",%progbits
+ 19010              		.align	2
+ 19011              		.global	Post0_Process
+ 19012              		.thumb
+ 19013              		.thumb_func
+ 19015              	Post0_Process:
+ 19016              	.LFB45:
+ 938:../target/stm32/vcom/usb_core.c **** 
+ 939:../target/stm32/vcom/usb_core.c **** /*******************************************************************************
+ 940:../target/stm32/vcom/usb_core.c **** * Function Name  : Post0_Process
+ 941:../target/stm32/vcom/usb_core.c **** * Description    : Stall the Endpoint 0 in case of error.
+ 942:../target/stm32/vcom/usb_core.c **** * Input          : None.
+ 943:../target/stm32/vcom/usb_core.c **** * Output         : None.
+ 944:../target/stm32/vcom/usb_core.c **** * Return         : - 0 if the control State is in PAUSE
+ 945:../target/stm32/vcom/usb_core.c **** *                  - 1 if not.
+ 946:../target/stm32/vcom/usb_core.c **** *******************************************************************************/
+ 947:../target/stm32/vcom/usb_core.c **** u8 Post0_Process(void)
+ 948:../target/stm32/vcom/usb_core.c **** {
+ 19017              		.loc 1 948 0
+ 19018              		.cfi_startproc
+ 19019              		@ args = 0, pretend = 0, frame = 0
+ 19020              		@ frame_needed = 1, uses_anonymous_args = 0
+ 19021 0000 80B5     		push	{r7, lr}
+ 19022              	.LCFI46:
+ 19023              		.cfi_def_cfa_offset 8
+ 19024 0002 00AF     		add	r7, sp, #0
+ 19025              		.cfi_offset 14, -4
+ 19026              		.cfi_offset 7, -8
+ 19027              	.LCFI47:
+ 19028              		.cfi_def_cfa_register 7
+ 949:../target/stm32/vcom/usb_core.c ****   SetEPRxCount(ENDP0, Device_Property.MaxPacketSize);
+ 19029              		.loc 1 949 0
+ 19030 0004 40F20003 		movw	r3, #:lower16:Device_Property
+ 19031 0008 C0F20003 		movt	r3, #:upper16:Device_Property
+ 19032 000c 93F82C30 		ldrb	r3, [r3, #44]	@ zero_extendqisi2
+ 19033 0010 4FF00000 		mov	r0, #0
+ 19034 0014 1946     		mov	r1, r3
+ 19035 0016 FFF7FEFF 		bl	SetEPRxCount
+ 950:../target/stm32/vcom/usb_core.c **** 
+ 951:../target/stm32/vcom/usb_core.c ****   if (pInformation->ControlState == STALLED)
+ 19036              		.loc 1 951 0
+ 19037 001a 40F20003 		movw	r3, #:lower16:pInformation
+ 19038 001e C0F20003 		movt	r3, #:upper16:pInformation
+ 19039 0022 1B68     		ldr	r3, [r3, #0]
+ 19040 0024 1B7A     		ldrb	r3, [r3, #8]	@ zero_extendqisi2
+ 19041 0026 082B     		cmp	r3, #8
+ 19042 0028 0DD1     		bne	.L127
+ 952:../target/stm32/vcom/usb_core.c ****   {
+ 953:../target/stm32/vcom/usb_core.c ****     vSetEPRxStatus(EP_RX_STALL);
+ 19043              		.loc 1 953 0
+ 19044 002a 40F20003 		movw	r3, #:lower16:SaveRState
+ 19045 002e C0F20003 		movt	r3, #:upper16:SaveRState
+ 19046 0032 4FF48052 		mov	r2, #4096
+ 19047 0036 1A80     		strh	r2, [r3, #0]	@ movhi
+ 954:../target/stm32/vcom/usb_core.c ****     vSetEPTxStatus(EP_TX_STALL);
+ 19048              		.loc 1 954 0
+ 19049 0038 40F20003 		movw	r3, #:lower16:SaveTState
+ 19050 003c C0F20003 		movt	r3, #:upper16:SaveTState
+ 19051 0040 4FF01002 		mov	r2, #16
+ 19052 0044 1A80     		strh	r2, [r3, #0]	@ movhi
+ 19053              	.L127:
+ 955:../target/stm32/vcom/usb_core.c ****   }
+ 956:../target/stm32/vcom/usb_core.c **** 
+ 957:../target/stm32/vcom/usb_core.c ****   return (pInformation->ControlState == PAUSE);
+ 19054              		.loc 1 957 0
+ 19055 0046 40F20003 		movw	r3, #:lower16:pInformation
+ 19056 004a C0F20003 		movt	r3, #:upper16:pInformation
+ 19057 004e 1B68     		ldr	r3, [r3, #0]
+ 19058 0050 1B7A     		ldrb	r3, [r3, #8]	@ zero_extendqisi2
+ 19059 0052 092B     		cmp	r3, #9
+ 19060 0054 14BF     		ite	ne
+ 19061 0056 0023     		movne	r3, #0
+ 19062 0058 0123     		moveq	r3, #1
+ 19063 005a DBB2     		uxtb	r3, r3
+ 958:../target/stm32/vcom/usb_core.c **** }
+ 19064              		.loc 1 958 0
+ 19065 005c 1846     		mov	r0, r3
+ 19066 005e 80BD     		pop	{r7, pc}
+ 19067              		.cfi_endproc
+ 19068              	.LFE45:
+ 19070              		.section	.text.SetDeviceAddress,"ax",%progbits
+ 19071              		.align	2
+ 19072              		.global	SetDeviceAddress
+ 19073              		.thumb
+ 19074              		.thumb_func
+ 19076              	SetDeviceAddress:
+ 19077              	.LFB46:
+ 959:../target/stm32/vcom/usb_core.c **** 
+ 960:../target/stm32/vcom/usb_core.c **** /*******************************************************************************
+ 961:../target/stm32/vcom/usb_core.c **** * Function Name  : SetDeviceAddress.
+ 962:../target/stm32/vcom/usb_core.c **** * Description    : Set the device and all the used Endpoints addresses.
+ 963:../target/stm32/vcom/usb_core.c **** * Input          : - Val: device adress.
+ 964:../target/stm32/vcom/usb_core.c **** * Output         : None.
+ 965:../target/stm32/vcom/usb_core.c **** * Return         : None.
+ 966:../target/stm32/vcom/usb_core.c **** *******************************************************************************/
+ 967:../target/stm32/vcom/usb_core.c **** void SetDeviceAddress(u8 Val)
+ 968:../target/stm32/vcom/usb_core.c **** {
+ 19078              		.loc 1 968 0
+ 19079              		.cfi_startproc
+ 19080              		@ args = 0, pretend = 0, frame = 16
+ 19081              		@ frame_needed = 1, uses_anonymous_args = 0
+ 19082              		@ link register save eliminated.
+ 19083 0000 80B4     		push	{r7}
+ 19084              	.LCFI48:
+ 19085              		.cfi_def_cfa_offset 4
+ 19086 0002 85B0     		sub	sp, sp, #20
+ 19087              	.LCFI49:
+ 19088              		.cfi_def_cfa_offset 24
+ 19089 0004 00AF     		add	r7, sp, #0
+ 19090              		.cfi_offset 7, -4
+ 19091              	.LCFI50:
+ 19092              		.cfi_def_cfa_register 7
+ 19093 0006 0346     		mov	r3, r0
+ 19094 0008 FB71     		strb	r3, [r7, #7]
+ 969:../target/stm32/vcom/usb_core.c ****   u32 i;
+ 970:../target/stm32/vcom/usb_core.c ****   u32 nEP = Device_Table.Total_Endpoint;
+ 19095              		.loc 1 970 0
+ 19096 000a 40F20003 		movw	r3, #:lower16:Device_Table
+ 19097 000e C0F20003 		movt	r3, #:upper16:Device_Table
+ 19098 0012 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 19099 0014 BB60     		str	r3, [r7, #8]
+ 971:../target/stm32/vcom/usb_core.c **** 
+ 972:../target/stm32/vcom/usb_core.c ****   /* set address in every used endpoint */
+ 973:../target/stm32/vcom/usb_core.c ****   for (i = 0; i < nEP; i++)
+ 19100              		.loc 1 973 0
+ 19101 0016 4FF00003 		mov	r3, #0
+ 19102 001a FB60     		str	r3, [r7, #12]
+ 19103 001c 1EE0     		b	.L129
+ 19104              	.L130:
+ 974:../target/stm32/vcom/usb_core.c ****   {
+ 975:../target/stm32/vcom/usb_core.c ****     _SetEPAddress((u8)i, (u8)i);
+ 19105              		.loc 1 975 0 discriminator 2
+ 19106 001e FB68     		ldr	r3, [r7, #12]
+ 19107 0020 DBB2     		uxtb	r3, r3
+ 19108 0022 4FEA8303 		lsl	r3, r3, #2
+ 19109 0026 03F18043 		add	r3, r3, #1073741824
+ 19110 002a 03F5B843 		add	r3, r3, #23552
+ 19111 002e FA68     		ldr	r2, [r7, #12]
+ 19112 0030 D2B2     		uxtb	r2, r2
+ 19113 0032 4FEA8202 		lsl	r2, r2, #2
+ 19114 0036 02F18042 		add	r2, r2, #1073741824
+ 19115 003a 02F5B842 		add	r2, r2, #23552
+ 19116 003e 1268     		ldr	r2, [r2, #0]
+ 19117 0040 92B2     		uxth	r2, r2
+ 19118 0042 1146     		mov	r1, r2
+ 19119 0044 48F68F72 		movw	r2, #36751
+ 19120 0048 01EA0202 		and	r2, r1, r2
+ 19121 004c F968     		ldr	r1, [r7, #12]
+ 19122 004e C9B2     		uxtb	r1, r1
+ 19123 0050 0A43     		orrs	r2, r2, r1
+ 19124 0052 1A60     		str	r2, [r3, #0]
+ 973:../target/stm32/vcom/usb_core.c ****   for (i = 0; i < nEP; i++)
+ 19125              		.loc 1 973 0 discriminator 2
+ 19126 0054 FB68     		ldr	r3, [r7, #12]
+ 19127 0056 03F10103 		add	r3, r3, #1
+ 19128 005a FB60     		str	r3, [r7, #12]
+ 19129              	.L129:
+ 973:../target/stm32/vcom/usb_core.c ****   for (i = 0; i < nEP; i++)
+ 19130              		.loc 1 973 0 is_stmt 0 discriminator 1
+ 19131 005c FA68     		ldr	r2, [r7, #12]
+ 19132 005e BB68     		ldr	r3, [r7, #8]
+ 19133 0060 9A42     		cmp	r2, r3
+ 19134 0062 DCD3     		bcc	.L130
+ 976:../target/stm32/vcom/usb_core.c ****   } /* for */
+ 977:../target/stm32/vcom/usb_core.c ****   _SetDADDR(Val | DADDR_EF); /* set device address and enable function */
+ 19135              		.loc 1 977 0 is_stmt 1
+ 19136 0064 45F64C43 		movw	r3, #23628
+ 19137 0068 C4F20003 		movt	r3, 16384
+ 19138 006c FA79     		ldrb	r2, [r7, #7]
+ 19139 006e 62F07F02 		orn	r2, r2, #127
+ 19140 0072 D2B2     		uxtb	r2, r2
+ 19141 0074 1A60     		str	r2, [r3, #0]
+ 978:../target/stm32/vcom/usb_core.c **** }
+ 19142              		.loc 1 978 0
+ 19143 0076 07F11407 		add	r7, r7, #20
+ 19144 007a BD46     		mov	sp, r7
+ 19145 007c 80BC     		pop	{r7}
+ 19146 007e 7047     		bx	lr
+ 19147              		.cfi_endproc
+ 19148              	.LFE46:
+ 19150              		.section	.text.NOP_Process,"ax",%progbits
+ 19151              		.align	2
+ 19152              		.global	NOP_Process
+ 19153              		.thumb
+ 19154              		.thumb_func
+ 19156              	NOP_Process:
+ 19157              	.LFB47:
+ 979:../target/stm32/vcom/usb_core.c **** 
+ 980:../target/stm32/vcom/usb_core.c **** /*******************************************************************************
+ 981:../target/stm32/vcom/usb_core.c **** * Function Name  : NOP_Process
+ 982:../target/stm32/vcom/usb_core.c **** * Description    : No operation function.
+ 983:../target/stm32/vcom/usb_core.c **** * Input          : None.
+ 984:../target/stm32/vcom/usb_core.c **** * Output         : None.
+ 985:../target/stm32/vcom/usb_core.c **** * Return         : None.
+ 986:../target/stm32/vcom/usb_core.c **** *******************************************************************************/
+ 987:../target/stm32/vcom/usb_core.c **** void NOP_Process(void)
+ 988:../target/stm32/vcom/usb_core.c **** {
+ 19158              		.loc 1 988 0
+ 19159              		.cfi_startproc
+ 19160              		@ args = 0, pretend = 0, frame = 0
+ 19161              		@ frame_needed = 1, uses_anonymous_args = 0
+ 19162              		@ link register save eliminated.
+ 19163 0000 80B4     		push	{r7}
+ 19164              	.LCFI51:
+ 19165              		.cfi_def_cfa_offset 4
+ 19166 0002 00AF     		add	r7, sp, #0
+ 19167              		.cfi_offset 7, -4
+ 19168              	.LCFI52:
+ 19169              		.cfi_def_cfa_register 7
+ 989:../target/stm32/vcom/usb_core.c **** }
+ 19170              		.loc 1 989 0
+ 19171 0004 BD46     		mov	sp, r7
+ 19172 0006 80BC     		pop	{r7}
+ 19173 0008 7047     		bx	lr
+ 19174              		.cfi_endproc
+ 19175              	.LFE47:
+ 19177 000a 00BF     		.text
+ 19178              	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 usb_core.c
+                            *COM*:00000002 StatusInfo
+     /tmp/ccB3hS3Y.s:16473  .text.Standard_GetConfiguration:00000000 $t
+     /tmp/ccB3hS3Y.s:16478  .text.Standard_GetConfiguration:00000000 Standard_GetConfiguration
+     /tmp/ccB3hS3Y.s:16532  .text.Standard_SetConfiguration:00000000 $t
+     /tmp/ccB3hS3Y.s:16537  .text.Standard_SetConfiguration:00000000 Standard_SetConfiguration
+     /tmp/ccB3hS3Y.s:16606  .text.Standard_GetInterface:00000000 $t
+     /tmp/ccB3hS3Y.s:16611  .text.Standard_GetInterface:00000000 Standard_GetInterface
+     /tmp/ccB3hS3Y.s:16665  .text.Standard_SetInterface:00000000 $t
+     /tmp/ccB3hS3Y.s:16670  .text.Standard_SetInterface:00000000 Standard_SetInterface
+     /tmp/ccB3hS3Y.s:16779  .text.Standard_GetStatus:00000000 $t
+     /tmp/ccB3hS3Y.s:16784  .text.Standard_GetStatus:00000000 Standard_GetStatus
+     /tmp/ccB3hS3Y.s:16983  .text.Standard_ClearFeature:00000000 $t
+     /tmp/ccB3hS3Y.s:16988  .text.Standard_ClearFeature:00000000 Standard_ClearFeature
+     /tmp/ccB3hS3Y.s:17252  .text.Standard_SetEndPointFeature:00000000 $t
+     /tmp/ccB3hS3Y.s:17257  .text.Standard_SetEndPointFeature:00000000 Standard_SetEndPointFeature
+     /tmp/ccB3hS3Y.s:17415  .text.Standard_SetDeviceFeature:00000000 $t
+     /tmp/ccB3hS3Y.s:17420  .text.Standard_SetDeviceFeature:00000000 Standard_SetDeviceFeature
+     /tmp/ccB3hS3Y.s:17460  .text.Standard_GetDescriptorData:00000000 $t
+     /tmp/ccB3hS3Y.s:17465  .text.Standard_GetDescriptorData:00000000 Standard_GetDescriptorData
+     /tmp/ccB3hS3Y.s:17526  .text.DataStageOut:00000000 $t
+     /tmp/ccB3hS3Y.s:17530  .text.DataStageOut:00000000 DataStageOut
+     /tmp/ccB3hS3Y.s:17703  .text.DataStageIn:00000000 $t
+     /tmp/ccB3hS3Y.s:17707  .text.DataStageIn:00000000 DataStageIn
+     /tmp/ccB3hS3Y.s:17855  .text.NoData_Setup0:00000000 $t
+     /tmp/ccB3hS3Y.s:17859  .text.NoData_Setup0:00000000 NoData_Setup0
+     /tmp/ccB3hS3Y.s:18151  .text.Data_Setup0:00000000 $t
+     /tmp/ccB3hS3Y.s:18155  .text.Data_Setup0:00000000 Data_Setup0
+     /tmp/ccB3hS3Y.s:18656  .text.Setup0_Process:00000000 $t
+     /tmp/ccB3hS3Y.s:18661  .text.Setup0_Process:00000000 Setup0_Process
+     /tmp/ccB3hS3Y.s:19015  .text.Post0_Process:00000000 Post0_Process
+     /tmp/ccB3hS3Y.s:18796  .text.In0_Process:00000000 $t
+     /tmp/ccB3hS3Y.s:18801  .text.In0_Process:00000000 In0_Process
+     /tmp/ccB3hS3Y.s:19076  .text.SetDeviceAddress:00000000 SetDeviceAddress
+     /tmp/ccB3hS3Y.s:18911  .text.Out0_Process:00000000 $t
+     /tmp/ccB3hS3Y.s:18916  .text.Out0_Process:00000000 Out0_Process
+     /tmp/ccB3hS3Y.s:19010  .text.Post0_Process:00000000 $t
+     /tmp/ccB3hS3Y.s:19071  .text.SetDeviceAddress:00000000 $t
+     /tmp/ccB3hS3Y.s:19151  .text.NOP_Process:00000000 $t
+     /tmp/ccB3hS3Y.s:19156  .text.NOP_Process:00000000 NOP_Process
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+pInformation
+pUser_Standard_Requests
+Device_Table
+pProperty
+ClearDTOG_TX
+SetEPTxStatus
+Device_Property
+SetEPRxCount
+ClearDTOG_RX
+GetEPRxAddr
+PMAToUserBufferCopy
+SaveRState
+SetEPTxCount
+SaveTState
+GetEPTxAddr
+UserToPMABufferCopy
+ByteSwap

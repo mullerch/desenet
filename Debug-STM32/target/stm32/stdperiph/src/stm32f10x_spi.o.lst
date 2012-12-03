@@ -1,0 +1,2447 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"stm32f10x_spi.c"
+  23              	.Ltext0:
+  24              		.file 1 "../target/stm32/stdperiph/src/stm32f10x_spi.c"
+ 16622              		.align	2
+ 16623              		.global	SPI_I2S_DeInit
+ 16624              		.thumb
+ 16625              		.thumb_func
+ 16627              	SPI_I2S_DeInit:
+ 16628              	.LFB29:
+   1:../target/stm32/stdperiph/src/stm32f10x_spi.c **** /**
+   2:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   ******************************************************************************
+   3:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @file    stm32f10x_spi.c
+   4:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @author  MCD Application Team
+   5:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @version V3.4.0
+   6:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @date    10/15/2010
+   7:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @brief   This file provides all the SPI firmware functions.
+   8:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   ******************************************************************************
+   9:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @copy
+  10:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *
+  11:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
+  12:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
+  13:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * TIME. AS A RESULT, STMICROELECTRONICS SHALL NOT BE HELD LIABLE FOR ANY
+  14:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * DIRECT, INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING
+  15:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
+  16:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
+  17:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *
+  18:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * <h2><center>&copy; COPYRIGHT 2010 STMicroelectronics</center></h2>
+  19:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   */ 
+  20:../target/stm32/stdperiph/src/stm32f10x_spi.c **** 
+  21:../target/stm32/stdperiph/src/stm32f10x_spi.c **** /* Includes ------------------------------------------------------------------*/
+  22:../target/stm32/stdperiph/src/stm32f10x_spi.c **** #include "stm32f10x_spi.h"
+  23:../target/stm32/stdperiph/src/stm32f10x_spi.c **** #include "stm32f10x_rcc.h"
+  24:../target/stm32/stdperiph/src/stm32f10x_spi.c **** 
+  25:../target/stm32/stdperiph/src/stm32f10x_spi.c **** /** @addtogroup STM32F10x_StdPeriph_Driver
+  26:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @{
+  27:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   */
+  28:../target/stm32/stdperiph/src/stm32f10x_spi.c **** 
+  29:../target/stm32/stdperiph/src/stm32f10x_spi.c **** /** @defgroup SPI 
+  30:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @brief SPI driver modules
+  31:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @{
+  32:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   */ 
+  33:../target/stm32/stdperiph/src/stm32f10x_spi.c **** 
+  34:../target/stm32/stdperiph/src/stm32f10x_spi.c **** /** @defgroup SPI_Private_TypesDefinitions
+  35:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @{
+  36:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   */
+  37:../target/stm32/stdperiph/src/stm32f10x_spi.c **** 
+  38:../target/stm32/stdperiph/src/stm32f10x_spi.c **** /**
+  39:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @}
+  40:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   */ 
+  41:../target/stm32/stdperiph/src/stm32f10x_spi.c **** 
+  42:../target/stm32/stdperiph/src/stm32f10x_spi.c **** 
+  43:../target/stm32/stdperiph/src/stm32f10x_spi.c **** /** @defgroup SPI_Private_Defines
+  44:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @{
+  45:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   */
+  46:../target/stm32/stdperiph/src/stm32f10x_spi.c **** 
+  47:../target/stm32/stdperiph/src/stm32f10x_spi.c **** /* SPI SPE mask */
+  48:../target/stm32/stdperiph/src/stm32f10x_spi.c **** #define CR1_SPE_Set          ((uint16_t)0x0040)
+  49:../target/stm32/stdperiph/src/stm32f10x_spi.c **** #define CR1_SPE_Reset        ((uint16_t)0xFFBF)
+  50:../target/stm32/stdperiph/src/stm32f10x_spi.c **** 
+  51:../target/stm32/stdperiph/src/stm32f10x_spi.c **** /* I2S I2SE mask */
+  52:../target/stm32/stdperiph/src/stm32f10x_spi.c **** #define I2SCFGR_I2SE_Set     ((uint16_t)0x0400)
+  53:../target/stm32/stdperiph/src/stm32f10x_spi.c **** #define I2SCFGR_I2SE_Reset   ((uint16_t)0xFBFF)
+  54:../target/stm32/stdperiph/src/stm32f10x_spi.c **** 
+  55:../target/stm32/stdperiph/src/stm32f10x_spi.c **** /* SPI CRCNext mask */
+  56:../target/stm32/stdperiph/src/stm32f10x_spi.c **** #define CR1_CRCNext_Set      ((uint16_t)0x1000)
+  57:../target/stm32/stdperiph/src/stm32f10x_spi.c **** 
+  58:../target/stm32/stdperiph/src/stm32f10x_spi.c **** /* SPI CRCEN mask */
+  59:../target/stm32/stdperiph/src/stm32f10x_spi.c **** #define CR1_CRCEN_Set        ((uint16_t)0x2000)
+  60:../target/stm32/stdperiph/src/stm32f10x_spi.c **** #define CR1_CRCEN_Reset      ((uint16_t)0xDFFF)
+  61:../target/stm32/stdperiph/src/stm32f10x_spi.c **** 
+  62:../target/stm32/stdperiph/src/stm32f10x_spi.c **** /* SPI SSOE mask */
+  63:../target/stm32/stdperiph/src/stm32f10x_spi.c **** #define CR2_SSOE_Set         ((uint16_t)0x0004)
+  64:../target/stm32/stdperiph/src/stm32f10x_spi.c **** #define CR2_SSOE_Reset       ((uint16_t)0xFFFB)
+  65:../target/stm32/stdperiph/src/stm32f10x_spi.c **** 
+  66:../target/stm32/stdperiph/src/stm32f10x_spi.c **** /* SPI registers Masks */
+  67:../target/stm32/stdperiph/src/stm32f10x_spi.c **** #define CR1_CLEAR_Mask       ((uint16_t)0x3040)
+  68:../target/stm32/stdperiph/src/stm32f10x_spi.c **** #define I2SCFGR_CLEAR_Mask   ((uint16_t)0xF040)
+  69:../target/stm32/stdperiph/src/stm32f10x_spi.c **** 
+  70:../target/stm32/stdperiph/src/stm32f10x_spi.c **** /* SPI or I2S mode selection masks */
+  71:../target/stm32/stdperiph/src/stm32f10x_spi.c **** #define SPI_Mode_Select      ((uint16_t)0xF7FF)
+  72:../target/stm32/stdperiph/src/stm32f10x_spi.c **** #define I2S_Mode_Select      ((uint16_t)0x0800) 
+  73:../target/stm32/stdperiph/src/stm32f10x_spi.c **** 
+  74:../target/stm32/stdperiph/src/stm32f10x_spi.c **** /* I2S clock source selection masks */
+  75:../target/stm32/stdperiph/src/stm32f10x_spi.c **** #define I2S2_CLOCK_SRC       ((uint32_t)(0x00020000))
+  76:../target/stm32/stdperiph/src/stm32f10x_spi.c **** #define I2S3_CLOCK_SRC       ((uint32_t)(0x00040000))
+  77:../target/stm32/stdperiph/src/stm32f10x_spi.c **** #define I2S_MUL_MASK         ((uint32_t)(0x0000F000))
+  78:../target/stm32/stdperiph/src/stm32f10x_spi.c **** #define I2S_DIV_MASK         ((uint32_t)(0x000000F0))
+  79:../target/stm32/stdperiph/src/stm32f10x_spi.c **** 
+  80:../target/stm32/stdperiph/src/stm32f10x_spi.c **** /**
+  81:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @}
+  82:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   */
+  83:../target/stm32/stdperiph/src/stm32f10x_spi.c **** 
+  84:../target/stm32/stdperiph/src/stm32f10x_spi.c **** /** @defgroup SPI_Private_Macros
+  85:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @{
+  86:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   */
+  87:../target/stm32/stdperiph/src/stm32f10x_spi.c **** 
+  88:../target/stm32/stdperiph/src/stm32f10x_spi.c **** /**
+  89:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @}
+  90:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   */
+  91:../target/stm32/stdperiph/src/stm32f10x_spi.c **** 
+  92:../target/stm32/stdperiph/src/stm32f10x_spi.c **** /** @defgroup SPI_Private_Variables
+  93:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @{
+  94:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   */
+  95:../target/stm32/stdperiph/src/stm32f10x_spi.c **** 
+  96:../target/stm32/stdperiph/src/stm32f10x_spi.c **** /**
+  97:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @}
+  98:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   */
+  99:../target/stm32/stdperiph/src/stm32f10x_spi.c **** 
+ 100:../target/stm32/stdperiph/src/stm32f10x_spi.c **** /** @defgroup SPI_Private_FunctionPrototypes
+ 101:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @{
+ 102:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   */
+ 103:../target/stm32/stdperiph/src/stm32f10x_spi.c **** 
+ 104:../target/stm32/stdperiph/src/stm32f10x_spi.c **** /**
+ 105:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @}
+ 106:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   */
+ 107:../target/stm32/stdperiph/src/stm32f10x_spi.c **** 
+ 108:../target/stm32/stdperiph/src/stm32f10x_spi.c **** /** @defgroup SPI_Private_Functions
+ 109:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @{
+ 110:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   */
+ 111:../target/stm32/stdperiph/src/stm32f10x_spi.c **** 
+ 112:../target/stm32/stdperiph/src/stm32f10x_spi.c **** /**
+ 113:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @brief  Deinitializes the SPIx peripheral registers to their default
+ 114:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *   reset values (Affects also the I2Ss).
+ 115:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @param  SPIx: where x can be 1, 2 or 3 to select the SPI peripheral.
+ 116:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @retval None
+ 117:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   */
+ 118:../target/stm32/stdperiph/src/stm32f10x_spi.c **** void SPI_I2S_DeInit(SPI_TypeDef* SPIx)
+ 119:../target/stm32/stdperiph/src/stm32f10x_spi.c **** {
+ 16629              		.loc 1 119 0
+ 16630              		.cfi_startproc
+ 16631              		@ args = 0, pretend = 0, frame = 8
+ 16632              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16633 0000 80B5     		push	{r7, lr}
+ 16634              	.LCFI0:
+ 16635              		.cfi_def_cfa_offset 8
+ 16636 0002 82B0     		sub	sp, sp, #8
+ 16637              	.LCFI1:
+ 16638              		.cfi_def_cfa_offset 16
+ 16639 0004 00AF     		add	r7, sp, #0
+ 16640              		.cfi_offset 14, -4
+ 16641              		.cfi_offset 7, -8
+ 16642              	.LCFI2:
+ 16643              		.cfi_def_cfa_register 7
+ 16644 0006 7860     		str	r0, [r7, #4]
+ 120:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Check the parameters */
+ 121:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   assert_param(IS_SPI_ALL_PERIPH(SPIx));
+ 122:../target/stm32/stdperiph/src/stm32f10x_spi.c **** 
+ 123:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   if (SPIx == SPI1)
+ 16645              		.loc 1 123 0
+ 16646 0008 7A68     		ldr	r2, [r7, #4]
+ 16647 000a 4FF44053 		mov	r3, #12288
+ 16648 000e C4F20103 		movt	r3, 16385
+ 16649 0012 9A42     		cmp	r2, r3
+ 16650 0014 0CD1     		bne	.L2
+ 124:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   {
+ 125:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     /* Enable SPI1 reset state */
+ 126:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     RCC_APB2PeriphResetCmd(RCC_APB2Periph_SPI1, ENABLE);
+ 16651              		.loc 1 126 0
+ 16652 0016 4FF48050 		mov	r0, #4096
+ 16653 001a 4FF00101 		mov	r1, #1
+ 16654 001e FFF7FEFF 		bl	RCC_APB2PeriphResetCmd
+ 127:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     /* Release SPI1 from reset state */
+ 128:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     RCC_APB2PeriphResetCmd(RCC_APB2Periph_SPI1, DISABLE);
+ 16655              		.loc 1 128 0
+ 16656 0022 4FF48050 		mov	r0, #4096
+ 16657 0026 4FF00001 		mov	r1, #0
+ 16658 002a FFF7FEFF 		bl	RCC_APB2PeriphResetCmd
+ 16659 002e 26E0     		b	.L1
+ 16660              	.L2:
+ 129:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   }
+ 130:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   else if (SPIx == SPI2)
+ 16661              		.loc 1 130 0
+ 16662 0030 7A68     		ldr	r2, [r7, #4]
+ 16663 0032 4FF46053 		mov	r3, #14336
+ 16664 0036 C4F20003 		movt	r3, 16384
+ 16665 003a 9A42     		cmp	r2, r3
+ 16666 003c 0CD1     		bne	.L4
+ 131:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   {
+ 132:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     /* Enable SPI2 reset state */
+ 133:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     RCC_APB1PeriphResetCmd(RCC_APB1Periph_SPI2, ENABLE);
+ 16667              		.loc 1 133 0
+ 16668 003e 4FF48040 		mov	r0, #16384
+ 16669 0042 4FF00101 		mov	r1, #1
+ 16670 0046 FFF7FEFF 		bl	RCC_APB1PeriphResetCmd
+ 134:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     /* Release SPI2 from reset state */
+ 135:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     RCC_APB1PeriphResetCmd(RCC_APB1Periph_SPI2, DISABLE);
+ 16671              		.loc 1 135 0
+ 16672 004a 4FF48040 		mov	r0, #16384
+ 16673 004e 4FF00001 		mov	r1, #0
+ 16674 0052 FFF7FEFF 		bl	RCC_APB1PeriphResetCmd
+ 16675 0056 12E0     		b	.L1
+ 16676              	.L4:
+ 136:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   }
+ 137:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   else
+ 138:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   {
+ 139:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     if (SPIx == SPI3)
+ 16677              		.loc 1 139 0
+ 16678 0058 7A68     		ldr	r2, [r7, #4]
+ 16679 005a 4FF47053 		mov	r3, #15360
+ 16680 005e C4F20003 		movt	r3, 16384
+ 16681 0062 9A42     		cmp	r2, r3
+ 16682 0064 0BD1     		bne	.L1
+ 140:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     {
+ 141:../target/stm32/stdperiph/src/stm32f10x_spi.c ****       /* Enable SPI3 reset state */
+ 142:../target/stm32/stdperiph/src/stm32f10x_spi.c ****       RCC_APB1PeriphResetCmd(RCC_APB1Periph_SPI3, ENABLE);
+ 16683              		.loc 1 142 0
+ 16684 0066 4FF40040 		mov	r0, #32768
+ 16685 006a 4FF00101 		mov	r1, #1
+ 16686 006e FFF7FEFF 		bl	RCC_APB1PeriphResetCmd
+ 143:../target/stm32/stdperiph/src/stm32f10x_spi.c ****       /* Release SPI3 from reset state */
+ 144:../target/stm32/stdperiph/src/stm32f10x_spi.c ****       RCC_APB1PeriphResetCmd(RCC_APB1Periph_SPI3, DISABLE);
+ 16687              		.loc 1 144 0
+ 16688 0072 4FF40040 		mov	r0, #32768
+ 16689 0076 4FF00001 		mov	r1, #0
+ 16690 007a FFF7FEFF 		bl	RCC_APB1PeriphResetCmd
+ 16691              	.L1:
+ 145:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     }
+ 146:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   }
+ 147:../target/stm32/stdperiph/src/stm32f10x_spi.c **** }
+ 16692              		.loc 1 147 0
+ 16693 007e 07F10807 		add	r7, r7, #8
+ 16694 0082 BD46     		mov	sp, r7
+ 16695 0084 80BD     		pop	{r7, pc}
+ 16696              		.cfi_endproc
+ 16697              	.LFE29:
+ 16699 0086 00BF     		.section	.text.SPI_Init,"ax",%progbits
+ 16700              		.align	2
+ 16701              		.global	SPI_Init
+ 16702              		.thumb
+ 16703              		.thumb_func
+ 16705              	SPI_Init:
+ 16706              	.LFB30:
+ 148:../target/stm32/stdperiph/src/stm32f10x_spi.c **** 
+ 149:../target/stm32/stdperiph/src/stm32f10x_spi.c **** /**
+ 150:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @brief  Initializes the SPIx peripheral according to the specified 
+ 151:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *   parameters in the SPI_InitStruct.
+ 152:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @param  SPIx: where x can be 1, 2 or 3 to select the SPI peripheral.
+ 153:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @param  SPI_InitStruct: pointer to a SPI_InitTypeDef structure that
+ 154:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *   contains the configuration information for the specified SPI peripheral.
+ 155:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @retval None
+ 156:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   */
+ 157:../target/stm32/stdperiph/src/stm32f10x_spi.c **** void SPI_Init(SPI_TypeDef* SPIx, SPI_InitTypeDef* SPI_InitStruct)
+ 158:../target/stm32/stdperiph/src/stm32f10x_spi.c **** {
+ 16707              		.loc 1 158 0
+ 16708              		.cfi_startproc
+ 16709              		@ args = 0, pretend = 0, frame = 16
+ 16710              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16711              		@ link register save eliminated.
+ 16712 0000 80B4     		push	{r7}
+ 16713              	.LCFI3:
+ 16714              		.cfi_def_cfa_offset 4
+ 16715 0002 85B0     		sub	sp, sp, #20
+ 16716              	.LCFI4:
+ 16717              		.cfi_def_cfa_offset 24
+ 16718 0004 00AF     		add	r7, sp, #0
+ 16719              		.cfi_offset 7, -4
+ 16720              	.LCFI5:
+ 16721              		.cfi_def_cfa_register 7
+ 16722 0006 7860     		str	r0, [r7, #4]
+ 16723 0008 3960     		str	r1, [r7, #0]
+ 159:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   uint16_t tmpreg = 0;
+ 16724              		.loc 1 159 0
+ 16725 000a 4FF00003 		mov	r3, #0
+ 16726 000e FB81     		strh	r3, [r7, #14]	@ movhi
+ 160:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   
+ 161:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* check the parameters */
+ 162:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   assert_param(IS_SPI_ALL_PERIPH(SPIx));   
+ 163:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   
+ 164:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Check the SPI parameters */
+ 165:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   assert_param(IS_SPI_DIRECTION_MODE(SPI_InitStruct->SPI_Direction));
+ 166:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   assert_param(IS_SPI_MODE(SPI_InitStruct->SPI_Mode));
+ 167:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   assert_param(IS_SPI_DATASIZE(SPI_InitStruct->SPI_DataSize));
+ 168:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   assert_param(IS_SPI_CPOL(SPI_InitStruct->SPI_CPOL));
+ 169:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   assert_param(IS_SPI_CPHA(SPI_InitStruct->SPI_CPHA));
+ 170:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   assert_param(IS_SPI_NSS(SPI_InitStruct->SPI_NSS));
+ 171:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   assert_param(IS_SPI_BAUDRATE_PRESCALER(SPI_InitStruct->SPI_BaudRatePrescaler));
+ 172:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   assert_param(IS_SPI_FIRST_BIT(SPI_InitStruct->SPI_FirstBit));
+ 173:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   assert_param(IS_SPI_CRC_POLYNOMIAL(SPI_InitStruct->SPI_CRCPolynomial));
+ 174:../target/stm32/stdperiph/src/stm32f10x_spi.c **** 
+ 175:../target/stm32/stdperiph/src/stm32f10x_spi.c **** /*---------------------------- SPIx CR1 Configuration ------------------------*/
+ 176:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Get the SPIx CR1 value */
+ 177:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   tmpreg = SPIx->CR1;
+ 16727              		.loc 1 177 0
+ 16728 0010 7B68     		ldr	r3, [r7, #4]
+ 16729 0012 1B88     		ldrh	r3, [r3, #0]	@ movhi
+ 16730 0014 FB81     		strh	r3, [r7, #14]	@ movhi
+ 178:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Clear BIDIMode, BIDIOE, RxONLY, SSM, SSI, LSBFirst, BR, MSTR, CPOL and CPHA bits */
+ 179:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   tmpreg &= CR1_CLEAR_Mask;
+ 16731              		.loc 1 179 0
+ 16732 0016 FB89     		ldrh	r3, [r7, #14]	@ movhi
+ 16733 0018 03F44153 		and	r3, r3, #12352
+ 16734 001c FB81     		strh	r3, [r7, #14]	@ movhi
+ 180:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Configure SPIx: direction, NSS management, first transmitted bit, BaudRate prescaler
+ 181:../target/stm32/stdperiph/src/stm32f10x_spi.c ****      master/salve mode, CPOL and CPHA */
+ 182:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Set BIDImode, BIDIOE and RxONLY bits according to SPI_Direction value */
+ 183:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Set SSM, SSI and MSTR bits according to SPI_Mode and SPI_NSS values */
+ 184:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Set LSBFirst bit according to SPI_FirstBit value */
+ 185:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Set BR bits according to SPI_BaudRatePrescaler value */
+ 186:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Set CPOL bit according to SPI_CPOL value */
+ 187:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Set CPHA bit according to SPI_CPHA value */
+ 188:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   tmpreg |= (uint16_t)((uint32_t)SPI_InitStruct->SPI_Direction | SPI_InitStruct->SPI_Mode |
+ 16735              		.loc 1 188 0
+ 16736 001e 3B68     		ldr	r3, [r7, #0]
+ 16737 0020 1A88     		ldrh	r2, [r3, #0]
+ 16738 0022 3B68     		ldr	r3, [r7, #0]
+ 16739 0024 5B88     		ldrh	r3, [r3, #2]
+ 16740 0026 42EA0303 		orr	r3, r2, r3
+ 16741 002a 9AB2     		uxth	r2, r3
+ 189:../target/stm32/stdperiph/src/stm32f10x_spi.c ****                   SPI_InitStruct->SPI_DataSize | SPI_InitStruct->SPI_CPOL |  
+ 16742              		.loc 1 189 0
+ 16743 002c 3B68     		ldr	r3, [r7, #0]
+ 16744 002e 9B88     		ldrh	r3, [r3, #4]
+ 188:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   tmpreg |= (uint16_t)((uint32_t)SPI_InitStruct->SPI_Direction | SPI_InitStruct->SPI_Mode |
+ 16745              		.loc 1 188 0
+ 16746 0030 42EA0303 		orr	r3, r2, r3
+ 16747 0034 9AB2     		uxth	r2, r3
+ 16748              		.loc 1 189 0
+ 16749 0036 3B68     		ldr	r3, [r7, #0]
+ 16750 0038 DB88     		ldrh	r3, [r3, #6]
+ 188:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   tmpreg |= (uint16_t)((uint32_t)SPI_InitStruct->SPI_Direction | SPI_InitStruct->SPI_Mode |
+ 16751              		.loc 1 188 0
+ 16752 003a 42EA0303 		orr	r3, r2, r3
+ 16753 003e 9AB2     		uxth	r2, r3
+ 190:../target/stm32/stdperiph/src/stm32f10x_spi.c ****                   SPI_InitStruct->SPI_CPHA | SPI_InitStruct->SPI_NSS |  
+ 16754              		.loc 1 190 0
+ 16755 0040 3B68     		ldr	r3, [r7, #0]
+ 16756 0042 1B89     		ldrh	r3, [r3, #8]
+ 188:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   tmpreg |= (uint16_t)((uint32_t)SPI_InitStruct->SPI_Direction | SPI_InitStruct->SPI_Mode |
+ 16757              		.loc 1 188 0
+ 16758 0044 42EA0303 		orr	r3, r2, r3
+ 16759 0048 9AB2     		uxth	r2, r3
+ 16760              		.loc 1 190 0
+ 16761 004a 3B68     		ldr	r3, [r7, #0]
+ 16762 004c 5B89     		ldrh	r3, [r3, #10]
+ 188:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   tmpreg |= (uint16_t)((uint32_t)SPI_InitStruct->SPI_Direction | SPI_InitStruct->SPI_Mode |
+ 16763              		.loc 1 188 0
+ 16764 004e 42EA0303 		orr	r3, r2, r3
+ 16765 0052 9AB2     		uxth	r2, r3
+ 191:../target/stm32/stdperiph/src/stm32f10x_spi.c ****                   SPI_InitStruct->SPI_BaudRatePrescaler | SPI_InitStruct->SPI_FirstBit);
+ 16766              		.loc 1 191 0
+ 16767 0054 3B68     		ldr	r3, [r7, #0]
+ 16768 0056 9B89     		ldrh	r3, [r3, #12]
+ 188:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   tmpreg |= (uint16_t)((uint32_t)SPI_InitStruct->SPI_Direction | SPI_InitStruct->SPI_Mode |
+ 16769              		.loc 1 188 0
+ 16770 0058 42EA0303 		orr	r3, r2, r3
+ 16771 005c 9AB2     		uxth	r2, r3
+ 16772              		.loc 1 191 0
+ 16773 005e 3B68     		ldr	r3, [r7, #0]
+ 16774 0060 DB89     		ldrh	r3, [r3, #14]
+ 188:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   tmpreg |= (uint16_t)((uint32_t)SPI_InitStruct->SPI_Direction | SPI_InitStruct->SPI_Mode |
+ 16775              		.loc 1 188 0
+ 16776 0062 42EA0303 		orr	r3, r2, r3
+ 16777 0066 9AB2     		uxth	r2, r3
+ 16778 0068 FB89     		ldrh	r3, [r7, #14]	@ movhi
+ 16779 006a 42EA0303 		orr	r3, r2, r3
+ 16780 006e FB81     		strh	r3, [r7, #14]	@ movhi
+ 192:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Write to SPIx CR1 */
+ 193:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   SPIx->CR1 = tmpreg;
+ 16781              		.loc 1 193 0
+ 16782 0070 7B68     		ldr	r3, [r7, #4]
+ 16783 0072 FA89     		ldrh	r2, [r7, #14]	@ movhi
+ 16784 0074 1A80     		strh	r2, [r3, #0]	@ movhi
+ 194:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   
+ 195:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Activate the SPI mode (Reset I2SMOD bit in I2SCFGR register) */
+ 196:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   SPIx->I2SCFGR &= SPI_Mode_Select;		
+ 16785              		.loc 1 196 0
+ 16786 0076 7B68     		ldr	r3, [r7, #4]
+ 16787 0078 9B8B     		ldrh	r3, [r3, #28]	@ movhi
+ 16788 007a 9BB2     		uxth	r3, r3
+ 16789 007c 23F40063 		bic	r3, r3, #2048
+ 16790 0080 9AB2     		uxth	r2, r3
+ 16791 0082 7B68     		ldr	r3, [r7, #4]
+ 16792 0084 9A83     		strh	r2, [r3, #28]	@ movhi
+ 197:../target/stm32/stdperiph/src/stm32f10x_spi.c **** 
+ 198:../target/stm32/stdperiph/src/stm32f10x_spi.c **** /*---------------------------- SPIx CRCPOLY Configuration --------------------*/
+ 199:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Write to SPIx CRCPOLY */
+ 200:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   SPIx->CRCPR = SPI_InitStruct->SPI_CRCPolynomial;
+ 16793              		.loc 1 200 0
+ 16794 0086 3B68     		ldr	r3, [r7, #0]
+ 16795 0088 1A8A     		ldrh	r2, [r3, #16]
+ 16796 008a 7B68     		ldr	r3, [r7, #4]
+ 16797 008c 1A82     		strh	r2, [r3, #16]	@ movhi
+ 201:../target/stm32/stdperiph/src/stm32f10x_spi.c **** }
+ 16798              		.loc 1 201 0
+ 16799 008e 07F11407 		add	r7, r7, #20
+ 16800 0092 BD46     		mov	sp, r7
+ 16801 0094 80BC     		pop	{r7}
+ 16802 0096 7047     		bx	lr
+ 16803              		.cfi_endproc
+ 16804              	.LFE30:
+ 16806              		.section	.text.I2S_Init,"ax",%progbits
+ 16807              		.align	2
+ 16808              		.global	I2S_Init
+ 16809              		.thumb
+ 16810              		.thumb_func
+ 16812              	I2S_Init:
+ 16813              	.LFB31:
+ 202:../target/stm32/stdperiph/src/stm32f10x_spi.c **** 
+ 203:../target/stm32/stdperiph/src/stm32f10x_spi.c **** /**
+ 204:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @brief  Initializes the SPIx peripheral according to the specified 
+ 205:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *   parameters in the I2S_InitStruct.
+ 206:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @param  SPIx: where x can be  2 or 3 to select the SPI peripheral
+ 207:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *   (configured in I2S mode).
+ 208:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @param  I2S_InitStruct: pointer to an I2S_InitTypeDef structure that
+ 209:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *   contains the configuration information for the specified SPI peripheral
+ 210:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *   configured in I2S mode.
+ 211:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @note
+ 212:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *  The function calculates the optimal prescaler needed to obtain the most 
+ 213:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *  accurate audio frequency (depending on the I2S clock source, the PLL values 
+ 214:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *  and the product configuration). But in case the prescaler value is greater 
+ 215:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *  than 511, the default value (0x02) will be configured instead.  *   
+ 216:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @retval None
+ 217:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   */
+ 218:../target/stm32/stdperiph/src/stm32f10x_spi.c **** void I2S_Init(SPI_TypeDef* SPIx, I2S_InitTypeDef* I2S_InitStruct)
+ 219:../target/stm32/stdperiph/src/stm32f10x_spi.c **** {
+ 16814              		.loc 1 219 0
+ 16815              		.cfi_startproc
+ 16816              		@ args = 0, pretend = 0, frame = 48
+ 16817              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16818 0000 80B5     		push	{r7, lr}
+ 16819              	.LCFI6:
+ 16820              		.cfi_def_cfa_offset 8
+ 16821 0002 8CB0     		sub	sp, sp, #48
+ 16822              	.LCFI7:
+ 16823              		.cfi_def_cfa_offset 56
+ 16824 0004 00AF     		add	r7, sp, #0
+ 16825              		.cfi_offset 14, -4
+ 16826              		.cfi_offset 7, -8
+ 16827              	.LCFI8:
+ 16828              		.cfi_def_cfa_register 7
+ 16829 0006 7860     		str	r0, [r7, #4]
+ 16830 0008 3960     		str	r1, [r7, #0]
+ 220:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   uint16_t tmpreg = 0, i2sdiv = 2, i2sodd = 0, packetlength = 1;
+ 16831              		.loc 1 220 0
+ 16832 000a 4FF00003 		mov	r3, #0
+ 16833 000e 7B84     		strh	r3, [r7, #34]	@ movhi
+ 16834 0010 4FF00203 		mov	r3, #2
+ 16835 0014 FB85     		strh	r3, [r7, #46]	@ movhi
+ 16836 0016 4FF00003 		mov	r3, #0
+ 16837 001a BB85     		strh	r3, [r7, #44]	@ movhi
+ 16838 001c 4FF00103 		mov	r3, #1
+ 16839 0020 7B85     		strh	r3, [r7, #42]	@ movhi
+ 221:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   uint32_t tmp = 0;
+ 16840              		.loc 1 221 0
+ 16841 0022 4FF00003 		mov	r3, #0
+ 16842 0026 7B62     		str	r3, [r7, #36]
+ 222:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   RCC_ClocksTypeDef RCC_Clocks;
+ 223:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   uint32_t sourceclock = 0;
+ 16843              		.loc 1 223 0
+ 16844 0028 4FF00003 		mov	r3, #0
+ 16845 002c FB61     		str	r3, [r7, #28]
+ 224:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   
+ 225:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Check the I2S parameters */
+ 226:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   assert_param(IS_SPI_23_PERIPH(SPIx));
+ 227:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   assert_param(IS_I2S_MODE(I2S_InitStruct->I2S_Mode));
+ 228:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   assert_param(IS_I2S_STANDARD(I2S_InitStruct->I2S_Standard));
+ 229:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   assert_param(IS_I2S_DATA_FORMAT(I2S_InitStruct->I2S_DataFormat));
+ 230:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   assert_param(IS_I2S_MCLK_OUTPUT(I2S_InitStruct->I2S_MCLKOutput));
+ 231:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   assert_param(IS_I2S_AUDIO_FREQ(I2S_InitStruct->I2S_AudioFreq));
+ 232:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   assert_param(IS_I2S_CPOL(I2S_InitStruct->I2S_CPOL));  
+ 233:../target/stm32/stdperiph/src/stm32f10x_spi.c **** 
+ 234:../target/stm32/stdperiph/src/stm32f10x_spi.c **** /*----------------------- SPIx I2SCFGR & I2SPR Configuration -----------------*/
+ 235:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Clear I2SMOD, I2SE, I2SCFG, PCMSYNC, I2SSTD, CKPOL, DATLEN and CHLEN bits */
+ 236:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   SPIx->I2SCFGR &= I2SCFGR_CLEAR_Mask; 
+ 16846              		.loc 1 236 0
+ 16847 002e 7B68     		ldr	r3, [r7, #4]
+ 16848 0030 9B8B     		ldrh	r3, [r3, #28]	@ movhi
+ 16849 0032 9BB2     		uxth	r3, r3
+ 16850 0034 23F47A63 		bic	r3, r3, #4000
+ 16851 0038 23F01F03 		bic	r3, r3, #31
+ 16852 003c 9AB2     		uxth	r2, r3
+ 16853 003e 7B68     		ldr	r3, [r7, #4]
+ 16854 0040 9A83     		strh	r2, [r3, #28]	@ movhi
+ 237:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   SPIx->I2SPR = 0x0002;
+ 16855              		.loc 1 237 0
+ 16856 0042 7B68     		ldr	r3, [r7, #4]
+ 16857 0044 4FF00202 		mov	r2, #2
+ 16858 0048 1A84     		strh	r2, [r3, #32]	@ movhi
+ 238:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   
+ 239:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Get the I2SCFGR register value */
+ 240:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   tmpreg = SPIx->I2SCFGR;
+ 16859              		.loc 1 240 0
+ 16860 004a 7B68     		ldr	r3, [r7, #4]
+ 16861 004c 9B8B     		ldrh	r3, [r3, #28]	@ movhi
+ 16862 004e 7B84     		strh	r3, [r7, #34]	@ movhi
+ 241:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   
+ 242:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* If the default value has to be written, reinitialize i2sdiv and i2sodd*/
+ 243:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   if(I2S_InitStruct->I2S_AudioFreq == I2S_AudioFreq_Default)
+ 16863              		.loc 1 243 0
+ 16864 0050 3B68     		ldr	r3, [r7, #0]
+ 16865 0052 9B68     		ldr	r3, [r3, #8]
+ 16866 0054 022B     		cmp	r3, #2
+ 16867 0056 06D1     		bne	.L7
+ 244:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   {
+ 245:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     i2sodd = (uint16_t)0;
+ 16868              		.loc 1 245 0
+ 16869 0058 4FF00003 		mov	r3, #0
+ 16870 005c BB85     		strh	r3, [r7, #44]	@ movhi
+ 246:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     i2sdiv = (uint16_t)2;   
+ 16871              		.loc 1 246 0
+ 16872 005e 4FF00203 		mov	r3, #2
+ 16873 0062 FB85     		strh	r3, [r7, #46]	@ movhi
+ 16874 0064 67E0     		b	.L8
+ 16875              	.L7:
+ 247:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   }
+ 248:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* If the requested audio frequency is not the default, compute the prescaler */
+ 249:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   else
+ 250:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   {
+ 251:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     /* Check the frame length (For the Prescaler computing) */
+ 252:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     if(I2S_InitStruct->I2S_DataFormat == I2S_DataFormat_16b)
+ 16876              		.loc 1 252 0
+ 16877 0066 3B68     		ldr	r3, [r7, #0]
+ 16878 0068 9B88     		ldrh	r3, [r3, #4]
+ 16879 006a 002B     		cmp	r3, #0
+ 16880 006c 03D1     		bne	.L9
+ 253:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     {
+ 254:../target/stm32/stdperiph/src/stm32f10x_spi.c ****       /* Packet length is 16 bits */
+ 255:../target/stm32/stdperiph/src/stm32f10x_spi.c ****       packetlength = 1;
+ 16881              		.loc 1 255 0
+ 16882 006e 4FF00103 		mov	r3, #1
+ 16883 0072 7B85     		strh	r3, [r7, #42]	@ movhi
+ 16884 0074 02E0     		b	.L10
+ 16885              	.L9:
+ 256:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     }
+ 257:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     else
+ 258:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     {
+ 259:../target/stm32/stdperiph/src/stm32f10x_spi.c ****       /* Packet length is 32 bits */
+ 260:../target/stm32/stdperiph/src/stm32f10x_spi.c ****       packetlength = 2;
+ 16886              		.loc 1 260 0
+ 16887 0076 4FF00203 		mov	r3, #2
+ 16888 007a 7B85     		strh	r3, [r7, #42]	@ movhi
+ 16889              	.L10:
+ 261:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     }
+ 262:../target/stm32/stdperiph/src/stm32f10x_spi.c **** 
+ 263:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     /* Get the I2S clock source mask depending on the peripheral number */
+ 264:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     if(((uint32_t)SPIx) == SPI2_BASE)
+ 16890              		.loc 1 264 0
+ 16891 007c 7A68     		ldr	r2, [r7, #4]
+ 16892 007e 4FF46053 		mov	r3, #14336
+ 16893 0082 C4F20003 		movt	r3, 16384
+ 16894 0086 9A42     		cmp	r2, r3
+ 16895 0088 03D1     		bne	.L11
+ 265:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     {
+ 266:../target/stm32/stdperiph/src/stm32f10x_spi.c ****       /* The mask is relative to I2S2 */
+ 267:../target/stm32/stdperiph/src/stm32f10x_spi.c ****       tmp = I2S2_CLOCK_SRC;
+ 16896              		.loc 1 267 0
+ 16897 008a 4FF40033 		mov	r3, #131072
+ 16898 008e 7B62     		str	r3, [r7, #36]
+ 16899 0090 02E0     		b	.L12
+ 16900              	.L11:
+ 268:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     }
+ 269:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     else 
+ 270:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     {
+ 271:../target/stm32/stdperiph/src/stm32f10x_spi.c ****       /* The mask is relative to I2S3 */      
+ 272:../target/stm32/stdperiph/src/stm32f10x_spi.c ****       tmp = I2S3_CLOCK_SRC;
+ 16901              		.loc 1 272 0
+ 16902 0092 4FF48023 		mov	r3, #262144
+ 16903 0096 7B62     		str	r3, [r7, #36]
+ 16904              	.L12:
+ 273:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     }
+ 274:../target/stm32/stdperiph/src/stm32f10x_spi.c **** 
+ 275:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     /* Check the I2S clock source configuration depending on the Device:
+ 276:../target/stm32/stdperiph/src/stm32f10x_spi.c ****        Only Connectivity line devices have the PLL3 VCO clock */
+ 277:../target/stm32/stdperiph/src/stm32f10x_spi.c **** #ifdef STM32F10X_CL
+ 278:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     if((RCC->CFGR2 & tmp) != 0)
+ 279:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     {
+ 280:../target/stm32/stdperiph/src/stm32f10x_spi.c ****       /* Get the configuration bits of RCC PLL3 multiplier */
+ 281:../target/stm32/stdperiph/src/stm32f10x_spi.c ****       tmp = (uint32_t)((RCC->CFGR2 & I2S_MUL_MASK) >> 12);
+ 282:../target/stm32/stdperiph/src/stm32f10x_spi.c **** 
+ 283:../target/stm32/stdperiph/src/stm32f10x_spi.c ****       /* Get the value of the PLL3 multiplier */      
+ 284:../target/stm32/stdperiph/src/stm32f10x_spi.c ****       if((tmp > 5) && (tmp < 15))
+ 285:../target/stm32/stdperiph/src/stm32f10x_spi.c ****       {
+ 286:../target/stm32/stdperiph/src/stm32f10x_spi.c ****         /* Multplier is between 8 and 14 (value 15 is forbidden) */
+ 287:../target/stm32/stdperiph/src/stm32f10x_spi.c ****         tmp += 2;
+ 288:../target/stm32/stdperiph/src/stm32f10x_spi.c ****       }
+ 289:../target/stm32/stdperiph/src/stm32f10x_spi.c ****       else
+ 290:../target/stm32/stdperiph/src/stm32f10x_spi.c ****       {
+ 291:../target/stm32/stdperiph/src/stm32f10x_spi.c ****         if (tmp == 15)
+ 292:../target/stm32/stdperiph/src/stm32f10x_spi.c ****         {
+ 293:../target/stm32/stdperiph/src/stm32f10x_spi.c ****           /* Multiplier is 20 */
+ 294:../target/stm32/stdperiph/src/stm32f10x_spi.c ****           tmp = 20;
+ 295:../target/stm32/stdperiph/src/stm32f10x_spi.c ****         }
+ 296:../target/stm32/stdperiph/src/stm32f10x_spi.c ****       }      
+ 297:../target/stm32/stdperiph/src/stm32f10x_spi.c ****       /* Get the PREDIV2 value */
+ 298:../target/stm32/stdperiph/src/stm32f10x_spi.c ****       sourceclock = (uint32_t)(((RCC->CFGR2 & I2S_DIV_MASK) >> 4) + 1);
+ 299:../target/stm32/stdperiph/src/stm32f10x_spi.c ****       
+ 300:../target/stm32/stdperiph/src/stm32f10x_spi.c ****       /* Calculate the Source Clock frequency based on PLL3 and PREDIV2 values */
+ 301:../target/stm32/stdperiph/src/stm32f10x_spi.c ****       sourceclock = (uint32_t) ((HSE_Value / sourceclock) * tmp * 2); 
+ 302:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     }
+ 303:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     else
+ 304:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     {
+ 305:../target/stm32/stdperiph/src/stm32f10x_spi.c ****       /* I2S Clock source is System clock: Get System Clock frequency */
+ 306:../target/stm32/stdperiph/src/stm32f10x_spi.c ****       RCC_GetClocksFreq(&RCC_Clocks);      
+ 307:../target/stm32/stdperiph/src/stm32f10x_spi.c ****       
+ 308:../target/stm32/stdperiph/src/stm32f10x_spi.c ****       /* Get the source clock value: based on System Clock value */
+ 309:../target/stm32/stdperiph/src/stm32f10x_spi.c ****       sourceclock = RCC_Clocks.SYSCLK_Frequency;
+ 310:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     }        
+ 311:../target/stm32/stdperiph/src/stm32f10x_spi.c **** #else /* STM32F10X_HD */
+ 312:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     /* I2S Clock source is System clock: Get System Clock frequency */
+ 313:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     RCC_GetClocksFreq(&RCC_Clocks);      
+ 16905              		.loc 1 313 0
+ 16906 0098 07F10803 		add	r3, r7, #8
+ 16907 009c 1846     		mov	r0, r3
+ 16908 009e FFF7FEFF 		bl	RCC_GetClocksFreq
+ 314:../target/stm32/stdperiph/src/stm32f10x_spi.c ****       
+ 315:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     /* Get the source clock value: based on System Clock value */
+ 316:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     sourceclock = RCC_Clocks.SYSCLK_Frequency;    
+ 16909              		.loc 1 316 0
+ 16910 00a2 BB68     		ldr	r3, [r7, #8]
+ 16911 00a4 FB61     		str	r3, [r7, #28]
+ 317:../target/stm32/stdperiph/src/stm32f10x_spi.c **** #endif /* STM32F10X_CL */    
+ 318:../target/stm32/stdperiph/src/stm32f10x_spi.c **** 
+ 319:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     /* Compute the Real divider depending on the MCLK output state with a flaoting point */
+ 320:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     if(I2S_InitStruct->I2S_MCLKOutput == I2S_MCLKOutput_Enable)
+ 16912              		.loc 1 320 0
+ 16913 00a6 3B68     		ldr	r3, [r7, #0]
+ 16914 00a8 DB88     		ldrh	r3, [r3, #6]
+ 16915 00aa B3F5007F 		cmp	r3, #512
+ 16916 00ae 13D1     		bne	.L13
+ 321:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     {
+ 322:../target/stm32/stdperiph/src/stm32f10x_spi.c ****       /* MCLK output is enabled */
+ 323:../target/stm32/stdperiph/src/stm32f10x_spi.c ****       tmp = (uint16_t)(((((sourceclock / 256) * 10) / I2S_InitStruct->I2S_AudioFreq)) + 5);
+ 16917              		.loc 1 323 0
+ 16918 00b0 FB69     		ldr	r3, [r7, #28]
+ 16919 00b2 4FEA1322 		lsr	r2, r3, #8
+ 16920 00b6 1346     		mov	r3, r2
+ 16921 00b8 4FEA8303 		lsl	r3, r3, #2
+ 16922 00bc 9B18     		adds	r3, r3, r2
+ 16923 00be 4FEA4303 		lsl	r3, r3, #1
+ 16924 00c2 1A46     		mov	r2, r3
+ 16925 00c4 3B68     		ldr	r3, [r7, #0]
+ 16926 00c6 9B68     		ldr	r3, [r3, #8]
+ 16927 00c8 B2FBF3F3 		udiv	r3, r2, r3
+ 16928 00cc 9BB2     		uxth	r3, r3
+ 16929 00ce 03F10503 		add	r3, r3, #5
+ 16930 00d2 9BB2     		uxth	r3, r3
+ 16931 00d4 7B62     		str	r3, [r7, #36]
+ 16932 00d6 15E0     		b	.L14
+ 16933              	.L13:
+ 324:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     }
+ 325:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     else
+ 326:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     {
+ 327:../target/stm32/stdperiph/src/stm32f10x_spi.c ****       /* MCLK output is disabled */
+ 328:../target/stm32/stdperiph/src/stm32f10x_spi.c ****       tmp = (uint16_t)(((((sourceclock / (32 * packetlength)) *10 ) / I2S_InitStruct->I2S_AudioFreq
+ 16934              		.loc 1 328 0
+ 16935 00d8 7B8D     		ldrh	r3, [r7, #42]
+ 16936 00da 4FEA4313 		lsl	r3, r3, #5
+ 16937 00de FA69     		ldr	r2, [r7, #28]
+ 16938 00e0 B2FBF3F2 		udiv	r2, r2, r3
+ 16939 00e4 1346     		mov	r3, r2
+ 16940 00e6 4FEA8303 		lsl	r3, r3, #2
+ 16941 00ea 9B18     		adds	r3, r3, r2
+ 16942 00ec 4FEA4303 		lsl	r3, r3, #1
+ 16943 00f0 1A46     		mov	r2, r3
+ 16944 00f2 3B68     		ldr	r3, [r7, #0]
+ 16945 00f4 9B68     		ldr	r3, [r3, #8]
+ 16946 00f6 B2FBF3F3 		udiv	r3, r2, r3
+ 16947 00fa 9BB2     		uxth	r3, r3
+ 16948 00fc 03F10503 		add	r3, r3, #5
+ 16949 0100 9BB2     		uxth	r3, r3
+ 16950 0102 7B62     		str	r3, [r7, #36]
+ 16951              	.L14:
+ 329:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     }
+ 330:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     
+ 331:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     /* Remove the flaoting point */
+ 332:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     tmp = tmp / 10;  
+ 16952              		.loc 1 332 0
+ 16953 0104 7A6A     		ldr	r2, [r7, #36]
+ 16954 0106 4CF6CD43 		movw	r3, #52429
+ 16955 010a CCF6CC43 		movt	r3, 52428
+ 16956 010e A3FB0213 		umull	r1, r3, r3, r2
+ 16957 0112 4FEAD303 		lsr	r3, r3, #3
+ 16958 0116 7B62     		str	r3, [r7, #36]
+ 333:../target/stm32/stdperiph/src/stm32f10x_spi.c ****       
+ 334:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     /* Check the parity of the divider */
+ 335:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     i2sodd = (uint16_t)(tmp & (uint16_t)0x0001);
+ 16959              		.loc 1 335 0
+ 16960 0118 7B6A     		ldr	r3, [r7, #36]
+ 16961 011a 9BB2     		uxth	r3, r3
+ 16962 011c 03F00103 		and	r3, r3, #1
+ 16963 0120 BB85     		strh	r3, [r7, #44]	@ movhi
+ 336:../target/stm32/stdperiph/src/stm32f10x_spi.c ****    
+ 337:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     /* Compute the i2sdiv prescaler */
+ 338:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     i2sdiv = (uint16_t)((tmp - i2sodd) / 2);
+ 16964              		.loc 1 338 0
+ 16965 0122 BB8D     		ldrh	r3, [r7, #44]
+ 16966 0124 7A6A     		ldr	r2, [r7, #36]
+ 16967 0126 D31A     		subs	r3, r2, r3
+ 16968 0128 4FEA5303 		lsr	r3, r3, #1
+ 16969 012c FB85     		strh	r3, [r7, #46]	@ movhi
+ 339:../target/stm32/stdperiph/src/stm32f10x_spi.c ****    
+ 340:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     /* Get the Mask for the Odd bit (SPI_I2SPR[8]) register */
+ 341:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     i2sodd = (uint16_t) (i2sodd << 8);
+ 16970              		.loc 1 341 0
+ 16971 012e BB8D     		ldrh	r3, [r7, #44]	@ movhi
+ 16972 0130 4FEA0323 		lsl	r3, r3, #8
+ 16973 0134 BB85     		strh	r3, [r7, #44]	@ movhi
+ 16974              	.L8:
+ 342:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   }
+ 343:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   
+ 344:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Test if the divider is 1 or 0 or greater than 0xFF */
+ 345:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   if ((i2sdiv < 2) || (i2sdiv > 0xFF))
+ 16975              		.loc 1 345 0
+ 16976 0136 FB8D     		ldrh	r3, [r7, #46]
+ 16977 0138 012B     		cmp	r3, #1
+ 16978 013a 02D9     		bls	.L15
+ 16979              		.loc 1 345 0 is_stmt 0 discriminator 1
+ 16980 013c FB8D     		ldrh	r3, [r7, #46]
+ 16981 013e FF2B     		cmp	r3, #255
+ 16982 0140 05D9     		bls	.L16
+ 16983              	.L15:
+ 346:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   {
+ 347:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     /* Set the default values */
+ 348:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     i2sdiv = 2;
+ 16984              		.loc 1 348 0 is_stmt 1
+ 16985 0142 4FF00203 		mov	r3, #2
+ 16986 0146 FB85     		strh	r3, [r7, #46]	@ movhi
+ 349:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     i2sodd = 0;
+ 16987              		.loc 1 349 0
+ 16988 0148 4FF00003 		mov	r3, #0
+ 16989 014c BB85     		strh	r3, [r7, #44]	@ movhi
+ 16990              	.L16:
+ 350:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   }
+ 351:../target/stm32/stdperiph/src/stm32f10x_spi.c **** 
+ 352:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Write to SPIx I2SPR register the computed value */
+ 353:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   SPIx->I2SPR = (uint16_t)(i2sdiv | (uint16_t)(i2sodd | (uint16_t)I2S_InitStruct->I2S_MCLKOutput));
+ 16991              		.loc 1 353 0
+ 16992 014e 3B68     		ldr	r3, [r7, #0]
+ 16993 0150 DA88     		ldrh	r2, [r3, #6]
+ 16994 0152 BB8D     		ldrh	r3, [r7, #44]	@ movhi
+ 16995 0154 42EA0303 		orr	r3, r2, r3
+ 16996 0158 9AB2     		uxth	r2, r3
+ 16997 015a FB8D     		ldrh	r3, [r7, #46]	@ movhi
+ 16998 015c 42EA0303 		orr	r3, r2, r3
+ 16999 0160 9AB2     		uxth	r2, r3
+ 17000 0162 7B68     		ldr	r3, [r7, #4]
+ 17001 0164 1A84     		strh	r2, [r3, #32]	@ movhi
+ 354:../target/stm32/stdperiph/src/stm32f10x_spi.c ****  
+ 355:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Configure the I2S with the SPI_InitStruct values */
+ 356:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   tmpreg |= (uint16_t)(I2S_Mode_Select | (uint16_t)(I2S_InitStruct->I2S_Mode | \
+ 17002              		.loc 1 356 0
+ 17003 0166 3B68     		ldr	r3, [r7, #0]
+ 17004 0168 1A88     		ldrh	r2, [r3, #0]
+ 357:../target/stm32/stdperiph/src/stm32f10x_spi.c ****                   (uint16_t)(I2S_InitStruct->I2S_Standard | (uint16_t)(I2S_InitStruct->I2S_DataForm
+ 17005              		.loc 1 357 0
+ 17006 016a 3B68     		ldr	r3, [r7, #0]
+ 17007 016c 5988     		ldrh	r1, [r3, #2]
+ 17008 016e 3B68     		ldr	r3, [r7, #0]
+ 17009 0170 9888     		ldrh	r0, [r3, #4]
+ 358:../target/stm32/stdperiph/src/stm32f10x_spi.c ****                   (uint16_t)I2S_InitStruct->I2S_CPOL))));
+ 17010              		.loc 1 358 0
+ 17011 0172 3B68     		ldr	r3, [r7, #0]
+ 17012 0174 9B89     		ldrh	r3, [r3, #12]
+ 357:../target/stm32/stdperiph/src/stm32f10x_spi.c ****                   (uint16_t)(I2S_InitStruct->I2S_Standard | (uint16_t)(I2S_InitStruct->I2S_DataForm
+ 17013              		.loc 1 357 0
+ 17014 0176 40EA0303 		orr	r3, r0, r3
+ 17015 017a 9BB2     		uxth	r3, r3
+ 17016 017c 41EA0303 		orr	r3, r1, r3
+ 17017 0180 9BB2     		uxth	r3, r3
+ 356:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   tmpreg |= (uint16_t)(I2S_Mode_Select | (uint16_t)(I2S_InitStruct->I2S_Mode | \
+ 17018              		.loc 1 356 0
+ 17019 0182 42EA0303 		orr	r3, r2, r3
+ 17020 0186 9AB2     		uxth	r2, r3
+ 17021 0188 7B8C     		ldrh	r3, [r7, #34]	@ movhi
+ 17022 018a 42EA0303 		orr	r3, r2, r3
+ 17023 018e 9BB2     		uxth	r3, r3
+ 17024 0190 43F40063 		orr	r3, r3, #2048
+ 17025 0194 7B84     		strh	r3, [r7, #34]	@ movhi
+ 359:../target/stm32/stdperiph/src/stm32f10x_spi.c ****  
+ 360:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Write to SPIx I2SCFGR */  
+ 361:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   SPIx->I2SCFGR = tmpreg;   
+ 17026              		.loc 1 361 0
+ 17027 0196 7B68     		ldr	r3, [r7, #4]
+ 17028 0198 7A8C     		ldrh	r2, [r7, #34]	@ movhi
+ 17029 019a 9A83     		strh	r2, [r3, #28]	@ movhi
+ 362:../target/stm32/stdperiph/src/stm32f10x_spi.c **** }
+ 17030              		.loc 1 362 0
+ 17031 019c 07F13007 		add	r7, r7, #48
+ 17032 01a0 BD46     		mov	sp, r7
+ 17033 01a2 80BD     		pop	{r7, pc}
+ 17034              		.cfi_endproc
+ 17035              	.LFE31:
+ 17037              		.section	.text.SPI_StructInit,"ax",%progbits
+ 17038              		.align	2
+ 17039              		.global	SPI_StructInit
+ 17040              		.thumb
+ 17041              		.thumb_func
+ 17043              	SPI_StructInit:
+ 17044              	.LFB32:
+ 363:../target/stm32/stdperiph/src/stm32f10x_spi.c **** 
+ 364:../target/stm32/stdperiph/src/stm32f10x_spi.c **** /**
+ 365:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @brief  Fills each SPI_InitStruct member with its default value.
+ 366:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @param  SPI_InitStruct : pointer to a SPI_InitTypeDef structure which will be initialized.
+ 367:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @retval None
+ 368:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   */
+ 369:../target/stm32/stdperiph/src/stm32f10x_spi.c **** void SPI_StructInit(SPI_InitTypeDef* SPI_InitStruct)
+ 370:../target/stm32/stdperiph/src/stm32f10x_spi.c **** {
+ 17045              		.loc 1 370 0
+ 17046              		.cfi_startproc
+ 17047              		@ args = 0, pretend = 0, frame = 8
+ 17048              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17049              		@ link register save eliminated.
+ 17050 0000 80B4     		push	{r7}
+ 17051              	.LCFI9:
+ 17052              		.cfi_def_cfa_offset 4
+ 17053 0002 83B0     		sub	sp, sp, #12
+ 17054              	.LCFI10:
+ 17055              		.cfi_def_cfa_offset 16
+ 17056 0004 00AF     		add	r7, sp, #0
+ 17057              		.cfi_offset 7, -4
+ 17058              	.LCFI11:
+ 17059              		.cfi_def_cfa_register 7
+ 17060 0006 7860     		str	r0, [r7, #4]
+ 371:../target/stm32/stdperiph/src/stm32f10x_spi.c **** /*--------------- Reset SPI init structure parameters values -----------------*/
+ 372:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Initialize the SPI_Direction member */
+ 373:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   SPI_InitStruct->SPI_Direction = SPI_Direction_2Lines_FullDuplex;
+ 17061              		.loc 1 373 0
+ 17062 0008 7B68     		ldr	r3, [r7, #4]
+ 17063 000a 4FF00002 		mov	r2, #0
+ 17064 000e 1A80     		strh	r2, [r3, #0]	@ movhi
+ 374:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* initialize the SPI_Mode member */
+ 375:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   SPI_InitStruct->SPI_Mode = SPI_Mode_Slave;
+ 17065              		.loc 1 375 0
+ 17066 0010 7B68     		ldr	r3, [r7, #4]
+ 17067 0012 4FF00002 		mov	r2, #0
+ 17068 0016 5A80     		strh	r2, [r3, #2]	@ movhi
+ 376:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* initialize the SPI_DataSize member */
+ 377:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   SPI_InitStruct->SPI_DataSize = SPI_DataSize_8b;
+ 17069              		.loc 1 377 0
+ 17070 0018 7B68     		ldr	r3, [r7, #4]
+ 17071 001a 4FF00002 		mov	r2, #0
+ 17072 001e 9A80     		strh	r2, [r3, #4]	@ movhi
+ 378:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Initialize the SPI_CPOL member */
+ 379:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   SPI_InitStruct->SPI_CPOL = SPI_CPOL_Low;
+ 17073              		.loc 1 379 0
+ 17074 0020 7B68     		ldr	r3, [r7, #4]
+ 17075 0022 4FF00002 		mov	r2, #0
+ 17076 0026 DA80     		strh	r2, [r3, #6]	@ movhi
+ 380:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Initialize the SPI_CPHA member */
+ 381:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   SPI_InitStruct->SPI_CPHA = SPI_CPHA_1Edge;
+ 17077              		.loc 1 381 0
+ 17078 0028 7B68     		ldr	r3, [r7, #4]
+ 17079 002a 4FF00002 		mov	r2, #0
+ 17080 002e 1A81     		strh	r2, [r3, #8]	@ movhi
+ 382:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Initialize the SPI_NSS member */
+ 383:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   SPI_InitStruct->SPI_NSS = SPI_NSS_Hard;
+ 17081              		.loc 1 383 0
+ 17082 0030 7B68     		ldr	r3, [r7, #4]
+ 17083 0032 4FF00002 		mov	r2, #0
+ 17084 0036 5A81     		strh	r2, [r3, #10]	@ movhi
+ 384:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Initialize the SPI_BaudRatePrescaler member */
+ 385:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   SPI_InitStruct->SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_2;
+ 17085              		.loc 1 385 0
+ 17086 0038 7B68     		ldr	r3, [r7, #4]
+ 17087 003a 4FF00002 		mov	r2, #0
+ 17088 003e 9A81     		strh	r2, [r3, #12]	@ movhi
+ 386:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Initialize the SPI_FirstBit member */
+ 387:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   SPI_InitStruct->SPI_FirstBit = SPI_FirstBit_MSB;
+ 17089              		.loc 1 387 0
+ 17090 0040 7B68     		ldr	r3, [r7, #4]
+ 17091 0042 4FF00002 		mov	r2, #0
+ 17092 0046 DA81     		strh	r2, [r3, #14]	@ movhi
+ 388:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Initialize the SPI_CRCPolynomial member */
+ 389:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   SPI_InitStruct->SPI_CRCPolynomial = 7;
+ 17093              		.loc 1 389 0
+ 17094 0048 7B68     		ldr	r3, [r7, #4]
+ 17095 004a 4FF00702 		mov	r2, #7
+ 17096 004e 1A82     		strh	r2, [r3, #16]	@ movhi
+ 390:../target/stm32/stdperiph/src/stm32f10x_spi.c **** }
+ 17097              		.loc 1 390 0
+ 17098 0050 07F10C07 		add	r7, r7, #12
+ 17099 0054 BD46     		mov	sp, r7
+ 17100 0056 80BC     		pop	{r7}
+ 17101 0058 7047     		bx	lr
+ 17102              		.cfi_endproc
+ 17103              	.LFE32:
+ 17105 005a 00BF     		.section	.text.I2S_StructInit,"ax",%progbits
+ 17106              		.align	2
+ 17107              		.global	I2S_StructInit
+ 17108              		.thumb
+ 17109              		.thumb_func
+ 17111              	I2S_StructInit:
+ 17112              	.LFB33:
+ 391:../target/stm32/stdperiph/src/stm32f10x_spi.c **** 
+ 392:../target/stm32/stdperiph/src/stm32f10x_spi.c **** /**
+ 393:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @brief  Fills each I2S_InitStruct member with its default value.
+ 394:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @param  I2S_InitStruct : pointer to a I2S_InitTypeDef structure which will be initialized.
+ 395:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @retval None
+ 396:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   */
+ 397:../target/stm32/stdperiph/src/stm32f10x_spi.c **** void I2S_StructInit(I2S_InitTypeDef* I2S_InitStruct)
+ 398:../target/stm32/stdperiph/src/stm32f10x_spi.c **** {
+ 17113              		.loc 1 398 0
+ 17114              		.cfi_startproc
+ 17115              		@ args = 0, pretend = 0, frame = 8
+ 17116              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17117              		@ link register save eliminated.
+ 17118 0000 80B4     		push	{r7}
+ 17119              	.LCFI12:
+ 17120              		.cfi_def_cfa_offset 4
+ 17121 0002 83B0     		sub	sp, sp, #12
+ 17122              	.LCFI13:
+ 17123              		.cfi_def_cfa_offset 16
+ 17124 0004 00AF     		add	r7, sp, #0
+ 17125              		.cfi_offset 7, -4
+ 17126              	.LCFI14:
+ 17127              		.cfi_def_cfa_register 7
+ 17128 0006 7860     		str	r0, [r7, #4]
+ 399:../target/stm32/stdperiph/src/stm32f10x_spi.c **** /*--------------- Reset I2S init structure parameters values -----------------*/
+ 400:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Initialize the I2S_Mode member */
+ 401:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   I2S_InitStruct->I2S_Mode = I2S_Mode_SlaveTx;
+ 17129              		.loc 1 401 0
+ 17130 0008 7B68     		ldr	r3, [r7, #4]
+ 17131 000a 4FF00002 		mov	r2, #0
+ 17132 000e 1A80     		strh	r2, [r3, #0]	@ movhi
+ 402:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   
+ 403:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Initialize the I2S_Standard member */
+ 404:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   I2S_InitStruct->I2S_Standard = I2S_Standard_Phillips;
+ 17133              		.loc 1 404 0
+ 17134 0010 7B68     		ldr	r3, [r7, #4]
+ 17135 0012 4FF00002 		mov	r2, #0
+ 17136 0016 5A80     		strh	r2, [r3, #2]	@ movhi
+ 405:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   
+ 406:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Initialize the I2S_DataFormat member */
+ 407:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   I2S_InitStruct->I2S_DataFormat = I2S_DataFormat_16b;
+ 17137              		.loc 1 407 0
+ 17138 0018 7B68     		ldr	r3, [r7, #4]
+ 17139 001a 4FF00002 		mov	r2, #0
+ 17140 001e 9A80     		strh	r2, [r3, #4]	@ movhi
+ 408:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   
+ 409:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Initialize the I2S_MCLKOutput member */
+ 410:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   I2S_InitStruct->I2S_MCLKOutput = I2S_MCLKOutput_Disable;
+ 17141              		.loc 1 410 0
+ 17142 0020 7B68     		ldr	r3, [r7, #4]
+ 17143 0022 4FF00002 		mov	r2, #0
+ 17144 0026 DA80     		strh	r2, [r3, #6]	@ movhi
+ 411:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   
+ 412:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Initialize the I2S_AudioFreq member */
+ 413:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   I2S_InitStruct->I2S_AudioFreq = I2S_AudioFreq_Default;
+ 17145              		.loc 1 413 0
+ 17146 0028 7B68     		ldr	r3, [r7, #4]
+ 17147 002a 4FF00202 		mov	r2, #2
+ 17148 002e 9A60     		str	r2, [r3, #8]
+ 414:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   
+ 415:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Initialize the I2S_CPOL member */
+ 416:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   I2S_InitStruct->I2S_CPOL = I2S_CPOL_Low;
+ 17149              		.loc 1 416 0
+ 17150 0030 7B68     		ldr	r3, [r7, #4]
+ 17151 0032 4FF00002 		mov	r2, #0
+ 17152 0036 9A81     		strh	r2, [r3, #12]	@ movhi
+ 417:../target/stm32/stdperiph/src/stm32f10x_spi.c **** }
+ 17153              		.loc 1 417 0
+ 17154 0038 07F10C07 		add	r7, r7, #12
+ 17155 003c BD46     		mov	sp, r7
+ 17156 003e 80BC     		pop	{r7}
+ 17157 0040 7047     		bx	lr
+ 17158              		.cfi_endproc
+ 17159              	.LFE33:
+ 17161 0042 00BF     		.section	.text.SPI_Cmd,"ax",%progbits
+ 17162              		.align	2
+ 17163              		.global	SPI_Cmd
+ 17164              		.thumb
+ 17165              		.thumb_func
+ 17167              	SPI_Cmd:
+ 17168              	.LFB34:
+ 418:../target/stm32/stdperiph/src/stm32f10x_spi.c **** 
+ 419:../target/stm32/stdperiph/src/stm32f10x_spi.c **** /**
+ 420:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @brief  Enables or disables the specified SPI peripheral.
+ 421:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @param  SPIx: where x can be 1, 2 or 3 to select the SPI peripheral.
+ 422:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @param  NewState: new state of the SPIx peripheral. 
+ 423:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *   This parameter can be: ENABLE or DISABLE.
+ 424:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @retval None
+ 425:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   */
+ 426:../target/stm32/stdperiph/src/stm32f10x_spi.c **** void SPI_Cmd(SPI_TypeDef* SPIx, FunctionalState NewState)
+ 427:../target/stm32/stdperiph/src/stm32f10x_spi.c **** {
+ 17169              		.loc 1 427 0
+ 17170              		.cfi_startproc
+ 17171              		@ args = 0, pretend = 0, frame = 8
+ 17172              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17173              		@ link register save eliminated.
+ 17174 0000 80B4     		push	{r7}
+ 17175              	.LCFI15:
+ 17176              		.cfi_def_cfa_offset 4
+ 17177 0002 83B0     		sub	sp, sp, #12
+ 17178              	.LCFI16:
+ 17179              		.cfi_def_cfa_offset 16
+ 17180 0004 00AF     		add	r7, sp, #0
+ 17181              		.cfi_offset 7, -4
+ 17182              	.LCFI17:
+ 17183              		.cfi_def_cfa_register 7
+ 17184 0006 7860     		str	r0, [r7, #4]
+ 17185 0008 0B46     		mov	r3, r1
+ 17186 000a FB70     		strb	r3, [r7, #3]
+ 428:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Check the parameters */
+ 429:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   assert_param(IS_SPI_ALL_PERIPH(SPIx));
+ 430:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   assert_param(IS_FUNCTIONAL_STATE(NewState));
+ 431:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   if (NewState != DISABLE)
+ 17187              		.loc 1 431 0
+ 17188 000c FB78     		ldrb	r3, [r7, #3]	@ zero_extendqisi2
+ 17189 000e 002B     		cmp	r3, #0
+ 17190 0010 08D0     		beq	.L20
+ 432:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   {
+ 433:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     /* Enable the selected SPI peripheral */
+ 434:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     SPIx->CR1 |= CR1_SPE_Set;
+ 17191              		.loc 1 434 0
+ 17192 0012 7B68     		ldr	r3, [r7, #4]
+ 17193 0014 1B88     		ldrh	r3, [r3, #0]	@ movhi
+ 17194 0016 9BB2     		uxth	r3, r3
+ 17195 0018 43F04003 		orr	r3, r3, #64
+ 17196 001c 9AB2     		uxth	r2, r3
+ 17197 001e 7B68     		ldr	r3, [r7, #4]
+ 17198 0020 1A80     		strh	r2, [r3, #0]	@ movhi
+ 17199 0022 07E0     		b	.L19
+ 17200              	.L20:
+ 435:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   }
+ 436:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   else
+ 437:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   {
+ 438:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     /* Disable the selected SPI peripheral */
+ 439:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     SPIx->CR1 &= CR1_SPE_Reset;
+ 17201              		.loc 1 439 0
+ 17202 0024 7B68     		ldr	r3, [r7, #4]
+ 17203 0026 1B88     		ldrh	r3, [r3, #0]	@ movhi
+ 17204 0028 9BB2     		uxth	r3, r3
+ 17205 002a 23F04003 		bic	r3, r3, #64
+ 17206 002e 9AB2     		uxth	r2, r3
+ 17207 0030 7B68     		ldr	r3, [r7, #4]
+ 17208 0032 1A80     		strh	r2, [r3, #0]	@ movhi
+ 17209              	.L19:
+ 440:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   }
+ 441:../target/stm32/stdperiph/src/stm32f10x_spi.c **** }
+ 17210              		.loc 1 441 0
+ 17211 0034 07F10C07 		add	r7, r7, #12
+ 17212 0038 BD46     		mov	sp, r7
+ 17213 003a 80BC     		pop	{r7}
+ 17214 003c 7047     		bx	lr
+ 17215              		.cfi_endproc
+ 17216              	.LFE34:
+ 17218 003e 00BF     		.section	.text.I2S_Cmd,"ax",%progbits
+ 17219              		.align	2
+ 17220              		.global	I2S_Cmd
+ 17221              		.thumb
+ 17222              		.thumb_func
+ 17224              	I2S_Cmd:
+ 17225              	.LFB35:
+ 442:../target/stm32/stdperiph/src/stm32f10x_spi.c **** 
+ 443:../target/stm32/stdperiph/src/stm32f10x_spi.c **** /**
+ 444:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @brief  Enables or disables the specified SPI peripheral (in I2S mode).
+ 445:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @param  SPIx: where x can be 2 or 3 to select the SPI peripheral.
+ 446:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @param  NewState: new state of the SPIx peripheral. 
+ 447:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *   This parameter can be: ENABLE or DISABLE.
+ 448:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @retval None
+ 449:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   */
+ 450:../target/stm32/stdperiph/src/stm32f10x_spi.c **** void I2S_Cmd(SPI_TypeDef* SPIx, FunctionalState NewState)
+ 451:../target/stm32/stdperiph/src/stm32f10x_spi.c **** {
+ 17226              		.loc 1 451 0
+ 17227              		.cfi_startproc
+ 17228              		@ args = 0, pretend = 0, frame = 8
+ 17229              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17230              		@ link register save eliminated.
+ 17231 0000 80B4     		push	{r7}
+ 17232              	.LCFI18:
+ 17233              		.cfi_def_cfa_offset 4
+ 17234 0002 83B0     		sub	sp, sp, #12
+ 17235              	.LCFI19:
+ 17236              		.cfi_def_cfa_offset 16
+ 17237 0004 00AF     		add	r7, sp, #0
+ 17238              		.cfi_offset 7, -4
+ 17239              	.LCFI20:
+ 17240              		.cfi_def_cfa_register 7
+ 17241 0006 7860     		str	r0, [r7, #4]
+ 17242 0008 0B46     		mov	r3, r1
+ 17243 000a FB70     		strb	r3, [r7, #3]
+ 452:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Check the parameters */
+ 453:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   assert_param(IS_SPI_23_PERIPH(SPIx));
+ 454:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   assert_param(IS_FUNCTIONAL_STATE(NewState));
+ 455:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   if (NewState != DISABLE)
+ 17244              		.loc 1 455 0
+ 17245 000c FB78     		ldrb	r3, [r7, #3]	@ zero_extendqisi2
+ 17246 000e 002B     		cmp	r3, #0
+ 17247 0010 08D0     		beq	.L23
+ 456:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   {
+ 457:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     /* Enable the selected SPI peripheral (in I2S mode) */
+ 458:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     SPIx->I2SCFGR |= I2SCFGR_I2SE_Set;
+ 17248              		.loc 1 458 0
+ 17249 0012 7B68     		ldr	r3, [r7, #4]
+ 17250 0014 9B8B     		ldrh	r3, [r3, #28]	@ movhi
+ 17251 0016 9BB2     		uxth	r3, r3
+ 17252 0018 43F48063 		orr	r3, r3, #1024
+ 17253 001c 9AB2     		uxth	r2, r3
+ 17254 001e 7B68     		ldr	r3, [r7, #4]
+ 17255 0020 9A83     		strh	r2, [r3, #28]	@ movhi
+ 17256 0022 07E0     		b	.L22
+ 17257              	.L23:
+ 459:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   }
+ 460:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   else
+ 461:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   {
+ 462:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     /* Disable the selected SPI peripheral (in I2S mode) */
+ 463:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     SPIx->I2SCFGR &= I2SCFGR_I2SE_Reset;
+ 17258              		.loc 1 463 0
+ 17259 0024 7B68     		ldr	r3, [r7, #4]
+ 17260 0026 9B8B     		ldrh	r3, [r3, #28]	@ movhi
+ 17261 0028 9BB2     		uxth	r3, r3
+ 17262 002a 23F48063 		bic	r3, r3, #1024
+ 17263 002e 9AB2     		uxth	r2, r3
+ 17264 0030 7B68     		ldr	r3, [r7, #4]
+ 17265 0032 9A83     		strh	r2, [r3, #28]	@ movhi
+ 17266              	.L22:
+ 464:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   }
+ 465:../target/stm32/stdperiph/src/stm32f10x_spi.c **** }
+ 17267              		.loc 1 465 0
+ 17268 0034 07F10C07 		add	r7, r7, #12
+ 17269 0038 BD46     		mov	sp, r7
+ 17270 003a 80BC     		pop	{r7}
+ 17271 003c 7047     		bx	lr
+ 17272              		.cfi_endproc
+ 17273              	.LFE35:
+ 17275 003e 00BF     		.section	.text.SPI_I2S_ITConfig,"ax",%progbits
+ 17276              		.align	2
+ 17277              		.global	SPI_I2S_ITConfig
+ 17278              		.thumb
+ 17279              		.thumb_func
+ 17281              	SPI_I2S_ITConfig:
+ 17282              	.LFB36:
+ 466:../target/stm32/stdperiph/src/stm32f10x_spi.c **** 
+ 467:../target/stm32/stdperiph/src/stm32f10x_spi.c **** /**
+ 468:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @brief  Enables or disables the specified SPI/I2S interrupts.
+ 469:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @param  SPIx: where x can be
+ 470:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *   - 1, 2 or 3 in SPI mode 
+ 471:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *   - 2 or 3 in I2S mode
+ 472:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @param  SPI_I2S_IT: specifies the SPI/I2S interrupt source to be enabled or disabled. 
+ 473:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *   This parameter can be one of the following values:
+ 474:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *     @arg SPI_I2S_IT_TXE: Tx buffer empty interrupt mask
+ 475:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *     @arg SPI_I2S_IT_RXNE: Rx buffer not empty interrupt mask
+ 476:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *     @arg SPI_I2S_IT_ERR: Error interrupt mask
+ 477:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @param  NewState: new state of the specified SPI/I2S interrupt.
+ 478:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *   This parameter can be: ENABLE or DISABLE.
+ 479:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @retval None
+ 480:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   */
+ 481:../target/stm32/stdperiph/src/stm32f10x_spi.c **** void SPI_I2S_ITConfig(SPI_TypeDef* SPIx, uint8_t SPI_I2S_IT, FunctionalState NewState)
+ 482:../target/stm32/stdperiph/src/stm32f10x_spi.c **** {
+ 17283              		.loc 1 482 0
+ 17284              		.cfi_startproc
+ 17285              		@ args = 0, pretend = 0, frame = 16
+ 17286              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17287              		@ link register save eliminated.
+ 17288 0000 80B4     		push	{r7}
+ 17289              	.LCFI21:
+ 17290              		.cfi_def_cfa_offset 4
+ 17291 0002 85B0     		sub	sp, sp, #20
+ 17292              	.LCFI22:
+ 17293              		.cfi_def_cfa_offset 24
+ 17294 0004 00AF     		add	r7, sp, #0
+ 17295              		.cfi_offset 7, -4
+ 17296              	.LCFI23:
+ 17297              		.cfi_def_cfa_register 7
+ 17298 0006 7860     		str	r0, [r7, #4]
+ 17299 0008 1346     		mov	r3, r2
+ 17300 000a 0A46     		mov	r2, r1
+ 17301 000c FA70     		strb	r2, [r7, #3]
+ 17302 000e BB70     		strb	r3, [r7, #2]
+ 483:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   uint16_t itpos = 0, itmask = 0 ;
+ 17303              		.loc 1 483 0
+ 17304 0010 4FF00003 		mov	r3, #0
+ 17305 0014 FB81     		strh	r3, [r7, #14]	@ movhi
+ 17306 0016 4FF00003 		mov	r3, #0
+ 17307 001a BB81     		strh	r3, [r7, #12]	@ movhi
+ 484:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Check the parameters */
+ 485:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   assert_param(IS_SPI_ALL_PERIPH(SPIx));
+ 486:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   assert_param(IS_FUNCTIONAL_STATE(NewState));
+ 487:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   assert_param(IS_SPI_I2S_CONFIG_IT(SPI_I2S_IT));
+ 488:../target/stm32/stdperiph/src/stm32f10x_spi.c **** 
+ 489:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Get the SPI/I2S IT index */
+ 490:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   itpos = SPI_I2S_IT >> 4;
+ 17308              		.loc 1 490 0
+ 17309 001c FB78     		ldrb	r3, [r7, #3]	@ zero_extendqisi2
+ 17310 001e 4FEA1313 		lsr	r3, r3, #4
+ 17311 0022 DBB2     		uxtb	r3, r3
+ 17312 0024 FB81     		strh	r3, [r7, #14]	@ movhi
+ 491:../target/stm32/stdperiph/src/stm32f10x_spi.c **** 
+ 492:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Set the IT mask */
+ 493:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   itmask = (uint16_t)1 << (uint16_t)itpos;
+ 17313              		.loc 1 493 0
+ 17314 0026 FB89     		ldrh	r3, [r7, #14]
+ 17315 0028 4FF00102 		mov	r2, #1
+ 17316 002c 02FA03F3 		lsl	r3, r2, r3
+ 17317 0030 BB81     		strh	r3, [r7, #12]	@ movhi
+ 494:../target/stm32/stdperiph/src/stm32f10x_spi.c **** 
+ 495:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   if (NewState != DISABLE)
+ 17318              		.loc 1 495 0
+ 17319 0032 BB78     		ldrb	r3, [r7, #2]	@ zero_extendqisi2
+ 17320 0034 002B     		cmp	r3, #0
+ 17321 0036 09D0     		beq	.L26
+ 496:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   {
+ 497:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     /* Enable the selected SPI/I2S interrupt */
+ 498:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     SPIx->CR2 |= itmask;
+ 17322              		.loc 1 498 0
+ 17323 0038 7B68     		ldr	r3, [r7, #4]
+ 17324 003a 9B88     		ldrh	r3, [r3, #4]	@ movhi
+ 17325 003c 9AB2     		uxth	r2, r3
+ 17326 003e BB89     		ldrh	r3, [r7, #12]	@ movhi
+ 17327 0040 42EA0303 		orr	r3, r2, r3
+ 17328 0044 9AB2     		uxth	r2, r3
+ 17329 0046 7B68     		ldr	r3, [r7, #4]
+ 17330 0048 9A80     		strh	r2, [r3, #4]	@ movhi
+ 17331 004a 0BE0     		b	.L25
+ 17332              	.L26:
+ 499:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   }
+ 500:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   else
+ 501:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   {
+ 502:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     /* Disable the selected SPI/I2S interrupt */
+ 503:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     SPIx->CR2 &= (uint16_t)~itmask;
+ 17333              		.loc 1 503 0
+ 17334 004c 7B68     		ldr	r3, [r7, #4]
+ 17335 004e 9B88     		ldrh	r3, [r3, #4]	@ movhi
+ 17336 0050 9AB2     		uxth	r2, r3
+ 17337 0052 BB89     		ldrh	r3, [r7, #12]	@ movhi
+ 17338 0054 6FEA0303 		mvn	r3, r3
+ 17339 0058 9BB2     		uxth	r3, r3
+ 17340 005a 02EA0303 		and	r3, r2, r3
+ 17341 005e 9AB2     		uxth	r2, r3
+ 17342 0060 7B68     		ldr	r3, [r7, #4]
+ 17343 0062 9A80     		strh	r2, [r3, #4]	@ movhi
+ 17344              	.L25:
+ 504:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   }
+ 505:../target/stm32/stdperiph/src/stm32f10x_spi.c **** }
+ 17345              		.loc 1 505 0
+ 17346 0064 07F11407 		add	r7, r7, #20
+ 17347 0068 BD46     		mov	sp, r7
+ 17348 006a 80BC     		pop	{r7}
+ 17349 006c 7047     		bx	lr
+ 17350              		.cfi_endproc
+ 17351              	.LFE36:
+ 17353 006e 00BF     		.section	.text.SPI_I2S_DMACmd,"ax",%progbits
+ 17354              		.align	2
+ 17355              		.global	SPI_I2S_DMACmd
+ 17356              		.thumb
+ 17357              		.thumb_func
+ 17359              	SPI_I2S_DMACmd:
+ 17360              	.LFB37:
+ 506:../target/stm32/stdperiph/src/stm32f10x_spi.c **** 
+ 507:../target/stm32/stdperiph/src/stm32f10x_spi.c **** /**
+ 508:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @brief  Enables or disables the SPIx/I2Sx DMA interface.
+ 509:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @param  SPIx: where x can be
+ 510:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *   - 1, 2 or 3 in SPI mode 
+ 511:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *   - 2 or 3 in I2S mode
+ 512:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @param  SPI_I2S_DMAReq: specifies the SPI/I2S DMA transfer request to be enabled or disabled. 
+ 513:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *   This parameter can be any combination of the following values:
+ 514:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *     @arg SPI_I2S_DMAReq_Tx: Tx buffer DMA transfer request
+ 515:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *     @arg SPI_I2S_DMAReq_Rx: Rx buffer DMA transfer request
+ 516:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @param  NewState: new state of the selected SPI/I2S DMA transfer request.
+ 517:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *   This parameter can be: ENABLE or DISABLE.
+ 518:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @retval None
+ 519:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   */
+ 520:../target/stm32/stdperiph/src/stm32f10x_spi.c **** void SPI_I2S_DMACmd(SPI_TypeDef* SPIx, uint16_t SPI_I2S_DMAReq, FunctionalState NewState)
+ 521:../target/stm32/stdperiph/src/stm32f10x_spi.c **** {
+ 17361              		.loc 1 521 0
+ 17362              		.cfi_startproc
+ 17363              		@ args = 0, pretend = 0, frame = 8
+ 17364              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17365              		@ link register save eliminated.
+ 17366 0000 80B4     		push	{r7}
+ 17367              	.LCFI24:
+ 17368              		.cfi_def_cfa_offset 4
+ 17369 0002 83B0     		sub	sp, sp, #12
+ 17370              	.LCFI25:
+ 17371              		.cfi_def_cfa_offset 16
+ 17372 0004 00AF     		add	r7, sp, #0
+ 17373              		.cfi_offset 7, -4
+ 17374              	.LCFI26:
+ 17375              		.cfi_def_cfa_register 7
+ 17376 0006 7860     		str	r0, [r7, #4]
+ 17377 0008 1346     		mov	r3, r2
+ 17378 000a 0A46     		mov	r2, r1	@ movhi
+ 17379 000c 7A80     		strh	r2, [r7, #2]	@ movhi
+ 17380 000e 7B70     		strb	r3, [r7, #1]
+ 522:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Check the parameters */
+ 523:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   assert_param(IS_SPI_ALL_PERIPH(SPIx));
+ 524:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   assert_param(IS_FUNCTIONAL_STATE(NewState));
+ 525:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   assert_param(IS_SPI_I2S_DMAREQ(SPI_I2S_DMAReq));
+ 526:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   if (NewState != DISABLE)
+ 17381              		.loc 1 526 0
+ 17382 0010 7B78     		ldrb	r3, [r7, #1]	@ zero_extendqisi2
+ 17383 0012 002B     		cmp	r3, #0
+ 17384 0014 09D0     		beq	.L29
+ 527:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   {
+ 528:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     /* Enable the selected SPI/I2S DMA requests */
+ 529:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     SPIx->CR2 |= SPI_I2S_DMAReq;
+ 17385              		.loc 1 529 0
+ 17386 0016 7B68     		ldr	r3, [r7, #4]
+ 17387 0018 9B88     		ldrh	r3, [r3, #4]	@ movhi
+ 17388 001a 9AB2     		uxth	r2, r3
+ 17389 001c 7B88     		ldrh	r3, [r7, #2]	@ movhi
+ 17390 001e 42EA0303 		orr	r3, r2, r3
+ 17391 0022 9AB2     		uxth	r2, r3
+ 17392 0024 7B68     		ldr	r3, [r7, #4]
+ 17393 0026 9A80     		strh	r2, [r3, #4]	@ movhi
+ 17394 0028 0BE0     		b	.L28
+ 17395              	.L29:
+ 530:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   }
+ 531:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   else
+ 532:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   {
+ 533:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     /* Disable the selected SPI/I2S DMA requests */
+ 534:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     SPIx->CR2 &= (uint16_t)~SPI_I2S_DMAReq;
+ 17396              		.loc 1 534 0
+ 17397 002a 7B68     		ldr	r3, [r7, #4]
+ 17398 002c 9B88     		ldrh	r3, [r3, #4]	@ movhi
+ 17399 002e 9AB2     		uxth	r2, r3
+ 17400 0030 7B88     		ldrh	r3, [r7, #2]	@ movhi
+ 17401 0032 6FEA0303 		mvn	r3, r3
+ 17402 0036 9BB2     		uxth	r3, r3
+ 17403 0038 02EA0303 		and	r3, r2, r3
+ 17404 003c 9AB2     		uxth	r2, r3
+ 17405 003e 7B68     		ldr	r3, [r7, #4]
+ 17406 0040 9A80     		strh	r2, [r3, #4]	@ movhi
+ 17407              	.L28:
+ 535:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   }
+ 536:../target/stm32/stdperiph/src/stm32f10x_spi.c **** }
+ 17408              		.loc 1 536 0
+ 17409 0042 07F10C07 		add	r7, r7, #12
+ 17410 0046 BD46     		mov	sp, r7
+ 17411 0048 80BC     		pop	{r7}
+ 17412 004a 7047     		bx	lr
+ 17413              		.cfi_endproc
+ 17414              	.LFE37:
+ 17416              		.section	.text.SPI_I2S_SendData,"ax",%progbits
+ 17417              		.align	2
+ 17418              		.global	SPI_I2S_SendData
+ 17419              		.thumb
+ 17420              		.thumb_func
+ 17422              	SPI_I2S_SendData:
+ 17423              	.LFB38:
+ 537:../target/stm32/stdperiph/src/stm32f10x_spi.c **** 
+ 538:../target/stm32/stdperiph/src/stm32f10x_spi.c **** /**
+ 539:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @brief  Transmits a Data through the SPIx/I2Sx peripheral.
+ 540:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @param  SPIx: where x can be
+ 541:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *   - 1, 2 or 3 in SPI mode 
+ 542:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *   - 2 or 3 in I2S mode
+ 543:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @param  Data : Data to be transmitted.
+ 544:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @retval None
+ 545:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   */
+ 546:../target/stm32/stdperiph/src/stm32f10x_spi.c **** void SPI_I2S_SendData(SPI_TypeDef* SPIx, uint16_t Data)
+ 547:../target/stm32/stdperiph/src/stm32f10x_spi.c **** {
+ 17424              		.loc 1 547 0
+ 17425              		.cfi_startproc
+ 17426              		@ args = 0, pretend = 0, frame = 8
+ 17427              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17428              		@ link register save eliminated.
+ 17429 0000 80B4     		push	{r7}
+ 17430              	.LCFI27:
+ 17431              		.cfi_def_cfa_offset 4
+ 17432 0002 83B0     		sub	sp, sp, #12
+ 17433              	.LCFI28:
+ 17434              		.cfi_def_cfa_offset 16
+ 17435 0004 00AF     		add	r7, sp, #0
+ 17436              		.cfi_offset 7, -4
+ 17437              	.LCFI29:
+ 17438              		.cfi_def_cfa_register 7
+ 17439 0006 7860     		str	r0, [r7, #4]
+ 17440 0008 0B46     		mov	r3, r1
+ 17441 000a 7B80     		strh	r3, [r7, #2]	@ movhi
+ 548:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Check the parameters */
+ 549:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   assert_param(IS_SPI_ALL_PERIPH(SPIx));
+ 550:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   
+ 551:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Write in the DR register the data to be sent */
+ 552:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   SPIx->DR = Data;
+ 17442              		.loc 1 552 0
+ 17443 000c 7B68     		ldr	r3, [r7, #4]
+ 17444 000e 7A88     		ldrh	r2, [r7, #2]	@ movhi
+ 17445 0010 9A81     		strh	r2, [r3, #12]	@ movhi
+ 553:../target/stm32/stdperiph/src/stm32f10x_spi.c **** }
+ 17446              		.loc 1 553 0
+ 17447 0012 07F10C07 		add	r7, r7, #12
+ 17448 0016 BD46     		mov	sp, r7
+ 17449 0018 80BC     		pop	{r7}
+ 17450 001a 7047     		bx	lr
+ 17451              		.cfi_endproc
+ 17452              	.LFE38:
+ 17454              		.section	.text.SPI_I2S_ReceiveData,"ax",%progbits
+ 17455              		.align	2
+ 17456              		.global	SPI_I2S_ReceiveData
+ 17457              		.thumb
+ 17458              		.thumb_func
+ 17460              	SPI_I2S_ReceiveData:
+ 17461              	.LFB39:
+ 554:../target/stm32/stdperiph/src/stm32f10x_spi.c **** 
+ 555:../target/stm32/stdperiph/src/stm32f10x_spi.c **** /**
+ 556:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @brief  Returns the most recent received data by the SPIx/I2Sx peripheral. 
+ 557:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @param  SPIx: where x can be
+ 558:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *   - 1, 2 or 3 in SPI mode 
+ 559:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *   - 2 or 3 in I2S mode
+ 560:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @retval The value of the received data.
+ 561:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   */
+ 562:../target/stm32/stdperiph/src/stm32f10x_spi.c **** uint16_t SPI_I2S_ReceiveData(SPI_TypeDef* SPIx)
+ 563:../target/stm32/stdperiph/src/stm32f10x_spi.c **** {
+ 17462              		.loc 1 563 0
+ 17463              		.cfi_startproc
+ 17464              		@ args = 0, pretend = 0, frame = 8
+ 17465              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17466              		@ link register save eliminated.
+ 17467 0000 80B4     		push	{r7}
+ 17468              	.LCFI30:
+ 17469              		.cfi_def_cfa_offset 4
+ 17470 0002 83B0     		sub	sp, sp, #12
+ 17471              	.LCFI31:
+ 17472              		.cfi_def_cfa_offset 16
+ 17473 0004 00AF     		add	r7, sp, #0
+ 17474              		.cfi_offset 7, -4
+ 17475              	.LCFI32:
+ 17476              		.cfi_def_cfa_register 7
+ 17477 0006 7860     		str	r0, [r7, #4]
+ 564:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Check the parameters */
+ 565:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   assert_param(IS_SPI_ALL_PERIPH(SPIx));
+ 566:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   
+ 567:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Return the data in the DR register */
+ 568:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   return SPIx->DR;
+ 17478              		.loc 1 568 0
+ 17479 0008 7B68     		ldr	r3, [r7, #4]
+ 17480 000a 9B89     		ldrh	r3, [r3, #12]	@ movhi
+ 17481 000c 9BB2     		uxth	r3, r3
+ 569:../target/stm32/stdperiph/src/stm32f10x_spi.c **** }
+ 17482              		.loc 1 569 0
+ 17483 000e 1846     		mov	r0, r3
+ 17484 0010 07F10C07 		add	r7, r7, #12
+ 17485 0014 BD46     		mov	sp, r7
+ 17486 0016 80BC     		pop	{r7}
+ 17487 0018 7047     		bx	lr
+ 17488              		.cfi_endproc
+ 17489              	.LFE39:
+ 17491 001a 00BF     		.section	.text.SPI_NSSInternalSoftwareConfig,"ax",%progbits
+ 17492              		.align	2
+ 17493              		.global	SPI_NSSInternalSoftwareConfig
+ 17494              		.thumb
+ 17495              		.thumb_func
+ 17497              	SPI_NSSInternalSoftwareConfig:
+ 17498              	.LFB40:
+ 570:../target/stm32/stdperiph/src/stm32f10x_spi.c **** 
+ 571:../target/stm32/stdperiph/src/stm32f10x_spi.c **** /**
+ 572:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @brief  Configures internally by software the NSS pin for the selected SPI.
+ 573:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @param  SPIx: where x can be 1, 2 or 3 to select the SPI peripheral.
+ 574:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @param  SPI_NSSInternalSoft: specifies the SPI NSS internal state.
+ 575:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *   This parameter can be one of the following values:
+ 576:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *     @arg SPI_NSSInternalSoft_Set: Set NSS pin internally
+ 577:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *     @arg SPI_NSSInternalSoft_Reset: Reset NSS pin internally
+ 578:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @retval None
+ 579:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   */
+ 580:../target/stm32/stdperiph/src/stm32f10x_spi.c **** void SPI_NSSInternalSoftwareConfig(SPI_TypeDef* SPIx, uint16_t SPI_NSSInternalSoft)
+ 581:../target/stm32/stdperiph/src/stm32f10x_spi.c **** {
+ 17499              		.loc 1 581 0
+ 17500              		.cfi_startproc
+ 17501              		@ args = 0, pretend = 0, frame = 8
+ 17502              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17503              		@ link register save eliminated.
+ 17504 0000 80B4     		push	{r7}
+ 17505              	.LCFI33:
+ 17506              		.cfi_def_cfa_offset 4
+ 17507 0002 83B0     		sub	sp, sp, #12
+ 17508              	.LCFI34:
+ 17509              		.cfi_def_cfa_offset 16
+ 17510 0004 00AF     		add	r7, sp, #0
+ 17511              		.cfi_offset 7, -4
+ 17512              	.LCFI35:
+ 17513              		.cfi_def_cfa_register 7
+ 17514 0006 7860     		str	r0, [r7, #4]
+ 17515 0008 0B46     		mov	r3, r1
+ 17516 000a 7B80     		strh	r3, [r7, #2]	@ movhi
+ 582:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Check the parameters */
+ 583:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   assert_param(IS_SPI_ALL_PERIPH(SPIx));
+ 584:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   assert_param(IS_SPI_NSS_INTERNAL(SPI_NSSInternalSoft));
+ 585:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   if (SPI_NSSInternalSoft != SPI_NSSInternalSoft_Reset)
+ 17517              		.loc 1 585 0
+ 17518 000c 7A88     		ldrh	r2, [r7, #2]
+ 17519 000e 4FF6FF63 		movw	r3, #65279
+ 17520 0012 9A42     		cmp	r2, r3
+ 17521 0014 08D0     		beq	.L34
+ 586:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   {
+ 587:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     /* Set NSS pin internally by software */
+ 588:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     SPIx->CR1 |= SPI_NSSInternalSoft_Set;
+ 17522              		.loc 1 588 0
+ 17523 0016 7B68     		ldr	r3, [r7, #4]
+ 17524 0018 1B88     		ldrh	r3, [r3, #0]	@ movhi
+ 17525 001a 9BB2     		uxth	r3, r3
+ 17526 001c 43F48073 		orr	r3, r3, #256
+ 17527 0020 9AB2     		uxth	r2, r3
+ 17528 0022 7B68     		ldr	r3, [r7, #4]
+ 17529 0024 1A80     		strh	r2, [r3, #0]	@ movhi
+ 17530 0026 07E0     		b	.L33
+ 17531              	.L34:
+ 589:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   }
+ 590:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   else
+ 591:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   {
+ 592:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     /* Reset NSS pin internally by software */
+ 593:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     SPIx->CR1 &= SPI_NSSInternalSoft_Reset;
+ 17532              		.loc 1 593 0
+ 17533 0028 7B68     		ldr	r3, [r7, #4]
+ 17534 002a 1B88     		ldrh	r3, [r3, #0]	@ movhi
+ 17535 002c 9BB2     		uxth	r3, r3
+ 17536 002e 23F48073 		bic	r3, r3, #256
+ 17537 0032 9AB2     		uxth	r2, r3
+ 17538 0034 7B68     		ldr	r3, [r7, #4]
+ 17539 0036 1A80     		strh	r2, [r3, #0]	@ movhi
+ 17540              	.L33:
+ 594:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   }
+ 595:../target/stm32/stdperiph/src/stm32f10x_spi.c **** }
+ 17541              		.loc 1 595 0
+ 17542 0038 07F10C07 		add	r7, r7, #12
+ 17543 003c BD46     		mov	sp, r7
+ 17544 003e 80BC     		pop	{r7}
+ 17545 0040 7047     		bx	lr
+ 17546              		.cfi_endproc
+ 17547              	.LFE40:
+ 17549 0042 00BF     		.section	.text.SPI_SSOutputCmd,"ax",%progbits
+ 17550              		.align	2
+ 17551              		.global	SPI_SSOutputCmd
+ 17552              		.thumb
+ 17553              		.thumb_func
+ 17555              	SPI_SSOutputCmd:
+ 17556              	.LFB41:
+ 596:../target/stm32/stdperiph/src/stm32f10x_spi.c **** 
+ 597:../target/stm32/stdperiph/src/stm32f10x_spi.c **** /**
+ 598:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @brief  Enables or disables the SS output for the selected SPI.
+ 599:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @param  SPIx: where x can be 1, 2 or 3 to select the SPI peripheral.
+ 600:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @param  NewState: new state of the SPIx SS output. 
+ 601:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *   This parameter can be: ENABLE or DISABLE.
+ 602:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @retval None
+ 603:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   */
+ 604:../target/stm32/stdperiph/src/stm32f10x_spi.c **** void SPI_SSOutputCmd(SPI_TypeDef* SPIx, FunctionalState NewState)
+ 605:../target/stm32/stdperiph/src/stm32f10x_spi.c **** {
+ 17557              		.loc 1 605 0
+ 17558              		.cfi_startproc
+ 17559              		@ args = 0, pretend = 0, frame = 8
+ 17560              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17561              		@ link register save eliminated.
+ 17562 0000 80B4     		push	{r7}
+ 17563              	.LCFI36:
+ 17564              		.cfi_def_cfa_offset 4
+ 17565 0002 83B0     		sub	sp, sp, #12
+ 17566              	.LCFI37:
+ 17567              		.cfi_def_cfa_offset 16
+ 17568 0004 00AF     		add	r7, sp, #0
+ 17569              		.cfi_offset 7, -4
+ 17570              	.LCFI38:
+ 17571              		.cfi_def_cfa_register 7
+ 17572 0006 7860     		str	r0, [r7, #4]
+ 17573 0008 0B46     		mov	r3, r1
+ 17574 000a FB70     		strb	r3, [r7, #3]
+ 606:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Check the parameters */
+ 607:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   assert_param(IS_SPI_ALL_PERIPH(SPIx));
+ 608:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   assert_param(IS_FUNCTIONAL_STATE(NewState));
+ 609:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   if (NewState != DISABLE)
+ 17575              		.loc 1 609 0
+ 17576 000c FB78     		ldrb	r3, [r7, #3]	@ zero_extendqisi2
+ 17577 000e 002B     		cmp	r3, #0
+ 17578 0010 08D0     		beq	.L37
+ 610:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   {
+ 611:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     /* Enable the selected SPI SS output */
+ 612:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     SPIx->CR2 |= CR2_SSOE_Set;
+ 17579              		.loc 1 612 0
+ 17580 0012 7B68     		ldr	r3, [r7, #4]
+ 17581 0014 9B88     		ldrh	r3, [r3, #4]	@ movhi
+ 17582 0016 9BB2     		uxth	r3, r3
+ 17583 0018 43F00403 		orr	r3, r3, #4
+ 17584 001c 9AB2     		uxth	r2, r3
+ 17585 001e 7B68     		ldr	r3, [r7, #4]
+ 17586 0020 9A80     		strh	r2, [r3, #4]	@ movhi
+ 17587 0022 07E0     		b	.L36
+ 17588              	.L37:
+ 613:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   }
+ 614:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   else
+ 615:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   {
+ 616:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     /* Disable the selected SPI SS output */
+ 617:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     SPIx->CR2 &= CR2_SSOE_Reset;
+ 17589              		.loc 1 617 0
+ 17590 0024 7B68     		ldr	r3, [r7, #4]
+ 17591 0026 9B88     		ldrh	r3, [r3, #4]	@ movhi
+ 17592 0028 9BB2     		uxth	r3, r3
+ 17593 002a 23F00403 		bic	r3, r3, #4
+ 17594 002e 9AB2     		uxth	r2, r3
+ 17595 0030 7B68     		ldr	r3, [r7, #4]
+ 17596 0032 9A80     		strh	r2, [r3, #4]	@ movhi
+ 17597              	.L36:
+ 618:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   }
+ 619:../target/stm32/stdperiph/src/stm32f10x_spi.c **** }
+ 17598              		.loc 1 619 0
+ 17599 0034 07F10C07 		add	r7, r7, #12
+ 17600 0038 BD46     		mov	sp, r7
+ 17601 003a 80BC     		pop	{r7}
+ 17602 003c 7047     		bx	lr
+ 17603              		.cfi_endproc
+ 17604              	.LFE41:
+ 17606 003e 00BF     		.section	.text.SPI_DataSizeConfig,"ax",%progbits
+ 17607              		.align	2
+ 17608              		.global	SPI_DataSizeConfig
+ 17609              		.thumb
+ 17610              		.thumb_func
+ 17612              	SPI_DataSizeConfig:
+ 17613              	.LFB42:
+ 620:../target/stm32/stdperiph/src/stm32f10x_spi.c **** 
+ 621:../target/stm32/stdperiph/src/stm32f10x_spi.c **** /**
+ 622:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @brief  Configures the data size for the selected SPI.
+ 623:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @param  SPIx: where x can be 1, 2 or 3 to select the SPI peripheral.
+ 624:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @param  SPI_DataSize: specifies the SPI data size.
+ 625:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *   This parameter can be one of the following values:
+ 626:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *     @arg SPI_DataSize_16b: Set data frame format to 16bit
+ 627:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *     @arg SPI_DataSize_8b: Set data frame format to 8bit
+ 628:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @retval None
+ 629:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   */
+ 630:../target/stm32/stdperiph/src/stm32f10x_spi.c **** void SPI_DataSizeConfig(SPI_TypeDef* SPIx, uint16_t SPI_DataSize)
+ 631:../target/stm32/stdperiph/src/stm32f10x_spi.c **** {
+ 17614              		.loc 1 631 0
+ 17615              		.cfi_startproc
+ 17616              		@ args = 0, pretend = 0, frame = 8
+ 17617              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17618              		@ link register save eliminated.
+ 17619 0000 80B4     		push	{r7}
+ 17620              	.LCFI39:
+ 17621              		.cfi_def_cfa_offset 4
+ 17622 0002 83B0     		sub	sp, sp, #12
+ 17623              	.LCFI40:
+ 17624              		.cfi_def_cfa_offset 16
+ 17625 0004 00AF     		add	r7, sp, #0
+ 17626              		.cfi_offset 7, -4
+ 17627              	.LCFI41:
+ 17628              		.cfi_def_cfa_register 7
+ 17629 0006 7860     		str	r0, [r7, #4]
+ 17630 0008 0B46     		mov	r3, r1
+ 17631 000a 7B80     		strh	r3, [r7, #2]	@ movhi
+ 632:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Check the parameters */
+ 633:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   assert_param(IS_SPI_ALL_PERIPH(SPIx));
+ 634:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   assert_param(IS_SPI_DATASIZE(SPI_DataSize));
+ 635:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Clear DFF bit */
+ 636:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   SPIx->CR1 &= (uint16_t)~SPI_DataSize_16b;
+ 17632              		.loc 1 636 0
+ 17633 000c 7B68     		ldr	r3, [r7, #4]
+ 17634 000e 1B88     		ldrh	r3, [r3, #0]	@ movhi
+ 17635 0010 9BB2     		uxth	r3, r3
+ 17636 0012 23F40063 		bic	r3, r3, #2048
+ 17637 0016 9AB2     		uxth	r2, r3
+ 17638 0018 7B68     		ldr	r3, [r7, #4]
+ 17639 001a 1A80     		strh	r2, [r3, #0]	@ movhi
+ 637:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Set new DFF bit value */
+ 638:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   SPIx->CR1 |= SPI_DataSize;
+ 17640              		.loc 1 638 0
+ 17641 001c 7B68     		ldr	r3, [r7, #4]
+ 17642 001e 1B88     		ldrh	r3, [r3, #0]	@ movhi
+ 17643 0020 9AB2     		uxth	r2, r3
+ 17644 0022 7B88     		ldrh	r3, [r7, #2]	@ movhi
+ 17645 0024 42EA0303 		orr	r3, r2, r3
+ 17646 0028 9AB2     		uxth	r2, r3
+ 17647 002a 7B68     		ldr	r3, [r7, #4]
+ 17648 002c 1A80     		strh	r2, [r3, #0]	@ movhi
+ 639:../target/stm32/stdperiph/src/stm32f10x_spi.c **** }
+ 17649              		.loc 1 639 0
+ 17650 002e 07F10C07 		add	r7, r7, #12
+ 17651 0032 BD46     		mov	sp, r7
+ 17652 0034 80BC     		pop	{r7}
+ 17653 0036 7047     		bx	lr
+ 17654              		.cfi_endproc
+ 17655              	.LFE42:
+ 17657              		.section	.text.SPI_TransmitCRC,"ax",%progbits
+ 17658              		.align	2
+ 17659              		.global	SPI_TransmitCRC
+ 17660              		.thumb
+ 17661              		.thumb_func
+ 17663              	SPI_TransmitCRC:
+ 17664              	.LFB43:
+ 640:../target/stm32/stdperiph/src/stm32f10x_spi.c **** 
+ 641:../target/stm32/stdperiph/src/stm32f10x_spi.c **** /**
+ 642:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @brief  Transmit the SPIx CRC value.
+ 643:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @param  SPIx: where x can be 1, 2 or 3 to select the SPI peripheral.
+ 644:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @retval None
+ 645:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   */
+ 646:../target/stm32/stdperiph/src/stm32f10x_spi.c **** void SPI_TransmitCRC(SPI_TypeDef* SPIx)
+ 647:../target/stm32/stdperiph/src/stm32f10x_spi.c **** {
+ 17665              		.loc 1 647 0
+ 17666              		.cfi_startproc
+ 17667              		@ args = 0, pretend = 0, frame = 8
+ 17668              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17669              		@ link register save eliminated.
+ 17670 0000 80B4     		push	{r7}
+ 17671              	.LCFI42:
+ 17672              		.cfi_def_cfa_offset 4
+ 17673 0002 83B0     		sub	sp, sp, #12
+ 17674              	.LCFI43:
+ 17675              		.cfi_def_cfa_offset 16
+ 17676 0004 00AF     		add	r7, sp, #0
+ 17677              		.cfi_offset 7, -4
+ 17678              	.LCFI44:
+ 17679              		.cfi_def_cfa_register 7
+ 17680 0006 7860     		str	r0, [r7, #4]
+ 648:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Check the parameters */
+ 649:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   assert_param(IS_SPI_ALL_PERIPH(SPIx));
+ 650:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   
+ 651:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Enable the selected SPI CRC transmission */
+ 652:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   SPIx->CR1 |= CR1_CRCNext_Set;
+ 17681              		.loc 1 652 0
+ 17682 0008 7B68     		ldr	r3, [r7, #4]
+ 17683 000a 1B88     		ldrh	r3, [r3, #0]	@ movhi
+ 17684 000c 9BB2     		uxth	r3, r3
+ 17685 000e 43F48053 		orr	r3, r3, #4096
+ 17686 0012 9AB2     		uxth	r2, r3
+ 17687 0014 7B68     		ldr	r3, [r7, #4]
+ 17688 0016 1A80     		strh	r2, [r3, #0]	@ movhi
+ 653:../target/stm32/stdperiph/src/stm32f10x_spi.c **** }
+ 17689              		.loc 1 653 0
+ 17690 0018 07F10C07 		add	r7, r7, #12
+ 17691 001c BD46     		mov	sp, r7
+ 17692 001e 80BC     		pop	{r7}
+ 17693 0020 7047     		bx	lr
+ 17694              		.cfi_endproc
+ 17695              	.LFE43:
+ 17697 0022 00BF     		.section	.text.SPI_CalculateCRC,"ax",%progbits
+ 17698              		.align	2
+ 17699              		.global	SPI_CalculateCRC
+ 17700              		.thumb
+ 17701              		.thumb_func
+ 17703              	SPI_CalculateCRC:
+ 17704              	.LFB44:
+ 654:../target/stm32/stdperiph/src/stm32f10x_spi.c **** 
+ 655:../target/stm32/stdperiph/src/stm32f10x_spi.c **** /**
+ 656:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @brief  Enables or disables the CRC value calculation of the transfered bytes.
+ 657:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @param  SPIx: where x can be 1, 2 or 3 to select the SPI peripheral.
+ 658:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @param  NewState: new state of the SPIx CRC value calculation.
+ 659:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *   This parameter can be: ENABLE or DISABLE.
+ 660:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @retval None
+ 661:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   */
+ 662:../target/stm32/stdperiph/src/stm32f10x_spi.c **** void SPI_CalculateCRC(SPI_TypeDef* SPIx, FunctionalState NewState)
+ 663:../target/stm32/stdperiph/src/stm32f10x_spi.c **** {
+ 17705              		.loc 1 663 0
+ 17706              		.cfi_startproc
+ 17707              		@ args = 0, pretend = 0, frame = 8
+ 17708              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17709              		@ link register save eliminated.
+ 17710 0000 80B4     		push	{r7}
+ 17711              	.LCFI45:
+ 17712              		.cfi_def_cfa_offset 4
+ 17713 0002 83B0     		sub	sp, sp, #12
+ 17714              	.LCFI46:
+ 17715              		.cfi_def_cfa_offset 16
+ 17716 0004 00AF     		add	r7, sp, #0
+ 17717              		.cfi_offset 7, -4
+ 17718              	.LCFI47:
+ 17719              		.cfi_def_cfa_register 7
+ 17720 0006 7860     		str	r0, [r7, #4]
+ 17721 0008 0B46     		mov	r3, r1
+ 17722 000a FB70     		strb	r3, [r7, #3]
+ 664:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Check the parameters */
+ 665:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   assert_param(IS_SPI_ALL_PERIPH(SPIx));
+ 666:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   assert_param(IS_FUNCTIONAL_STATE(NewState));
+ 667:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   if (NewState != DISABLE)
+ 17723              		.loc 1 667 0
+ 17724 000c FB78     		ldrb	r3, [r7, #3]	@ zero_extendqisi2
+ 17725 000e 002B     		cmp	r3, #0
+ 17726 0010 08D0     		beq	.L42
+ 668:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   {
+ 669:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     /* Enable the selected SPI CRC calculation */
+ 670:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     SPIx->CR1 |= CR1_CRCEN_Set;
+ 17727              		.loc 1 670 0
+ 17728 0012 7B68     		ldr	r3, [r7, #4]
+ 17729 0014 1B88     		ldrh	r3, [r3, #0]	@ movhi
+ 17730 0016 9BB2     		uxth	r3, r3
+ 17731 0018 43F40053 		orr	r3, r3, #8192
+ 17732 001c 9AB2     		uxth	r2, r3
+ 17733 001e 7B68     		ldr	r3, [r7, #4]
+ 17734 0020 1A80     		strh	r2, [r3, #0]	@ movhi
+ 17735 0022 07E0     		b	.L41
+ 17736              	.L42:
+ 671:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   }
+ 672:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   else
+ 673:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   {
+ 674:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     /* Disable the selected SPI CRC calculation */
+ 675:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     SPIx->CR1 &= CR1_CRCEN_Reset;
+ 17737              		.loc 1 675 0
+ 17738 0024 7B68     		ldr	r3, [r7, #4]
+ 17739 0026 1B88     		ldrh	r3, [r3, #0]	@ movhi
+ 17740 0028 9BB2     		uxth	r3, r3
+ 17741 002a 23F40053 		bic	r3, r3, #8192
+ 17742 002e 9AB2     		uxth	r2, r3
+ 17743 0030 7B68     		ldr	r3, [r7, #4]
+ 17744 0032 1A80     		strh	r2, [r3, #0]	@ movhi
+ 17745              	.L41:
+ 676:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   }
+ 677:../target/stm32/stdperiph/src/stm32f10x_spi.c **** }
+ 17746              		.loc 1 677 0
+ 17747 0034 07F10C07 		add	r7, r7, #12
+ 17748 0038 BD46     		mov	sp, r7
+ 17749 003a 80BC     		pop	{r7}
+ 17750 003c 7047     		bx	lr
+ 17751              		.cfi_endproc
+ 17752              	.LFE44:
+ 17754 003e 00BF     		.section	.text.SPI_GetCRC,"ax",%progbits
+ 17755              		.align	2
+ 17756              		.global	SPI_GetCRC
+ 17757              		.thumb
+ 17758              		.thumb_func
+ 17760              	SPI_GetCRC:
+ 17761              	.LFB45:
+ 678:../target/stm32/stdperiph/src/stm32f10x_spi.c **** 
+ 679:../target/stm32/stdperiph/src/stm32f10x_spi.c **** /**
+ 680:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @brief  Returns the transmit or the receive CRC register value for the specified SPI.
+ 681:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @param  SPIx: where x can be 1, 2 or 3 to select the SPI peripheral.
+ 682:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @param  SPI_CRC: specifies the CRC register to be read.
+ 683:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *   This parameter can be one of the following values:
+ 684:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *     @arg SPI_CRC_Tx: Selects Tx CRC register
+ 685:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *     @arg SPI_CRC_Rx: Selects Rx CRC register
+ 686:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @retval The selected CRC register value..
+ 687:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   */
+ 688:../target/stm32/stdperiph/src/stm32f10x_spi.c **** uint16_t SPI_GetCRC(SPI_TypeDef* SPIx, uint8_t SPI_CRC)
+ 689:../target/stm32/stdperiph/src/stm32f10x_spi.c **** {
+ 17762              		.loc 1 689 0
+ 17763              		.cfi_startproc
+ 17764              		@ args = 0, pretend = 0, frame = 16
+ 17765              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17766              		@ link register save eliminated.
+ 17767 0000 80B4     		push	{r7}
+ 17768              	.LCFI48:
+ 17769              		.cfi_def_cfa_offset 4
+ 17770 0002 85B0     		sub	sp, sp, #20
+ 17771              	.LCFI49:
+ 17772              		.cfi_def_cfa_offset 24
+ 17773 0004 00AF     		add	r7, sp, #0
+ 17774              		.cfi_offset 7, -4
+ 17775              	.LCFI50:
+ 17776              		.cfi_def_cfa_register 7
+ 17777 0006 7860     		str	r0, [r7, #4]
+ 17778 0008 0B46     		mov	r3, r1
+ 17779 000a FB70     		strb	r3, [r7, #3]
+ 690:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   uint16_t crcreg = 0;
+ 17780              		.loc 1 690 0
+ 17781 000c 4FF00003 		mov	r3, #0
+ 17782 0010 FB81     		strh	r3, [r7, #14]	@ movhi
+ 691:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Check the parameters */
+ 692:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   assert_param(IS_SPI_ALL_PERIPH(SPIx));
+ 693:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   assert_param(IS_SPI_CRC(SPI_CRC));
+ 694:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   if (SPI_CRC != SPI_CRC_Rx)
+ 17783              		.loc 1 694 0
+ 17784 0012 FB78     		ldrb	r3, [r7, #3]	@ zero_extendqisi2
+ 17785 0014 012B     		cmp	r3, #1
+ 17786 0016 03D0     		beq	.L45
+ 695:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   {
+ 696:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     /* Get the Tx CRC register */
+ 697:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     crcreg = SPIx->TXCRCR;
+ 17787              		.loc 1 697 0
+ 17788 0018 7B68     		ldr	r3, [r7, #4]
+ 17789 001a 1B8B     		ldrh	r3, [r3, #24]	@ movhi
+ 17790 001c FB81     		strh	r3, [r7, #14]	@ movhi
+ 17791 001e 02E0     		b	.L46
+ 17792              	.L45:
+ 698:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   }
+ 699:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   else
+ 700:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   {
+ 701:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     /* Get the Rx CRC register */
+ 702:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     crcreg = SPIx->RXCRCR;
+ 17793              		.loc 1 702 0
+ 17794 0020 7B68     		ldr	r3, [r7, #4]
+ 17795 0022 9B8A     		ldrh	r3, [r3, #20]	@ movhi
+ 17796 0024 FB81     		strh	r3, [r7, #14]	@ movhi
+ 17797              	.L46:
+ 703:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   }
+ 704:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Return the selected CRC register */
+ 705:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   return crcreg;
+ 17798              		.loc 1 705 0
+ 17799 0026 FB89     		ldrh	r3, [r7, #14]
+ 706:../target/stm32/stdperiph/src/stm32f10x_spi.c **** }
+ 17800              		.loc 1 706 0
+ 17801 0028 1846     		mov	r0, r3
+ 17802 002a 07F11407 		add	r7, r7, #20
+ 17803 002e BD46     		mov	sp, r7
+ 17804 0030 80BC     		pop	{r7}
+ 17805 0032 7047     		bx	lr
+ 17806              		.cfi_endproc
+ 17807              	.LFE45:
+ 17809              		.section	.text.SPI_GetCRCPolynomial,"ax",%progbits
+ 17810              		.align	2
+ 17811              		.global	SPI_GetCRCPolynomial
+ 17812              		.thumb
+ 17813              		.thumb_func
+ 17815              	SPI_GetCRCPolynomial:
+ 17816              	.LFB46:
+ 707:../target/stm32/stdperiph/src/stm32f10x_spi.c **** 
+ 708:../target/stm32/stdperiph/src/stm32f10x_spi.c **** /**
+ 709:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @brief  Returns the CRC Polynomial register value for the specified SPI.
+ 710:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @param  SPIx: where x can be 1, 2 or 3 to select the SPI peripheral.
+ 711:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @retval The CRC Polynomial register value.
+ 712:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   */
+ 713:../target/stm32/stdperiph/src/stm32f10x_spi.c **** uint16_t SPI_GetCRCPolynomial(SPI_TypeDef* SPIx)
+ 714:../target/stm32/stdperiph/src/stm32f10x_spi.c **** {
+ 17817              		.loc 1 714 0
+ 17818              		.cfi_startproc
+ 17819              		@ args = 0, pretend = 0, frame = 8
+ 17820              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17821              		@ link register save eliminated.
+ 17822 0000 80B4     		push	{r7}
+ 17823              	.LCFI51:
+ 17824              		.cfi_def_cfa_offset 4
+ 17825 0002 83B0     		sub	sp, sp, #12
+ 17826              	.LCFI52:
+ 17827              		.cfi_def_cfa_offset 16
+ 17828 0004 00AF     		add	r7, sp, #0
+ 17829              		.cfi_offset 7, -4
+ 17830              	.LCFI53:
+ 17831              		.cfi_def_cfa_register 7
+ 17832 0006 7860     		str	r0, [r7, #4]
+ 715:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Check the parameters */
+ 716:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   assert_param(IS_SPI_ALL_PERIPH(SPIx));
+ 717:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   
+ 718:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Return the CRC polynomial register */
+ 719:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   return SPIx->CRCPR;
+ 17833              		.loc 1 719 0
+ 17834 0008 7B68     		ldr	r3, [r7, #4]
+ 17835 000a 1B8A     		ldrh	r3, [r3, #16]	@ movhi
+ 17836 000c 9BB2     		uxth	r3, r3
+ 720:../target/stm32/stdperiph/src/stm32f10x_spi.c **** }
+ 17837              		.loc 1 720 0
+ 17838 000e 1846     		mov	r0, r3
+ 17839 0010 07F10C07 		add	r7, r7, #12
+ 17840 0014 BD46     		mov	sp, r7
+ 17841 0016 80BC     		pop	{r7}
+ 17842 0018 7047     		bx	lr
+ 17843              		.cfi_endproc
+ 17844              	.LFE46:
+ 17846 001a 00BF     		.section	.text.SPI_BiDirectionalLineConfig,"ax",%progbits
+ 17847              		.align	2
+ 17848              		.global	SPI_BiDirectionalLineConfig
+ 17849              		.thumb
+ 17850              		.thumb_func
+ 17852              	SPI_BiDirectionalLineConfig:
+ 17853              	.LFB47:
+ 721:../target/stm32/stdperiph/src/stm32f10x_spi.c **** 
+ 722:../target/stm32/stdperiph/src/stm32f10x_spi.c **** /**
+ 723:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @brief  Selects the data transfer direction in bi-directional mode for the specified SPI.
+ 724:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @param  SPIx: where x can be 1, 2 or 3 to select the SPI peripheral.
+ 725:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @param  SPI_Direction: specifies the data transfer direction in bi-directional mode. 
+ 726:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *   This parameter can be one of the following values:
+ 727:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *     @arg SPI_Direction_Tx: Selects Tx transmission direction
+ 728:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *     @arg SPI_Direction_Rx: Selects Rx receive direction
+ 729:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @retval None
+ 730:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   */
+ 731:../target/stm32/stdperiph/src/stm32f10x_spi.c **** void SPI_BiDirectionalLineConfig(SPI_TypeDef* SPIx, uint16_t SPI_Direction)
+ 732:../target/stm32/stdperiph/src/stm32f10x_spi.c **** {
+ 17854              		.loc 1 732 0
+ 17855              		.cfi_startproc
+ 17856              		@ args = 0, pretend = 0, frame = 8
+ 17857              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17858              		@ link register save eliminated.
+ 17859 0000 80B4     		push	{r7}
+ 17860              	.LCFI54:
+ 17861              		.cfi_def_cfa_offset 4
+ 17862 0002 83B0     		sub	sp, sp, #12
+ 17863              	.LCFI55:
+ 17864              		.cfi_def_cfa_offset 16
+ 17865 0004 00AF     		add	r7, sp, #0
+ 17866              		.cfi_offset 7, -4
+ 17867              	.LCFI56:
+ 17868              		.cfi_def_cfa_register 7
+ 17869 0006 7860     		str	r0, [r7, #4]
+ 17870 0008 0B46     		mov	r3, r1
+ 17871 000a 7B80     		strh	r3, [r7, #2]	@ movhi
+ 733:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Check the parameters */
+ 734:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   assert_param(IS_SPI_ALL_PERIPH(SPIx));
+ 735:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   assert_param(IS_SPI_DIRECTION(SPI_Direction));
+ 736:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   if (SPI_Direction == SPI_Direction_Tx)
+ 17872              		.loc 1 736 0
+ 17873 000c 7B88     		ldrh	r3, [r7, #2]
+ 17874 000e B3F5804F 		cmp	r3, #16384
+ 17875 0012 08D1     		bne	.L49
+ 737:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   {
+ 738:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     /* Set the Tx only mode */
+ 739:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     SPIx->CR1 |= SPI_Direction_Tx;
+ 17876              		.loc 1 739 0
+ 17877 0014 7B68     		ldr	r3, [r7, #4]
+ 17878 0016 1B88     		ldrh	r3, [r3, #0]	@ movhi
+ 17879 0018 9BB2     		uxth	r3, r3
+ 17880 001a 43F48043 		orr	r3, r3, #16384
+ 17881 001e 9AB2     		uxth	r2, r3
+ 17882 0020 7B68     		ldr	r3, [r7, #4]
+ 17883 0022 1A80     		strh	r2, [r3, #0]	@ movhi
+ 17884 0024 07E0     		b	.L48
+ 17885              	.L49:
+ 740:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   }
+ 741:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   else
+ 742:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   {
+ 743:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     /* Set the Rx only mode */
+ 744:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     SPIx->CR1 &= SPI_Direction_Rx;
+ 17886              		.loc 1 744 0
+ 17887 0026 7B68     		ldr	r3, [r7, #4]
+ 17888 0028 1B88     		ldrh	r3, [r3, #0]	@ movhi
+ 17889 002a 9BB2     		uxth	r3, r3
+ 17890 002c 23F48043 		bic	r3, r3, #16384
+ 17891 0030 9AB2     		uxth	r2, r3
+ 17892 0032 7B68     		ldr	r3, [r7, #4]
+ 17893 0034 1A80     		strh	r2, [r3, #0]	@ movhi
+ 17894              	.L48:
+ 745:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   }
+ 746:../target/stm32/stdperiph/src/stm32f10x_spi.c **** }
+ 17895              		.loc 1 746 0
+ 17896 0036 07F10C07 		add	r7, r7, #12
+ 17897 003a BD46     		mov	sp, r7
+ 17898 003c 80BC     		pop	{r7}
+ 17899 003e 7047     		bx	lr
+ 17900              		.cfi_endproc
+ 17901              	.LFE47:
+ 17903              		.section	.text.SPI_I2S_GetFlagStatus,"ax",%progbits
+ 17904              		.align	2
+ 17905              		.global	SPI_I2S_GetFlagStatus
+ 17906              		.thumb
+ 17907              		.thumb_func
+ 17909              	SPI_I2S_GetFlagStatus:
+ 17910              	.LFB48:
+ 747:../target/stm32/stdperiph/src/stm32f10x_spi.c **** 
+ 748:../target/stm32/stdperiph/src/stm32f10x_spi.c **** /**
+ 749:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @brief  Checks whether the specified SPI/I2S flag is set or not.
+ 750:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @param  SPIx: where x can be
+ 751:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *   - 1, 2 or 3 in SPI mode 
+ 752:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *   - 2 or 3 in I2S mode
+ 753:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @param  SPI_I2S_FLAG: specifies the SPI/I2S flag to check. 
+ 754:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *   This parameter can be one of the following values:
+ 755:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *     @arg SPI_I2S_FLAG_TXE: Transmit buffer empty flag.
+ 756:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *     @arg SPI_I2S_FLAG_RXNE: Receive buffer not empty flag.
+ 757:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *     @arg SPI_I2S_FLAG_BSY: Busy flag.
+ 758:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *     @arg SPI_I2S_FLAG_OVR: Overrun flag.
+ 759:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *     @arg SPI_FLAG_MODF: Mode Fault flag.
+ 760:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *     @arg SPI_FLAG_CRCERR: CRC Error flag.
+ 761:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *     @arg I2S_FLAG_UDR: Underrun Error flag.
+ 762:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *     @arg I2S_FLAG_CHSIDE: Channel Side flag.
+ 763:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @retval The new state of SPI_I2S_FLAG (SET or RESET).
+ 764:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   */
+ 765:../target/stm32/stdperiph/src/stm32f10x_spi.c **** FlagStatus SPI_I2S_GetFlagStatus(SPI_TypeDef* SPIx, uint16_t SPI_I2S_FLAG)
+ 766:../target/stm32/stdperiph/src/stm32f10x_spi.c **** {
+ 17911              		.loc 1 766 0
+ 17912              		.cfi_startproc
+ 17913              		@ args = 0, pretend = 0, frame = 16
+ 17914              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17915              		@ link register save eliminated.
+ 17916 0000 80B4     		push	{r7}
+ 17917              	.LCFI57:
+ 17918              		.cfi_def_cfa_offset 4
+ 17919 0002 85B0     		sub	sp, sp, #20
+ 17920              	.LCFI58:
+ 17921              		.cfi_def_cfa_offset 24
+ 17922 0004 00AF     		add	r7, sp, #0
+ 17923              		.cfi_offset 7, -4
+ 17924              	.LCFI59:
+ 17925              		.cfi_def_cfa_register 7
+ 17926 0006 7860     		str	r0, [r7, #4]
+ 17927 0008 0B46     		mov	r3, r1
+ 17928 000a 7B80     		strh	r3, [r7, #2]	@ movhi
+ 767:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   FlagStatus bitstatus = RESET;
+ 17929              		.loc 1 767 0
+ 17930 000c 4FF00003 		mov	r3, #0
+ 17931 0010 FB73     		strb	r3, [r7, #15]
+ 768:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Check the parameters */
+ 769:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   assert_param(IS_SPI_ALL_PERIPH(SPIx));
+ 770:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   assert_param(IS_SPI_I2S_GET_FLAG(SPI_I2S_FLAG));
+ 771:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Check the status of the specified SPI/I2S flag */
+ 772:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   if ((SPIx->SR & SPI_I2S_FLAG) != (uint16_t)RESET)
+ 17932              		.loc 1 772 0
+ 17933 0012 7B68     		ldr	r3, [r7, #4]
+ 17934 0014 1B89     		ldrh	r3, [r3, #8]	@ movhi
+ 17935 0016 9AB2     		uxth	r2, r3
+ 17936 0018 7B88     		ldrh	r3, [r7, #2]	@ movhi
+ 17937 001a 02EA0303 		and	r3, r2, r3
+ 17938 001e 9BB2     		uxth	r3, r3
+ 17939 0020 002B     		cmp	r3, #0
+ 17940 0022 03D0     		beq	.L52
+ 773:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   {
+ 774:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     /* SPI_I2S_FLAG is set */
+ 775:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     bitstatus = SET;
+ 17941              		.loc 1 775 0
+ 17942 0024 4FF00103 		mov	r3, #1
+ 17943 0028 FB73     		strb	r3, [r7, #15]
+ 17944 002a 02E0     		b	.L53
+ 17945              	.L52:
+ 776:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   }
+ 777:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   else
+ 778:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   {
+ 779:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     /* SPI_I2S_FLAG is reset */
+ 780:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     bitstatus = RESET;
+ 17946              		.loc 1 780 0
+ 17947 002c 4FF00003 		mov	r3, #0
+ 17948 0030 FB73     		strb	r3, [r7, #15]
+ 17949              	.L53:
+ 781:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   }
+ 782:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Return the SPI_I2S_FLAG status */
+ 783:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   return  bitstatus;
+ 17950              		.loc 1 783 0
+ 17951 0032 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 784:../target/stm32/stdperiph/src/stm32f10x_spi.c **** }
+ 17952              		.loc 1 784 0
+ 17953 0034 1846     		mov	r0, r3
+ 17954 0036 07F11407 		add	r7, r7, #20
+ 17955 003a BD46     		mov	sp, r7
+ 17956 003c 80BC     		pop	{r7}
+ 17957 003e 7047     		bx	lr
+ 17958              		.cfi_endproc
+ 17959              	.LFE48:
+ 17961              		.section	.text.SPI_I2S_ClearFlag,"ax",%progbits
+ 17962              		.align	2
+ 17963              		.global	SPI_I2S_ClearFlag
+ 17964              		.thumb
+ 17965              		.thumb_func
+ 17967              	SPI_I2S_ClearFlag:
+ 17968              	.LFB49:
+ 785:../target/stm32/stdperiph/src/stm32f10x_spi.c **** 
+ 786:../target/stm32/stdperiph/src/stm32f10x_spi.c **** /**
+ 787:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @brief  Clears the SPIx CRC Error (CRCERR) flag.
+ 788:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @param  SPIx: where x can be
+ 789:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *   - 1, 2 or 3 in SPI mode 
+ 790:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @param  SPI_I2S_FLAG: specifies the SPI flag to clear. 
+ 791:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *   This function clears only CRCERR flag.
+ 792:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @note
+ 793:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *   - OVR (OverRun error) flag is cleared by software sequence: a read 
+ 794:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *     operation to SPI_DR register (SPI_I2S_ReceiveData()) followed by a read 
+ 795:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *     operation to SPI_SR register (SPI_I2S_GetFlagStatus()).
+ 796:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *   - UDR (UnderRun error) flag is cleared by a read operation to 
+ 797:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *     SPI_SR register (SPI_I2S_GetFlagStatus()).
+ 798:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *   - MODF (Mode Fault) flag is cleared by software sequence: a read/write 
+ 799:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *     operation to SPI_SR register (SPI_I2S_GetFlagStatus()) followed by a 
+ 800:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *     write operation to SPI_CR1 register (SPI_Cmd() to enable the SPI).
+ 801:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @retval None
+ 802:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   */
+ 803:../target/stm32/stdperiph/src/stm32f10x_spi.c **** void SPI_I2S_ClearFlag(SPI_TypeDef* SPIx, uint16_t SPI_I2S_FLAG)
+ 804:../target/stm32/stdperiph/src/stm32f10x_spi.c **** {
+ 17969              		.loc 1 804 0
+ 17970              		.cfi_startproc
+ 17971              		@ args = 0, pretend = 0, frame = 8
+ 17972              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17973              		@ link register save eliminated.
+ 17974 0000 80B4     		push	{r7}
+ 17975              	.LCFI60:
+ 17976              		.cfi_def_cfa_offset 4
+ 17977 0002 83B0     		sub	sp, sp, #12
+ 17978              	.LCFI61:
+ 17979              		.cfi_def_cfa_offset 16
+ 17980 0004 00AF     		add	r7, sp, #0
+ 17981              		.cfi_offset 7, -4
+ 17982              	.LCFI62:
+ 17983              		.cfi_def_cfa_register 7
+ 17984 0006 7860     		str	r0, [r7, #4]
+ 17985 0008 0B46     		mov	r3, r1
+ 17986 000a 7B80     		strh	r3, [r7, #2]	@ movhi
+ 805:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Check the parameters */
+ 806:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   assert_param(IS_SPI_ALL_PERIPH(SPIx));
+ 807:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   assert_param(IS_SPI_I2S_CLEAR_FLAG(SPI_I2S_FLAG));
+ 808:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     
+ 809:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     /* Clear the selected SPI CRC Error (CRCERR) flag */
+ 810:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     SPIx->SR = (uint16_t)~SPI_I2S_FLAG;
+ 17987              		.loc 1 810 0
+ 17988 000c 7B88     		ldrh	r3, [r7, #2]	@ movhi
+ 17989 000e 6FEA0303 		mvn	r3, r3
+ 17990 0012 9AB2     		uxth	r2, r3
+ 17991 0014 7B68     		ldr	r3, [r7, #4]
+ 17992 0016 1A81     		strh	r2, [r3, #8]	@ movhi
+ 811:../target/stm32/stdperiph/src/stm32f10x_spi.c **** }
+ 17993              		.loc 1 811 0
+ 17994 0018 07F10C07 		add	r7, r7, #12
+ 17995 001c BD46     		mov	sp, r7
+ 17996 001e 80BC     		pop	{r7}
+ 17997 0020 7047     		bx	lr
+ 17998              		.cfi_endproc
+ 17999              	.LFE49:
+ 18001 0022 00BF     		.section	.text.SPI_I2S_GetITStatus,"ax",%progbits
+ 18002              		.align	2
+ 18003              		.global	SPI_I2S_GetITStatus
+ 18004              		.thumb
+ 18005              		.thumb_func
+ 18007              	SPI_I2S_GetITStatus:
+ 18008              	.LFB50:
+ 812:../target/stm32/stdperiph/src/stm32f10x_spi.c **** 
+ 813:../target/stm32/stdperiph/src/stm32f10x_spi.c **** /**
+ 814:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @brief  Checks whether the specified SPI/I2S interrupt has occurred or not.
+ 815:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @param  SPIx: where x can be
+ 816:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *   - 1, 2 or 3 in SPI mode 
+ 817:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *   - 2 or 3 in I2S mode
+ 818:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @param  SPI_I2S_IT: specifies the SPI/I2S interrupt source to check. 
+ 819:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *   This parameter can be one of the following values:
+ 820:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *     @arg SPI_I2S_IT_TXE: Transmit buffer empty interrupt.
+ 821:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *     @arg SPI_I2S_IT_RXNE: Receive buffer not empty interrupt.
+ 822:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *     @arg SPI_I2S_IT_OVR: Overrun interrupt.
+ 823:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *     @arg SPI_IT_MODF: Mode Fault interrupt.
+ 824:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *     @arg SPI_IT_CRCERR: CRC Error interrupt.
+ 825:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *     @arg I2S_IT_UDR: Underrun Error interrupt.
+ 826:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @retval The new state of SPI_I2S_IT (SET or RESET).
+ 827:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   */
+ 828:../target/stm32/stdperiph/src/stm32f10x_spi.c **** ITStatus SPI_I2S_GetITStatus(SPI_TypeDef* SPIx, uint8_t SPI_I2S_IT)
+ 829:../target/stm32/stdperiph/src/stm32f10x_spi.c **** {
+ 18009              		.loc 1 829 0
+ 18010              		.cfi_startproc
+ 18011              		@ args = 0, pretend = 0, frame = 16
+ 18012              		@ frame_needed = 1, uses_anonymous_args = 0
+ 18013              		@ link register save eliminated.
+ 18014 0000 80B4     		push	{r7}
+ 18015              	.LCFI63:
+ 18016              		.cfi_def_cfa_offset 4
+ 18017 0002 85B0     		sub	sp, sp, #20
+ 18018              	.LCFI64:
+ 18019              		.cfi_def_cfa_offset 24
+ 18020 0004 00AF     		add	r7, sp, #0
+ 18021              		.cfi_offset 7, -4
+ 18022              	.LCFI65:
+ 18023              		.cfi_def_cfa_register 7
+ 18024 0006 7860     		str	r0, [r7, #4]
+ 18025 0008 0B46     		mov	r3, r1
+ 18026 000a FB70     		strb	r3, [r7, #3]
+ 830:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   ITStatus bitstatus = RESET;
+ 18027              		.loc 1 830 0
+ 18028 000c 4FF00003 		mov	r3, #0
+ 18029 0010 FB73     		strb	r3, [r7, #15]
+ 831:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   uint16_t itpos = 0, itmask = 0, enablestatus = 0;
+ 18030              		.loc 1 831 0
+ 18031 0012 4FF00003 		mov	r3, #0
+ 18032 0016 BB81     		strh	r3, [r7, #12]	@ movhi
+ 18033 0018 4FF00003 		mov	r3, #0
+ 18034 001c 7B81     		strh	r3, [r7, #10]	@ movhi
+ 18035 001e 4FF00003 		mov	r3, #0
+ 18036 0022 3B81     		strh	r3, [r7, #8]	@ movhi
+ 832:../target/stm32/stdperiph/src/stm32f10x_spi.c **** 
+ 833:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Check the parameters */
+ 834:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   assert_param(IS_SPI_ALL_PERIPH(SPIx));
+ 835:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   assert_param(IS_SPI_I2S_GET_IT(SPI_I2S_IT));
+ 836:../target/stm32/stdperiph/src/stm32f10x_spi.c **** 
+ 837:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Get the SPI/I2S IT index */
+ 838:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   itpos = 0x01 << (SPI_I2S_IT & 0x0F);
+ 18037              		.loc 1 838 0
+ 18038 0024 FB78     		ldrb	r3, [r7, #3]	@ zero_extendqisi2
+ 18039 0026 03F00F03 		and	r3, r3, #15
+ 18040 002a 4FF00102 		mov	r2, #1
+ 18041 002e 02FA03F3 		lsl	r3, r2, r3
+ 18042 0032 BB81     		strh	r3, [r7, #12]	@ movhi
+ 839:../target/stm32/stdperiph/src/stm32f10x_spi.c **** 
+ 840:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Get the SPI/I2S IT mask */
+ 841:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   itmask = SPI_I2S_IT >> 4;
+ 18043              		.loc 1 841 0
+ 18044 0034 FB78     		ldrb	r3, [r7, #3]	@ zero_extendqisi2
+ 18045 0036 4FEA1313 		lsr	r3, r3, #4
+ 18046 003a DBB2     		uxtb	r3, r3
+ 18047 003c 7B81     		strh	r3, [r7, #10]	@ movhi
+ 842:../target/stm32/stdperiph/src/stm32f10x_spi.c **** 
+ 843:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Set the IT mask */
+ 844:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   itmask = 0x01 << itmask;
+ 18048              		.loc 1 844 0
+ 18049 003e 7B89     		ldrh	r3, [r7, #10]
+ 18050 0040 4FF00102 		mov	r2, #1
+ 18051 0044 02FA03F3 		lsl	r3, r2, r3
+ 18052 0048 7B81     		strh	r3, [r7, #10]	@ movhi
+ 845:../target/stm32/stdperiph/src/stm32f10x_spi.c **** 
+ 846:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Get the SPI_I2S_IT enable bit status */
+ 847:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   enablestatus = (SPIx->CR2 & itmask) ;
+ 18053              		.loc 1 847 0
+ 18054 004a 7B68     		ldr	r3, [r7, #4]
+ 18055 004c 9B88     		ldrh	r3, [r3, #4]	@ movhi
+ 18056 004e 9AB2     		uxth	r2, r3
+ 18057 0050 7B89     		ldrh	r3, [r7, #10]	@ movhi
+ 18058 0052 02EA0303 		and	r3, r2, r3
+ 18059 0056 3B81     		strh	r3, [r7, #8]	@ movhi
+ 848:../target/stm32/stdperiph/src/stm32f10x_spi.c **** 
+ 849:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Check the status of the specified SPI/I2S interrupt */
+ 850:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   if (((SPIx->SR & itpos) != (uint16_t)RESET) && enablestatus)
+ 18060              		.loc 1 850 0
+ 18061 0058 7B68     		ldr	r3, [r7, #4]
+ 18062 005a 1B89     		ldrh	r3, [r3, #8]	@ movhi
+ 18063 005c 9AB2     		uxth	r2, r3
+ 18064 005e BB89     		ldrh	r3, [r7, #12]	@ movhi
+ 18065 0060 02EA0303 		and	r3, r2, r3
+ 18066 0064 9BB2     		uxth	r3, r3
+ 18067 0066 002B     		cmp	r3, #0
+ 18068 0068 06D0     		beq	.L56
+ 18069              		.loc 1 850 0 is_stmt 0 discriminator 1
+ 18070 006a 3B89     		ldrh	r3, [r7, #8]
+ 18071 006c 002B     		cmp	r3, #0
+ 18072 006e 03D0     		beq	.L56
+ 851:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   {
+ 852:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     /* SPI_I2S_IT is set */
+ 853:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     bitstatus = SET;
+ 18073              		.loc 1 853 0 is_stmt 1
+ 18074 0070 4FF00103 		mov	r3, #1
+ 18075 0074 FB73     		strb	r3, [r7, #15]
+ 18076 0076 02E0     		b	.L57
+ 18077              	.L56:
+ 854:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   }
+ 855:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   else
+ 856:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   {
+ 857:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     /* SPI_I2S_IT is reset */
+ 858:../target/stm32/stdperiph/src/stm32f10x_spi.c ****     bitstatus = RESET;
+ 18078              		.loc 1 858 0
+ 18079 0078 4FF00003 		mov	r3, #0
+ 18080 007c FB73     		strb	r3, [r7, #15]
+ 18081              	.L57:
+ 859:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   }
+ 860:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Return the SPI_I2S_IT status */
+ 861:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   return bitstatus;
+ 18082              		.loc 1 861 0
+ 18083 007e FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 862:../target/stm32/stdperiph/src/stm32f10x_spi.c **** }
+ 18084              		.loc 1 862 0
+ 18085 0080 1846     		mov	r0, r3
+ 18086 0082 07F11407 		add	r7, r7, #20
+ 18087 0086 BD46     		mov	sp, r7
+ 18088 0088 80BC     		pop	{r7}
+ 18089 008a 7047     		bx	lr
+ 18090              		.cfi_endproc
+ 18091              	.LFE50:
+ 18093              		.section	.text.SPI_I2S_ClearITPendingBit,"ax",%progbits
+ 18094              		.align	2
+ 18095              		.global	SPI_I2S_ClearITPendingBit
+ 18096              		.thumb
+ 18097              		.thumb_func
+ 18099              	SPI_I2S_ClearITPendingBit:
+ 18100              	.LFB51:
+ 863:../target/stm32/stdperiph/src/stm32f10x_spi.c **** 
+ 864:../target/stm32/stdperiph/src/stm32f10x_spi.c **** /**
+ 865:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @brief  Clears the SPIx CRC Error (CRCERR) interrupt pending bit.
+ 866:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @param  SPIx: where x can be
+ 867:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *   - 1, 2 or 3 in SPI mode 
+ 868:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @param  SPI_I2S_IT: specifies the SPI interrupt pending bit to clear.
+ 869:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *   This function clears only CRCERR intetrrupt pending bit.   
+ 870:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @note
+ 871:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *   - OVR (OverRun Error) interrupt pending bit is cleared by software 
+ 872:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *     sequence: a read operation to SPI_DR register (SPI_I2S_ReceiveData()) 
+ 873:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *     followed by a read operation to SPI_SR register (SPI_I2S_GetITStatus()).
+ 874:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *   - UDR (UnderRun Error) interrupt pending bit is cleared by a read 
+ 875:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *     operation to SPI_SR register (SPI_I2S_GetITStatus()).
+ 876:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *   - MODF (Mode Fault) interrupt pending bit is cleared by software sequence:
+ 877:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *     a read/write operation to SPI_SR register (SPI_I2S_GetITStatus()) 
+ 878:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *     followed by a write operation to SPI_CR1 register (SPI_Cmd() to enable 
+ 879:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   *     the SPI).
+ 880:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   * @retval None
+ 881:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   */
+ 882:../target/stm32/stdperiph/src/stm32f10x_spi.c **** void SPI_I2S_ClearITPendingBit(SPI_TypeDef* SPIx, uint8_t SPI_I2S_IT)
+ 883:../target/stm32/stdperiph/src/stm32f10x_spi.c **** {
+ 18101              		.loc 1 883 0
+ 18102              		.cfi_startproc
+ 18103              		@ args = 0, pretend = 0, frame = 16
+ 18104              		@ frame_needed = 1, uses_anonymous_args = 0
+ 18105              		@ link register save eliminated.
+ 18106 0000 80B4     		push	{r7}
+ 18107              	.LCFI66:
+ 18108              		.cfi_def_cfa_offset 4
+ 18109 0002 85B0     		sub	sp, sp, #20
+ 18110              	.LCFI67:
+ 18111              		.cfi_def_cfa_offset 24
+ 18112 0004 00AF     		add	r7, sp, #0
+ 18113              		.cfi_offset 7, -4
+ 18114              	.LCFI68:
+ 18115              		.cfi_def_cfa_register 7
+ 18116 0006 7860     		str	r0, [r7, #4]
+ 18117 0008 0B46     		mov	r3, r1
+ 18118 000a FB70     		strb	r3, [r7, #3]
+ 884:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   uint16_t itpos = 0;
+ 18119              		.loc 1 884 0
+ 18120 000c 4FF00003 		mov	r3, #0
+ 18121 0010 FB81     		strh	r3, [r7, #14]	@ movhi
+ 885:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Check the parameters */
+ 886:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   assert_param(IS_SPI_ALL_PERIPH(SPIx));
+ 887:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   assert_param(IS_SPI_I2S_CLEAR_IT(SPI_I2S_IT));
+ 888:../target/stm32/stdperiph/src/stm32f10x_spi.c **** 
+ 889:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Get the SPI IT index */
+ 890:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   itpos = 0x01 << (SPI_I2S_IT & 0x0F);
+ 18122              		.loc 1 890 0
+ 18123 0012 FB78     		ldrb	r3, [r7, #3]	@ zero_extendqisi2
+ 18124 0014 03F00F03 		and	r3, r3, #15
+ 18125 0018 4FF00102 		mov	r2, #1
+ 18126 001c 02FA03F3 		lsl	r3, r2, r3
+ 18127 0020 FB81     		strh	r3, [r7, #14]	@ movhi
+ 891:../target/stm32/stdperiph/src/stm32f10x_spi.c **** 
+ 892:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   /* Clear the selected SPI CRC Error (CRCERR) interrupt pending bit */
+ 893:../target/stm32/stdperiph/src/stm32f10x_spi.c ****   SPIx->SR = (uint16_t)~itpos;
+ 18128              		.loc 1 893 0
+ 18129 0022 FB89     		ldrh	r3, [r7, #14]	@ movhi
+ 18130 0024 6FEA0303 		mvn	r3, r3
+ 18131 0028 9AB2     		uxth	r2, r3
+ 18132 002a 7B68     		ldr	r3, [r7, #4]
+ 18133 002c 1A81     		strh	r2, [r3, #8]	@ movhi
+ 894:../target/stm32/stdperiph/src/stm32f10x_spi.c **** }
+ 18134              		.loc 1 894 0
+ 18135 002e 07F11407 		add	r7, r7, #20
+ 18136 0032 BD46     		mov	sp, r7
+ 18137 0034 80BC     		pop	{r7}
+ 18138 0036 7047     		bx	lr
+ 18139              		.cfi_endproc
+ 18140              	.LFE51:
+ 18142              		.text
+ 18143              	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 stm32f10x_spi.c
+     /tmp/ccr4JYb1.s:16622  .text.SPI_I2S_DeInit:00000000 $t
+     /tmp/ccr4JYb1.s:16627  .text.SPI_I2S_DeInit:00000000 SPI_I2S_DeInit
+     /tmp/ccr4JYb1.s:16700  .text.SPI_Init:00000000 $t
+     /tmp/ccr4JYb1.s:16705  .text.SPI_Init:00000000 SPI_Init
+     /tmp/ccr4JYb1.s:16807  .text.I2S_Init:00000000 $t
+     /tmp/ccr4JYb1.s:16812  .text.I2S_Init:00000000 I2S_Init
+     /tmp/ccr4JYb1.s:17038  .text.SPI_StructInit:00000000 $t
+     /tmp/ccr4JYb1.s:17043  .text.SPI_StructInit:00000000 SPI_StructInit
+     /tmp/ccr4JYb1.s:17106  .text.I2S_StructInit:00000000 $t
+     /tmp/ccr4JYb1.s:17111  .text.I2S_StructInit:00000000 I2S_StructInit
+     /tmp/ccr4JYb1.s:17162  .text.SPI_Cmd:00000000 $t
+     /tmp/ccr4JYb1.s:17167  .text.SPI_Cmd:00000000 SPI_Cmd
+     /tmp/ccr4JYb1.s:17219  .text.I2S_Cmd:00000000 $t
+     /tmp/ccr4JYb1.s:17224  .text.I2S_Cmd:00000000 I2S_Cmd
+     /tmp/ccr4JYb1.s:17276  .text.SPI_I2S_ITConfig:00000000 $t
+     /tmp/ccr4JYb1.s:17281  .text.SPI_I2S_ITConfig:00000000 SPI_I2S_ITConfig
+     /tmp/ccr4JYb1.s:17354  .text.SPI_I2S_DMACmd:00000000 $t
+     /tmp/ccr4JYb1.s:17359  .text.SPI_I2S_DMACmd:00000000 SPI_I2S_DMACmd
+     /tmp/ccr4JYb1.s:17417  .text.SPI_I2S_SendData:00000000 $t
+     /tmp/ccr4JYb1.s:17422  .text.SPI_I2S_SendData:00000000 SPI_I2S_SendData
+     /tmp/ccr4JYb1.s:17455  .text.SPI_I2S_ReceiveData:00000000 $t
+     /tmp/ccr4JYb1.s:17460  .text.SPI_I2S_ReceiveData:00000000 SPI_I2S_ReceiveData
+     /tmp/ccr4JYb1.s:17492  .text.SPI_NSSInternalSoftwareConfig:00000000 $t
+     /tmp/ccr4JYb1.s:17497  .text.SPI_NSSInternalSoftwareConfig:00000000 SPI_NSSInternalSoftwareConfig
+     /tmp/ccr4JYb1.s:17550  .text.SPI_SSOutputCmd:00000000 $t
+     /tmp/ccr4JYb1.s:17555  .text.SPI_SSOutputCmd:00000000 SPI_SSOutputCmd
+     /tmp/ccr4JYb1.s:17607  .text.SPI_DataSizeConfig:00000000 $t
+     /tmp/ccr4JYb1.s:17612  .text.SPI_DataSizeConfig:00000000 SPI_DataSizeConfig
+     /tmp/ccr4JYb1.s:17658  .text.SPI_TransmitCRC:00000000 $t
+     /tmp/ccr4JYb1.s:17663  .text.SPI_TransmitCRC:00000000 SPI_TransmitCRC
+     /tmp/ccr4JYb1.s:17698  .text.SPI_CalculateCRC:00000000 $t
+     /tmp/ccr4JYb1.s:17703  .text.SPI_CalculateCRC:00000000 SPI_CalculateCRC
+     /tmp/ccr4JYb1.s:17755  .text.SPI_GetCRC:00000000 $t
+     /tmp/ccr4JYb1.s:17760  .text.SPI_GetCRC:00000000 SPI_GetCRC
+     /tmp/ccr4JYb1.s:17810  .text.SPI_GetCRCPolynomial:00000000 $t
+     /tmp/ccr4JYb1.s:17815  .text.SPI_GetCRCPolynomial:00000000 SPI_GetCRCPolynomial
+     /tmp/ccr4JYb1.s:17847  .text.SPI_BiDirectionalLineConfig:00000000 $t
+     /tmp/ccr4JYb1.s:17852  .text.SPI_BiDirectionalLineConfig:00000000 SPI_BiDirectionalLineConfig
+     /tmp/ccr4JYb1.s:17904  .text.SPI_I2S_GetFlagStatus:00000000 $t
+     /tmp/ccr4JYb1.s:17909  .text.SPI_I2S_GetFlagStatus:00000000 SPI_I2S_GetFlagStatus
+     /tmp/ccr4JYb1.s:17962  .text.SPI_I2S_ClearFlag:00000000 $t
+     /tmp/ccr4JYb1.s:17967  .text.SPI_I2S_ClearFlag:00000000 SPI_I2S_ClearFlag
+     /tmp/ccr4JYb1.s:18002  .text.SPI_I2S_GetITStatus:00000000 $t
+     /tmp/ccr4JYb1.s:18007  .text.SPI_I2S_GetITStatus:00000000 SPI_I2S_GetITStatus
+     /tmp/ccr4JYb1.s:18094  .text.SPI_I2S_ClearITPendingBit:00000000 $t
+     /tmp/ccr4JYb1.s:18099  .text.SPI_I2S_ClearITPendingBit:00000000 SPI_I2S_ClearITPendingBit
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+RCC_APB2PeriphResetCmd
+RCC_APB1PeriphResetCmd
+RCC_GetClocksFreq

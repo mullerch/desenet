@@ -1,0 +1,709 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"displayspi.cpp"
+  23              	.Ltext0:
+  24              		.file 1 "../board/olimex-stm32f103-stk/board/display/displayspi.cpp"
+ 17549              		.align	2
+ 17550              		.weak	_ZN19DisplayNrfSharedSpi3spiEv
+ 17551              		.thumb
+ 17552              		.thumb_func
+ 17554              	_ZN19DisplayNrfSharedSpi3spiEv:
+ 17555              	.LFB29:
+   1:/home/desem/workspace/desenet/board/olimex-stm32f103-stk/board/shared-spi/displaynrfsharedspi.h **** #pragma once
+   2:/home/desem/workspace/desenet/board/olimex-stm32f103-stk/board/shared-spi/displaynrfsharedspi.h **** 
+   3:/home/desem/workspace/desenet/board/olimex-stm32f103-stk/board/shared-spi/displaynrfsharedspi.h **** 
+   4:/home/desem/workspace/desenet/board/olimex-stm32f103-stk/board/shared-spi/displaynrfsharedspi.h **** #include <hal/spi.h>
+   5:/home/desem/workspace/desenet/board/olimex-stm32f103-stk/board/shared-spi/displaynrfsharedspi.h **** 
+   6:/home/desem/workspace/desenet/board/olimex-stm32f103-stk/board/shared-spi/displaynrfsharedspi.h **** 
+   7:/home/desem/workspace/desenet/board/olimex-stm32f103-stk/board/shared-spi/displaynrfsharedspi.h **** /**
+   8:/home/desem/workspace/desenet/board/olimex-stm32f103-stk/board/shared-spi/displaynrfsharedspi.h ****  * Shared part of the SPI used by the MonochromeDisplay and the
+   9:/home/desem/workspace/desenet/board/olimex-stm32f103-stk/board/shared-spi/displaynrfsharedspi.h ****  * nRF chip.
+  10:/home/desem/workspace/desenet/board/olimex-stm32f103-stk/board/shared-spi/displaynrfsharedspi.h ****  * The nRF chip has priority to use the SPI. Therefore, the
+  11:/home/desem/workspace/desenet/board/olimex-stm32f103-stk/board/shared-spi/displaynrfsharedspi.h ****  * MonochomDisplay needs to reset the SPI to a state
+  12:/home/desem/workspace/desenet/board/olimex-stm32f103-stk/board/shared-spi/displaynrfsharedspi.h ****  * that the nRF chip can use it directly.
+  13:/home/desem/workspace/desenet/board/olimex-stm32f103-stk/board/shared-spi/displaynrfsharedspi.h ****  *
+  14:/home/desem/workspace/desenet/board/olimex-stm32f103-stk/board/shared-spi/displaynrfsharedspi.h ****  * This class should not be accessed directly. Use the classes
+  15:/home/desem/workspace/desenet/board/olimex-stm32f103-stk/board/shared-spi/displaynrfsharedspi.h ****  * NrfSpi and DisplaySpi to access this class.
+  16:/home/desem/workspace/desenet/board/olimex-stm32f103-stk/board/shared-spi/displaynrfsharedspi.h ****  */
+  17:/home/desem/workspace/desenet/board/olimex-stm32f103-stk/board/shared-spi/displaynrfsharedspi.h **** class DisplayNrfSharedSpi
+  18:/home/desem/workspace/desenet/board/olimex-stm32f103-stk/board/shared-spi/displaynrfsharedspi.h **** {
+  19:/home/desem/workspace/desenet/board/olimex-stm32f103-stk/board/shared-spi/displaynrfsharedspi.h **** 	friend class NrfSpi;
+  20:/home/desem/workspace/desenet/board/olimex-stm32f103-stk/board/shared-spi/displaynrfsharedspi.h **** 	friend class DisplaySpi;
+  21:/home/desem/workspace/desenet/board/olimex-stm32f103-stk/board/shared-spi/displaynrfsharedspi.h **** 
+  22:/home/desem/workspace/desenet/board/olimex-stm32f103-stk/board/shared-spi/displaynrfsharedspi.h **** public:
+  23:/home/desem/workspace/desenet/board/olimex-stm32f103-stk/board/shared-spi/displaynrfsharedspi.h **** 
+  24:/home/desem/workspace/desenet/board/olimex-stm32f103-stk/board/shared-spi/displaynrfsharedspi.h **** 	typedef SPI::tStatus tStatus;
+  25:/home/desem/workspace/desenet/board/olimex-stm32f103-stk/board/shared-spi/displaynrfsharedspi.h **** 
+  26:/home/desem/workspace/desenet/board/olimex-stm32f103-stk/board/shared-spi/displaynrfsharedspi.h **** 	DisplayNrfSharedSpi();
+  27:/home/desem/workspace/desenet/board/olimex-stm32f103-stk/board/shared-spi/displaynrfsharedspi.h **** 	virtual ~DisplayNrfSharedSpi();
+  28:/home/desem/workspace/desenet/board/olimex-stm32f103-stk/board/shared-spi/displaynrfsharedspi.h **** 
+  29:/home/desem/workspace/desenet/board/olimex-stm32f103-stk/board/shared-spi/displaynrfsharedspi.h **** 	bool initialize();
+  30:/home/desem/workspace/desenet/board/olimex-stm32f103-stk/board/shared-spi/displaynrfsharedspi.h **** 
+  31:/home/desem/workspace/desenet/board/olimex-stm32f103-stk/board/shared-spi/displaynrfsharedspi.h **** protected:
+  32:/home/desem/workspace/desenet/board/olimex-stm32f103-stk/board/shared-spi/displaynrfsharedspi.h **** 	inline SPI & spi() { return _SPI; }
+ 17556              		.loc 3 32 0
+ 17557              		.cfi_startproc
+ 17558              		@ args = 0, pretend = 0, frame = 8
+ 17559              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17560              		@ link register save eliminated.
+ 17561 0000 80B4     		push	{r7}
+ 17562              	.LCFI0:
+ 17563              		.cfi_def_cfa_offset 4
+ 17564 0002 83B0     		sub	sp, sp, #12
+ 17565              	.LCFI1:
+ 17566              		.cfi_def_cfa_offset 16
+ 17567 0004 00AF     		add	r7, sp, #0
+ 17568              		.cfi_offset 7, -4
+ 17569              	.LCFI2:
+ 17570              		.cfi_def_cfa_register 7
+ 17571 0006 7860     		str	r0, [r7, #4]
+ 17572              		.loc 3 32 0
+ 17573 0008 7B68     		ldr	r3, [r7, #4]
+ 17574 000a 9B68     		ldr	r3, [r3, #8]
+ 17575 000c 1846     		mov	r0, r3
+ 17576 000e 07F10C07 		add	r7, r7, #12
+ 17577 0012 BD46     		mov	sp, r7
+ 17578 0014 80BC     		pop	{r7}
+ 17579 0016 7047     		bx	lr
+ 17580              		.cfi_endproc
+ 17581              	.LFE29:
+ 17583              		.section	.text._ZN19DisplayNrfSharedSpi8sendByteEh,"axG",%progbits,_ZN19DisplayNrfSharedSpi8sendBy
+ 17584              		.align	2
+ 17585              		.weak	_ZN19DisplayNrfSharedSpi8sendByteEh
+ 17586              		.thumb
+ 17587              		.thumb_func
+ 17589              	_ZN19DisplayNrfSharedSpi8sendByteEh:
+ 17590              	.LFB30:
+  33:/home/desem/workspace/desenet/board/olimex-stm32f103-stk/board/shared-spi/displaynrfsharedspi.h **** 
+  34:/home/desem/workspace/desenet/board/olimex-stm32f103-stk/board/shared-spi/displaynrfsharedspi.h **** 	inline tStatus sendByte(unsigned char data) { return spi().sendByte(data); }
+ 17591              		.loc 3 34 0
+ 17592              		.cfi_startproc
+ 17593              		@ args = 0, pretend = 0, frame = 8
+ 17594              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17595 0000 80B5     		push	{r7, lr}
+ 17596              	.LCFI3:
+ 17597              		.cfi_def_cfa_offset 8
+ 17598 0002 82B0     		sub	sp, sp, #8
+ 17599              	.LCFI4:
+ 17600              		.cfi_def_cfa_offset 16
+ 17601 0004 00AF     		add	r7, sp, #0
+ 17602              		.cfi_offset 14, -4
+ 17603              		.cfi_offset 7, -8
+ 17604              	.LCFI5:
+ 17605              		.cfi_def_cfa_register 7
+ 17606 0006 7860     		str	r0, [r7, #4]
+ 17607 0008 0B46     		mov	r3, r1
+ 17608 000a FB70     		strb	r3, [r7, #3]
+ 17609              		.loc 3 34 0
+ 17610 000c 7868     		ldr	r0, [r7, #4]
+ 17611 000e FFF7FEFF 		bl	_ZN19DisplayNrfSharedSpi3spiEv
+ 17612 0012 0246     		mov	r2, r0
+ 17613 0014 FB78     		ldrb	r3, [r7, #3]	@ zero_extendqisi2
+ 17614 0016 1046     		mov	r0, r2
+ 17615 0018 1946     		mov	r1, r3
+ 17616 001a FFF7FEFF 		bl	_ZN3SPI8sendByteEh
+ 17617 001e 0346     		mov	r3, r0
+ 17618 0020 1846     		mov	r0, r3
+ 17619 0022 07F10807 		add	r7, r7, #8
+ 17620 0026 BD46     		mov	sp, r7
+ 17621 0028 80BD     		pop	{r7, pc}
+ 17622              		.cfi_endproc
+ 17623              	.LFE30:
+ 17625 002a 00BF     		.section	.text._ZN10DisplaySpi9sharedSpiEv,"axG",%progbits,_ZN10DisplaySpi9sharedSpiEv,comdat
+ 17626              		.align	2
+ 17627              		.weak	_ZN10DisplaySpi9sharedSpiEv
+ 17628              		.thumb
+ 17629              		.thumb_func
+ 17631              	_ZN10DisplaySpi9sharedSpiEv:
+ 17632              	.LFB31:
+   1:../board/olimex-stm32f103-stk/board/display/displayspi.h **** #pragma once
+   2:../board/olimex-stm32f103-stk/board/display/displayspi.h **** 
+   3:../board/olimex-stm32f103-stk/board/display/displayspi.h **** 
+   4:../board/olimex-stm32f103-stk/board/display/displayspi.h **** #include <board/shared-spi/displaynrfsharedspi.h>
+   5:../board/olimex-stm32f103-stk/board/display/displayspi.h **** 
+   6:../board/olimex-stm32f103-stk/board/display/displayspi.h **** 
+   7:../board/olimex-stm32f103-stk/board/display/displayspi.h **** class DisplaySpi
+   8:../board/olimex-stm32f103-stk/board/display/displayspi.h **** {
+   9:../board/olimex-stm32f103-stk/board/display/displayspi.h **** public:
+  10:../board/olimex-stm32f103-stk/board/display/displayspi.h **** 	DisplaySpi(DisplayNrfSharedSpi & sharedSpi);
+  11:../board/olimex-stm32f103-stk/board/display/displayspi.h **** 	virtual ~DisplaySpi();
+  12:../board/olimex-stm32f103-stk/board/display/displayspi.h **** 
+  13:../board/olimex-stm32f103-stk/board/display/displayspi.h **** 	bool initialize();
+  14:../board/olimex-stm32f103-stk/board/display/displayspi.h **** 
+  15:../board/olimex-stm32f103-stk/board/display/displayspi.h **** 	void enable();		///< Enables the use of the SPI peripheral by the display. Removes ability for nRF
+  16:../board/olimex-stm32f103-stk/board/display/displayspi.h **** 	void disable();		///< Gives SPI again back to nRF chip
+  17:../board/olimex-stm32f103-stk/board/display/displayspi.h **** 
+  18:../board/olimex-stm32f103-stk/board/display/displayspi.h **** protected:
+  19:../board/olimex-stm32f103-stk/board/display/displayspi.h **** 	void sendCommand(unsigned char cmd);		///< Sends a command byte to the display
+  20:../board/olimex-stm32f103-stk/board/display/displayspi.h **** 	void sendData(unsigned char data);			///< Sends a data byte to the display
+  21:../board/olimex-stm32f103-stk/board/display/displayspi.h **** 
+  22:../board/olimex-stm32f103-stk/board/display/displayspi.h **** private:
+  23:../board/olimex-stm32f103-stk/board/display/displayspi.h **** 	inline DisplayNrfSharedSpi & sharedSpi() { return _sharedSpi; }
+ 17633              		.loc 2 23 0
+ 17634              		.cfi_startproc
+ 17635              		@ args = 0, pretend = 0, frame = 8
+ 17636              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17637              		@ link register save eliminated.
+ 17638 0000 80B4     		push	{r7}
+ 17639              	.LCFI6:
+ 17640              		.cfi_def_cfa_offset 4
+ 17641 0002 83B0     		sub	sp, sp, #12
+ 17642              	.LCFI7:
+ 17643              		.cfi_def_cfa_offset 16
+ 17644 0004 00AF     		add	r7, sp, #0
+ 17645              		.cfi_offset 7, -4
+ 17646              	.LCFI8:
+ 17647              		.cfi_def_cfa_register 7
+ 17648 0006 7860     		str	r0, [r7, #4]
+ 17649              		.loc 2 23 0
+ 17650 0008 7B68     		ldr	r3, [r7, #4]
+ 17651 000a 9B68     		ldr	r3, [r3, #8]
+ 17652 000c 1846     		mov	r0, r3
+ 17653 000e 07F10C07 		add	r7, r7, #12
+ 17654 0012 BD46     		mov	sp, r7
+ 17655 0014 80BC     		pop	{r7}
+ 17656 0016 7047     		bx	lr
+ 17657              		.cfi_endproc
+ 17658              	.LFE31:
+ 17660              		.section	.text._ZN10DisplaySpi14setCommandLineEv,"axG",%progbits,_ZN10DisplaySpi14setCommandLineEv
+ 17661              		.align	2
+ 17662              		.weak	_ZN10DisplaySpi14setCommandLineEv
+ 17663              		.thumb
+ 17664              		.thumb_func
+ 17666              	_ZN10DisplaySpi14setCommandLineEv:
+ 17667              	.LFB32:
+  24:../board/olimex-stm32f103-stk/board/display/displayspi.h **** 
+  25:../board/olimex-stm32f103-stk/board/display/displayspi.h **** 	inline void setCommandLine()				///< Sets display pin 'D/C' to send a command byte
+ 17668              		.loc 2 25 0
+ 17669              		.cfi_startproc
+ 17670              		@ args = 0, pretend = 0, frame = 8
+ 17671              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17672 0000 80B5     		push	{r7, lr}
+ 17673              	.LCFI9:
+ 17674              		.cfi_def_cfa_offset 8
+ 17675 0002 82B0     		sub	sp, sp, #8
+ 17676              	.LCFI10:
+ 17677              		.cfi_def_cfa_offset 16
+ 17678 0004 00AF     		add	r7, sp, #0
+ 17679              		.cfi_offset 14, -4
+ 17680              		.cfi_offset 7, -8
+ 17681              	.LCFI11:
+ 17682              		.cfi_def_cfa_register 7
+ 17683 0006 7860     		str	r0, [r7, #4]
+  26:../board/olimex-stm32f103-stk/board/display/displayspi.h **** 	{
+  27:../board/olimex-stm32f103-stk/board/display/displayspi.h **** 		// Set D/C line to 0 for command
+  28:../board/olimex-stm32f103-stk/board/display/displayspi.h **** 		GPIO_WriteBit(GPIOB, GPIO_Pin_2, Bit_RESET);
+ 17684              		.loc 2 28 0
+ 17685 0008 4FF44060 		mov	r0, #3072
+ 17686 000c C4F20100 		movt	r0, 16385
+ 17687 0010 4FF00401 		mov	r1, #4
+ 17688 0014 4FF00002 		mov	r2, #0
+ 17689 0018 FFF7FEFF 		bl	GPIO_WriteBit
+  29:../board/olimex-stm32f103-stk/board/display/displayspi.h **** 	}
+ 17690              		.loc 2 29 0
+ 17691 001c 07F10807 		add	r7, r7, #8
+ 17692 0020 BD46     		mov	sp, r7
+ 17693 0022 80BD     		pop	{r7, pc}
+ 17694              		.cfi_endproc
+ 17695              	.LFE32:
+ 17697              		.section	.text._ZN10DisplaySpi11setDataLineEv,"axG",%progbits,_ZN10DisplaySpi11setDataLineEv,comda
+ 17698              		.align	2
+ 17699              		.weak	_ZN10DisplaySpi11setDataLineEv
+ 17700              		.thumb
+ 17701              		.thumb_func
+ 17703              	_ZN10DisplaySpi11setDataLineEv:
+ 17704              	.LFB33:
+  30:../board/olimex-stm32f103-stk/board/display/displayspi.h **** 
+  31:../board/olimex-stm32f103-stk/board/display/displayspi.h **** 	inline void setDataLine()					///< Sets display pin 'D/C' to send a data byte
+ 17705              		.loc 2 31 0
+ 17706              		.cfi_startproc
+ 17707              		@ args = 0, pretend = 0, frame = 8
+ 17708              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17709 0000 80B5     		push	{r7, lr}
+ 17710              	.LCFI12:
+ 17711              		.cfi_def_cfa_offset 8
+ 17712 0002 82B0     		sub	sp, sp, #8
+ 17713              	.LCFI13:
+ 17714              		.cfi_def_cfa_offset 16
+ 17715 0004 00AF     		add	r7, sp, #0
+ 17716              		.cfi_offset 14, -4
+ 17717              		.cfi_offset 7, -8
+ 17718              	.LCFI14:
+ 17719              		.cfi_def_cfa_register 7
+ 17720 0006 7860     		str	r0, [r7, #4]
+  32:../board/olimex-stm32f103-stk/board/display/displayspi.h **** 	{
+  33:../board/olimex-stm32f103-stk/board/display/displayspi.h **** 		// Set D/C line to 1 for data
+  34:../board/olimex-stm32f103-stk/board/display/displayspi.h **** 		GPIO_WriteBit(GPIOB, GPIO_Pin_2, Bit_SET);
+ 17721              		.loc 2 34 0
+ 17722 0008 4FF44060 		mov	r0, #3072
+ 17723 000c C4F20100 		movt	r0, 16385
+ 17724 0010 4FF00401 		mov	r1, #4
+ 17725 0014 4FF00102 		mov	r2, #1
+ 17726 0018 FFF7FEFF 		bl	GPIO_WriteBit
+  35:../board/olimex-stm32f103-stk/board/display/displayspi.h **** 	}
+ 17727              		.loc 2 35 0
+ 17728 001c 07F10807 		add	r7, r7, #8
+ 17729 0020 BD46     		mov	sp, r7
+ 17730 0022 80BD     		pop	{r7, pc}
+ 17731              		.cfi_endproc
+ 17732              	.LFE33:
+ 17734              		.section	.text._ZN10DisplaySpiC2ER19DisplayNrfSharedSpi,"ax",%progbits
+ 17735              		.align	2
+ 17736              		.global	_ZN10DisplaySpiC2ER19DisplayNrfSharedSpi
+ 17737              		.thumb
+ 17738              		.thumb_func
+ 17740              	_ZN10DisplaySpiC2ER19DisplayNrfSharedSpi:
+ 17741              	.LFB35:
+   1:../board/olimex-stm32f103-stk/board/display/displayspi.cpp **** #include "displayspi.h"
+   2:../board/olimex-stm32f103-stk/board/display/displayspi.cpp **** 
+   3:../board/olimex-stm32f103-stk/board/display/displayspi.cpp **** 
+   4:../board/olimex-stm32f103-stk/board/display/displayspi.cpp **** DisplaySpi::DisplaySpi(DisplayNrfSharedSpi & sharedSpi)
+ 17742              		.loc 1 4 0
+ 17743              		.cfi_startproc
+ 17744              		@ args = 0, pretend = 0, frame = 8
+ 17745              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17746              		@ link register save eliminated.
+ 17747 0000 80B4     		push	{r7}
+ 17748              	.LCFI15:
+ 17749              		.cfi_def_cfa_offset 4
+ 17750 0002 83B0     		sub	sp, sp, #12
+ 17751              	.LCFI16:
+ 17752              		.cfi_def_cfa_offset 16
+ 17753 0004 00AF     		add	r7, sp, #0
+ 17754              		.cfi_offset 7, -4
+ 17755              	.LCFI17:
+ 17756              		.cfi_def_cfa_register 7
+ 17757 0006 7860     		str	r0, [r7, #4]
+ 17758 0008 3960     		str	r1, [r7, #0]
+ 17759              	.LBB2:
+   5:../board/olimex-stm32f103-stk/board/display/displayspi.cpp **** : _bInitialized(false),
+   6:../board/olimex-stm32f103-stk/board/display/displayspi.cpp ****   _sharedSpi(sharedSpi)
+ 17760              		.loc 1 6 0
+ 17761 000a 7B68     		ldr	r3, [r7, #4]
+ 17762 000c 074A     		ldr	r2, .L8
+ 17763 000e 1A60     		str	r2, [r3, #0]
+ 17764 0010 7B68     		ldr	r3, [r7, #4]
+ 17765 0012 4FF00002 		mov	r2, #0
+ 17766 0016 1A71     		strb	r2, [r3, #4]
+ 17767 0018 7B68     		ldr	r3, [r7, #4]
+ 17768 001a 3A68     		ldr	r2, [r7, #0]
+ 17769 001c 9A60     		str	r2, [r3, #8]
+ 17770              	.LBE2:
+   7:../board/olimex-stm32f103-stk/board/display/displayspi.cpp **** {
+   8:../board/olimex-stm32f103-stk/board/display/displayspi.cpp **** 
+   9:../board/olimex-stm32f103-stk/board/display/displayspi.cpp **** }
+ 17771              		.loc 1 9 0
+ 17772 001e 7B68     		ldr	r3, [r7, #4]
+ 17773 0020 1846     		mov	r0, r3
+ 17774 0022 07F10C07 		add	r7, r7, #12
+ 17775 0026 BD46     		mov	sp, r7
+ 17776 0028 80BC     		pop	{r7}
+ 17777 002a 7047     		bx	lr
+ 17778              	.L9:
+ 17779              		.align	2
+ 17780              	.L8:
+ 17781 002c 08000000 		.word	_ZTV10DisplaySpi+8
+ 17782              		.cfi_endproc
+ 17783              	.LFE35:
+ 17785              		.global	_ZN10DisplaySpiC1ER19DisplayNrfSharedSpi
+ 17786              		.thumb_set _ZN10DisplaySpiC1ER19DisplayNrfSharedSpi,_ZN10DisplaySpiC2ER19DisplayNrfSharedSpi
+ 17787              		.section	.text._ZN10DisplaySpiD2Ev,"ax",%progbits
+ 17788              		.align	2
+ 17789              		.global	_ZN10DisplaySpiD2Ev
+ 17790              		.thumb
+ 17791              		.thumb_func
+ 17793              	_ZN10DisplaySpiD2Ev:
+ 17794              	.LFB38:
+  10:../board/olimex-stm32f103-stk/board/display/displayspi.cpp **** 
+  11:../board/olimex-stm32f103-stk/board/display/displayspi.cpp **** DisplaySpi::~DisplaySpi()
+ 17795              		.loc 1 11 0
+ 17796              		.cfi_startproc
+ 17797              		@ args = 0, pretend = 0, frame = 8
+ 17798              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17799 0000 80B5     		push	{r7, lr}
+ 17800              	.LCFI18:
+ 17801              		.cfi_def_cfa_offset 8
+ 17802 0002 82B0     		sub	sp, sp, #8
+ 17803              	.LCFI19:
+ 17804              		.cfi_def_cfa_offset 16
+ 17805 0004 00AF     		add	r7, sp, #0
+ 17806              		.cfi_offset 14, -4
+ 17807              		.cfi_offset 7, -8
+ 17808              	.LCFI20:
+ 17809              		.cfi_def_cfa_register 7
+ 17810 0006 7860     		str	r0, [r7, #4]
+ 17811              	.LBB3:
+ 17812              		.loc 1 11 0
+ 17813 0008 7B68     		ldr	r3, [r7, #4]
+ 17814 000a 094A     		ldr	r2, .L13
+ 17815 000c 1A60     		str	r2, [r3, #0]
+ 17816              	.LBE3:
+  12:../board/olimex-stm32f103-stk/board/display/displayspi.cpp **** {
+  13:../board/olimex-stm32f103-stk/board/display/displayspi.cpp **** 
+  14:../board/olimex-stm32f103-stk/board/display/displayspi.cpp **** }
+ 17817              		.loc 1 14 0
+ 17818 000e 4FF00003 		mov	r3, #0
+ 17819 0012 03F00103 		and	r3, r3, #1
+ 17820 0016 DBB2     		uxtb	r3, r3
+ 17821 0018 002B     		cmp	r3, #0
+ 17822 001a 02D0     		beq	.L12
+ 17823              		.loc 1 14 0 is_stmt 0 discriminator 1
+ 17824 001c 7868     		ldr	r0, [r7, #4]
+ 17825 001e FFF7FEFF 		bl	_ZdlPv
+ 17826              	.L12:
+ 17827              		.loc 1 14 0 discriminator 2
+ 17828 0022 7B68     		ldr	r3, [r7, #4]
+ 17829 0024 1846     		mov	r0, r3
+ 17830 0026 07F10807 		add	r7, r7, #8
+ 17831 002a BD46     		mov	sp, r7
+ 17832 002c 80BD     		pop	{r7, pc}
+ 17833              	.L14:
+ 17834 002e 00BF     		.align	2
+ 17835              	.L13:
+ 17836 0030 08000000 		.word	_ZTV10DisplaySpi+8
+ 17837              		.cfi_endproc
+ 17838              	.LFE38:
+ 17840              		.global	_ZN10DisplaySpiD1Ev
+ 17841              		.thumb_set _ZN10DisplaySpiD1Ev,_ZN10DisplaySpiD2Ev
+ 17842              		.section	.text._ZN10DisplaySpiD0Ev,"ax",%progbits
+ 17843              		.align	2
+ 17844              		.global	_ZN10DisplaySpiD0Ev
+ 17845              		.thumb
+ 17846              		.thumb_func
+ 17848              	_ZN10DisplaySpiD0Ev:
+ 17849              	.LFB40:
+  11:../board/olimex-stm32f103-stk/board/display/displayspi.cpp **** DisplaySpi::~DisplaySpi()
+ 17850              		.loc 1 11 0 is_stmt 1
+ 17851              		.cfi_startproc
+ 17852              		@ args = 0, pretend = 0, frame = 8
+ 17853              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17854 0000 80B5     		push	{r7, lr}
+ 17855              	.LCFI21:
+ 17856              		.cfi_def_cfa_offset 8
+ 17857 0002 82B0     		sub	sp, sp, #8
+ 17858              	.LCFI22:
+ 17859              		.cfi_def_cfa_offset 16
+ 17860 0004 00AF     		add	r7, sp, #0
+ 17861              		.cfi_offset 14, -4
+ 17862              		.cfi_offset 7, -8
+ 17863              	.LCFI23:
+ 17864              		.cfi_def_cfa_register 7
+ 17865 0006 7860     		str	r0, [r7, #4]
+ 17866              		.loc 1 14 0
+ 17867 0008 7868     		ldr	r0, [r7, #4]
+ 17868 000a FFF7FEFF 		bl	_ZN10DisplaySpiD1Ev
+ 17869 000e 7868     		ldr	r0, [r7, #4]
+ 17870 0010 FFF7FEFF 		bl	_ZdlPv
+ 17871 0014 7B68     		ldr	r3, [r7, #4]
+ 17872 0016 1846     		mov	r0, r3
+ 17873 0018 07F10807 		add	r7, r7, #8
+ 17874 001c BD46     		mov	sp, r7
+ 17875 001e 80BD     		pop	{r7, pc}
+ 17876              		.cfi_endproc
+ 17877              	.LFE40:
+ 17879              		.section	.text._ZN10DisplaySpi10initializeEv,"ax",%progbits
+ 17880              		.align	2
+ 17881              		.global	_ZN10DisplaySpi10initializeEv
+ 17882              		.thumb
+ 17883              		.thumb_func
+ 17885              	_ZN10DisplaySpi10initializeEv:
+ 17886              	.LFB41:
+  15:../board/olimex-stm32f103-stk/board/display/displayspi.cpp **** 
+  16:../board/olimex-stm32f103-stk/board/display/displayspi.cpp **** bool DisplaySpi::initialize()
+  17:../board/olimex-stm32f103-stk/board/display/displayspi.cpp **** {
+ 17887              		.loc 1 17 0
+ 17888              		.cfi_startproc
+ 17889              		@ args = 0, pretend = 0, frame = 8
+ 17890              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17891 0000 80B5     		push	{r7, lr}
+ 17892              	.LCFI24:
+ 17893              		.cfi_def_cfa_offset 8
+ 17894 0002 82B0     		sub	sp, sp, #8
+ 17895              	.LCFI25:
+ 17896              		.cfi_def_cfa_offset 16
+ 17897 0004 00AF     		add	r7, sp, #0
+ 17898              		.cfi_offset 14, -4
+ 17899              		.cfi_offset 7, -8
+ 17900              	.LCFI26:
+ 17901              		.cfi_def_cfa_register 7
+ 17902 0006 7860     		str	r0, [r7, #4]
+  18:../board/olimex-stm32f103-stk/board/display/displayspi.cpp **** 	if (!_bInitialized)
+ 17903              		.loc 1 18 0
+ 17904 0008 7B68     		ldr	r3, [r7, #4]
+ 17905 000a 1B79     		ldrb	r3, [r3, #4]	@ zero_extendqisi2
+ 17906 000c 83F00103 		eor	r3, r3, #1
+ 17907 0010 DBB2     		uxtb	r3, r3
+ 17908 0012 002B     		cmp	r3, #0
+ 17909 0014 0DD0     		beq	.L18
+  19:../board/olimex-stm32f103-stk/board/display/displayspi.cpp **** 	{
+  20:../board/olimex-stm32f103-stk/board/display/displayspi.cpp **** 		_bInitialized = true;
+ 17910              		.loc 1 20 0
+ 17911 0016 7B68     		ldr	r3, [r7, #4]
+ 17912 0018 4FF00102 		mov	r2, #1
+ 17913 001c 1A71     		strb	r2, [r3, #4]
+  21:../board/olimex-stm32f103-stk/board/display/displayspi.cpp **** 
+  22:../board/olimex-stm32f103-stk/board/display/displayspi.cpp **** 		sharedSpi().initialize();
+ 17914              		.loc 1 22 0
+ 17915 001e 7868     		ldr	r0, [r7, #4]
+ 17916 0020 FFF7FEFF 		bl	_ZN10DisplaySpi9sharedSpiEv
+ 17917 0024 0346     		mov	r3, r0
+ 17918 0026 1846     		mov	r0, r3
+ 17919 0028 FFF7FEFF 		bl	_ZN19DisplayNrfSharedSpi10initializeEv
+  23:../board/olimex-stm32f103-stk/board/display/displayspi.cpp **** 
+  24:../board/olimex-stm32f103-stk/board/display/displayspi.cpp **** 		return true;
+ 17920              		.loc 1 24 0
+ 17921 002c 4FF00103 		mov	r3, #1
+ 17922 0030 01E0     		b	.L19
+ 17923              	.L18:
+  25:../board/olimex-stm32f103-stk/board/display/displayspi.cpp **** 	}
+  26:../board/olimex-stm32f103-stk/board/display/displayspi.cpp **** 	return false;
+ 17924              		.loc 1 26 0
+ 17925 0032 4FF00003 		mov	r3, #0
+ 17926              	.L19:
+  27:../board/olimex-stm32f103-stk/board/display/displayspi.cpp **** }
+ 17927              		.loc 1 27 0
+ 17928 0036 1846     		mov	r0, r3
+ 17929 0038 07F10807 		add	r7, r7, #8
+ 17930 003c BD46     		mov	sp, r7
+ 17931 003e 80BD     		pop	{r7, pc}
+ 17932              		.cfi_endproc
+ 17933              	.LFE41:
+ 17935              		.section	.text._ZN10DisplaySpi6enableEv,"ax",%progbits
+ 17936              		.align	2
+ 17937              		.global	_ZN10DisplaySpi6enableEv
+ 17938              		.thumb
+ 17939              		.thumb_func
+ 17941              	_ZN10DisplaySpi6enableEv:
+ 17942              	.LFB42:
+  28:../board/olimex-stm32f103-stk/board/display/displayspi.cpp **** 
+  29:../board/olimex-stm32f103-stk/board/display/displayspi.cpp **** void DisplaySpi::enable()
+  30:../board/olimex-stm32f103-stk/board/display/displayspi.cpp **** {
+ 17943              		.loc 1 30 0
+ 17944              		.cfi_startproc
+ 17945              		@ args = 0, pretend = 0, frame = 8
+ 17946              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17947 0000 80B5     		push	{r7, lr}
+ 17948              	.LCFI27:
+ 17949              		.cfi_def_cfa_offset 8
+ 17950 0002 82B0     		sub	sp, sp, #8
+ 17951              	.LCFI28:
+ 17952              		.cfi_def_cfa_offset 16
+ 17953 0004 00AF     		add	r7, sp, #0
+ 17954              		.cfi_offset 14, -4
+ 17955              		.cfi_offset 7, -8
+ 17956              	.LCFI29:
+ 17957              		.cfi_def_cfa_register 7
+ 17958 0006 7860     		str	r0, [r7, #4]
+  31:../board/olimex-stm32f103-stk/board/display/displayspi.cpp **** 	sharedSpi().setSpiUsedByDisplay();
+ 17959              		.loc 1 31 0
+ 17960 0008 7868     		ldr	r0, [r7, #4]
+ 17961 000a FFF7FEFF 		bl	_ZN10DisplaySpi9sharedSpiEv
+ 17962 000e 0346     		mov	r3, r0
+ 17963 0010 1846     		mov	r0, r3
+ 17964 0012 FFF7FEFF 		bl	_ZN19DisplayNrfSharedSpi19setSpiUsedByDisplayEv
+  32:../board/olimex-stm32f103-stk/board/display/displayspi.cpp **** }
+ 17965              		.loc 1 32 0
+ 17966 0016 07F10807 		add	r7, r7, #8
+ 17967 001a BD46     		mov	sp, r7
+ 17968 001c 80BD     		pop	{r7, pc}
+ 17969              		.cfi_endproc
+ 17970              	.LFE42:
+ 17972 001e 00BF     		.section	.text._ZN10DisplaySpi7disableEv,"ax",%progbits
+ 17973              		.align	2
+ 17974              		.global	_ZN10DisplaySpi7disableEv
+ 17975              		.thumb
+ 17976              		.thumb_func
+ 17978              	_ZN10DisplaySpi7disableEv:
+ 17979              	.LFB43:
+  33:../board/olimex-stm32f103-stk/board/display/displayspi.cpp **** 
+  34:../board/olimex-stm32f103-stk/board/display/displayspi.cpp **** void DisplaySpi::disable()
+  35:../board/olimex-stm32f103-stk/board/display/displayspi.cpp **** {
+ 17980              		.loc 1 35 0
+ 17981              		.cfi_startproc
+ 17982              		@ args = 0, pretend = 0, frame = 8
+ 17983              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17984 0000 80B5     		push	{r7, lr}
+ 17985              	.LCFI30:
+ 17986              		.cfi_def_cfa_offset 8
+ 17987 0002 82B0     		sub	sp, sp, #8
+ 17988              	.LCFI31:
+ 17989              		.cfi_def_cfa_offset 16
+ 17990 0004 00AF     		add	r7, sp, #0
+ 17991              		.cfi_offset 14, -4
+ 17992              		.cfi_offset 7, -8
+ 17993              	.LCFI32:
+ 17994              		.cfi_def_cfa_register 7
+ 17995 0006 7860     		str	r0, [r7, #4]
+  36:../board/olimex-stm32f103-stk/board/display/displayspi.cpp **** 	sharedSpi().setSpiUsedByNrfTransceiver();
+ 17996              		.loc 1 36 0
+ 17997 0008 7868     		ldr	r0, [r7, #4]
+ 17998 000a FFF7FEFF 		bl	_ZN10DisplaySpi9sharedSpiEv
+ 17999 000e 0346     		mov	r3, r0
+ 18000 0010 1846     		mov	r0, r3
+ 18001 0012 FFF7FEFF 		bl	_ZN19DisplayNrfSharedSpi26setSpiUsedByNrfTransceiverEv
+  37:../board/olimex-stm32f103-stk/board/display/displayspi.cpp **** }
+ 18002              		.loc 1 37 0
+ 18003 0016 07F10807 		add	r7, r7, #8
+ 18004 001a BD46     		mov	sp, r7
+ 18005 001c 80BD     		pop	{r7, pc}
+ 18006              		.cfi_endproc
+ 18007              	.LFE43:
+ 18009 001e 00BF     		.section	.text._ZN10DisplaySpi11sendCommandEh,"ax",%progbits
+ 18010              		.align	2
+ 18011              		.global	_ZN10DisplaySpi11sendCommandEh
+ 18012              		.thumb
+ 18013              		.thumb_func
+ 18015              	_ZN10DisplaySpi11sendCommandEh:
+ 18016              	.LFB44:
+  38:../board/olimex-stm32f103-stk/board/display/displayspi.cpp **** 
+  39:../board/olimex-stm32f103-stk/board/display/displayspi.cpp **** void DisplaySpi::sendCommand(unsigned char cmd)
+  40:../board/olimex-stm32f103-stk/board/display/displayspi.cpp **** {
+ 18017              		.loc 1 40 0
+ 18018              		.cfi_startproc
+ 18019              		@ args = 0, pretend = 0, frame = 8
+ 18020              		@ frame_needed = 1, uses_anonymous_args = 0
+ 18021 0000 80B5     		push	{r7, lr}
+ 18022              	.LCFI33:
+ 18023              		.cfi_def_cfa_offset 8
+ 18024 0002 82B0     		sub	sp, sp, #8
+ 18025              	.LCFI34:
+ 18026              		.cfi_def_cfa_offset 16
+ 18027 0004 00AF     		add	r7, sp, #0
+ 18028              		.cfi_offset 14, -4
+ 18029              		.cfi_offset 7, -8
+ 18030              	.LCFI35:
+ 18031              		.cfi_def_cfa_register 7
+ 18032 0006 7860     		str	r0, [r7, #4]
+ 18033 0008 0B46     		mov	r3, r1
+ 18034 000a FB70     		strb	r3, [r7, #3]
+  41:../board/olimex-stm32f103-stk/board/display/displayspi.cpp **** 	setCommandLine();				// Tell display we are sending a command byte
+ 18035              		.loc 1 41 0
+ 18036 000c 7868     		ldr	r0, [r7, #4]
+ 18037 000e FFF7FEFF 		bl	_ZN10DisplaySpi14setCommandLineEv
+  42:../board/olimex-stm32f103-stk/board/display/displayspi.cpp **** 	sharedSpi().sendByte(cmd);
+ 18038              		.loc 1 42 0
+ 18039 0012 7868     		ldr	r0, [r7, #4]
+ 18040 0014 FFF7FEFF 		bl	_ZN10DisplaySpi9sharedSpiEv
+ 18041 0018 0246     		mov	r2, r0
+ 18042 001a FB78     		ldrb	r3, [r7, #3]	@ zero_extendqisi2
+ 18043 001c 1046     		mov	r0, r2
+ 18044 001e 1946     		mov	r1, r3
+ 18045 0020 FFF7FEFF 		bl	_ZN19DisplayNrfSharedSpi8sendByteEh
+  43:../board/olimex-stm32f103-stk/board/display/displayspi.cpp **** }
+ 18046              		.loc 1 43 0
+ 18047 0024 07F10807 		add	r7, r7, #8
+ 18048 0028 BD46     		mov	sp, r7
+ 18049 002a 80BD     		pop	{r7, pc}
+ 18050              		.cfi_endproc
+ 18051              	.LFE44:
+ 18053              		.section	.text._ZN10DisplaySpi8sendDataEh,"ax",%progbits
+ 18054              		.align	2
+ 18055              		.global	_ZN10DisplaySpi8sendDataEh
+ 18056              		.thumb
+ 18057              		.thumb_func
+ 18059              	_ZN10DisplaySpi8sendDataEh:
+ 18060              	.LFB45:
+  44:../board/olimex-stm32f103-stk/board/display/displayspi.cpp **** 
+  45:../board/olimex-stm32f103-stk/board/display/displayspi.cpp **** void DisplaySpi::sendData(unsigned char data)
+  46:../board/olimex-stm32f103-stk/board/display/displayspi.cpp **** {
+ 18061              		.loc 1 46 0
+ 18062              		.cfi_startproc
+ 18063              		@ args = 0, pretend = 0, frame = 8
+ 18064              		@ frame_needed = 1, uses_anonymous_args = 0
+ 18065 0000 80B5     		push	{r7, lr}
+ 18066              	.LCFI36:
+ 18067              		.cfi_def_cfa_offset 8
+ 18068 0002 82B0     		sub	sp, sp, #8
+ 18069              	.LCFI37:
+ 18070              		.cfi_def_cfa_offset 16
+ 18071 0004 00AF     		add	r7, sp, #0
+ 18072              		.cfi_offset 14, -4
+ 18073              		.cfi_offset 7, -8
+ 18074              	.LCFI38:
+ 18075              		.cfi_def_cfa_register 7
+ 18076 0006 7860     		str	r0, [r7, #4]
+ 18077 0008 0B46     		mov	r3, r1
+ 18078 000a FB70     		strb	r3, [r7, #3]
+  47:../board/olimex-stm32f103-stk/board/display/displayspi.cpp **** 	setDataLine();					// Tell display we are sending a data byte
+ 18079              		.loc 1 47 0
+ 18080 000c 7868     		ldr	r0, [r7, #4]
+ 18081 000e FFF7FEFF 		bl	_ZN10DisplaySpi11setDataLineEv
+  48:../board/olimex-stm32f103-stk/board/display/displayspi.cpp **** 	sharedSpi().sendByte(data);
+ 18082              		.loc 1 48 0
+ 18083 0012 7868     		ldr	r0, [r7, #4]
+ 18084 0014 FFF7FEFF 		bl	_ZN10DisplaySpi9sharedSpiEv
+ 18085 0018 0246     		mov	r2, r0
+ 18086 001a FB78     		ldrb	r3, [r7, #3]	@ zero_extendqisi2
+ 18087 001c 1046     		mov	r0, r2
+ 18088 001e 1946     		mov	r1, r3
+ 18089 0020 FFF7FEFF 		bl	_ZN19DisplayNrfSharedSpi8sendByteEh
+  49:../board/olimex-stm32f103-stk/board/display/displayspi.cpp **** }
+ 18090              		.loc 1 49 0
+ 18091 0024 07F10807 		add	r7, r7, #8
+ 18092 0028 BD46     		mov	sp, r7
+ 18093 002a 80BD     		pop	{r7, pc}
+ 18094              		.cfi_endproc
+ 18095              	.LFE45:
+ 18097              		.global	_ZTV10DisplaySpi
+ 18098              		.section	.rodata._ZTV10DisplaySpi,"a",%progbits
+ 18099              		.align	3
+ 18102              	_ZTV10DisplaySpi:
+ 18103 0000 00000000 		.word	0
+ 18104 0004 00000000 		.word	0
+ 18105 0008 00000000 		.word	_ZN10DisplaySpiD1Ev
+ 18106 000c 00000000 		.word	_ZN10DisplaySpiD0Ev
+ 18107              		.text
+ 18108              	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 displayspi.cpp
+     /tmp/cclCpd2M.s:17549  .text._ZN19DisplayNrfSharedSpi3spiEv:00000000 $t
+     /tmp/cclCpd2M.s:17554  .text._ZN19DisplayNrfSharedSpi3spiEv:00000000 _ZN19DisplayNrfSharedSpi3spiEv
+     /tmp/cclCpd2M.s:17584  .text._ZN19DisplayNrfSharedSpi8sendByteEh:00000000 $t
+     /tmp/cclCpd2M.s:17589  .text._ZN19DisplayNrfSharedSpi8sendByteEh:00000000 _ZN19DisplayNrfSharedSpi8sendByteEh
+     /tmp/cclCpd2M.s:17626  .text._ZN10DisplaySpi9sharedSpiEv:00000000 $t
+     /tmp/cclCpd2M.s:17631  .text._ZN10DisplaySpi9sharedSpiEv:00000000 _ZN10DisplaySpi9sharedSpiEv
+     /tmp/cclCpd2M.s:17661  .text._ZN10DisplaySpi14setCommandLineEv:00000000 $t
+     /tmp/cclCpd2M.s:17666  .text._ZN10DisplaySpi14setCommandLineEv:00000000 _ZN10DisplaySpi14setCommandLineEv
+     /tmp/cclCpd2M.s:17698  .text._ZN10DisplaySpi11setDataLineEv:00000000 $t
+     /tmp/cclCpd2M.s:17703  .text._ZN10DisplaySpi11setDataLineEv:00000000 _ZN10DisplaySpi11setDataLineEv
+     /tmp/cclCpd2M.s:17735  .text._ZN10DisplaySpiC2ER19DisplayNrfSharedSpi:00000000 $t
+     /tmp/cclCpd2M.s:17740  .text._ZN10DisplaySpiC2ER19DisplayNrfSharedSpi:00000000 _ZN10DisplaySpiC2ER19DisplayNrfSharedSpi
+     /tmp/cclCpd2M.s:17781  .text._ZN10DisplaySpiC2ER19DisplayNrfSharedSpi:0000002c $d
+     /tmp/cclCpd2M.s:18102  .rodata._ZTV10DisplaySpi:00000000 _ZTV10DisplaySpi
+     /tmp/cclCpd2M.s:17740  .text._ZN10DisplaySpiC2ER19DisplayNrfSharedSpi:00000000 _ZN10DisplaySpiC1ER19DisplayNrfSharedSpi
+     /tmp/cclCpd2M.s:17788  .text._ZN10DisplaySpiD2Ev:00000000 $t
+     /tmp/cclCpd2M.s:17793  .text._ZN10DisplaySpiD2Ev:00000000 _ZN10DisplaySpiD2Ev
+     /tmp/cclCpd2M.s:17836  .text._ZN10DisplaySpiD2Ev:00000030 $d
+     /tmp/cclCpd2M.s:17793  .text._ZN10DisplaySpiD2Ev:00000000 _ZN10DisplaySpiD1Ev
+     /tmp/cclCpd2M.s:17843  .text._ZN10DisplaySpiD0Ev:00000000 $t
+     /tmp/cclCpd2M.s:17848  .text._ZN10DisplaySpiD0Ev:00000000 _ZN10DisplaySpiD0Ev
+     /tmp/cclCpd2M.s:17880  .text._ZN10DisplaySpi10initializeEv:00000000 $t
+     /tmp/cclCpd2M.s:17885  .text._ZN10DisplaySpi10initializeEv:00000000 _ZN10DisplaySpi10initializeEv
+     /tmp/cclCpd2M.s:17936  .text._ZN10DisplaySpi6enableEv:00000000 $t
+     /tmp/cclCpd2M.s:17941  .text._ZN10DisplaySpi6enableEv:00000000 _ZN10DisplaySpi6enableEv
+     /tmp/cclCpd2M.s:17973  .text._ZN10DisplaySpi7disableEv:00000000 $t
+     /tmp/cclCpd2M.s:17978  .text._ZN10DisplaySpi7disableEv:00000000 _ZN10DisplaySpi7disableEv
+     /tmp/cclCpd2M.s:18010  .text._ZN10DisplaySpi11sendCommandEh:00000000 $t
+     /tmp/cclCpd2M.s:18015  .text._ZN10DisplaySpi11sendCommandEh:00000000 _ZN10DisplaySpi11sendCommandEh
+     /tmp/cclCpd2M.s:18054  .text._ZN10DisplaySpi8sendDataEh:00000000 $t
+     /tmp/cclCpd2M.s:18059  .text._ZN10DisplaySpi8sendDataEh:00000000 _ZN10DisplaySpi8sendDataEh
+     /tmp/cclCpd2M.s:18099  .rodata._ZTV10DisplaySpi:00000000 $d
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+_ZN3SPI8sendByteEh
+GPIO_WriteBit
+_ZdlPv
+_ZN19DisplayNrfSharedSpi10initializeEv
+_ZN19DisplayNrfSharedSpi19setSpiUsedByDisplayEv
+_ZN19DisplayNrfSharedSpi26setSpiUsedByNrfTransceiverEv

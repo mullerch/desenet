@@ -1,0 +1,4115 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"usb_regs.c"
+  23              	.Ltext0:
+  24              		.file 1 "../target/stm32/vcom/usb_regs.c"
+ 16441              		.align	2
+ 16442              		.global	SetCNTR
+ 16443              		.thumb
+ 16444              		.thumb_func
+ 16446              	SetCNTR:
+ 16447              	.LFB29:
+   1:../target/stm32/vcom/usb_regs.c **** /******************** (C) COPYRIGHT 2007 STMicroelectronics ********************
+   2:../target/stm32/vcom/usb_regs.c **** * File Name          : usb_regs.c
+   3:../target/stm32/vcom/usb_regs.c **** * Author             : MCD Application Team
+   4:../target/stm32/vcom/usb_regs.c **** * Version            : V1.0
+   5:../target/stm32/vcom/usb_regs.c **** * Date               : 10/08/2007
+   6:../target/stm32/vcom/usb_regs.c **** * Description        : Interface functions to USB cell registers
+   7:../target/stm32/vcom/usb_regs.c **** ********************************************************************************
+   8:../target/stm32/vcom/usb_regs.c **** * THE PRESENT SOFTWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
+   9:../target/stm32/vcom/usb_regs.c **** * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE TIME.
+  10:../target/stm32/vcom/usb_regs.c **** * AS A RESULT, STMICROELECTRONICS SHALL NOT BE HELD LIABLE FOR ANY DIRECT,
+  11:../target/stm32/vcom/usb_regs.c **** * INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING FROM THE
+  12:../target/stm32/vcom/usb_regs.c **** * CONTENT OF SUCH SOFTWARE AND/OR THE USE MADE BY CUSTOMERS OF THE CODING
+  13:../target/stm32/vcom/usb_regs.c **** * INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
+  14:../target/stm32/vcom/usb_regs.c **** *******************************************************************************/
+  15:../target/stm32/vcom/usb_regs.c **** 
+  16:../target/stm32/vcom/usb_regs.c **** /* Includes ------------------------------------------------------------------*/
+  17:../target/stm32/vcom/usb_regs.c **** #include "usb_lib.h"
+  18:../target/stm32/vcom/usb_regs.c **** 
+  19:../target/stm32/vcom/usb_regs.c **** /* Private typedef -----------------------------------------------------------*/
+  20:../target/stm32/vcom/usb_regs.c **** /* Private define ------------------------------------------------------------*/
+  21:../target/stm32/vcom/usb_regs.c **** /* Private macro -------------------------------------------------------------*/
+  22:../target/stm32/vcom/usb_regs.c **** /* Private variables ---------------------------------------------------------*/
+  23:../target/stm32/vcom/usb_regs.c **** /* Extern variables ----------------------------------------------------------*/
+  24:../target/stm32/vcom/usb_regs.c **** /* Private function prototypes -----------------------------------------------*/
+  25:../target/stm32/vcom/usb_regs.c **** /* Private functions ---------------------------------------------------------*/
+  26:../target/stm32/vcom/usb_regs.c **** 
+  27:../target/stm32/vcom/usb_regs.c **** /*******************************************************************************
+  28:../target/stm32/vcom/usb_regs.c **** * Function Name  : SetCNTR.
+  29:../target/stm32/vcom/usb_regs.c **** * Description    : Set the CNTR register value.
+  30:../target/stm32/vcom/usb_regs.c **** * Input          : wRegValue: new register value.
+  31:../target/stm32/vcom/usb_regs.c **** * Output         : None.
+  32:../target/stm32/vcom/usb_regs.c **** * Return         : None.
+  33:../target/stm32/vcom/usb_regs.c **** *******************************************************************************/
+  34:../target/stm32/vcom/usb_regs.c **** void SetCNTR(u16 wRegValue)
+  35:../target/stm32/vcom/usb_regs.c **** {
+ 16448              		.loc 1 35 0
+ 16449              		.cfi_startproc
+ 16450              		@ args = 0, pretend = 0, frame = 8
+ 16451              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16452              		@ link register save eliminated.
+ 16453 0000 80B4     		push	{r7}
+ 16454              	.LCFI0:
+ 16455              		.cfi_def_cfa_offset 4
+ 16456 0002 83B0     		sub	sp, sp, #12
+ 16457              	.LCFI1:
+ 16458              		.cfi_def_cfa_offset 16
+ 16459 0004 00AF     		add	r7, sp, #0
+ 16460              		.cfi_offset 7, -4
+ 16461              	.LCFI2:
+ 16462              		.cfi_def_cfa_register 7
+ 16463 0006 0346     		mov	r3, r0
+ 16464 0008 FB80     		strh	r3, [r7, #6]	@ movhi
+  36:../target/stm32/vcom/usb_regs.c ****   _SetCNTR(wRegValue);
+ 16465              		.loc 1 36 0
+ 16466 000a 45F64043 		movw	r3, #23616
+ 16467 000e C4F20003 		movt	r3, 16384
+ 16468 0012 FA88     		ldrh	r2, [r7, #6]
+ 16469 0014 1A60     		str	r2, [r3, #0]
+  37:../target/stm32/vcom/usb_regs.c **** }
+ 16470              		.loc 1 37 0
+ 16471 0016 07F10C07 		add	r7, r7, #12
+ 16472 001a BD46     		mov	sp, r7
+ 16473 001c 80BC     		pop	{r7}
+ 16474 001e 7047     		bx	lr
+ 16475              		.cfi_endproc
+ 16476              	.LFE29:
+ 16478              		.section	.text.GetCNTR,"ax",%progbits
+ 16479              		.align	2
+ 16480              		.global	GetCNTR
+ 16481              		.thumb
+ 16482              		.thumb_func
+ 16484              	GetCNTR:
+ 16485              	.LFB30:
+  38:../target/stm32/vcom/usb_regs.c **** 
+  39:../target/stm32/vcom/usb_regs.c **** /*******************************************************************************
+  40:../target/stm32/vcom/usb_regs.c **** * Function Name  : GetCNTR.
+  41:../target/stm32/vcom/usb_regs.c **** * Description    : returns the CNTR register value.
+  42:../target/stm32/vcom/usb_regs.c **** * Input          : None.
+  43:../target/stm32/vcom/usb_regs.c **** * Output         : None.
+  44:../target/stm32/vcom/usb_regs.c **** * Return         : CNTR register Value.
+  45:../target/stm32/vcom/usb_regs.c **** *******************************************************************************/
+  46:../target/stm32/vcom/usb_regs.c **** u16 GetCNTR(void)
+  47:../target/stm32/vcom/usb_regs.c **** {
+ 16486              		.loc 1 47 0
+ 16487              		.cfi_startproc
+ 16488              		@ args = 0, pretend = 0, frame = 0
+ 16489              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16490              		@ link register save eliminated.
+ 16491 0000 80B4     		push	{r7}
+ 16492              	.LCFI3:
+ 16493              		.cfi_def_cfa_offset 4
+ 16494 0002 00AF     		add	r7, sp, #0
+ 16495              		.cfi_offset 7, -4
+ 16496              	.LCFI4:
+ 16497              		.cfi_def_cfa_register 7
+  48:../target/stm32/vcom/usb_regs.c ****   return(_GetCNTR());
+ 16498              		.loc 1 48 0
+ 16499 0004 45F64043 		movw	r3, #23616
+ 16500 0008 C4F20003 		movt	r3, 16384
+ 16501 000c 1B68     		ldr	r3, [r3, #0]
+ 16502 000e 9BB2     		uxth	r3, r3
+  49:../target/stm32/vcom/usb_regs.c **** }
+ 16503              		.loc 1 49 0
+ 16504 0010 1846     		mov	r0, r3
+ 16505 0012 BD46     		mov	sp, r7
+ 16506 0014 80BC     		pop	{r7}
+ 16507 0016 7047     		bx	lr
+ 16508              		.cfi_endproc
+ 16509              	.LFE30:
+ 16511              		.section	.text.SetISTR,"ax",%progbits
+ 16512              		.align	2
+ 16513              		.global	SetISTR
+ 16514              		.thumb
+ 16515              		.thumb_func
+ 16517              	SetISTR:
+ 16518              	.LFB31:
+  50:../target/stm32/vcom/usb_regs.c **** 
+  51:../target/stm32/vcom/usb_regs.c **** /*******************************************************************************
+  52:../target/stm32/vcom/usb_regs.c **** * Function Name  : SetISTR.
+  53:../target/stm32/vcom/usb_regs.c **** * Description    : Set the ISTR register value.
+  54:../target/stm32/vcom/usb_regs.c **** * Input          : wRegValue: new register value.
+  55:../target/stm32/vcom/usb_regs.c **** * Output         : None.
+  56:../target/stm32/vcom/usb_regs.c **** * Return         : None.
+  57:../target/stm32/vcom/usb_regs.c **** *******************************************************************************/
+  58:../target/stm32/vcom/usb_regs.c **** void SetISTR(u16 wRegValue)
+  59:../target/stm32/vcom/usb_regs.c **** {
+ 16519              		.loc 1 59 0
+ 16520              		.cfi_startproc
+ 16521              		@ args = 0, pretend = 0, frame = 8
+ 16522              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16523              		@ link register save eliminated.
+ 16524 0000 80B4     		push	{r7}
+ 16525              	.LCFI5:
+ 16526              		.cfi_def_cfa_offset 4
+ 16527 0002 83B0     		sub	sp, sp, #12
+ 16528              	.LCFI6:
+ 16529              		.cfi_def_cfa_offset 16
+ 16530 0004 00AF     		add	r7, sp, #0
+ 16531              		.cfi_offset 7, -4
+ 16532              	.LCFI7:
+ 16533              		.cfi_def_cfa_register 7
+ 16534 0006 0346     		mov	r3, r0
+ 16535 0008 FB80     		strh	r3, [r7, #6]	@ movhi
+  60:../target/stm32/vcom/usb_regs.c ****   _SetISTR(wRegValue);
+ 16536              		.loc 1 60 0
+ 16537 000a 45F64443 		movw	r3, #23620
+ 16538 000e C4F20003 		movt	r3, 16384
+ 16539 0012 FA88     		ldrh	r2, [r7, #6]
+ 16540 0014 1A60     		str	r2, [r3, #0]
+  61:../target/stm32/vcom/usb_regs.c **** }
+ 16541              		.loc 1 61 0
+ 16542 0016 07F10C07 		add	r7, r7, #12
+ 16543 001a BD46     		mov	sp, r7
+ 16544 001c 80BC     		pop	{r7}
+ 16545 001e 7047     		bx	lr
+ 16546              		.cfi_endproc
+ 16547              	.LFE31:
+ 16549              		.section	.text.GetISTR,"ax",%progbits
+ 16550              		.align	2
+ 16551              		.global	GetISTR
+ 16552              		.thumb
+ 16553              		.thumb_func
+ 16555              	GetISTR:
+ 16556              	.LFB32:
+  62:../target/stm32/vcom/usb_regs.c **** 
+  63:../target/stm32/vcom/usb_regs.c **** /*******************************************************************************
+  64:../target/stm32/vcom/usb_regs.c **** * Function Name  : GetISTR
+  65:../target/stm32/vcom/usb_regs.c **** * Description    : Returns the ISTR register value.
+  66:../target/stm32/vcom/usb_regs.c **** * Input          : None.
+  67:../target/stm32/vcom/usb_regs.c **** * Output         : None.
+  68:../target/stm32/vcom/usb_regs.c **** * Return         : ISTR register Value
+  69:../target/stm32/vcom/usb_regs.c **** *******************************************************************************/
+  70:../target/stm32/vcom/usb_regs.c **** u16 GetISTR(void)
+  71:../target/stm32/vcom/usb_regs.c **** {
+ 16557              		.loc 1 71 0
+ 16558              		.cfi_startproc
+ 16559              		@ args = 0, pretend = 0, frame = 0
+ 16560              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16561              		@ link register save eliminated.
+ 16562 0000 80B4     		push	{r7}
+ 16563              	.LCFI8:
+ 16564              		.cfi_def_cfa_offset 4
+ 16565 0002 00AF     		add	r7, sp, #0
+ 16566              		.cfi_offset 7, -4
+ 16567              	.LCFI9:
+ 16568              		.cfi_def_cfa_register 7
+  72:../target/stm32/vcom/usb_regs.c ****   return(_GetISTR());
+ 16569              		.loc 1 72 0
+ 16570 0004 45F64443 		movw	r3, #23620
+ 16571 0008 C4F20003 		movt	r3, 16384
+ 16572 000c 1B68     		ldr	r3, [r3, #0]
+ 16573 000e 9BB2     		uxth	r3, r3
+  73:../target/stm32/vcom/usb_regs.c **** }
+ 16574              		.loc 1 73 0
+ 16575 0010 1846     		mov	r0, r3
+ 16576 0012 BD46     		mov	sp, r7
+ 16577 0014 80BC     		pop	{r7}
+ 16578 0016 7047     		bx	lr
+ 16579              		.cfi_endproc
+ 16580              	.LFE32:
+ 16582              		.section	.text.GetFNR,"ax",%progbits
+ 16583              		.align	2
+ 16584              		.global	GetFNR
+ 16585              		.thumb
+ 16586              		.thumb_func
+ 16588              	GetFNR:
+ 16589              	.LFB33:
+  74:../target/stm32/vcom/usb_regs.c **** 
+  75:../target/stm32/vcom/usb_regs.c **** /*******************************************************************************
+  76:../target/stm32/vcom/usb_regs.c **** * Function Name  : GetFNR
+  77:../target/stm32/vcom/usb_regs.c **** * Description    : Returns the FNR register value.
+  78:../target/stm32/vcom/usb_regs.c **** * Input          : None.
+  79:../target/stm32/vcom/usb_regs.c **** * Output         : None.
+  80:../target/stm32/vcom/usb_regs.c **** * Return         : FNR register Value
+  81:../target/stm32/vcom/usb_regs.c **** *******************************************************************************/
+  82:../target/stm32/vcom/usb_regs.c **** u16 GetFNR(void)
+  83:../target/stm32/vcom/usb_regs.c **** {
+ 16590              		.loc 1 83 0
+ 16591              		.cfi_startproc
+ 16592              		@ args = 0, pretend = 0, frame = 0
+ 16593              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16594              		@ link register save eliminated.
+ 16595 0000 80B4     		push	{r7}
+ 16596              	.LCFI10:
+ 16597              		.cfi_def_cfa_offset 4
+ 16598 0002 00AF     		add	r7, sp, #0
+ 16599              		.cfi_offset 7, -4
+ 16600              	.LCFI11:
+ 16601              		.cfi_def_cfa_register 7
+  84:../target/stm32/vcom/usb_regs.c ****   return(_GetFNR());
+ 16602              		.loc 1 84 0
+ 16603 0004 45F64843 		movw	r3, #23624
+ 16604 0008 C4F20003 		movt	r3, 16384
+ 16605 000c 1B68     		ldr	r3, [r3, #0]
+ 16606 000e 9BB2     		uxth	r3, r3
+  85:../target/stm32/vcom/usb_regs.c **** }
+ 16607              		.loc 1 85 0
+ 16608 0010 1846     		mov	r0, r3
+ 16609 0012 BD46     		mov	sp, r7
+ 16610 0014 80BC     		pop	{r7}
+ 16611 0016 7047     		bx	lr
+ 16612              		.cfi_endproc
+ 16613              	.LFE33:
+ 16615              		.section	.text.SetDADDR,"ax",%progbits
+ 16616              		.align	2
+ 16617              		.global	SetDADDR
+ 16618              		.thumb
+ 16619              		.thumb_func
+ 16621              	SetDADDR:
+ 16622              	.LFB34:
+  86:../target/stm32/vcom/usb_regs.c **** 
+  87:../target/stm32/vcom/usb_regs.c **** /*******************************************************************************
+  88:../target/stm32/vcom/usb_regs.c **** * Function Name  : SetDADDR
+  89:../target/stm32/vcom/usb_regs.c **** * Description    : Set the DADDR register value.
+  90:../target/stm32/vcom/usb_regs.c **** * Input          : wRegValue: new register value.
+  91:../target/stm32/vcom/usb_regs.c **** * Output         : None.
+  92:../target/stm32/vcom/usb_regs.c **** * Return         : None.
+  93:../target/stm32/vcom/usb_regs.c **** *******************************************************************************/
+  94:../target/stm32/vcom/usb_regs.c **** void SetDADDR(u16 wRegValue)
+  95:../target/stm32/vcom/usb_regs.c **** {
+ 16623              		.loc 1 95 0
+ 16624              		.cfi_startproc
+ 16625              		@ args = 0, pretend = 0, frame = 8
+ 16626              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16627              		@ link register save eliminated.
+ 16628 0000 80B4     		push	{r7}
+ 16629              	.LCFI12:
+ 16630              		.cfi_def_cfa_offset 4
+ 16631 0002 83B0     		sub	sp, sp, #12
+ 16632              	.LCFI13:
+ 16633              		.cfi_def_cfa_offset 16
+ 16634 0004 00AF     		add	r7, sp, #0
+ 16635              		.cfi_offset 7, -4
+ 16636              	.LCFI14:
+ 16637              		.cfi_def_cfa_register 7
+ 16638 0006 0346     		mov	r3, r0
+ 16639 0008 FB80     		strh	r3, [r7, #6]	@ movhi
+  96:../target/stm32/vcom/usb_regs.c ****   _SetDADDR(wRegValue);
+ 16640              		.loc 1 96 0
+ 16641 000a 45F64C43 		movw	r3, #23628
+ 16642 000e C4F20003 		movt	r3, 16384
+ 16643 0012 FA88     		ldrh	r2, [r7, #6]
+ 16644 0014 1A60     		str	r2, [r3, #0]
+  97:../target/stm32/vcom/usb_regs.c **** }
+ 16645              		.loc 1 97 0
+ 16646 0016 07F10C07 		add	r7, r7, #12
+ 16647 001a BD46     		mov	sp, r7
+ 16648 001c 80BC     		pop	{r7}
+ 16649 001e 7047     		bx	lr
+ 16650              		.cfi_endproc
+ 16651              	.LFE34:
+ 16653              		.section	.text.GetDADDR,"ax",%progbits
+ 16654              		.align	2
+ 16655              		.global	GetDADDR
+ 16656              		.thumb
+ 16657              		.thumb_func
+ 16659              	GetDADDR:
+ 16660              	.LFB35:
+  98:../target/stm32/vcom/usb_regs.c **** 
+  99:../target/stm32/vcom/usb_regs.c **** /*******************************************************************************
+ 100:../target/stm32/vcom/usb_regs.c **** * Function Name  : GetDADDR
+ 101:../target/stm32/vcom/usb_regs.c **** * Description    : Returns the DADDR register value.
+ 102:../target/stm32/vcom/usb_regs.c **** * Input          : None.
+ 103:../target/stm32/vcom/usb_regs.c **** * Output         : None.
+ 104:../target/stm32/vcom/usb_regs.c **** * Return         : DADDR register Value
+ 105:../target/stm32/vcom/usb_regs.c **** *******************************************************************************/
+ 106:../target/stm32/vcom/usb_regs.c **** u16 GetDADDR(void)
+ 107:../target/stm32/vcom/usb_regs.c **** {
+ 16661              		.loc 1 107 0
+ 16662              		.cfi_startproc
+ 16663              		@ args = 0, pretend = 0, frame = 0
+ 16664              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16665              		@ link register save eliminated.
+ 16666 0000 80B4     		push	{r7}
+ 16667              	.LCFI15:
+ 16668              		.cfi_def_cfa_offset 4
+ 16669 0002 00AF     		add	r7, sp, #0
+ 16670              		.cfi_offset 7, -4
+ 16671              	.LCFI16:
+ 16672              		.cfi_def_cfa_register 7
+ 108:../target/stm32/vcom/usb_regs.c ****   return(_GetDADDR());
+ 16673              		.loc 1 108 0
+ 16674 0004 45F64C43 		movw	r3, #23628
+ 16675 0008 C4F20003 		movt	r3, 16384
+ 16676 000c 1B68     		ldr	r3, [r3, #0]
+ 16677 000e 9BB2     		uxth	r3, r3
+ 109:../target/stm32/vcom/usb_regs.c **** }
+ 16678              		.loc 1 109 0
+ 16679 0010 1846     		mov	r0, r3
+ 16680 0012 BD46     		mov	sp, r7
+ 16681 0014 80BC     		pop	{r7}
+ 16682 0016 7047     		bx	lr
+ 16683              		.cfi_endproc
+ 16684              	.LFE35:
+ 16686              		.section	.text.SetBTABLE,"ax",%progbits
+ 16687              		.align	2
+ 16688              		.global	SetBTABLE
+ 16689              		.thumb
+ 16690              		.thumb_func
+ 16692              	SetBTABLE:
+ 16693              	.LFB36:
+ 110:../target/stm32/vcom/usb_regs.c **** 
+ 111:../target/stm32/vcom/usb_regs.c **** /*******************************************************************************
+ 112:../target/stm32/vcom/usb_regs.c **** * Function Name  : SetBTABLE
+ 113:../target/stm32/vcom/usb_regs.c **** * Description    : Set the BTABLE.
+ 114:../target/stm32/vcom/usb_regs.c **** * Input          : wRegValue: New register value.
+ 115:../target/stm32/vcom/usb_regs.c **** * Output         : None.
+ 116:../target/stm32/vcom/usb_regs.c **** * Return         : None.
+ 117:../target/stm32/vcom/usb_regs.c **** *******************************************************************************/
+ 118:../target/stm32/vcom/usb_regs.c **** void SetBTABLE(u16 wRegValue)
+ 119:../target/stm32/vcom/usb_regs.c **** {
+ 16694              		.loc 1 119 0
+ 16695              		.cfi_startproc
+ 16696              		@ args = 0, pretend = 0, frame = 8
+ 16697              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16698              		@ link register save eliminated.
+ 16699 0000 80B4     		push	{r7}
+ 16700              	.LCFI17:
+ 16701              		.cfi_def_cfa_offset 4
+ 16702 0002 83B0     		sub	sp, sp, #12
+ 16703              	.LCFI18:
+ 16704              		.cfi_def_cfa_offset 16
+ 16705 0004 00AF     		add	r7, sp, #0
+ 16706              		.cfi_offset 7, -4
+ 16707              	.LCFI19:
+ 16708              		.cfi_def_cfa_register 7
+ 16709 0006 0346     		mov	r3, r0
+ 16710 0008 FB80     		strh	r3, [r7, #6]	@ movhi
+ 120:../target/stm32/vcom/usb_regs.c ****   _SetBTABLE(wRegValue);
+ 16711              		.loc 1 120 0
+ 16712 000a 45F65043 		movw	r3, #23632
+ 16713 000e C4F20003 		movt	r3, 16384
+ 16714 0012 F988     		ldrh	r1, [r7, #6]
+ 16715 0014 4FF6F872 		movw	r2, #65528
+ 16716 0018 01EA0202 		and	r2, r1, r2
+ 16717 001c 1A60     		str	r2, [r3, #0]
+ 121:../target/stm32/vcom/usb_regs.c **** }
+ 16718              		.loc 1 121 0
+ 16719 001e 07F10C07 		add	r7, r7, #12
+ 16720 0022 BD46     		mov	sp, r7
+ 16721 0024 80BC     		pop	{r7}
+ 16722 0026 7047     		bx	lr
+ 16723              		.cfi_endproc
+ 16724              	.LFE36:
+ 16726              		.section	.text.GetBTABLE,"ax",%progbits
+ 16727              		.align	2
+ 16728              		.global	GetBTABLE
+ 16729              		.thumb
+ 16730              		.thumb_func
+ 16732              	GetBTABLE:
+ 16733              	.LFB37:
+ 122:../target/stm32/vcom/usb_regs.c **** 
+ 123:../target/stm32/vcom/usb_regs.c **** /*******************************************************************************
+ 124:../target/stm32/vcom/usb_regs.c **** * Function Name  : GetBTABLE.
+ 125:../target/stm32/vcom/usb_regs.c **** * Description    : Returns the BTABLE register value.
+ 126:../target/stm32/vcom/usb_regs.c **** * Input          : None. 
+ 127:../target/stm32/vcom/usb_regs.c **** * Output         : None.
+ 128:../target/stm32/vcom/usb_regs.c **** * Return         : BTABLE address.
+ 129:../target/stm32/vcom/usb_regs.c **** *******************************************************************************/
+ 130:../target/stm32/vcom/usb_regs.c **** u16 GetBTABLE(void)
+ 131:../target/stm32/vcom/usb_regs.c **** {
+ 16734              		.loc 1 131 0
+ 16735              		.cfi_startproc
+ 16736              		@ args = 0, pretend = 0, frame = 0
+ 16737              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16738              		@ link register save eliminated.
+ 16739 0000 80B4     		push	{r7}
+ 16740              	.LCFI20:
+ 16741              		.cfi_def_cfa_offset 4
+ 16742 0002 00AF     		add	r7, sp, #0
+ 16743              		.cfi_offset 7, -4
+ 16744              	.LCFI21:
+ 16745              		.cfi_def_cfa_register 7
+ 132:../target/stm32/vcom/usb_regs.c ****   return(_GetBTABLE());
+ 16746              		.loc 1 132 0
+ 16747 0004 45F65043 		movw	r3, #23632
+ 16748 0008 C4F20003 		movt	r3, 16384
+ 16749 000c 1B68     		ldr	r3, [r3, #0]
+ 16750 000e 9BB2     		uxth	r3, r3
+ 133:../target/stm32/vcom/usb_regs.c **** }
+ 16751              		.loc 1 133 0
+ 16752 0010 1846     		mov	r0, r3
+ 16753 0012 BD46     		mov	sp, r7
+ 16754 0014 80BC     		pop	{r7}
+ 16755 0016 7047     		bx	lr
+ 16756              		.cfi_endproc
+ 16757              	.LFE37:
+ 16759              		.section	.text.SetENDPOINT,"ax",%progbits
+ 16760              		.align	2
+ 16761              		.global	SetENDPOINT
+ 16762              		.thumb
+ 16763              		.thumb_func
+ 16765              	SetENDPOINT:
+ 16766              	.LFB38:
+ 134:../target/stm32/vcom/usb_regs.c **** 
+ 135:../target/stm32/vcom/usb_regs.c **** /*******************************************************************************
+ 136:../target/stm32/vcom/usb_regs.c **** * Function Name  : SetENDPOINT
+ 137:../target/stm32/vcom/usb_regs.c **** * Description    : Setthe Endpoint register value.
+ 138:../target/stm32/vcom/usb_regs.c **** * Input          : bEpNum: Endpoint Number. 
+ 139:../target/stm32/vcom/usb_regs.c **** *                  wRegValue.
+ 140:../target/stm32/vcom/usb_regs.c **** * Output         : None.
+ 141:../target/stm32/vcom/usb_regs.c **** * Return         : None.
+ 142:../target/stm32/vcom/usb_regs.c **** *******************************************************************************/
+ 143:../target/stm32/vcom/usb_regs.c **** void SetENDPOINT(u8 bEpNum, u16 wRegValue)
+ 144:../target/stm32/vcom/usb_regs.c **** {
+ 16767              		.loc 1 144 0
+ 16768              		.cfi_startproc
+ 16769              		@ args = 0, pretend = 0, frame = 8
+ 16770              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16771              		@ link register save eliminated.
+ 16772 0000 80B4     		push	{r7}
+ 16773              	.LCFI22:
+ 16774              		.cfi_def_cfa_offset 4
+ 16775 0002 83B0     		sub	sp, sp, #12
+ 16776              	.LCFI23:
+ 16777              		.cfi_def_cfa_offset 16
+ 16778 0004 00AF     		add	r7, sp, #0
+ 16779              		.cfi_offset 7, -4
+ 16780              	.LCFI24:
+ 16781              		.cfi_def_cfa_register 7
+ 16782 0006 0246     		mov	r2, r0
+ 16783 0008 0B46     		mov	r3, r1
+ 16784 000a FA71     		strb	r2, [r7, #7]
+ 16785 000c BB80     		strh	r3, [r7, #4]	@ movhi
+ 145:../target/stm32/vcom/usb_regs.c ****   _SetENDPOINT(bEpNum, wRegValue);
+ 16786              		.loc 1 145 0
+ 16787 000e FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 16788 0010 4FEA8303 		lsl	r3, r3, #2
+ 16789 0014 03F18043 		add	r3, r3, #1073741824
+ 16790 0018 03F5B843 		add	r3, r3, #23552
+ 16791 001c BA88     		ldrh	r2, [r7, #4]
+ 16792 001e 1A60     		str	r2, [r3, #0]
+ 146:../target/stm32/vcom/usb_regs.c **** }
+ 16793              		.loc 1 146 0
+ 16794 0020 07F10C07 		add	r7, r7, #12
+ 16795 0024 BD46     		mov	sp, r7
+ 16796 0026 80BC     		pop	{r7}
+ 16797 0028 7047     		bx	lr
+ 16798              		.cfi_endproc
+ 16799              	.LFE38:
+ 16801 002a 00BF     		.section	.text.GetENDPOINT,"ax",%progbits
+ 16802              		.align	2
+ 16803              		.global	GetENDPOINT
+ 16804              		.thumb
+ 16805              		.thumb_func
+ 16807              	GetENDPOINT:
+ 16808              	.LFB39:
+ 147:../target/stm32/vcom/usb_regs.c **** 
+ 148:../target/stm32/vcom/usb_regs.c **** /*******************************************************************************
+ 149:../target/stm32/vcom/usb_regs.c **** * Function Name  : GetENDPOINT
+ 150:../target/stm32/vcom/usb_regs.c **** * Description    : Return the Endpoint register value.
+ 151:../target/stm32/vcom/usb_regs.c **** * Input          : bEpNum: Endpoint Number. 
+ 152:../target/stm32/vcom/usb_regs.c **** * Output         : None.
+ 153:../target/stm32/vcom/usb_regs.c **** * Return         : Endpoint register value.
+ 154:../target/stm32/vcom/usb_regs.c **** *******************************************************************************/
+ 155:../target/stm32/vcom/usb_regs.c **** u16 GetENDPOINT(u8 bEpNum)
+ 156:../target/stm32/vcom/usb_regs.c **** {
+ 16809              		.loc 1 156 0
+ 16810              		.cfi_startproc
+ 16811              		@ args = 0, pretend = 0, frame = 8
+ 16812              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16813              		@ link register save eliminated.
+ 16814 0000 80B4     		push	{r7}
+ 16815              	.LCFI25:
+ 16816              		.cfi_def_cfa_offset 4
+ 16817 0002 83B0     		sub	sp, sp, #12
+ 16818              	.LCFI26:
+ 16819              		.cfi_def_cfa_offset 16
+ 16820 0004 00AF     		add	r7, sp, #0
+ 16821              		.cfi_offset 7, -4
+ 16822              	.LCFI27:
+ 16823              		.cfi_def_cfa_register 7
+ 16824 0006 0346     		mov	r3, r0
+ 16825 0008 FB71     		strb	r3, [r7, #7]
+ 157:../target/stm32/vcom/usb_regs.c ****   return(_GetENDPOINT(bEpNum));
+ 16826              		.loc 1 157 0
+ 16827 000a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 16828 000c 4FEA8303 		lsl	r3, r3, #2
+ 16829 0010 03F18043 		add	r3, r3, #1073741824
+ 16830 0014 03F5B843 		add	r3, r3, #23552
+ 16831 0018 1B68     		ldr	r3, [r3, #0]
+ 16832 001a 9BB2     		uxth	r3, r3
+ 158:../target/stm32/vcom/usb_regs.c **** }
+ 16833              		.loc 1 158 0
+ 16834 001c 1846     		mov	r0, r3
+ 16835 001e 07F10C07 		add	r7, r7, #12
+ 16836 0022 BD46     		mov	sp, r7
+ 16837 0024 80BC     		pop	{r7}
+ 16838 0026 7047     		bx	lr
+ 16839              		.cfi_endproc
+ 16840              	.LFE39:
+ 16842              		.section	.text.SetEPType,"ax",%progbits
+ 16843              		.align	2
+ 16844              		.global	SetEPType
+ 16845              		.thumb
+ 16846              		.thumb_func
+ 16848              	SetEPType:
+ 16849              	.LFB40:
+ 159:../target/stm32/vcom/usb_regs.c **** 
+ 160:../target/stm32/vcom/usb_regs.c **** /*******************************************************************************
+ 161:../target/stm32/vcom/usb_regs.c **** * Function Name  : SetEPType
+ 162:../target/stm32/vcom/usb_regs.c **** * Description    : sets the type in the endpoint register.
+ 163:../target/stm32/vcom/usb_regs.c **** * Input          : bEpNum: Endpoint Number. 
+ 164:../target/stm32/vcom/usb_regs.c **** *                  wType: type definition.
+ 165:../target/stm32/vcom/usb_regs.c **** * Output         : None.
+ 166:../target/stm32/vcom/usb_regs.c **** * Return         : None.
+ 167:../target/stm32/vcom/usb_regs.c **** *******************************************************************************/
+ 168:../target/stm32/vcom/usb_regs.c **** void SetEPType(u8 bEpNum, u16 wType)
+ 169:../target/stm32/vcom/usb_regs.c **** {
+ 16850              		.loc 1 169 0
+ 16851              		.cfi_startproc
+ 16852              		@ args = 0, pretend = 0, frame = 8
+ 16853              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16854              		@ link register save eliminated.
+ 16855 0000 80B4     		push	{r7}
+ 16856              	.LCFI28:
+ 16857              		.cfi_def_cfa_offset 4
+ 16858 0002 83B0     		sub	sp, sp, #12
+ 16859              	.LCFI29:
+ 16860              		.cfi_def_cfa_offset 16
+ 16861 0004 00AF     		add	r7, sp, #0
+ 16862              		.cfi_offset 7, -4
+ 16863              	.LCFI30:
+ 16864              		.cfi_def_cfa_register 7
+ 16865 0006 0246     		mov	r2, r0
+ 16866 0008 0B46     		mov	r3, r1
+ 16867 000a FA71     		strb	r2, [r7, #7]
+ 16868 000c BB80     		strh	r3, [r7, #4]	@ movhi
+ 170:../target/stm32/vcom/usb_regs.c ****   _SetEPType(bEpNum, wType);
+ 16869              		.loc 1 170 0
+ 16870 000e FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 16871 0010 4FEA8303 		lsl	r3, r3, #2
+ 16872 0014 03F18043 		add	r3, r3, #1073741824
+ 16873 0018 03F5B843 		add	r3, r3, #23552
+ 16874 001c FA79     		ldrb	r2, [r7, #7]	@ zero_extendqisi2
+ 16875 001e 4FEA8202 		lsl	r2, r2, #2
+ 16876 0022 02F18042 		add	r2, r2, #1073741824
+ 16877 0026 02F5B842 		add	r2, r2, #23552
+ 16878 002a 1268     		ldr	r2, [r2, #0]
+ 16879 002c 92B2     		uxth	r2, r2
+ 16880 002e 22F4EC42 		bic	r2, r2, #30208
+ 16881 0032 22F07002 		bic	r2, r2, #112
+ 16882 0036 91B2     		uxth	r1, r2
+ 16883 0038 BA88     		ldrh	r2, [r7, #4]
+ 16884 003a 41EA0202 		orr	r2, r1, r2
+ 16885 003e 92B2     		uxth	r2, r2
+ 16886 0040 92B2     		uxth	r2, r2
+ 16887 0042 1A60     		str	r2, [r3, #0]
+ 171:../target/stm32/vcom/usb_regs.c **** }
+ 16888              		.loc 1 171 0
+ 16889 0044 07F10C07 		add	r7, r7, #12
+ 16890 0048 BD46     		mov	sp, r7
+ 16891 004a 80BC     		pop	{r7}
+ 16892 004c 7047     		bx	lr
+ 16893              		.cfi_endproc
+ 16894              	.LFE40:
+ 16896 004e 00BF     		.section	.text.GetEPType,"ax",%progbits
+ 16897              		.align	2
+ 16898              		.global	GetEPType
+ 16899              		.thumb
+ 16900              		.thumb_func
+ 16902              	GetEPType:
+ 16903              	.LFB41:
+ 172:../target/stm32/vcom/usb_regs.c **** 
+ 173:../target/stm32/vcom/usb_regs.c **** /*******************************************************************************
+ 174:../target/stm32/vcom/usb_regs.c **** * Function Name  : GetEPType
+ 175:../target/stm32/vcom/usb_regs.c **** * Description    : Returns the endpoint type.
+ 176:../target/stm32/vcom/usb_regs.c **** * Input          : bEpNum: Endpoint Number. 
+ 177:../target/stm32/vcom/usb_regs.c **** * Output         : None.
+ 178:../target/stm32/vcom/usb_regs.c **** * Return         : Endpoint Type
+ 179:../target/stm32/vcom/usb_regs.c **** *******************************************************************************/
+ 180:../target/stm32/vcom/usb_regs.c **** u16 GetEPType(u8 bEpNum)
+ 181:../target/stm32/vcom/usb_regs.c **** {
+ 16904              		.loc 1 181 0
+ 16905              		.cfi_startproc
+ 16906              		@ args = 0, pretend = 0, frame = 8
+ 16907              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16908              		@ link register save eliminated.
+ 16909 0000 80B4     		push	{r7}
+ 16910              	.LCFI31:
+ 16911              		.cfi_def_cfa_offset 4
+ 16912 0002 83B0     		sub	sp, sp, #12
+ 16913              	.LCFI32:
+ 16914              		.cfi_def_cfa_offset 16
+ 16915 0004 00AF     		add	r7, sp, #0
+ 16916              		.cfi_offset 7, -4
+ 16917              	.LCFI33:
+ 16918              		.cfi_def_cfa_register 7
+ 16919 0006 0346     		mov	r3, r0
+ 16920 0008 FB71     		strb	r3, [r7, #7]
+ 182:../target/stm32/vcom/usb_regs.c ****   return(_GetEPType(bEpNum));
+ 16921              		.loc 1 182 0
+ 16922 000a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 16923 000c 4FEA8303 		lsl	r3, r3, #2
+ 16924 0010 03F18043 		add	r3, r3, #1073741824
+ 16925 0014 03F5B843 		add	r3, r3, #23552
+ 16926 0018 1B68     		ldr	r3, [r3, #0]
+ 16927 001a 9BB2     		uxth	r3, r3
+ 16928 001c 03F4C063 		and	r3, r3, #1536
+ 16929 0020 9BB2     		uxth	r3, r3
+ 183:../target/stm32/vcom/usb_regs.c **** }
+ 16930              		.loc 1 183 0
+ 16931 0022 1846     		mov	r0, r3
+ 16932 0024 07F10C07 		add	r7, r7, #12
+ 16933 0028 BD46     		mov	sp, r7
+ 16934 002a 80BC     		pop	{r7}
+ 16935 002c 7047     		bx	lr
+ 16936              		.cfi_endproc
+ 16937              	.LFE41:
+ 16939 002e 00BF     		.section	.text.SetEPTxStatus,"ax",%progbits
+ 16940              		.align	2
+ 16941              		.global	SetEPTxStatus
+ 16942              		.thumb
+ 16943              		.thumb_func
+ 16945              	SetEPTxStatus:
+ 16946              	.LFB42:
+ 184:../target/stm32/vcom/usb_regs.c **** 
+ 185:../target/stm32/vcom/usb_regs.c **** /*******************************************************************************
+ 186:../target/stm32/vcom/usb_regs.c **** * Function Name  : SetEPTxStatus
+ 187:../target/stm32/vcom/usb_regs.c **** * Description    : Set the status of Tx endpoint.
+ 188:../target/stm32/vcom/usb_regs.c **** * Input          : bEpNum: Endpoint Number. 
+ 189:../target/stm32/vcom/usb_regs.c **** *                  wState: new state.
+ 190:../target/stm32/vcom/usb_regs.c **** * Output         : None.
+ 191:../target/stm32/vcom/usb_regs.c **** * Return         : None.
+ 192:../target/stm32/vcom/usb_regs.c **** *******************************************************************************/
+ 193:../target/stm32/vcom/usb_regs.c **** void SetEPTxStatus(u8 bEpNum, u16 wState)
+ 194:../target/stm32/vcom/usb_regs.c **** {
+ 16947              		.loc 1 194 0
+ 16948              		.cfi_startproc
+ 16949              		@ args = 0, pretend = 0, frame = 8
+ 16950              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16951              		@ link register save eliminated.
+ 16952 0000 90B4     		push	{r4, r7}
+ 16953              	.LCFI34:
+ 16954              		.cfi_def_cfa_offset 8
+ 16955 0002 82B0     		sub	sp, sp, #8
+ 16956              	.LCFI35:
+ 16957              		.cfi_def_cfa_offset 16
+ 16958 0004 00AF     		add	r7, sp, #0
+ 16959              		.cfi_offset 7, -4
+ 16960              		.cfi_offset 4, -8
+ 16961              	.LCFI36:
+ 16962              		.cfi_def_cfa_register 7
+ 16963 0006 0246     		mov	r2, r0
+ 16964 0008 0B46     		mov	r3, r1
+ 16965 000a FA71     		strb	r2, [r7, #7]
+ 16966 000c BB80     		strh	r3, [r7, #4]	@ movhi
+ 16967              	.LBB2:
+ 195:../target/stm32/vcom/usb_regs.c ****   _SetEPTxStatus(bEpNum, wState);
+ 16968              		.loc 1 195 0
+ 16969 000e FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 16970 0010 4FEA8303 		lsl	r3, r3, #2
+ 16971 0014 03F18043 		add	r3, r3, #1073741824
+ 16972 0018 03F5B843 		add	r3, r3, #23552
+ 16973 001c 1B68     		ldr	r3, [r3, #0]
+ 16974 001e 9BB2     		uxth	r3, r3
+ 16975 0020 23F4E043 		bic	r3, r3, #28672
+ 16976 0024 23F04003 		bic	r3, r3, #64
+ 16977 0028 9CB2     		uxth	r4, r3
+ 16978 002a BB88     		ldrh	r3, [r7, #4]	@ movhi
+ 16979 002c 03F01003 		and	r3, r3, #16
+ 16980 0030 9BB2     		uxth	r3, r3
+ 16981 0032 002B     		cmp	r3, #0
+ 16982 0034 02D0     		beq	.L15
+ 16983              		.loc 1 195 0 is_stmt 0 discriminator 1
+ 16984 0036 84F01003 		eor	r3, r4, #16
+ 16985 003a 9CB2     		uxth	r4, r3
+ 16986              	.L15:
+ 16987              		.loc 1 195 0 discriminator 2
+ 16988 003c BB88     		ldrh	r3, [r7, #4]	@ movhi
+ 16989 003e 03F02003 		and	r3, r3, #32
+ 16990 0042 9BB2     		uxth	r3, r3
+ 16991 0044 002B     		cmp	r3, #0
+ 16992 0046 02D0     		beq	.L16
+ 16993              		.loc 1 195 0 discriminator 3
+ 16994 0048 84F02003 		eor	r3, r4, #32
+ 16995 004c 9CB2     		uxth	r4, r3
+ 16996              	.L16:
+ 16997              		.loc 1 195 0 discriminator 4
+ 16998 004e FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 16999 0050 4FEA8303 		lsl	r3, r3, #2
+ 17000 0054 03F18043 		add	r3, r3, #1073741824
+ 17001 0058 03F5B843 		add	r3, r3, #23552
+ 17002 005c 2246     		mov	r2, r4
+ 17003 005e 1A60     		str	r2, [r3, #0]
+ 17004              	.LBE2:
+ 196:../target/stm32/vcom/usb_regs.c **** }
+ 17005              		.loc 1 196 0 is_stmt 1 discriminator 4
+ 17006 0060 07F10807 		add	r7, r7, #8
+ 17007 0064 BD46     		mov	sp, r7
+ 17008 0066 90BC     		pop	{r4, r7}
+ 17009 0068 7047     		bx	lr
+ 17010              		.cfi_endproc
+ 17011              	.LFE42:
+ 17013 006a 00BF     		.section	.text.SetEPRxStatus,"ax",%progbits
+ 17014              		.align	2
+ 17015              		.global	SetEPRxStatus
+ 17016              		.thumb
+ 17017              		.thumb_func
+ 17019              	SetEPRxStatus:
+ 17020              	.LFB43:
+ 197:../target/stm32/vcom/usb_regs.c **** 
+ 198:../target/stm32/vcom/usb_regs.c **** /*******************************************************************************
+ 199:../target/stm32/vcom/usb_regs.c **** * Function Name  : SetEPRxStatus
+ 200:../target/stm32/vcom/usb_regs.c **** * Description    : Set the status of Rx endpoint.
+ 201:../target/stm32/vcom/usb_regs.c **** * Input          : bEpNum: Endpoint Number. 
+ 202:../target/stm32/vcom/usb_regs.c **** *                  wState: new state.
+ 203:../target/stm32/vcom/usb_regs.c **** * Output         : None.
+ 204:../target/stm32/vcom/usb_regs.c **** * Return         : None.
+ 205:../target/stm32/vcom/usb_regs.c **** *******************************************************************************/
+ 206:../target/stm32/vcom/usb_regs.c **** void SetEPRxStatus(u8 bEpNum, u16 wState)
+ 207:../target/stm32/vcom/usb_regs.c **** {
+ 17021              		.loc 1 207 0
+ 17022              		.cfi_startproc
+ 17023              		@ args = 0, pretend = 0, frame = 8
+ 17024              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17025              		@ link register save eliminated.
+ 17026 0000 90B4     		push	{r4, r7}
+ 17027              	.LCFI37:
+ 17028              		.cfi_def_cfa_offset 8
+ 17029 0002 82B0     		sub	sp, sp, #8
+ 17030              	.LCFI38:
+ 17031              		.cfi_def_cfa_offset 16
+ 17032 0004 00AF     		add	r7, sp, #0
+ 17033              		.cfi_offset 7, -4
+ 17034              		.cfi_offset 4, -8
+ 17035              	.LCFI39:
+ 17036              		.cfi_def_cfa_register 7
+ 17037 0006 0246     		mov	r2, r0
+ 17038 0008 0B46     		mov	r3, r1
+ 17039 000a FA71     		strb	r2, [r7, #7]
+ 17040 000c BB80     		strh	r3, [r7, #4]	@ movhi
+ 17041              	.LBB3:
+ 208:../target/stm32/vcom/usb_regs.c ****   _SetEPRxStatus(bEpNum, wState);
+ 17042              		.loc 1 208 0
+ 17043 000e FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 17044 0010 4FEA8303 		lsl	r3, r3, #2
+ 17045 0014 03F18043 		add	r3, r3, #1073741824
+ 17046 0018 03F5B843 		add	r3, r3, #23552
+ 17047 001c 1B68     		ldr	r3, [r3, #0]
+ 17048 001e 9BB2     		uxth	r3, r3
+ 17049 0020 23F48043 		bic	r3, r3, #16384
+ 17050 0024 23F07003 		bic	r3, r3, #112
+ 17051 0028 9CB2     		uxth	r4, r3
+ 17052 002a BB88     		ldrh	r3, [r7, #4]	@ movhi
+ 17053 002c 03F48053 		and	r3, r3, #4096
+ 17054 0030 9BB2     		uxth	r3, r3
+ 17055 0032 002B     		cmp	r3, #0
+ 17056 0034 02D0     		beq	.L18
+ 17057              		.loc 1 208 0 is_stmt 0 discriminator 1
+ 17058 0036 84F48053 		eor	r3, r4, #4096
+ 17059 003a 9CB2     		uxth	r4, r3
+ 17060              	.L18:
+ 17061              		.loc 1 208 0 discriminator 2
+ 17062 003c BB88     		ldrh	r3, [r7, #4]	@ movhi
+ 17063 003e 03F40053 		and	r3, r3, #8192
+ 17064 0042 9BB2     		uxth	r3, r3
+ 17065 0044 002B     		cmp	r3, #0
+ 17066 0046 02D0     		beq	.L19
+ 17067              		.loc 1 208 0 discriminator 3
+ 17068 0048 84F40053 		eor	r3, r4, #8192
+ 17069 004c 9CB2     		uxth	r4, r3
+ 17070              	.L19:
+ 17071              		.loc 1 208 0 discriminator 4
+ 17072 004e FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 17073 0050 4FEA8303 		lsl	r3, r3, #2
+ 17074 0054 03F18043 		add	r3, r3, #1073741824
+ 17075 0058 03F5B843 		add	r3, r3, #23552
+ 17076 005c 2246     		mov	r2, r4
+ 17077 005e 1A60     		str	r2, [r3, #0]
+ 17078              	.LBE3:
+ 209:../target/stm32/vcom/usb_regs.c **** }
+ 17079              		.loc 1 209 0 is_stmt 1 discriminator 4
+ 17080 0060 07F10807 		add	r7, r7, #8
+ 17081 0064 BD46     		mov	sp, r7
+ 17082 0066 90BC     		pop	{r4, r7}
+ 17083 0068 7047     		bx	lr
+ 17084              		.cfi_endproc
+ 17085              	.LFE43:
+ 17087 006a 00BF     		.section	.text.SetDouBleBuffEPStall,"ax",%progbits
+ 17088              		.align	2
+ 17089              		.global	SetDouBleBuffEPStall
+ 17090              		.thumb
+ 17091              		.thumb_func
+ 17093              	SetDouBleBuffEPStall:
+ 17094              	.LFB44:
+ 210:../target/stm32/vcom/usb_regs.c **** 
+ 211:../target/stm32/vcom/usb_regs.c **** /*******************************************************************************
+ 212:../target/stm32/vcom/usb_regs.c **** * Function Name  : SetDouBleBuffEPStall
+ 213:../target/stm32/vcom/usb_regs.c **** * Description    : sets the status for Double Buffer Endpoint to STALL
+ 214:../target/stm32/vcom/usb_regs.c **** * Input          : bEpNum: Endpoint Number. 
+ 215:../target/stm32/vcom/usb_regs.c **** *                  bDir: Endpoint direction.
+ 216:../target/stm32/vcom/usb_regs.c **** * Output         : None.
+ 217:../target/stm32/vcom/usb_regs.c **** * Return         : None.
+ 218:../target/stm32/vcom/usb_regs.c **** *******************************************************************************/
+ 219:../target/stm32/vcom/usb_regs.c **** void SetDouBleBuffEPStall(u8 bEpNum, u8 bDir)
+ 220:../target/stm32/vcom/usb_regs.c **** {
+ 17095              		.loc 1 220 0
+ 17096              		.cfi_startproc
+ 17097              		@ args = 0, pretend = 0, frame = 16
+ 17098              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17099 0000 80B5     		push	{r7, lr}
+ 17100              	.LCFI40:
+ 17101              		.cfi_def_cfa_offset 8
+ 17102 0002 84B0     		sub	sp, sp, #16
+ 17103              	.LCFI41:
+ 17104              		.cfi_def_cfa_offset 24
+ 17105 0004 00AF     		add	r7, sp, #0
+ 17106              		.cfi_offset 14, -4
+ 17107              		.cfi_offset 7, -8
+ 17108              	.LCFI42:
+ 17109              		.cfi_def_cfa_register 7
+ 17110 0006 0246     		mov	r2, r0
+ 17111 0008 0B46     		mov	r3, r1
+ 17112 000a FA71     		strb	r2, [r7, #7]
+ 17113 000c BB71     		strb	r3, [r7, #6]
+ 221:../target/stm32/vcom/usb_regs.c ****   u16 Endpoint_DTOG_Status;
+ 222:../target/stm32/vcom/usb_regs.c ****   Endpoint_DTOG_Status = GetENDPOINT(bEpNum);
+ 17114              		.loc 1 222 0
+ 17115 000e FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 17116 0010 1846     		mov	r0, r3
+ 17117 0012 FFF7FEFF 		bl	GetENDPOINT
+ 17118 0016 0346     		mov	r3, r0
+ 17119 0018 FB81     		strh	r3, [r7, #14]	@ movhi
+ 223:../target/stm32/vcom/usb_regs.c ****   if (bDir == EP_DBUF_OUT)
+ 17120              		.loc 1 223 0
+ 17121 001a BB79     		ldrb	r3, [r7, #6]	@ zero_extendqisi2
+ 17122 001c 012B     		cmp	r3, #1
+ 17123 001e 0BD1     		bne	.L21
+ 224:../target/stm32/vcom/usb_regs.c ****   { /* OUT double buffered endpoint */
+ 225:../target/stm32/vcom/usb_regs.c ****     _SetENDPOINT(bEpNum, Endpoint_DTOG_Status & ~EPRX_DTOG1);
+ 17124              		.loc 1 225 0
+ 17125 0020 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 17126 0022 4FEA8303 		lsl	r3, r3, #2
+ 17127 0026 03F18043 		add	r3, r3, #1073741824
+ 17128 002a 03F5B843 		add	r3, r3, #23552
+ 17129 002e FA89     		ldrh	r2, [r7, #14]
+ 17130 0030 22F48052 		bic	r2, r2, #4096
+ 17131 0034 1A60     		str	r2, [r3, #0]
+ 17132 0036 0DE0     		b	.L20
+ 17133              	.L21:
+ 226:../target/stm32/vcom/usb_regs.c ****   }
+ 227:../target/stm32/vcom/usb_regs.c ****   else if (bDir == EP_DBUF_IN)
+ 17134              		.loc 1 227 0
+ 17135 0038 BB79     		ldrb	r3, [r7, #6]	@ zero_extendqisi2
+ 17136 003a 022B     		cmp	r3, #2
+ 17137 003c 0AD1     		bne	.L20
+ 228:../target/stm32/vcom/usb_regs.c ****   { /* IN double buffered endpoint */
+ 229:../target/stm32/vcom/usb_regs.c ****     _SetENDPOINT(bEpNum, Endpoint_DTOG_Status & ~EPTX_DTOG1);
+ 17138              		.loc 1 229 0
+ 17139 003e FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 17140 0040 4FEA8303 		lsl	r3, r3, #2
+ 17141 0044 03F18043 		add	r3, r3, #1073741824
+ 17142 0048 03F5B843 		add	r3, r3, #23552
+ 17143 004c FA89     		ldrh	r2, [r7, #14]
+ 17144 004e 22F01002 		bic	r2, r2, #16
+ 17145 0052 1A60     		str	r2, [r3, #0]
+ 17146              	.L20:
+ 230:../target/stm32/vcom/usb_regs.c ****   }
+ 231:../target/stm32/vcom/usb_regs.c **** }
+ 17147              		.loc 1 231 0
+ 17148 0054 07F11007 		add	r7, r7, #16
+ 17149 0058 BD46     		mov	sp, r7
+ 17150 005a 80BD     		pop	{r7, pc}
+ 17151              		.cfi_endproc
+ 17152              	.LFE44:
+ 17154              		.section	.text.GetEPTxStatus,"ax",%progbits
+ 17155              		.align	2
+ 17156              		.global	GetEPTxStatus
+ 17157              		.thumb
+ 17158              		.thumb_func
+ 17160              	GetEPTxStatus:
+ 17161              	.LFB45:
+ 232:../target/stm32/vcom/usb_regs.c **** 
+ 233:../target/stm32/vcom/usb_regs.c **** /*******************************************************************************
+ 234:../target/stm32/vcom/usb_regs.c **** * Function Name  : GetEPTxStatus
+ 235:../target/stm32/vcom/usb_regs.c **** * Description    : Returns the endpoint Tx status.
+ 236:../target/stm32/vcom/usb_regs.c **** * Input          : bEpNum: Endpoint Number. 
+ 237:../target/stm32/vcom/usb_regs.c **** * Output         : None.
+ 238:../target/stm32/vcom/usb_regs.c **** * Return         : Endpoint TX Status
+ 239:../target/stm32/vcom/usb_regs.c **** *******************************************************************************/
+ 240:../target/stm32/vcom/usb_regs.c **** u16 GetEPTxStatus(u8 bEpNum)
+ 241:../target/stm32/vcom/usb_regs.c **** {
+ 17162              		.loc 1 241 0
+ 17163              		.cfi_startproc
+ 17164              		@ args = 0, pretend = 0, frame = 8
+ 17165              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17166              		@ link register save eliminated.
+ 17167 0000 80B4     		push	{r7}
+ 17168              	.LCFI43:
+ 17169              		.cfi_def_cfa_offset 4
+ 17170 0002 83B0     		sub	sp, sp, #12
+ 17171              	.LCFI44:
+ 17172              		.cfi_def_cfa_offset 16
+ 17173 0004 00AF     		add	r7, sp, #0
+ 17174              		.cfi_offset 7, -4
+ 17175              	.LCFI45:
+ 17176              		.cfi_def_cfa_register 7
+ 17177 0006 0346     		mov	r3, r0
+ 17178 0008 FB71     		strb	r3, [r7, #7]
+ 242:../target/stm32/vcom/usb_regs.c ****   return(_GetEPTxStatus(bEpNum));
+ 17179              		.loc 1 242 0
+ 17180 000a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 17181 000c 4FEA8303 		lsl	r3, r3, #2
+ 17182 0010 03F18043 		add	r3, r3, #1073741824
+ 17183 0014 03F5B843 		add	r3, r3, #23552
+ 17184 0018 1B68     		ldr	r3, [r3, #0]
+ 17185 001a 9BB2     		uxth	r3, r3
+ 17186 001c 03F03003 		and	r3, r3, #48
+ 17187 0020 9BB2     		uxth	r3, r3
+ 243:../target/stm32/vcom/usb_regs.c **** }
+ 17188              		.loc 1 243 0
+ 17189 0022 1846     		mov	r0, r3
+ 17190 0024 07F10C07 		add	r7, r7, #12
+ 17191 0028 BD46     		mov	sp, r7
+ 17192 002a 80BC     		pop	{r7}
+ 17193 002c 7047     		bx	lr
+ 17194              		.cfi_endproc
+ 17195              	.LFE45:
+ 17197 002e 00BF     		.section	.text.GetEPRxStatus,"ax",%progbits
+ 17198              		.align	2
+ 17199              		.global	GetEPRxStatus
+ 17200              		.thumb
+ 17201              		.thumb_func
+ 17203              	GetEPRxStatus:
+ 17204              	.LFB46:
+ 244:../target/stm32/vcom/usb_regs.c **** 
+ 245:../target/stm32/vcom/usb_regs.c **** /*******************************************************************************
+ 246:../target/stm32/vcom/usb_regs.c **** * Function Name  : GetEPRxStatus
+ 247:../target/stm32/vcom/usb_regs.c **** * Description    : Returns the endpoint Rx status.
+ 248:../target/stm32/vcom/usb_regs.c **** * Input          : bEpNum: Endpoint Number. 
+ 249:../target/stm32/vcom/usb_regs.c **** * Output         : None.
+ 250:../target/stm32/vcom/usb_regs.c **** * Return         : Endpoint RX Status
+ 251:../target/stm32/vcom/usb_regs.c **** *******************************************************************************/
+ 252:../target/stm32/vcom/usb_regs.c **** u16 GetEPRxStatus(u8 bEpNum)
+ 253:../target/stm32/vcom/usb_regs.c **** {
+ 17205              		.loc 1 253 0
+ 17206              		.cfi_startproc
+ 17207              		@ args = 0, pretend = 0, frame = 8
+ 17208              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17209              		@ link register save eliminated.
+ 17210 0000 80B4     		push	{r7}
+ 17211              	.LCFI46:
+ 17212              		.cfi_def_cfa_offset 4
+ 17213 0002 83B0     		sub	sp, sp, #12
+ 17214              	.LCFI47:
+ 17215              		.cfi_def_cfa_offset 16
+ 17216 0004 00AF     		add	r7, sp, #0
+ 17217              		.cfi_offset 7, -4
+ 17218              	.LCFI48:
+ 17219              		.cfi_def_cfa_register 7
+ 17220 0006 0346     		mov	r3, r0
+ 17221 0008 FB71     		strb	r3, [r7, #7]
+ 254:../target/stm32/vcom/usb_regs.c ****   return(_GetEPRxStatus(bEpNum));
+ 17222              		.loc 1 254 0
+ 17223 000a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 17224 000c 4FEA8303 		lsl	r3, r3, #2
+ 17225 0010 03F18043 		add	r3, r3, #1073741824
+ 17226 0014 03F5B843 		add	r3, r3, #23552
+ 17227 0018 1B68     		ldr	r3, [r3, #0]
+ 17228 001a 9BB2     		uxth	r3, r3
+ 17229 001c 03F44053 		and	r3, r3, #12288
+ 17230 0020 9BB2     		uxth	r3, r3
+ 255:../target/stm32/vcom/usb_regs.c **** }
+ 17231              		.loc 1 255 0
+ 17232 0022 1846     		mov	r0, r3
+ 17233 0024 07F10C07 		add	r7, r7, #12
+ 17234 0028 BD46     		mov	sp, r7
+ 17235 002a 80BC     		pop	{r7}
+ 17236 002c 7047     		bx	lr
+ 17237              		.cfi_endproc
+ 17238              	.LFE46:
+ 17240 002e 00BF     		.section	.text.SetEPTxValid,"ax",%progbits
+ 17241              		.align	2
+ 17242              		.global	SetEPTxValid
+ 17243              		.thumb
+ 17244              		.thumb_func
+ 17246              	SetEPTxValid:
+ 17247              	.LFB47:
+ 256:../target/stm32/vcom/usb_regs.c **** 
+ 257:../target/stm32/vcom/usb_regs.c **** /*******************************************************************************
+ 258:../target/stm32/vcom/usb_regs.c **** * Function Name  : SetEPTxValid
+ 259:../target/stm32/vcom/usb_regs.c **** * Description    : Valid the endpoint Tx Status.
+ 260:../target/stm32/vcom/usb_regs.c **** * Input          : bEpNum: Endpoint Number.  
+ 261:../target/stm32/vcom/usb_regs.c **** * Output         : None.
+ 262:../target/stm32/vcom/usb_regs.c **** * Return         : None.
+ 263:../target/stm32/vcom/usb_regs.c **** *******************************************************************************/
+ 264:../target/stm32/vcom/usb_regs.c **** void SetEPTxValid(u8 bEpNum)
+ 265:../target/stm32/vcom/usb_regs.c **** {
+ 17248              		.loc 1 265 0
+ 17249              		.cfi_startproc
+ 17250              		@ args = 0, pretend = 0, frame = 8
+ 17251              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17252              		@ link register save eliminated.
+ 17253 0000 90B4     		push	{r4, r7}
+ 17254              	.LCFI49:
+ 17255              		.cfi_def_cfa_offset 8
+ 17256 0002 82B0     		sub	sp, sp, #8
+ 17257              	.LCFI50:
+ 17258              		.cfi_def_cfa_offset 16
+ 17259 0004 00AF     		add	r7, sp, #0
+ 17260              		.cfi_offset 7, -4
+ 17261              		.cfi_offset 4, -8
+ 17262              	.LCFI51:
+ 17263              		.cfi_def_cfa_register 7
+ 17264 0006 0346     		mov	r3, r0
+ 17265 0008 FB71     		strb	r3, [r7, #7]
+ 17266              	.LBB4:
+ 266:../target/stm32/vcom/usb_regs.c ****   _SetEPTxStatus(bEpNum, EP_TX_VALID);
+ 17267              		.loc 1 266 0
+ 17268 000a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 17269 000c 4FEA8303 		lsl	r3, r3, #2
+ 17270 0010 03F18043 		add	r3, r3, #1073741824
+ 17271 0014 03F5B843 		add	r3, r3, #23552
+ 17272 0018 1B68     		ldr	r3, [r3, #0]
+ 17273 001a 9BB2     		uxth	r3, r3
+ 17274 001c 23F4E043 		bic	r3, r3, #28672
+ 17275 0020 23F04003 		bic	r3, r3, #64
+ 17276 0024 9CB2     		uxth	r4, r3
+ 17277 0026 84F01003 		eor	r3, r4, #16
+ 17278 002a 9CB2     		uxth	r4, r3
+ 17279 002c 84F02003 		eor	r3, r4, #32
+ 17280 0030 9CB2     		uxth	r4, r3
+ 17281 0032 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 17282 0034 4FEA8303 		lsl	r3, r3, #2
+ 17283 0038 03F18043 		add	r3, r3, #1073741824
+ 17284 003c 03F5B843 		add	r3, r3, #23552
+ 17285 0040 2246     		mov	r2, r4
+ 17286 0042 1A60     		str	r2, [r3, #0]
+ 17287              	.LBE4:
+ 267:../target/stm32/vcom/usb_regs.c **** }
+ 17288              		.loc 1 267 0
+ 17289 0044 07F10807 		add	r7, r7, #8
+ 17290 0048 BD46     		mov	sp, r7
+ 17291 004a 90BC     		pop	{r4, r7}
+ 17292 004c 7047     		bx	lr
+ 17293              		.cfi_endproc
+ 17294              	.LFE47:
+ 17296 004e 00BF     		.section	.text.SetEPRxValid,"ax",%progbits
+ 17297              		.align	2
+ 17298              		.global	SetEPRxValid
+ 17299              		.thumb
+ 17300              		.thumb_func
+ 17302              	SetEPRxValid:
+ 17303              	.LFB48:
+ 268:../target/stm32/vcom/usb_regs.c **** 
+ 269:../target/stm32/vcom/usb_regs.c **** /*******************************************************************************
+ 270:../target/stm32/vcom/usb_regs.c **** * Function Name  : SetEPRxValid
+ 271:../target/stm32/vcom/usb_regs.c **** * Description    : Valid the endpoint Rx Status.
+ 272:../target/stm32/vcom/usb_regs.c **** * Input          : bEpNum: Endpoint Number. 
+ 273:../target/stm32/vcom/usb_regs.c **** * Output         : None.
+ 274:../target/stm32/vcom/usb_regs.c **** * Return         : None.
+ 275:../target/stm32/vcom/usb_regs.c **** *******************************************************************************/
+ 276:../target/stm32/vcom/usb_regs.c **** void SetEPRxValid(u8 bEpNum)
+ 277:../target/stm32/vcom/usb_regs.c **** {
+ 17304              		.loc 1 277 0
+ 17305              		.cfi_startproc
+ 17306              		@ args = 0, pretend = 0, frame = 8
+ 17307              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17308              		@ link register save eliminated.
+ 17309 0000 90B4     		push	{r4, r7}
+ 17310              	.LCFI52:
+ 17311              		.cfi_def_cfa_offset 8
+ 17312 0002 82B0     		sub	sp, sp, #8
+ 17313              	.LCFI53:
+ 17314              		.cfi_def_cfa_offset 16
+ 17315 0004 00AF     		add	r7, sp, #0
+ 17316              		.cfi_offset 7, -4
+ 17317              		.cfi_offset 4, -8
+ 17318              	.LCFI54:
+ 17319              		.cfi_def_cfa_register 7
+ 17320 0006 0346     		mov	r3, r0
+ 17321 0008 FB71     		strb	r3, [r7, #7]
+ 17322              	.LBB5:
+ 278:../target/stm32/vcom/usb_regs.c ****   _SetEPRxStatus(bEpNum, EP_RX_VALID);
+ 17323              		.loc 1 278 0
+ 17324 000a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 17325 000c 4FEA8303 		lsl	r3, r3, #2
+ 17326 0010 03F18043 		add	r3, r3, #1073741824
+ 17327 0014 03F5B843 		add	r3, r3, #23552
+ 17328 0018 1B68     		ldr	r3, [r3, #0]
+ 17329 001a 9BB2     		uxth	r3, r3
+ 17330 001c 23F48043 		bic	r3, r3, #16384
+ 17331 0020 23F07003 		bic	r3, r3, #112
+ 17332 0024 9CB2     		uxth	r4, r3
+ 17333 0026 84F48053 		eor	r3, r4, #4096
+ 17334 002a 9CB2     		uxth	r4, r3
+ 17335 002c 84F40053 		eor	r3, r4, #8192
+ 17336 0030 9CB2     		uxth	r4, r3
+ 17337 0032 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 17338 0034 4FEA8303 		lsl	r3, r3, #2
+ 17339 0038 03F18043 		add	r3, r3, #1073741824
+ 17340 003c 03F5B843 		add	r3, r3, #23552
+ 17341 0040 2246     		mov	r2, r4
+ 17342 0042 1A60     		str	r2, [r3, #0]
+ 17343              	.LBE5:
+ 279:../target/stm32/vcom/usb_regs.c **** }
+ 17344              		.loc 1 279 0
+ 17345 0044 07F10807 		add	r7, r7, #8
+ 17346 0048 BD46     		mov	sp, r7
+ 17347 004a 90BC     		pop	{r4, r7}
+ 17348 004c 7047     		bx	lr
+ 17349              		.cfi_endproc
+ 17350              	.LFE48:
+ 17352 004e 00BF     		.section	.text.SetEP_KIND,"ax",%progbits
+ 17353              		.align	2
+ 17354              		.global	SetEP_KIND
+ 17355              		.thumb
+ 17356              		.thumb_func
+ 17358              	SetEP_KIND:
+ 17359              	.LFB49:
+ 280:../target/stm32/vcom/usb_regs.c **** 
+ 281:../target/stm32/vcom/usb_regs.c **** /*******************************************************************************
+ 282:../target/stm32/vcom/usb_regs.c **** * Function Name  : SetEP_KIND
+ 283:../target/stm32/vcom/usb_regs.c **** * Description    : Clear the EP_KIND bit.
+ 284:../target/stm32/vcom/usb_regs.c **** * Input          : bEpNum: Endpoint Number. 
+ 285:../target/stm32/vcom/usb_regs.c **** * Output         : None.
+ 286:../target/stm32/vcom/usb_regs.c **** * Return         : None.
+ 287:../target/stm32/vcom/usb_regs.c **** *******************************************************************************/
+ 288:../target/stm32/vcom/usb_regs.c **** void SetEP_KIND(u8 bEpNum)
+ 289:../target/stm32/vcom/usb_regs.c **** {
+ 17360              		.loc 1 289 0
+ 17361              		.cfi_startproc
+ 17362              		@ args = 0, pretend = 0, frame = 8
+ 17363              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17364              		@ link register save eliminated.
+ 17365 0000 80B4     		push	{r7}
+ 17366              	.LCFI55:
+ 17367              		.cfi_def_cfa_offset 4
+ 17368 0002 83B0     		sub	sp, sp, #12
+ 17369              	.LCFI56:
+ 17370              		.cfi_def_cfa_offset 16
+ 17371 0004 00AF     		add	r7, sp, #0
+ 17372              		.cfi_offset 7, -4
+ 17373              	.LCFI57:
+ 17374              		.cfi_def_cfa_register 7
+ 17375 0006 0346     		mov	r3, r0
+ 17376 0008 FB71     		strb	r3, [r7, #7]
+ 290:../target/stm32/vcom/usb_regs.c ****   _SetEP_KIND(bEpNum);
+ 17377              		.loc 1 290 0
+ 17378 000a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 17379 000c 4FEA8303 		lsl	r3, r3, #2
+ 17380 0010 03F18043 		add	r3, r3, #1073741824
+ 17381 0014 03F5B843 		add	r3, r3, #23552
+ 17382 0018 FA79     		ldrb	r2, [r7, #7]	@ zero_extendqisi2
+ 17383 001a 4FEA8202 		lsl	r2, r2, #2
+ 17384 001e 02F18042 		add	r2, r2, #1073741824
+ 17385 0022 02F5B842 		add	r2, r2, #23552
+ 17386 0026 1268     		ldr	r2, [r2, #0]
+ 17387 0028 92B2     		uxth	r2, r2
+ 17388 002a 42F48072 		orr	r2, r2, #256
+ 17389 002e 92B2     		uxth	r2, r2
+ 17390 0030 1146     		mov	r1, r2
+ 17391 0032 48F68F72 		movw	r2, #36751
+ 17392 0036 01EA0202 		and	r2, r1, r2
+ 17393 003a 1A60     		str	r2, [r3, #0]
+ 291:../target/stm32/vcom/usb_regs.c **** }
+ 17394              		.loc 1 291 0
+ 17395 003c 07F10C07 		add	r7, r7, #12
+ 17396 0040 BD46     		mov	sp, r7
+ 17397 0042 80BC     		pop	{r7}
+ 17398 0044 7047     		bx	lr
+ 17399              		.cfi_endproc
+ 17400              	.LFE49:
+ 17402 0046 00BF     		.section	.text.ClearEP_KIND,"ax",%progbits
+ 17403              		.align	2
+ 17404              		.global	ClearEP_KIND
+ 17405              		.thumb
+ 17406              		.thumb_func
+ 17408              	ClearEP_KIND:
+ 17409              	.LFB50:
+ 292:../target/stm32/vcom/usb_regs.c **** 
+ 293:../target/stm32/vcom/usb_regs.c **** /*******************************************************************************
+ 294:../target/stm32/vcom/usb_regs.c **** * Function Name  : ClearEP_KIND
+ 295:../target/stm32/vcom/usb_regs.c **** * Description    : set the  EP_KIND bit.
+ 296:../target/stm32/vcom/usb_regs.c **** * Input          : bEpNum: Endpoint Number. 
+ 297:../target/stm32/vcom/usb_regs.c **** * Output         : None.
+ 298:../target/stm32/vcom/usb_regs.c **** * Return         : None.
+ 299:../target/stm32/vcom/usb_regs.c **** *******************************************************************************/
+ 300:../target/stm32/vcom/usb_regs.c **** void ClearEP_KIND(u8 bEpNum)
+ 301:../target/stm32/vcom/usb_regs.c **** {
+ 17410              		.loc 1 301 0
+ 17411              		.cfi_startproc
+ 17412              		@ args = 0, pretend = 0, frame = 8
+ 17413              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17414              		@ link register save eliminated.
+ 17415 0000 80B4     		push	{r7}
+ 17416              	.LCFI58:
+ 17417              		.cfi_def_cfa_offset 4
+ 17418 0002 83B0     		sub	sp, sp, #12
+ 17419              	.LCFI59:
+ 17420              		.cfi_def_cfa_offset 16
+ 17421 0004 00AF     		add	r7, sp, #0
+ 17422              		.cfi_offset 7, -4
+ 17423              	.LCFI60:
+ 17424              		.cfi_def_cfa_register 7
+ 17425 0006 0346     		mov	r3, r0
+ 17426 0008 FB71     		strb	r3, [r7, #7]
+ 302:../target/stm32/vcom/usb_regs.c ****   _ClearEP_KIND(bEpNum);
+ 17427              		.loc 1 302 0
+ 17428 000a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 17429 000c 4FEA8303 		lsl	r3, r3, #2
+ 17430 0010 03F18043 		add	r3, r3, #1073741824
+ 17431 0014 03F5B843 		add	r3, r3, #23552
+ 17432 0018 FA79     		ldrb	r2, [r7, #7]	@ zero_extendqisi2
+ 17433 001a 4FEA8202 		lsl	r2, r2, #2
+ 17434 001e 02F18042 		add	r2, r2, #1073741824
+ 17435 0022 02F5B842 		add	r2, r2, #23552
+ 17436 0026 1268     		ldr	r2, [r2, #0]
+ 17437 0028 92B2     		uxth	r2, r2
+ 17438 002a 1146     		mov	r1, r2
+ 17439 002c 48F68F62 		movw	r2, #36495
+ 17440 0030 01EA0202 		and	r2, r1, r2
+ 17441 0034 1A60     		str	r2, [r3, #0]
+ 303:../target/stm32/vcom/usb_regs.c **** }
+ 17442              		.loc 1 303 0
+ 17443 0036 07F10C07 		add	r7, r7, #12
+ 17444 003a BD46     		mov	sp, r7
+ 17445 003c 80BC     		pop	{r7}
+ 17446 003e 7047     		bx	lr
+ 17447              		.cfi_endproc
+ 17448              	.LFE50:
+ 17450              		.section	.text.Clear_Status_Out,"ax",%progbits
+ 17451              		.align	2
+ 17452              		.global	Clear_Status_Out
+ 17453              		.thumb
+ 17454              		.thumb_func
+ 17456              	Clear_Status_Out:
+ 17457              	.LFB51:
+ 304:../target/stm32/vcom/usb_regs.c **** /*******************************************************************************
+ 305:../target/stm32/vcom/usb_regs.c **** * Function Name  : Clear_Status_Out
+ 306:../target/stm32/vcom/usb_regs.c **** * Description    : Clear the Status Out of the related Endpoint
+ 307:../target/stm32/vcom/usb_regs.c **** * Input          : bEpNum: Endpoint Number. 
+ 308:../target/stm32/vcom/usb_regs.c **** * Output         : None.
+ 309:../target/stm32/vcom/usb_regs.c **** * Return         : None.
+ 310:../target/stm32/vcom/usb_regs.c **** *******************************************************************************/
+ 311:../target/stm32/vcom/usb_regs.c **** void Clear_Status_Out(u8 bEpNum)
+ 312:../target/stm32/vcom/usb_regs.c **** {
+ 17458              		.loc 1 312 0
+ 17459              		.cfi_startproc
+ 17460              		@ args = 0, pretend = 0, frame = 8
+ 17461              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17462              		@ link register save eliminated.
+ 17463 0000 80B4     		push	{r7}
+ 17464              	.LCFI61:
+ 17465              		.cfi_def_cfa_offset 4
+ 17466 0002 83B0     		sub	sp, sp, #12
+ 17467              	.LCFI62:
+ 17468              		.cfi_def_cfa_offset 16
+ 17469 0004 00AF     		add	r7, sp, #0
+ 17470              		.cfi_offset 7, -4
+ 17471              	.LCFI63:
+ 17472              		.cfi_def_cfa_register 7
+ 17473 0006 0346     		mov	r3, r0
+ 17474 0008 FB71     		strb	r3, [r7, #7]
+ 313:../target/stm32/vcom/usb_regs.c ****   _ClearEP_KIND(bEpNum);
+ 17475              		.loc 1 313 0
+ 17476 000a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 17477 000c 4FEA8303 		lsl	r3, r3, #2
+ 17478 0010 03F18043 		add	r3, r3, #1073741824
+ 17479 0014 03F5B843 		add	r3, r3, #23552
+ 17480 0018 FA79     		ldrb	r2, [r7, #7]	@ zero_extendqisi2
+ 17481 001a 4FEA8202 		lsl	r2, r2, #2
+ 17482 001e 02F18042 		add	r2, r2, #1073741824
+ 17483 0022 02F5B842 		add	r2, r2, #23552
+ 17484 0026 1268     		ldr	r2, [r2, #0]
+ 17485 0028 92B2     		uxth	r2, r2
+ 17486 002a 1146     		mov	r1, r2
+ 17487 002c 48F68F62 		movw	r2, #36495
+ 17488 0030 01EA0202 		and	r2, r1, r2
+ 17489 0034 1A60     		str	r2, [r3, #0]
+ 314:../target/stm32/vcom/usb_regs.c **** }
+ 17490              		.loc 1 314 0
+ 17491 0036 07F10C07 		add	r7, r7, #12
+ 17492 003a BD46     		mov	sp, r7
+ 17493 003c 80BC     		pop	{r7}
+ 17494 003e 7047     		bx	lr
+ 17495              		.cfi_endproc
+ 17496              	.LFE51:
+ 17498              		.section	.text.Set_Status_Out,"ax",%progbits
+ 17499              		.align	2
+ 17500              		.global	Set_Status_Out
+ 17501              		.thumb
+ 17502              		.thumb_func
+ 17504              	Set_Status_Out:
+ 17505              	.LFB52:
+ 315:../target/stm32/vcom/usb_regs.c **** /*******************************************************************************
+ 316:../target/stm32/vcom/usb_regs.c **** * Function Name  : Set_Status_Out
+ 317:../target/stm32/vcom/usb_regs.c **** * Description    : Set the Status Out of the related Endpoint
+ 318:../target/stm32/vcom/usb_regs.c **** * Input          : bEpNum: Endpoint Number. 
+ 319:../target/stm32/vcom/usb_regs.c **** * Output         : None.
+ 320:../target/stm32/vcom/usb_regs.c **** * Return         : None.
+ 321:../target/stm32/vcom/usb_regs.c **** *******************************************************************************/
+ 322:../target/stm32/vcom/usb_regs.c **** void Set_Status_Out(u8 bEpNum)
+ 323:../target/stm32/vcom/usb_regs.c **** {
+ 17506              		.loc 1 323 0
+ 17507              		.cfi_startproc
+ 17508              		@ args = 0, pretend = 0, frame = 8
+ 17509              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17510              		@ link register save eliminated.
+ 17511 0000 80B4     		push	{r7}
+ 17512              	.LCFI64:
+ 17513              		.cfi_def_cfa_offset 4
+ 17514 0002 83B0     		sub	sp, sp, #12
+ 17515              	.LCFI65:
+ 17516              		.cfi_def_cfa_offset 16
+ 17517 0004 00AF     		add	r7, sp, #0
+ 17518              		.cfi_offset 7, -4
+ 17519              	.LCFI66:
+ 17520              		.cfi_def_cfa_register 7
+ 17521 0006 0346     		mov	r3, r0
+ 17522 0008 FB71     		strb	r3, [r7, #7]
+ 324:../target/stm32/vcom/usb_regs.c ****   _SetEP_KIND(bEpNum);
+ 17523              		.loc 1 324 0
+ 17524 000a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 17525 000c 4FEA8303 		lsl	r3, r3, #2
+ 17526 0010 03F18043 		add	r3, r3, #1073741824
+ 17527 0014 03F5B843 		add	r3, r3, #23552
+ 17528 0018 FA79     		ldrb	r2, [r7, #7]	@ zero_extendqisi2
+ 17529 001a 4FEA8202 		lsl	r2, r2, #2
+ 17530 001e 02F18042 		add	r2, r2, #1073741824
+ 17531 0022 02F5B842 		add	r2, r2, #23552
+ 17532 0026 1268     		ldr	r2, [r2, #0]
+ 17533 0028 92B2     		uxth	r2, r2
+ 17534 002a 42F48072 		orr	r2, r2, #256
+ 17535 002e 92B2     		uxth	r2, r2
+ 17536 0030 1146     		mov	r1, r2
+ 17537 0032 48F68F72 		movw	r2, #36751
+ 17538 0036 01EA0202 		and	r2, r1, r2
+ 17539 003a 1A60     		str	r2, [r3, #0]
+ 325:../target/stm32/vcom/usb_regs.c **** }
+ 17540              		.loc 1 325 0
+ 17541 003c 07F10C07 		add	r7, r7, #12
+ 17542 0040 BD46     		mov	sp, r7
+ 17543 0042 80BC     		pop	{r7}
+ 17544 0044 7047     		bx	lr
+ 17545              		.cfi_endproc
+ 17546              	.LFE52:
+ 17548 0046 00BF     		.section	.text.SetEPDoubleBuff,"ax",%progbits
+ 17549              		.align	2
+ 17550              		.global	SetEPDoubleBuff
+ 17551              		.thumb
+ 17552              		.thumb_func
+ 17554              	SetEPDoubleBuff:
+ 17555              	.LFB53:
+ 326:../target/stm32/vcom/usb_regs.c **** /*******************************************************************************
+ 327:../target/stm32/vcom/usb_regs.c **** * Function Name  : SetEPDoubleBuff
+ 328:../target/stm32/vcom/usb_regs.c **** * Description    : Enable the double buffer feature for the endpoint. 
+ 329:../target/stm32/vcom/usb_regs.c **** * Input          : bEpNum: Endpoint Number. 
+ 330:../target/stm32/vcom/usb_regs.c **** * Output         : None.
+ 331:../target/stm32/vcom/usb_regs.c **** * Return         : None.
+ 332:../target/stm32/vcom/usb_regs.c **** *******************************************************************************/
+ 333:../target/stm32/vcom/usb_regs.c **** void SetEPDoubleBuff(u8 bEpNum)
+ 334:../target/stm32/vcom/usb_regs.c **** {
+ 17556              		.loc 1 334 0
+ 17557              		.cfi_startproc
+ 17558              		@ args = 0, pretend = 0, frame = 8
+ 17559              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17560              		@ link register save eliminated.
+ 17561 0000 80B4     		push	{r7}
+ 17562              	.LCFI67:
+ 17563              		.cfi_def_cfa_offset 4
+ 17564 0002 83B0     		sub	sp, sp, #12
+ 17565              	.LCFI68:
+ 17566              		.cfi_def_cfa_offset 16
+ 17567 0004 00AF     		add	r7, sp, #0
+ 17568              		.cfi_offset 7, -4
+ 17569              	.LCFI69:
+ 17570              		.cfi_def_cfa_register 7
+ 17571 0006 0346     		mov	r3, r0
+ 17572 0008 FB71     		strb	r3, [r7, #7]
+ 335:../target/stm32/vcom/usb_regs.c ****   _SetEP_KIND(bEpNum);
+ 17573              		.loc 1 335 0
+ 17574 000a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 17575 000c 4FEA8303 		lsl	r3, r3, #2
+ 17576 0010 03F18043 		add	r3, r3, #1073741824
+ 17577 0014 03F5B843 		add	r3, r3, #23552
+ 17578 0018 FA79     		ldrb	r2, [r7, #7]	@ zero_extendqisi2
+ 17579 001a 4FEA8202 		lsl	r2, r2, #2
+ 17580 001e 02F18042 		add	r2, r2, #1073741824
+ 17581 0022 02F5B842 		add	r2, r2, #23552
+ 17582 0026 1268     		ldr	r2, [r2, #0]
+ 17583 0028 92B2     		uxth	r2, r2
+ 17584 002a 42F48072 		orr	r2, r2, #256
+ 17585 002e 92B2     		uxth	r2, r2
+ 17586 0030 1146     		mov	r1, r2
+ 17587 0032 48F68F72 		movw	r2, #36751
+ 17588 0036 01EA0202 		and	r2, r1, r2
+ 17589 003a 1A60     		str	r2, [r3, #0]
+ 336:../target/stm32/vcom/usb_regs.c **** }
+ 17590              		.loc 1 336 0
+ 17591 003c 07F10C07 		add	r7, r7, #12
+ 17592 0040 BD46     		mov	sp, r7
+ 17593 0042 80BC     		pop	{r7}
+ 17594 0044 7047     		bx	lr
+ 17595              		.cfi_endproc
+ 17596              	.LFE53:
+ 17598 0046 00BF     		.section	.text.ClearEPDoubleBuff,"ax",%progbits
+ 17599              		.align	2
+ 17600              		.global	ClearEPDoubleBuff
+ 17601              		.thumb
+ 17602              		.thumb_func
+ 17604              	ClearEPDoubleBuff:
+ 17605              	.LFB54:
+ 337:../target/stm32/vcom/usb_regs.c **** /*******************************************************************************
+ 338:../target/stm32/vcom/usb_regs.c **** * Function Name  : ClearEPDoubleBuff
+ 339:../target/stm32/vcom/usb_regs.c **** * Description    : Disable the double buffer feature for the endpoint. 
+ 340:../target/stm32/vcom/usb_regs.c **** * Input          : bEpNum: Endpoint Number. 
+ 341:../target/stm32/vcom/usb_regs.c **** * Output         : None.
+ 342:../target/stm32/vcom/usb_regs.c **** * Return         : None.
+ 343:../target/stm32/vcom/usb_regs.c **** *******************************************************************************/
+ 344:../target/stm32/vcom/usb_regs.c **** void ClearEPDoubleBuff(u8 bEpNum)
+ 345:../target/stm32/vcom/usb_regs.c **** {
+ 17606              		.loc 1 345 0
+ 17607              		.cfi_startproc
+ 17608              		@ args = 0, pretend = 0, frame = 8
+ 17609              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17610              		@ link register save eliminated.
+ 17611 0000 80B4     		push	{r7}
+ 17612              	.LCFI70:
+ 17613              		.cfi_def_cfa_offset 4
+ 17614 0002 83B0     		sub	sp, sp, #12
+ 17615              	.LCFI71:
+ 17616              		.cfi_def_cfa_offset 16
+ 17617 0004 00AF     		add	r7, sp, #0
+ 17618              		.cfi_offset 7, -4
+ 17619              	.LCFI72:
+ 17620              		.cfi_def_cfa_register 7
+ 17621 0006 0346     		mov	r3, r0
+ 17622 0008 FB71     		strb	r3, [r7, #7]
+ 346:../target/stm32/vcom/usb_regs.c ****   _ClearEP_KIND(bEpNum);
+ 17623              		.loc 1 346 0
+ 17624 000a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 17625 000c 4FEA8303 		lsl	r3, r3, #2
+ 17626 0010 03F18043 		add	r3, r3, #1073741824
+ 17627 0014 03F5B843 		add	r3, r3, #23552
+ 17628 0018 FA79     		ldrb	r2, [r7, #7]	@ zero_extendqisi2
+ 17629 001a 4FEA8202 		lsl	r2, r2, #2
+ 17630 001e 02F18042 		add	r2, r2, #1073741824
+ 17631 0022 02F5B842 		add	r2, r2, #23552
+ 17632 0026 1268     		ldr	r2, [r2, #0]
+ 17633 0028 92B2     		uxth	r2, r2
+ 17634 002a 1146     		mov	r1, r2
+ 17635 002c 48F68F62 		movw	r2, #36495
+ 17636 0030 01EA0202 		and	r2, r1, r2
+ 17637 0034 1A60     		str	r2, [r3, #0]
+ 347:../target/stm32/vcom/usb_regs.c **** }
+ 17638              		.loc 1 347 0
+ 17639 0036 07F10C07 		add	r7, r7, #12
+ 17640 003a BD46     		mov	sp, r7
+ 17641 003c 80BC     		pop	{r7}
+ 17642 003e 7047     		bx	lr
+ 17643              		.cfi_endproc
+ 17644              	.LFE54:
+ 17646              		.section	.text.GetTxStallStatus,"ax",%progbits
+ 17647              		.align	2
+ 17648              		.global	GetTxStallStatus
+ 17649              		.thumb
+ 17650              		.thumb_func
+ 17652              	GetTxStallStatus:
+ 17653              	.LFB55:
+ 348:../target/stm32/vcom/usb_regs.c **** /*******************************************************************************
+ 349:../target/stm32/vcom/usb_regs.c **** * Function Name  : GetTxStallStatus
+ 350:../target/stm32/vcom/usb_regs.c **** * Description    : Returns the Stall status of the Tx endpoint.
+ 351:../target/stm32/vcom/usb_regs.c **** * Input          : bEpNum: Endpoint Number. 
+ 352:../target/stm32/vcom/usb_regs.c **** * Output         : None.
+ 353:../target/stm32/vcom/usb_regs.c **** * Return         : Tx Stall status.
+ 354:../target/stm32/vcom/usb_regs.c **** *******************************************************************************/
+ 355:../target/stm32/vcom/usb_regs.c **** u16 GetTxStallStatus(u8 bEpNum)
+ 356:../target/stm32/vcom/usb_regs.c **** {
+ 17654              		.loc 1 356 0
+ 17655              		.cfi_startproc
+ 17656              		@ args = 0, pretend = 0, frame = 8
+ 17657              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17658              		@ link register save eliminated.
+ 17659 0000 80B4     		push	{r7}
+ 17660              	.LCFI73:
+ 17661              		.cfi_def_cfa_offset 4
+ 17662 0002 83B0     		sub	sp, sp, #12
+ 17663              	.LCFI74:
+ 17664              		.cfi_def_cfa_offset 16
+ 17665 0004 00AF     		add	r7, sp, #0
+ 17666              		.cfi_offset 7, -4
+ 17667              	.LCFI75:
+ 17668              		.cfi_def_cfa_register 7
+ 17669 0006 0346     		mov	r3, r0
+ 17670 0008 FB71     		strb	r3, [r7, #7]
+ 357:../target/stm32/vcom/usb_regs.c ****   return(_GetTxStallStatus(bEpNum));
+ 17671              		.loc 1 357 0
+ 17672 000a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 17673 000c 4FEA8303 		lsl	r3, r3, #2
+ 17674 0010 03F18043 		add	r3, r3, #1073741824
+ 17675 0014 03F5B843 		add	r3, r3, #23552
+ 17676 0018 1B68     		ldr	r3, [r3, #0]
+ 17677 001a 9BB2     		uxth	r3, r3
+ 17678 001c 03F03003 		and	r3, r3, #48
+ 17679 0020 102B     		cmp	r3, #16
+ 17680 0022 14BF     		ite	ne
+ 17681 0024 0023     		movne	r3, #0
+ 17682 0026 0123     		moveq	r3, #1
+ 17683 0028 9BB2     		uxth	r3, r3
+ 358:../target/stm32/vcom/usb_regs.c **** }
+ 17684              		.loc 1 358 0
+ 17685 002a 1846     		mov	r0, r3
+ 17686 002c 07F10C07 		add	r7, r7, #12
+ 17687 0030 BD46     		mov	sp, r7
+ 17688 0032 80BC     		pop	{r7}
+ 17689 0034 7047     		bx	lr
+ 17690              		.cfi_endproc
+ 17691              	.LFE55:
+ 17693 0036 00BF     		.section	.text.GetRxStallStatus,"ax",%progbits
+ 17694              		.align	2
+ 17695              		.global	GetRxStallStatus
+ 17696              		.thumb
+ 17697              		.thumb_func
+ 17699              	GetRxStallStatus:
+ 17700              	.LFB56:
+ 359:../target/stm32/vcom/usb_regs.c **** /*******************************************************************************
+ 360:../target/stm32/vcom/usb_regs.c **** * Function Name  : GetRxStallStatus
+ 361:../target/stm32/vcom/usb_regs.c **** * Description    : Returns the Stall status of the Rx endpoint. 
+ 362:../target/stm32/vcom/usb_regs.c **** * Input          : bEpNum: Endpoint Number. 
+ 363:../target/stm32/vcom/usb_regs.c **** * Output         : None.
+ 364:../target/stm32/vcom/usb_regs.c **** * Return         : Rx Stall status.
+ 365:../target/stm32/vcom/usb_regs.c **** *******************************************************************************/
+ 366:../target/stm32/vcom/usb_regs.c **** u16 GetRxStallStatus(u8 bEpNum)
+ 367:../target/stm32/vcom/usb_regs.c **** {
+ 17701              		.loc 1 367 0
+ 17702              		.cfi_startproc
+ 17703              		@ args = 0, pretend = 0, frame = 8
+ 17704              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17705              		@ link register save eliminated.
+ 17706 0000 80B4     		push	{r7}
+ 17707              	.LCFI76:
+ 17708              		.cfi_def_cfa_offset 4
+ 17709 0002 83B0     		sub	sp, sp, #12
+ 17710              	.LCFI77:
+ 17711              		.cfi_def_cfa_offset 16
+ 17712 0004 00AF     		add	r7, sp, #0
+ 17713              		.cfi_offset 7, -4
+ 17714              	.LCFI78:
+ 17715              		.cfi_def_cfa_register 7
+ 17716 0006 0346     		mov	r3, r0
+ 17717 0008 FB71     		strb	r3, [r7, #7]
+ 368:../target/stm32/vcom/usb_regs.c ****   return(_GetRxStallStatus(bEpNum));
+ 17718              		.loc 1 368 0
+ 17719 000a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 17720 000c 4FEA8303 		lsl	r3, r3, #2
+ 17721 0010 03F18043 		add	r3, r3, #1073741824
+ 17722 0014 03F5B843 		add	r3, r3, #23552
+ 17723 0018 1B68     		ldr	r3, [r3, #0]
+ 17724 001a 9BB2     		uxth	r3, r3
+ 17725 001c 03F44053 		and	r3, r3, #12288
+ 17726 0020 B3F5805F 		cmp	r3, #4096
+ 17727 0024 14BF     		ite	ne
+ 17728 0026 0023     		movne	r3, #0
+ 17729 0028 0123     		moveq	r3, #1
+ 17730 002a 9BB2     		uxth	r3, r3
+ 369:../target/stm32/vcom/usb_regs.c **** }
+ 17731              		.loc 1 369 0
+ 17732 002c 1846     		mov	r0, r3
+ 17733 002e 07F10C07 		add	r7, r7, #12
+ 17734 0032 BD46     		mov	sp, r7
+ 17735 0034 80BC     		pop	{r7}
+ 17736 0036 7047     		bx	lr
+ 17737              		.cfi_endproc
+ 17738              	.LFE56:
+ 17740              		.section	.text.ClearEP_CTR_RX,"ax",%progbits
+ 17741              		.align	2
+ 17742              		.global	ClearEP_CTR_RX
+ 17743              		.thumb
+ 17744              		.thumb_func
+ 17746              	ClearEP_CTR_RX:
+ 17747              	.LFB57:
+ 370:../target/stm32/vcom/usb_regs.c **** /*******************************************************************************
+ 371:../target/stm32/vcom/usb_regs.c **** * Function Name  : ClearEP_CTR_RX
+ 372:../target/stm32/vcom/usb_regs.c **** * Description    : Clear the CTR_RX bit.
+ 373:../target/stm32/vcom/usb_regs.c **** * Input          : bEpNum: Endpoint Number. 
+ 374:../target/stm32/vcom/usb_regs.c **** * Output         : None.
+ 375:../target/stm32/vcom/usb_regs.c **** * Return         : None.
+ 376:../target/stm32/vcom/usb_regs.c **** *******************************************************************************/
+ 377:../target/stm32/vcom/usb_regs.c **** void ClearEP_CTR_RX(u8 bEpNum)
+ 378:../target/stm32/vcom/usb_regs.c **** {
+ 17748              		.loc 1 378 0
+ 17749              		.cfi_startproc
+ 17750              		@ args = 0, pretend = 0, frame = 8
+ 17751              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17752              		@ link register save eliminated.
+ 17753 0000 80B4     		push	{r7}
+ 17754              	.LCFI79:
+ 17755              		.cfi_def_cfa_offset 4
+ 17756 0002 83B0     		sub	sp, sp, #12
+ 17757              	.LCFI80:
+ 17758              		.cfi_def_cfa_offset 16
+ 17759 0004 00AF     		add	r7, sp, #0
+ 17760              		.cfi_offset 7, -4
+ 17761              	.LCFI81:
+ 17762              		.cfi_def_cfa_register 7
+ 17763 0006 0346     		mov	r3, r0
+ 17764 0008 FB71     		strb	r3, [r7, #7]
+ 379:../target/stm32/vcom/usb_regs.c ****   _ClearEP_CTR_RX(bEpNum);
+ 17765              		.loc 1 379 0
+ 17766 000a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 17767 000c 4FEA8303 		lsl	r3, r3, #2
+ 17768 0010 03F18043 		add	r3, r3, #1073741824
+ 17769 0014 03F5B843 		add	r3, r3, #23552
+ 17770 0018 FA79     		ldrb	r2, [r7, #7]	@ zero_extendqisi2
+ 17771 001a 4FEA8202 		lsl	r2, r2, #2
+ 17772 001e 02F18042 		add	r2, r2, #1073741824
+ 17773 0022 02F5B842 		add	r2, r2, #23552
+ 17774 0026 1268     		ldr	r2, [r2, #0]
+ 17775 0028 92B2     		uxth	r2, r2
+ 17776 002a 1146     		mov	r1, r2
+ 17777 002c 40F68F72 		movw	r2, #3983
+ 17778 0030 01EA0202 		and	r2, r1, r2
+ 17779 0034 1A60     		str	r2, [r3, #0]
+ 380:../target/stm32/vcom/usb_regs.c **** }
+ 17780              		.loc 1 380 0
+ 17781 0036 07F10C07 		add	r7, r7, #12
+ 17782 003a BD46     		mov	sp, r7
+ 17783 003c 80BC     		pop	{r7}
+ 17784 003e 7047     		bx	lr
+ 17785              		.cfi_endproc
+ 17786              	.LFE57:
+ 17788              		.section	.text.ClearEP_CTR_TX,"ax",%progbits
+ 17789              		.align	2
+ 17790              		.global	ClearEP_CTR_TX
+ 17791              		.thumb
+ 17792              		.thumb_func
+ 17794              	ClearEP_CTR_TX:
+ 17795              	.LFB58:
+ 381:../target/stm32/vcom/usb_regs.c **** /*******************************************************************************
+ 382:../target/stm32/vcom/usb_regs.c **** * Function Name  : ClearEP_CTR_TX
+ 383:../target/stm32/vcom/usb_regs.c **** * Description    : Clear the CTR_TX bit.
+ 384:../target/stm32/vcom/usb_regs.c **** * Input          : bEpNum: Endpoint Number. 
+ 385:../target/stm32/vcom/usb_regs.c **** * Output         : None.
+ 386:../target/stm32/vcom/usb_regs.c **** * Return         : None.
+ 387:../target/stm32/vcom/usb_regs.c **** *******************************************************************************/
+ 388:../target/stm32/vcom/usb_regs.c **** void ClearEP_CTR_TX(u8 bEpNum)
+ 389:../target/stm32/vcom/usb_regs.c **** {
+ 17796              		.loc 1 389 0
+ 17797              		.cfi_startproc
+ 17798              		@ args = 0, pretend = 0, frame = 8
+ 17799              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17800              		@ link register save eliminated.
+ 17801 0000 80B4     		push	{r7}
+ 17802              	.LCFI82:
+ 17803              		.cfi_def_cfa_offset 4
+ 17804 0002 83B0     		sub	sp, sp, #12
+ 17805              	.LCFI83:
+ 17806              		.cfi_def_cfa_offset 16
+ 17807 0004 00AF     		add	r7, sp, #0
+ 17808              		.cfi_offset 7, -4
+ 17809              	.LCFI84:
+ 17810              		.cfi_def_cfa_register 7
+ 17811 0006 0346     		mov	r3, r0
+ 17812 0008 FB71     		strb	r3, [r7, #7]
+ 390:../target/stm32/vcom/usb_regs.c ****   _ClearEP_CTR_TX(bEpNum);
+ 17813              		.loc 1 390 0
+ 17814 000a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 17815 000c 4FEA8303 		lsl	r3, r3, #2
+ 17816 0010 03F18043 		add	r3, r3, #1073741824
+ 17817 0014 03F5B843 		add	r3, r3, #23552
+ 17818 0018 FA79     		ldrb	r2, [r7, #7]	@ zero_extendqisi2
+ 17819 001a 4FEA8202 		lsl	r2, r2, #2
+ 17820 001e 02F18042 		add	r2, r2, #1073741824
+ 17821 0022 02F5B842 		add	r2, r2, #23552
+ 17822 0026 1268     		ldr	r2, [r2, #0]
+ 17823 0028 92B2     		uxth	r2, r2
+ 17824 002a 1146     		mov	r1, r2
+ 17825 002c 48F60F72 		movw	r2, #36623
+ 17826 0030 01EA0202 		and	r2, r1, r2
+ 17827 0034 1A60     		str	r2, [r3, #0]
+ 391:../target/stm32/vcom/usb_regs.c **** }
+ 17828              		.loc 1 391 0
+ 17829 0036 07F10C07 		add	r7, r7, #12
+ 17830 003a BD46     		mov	sp, r7
+ 17831 003c 80BC     		pop	{r7}
+ 17832 003e 7047     		bx	lr
+ 17833              		.cfi_endproc
+ 17834              	.LFE58:
+ 17836              		.section	.text.ToggleDTOG_RX,"ax",%progbits
+ 17837              		.align	2
+ 17838              		.global	ToggleDTOG_RX
+ 17839              		.thumb
+ 17840              		.thumb_func
+ 17842              	ToggleDTOG_RX:
+ 17843              	.LFB59:
+ 392:../target/stm32/vcom/usb_regs.c **** /*******************************************************************************
+ 393:../target/stm32/vcom/usb_regs.c **** * Function Name  : ToggleDTOG_RX
+ 394:../target/stm32/vcom/usb_regs.c **** * Description    : Toggle the DTOG_RX bit.
+ 395:../target/stm32/vcom/usb_regs.c **** * Input          : bEpNum: Endpoint Number. 
+ 396:../target/stm32/vcom/usb_regs.c **** * Output         : None.
+ 397:../target/stm32/vcom/usb_regs.c **** * Return         : None.
+ 398:../target/stm32/vcom/usb_regs.c **** *******************************************************************************/
+ 399:../target/stm32/vcom/usb_regs.c **** void ToggleDTOG_RX(u8 bEpNum)
+ 400:../target/stm32/vcom/usb_regs.c **** {
+ 17844              		.loc 1 400 0
+ 17845              		.cfi_startproc
+ 17846              		@ args = 0, pretend = 0, frame = 8
+ 17847              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17848              		@ link register save eliminated.
+ 17849 0000 80B4     		push	{r7}
+ 17850              	.LCFI85:
+ 17851              		.cfi_def_cfa_offset 4
+ 17852 0002 83B0     		sub	sp, sp, #12
+ 17853              	.LCFI86:
+ 17854              		.cfi_def_cfa_offset 16
+ 17855 0004 00AF     		add	r7, sp, #0
+ 17856              		.cfi_offset 7, -4
+ 17857              	.LCFI87:
+ 17858              		.cfi_def_cfa_register 7
+ 17859 0006 0346     		mov	r3, r0
+ 17860 0008 FB71     		strb	r3, [r7, #7]
+ 401:../target/stm32/vcom/usb_regs.c ****   _ToggleDTOG_RX(bEpNum);
+ 17861              		.loc 1 401 0
+ 17862 000a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 17863 000c 4FEA8303 		lsl	r3, r3, #2
+ 17864 0010 03F18043 		add	r3, r3, #1073741824
+ 17865 0014 03F5B843 		add	r3, r3, #23552
+ 17866 0018 FA79     		ldrb	r2, [r7, #7]	@ zero_extendqisi2
+ 17867 001a 4FEA8202 		lsl	r2, r2, #2
+ 17868 001e 02F18042 		add	r2, r2, #1073741824
+ 17869 0022 02F5B842 		add	r2, r2, #23552
+ 17870 0026 1268     		ldr	r2, [r2, #0]
+ 17871 0028 92B2     		uxth	r2, r2
+ 17872 002a 1146     		mov	r1, r2
+ 17873 002c 48F68F72 		movw	r2, #36751
+ 17874 0030 01EA0202 		and	r2, r1, r2
+ 17875 0034 42F48042 		orr	r2, r2, #16384
+ 17876 0038 1A60     		str	r2, [r3, #0]
+ 402:../target/stm32/vcom/usb_regs.c **** }
+ 17877              		.loc 1 402 0
+ 17878 003a 07F10C07 		add	r7, r7, #12
+ 17879 003e BD46     		mov	sp, r7
+ 17880 0040 80BC     		pop	{r7}
+ 17881 0042 7047     		bx	lr
+ 17882              		.cfi_endproc
+ 17883              	.LFE59:
+ 17885              		.section	.text.ToggleDTOG_TX,"ax",%progbits
+ 17886              		.align	2
+ 17887              		.global	ToggleDTOG_TX
+ 17888              		.thumb
+ 17889              		.thumb_func
+ 17891              	ToggleDTOG_TX:
+ 17892              	.LFB60:
+ 403:../target/stm32/vcom/usb_regs.c **** /*******************************************************************************
+ 404:../target/stm32/vcom/usb_regs.c **** * Function Name  : ToggleDTOG_TX
+ 405:../target/stm32/vcom/usb_regs.c **** * Description    : Toggle the DTOG_TX bit.
+ 406:../target/stm32/vcom/usb_regs.c **** * Input          : bEpNum: Endpoint Number. 
+ 407:../target/stm32/vcom/usb_regs.c **** * Output         : None.
+ 408:../target/stm32/vcom/usb_regs.c **** * Return         : None.
+ 409:../target/stm32/vcom/usb_regs.c **** *******************************************************************************/
+ 410:../target/stm32/vcom/usb_regs.c **** void ToggleDTOG_TX(u8 bEpNum)
+ 411:../target/stm32/vcom/usb_regs.c **** {
+ 17893              		.loc 1 411 0
+ 17894              		.cfi_startproc
+ 17895              		@ args = 0, pretend = 0, frame = 8
+ 17896              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17897              		@ link register save eliminated.
+ 17898 0000 80B4     		push	{r7}
+ 17899              	.LCFI88:
+ 17900              		.cfi_def_cfa_offset 4
+ 17901 0002 83B0     		sub	sp, sp, #12
+ 17902              	.LCFI89:
+ 17903              		.cfi_def_cfa_offset 16
+ 17904 0004 00AF     		add	r7, sp, #0
+ 17905              		.cfi_offset 7, -4
+ 17906              	.LCFI90:
+ 17907              		.cfi_def_cfa_register 7
+ 17908 0006 0346     		mov	r3, r0
+ 17909 0008 FB71     		strb	r3, [r7, #7]
+ 412:../target/stm32/vcom/usb_regs.c ****   _ToggleDTOG_TX(bEpNum);
+ 17910              		.loc 1 412 0
+ 17911 000a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 17912 000c 4FEA8303 		lsl	r3, r3, #2
+ 17913 0010 03F18043 		add	r3, r3, #1073741824
+ 17914 0014 03F5B843 		add	r3, r3, #23552
+ 17915 0018 FA79     		ldrb	r2, [r7, #7]	@ zero_extendqisi2
+ 17916 001a 4FEA8202 		lsl	r2, r2, #2
+ 17917 001e 02F18042 		add	r2, r2, #1073741824
+ 17918 0022 02F5B842 		add	r2, r2, #23552
+ 17919 0026 1268     		ldr	r2, [r2, #0]
+ 17920 0028 92B2     		uxth	r2, r2
+ 17921 002a 1146     		mov	r1, r2
+ 17922 002c 48F68F72 		movw	r2, #36751
+ 17923 0030 01EA0202 		and	r2, r1, r2
+ 17924 0034 42F04002 		orr	r2, r2, #64
+ 17925 0038 1A60     		str	r2, [r3, #0]
+ 413:../target/stm32/vcom/usb_regs.c **** }
+ 17926              		.loc 1 413 0
+ 17927 003a 07F10C07 		add	r7, r7, #12
+ 17928 003e BD46     		mov	sp, r7
+ 17929 0040 80BC     		pop	{r7}
+ 17930 0042 7047     		bx	lr
+ 17931              		.cfi_endproc
+ 17932              	.LFE60:
+ 17934              		.section	.text.ClearDTOG_RX,"ax",%progbits
+ 17935              		.align	2
+ 17936              		.global	ClearDTOG_RX
+ 17937              		.thumb
+ 17938              		.thumb_func
+ 17940              	ClearDTOG_RX:
+ 17941              	.LFB61:
+ 414:../target/stm32/vcom/usb_regs.c **** /*******************************************************************************
+ 415:../target/stm32/vcom/usb_regs.c **** * Function Name  : ClearDTOG_RX.
+ 416:../target/stm32/vcom/usb_regs.c **** * Description    : Clear the DTOG_RX bit.
+ 417:../target/stm32/vcom/usb_regs.c **** * Input          : bEpNum: Endpoint Number. 
+ 418:../target/stm32/vcom/usb_regs.c **** * Output         : None.
+ 419:../target/stm32/vcom/usb_regs.c **** * Return         : None.
+ 420:../target/stm32/vcom/usb_regs.c **** *******************************************************************************/
+ 421:../target/stm32/vcom/usb_regs.c **** void ClearDTOG_RX(u8 bEpNum)
+ 422:../target/stm32/vcom/usb_regs.c **** {
+ 17942              		.loc 1 422 0
+ 17943              		.cfi_startproc
+ 17944              		@ args = 0, pretend = 0, frame = 8
+ 17945              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17946              		@ link register save eliminated.
+ 17947 0000 80B4     		push	{r7}
+ 17948              	.LCFI91:
+ 17949              		.cfi_def_cfa_offset 4
+ 17950 0002 83B0     		sub	sp, sp, #12
+ 17951              	.LCFI92:
+ 17952              		.cfi_def_cfa_offset 16
+ 17953 0004 00AF     		add	r7, sp, #0
+ 17954              		.cfi_offset 7, -4
+ 17955              	.LCFI93:
+ 17956              		.cfi_def_cfa_register 7
+ 17957 0006 0346     		mov	r3, r0
+ 17958 0008 FB71     		strb	r3, [r7, #7]
+ 423:../target/stm32/vcom/usb_regs.c ****   _ClearDTOG_RX(bEpNum);
+ 17959              		.loc 1 423 0
+ 17960 000a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 17961 000c 4FEA8303 		lsl	r3, r3, #2
+ 17962 0010 03F18043 		add	r3, r3, #1073741824
+ 17963 0014 03F5B843 		add	r3, r3, #23552
+ 17964 0018 1B68     		ldr	r3, [r3, #0]
+ 17965 001a 9BB2     		uxth	r3, r3
+ 17966 001c 03F48043 		and	r3, r3, #16384
+ 17967 0020 002B     		cmp	r3, #0
+ 17968 0022 17D0     		beq	.L39
+ 17969              		.loc 1 423 0 is_stmt 0 discriminator 1
+ 17970 0024 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 17971 0026 4FEA8303 		lsl	r3, r3, #2
+ 17972 002a 03F18043 		add	r3, r3, #1073741824
+ 17973 002e 03F5B843 		add	r3, r3, #23552
+ 17974 0032 FA79     		ldrb	r2, [r7, #7]	@ zero_extendqisi2
+ 17975 0034 4FEA8202 		lsl	r2, r2, #2
+ 17976 0038 02F18042 		add	r2, r2, #1073741824
+ 17977 003c 02F5B842 		add	r2, r2, #23552
+ 17978 0040 1268     		ldr	r2, [r2, #0]
+ 17979 0042 92B2     		uxth	r2, r2
+ 17980 0044 1146     		mov	r1, r2
+ 17981 0046 48F68F72 		movw	r2, #36751
+ 17982 004a 01EA0202 		and	r2, r1, r2
+ 17983 004e 42F48042 		orr	r2, r2, #16384
+ 17984 0052 1A60     		str	r2, [r3, #0]
+ 17985              	.L39:
+ 424:../target/stm32/vcom/usb_regs.c **** }
+ 17986              		.loc 1 424 0 is_stmt 1
+ 17987 0054 07F10C07 		add	r7, r7, #12
+ 17988 0058 BD46     		mov	sp, r7
+ 17989 005a 80BC     		pop	{r7}
+ 17990 005c 7047     		bx	lr
+ 17991              		.cfi_endproc
+ 17992              	.LFE61:
+ 17994 005e 00BF     		.section	.text.ClearDTOG_TX,"ax",%progbits
+ 17995              		.align	2
+ 17996              		.global	ClearDTOG_TX
+ 17997              		.thumb
+ 17998              		.thumb_func
+ 18000              	ClearDTOG_TX:
+ 18001              	.LFB62:
+ 425:../target/stm32/vcom/usb_regs.c **** /*******************************************************************************
+ 426:../target/stm32/vcom/usb_regs.c **** * Function Name  : ClearDTOG_TX.
+ 427:../target/stm32/vcom/usb_regs.c **** * Description    : Clear the DTOG_TX bit.
+ 428:../target/stm32/vcom/usb_regs.c **** * Input          : bEpNum: Endpoint Number. 
+ 429:../target/stm32/vcom/usb_regs.c **** * Output         : None.
+ 430:../target/stm32/vcom/usb_regs.c **** * Return         : None.
+ 431:../target/stm32/vcom/usb_regs.c **** *******************************************************************************/
+ 432:../target/stm32/vcom/usb_regs.c **** void ClearDTOG_TX(u8 bEpNum)
+ 433:../target/stm32/vcom/usb_regs.c **** {
+ 18002              		.loc 1 433 0
+ 18003              		.cfi_startproc
+ 18004              		@ args = 0, pretend = 0, frame = 8
+ 18005              		@ frame_needed = 1, uses_anonymous_args = 0
+ 18006              		@ link register save eliminated.
+ 18007 0000 80B4     		push	{r7}
+ 18008              	.LCFI94:
+ 18009              		.cfi_def_cfa_offset 4
+ 18010 0002 83B0     		sub	sp, sp, #12
+ 18011              	.LCFI95:
+ 18012              		.cfi_def_cfa_offset 16
+ 18013 0004 00AF     		add	r7, sp, #0
+ 18014              		.cfi_offset 7, -4
+ 18015              	.LCFI96:
+ 18016              		.cfi_def_cfa_register 7
+ 18017 0006 0346     		mov	r3, r0
+ 18018 0008 FB71     		strb	r3, [r7, #7]
+ 434:../target/stm32/vcom/usb_regs.c ****   _ClearDTOG_TX(bEpNum);
+ 18019              		.loc 1 434 0
+ 18020 000a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 18021 000c 4FEA8303 		lsl	r3, r3, #2
+ 18022 0010 03F18043 		add	r3, r3, #1073741824
+ 18023 0014 03F5B843 		add	r3, r3, #23552
+ 18024 0018 1B68     		ldr	r3, [r3, #0]
+ 18025 001a 9BB2     		uxth	r3, r3
+ 18026 001c 03F04003 		and	r3, r3, #64
+ 18027 0020 002B     		cmp	r3, #0
+ 18028 0022 17D0     		beq	.L41
+ 18029              		.loc 1 434 0 is_stmt 0 discriminator 1
+ 18030 0024 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 18031 0026 4FEA8303 		lsl	r3, r3, #2
+ 18032 002a 03F18043 		add	r3, r3, #1073741824
+ 18033 002e 03F5B843 		add	r3, r3, #23552
+ 18034 0032 FA79     		ldrb	r2, [r7, #7]	@ zero_extendqisi2
+ 18035 0034 4FEA8202 		lsl	r2, r2, #2
+ 18036 0038 02F18042 		add	r2, r2, #1073741824
+ 18037 003c 02F5B842 		add	r2, r2, #23552
+ 18038 0040 1268     		ldr	r2, [r2, #0]
+ 18039 0042 92B2     		uxth	r2, r2
+ 18040 0044 1146     		mov	r1, r2
+ 18041 0046 48F68F72 		movw	r2, #36751
+ 18042 004a 01EA0202 		and	r2, r1, r2
+ 18043 004e 42F04002 		orr	r2, r2, #64
+ 18044 0052 1A60     		str	r2, [r3, #0]
+ 18045              	.L41:
+ 435:../target/stm32/vcom/usb_regs.c **** }
+ 18046              		.loc 1 435 0 is_stmt 1
+ 18047 0054 07F10C07 		add	r7, r7, #12
+ 18048 0058 BD46     		mov	sp, r7
+ 18049 005a 80BC     		pop	{r7}
+ 18050 005c 7047     		bx	lr
+ 18051              		.cfi_endproc
+ 18052              	.LFE62:
+ 18054 005e 00BF     		.section	.text.SetEPAddress,"ax",%progbits
+ 18055              		.align	2
+ 18056              		.global	SetEPAddress
+ 18057              		.thumb
+ 18058              		.thumb_func
+ 18060              	SetEPAddress:
+ 18061              	.LFB63:
+ 436:../target/stm32/vcom/usb_regs.c **** /*******************************************************************************
+ 437:../target/stm32/vcom/usb_regs.c **** * Function Name  : SetEPAddress
+ 438:../target/stm32/vcom/usb_regs.c **** * Description    : Set the endpoint address.
+ 439:../target/stm32/vcom/usb_regs.c **** * Input          : bEpNum: Endpoint Number.
+ 440:../target/stm32/vcom/usb_regs.c **** *                  bAddr: New endpoint address.
+ 441:../target/stm32/vcom/usb_regs.c **** * Output         : None.
+ 442:../target/stm32/vcom/usb_regs.c **** * Return         : None.
+ 443:../target/stm32/vcom/usb_regs.c **** *******************************************************************************/
+ 444:../target/stm32/vcom/usb_regs.c **** void SetEPAddress(u8 bEpNum, u8 bAddr)
+ 445:../target/stm32/vcom/usb_regs.c **** {
+ 18062              		.loc 1 445 0
+ 18063              		.cfi_startproc
+ 18064              		@ args = 0, pretend = 0, frame = 8
+ 18065              		@ frame_needed = 1, uses_anonymous_args = 0
+ 18066              		@ link register save eliminated.
+ 18067 0000 80B4     		push	{r7}
+ 18068              	.LCFI97:
+ 18069              		.cfi_def_cfa_offset 4
+ 18070 0002 83B0     		sub	sp, sp, #12
+ 18071              	.LCFI98:
+ 18072              		.cfi_def_cfa_offset 16
+ 18073 0004 00AF     		add	r7, sp, #0
+ 18074              		.cfi_offset 7, -4
+ 18075              	.LCFI99:
+ 18076              		.cfi_def_cfa_register 7
+ 18077 0006 0246     		mov	r2, r0
+ 18078 0008 0B46     		mov	r3, r1
+ 18079 000a FA71     		strb	r2, [r7, #7]
+ 18080 000c BB71     		strb	r3, [r7, #6]
+ 446:../target/stm32/vcom/usb_regs.c ****   _SetEPAddress(bEpNum, bAddr);
+ 18081              		.loc 1 446 0
+ 18082 000e FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 18083 0010 4FEA8303 		lsl	r3, r3, #2
+ 18084 0014 03F18043 		add	r3, r3, #1073741824
+ 18085 0018 03F5B843 		add	r3, r3, #23552
+ 18086 001c FA79     		ldrb	r2, [r7, #7]	@ zero_extendqisi2
+ 18087 001e 4FEA8202 		lsl	r2, r2, #2
+ 18088 0022 02F18042 		add	r2, r2, #1073741824
+ 18089 0026 02F5B842 		add	r2, r2, #23552
+ 18090 002a 1268     		ldr	r2, [r2, #0]
+ 18091 002c 92B2     		uxth	r2, r2
+ 18092 002e 1146     		mov	r1, r2
+ 18093 0030 48F68F72 		movw	r2, #36751
+ 18094 0034 01EA0202 		and	r2, r1, r2
+ 18095 0038 B979     		ldrb	r1, [r7, #6]	@ zero_extendqisi2
+ 18096 003a 0A43     		orrs	r2, r2, r1
+ 18097 003c 1A60     		str	r2, [r3, #0]
+ 447:../target/stm32/vcom/usb_regs.c **** }
+ 18098              		.loc 1 447 0
+ 18099 003e 07F10C07 		add	r7, r7, #12
+ 18100 0042 BD46     		mov	sp, r7
+ 18101 0044 80BC     		pop	{r7}
+ 18102 0046 7047     		bx	lr
+ 18103              		.cfi_endproc
+ 18104              	.LFE63:
+ 18106              		.section	.text.GetEPAddress,"ax",%progbits
+ 18107              		.align	2
+ 18108              		.global	GetEPAddress
+ 18109              		.thumb
+ 18110              		.thumb_func
+ 18112              	GetEPAddress:
+ 18113              	.LFB64:
+ 448:../target/stm32/vcom/usb_regs.c **** /*******************************************************************************
+ 449:../target/stm32/vcom/usb_regs.c **** * Function Name  : GetEPAddress
+ 450:../target/stm32/vcom/usb_regs.c **** * Description    : Get the endpoint address.
+ 451:../target/stm32/vcom/usb_regs.c **** * Input          : bEpNum: Endpoint Number. 
+ 452:../target/stm32/vcom/usb_regs.c **** * Output         : None.
+ 453:../target/stm32/vcom/usb_regs.c **** * Return         : Endpoint address.
+ 454:../target/stm32/vcom/usb_regs.c **** *******************************************************************************/
+ 455:../target/stm32/vcom/usb_regs.c **** u8 GetEPAddress(u8 bEpNum)
+ 456:../target/stm32/vcom/usb_regs.c **** {
+ 18114              		.loc 1 456 0
+ 18115              		.cfi_startproc
+ 18116              		@ args = 0, pretend = 0, frame = 8
+ 18117              		@ frame_needed = 1, uses_anonymous_args = 0
+ 18118              		@ link register save eliminated.
+ 18119 0000 80B4     		push	{r7}
+ 18120              	.LCFI100:
+ 18121              		.cfi_def_cfa_offset 4
+ 18122 0002 83B0     		sub	sp, sp, #12
+ 18123              	.LCFI101:
+ 18124              		.cfi_def_cfa_offset 16
+ 18125 0004 00AF     		add	r7, sp, #0
+ 18126              		.cfi_offset 7, -4
+ 18127              	.LCFI102:
+ 18128              		.cfi_def_cfa_register 7
+ 18129 0006 0346     		mov	r3, r0
+ 18130 0008 FB71     		strb	r3, [r7, #7]
+ 457:../target/stm32/vcom/usb_regs.c ****   return(_GetEPAddress(bEpNum));
+ 18131              		.loc 1 457 0
+ 18132 000a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 18133 000c 4FEA8303 		lsl	r3, r3, #2
+ 18134 0010 03F18043 		add	r3, r3, #1073741824
+ 18135 0014 03F5B843 		add	r3, r3, #23552
+ 18136 0018 1B68     		ldr	r3, [r3, #0]
+ 18137 001a DBB2     		uxtb	r3, r3
+ 18138 001c 03F00F03 		and	r3, r3, #15
+ 18139 0020 DBB2     		uxtb	r3, r3
+ 458:../target/stm32/vcom/usb_regs.c **** }
+ 18140              		.loc 1 458 0
+ 18141 0022 1846     		mov	r0, r3
+ 18142 0024 07F10C07 		add	r7, r7, #12
+ 18143 0028 BD46     		mov	sp, r7
+ 18144 002a 80BC     		pop	{r7}
+ 18145 002c 7047     		bx	lr
+ 18146              		.cfi_endproc
+ 18147              	.LFE64:
+ 18149 002e 00BF     		.section	.text.SetEPTxAddr,"ax",%progbits
+ 18150              		.align	2
+ 18151              		.global	SetEPTxAddr
+ 18152              		.thumb
+ 18153              		.thumb_func
+ 18155              	SetEPTxAddr:
+ 18156              	.LFB65:
+ 459:../target/stm32/vcom/usb_regs.c **** /*******************************************************************************
+ 460:../target/stm32/vcom/usb_regs.c **** * Function Name  : SetEPTxAddr
+ 461:../target/stm32/vcom/usb_regs.c **** * Description    : Set the endpoint Tx buffer address.
+ 462:../target/stm32/vcom/usb_regs.c **** * Input          : bEpNum: Endpoint Number.
+ 463:../target/stm32/vcom/usb_regs.c **** *                  wAddr: new address. 
+ 464:../target/stm32/vcom/usb_regs.c **** * Output         : None.
+ 465:../target/stm32/vcom/usb_regs.c **** * Return         : None.
+ 466:../target/stm32/vcom/usb_regs.c **** *******************************************************************************/
+ 467:../target/stm32/vcom/usb_regs.c **** void SetEPTxAddr(u8 bEpNum, u16 wAddr)
+ 468:../target/stm32/vcom/usb_regs.c **** {
+ 18157              		.loc 1 468 0
+ 18158              		.cfi_startproc
+ 18159              		@ args = 0, pretend = 0, frame = 8
+ 18160              		@ frame_needed = 1, uses_anonymous_args = 0
+ 18161              		@ link register save eliminated.
+ 18162 0000 80B4     		push	{r7}
+ 18163              	.LCFI103:
+ 18164              		.cfi_def_cfa_offset 4
+ 18165 0002 83B0     		sub	sp, sp, #12
+ 18166              	.LCFI104:
+ 18167              		.cfi_def_cfa_offset 16
+ 18168 0004 00AF     		add	r7, sp, #0
+ 18169              		.cfi_offset 7, -4
+ 18170              	.LCFI105:
+ 18171              		.cfi_def_cfa_register 7
+ 18172 0006 0246     		mov	r2, r0
+ 18173 0008 0B46     		mov	r3, r1
+ 18174 000a FA71     		strb	r2, [r7, #7]
+ 18175 000c BB80     		strh	r3, [r7, #4]	@ movhi
+ 469:../target/stm32/vcom/usb_regs.c ****   _SetEPTxAddr(bEpNum, wAddr);
+ 18176              		.loc 1 469 0
+ 18177 000e 45F65043 		movw	r3, #23632
+ 18178 0012 C4F20003 		movt	r3, 16384
+ 18179 0016 1B68     		ldr	r3, [r3, #0]
+ 18180 0018 9BB2     		uxth	r3, r3
+ 18181 001a 1A46     		mov	r2, r3
+ 18182 001c FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 18183 001e 4FEAC303 		lsl	r3, r3, #3
+ 18184 0022 D318     		adds	r3, r2, r3
+ 18185 0024 03F10053 		add	r3, r3, #536870912
+ 18186 0028 03F54053 		add	r3, r3, #12288
+ 18187 002c 4FEA4303 		lsl	r3, r3, #1
+ 18188 0030 BA88     		ldrh	r2, [r7, #4]
+ 18189 0032 4FEA5202 		lsr	r2, r2, #1
+ 18190 0036 92B2     		uxth	r2, r2
+ 18191 0038 4FEA4202 		lsl	r2, r2, #1
+ 18192 003c 1A60     		str	r2, [r3, #0]
+ 470:../target/stm32/vcom/usb_regs.c **** }
+ 18193              		.loc 1 470 0
+ 18194 003e 07F10C07 		add	r7, r7, #12
+ 18195 0042 BD46     		mov	sp, r7
+ 18196 0044 80BC     		pop	{r7}
+ 18197 0046 7047     		bx	lr
+ 18198              		.cfi_endproc
+ 18199              	.LFE65:
+ 18201              		.section	.text.SetEPRxAddr,"ax",%progbits
+ 18202              		.align	2
+ 18203              		.global	SetEPRxAddr
+ 18204              		.thumb
+ 18205              		.thumb_func
+ 18207              	SetEPRxAddr:
+ 18208              	.LFB66:
+ 471:../target/stm32/vcom/usb_regs.c **** /*******************************************************************************
+ 472:../target/stm32/vcom/usb_regs.c **** * Function Name  : SetEPRxAddr
+ 473:../target/stm32/vcom/usb_regs.c **** * Description    : Set the endpoint Rx buffer address.
+ 474:../target/stm32/vcom/usb_regs.c **** * Input          : bEpNum: Endpoint Number.
+ 475:../target/stm32/vcom/usb_regs.c **** *                  wAddr: new address.
+ 476:../target/stm32/vcom/usb_regs.c **** * Output         : None.
+ 477:../target/stm32/vcom/usb_regs.c **** * Return         : None.
+ 478:../target/stm32/vcom/usb_regs.c **** *******************************************************************************/
+ 479:../target/stm32/vcom/usb_regs.c **** void SetEPRxAddr(u8 bEpNum, u16 wAddr)
+ 480:../target/stm32/vcom/usb_regs.c **** {
+ 18209              		.loc 1 480 0
+ 18210              		.cfi_startproc
+ 18211              		@ args = 0, pretend = 0, frame = 8
+ 18212              		@ frame_needed = 1, uses_anonymous_args = 0
+ 18213              		@ link register save eliminated.
+ 18214 0000 80B4     		push	{r7}
+ 18215              	.LCFI106:
+ 18216              		.cfi_def_cfa_offset 4
+ 18217 0002 83B0     		sub	sp, sp, #12
+ 18218              	.LCFI107:
+ 18219              		.cfi_def_cfa_offset 16
+ 18220 0004 00AF     		add	r7, sp, #0
+ 18221              		.cfi_offset 7, -4
+ 18222              	.LCFI108:
+ 18223              		.cfi_def_cfa_register 7
+ 18224 0006 0246     		mov	r2, r0
+ 18225 0008 0B46     		mov	r3, r1
+ 18226 000a FA71     		strb	r2, [r7, #7]
+ 18227 000c BB80     		strh	r3, [r7, #4]	@ movhi
+ 481:../target/stm32/vcom/usb_regs.c ****   _SetEPRxAddr(bEpNum, wAddr);
+ 18228              		.loc 1 481 0
+ 18229 000e 45F65043 		movw	r3, #23632
+ 18230 0012 C4F20003 		movt	r3, 16384
+ 18231 0016 1B68     		ldr	r3, [r3, #0]
+ 18232 0018 9BB2     		uxth	r3, r3
+ 18233 001a 1A46     		mov	r2, r3
+ 18234 001c FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 18235 001e 4FEAC303 		lsl	r3, r3, #3
+ 18236 0022 D218     		adds	r2, r2, r3
+ 18237 0024 43F20403 		movw	r3, #12292
+ 18238 0028 C2F20003 		movt	r3, 8192
+ 18239 002c D318     		adds	r3, r2, r3
+ 18240 002e 4FEA4303 		lsl	r3, r3, #1
+ 18241 0032 BA88     		ldrh	r2, [r7, #4]
+ 18242 0034 4FEA5202 		lsr	r2, r2, #1
+ 18243 0038 92B2     		uxth	r2, r2
+ 18244 003a 4FEA4202 		lsl	r2, r2, #1
+ 18245 003e 1A60     		str	r2, [r3, #0]
+ 482:../target/stm32/vcom/usb_regs.c **** }
+ 18246              		.loc 1 482 0
+ 18247 0040 07F10C07 		add	r7, r7, #12
+ 18248 0044 BD46     		mov	sp, r7
+ 18249 0046 80BC     		pop	{r7}
+ 18250 0048 7047     		bx	lr
+ 18251              		.cfi_endproc
+ 18252              	.LFE66:
+ 18254 004a 00BF     		.section	.text.GetEPTxAddr,"ax",%progbits
+ 18255              		.align	2
+ 18256              		.global	GetEPTxAddr
+ 18257              		.thumb
+ 18258              		.thumb_func
+ 18260              	GetEPTxAddr:
+ 18261              	.LFB67:
+ 483:../target/stm32/vcom/usb_regs.c **** /*******************************************************************************
+ 484:../target/stm32/vcom/usb_regs.c **** * Function Name  : GetEPTxAddr
+ 485:../target/stm32/vcom/usb_regs.c **** * Description    : Returns the endpoint Tx buffer address.
+ 486:../target/stm32/vcom/usb_regs.c **** * Input          : bEpNum: Endpoint Number. 
+ 487:../target/stm32/vcom/usb_regs.c **** * Output         : None.
+ 488:../target/stm32/vcom/usb_regs.c **** * Return         : Rx buffer address. 
+ 489:../target/stm32/vcom/usb_regs.c **** *******************************************************************************/
+ 490:../target/stm32/vcom/usb_regs.c **** u16 GetEPTxAddr(u8 bEpNum)
+ 491:../target/stm32/vcom/usb_regs.c **** {
+ 18262              		.loc 1 491 0
+ 18263              		.cfi_startproc
+ 18264              		@ args = 0, pretend = 0, frame = 8
+ 18265              		@ frame_needed = 1, uses_anonymous_args = 0
+ 18266              		@ link register save eliminated.
+ 18267 0000 80B4     		push	{r7}
+ 18268              	.LCFI109:
+ 18269              		.cfi_def_cfa_offset 4
+ 18270 0002 83B0     		sub	sp, sp, #12
+ 18271              	.LCFI110:
+ 18272              		.cfi_def_cfa_offset 16
+ 18273 0004 00AF     		add	r7, sp, #0
+ 18274              		.cfi_offset 7, -4
+ 18275              	.LCFI111:
+ 18276              		.cfi_def_cfa_register 7
+ 18277 0006 0346     		mov	r3, r0
+ 18278 0008 FB71     		strb	r3, [r7, #7]
+ 492:../target/stm32/vcom/usb_regs.c ****   return(_GetEPTxAddr(bEpNum));
+ 18279              		.loc 1 492 0
+ 18280 000a 45F65043 		movw	r3, #23632
+ 18281 000e C4F20003 		movt	r3, 16384
+ 18282 0012 1B68     		ldr	r3, [r3, #0]
+ 18283 0014 9BB2     		uxth	r3, r3
+ 18284 0016 1A46     		mov	r2, r3
+ 18285 0018 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 18286 001a 4FEAC303 		lsl	r3, r3, #3
+ 18287 001e D318     		adds	r3, r2, r3
+ 18288 0020 03F10053 		add	r3, r3, #536870912
+ 18289 0024 03F54053 		add	r3, r3, #12288
+ 18290 0028 4FEA4303 		lsl	r3, r3, #1
+ 18291 002c 1B68     		ldr	r3, [r3, #0]
+ 18292 002e 9BB2     		uxth	r3, r3
+ 493:../target/stm32/vcom/usb_regs.c **** }
+ 18293              		.loc 1 493 0
+ 18294 0030 1846     		mov	r0, r3
+ 18295 0032 07F10C07 		add	r7, r7, #12
+ 18296 0036 BD46     		mov	sp, r7
+ 18297 0038 80BC     		pop	{r7}
+ 18298 003a 7047     		bx	lr
+ 18299              		.cfi_endproc
+ 18300              	.LFE67:
+ 18302              		.section	.text.GetEPRxAddr,"ax",%progbits
+ 18303              		.align	2
+ 18304              		.global	GetEPRxAddr
+ 18305              		.thumb
+ 18306              		.thumb_func
+ 18308              	GetEPRxAddr:
+ 18309              	.LFB68:
+ 494:../target/stm32/vcom/usb_regs.c **** /*******************************************************************************
+ 495:../target/stm32/vcom/usb_regs.c **** * Function Name  : GetEPRxAddr.
+ 496:../target/stm32/vcom/usb_regs.c **** * Description    : Returns the endpoint Rx buffer address.
+ 497:../target/stm32/vcom/usb_regs.c **** * Input          : bEpNum: Endpoint Number. 
+ 498:../target/stm32/vcom/usb_regs.c **** * Output         : None.
+ 499:../target/stm32/vcom/usb_regs.c **** * Return         : Rx buffer address.
+ 500:../target/stm32/vcom/usb_regs.c **** *******************************************************************************/
+ 501:../target/stm32/vcom/usb_regs.c **** u16 GetEPRxAddr(u8 bEpNum)
+ 502:../target/stm32/vcom/usb_regs.c **** {
+ 18310              		.loc 1 502 0
+ 18311              		.cfi_startproc
+ 18312              		@ args = 0, pretend = 0, frame = 8
+ 18313              		@ frame_needed = 1, uses_anonymous_args = 0
+ 18314              		@ link register save eliminated.
+ 18315 0000 80B4     		push	{r7}
+ 18316              	.LCFI112:
+ 18317              		.cfi_def_cfa_offset 4
+ 18318 0002 83B0     		sub	sp, sp, #12
+ 18319              	.LCFI113:
+ 18320              		.cfi_def_cfa_offset 16
+ 18321 0004 00AF     		add	r7, sp, #0
+ 18322              		.cfi_offset 7, -4
+ 18323              	.LCFI114:
+ 18324              		.cfi_def_cfa_register 7
+ 18325 0006 0346     		mov	r3, r0
+ 18326 0008 FB71     		strb	r3, [r7, #7]
+ 503:../target/stm32/vcom/usb_regs.c ****   return(_GetEPRxAddr(bEpNum));
+ 18327              		.loc 1 503 0
+ 18328 000a 45F65043 		movw	r3, #23632
+ 18329 000e C4F20003 		movt	r3, 16384
+ 18330 0012 1B68     		ldr	r3, [r3, #0]
+ 18331 0014 9BB2     		uxth	r3, r3
+ 18332 0016 1A46     		mov	r2, r3
+ 18333 0018 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 18334 001a 4FEAC303 		lsl	r3, r3, #3
+ 18335 001e D218     		adds	r2, r2, r3
+ 18336 0020 43F20403 		movw	r3, #12292
+ 18337 0024 C2F20003 		movt	r3, 8192
+ 18338 0028 D318     		adds	r3, r2, r3
+ 18339 002a 4FEA4303 		lsl	r3, r3, #1
+ 18340 002e 1B68     		ldr	r3, [r3, #0]
+ 18341 0030 9BB2     		uxth	r3, r3
+ 504:../target/stm32/vcom/usb_regs.c **** }
+ 18342              		.loc 1 504 0
+ 18343 0032 1846     		mov	r0, r3
+ 18344 0034 07F10C07 		add	r7, r7, #12
+ 18345 0038 BD46     		mov	sp, r7
+ 18346 003a 80BC     		pop	{r7}
+ 18347 003c 7047     		bx	lr
+ 18348              		.cfi_endproc
+ 18349              	.LFE68:
+ 18351 003e 00BF     		.section	.text.SetEPTxCount,"ax",%progbits
+ 18352              		.align	2
+ 18353              		.global	SetEPTxCount
+ 18354              		.thumb
+ 18355              		.thumb_func
+ 18357              	SetEPTxCount:
+ 18358              	.LFB69:
+ 505:../target/stm32/vcom/usb_regs.c **** /*******************************************************************************
+ 506:../target/stm32/vcom/usb_regs.c **** * Function Name  : SetEPTxCount.
+ 507:../target/stm32/vcom/usb_regs.c **** * Description    : Set the Tx count.
+ 508:../target/stm32/vcom/usb_regs.c **** * Input          : bEpNum: Endpoint Number.
+ 509:../target/stm32/vcom/usb_regs.c **** *                  wCount: new count value.
+ 510:../target/stm32/vcom/usb_regs.c **** * Output         : None.
+ 511:../target/stm32/vcom/usb_regs.c **** * Return         : None.
+ 512:../target/stm32/vcom/usb_regs.c **** *******************************************************************************/
+ 513:../target/stm32/vcom/usb_regs.c **** void SetEPTxCount(u8 bEpNum, u16 wCount)
+ 514:../target/stm32/vcom/usb_regs.c **** {
+ 18359              		.loc 1 514 0
+ 18360              		.cfi_startproc
+ 18361              		@ args = 0, pretend = 0, frame = 8
+ 18362              		@ frame_needed = 1, uses_anonymous_args = 0
+ 18363              		@ link register save eliminated.
+ 18364 0000 80B4     		push	{r7}
+ 18365              	.LCFI115:
+ 18366              		.cfi_def_cfa_offset 4
+ 18367 0002 83B0     		sub	sp, sp, #12
+ 18368              	.LCFI116:
+ 18369              		.cfi_def_cfa_offset 16
+ 18370 0004 00AF     		add	r7, sp, #0
+ 18371              		.cfi_offset 7, -4
+ 18372              	.LCFI117:
+ 18373              		.cfi_def_cfa_register 7
+ 18374 0006 0246     		mov	r2, r0
+ 18375 0008 0B46     		mov	r3, r1
+ 18376 000a FA71     		strb	r2, [r7, #7]
+ 18377 000c BB80     		strh	r3, [r7, #4]	@ movhi
+ 515:../target/stm32/vcom/usb_regs.c ****   _SetEPTxCount(bEpNum, wCount);
+ 18378              		.loc 1 515 0
+ 18379 000e 45F65043 		movw	r3, #23632
+ 18380 0012 C4F20003 		movt	r3, 16384
+ 18381 0016 1B68     		ldr	r3, [r3, #0]
+ 18382 0018 9BB2     		uxth	r3, r3
+ 18383 001a 1A46     		mov	r2, r3
+ 18384 001c FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 18385 001e 4FEAC303 		lsl	r3, r3, #3
+ 18386 0022 D218     		adds	r2, r2, r3
+ 18387 0024 43F20203 		movw	r3, #12290
+ 18388 0028 C2F20003 		movt	r3, 8192
+ 18389 002c D318     		adds	r3, r2, r3
+ 18390 002e 4FEA4303 		lsl	r3, r3, #1
+ 18391 0032 BA88     		ldrh	r2, [r7, #4]
+ 18392 0034 1A60     		str	r2, [r3, #0]
+ 516:../target/stm32/vcom/usb_regs.c **** }
+ 18393              		.loc 1 516 0
+ 18394 0036 07F10C07 		add	r7, r7, #12
+ 18395 003a BD46     		mov	sp, r7
+ 18396 003c 80BC     		pop	{r7}
+ 18397 003e 7047     		bx	lr
+ 18398              		.cfi_endproc
+ 18399              	.LFE69:
+ 18401              		.section	.text.SetEPCountRxReg,"ax",%progbits
+ 18402              		.align	2
+ 18403              		.global	SetEPCountRxReg
+ 18404              		.thumb
+ 18405              		.thumb_func
+ 18407              	SetEPCountRxReg:
+ 18408              	.LFB70:
+ 517:../target/stm32/vcom/usb_regs.c **** /*******************************************************************************
+ 518:../target/stm32/vcom/usb_regs.c **** * Function Name  : SetEPCountRxReg.
+ 519:../target/stm32/vcom/usb_regs.c **** * Description    : Set the Count Rx Register value.
+ 520:../target/stm32/vcom/usb_regs.c **** * Input          : *pdwReg: point to the register.
+ 521:../target/stm32/vcom/usb_regs.c **** *                  wCount: the new register value.
+ 522:../target/stm32/vcom/usb_regs.c **** * Output         : None.
+ 523:../target/stm32/vcom/usb_regs.c **** * Return         : None.
+ 524:../target/stm32/vcom/usb_regs.c **** *******************************************************************************/
+ 525:../target/stm32/vcom/usb_regs.c **** void SetEPCountRxReg(u32 *pdwReg, u16 wCount)
+ 526:../target/stm32/vcom/usb_regs.c **** {
+ 18409              		.loc 1 526 0
+ 18410              		.cfi_startproc
+ 18411              		@ args = 0, pretend = 0, frame = 16
+ 18412              		@ frame_needed = 1, uses_anonymous_args = 0
+ 18413              		@ link register save eliminated.
+ 18414 0000 80B4     		push	{r7}
+ 18415              	.LCFI118:
+ 18416              		.cfi_def_cfa_offset 4
+ 18417 0002 85B0     		sub	sp, sp, #20
+ 18418              	.LCFI119:
+ 18419              		.cfi_def_cfa_offset 24
+ 18420 0004 00AF     		add	r7, sp, #0
+ 18421              		.cfi_offset 7, -4
+ 18422              	.LCFI120:
+ 18423              		.cfi_def_cfa_register 7
+ 18424 0006 7860     		str	r0, [r7, #4]
+ 18425 0008 0B46     		mov	r3, r1
+ 18426 000a 7B80     		strh	r3, [r7, #2]	@ movhi
+ 18427              	.LBB6:
+ 527:../target/stm32/vcom/usb_regs.c ****   _SetEPCountRxReg(dwReg, wCount);
+ 18428              		.loc 1 527 0
+ 18429 000c 7B88     		ldrh	r3, [r7, #2]
+ 18430 000e 3E2B     		cmp	r3, #62
+ 18431 0010 15D9     		bls	.L51
+ 18432              		.loc 1 527 0 is_stmt 0 discriminator 1
+ 18433 0012 7B88     		ldrh	r3, [r7, #2]
+ 18434 0014 4FEA5313 		lsr	r3, r3, #5
+ 18435 0018 FB81     		strh	r3, [r7, #14]	@ movhi
+ 18436 001a 7B88     		ldrh	r3, [r7, #2]
+ 18437 001c 03F01F03 		and	r3, r3, #31
+ 18438 0020 002B     		cmp	r3, #0
+ 18439 0022 03D1     		bne	.L52
+ 18440              		.loc 1 527 0 discriminator 3
+ 18441 0024 FB89     		ldrh	r3, [r7, #14]	@ movhi
+ 18442 0026 03F1FF33 		add	r3, r3, #-1
+ 18443 002a FB81     		strh	r3, [r7, #14]	@ movhi
+ 18444              	.L52:
+ 18445              		.loc 1 527 0 discriminator 4
+ 18446 002c FB89     		ldrh	r3, [r7, #14]
+ 18447 002e 4FEA8323 		lsl	r3, r3, #10
+ 18448 0032 43F40043 		orr	r3, r3, #32768
+ 18449 0036 1A46     		mov	r2, r3
+ 18450 0038 7B68     		ldr	r3, [r7, #4]
+ 18451 003a 1A60     		str	r2, [r3, #0]
+ 18452 003c 13E0     		b	.L50
+ 18453              	.L51:
+ 18454              		.loc 1 527 0 discriminator 2
+ 18455 003e 7B88     		ldrh	r3, [r7, #2]
+ 18456 0040 4FEA5303 		lsr	r3, r3, #1
+ 18457 0044 FB81     		strh	r3, [r7, #14]	@ movhi
+ 18458 0046 7B88     		ldrh	r3, [r7, #2]
+ 18459 0048 03F00103 		and	r3, r3, #1
+ 18460 004c DBB2     		uxtb	r3, r3
+ 18461 004e 002B     		cmp	r3, #0
+ 18462 0050 03D0     		beq	.L54
+ 18463              		.loc 1 527 0 discriminator 5
+ 18464 0052 FB89     		ldrh	r3, [r7, #14]	@ movhi
+ 18465 0054 03F10103 		add	r3, r3, #1
+ 18466 0058 FB81     		strh	r3, [r7, #14]	@ movhi
+ 18467              	.L54:
+ 18468              		.loc 1 527 0 discriminator 6
+ 18469 005a FB89     		ldrh	r3, [r7, #14]
+ 18470 005c 4FEA8323 		lsl	r3, r3, #10
+ 18471 0060 1A46     		mov	r2, r3
+ 18472 0062 7B68     		ldr	r3, [r7, #4]
+ 18473 0064 1A60     		str	r2, [r3, #0]
+ 18474              	.L50:
+ 18475              	.LBE6:
+ 528:../target/stm32/vcom/usb_regs.c **** }
+ 18476              		.loc 1 528 0 is_stmt 1
+ 18477 0066 07F11407 		add	r7, r7, #20
+ 18478 006a BD46     		mov	sp, r7
+ 18479 006c 80BC     		pop	{r7}
+ 18480 006e 7047     		bx	lr
+ 18481              		.cfi_endproc
+ 18482              	.LFE70:
+ 18484              		.section	.text.SetEPRxCount,"ax",%progbits
+ 18485              		.align	2
+ 18486              		.global	SetEPRxCount
+ 18487              		.thumb
+ 18488              		.thumb_func
+ 18490              	SetEPRxCount:
+ 18491              	.LFB71:
+ 529:../target/stm32/vcom/usb_regs.c **** /*******************************************************************************
+ 530:../target/stm32/vcom/usb_regs.c **** * Function Name  : SetEPRxCount
+ 531:../target/stm32/vcom/usb_regs.c **** * Description    : Set the Rx count.
+ 532:../target/stm32/vcom/usb_regs.c **** * Input          : bEpNum: Endpoint Number. 
+ 533:../target/stm32/vcom/usb_regs.c **** *                  wCount: the new count value.
+ 534:../target/stm32/vcom/usb_regs.c **** * Output         : None.
+ 535:../target/stm32/vcom/usb_regs.c **** * Return         : None.
+ 536:../target/stm32/vcom/usb_regs.c **** *******************************************************************************/
+ 537:../target/stm32/vcom/usb_regs.c **** void SetEPRxCount(u8 bEpNum, u16 wCount)
+ 538:../target/stm32/vcom/usb_regs.c **** {
+ 18492              		.loc 1 538 0
+ 18493              		.cfi_startproc
+ 18494              		@ args = 0, pretend = 0, frame = 16
+ 18495              		@ frame_needed = 1, uses_anonymous_args = 0
+ 18496              		@ link register save eliminated.
+ 18497 0000 80B4     		push	{r7}
+ 18498              	.LCFI121:
+ 18499              		.cfi_def_cfa_offset 4
+ 18500 0002 85B0     		sub	sp, sp, #20
+ 18501              	.LCFI122:
+ 18502              		.cfi_def_cfa_offset 24
+ 18503 0004 00AF     		add	r7, sp, #0
+ 18504              		.cfi_offset 7, -4
+ 18505              	.LCFI123:
+ 18506              		.cfi_def_cfa_register 7
+ 18507 0006 0246     		mov	r2, r0
+ 18508 0008 0B46     		mov	r3, r1
+ 18509 000a FA71     		strb	r2, [r7, #7]
+ 18510 000c BB80     		strh	r3, [r7, #4]	@ movhi
+ 18511              	.LBB7:
+ 539:../target/stm32/vcom/usb_regs.c ****   _SetEPRxCount(bEpNum, wCount);
+ 18512              		.loc 1 539 0
+ 18513 000e 45F65043 		movw	r3, #23632
+ 18514 0012 C4F20003 		movt	r3, 16384
+ 18515 0016 1B68     		ldr	r3, [r3, #0]
+ 18516 0018 9BB2     		uxth	r3, r3
+ 18517 001a 1A46     		mov	r2, r3
+ 18518 001c FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 18519 001e 4FEAC303 		lsl	r3, r3, #3
+ 18520 0022 D218     		adds	r2, r2, r3
+ 18521 0024 43F20603 		movw	r3, #12294
+ 18522 0028 C2F20003 		movt	r3, 8192
+ 18523 002c D318     		adds	r3, r2, r3
+ 18524 002e 4FEA4303 		lsl	r3, r3, #1
+ 18525 0032 BB60     		str	r3, [r7, #8]
+ 18526              	.LBB8:
+ 18527 0034 BB88     		ldrh	r3, [r7, #4]
+ 18528 0036 3E2B     		cmp	r3, #62
+ 18529 0038 15D9     		bls	.L56
+ 18530              		.loc 1 539 0 is_stmt 0 discriminator 1
+ 18531 003a BB88     		ldrh	r3, [r7, #4]
+ 18532 003c 4FEA5313 		lsr	r3, r3, #5
+ 18533 0040 FB81     		strh	r3, [r7, #14]	@ movhi
+ 18534 0042 BB88     		ldrh	r3, [r7, #4]
+ 18535 0044 03F01F03 		and	r3, r3, #31
+ 18536 0048 002B     		cmp	r3, #0
+ 18537 004a 03D1     		bne	.L57
+ 18538              		.loc 1 539 0 discriminator 3
+ 18539 004c FB89     		ldrh	r3, [r7, #14]	@ movhi
+ 18540 004e 03F1FF33 		add	r3, r3, #-1
+ 18541 0052 FB81     		strh	r3, [r7, #14]	@ movhi
+ 18542              	.L57:
+ 18543              		.loc 1 539 0 discriminator 4
+ 18544 0054 FB89     		ldrh	r3, [r7, #14]
+ 18545 0056 4FEA8323 		lsl	r3, r3, #10
+ 18546 005a 43F40043 		orr	r3, r3, #32768
+ 18547 005e 1A46     		mov	r2, r3
+ 18548 0060 BB68     		ldr	r3, [r7, #8]
+ 18549 0062 1A60     		str	r2, [r3, #0]
+ 18550 0064 13E0     		b	.L55
+ 18551              	.L56:
+ 18552              		.loc 1 539 0 discriminator 2
+ 18553 0066 BB88     		ldrh	r3, [r7, #4]
+ 18554 0068 4FEA5303 		lsr	r3, r3, #1
+ 18555 006c FB81     		strh	r3, [r7, #14]	@ movhi
+ 18556 006e BB88     		ldrh	r3, [r7, #4]
+ 18557 0070 03F00103 		and	r3, r3, #1
+ 18558 0074 DBB2     		uxtb	r3, r3
+ 18559 0076 002B     		cmp	r3, #0
+ 18560 0078 03D0     		beq	.L59
+ 18561              		.loc 1 539 0 discriminator 5
+ 18562 007a FB89     		ldrh	r3, [r7, #14]	@ movhi
+ 18563 007c 03F10103 		add	r3, r3, #1
+ 18564 0080 FB81     		strh	r3, [r7, #14]	@ movhi
+ 18565              	.L59:
+ 18566              		.loc 1 539 0 discriminator 6
+ 18567 0082 FB89     		ldrh	r3, [r7, #14]
+ 18568 0084 4FEA8323 		lsl	r3, r3, #10
+ 18569 0088 1A46     		mov	r2, r3
+ 18570 008a BB68     		ldr	r3, [r7, #8]
+ 18571 008c 1A60     		str	r2, [r3, #0]
+ 18572              	.L55:
+ 18573              	.LBE8:
+ 18574              	.LBE7:
+ 540:../target/stm32/vcom/usb_regs.c **** }
+ 18575              		.loc 1 540 0 is_stmt 1
+ 18576 008e 07F11407 		add	r7, r7, #20
+ 18577 0092 BD46     		mov	sp, r7
+ 18578 0094 80BC     		pop	{r7}
+ 18579 0096 7047     		bx	lr
+ 18580              		.cfi_endproc
+ 18581              	.LFE71:
+ 18583              		.section	.text.GetEPTxCount,"ax",%progbits
+ 18584              		.align	2
+ 18585              		.global	GetEPTxCount
+ 18586              		.thumb
+ 18587              		.thumb_func
+ 18589              	GetEPTxCount:
+ 18590              	.LFB72:
+ 541:../target/stm32/vcom/usb_regs.c **** /*******************************************************************************
+ 542:../target/stm32/vcom/usb_regs.c **** * Function Name  : GetEPTxCount
+ 543:../target/stm32/vcom/usb_regs.c **** * Description    : Get the Tx count.
+ 544:../target/stm32/vcom/usb_regs.c **** * Input          : bEpNum: Endpoint Number. 
+ 545:../target/stm32/vcom/usb_regs.c **** * Output         : None
+ 546:../target/stm32/vcom/usb_regs.c **** * Return         : Tx count value.
+ 547:../target/stm32/vcom/usb_regs.c **** *******************************************************************************/
+ 548:../target/stm32/vcom/usb_regs.c **** u16 GetEPTxCount(u8 bEpNum)
+ 549:../target/stm32/vcom/usb_regs.c **** {
+ 18591              		.loc 1 549 0
+ 18592              		.cfi_startproc
+ 18593              		@ args = 0, pretend = 0, frame = 8
+ 18594              		@ frame_needed = 1, uses_anonymous_args = 0
+ 18595              		@ link register save eliminated.
+ 18596 0000 80B4     		push	{r7}
+ 18597              	.LCFI124:
+ 18598              		.cfi_def_cfa_offset 4
+ 18599 0002 83B0     		sub	sp, sp, #12
+ 18600              	.LCFI125:
+ 18601              		.cfi_def_cfa_offset 16
+ 18602 0004 00AF     		add	r7, sp, #0
+ 18603              		.cfi_offset 7, -4
+ 18604              	.LCFI126:
+ 18605              		.cfi_def_cfa_register 7
+ 18606 0006 0346     		mov	r3, r0
+ 18607 0008 FB71     		strb	r3, [r7, #7]
+ 550:../target/stm32/vcom/usb_regs.c ****   return(_GetEPTxCount(bEpNum));
+ 18608              		.loc 1 550 0
+ 18609 000a 45F65043 		movw	r3, #23632
+ 18610 000e C4F20003 		movt	r3, 16384
+ 18611 0012 1B68     		ldr	r3, [r3, #0]
+ 18612 0014 9BB2     		uxth	r3, r3
+ 18613 0016 1A46     		mov	r2, r3
+ 18614 0018 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 18615 001a 4FEAC303 		lsl	r3, r3, #3
+ 18616 001e D218     		adds	r2, r2, r3
+ 18617 0020 43F20203 		movw	r3, #12290
+ 18618 0024 C2F20003 		movt	r3, 8192
+ 18619 0028 D318     		adds	r3, r2, r3
+ 18620 002a 4FEA4303 		lsl	r3, r3, #1
+ 18621 002e 1B68     		ldr	r3, [r3, #0]
+ 18622 0030 9BB2     		uxth	r3, r3
+ 18623 0032 4FEA8353 		lsl	r3, r3, #22
+ 18624 0036 4FEA9353 		lsr	r3, r3, #22
+ 18625 003a 9BB2     		uxth	r3, r3
+ 551:../target/stm32/vcom/usb_regs.c **** }
+ 18626              		.loc 1 551 0
+ 18627 003c 1846     		mov	r0, r3
+ 18628 003e 07F10C07 		add	r7, r7, #12
+ 18629 0042 BD46     		mov	sp, r7
+ 18630 0044 80BC     		pop	{r7}
+ 18631 0046 7047     		bx	lr
+ 18632              		.cfi_endproc
+ 18633              	.LFE72:
+ 18635              		.section	.text.GetEPRxCount,"ax",%progbits
+ 18636              		.align	2
+ 18637              		.global	GetEPRxCount
+ 18638              		.thumb
+ 18639              		.thumb_func
+ 18641              	GetEPRxCount:
+ 18642              	.LFB73:
+ 552:../target/stm32/vcom/usb_regs.c **** /*******************************************************************************
+ 553:../target/stm32/vcom/usb_regs.c **** * Function Name  : GetEPRxCount
+ 554:../target/stm32/vcom/usb_regs.c **** * Description    : Get the Rx count.
+ 555:../target/stm32/vcom/usb_regs.c **** * Input          : bEpNum: Endpoint Number. 
+ 556:../target/stm32/vcom/usb_regs.c **** * Output         : None.
+ 557:../target/stm32/vcom/usb_regs.c **** * Return         : Rx count value.
+ 558:../target/stm32/vcom/usb_regs.c **** *******************************************************************************/
+ 559:../target/stm32/vcom/usb_regs.c **** u16 GetEPRxCount(u8 bEpNum)
+ 560:../target/stm32/vcom/usb_regs.c **** {
+ 18643              		.loc 1 560 0
+ 18644              		.cfi_startproc
+ 18645              		@ args = 0, pretend = 0, frame = 8
+ 18646              		@ frame_needed = 1, uses_anonymous_args = 0
+ 18647              		@ link register save eliminated.
+ 18648 0000 80B4     		push	{r7}
+ 18649              	.LCFI127:
+ 18650              		.cfi_def_cfa_offset 4
+ 18651 0002 83B0     		sub	sp, sp, #12
+ 18652              	.LCFI128:
+ 18653              		.cfi_def_cfa_offset 16
+ 18654 0004 00AF     		add	r7, sp, #0
+ 18655              		.cfi_offset 7, -4
+ 18656              	.LCFI129:
+ 18657              		.cfi_def_cfa_register 7
+ 18658 0006 0346     		mov	r3, r0
+ 18659 0008 FB71     		strb	r3, [r7, #7]
+ 561:../target/stm32/vcom/usb_regs.c ****   return(_GetEPRxCount(bEpNum));
+ 18660              		.loc 1 561 0
+ 18661 000a 45F65043 		movw	r3, #23632
+ 18662 000e C4F20003 		movt	r3, 16384
+ 18663 0012 1B68     		ldr	r3, [r3, #0]
+ 18664 0014 9BB2     		uxth	r3, r3
+ 18665 0016 1A46     		mov	r2, r3
+ 18666 0018 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 18667 001a 4FEAC303 		lsl	r3, r3, #3
+ 18668 001e D218     		adds	r2, r2, r3
+ 18669 0020 43F20603 		movw	r3, #12294
+ 18670 0024 C2F20003 		movt	r3, 8192
+ 18671 0028 D318     		adds	r3, r2, r3
+ 18672 002a 4FEA4303 		lsl	r3, r3, #1
+ 18673 002e 1B68     		ldr	r3, [r3, #0]
+ 18674 0030 9BB2     		uxth	r3, r3
+ 18675 0032 4FEA8353 		lsl	r3, r3, #22
+ 18676 0036 4FEA9353 		lsr	r3, r3, #22
+ 18677 003a 9BB2     		uxth	r3, r3
+ 562:../target/stm32/vcom/usb_regs.c **** }
+ 18678              		.loc 1 562 0
+ 18679 003c 1846     		mov	r0, r3
+ 18680 003e 07F10C07 		add	r7, r7, #12
+ 18681 0042 BD46     		mov	sp, r7
+ 18682 0044 80BC     		pop	{r7}
+ 18683 0046 7047     		bx	lr
+ 18684              		.cfi_endproc
+ 18685              	.LFE73:
+ 18687              		.section	.text.SetEPDblBuffAddr,"ax",%progbits
+ 18688              		.align	2
+ 18689              		.global	SetEPDblBuffAddr
+ 18690              		.thumb
+ 18691              		.thumb_func
+ 18693              	SetEPDblBuffAddr:
+ 18694              	.LFB74:
+ 563:../target/stm32/vcom/usb_regs.c **** /*******************************************************************************
+ 564:../target/stm32/vcom/usb_regs.c **** * Function Name  : SetEPDblBuffAddr
+ 565:../target/stm32/vcom/usb_regs.c **** * Description    : Set the addresses of the buffer 0 and 1.
+ 566:../target/stm32/vcom/usb_regs.c **** * Input          : bEpNum: Endpoint Number.  
+ 567:../target/stm32/vcom/usb_regs.c **** *                  wBuf0Addr: new address of buffer 0. 
+ 568:../target/stm32/vcom/usb_regs.c **** *                  wBuf1Addr: new address of buffer 1.
+ 569:../target/stm32/vcom/usb_regs.c **** * Output         : None.
+ 570:../target/stm32/vcom/usb_regs.c **** * Return         : None.
+ 571:../target/stm32/vcom/usb_regs.c **** *******************************************************************************/
+ 572:../target/stm32/vcom/usb_regs.c **** void SetEPDblBuffAddr(u8 bEpNum, u16 wBuf0Addr, u16 wBuf1Addr)
+ 573:../target/stm32/vcom/usb_regs.c **** {
+ 18695              		.loc 1 573 0
+ 18696              		.cfi_startproc
+ 18697              		@ args = 0, pretend = 0, frame = 8
+ 18698              		@ frame_needed = 1, uses_anonymous_args = 0
+ 18699              		@ link register save eliminated.
+ 18700 0000 80B4     		push	{r7}
+ 18701              	.LCFI130:
+ 18702              		.cfi_def_cfa_offset 4
+ 18703 0002 83B0     		sub	sp, sp, #12
+ 18704              	.LCFI131:
+ 18705              		.cfi_def_cfa_offset 16
+ 18706 0004 00AF     		add	r7, sp, #0
+ 18707              		.cfi_offset 7, -4
+ 18708              	.LCFI132:
+ 18709              		.cfi_def_cfa_register 7
+ 18710 0006 1346     		mov	r3, r2
+ 18711 0008 0246     		mov	r2, r0
+ 18712 000a FA71     		strb	r2, [r7, #7]
+ 18713 000c 0A46     		mov	r2, r1	@ movhi
+ 18714 000e BA80     		strh	r2, [r7, #4]	@ movhi
+ 18715 0010 7B80     		strh	r3, [r7, #2]	@ movhi
+ 574:../target/stm32/vcom/usb_regs.c ****   _SetEPDblBuffAddr(bEpNum, wBuf0Addr, wBuf1Addr);
+ 18716              		.loc 1 574 0
+ 18717 0012 45F65043 		movw	r3, #23632
+ 18718 0016 C4F20003 		movt	r3, 16384
+ 18719 001a 1B68     		ldr	r3, [r3, #0]
+ 18720 001c 9BB2     		uxth	r3, r3
+ 18721 001e 1A46     		mov	r2, r3
+ 18722 0020 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 18723 0022 4FEAC303 		lsl	r3, r3, #3
+ 18724 0026 D318     		adds	r3, r2, r3
+ 18725 0028 03F10053 		add	r3, r3, #536870912
+ 18726 002c 03F54053 		add	r3, r3, #12288
+ 18727 0030 4FEA4303 		lsl	r3, r3, #1
+ 18728 0034 BA88     		ldrh	r2, [r7, #4]
+ 18729 0036 4FEA5202 		lsr	r2, r2, #1
+ 18730 003a 92B2     		uxth	r2, r2
+ 18731 003c 4FEA4202 		lsl	r2, r2, #1
+ 18732 0040 1A60     		str	r2, [r3, #0]
+ 18733 0042 45F65043 		movw	r3, #23632
+ 18734 0046 C4F20003 		movt	r3, 16384
+ 18735 004a 1B68     		ldr	r3, [r3, #0]
+ 18736 004c 9BB2     		uxth	r3, r3
+ 18737 004e 1A46     		mov	r2, r3
+ 18738 0050 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 18739 0052 4FEAC303 		lsl	r3, r3, #3
+ 18740 0056 D218     		adds	r2, r2, r3
+ 18741 0058 43F20403 		movw	r3, #12292
+ 18742 005c C2F20003 		movt	r3, 8192
+ 18743 0060 D318     		adds	r3, r2, r3
+ 18744 0062 4FEA4303 		lsl	r3, r3, #1
+ 18745 0066 7A88     		ldrh	r2, [r7, #2]
+ 18746 0068 4FEA5202 		lsr	r2, r2, #1
+ 18747 006c 92B2     		uxth	r2, r2
+ 18748 006e 4FEA4202 		lsl	r2, r2, #1
+ 18749 0072 1A60     		str	r2, [r3, #0]
+ 575:../target/stm32/vcom/usb_regs.c **** }
+ 18750              		.loc 1 575 0
+ 18751 0074 07F10C07 		add	r7, r7, #12
+ 18752 0078 BD46     		mov	sp, r7
+ 18753 007a 80BC     		pop	{r7}
+ 18754 007c 7047     		bx	lr
+ 18755              		.cfi_endproc
+ 18756              	.LFE74:
+ 18758 007e 00BF     		.section	.text.SetEPDblBuf0Addr,"ax",%progbits
+ 18759              		.align	2
+ 18760              		.global	SetEPDblBuf0Addr
+ 18761              		.thumb
+ 18762              		.thumb_func
+ 18764              	SetEPDblBuf0Addr:
+ 18765              	.LFB75:
+ 576:../target/stm32/vcom/usb_regs.c **** /*******************************************************************************
+ 577:../target/stm32/vcom/usb_regs.c **** * Function Name  : SetEPDblBuf0Addr
+ 578:../target/stm32/vcom/usb_regs.c **** * Description    : Set the Buffer 1 address.
+ 579:../target/stm32/vcom/usb_regs.c **** * Input          : bEpNum: Endpoint Number
+ 580:../target/stm32/vcom/usb_regs.c **** *                  wBuf0Addr: new address.
+ 581:../target/stm32/vcom/usb_regs.c **** * Output         : None.
+ 582:../target/stm32/vcom/usb_regs.c **** * Return         : None.
+ 583:../target/stm32/vcom/usb_regs.c **** *******************************************************************************/
+ 584:../target/stm32/vcom/usb_regs.c **** void SetEPDblBuf0Addr(u8 bEpNum, u16 wBuf0Addr)
+ 585:../target/stm32/vcom/usb_regs.c **** {
+ 18766              		.loc 1 585 0
+ 18767              		.cfi_startproc
+ 18768              		@ args = 0, pretend = 0, frame = 8
+ 18769              		@ frame_needed = 1, uses_anonymous_args = 0
+ 18770              		@ link register save eliminated.
+ 18771 0000 80B4     		push	{r7}
+ 18772              	.LCFI133:
+ 18773              		.cfi_def_cfa_offset 4
+ 18774 0002 83B0     		sub	sp, sp, #12
+ 18775              	.LCFI134:
+ 18776              		.cfi_def_cfa_offset 16
+ 18777 0004 00AF     		add	r7, sp, #0
+ 18778              		.cfi_offset 7, -4
+ 18779              	.LCFI135:
+ 18780              		.cfi_def_cfa_register 7
+ 18781 0006 0246     		mov	r2, r0
+ 18782 0008 0B46     		mov	r3, r1
+ 18783 000a FA71     		strb	r2, [r7, #7]
+ 18784 000c BB80     		strh	r3, [r7, #4]	@ movhi
+ 586:../target/stm32/vcom/usb_regs.c ****   _SetEPDblBuf0Addr(bEpNum, wBuf0Addr);
+ 18785              		.loc 1 586 0
+ 18786 000e 45F65043 		movw	r3, #23632
+ 18787 0012 C4F20003 		movt	r3, 16384
+ 18788 0016 1B68     		ldr	r3, [r3, #0]
+ 18789 0018 9BB2     		uxth	r3, r3
+ 18790 001a 1A46     		mov	r2, r3
+ 18791 001c FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 18792 001e 4FEAC303 		lsl	r3, r3, #3
+ 18793 0022 D318     		adds	r3, r2, r3
+ 18794 0024 03F10053 		add	r3, r3, #536870912
+ 18795 0028 03F54053 		add	r3, r3, #12288
+ 18796 002c 4FEA4303 		lsl	r3, r3, #1
+ 18797 0030 BA88     		ldrh	r2, [r7, #4]
+ 18798 0032 4FEA5202 		lsr	r2, r2, #1
+ 18799 0036 92B2     		uxth	r2, r2
+ 18800 0038 4FEA4202 		lsl	r2, r2, #1
+ 18801 003c 1A60     		str	r2, [r3, #0]
+ 587:../target/stm32/vcom/usb_regs.c **** }
+ 18802              		.loc 1 587 0
+ 18803 003e 07F10C07 		add	r7, r7, #12
+ 18804 0042 BD46     		mov	sp, r7
+ 18805 0044 80BC     		pop	{r7}
+ 18806 0046 7047     		bx	lr
+ 18807              		.cfi_endproc
+ 18808              	.LFE75:
+ 18810              		.section	.text.SetEPDblBuf1Addr,"ax",%progbits
+ 18811              		.align	2
+ 18812              		.global	SetEPDblBuf1Addr
+ 18813              		.thumb
+ 18814              		.thumb_func
+ 18816              	SetEPDblBuf1Addr:
+ 18817              	.LFB76:
+ 588:../target/stm32/vcom/usb_regs.c **** /*******************************************************************************
+ 589:../target/stm32/vcom/usb_regs.c **** * Function Name  : SetEPDblBuf1Addr
+ 590:../target/stm32/vcom/usb_regs.c **** * Description    : Set the Buffer 1 address.
+ 591:../target/stm32/vcom/usb_regs.c **** * Input          : bEpNum: Endpoint Number
+ 592:../target/stm32/vcom/usb_regs.c **** *                  wBuf1Addr: new address.
+ 593:../target/stm32/vcom/usb_regs.c **** * Output         : None.
+ 594:../target/stm32/vcom/usb_regs.c **** * Return         : None.
+ 595:../target/stm32/vcom/usb_regs.c **** *******************************************************************************/
+ 596:../target/stm32/vcom/usb_regs.c **** void SetEPDblBuf1Addr(u8 bEpNum, u16 wBuf1Addr)
+ 597:../target/stm32/vcom/usb_regs.c **** {
+ 18818              		.loc 1 597 0
+ 18819              		.cfi_startproc
+ 18820              		@ args = 0, pretend = 0, frame = 8
+ 18821              		@ frame_needed = 1, uses_anonymous_args = 0
+ 18822              		@ link register save eliminated.
+ 18823 0000 80B4     		push	{r7}
+ 18824              	.LCFI136:
+ 18825              		.cfi_def_cfa_offset 4
+ 18826 0002 83B0     		sub	sp, sp, #12
+ 18827              	.LCFI137:
+ 18828              		.cfi_def_cfa_offset 16
+ 18829 0004 00AF     		add	r7, sp, #0
+ 18830              		.cfi_offset 7, -4
+ 18831              	.LCFI138:
+ 18832              		.cfi_def_cfa_register 7
+ 18833 0006 0246     		mov	r2, r0
+ 18834 0008 0B46     		mov	r3, r1
+ 18835 000a FA71     		strb	r2, [r7, #7]
+ 18836 000c BB80     		strh	r3, [r7, #4]	@ movhi
+ 598:../target/stm32/vcom/usb_regs.c ****   _SetEPDblBuf1Addr(bEpNum, wBuf1Addr);
+ 18837              		.loc 1 598 0
+ 18838 000e 45F65043 		movw	r3, #23632
+ 18839 0012 C4F20003 		movt	r3, 16384
+ 18840 0016 1B68     		ldr	r3, [r3, #0]
+ 18841 0018 9BB2     		uxth	r3, r3
+ 18842 001a 1A46     		mov	r2, r3
+ 18843 001c FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 18844 001e 4FEAC303 		lsl	r3, r3, #3
+ 18845 0022 D218     		adds	r2, r2, r3
+ 18846 0024 43F20403 		movw	r3, #12292
+ 18847 0028 C2F20003 		movt	r3, 8192
+ 18848 002c D318     		adds	r3, r2, r3
+ 18849 002e 4FEA4303 		lsl	r3, r3, #1
+ 18850 0032 BA88     		ldrh	r2, [r7, #4]
+ 18851 0034 4FEA5202 		lsr	r2, r2, #1
+ 18852 0038 92B2     		uxth	r2, r2
+ 18853 003a 4FEA4202 		lsl	r2, r2, #1
+ 18854 003e 1A60     		str	r2, [r3, #0]
+ 599:../target/stm32/vcom/usb_regs.c **** }
+ 18855              		.loc 1 599 0
+ 18856 0040 07F10C07 		add	r7, r7, #12
+ 18857 0044 BD46     		mov	sp, r7
+ 18858 0046 80BC     		pop	{r7}
+ 18859 0048 7047     		bx	lr
+ 18860              		.cfi_endproc
+ 18861              	.LFE76:
+ 18863 004a 00BF     		.section	.text.GetEPDblBuf0Addr,"ax",%progbits
+ 18864              		.align	2
+ 18865              		.global	GetEPDblBuf0Addr
+ 18866              		.thumb
+ 18867              		.thumb_func
+ 18869              	GetEPDblBuf0Addr:
+ 18870              	.LFB77:
+ 600:../target/stm32/vcom/usb_regs.c **** /*******************************************************************************
+ 601:../target/stm32/vcom/usb_regs.c **** * Function Name  : GetEPDblBuf0Addr
+ 602:../target/stm32/vcom/usb_regs.c **** * Description    : Returns the address of the Buffer 0.
+ 603:../target/stm32/vcom/usb_regs.c **** * Input          : bEpNum: Endpoint Number.
+ 604:../target/stm32/vcom/usb_regs.c **** * Output         : None.
+ 605:../target/stm32/vcom/usb_regs.c **** * Return         : None.
+ 606:../target/stm32/vcom/usb_regs.c **** *******************************************************************************/
+ 607:../target/stm32/vcom/usb_regs.c **** u16 GetEPDblBuf0Addr(u8 bEpNum)
+ 608:../target/stm32/vcom/usb_regs.c **** {
+ 18871              		.loc 1 608 0
+ 18872              		.cfi_startproc
+ 18873              		@ args = 0, pretend = 0, frame = 8
+ 18874              		@ frame_needed = 1, uses_anonymous_args = 0
+ 18875              		@ link register save eliminated.
+ 18876 0000 80B4     		push	{r7}
+ 18877              	.LCFI139:
+ 18878              		.cfi_def_cfa_offset 4
+ 18879 0002 83B0     		sub	sp, sp, #12
+ 18880              	.LCFI140:
+ 18881              		.cfi_def_cfa_offset 16
+ 18882 0004 00AF     		add	r7, sp, #0
+ 18883              		.cfi_offset 7, -4
+ 18884              	.LCFI141:
+ 18885              		.cfi_def_cfa_register 7
+ 18886 0006 0346     		mov	r3, r0
+ 18887 0008 FB71     		strb	r3, [r7, #7]
+ 609:../target/stm32/vcom/usb_regs.c ****   return(_GetEPDblBuf0Addr(bEpNum));
+ 18888              		.loc 1 609 0
+ 18889 000a 45F65043 		movw	r3, #23632
+ 18890 000e C4F20003 		movt	r3, 16384
+ 18891 0012 1B68     		ldr	r3, [r3, #0]
+ 18892 0014 9BB2     		uxth	r3, r3
+ 18893 0016 1A46     		mov	r2, r3
+ 18894 0018 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 18895 001a 4FEAC303 		lsl	r3, r3, #3
+ 18896 001e D318     		adds	r3, r2, r3
+ 18897 0020 03F10053 		add	r3, r3, #536870912
+ 18898 0024 03F54053 		add	r3, r3, #12288
+ 18899 0028 4FEA4303 		lsl	r3, r3, #1
+ 18900 002c 1B68     		ldr	r3, [r3, #0]
+ 18901 002e 9BB2     		uxth	r3, r3
+ 610:../target/stm32/vcom/usb_regs.c **** }
+ 18902              		.loc 1 610 0
+ 18903 0030 1846     		mov	r0, r3
+ 18904 0032 07F10C07 		add	r7, r7, #12
+ 18905 0036 BD46     		mov	sp, r7
+ 18906 0038 80BC     		pop	{r7}
+ 18907 003a 7047     		bx	lr
+ 18908              		.cfi_endproc
+ 18909              	.LFE77:
+ 18911              		.section	.text.GetEPDblBuf1Addr,"ax",%progbits
+ 18912              		.align	2
+ 18913              		.global	GetEPDblBuf1Addr
+ 18914              		.thumb
+ 18915              		.thumb_func
+ 18917              	GetEPDblBuf1Addr:
+ 18918              	.LFB78:
+ 611:../target/stm32/vcom/usb_regs.c **** /*******************************************************************************
+ 612:../target/stm32/vcom/usb_regs.c **** * Function Name  : GetEPDblBuf1Addr
+ 613:../target/stm32/vcom/usb_regs.c **** * Description    : Returns the address of the Buffer 1.
+ 614:../target/stm32/vcom/usb_regs.c **** * Input          : bEpNum: Endpoint Number.
+ 615:../target/stm32/vcom/usb_regs.c **** * Output         : None.
+ 616:../target/stm32/vcom/usb_regs.c **** * Return         : Address of the Buffer 1.
+ 617:../target/stm32/vcom/usb_regs.c **** *******************************************************************************/
+ 618:../target/stm32/vcom/usb_regs.c **** u16 GetEPDblBuf1Addr(u8 bEpNum)
+ 619:../target/stm32/vcom/usb_regs.c **** {
+ 18919              		.loc 1 619 0
+ 18920              		.cfi_startproc
+ 18921              		@ args = 0, pretend = 0, frame = 8
+ 18922              		@ frame_needed = 1, uses_anonymous_args = 0
+ 18923              		@ link register save eliminated.
+ 18924 0000 80B4     		push	{r7}
+ 18925              	.LCFI142:
+ 18926              		.cfi_def_cfa_offset 4
+ 18927 0002 83B0     		sub	sp, sp, #12
+ 18928              	.LCFI143:
+ 18929              		.cfi_def_cfa_offset 16
+ 18930 0004 00AF     		add	r7, sp, #0
+ 18931              		.cfi_offset 7, -4
+ 18932              	.LCFI144:
+ 18933              		.cfi_def_cfa_register 7
+ 18934 0006 0346     		mov	r3, r0
+ 18935 0008 FB71     		strb	r3, [r7, #7]
+ 620:../target/stm32/vcom/usb_regs.c ****   return(_GetEPDblBuf1Addr(bEpNum));
+ 18936              		.loc 1 620 0
+ 18937 000a 45F65043 		movw	r3, #23632
+ 18938 000e C4F20003 		movt	r3, 16384
+ 18939 0012 1B68     		ldr	r3, [r3, #0]
+ 18940 0014 9BB2     		uxth	r3, r3
+ 18941 0016 1A46     		mov	r2, r3
+ 18942 0018 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 18943 001a 4FEAC303 		lsl	r3, r3, #3
+ 18944 001e D218     		adds	r2, r2, r3
+ 18945 0020 43F20403 		movw	r3, #12292
+ 18946 0024 C2F20003 		movt	r3, 8192
+ 18947 0028 D318     		adds	r3, r2, r3
+ 18948 002a 4FEA4303 		lsl	r3, r3, #1
+ 18949 002e 1B68     		ldr	r3, [r3, #0]
+ 18950 0030 9BB2     		uxth	r3, r3
+ 621:../target/stm32/vcom/usb_regs.c **** }
+ 18951              		.loc 1 621 0
+ 18952 0032 1846     		mov	r0, r3
+ 18953 0034 07F10C07 		add	r7, r7, #12
+ 18954 0038 BD46     		mov	sp, r7
+ 18955 003a 80BC     		pop	{r7}
+ 18956 003c 7047     		bx	lr
+ 18957              		.cfi_endproc
+ 18958              	.LFE78:
+ 18960 003e 00BF     		.section	.text.SetEPDblBuffCount,"ax",%progbits
+ 18961              		.align	2
+ 18962              		.global	SetEPDblBuffCount
+ 18963              		.thumb
+ 18964              		.thumb_func
+ 18966              	SetEPDblBuffCount:
+ 18967              	.LFB79:
+ 622:../target/stm32/vcom/usb_regs.c **** /*******************************************************************************
+ 623:../target/stm32/vcom/usb_regs.c **** * Function Name  : SetEPDblBuffCount
+ 624:../target/stm32/vcom/usb_regs.c **** * Description    : Set the number of bytes for a double Buffer 
+ 625:../target/stm32/vcom/usb_regs.c **** *                  endpoint.
+ 626:../target/stm32/vcom/usb_regs.c **** * Input          : bEpNum,bDir, wCount
+ 627:../target/stm32/vcom/usb_regs.c **** * Output         : None.
+ 628:../target/stm32/vcom/usb_regs.c **** * Return         : None.
+ 629:../target/stm32/vcom/usb_regs.c **** *******************************************************************************/
+ 630:../target/stm32/vcom/usb_regs.c **** void SetEPDblBuffCount(u8 bEpNum, u8 bDir, u16 wCount)
+ 631:../target/stm32/vcom/usb_regs.c **** {
+ 18968              		.loc 1 631 0
+ 18969              		.cfi_startproc
+ 18970              		@ args = 0, pretend = 0, frame = 24
+ 18971              		@ frame_needed = 1, uses_anonymous_args = 0
+ 18972              		@ link register save eliminated.
+ 18973 0000 80B4     		push	{r7}
+ 18974              	.LCFI145:
+ 18975              		.cfi_def_cfa_offset 4
+ 18976 0002 87B0     		sub	sp, sp, #28
+ 18977              	.LCFI146:
+ 18978              		.cfi_def_cfa_offset 32
+ 18979 0004 00AF     		add	r7, sp, #0
+ 18980              		.cfi_offset 7, -4
+ 18981              	.LCFI147:
+ 18982              		.cfi_def_cfa_register 7
+ 18983 0006 1346     		mov	r3, r2
+ 18984 0008 0246     		mov	r2, r0
+ 18985 000a FA71     		strb	r2, [r7, #7]
+ 18986 000c 0A46     		mov	r2, r1
+ 18987 000e BA71     		strb	r2, [r7, #6]
+ 18988 0010 BB80     		strh	r3, [r7, #4]	@ movhi
+ 632:../target/stm32/vcom/usb_regs.c ****   _SetEPDblBuffCount(bEpNum, bDir, wCount);
+ 18989              		.loc 1 632 0
+ 18990 0012 BB79     		ldrb	r3, [r7, #6]	@ zero_extendqisi2
+ 18991 0014 012B     		cmp	r3, #1
+ 18992 0016 40D1     		bne	.L68
+ 18993              	.LBB9:
+ 18994              		.loc 1 632 0 is_stmt 0 discriminator 1
+ 18995 0018 45F65043 		movw	r3, #23632
+ 18996 001c C4F20003 		movt	r3, 16384
+ 18997 0020 1B68     		ldr	r3, [r3, #0]
+ 18998 0022 9BB2     		uxth	r3, r3
+ 18999 0024 1A46     		mov	r2, r3
+ 19000 0026 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 19001 0028 4FEAC303 		lsl	r3, r3, #3
+ 19002 002c D218     		adds	r2, r2, r3
+ 19003 002e 43F20203 		movw	r3, #12290
+ 19004 0032 C2F20003 		movt	r3, 8192
+ 19005 0036 D318     		adds	r3, r2, r3
+ 19006 0038 4FEA4303 		lsl	r3, r3, #1
+ 19007 003c 3B61     		str	r3, [r7, #16]
+ 19008              	.LBB10:
+ 19009 003e BB88     		ldrh	r3, [r7, #4]
+ 19010 0040 3E2B     		cmp	r3, #62
+ 19011 0042 15D9     		bls	.L69
+ 19012              		.loc 1 632 0 discriminator 3
+ 19013 0044 BB88     		ldrh	r3, [r7, #4]
+ 19014 0046 4FEA5313 		lsr	r3, r3, #5
+ 19015 004a FB82     		strh	r3, [r7, #22]	@ movhi
+ 19016 004c BB88     		ldrh	r3, [r7, #4]
+ 19017 004e 03F01F03 		and	r3, r3, #31
+ 19018 0052 002B     		cmp	r3, #0
+ 19019 0054 03D1     		bne	.L70
+ 19020              		.loc 1 632 0 discriminator 5
+ 19021 0056 FB8A     		ldrh	r3, [r7, #22]	@ movhi
+ 19022 0058 03F1FF33 		add	r3, r3, #-1
+ 19023 005c FB82     		strh	r3, [r7, #22]	@ movhi
+ 19024              	.L70:
+ 19025              		.loc 1 632 0 discriminator 6
+ 19026 005e FB8A     		ldrh	r3, [r7, #22]
+ 19027 0060 4FEA8323 		lsl	r3, r3, #10
+ 19028 0064 43F40043 		orr	r3, r3, #32768
+ 19029 0068 1A46     		mov	r2, r3
+ 19030 006a 3B69     		ldr	r3, [r7, #16]
+ 19031 006c 1A60     		str	r2, [r3, #0]
+ 19032 006e 2BE0     		b	.L71
+ 19033              	.L69:
+ 19034              		.loc 1 632 0 discriminator 4
+ 19035 0070 BB88     		ldrh	r3, [r7, #4]
+ 19036 0072 4FEA5303 		lsr	r3, r3, #1
+ 19037 0076 FB82     		strh	r3, [r7, #22]	@ movhi
+ 19038 0078 BB88     		ldrh	r3, [r7, #4]
+ 19039 007a 03F00103 		and	r3, r3, #1
+ 19040 007e DBB2     		uxtb	r3, r3
+ 19041 0080 002B     		cmp	r3, #0
+ 19042 0082 03D0     		beq	.L72
+ 19043              		.loc 1 632 0 discriminator 7
+ 19044 0084 FB8A     		ldrh	r3, [r7, #22]	@ movhi
+ 19045 0086 03F10103 		add	r3, r3, #1
+ 19046 008a FB82     		strh	r3, [r7, #22]	@ movhi
+ 19047              	.L72:
+ 19048              		.loc 1 632 0 discriminator 8
+ 19049 008c FB8A     		ldrh	r3, [r7, #22]
+ 19050 008e 4FEA8323 		lsl	r3, r3, #10
+ 19051 0092 1A46     		mov	r2, r3
+ 19052 0094 3B69     		ldr	r3, [r7, #16]
+ 19053 0096 1A60     		str	r2, [r3, #0]
+ 19054 0098 16E0     		b	.L71
+ 19055              	.L68:
+ 19056              	.LBE10:
+ 19057              	.LBE9:
+ 19058              		.loc 1 632 0 discriminator 2
+ 19059 009a BB79     		ldrb	r3, [r7, #6]	@ zero_extendqisi2
+ 19060 009c 022B     		cmp	r3, #2
+ 19061 009e 13D1     		bne	.L71
+ 19062              		.loc 1 632 0 discriminator 9
+ 19063 00a0 45F65043 		movw	r3, #23632
+ 19064 00a4 C4F20003 		movt	r3, 16384
+ 19065 00a8 1B68     		ldr	r3, [r3, #0]
+ 19066 00aa 9BB2     		uxth	r3, r3
+ 19067 00ac 1A46     		mov	r2, r3
+ 19068 00ae FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 19069 00b0 4FEAC303 		lsl	r3, r3, #3
+ 19070 00b4 D218     		adds	r2, r2, r3
+ 19071 00b6 43F20203 		movw	r3, #12290
+ 19072 00ba C2F20003 		movt	r3, 8192
+ 19073 00be D318     		adds	r3, r2, r3
+ 19074 00c0 4FEA4303 		lsl	r3, r3, #1
+ 19075 00c4 BA88     		ldrh	r2, [r7, #4]
+ 19076 00c6 1A60     		str	r2, [r3, #0]
+ 19077              	.L71:
+ 19078              		.loc 1 632 0 discriminator 10
+ 19079 00c8 BB79     		ldrb	r3, [r7, #6]	@ zero_extendqisi2
+ 19080 00ca 012B     		cmp	r3, #1
+ 19081 00cc 40D1     		bne	.L73
+ 19082              	.LBB11:
+ 19083              		.loc 1 632 0 discriminator 11
+ 19084 00ce 45F65043 		movw	r3, #23632
+ 19085 00d2 C4F20003 		movt	r3, 16384
+ 19086 00d6 1B68     		ldr	r3, [r3, #0]
+ 19087 00d8 9BB2     		uxth	r3, r3
+ 19088 00da 1A46     		mov	r2, r3
+ 19089 00dc FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 19090 00de 4FEAC303 		lsl	r3, r3, #3
+ 19091 00e2 D218     		adds	r2, r2, r3
+ 19092 00e4 43F20603 		movw	r3, #12294
+ 19093 00e8 C2F20003 		movt	r3, 8192
+ 19094 00ec D318     		adds	r3, r2, r3
+ 19095 00ee 4FEA4303 		lsl	r3, r3, #1
+ 19096 00f2 FB60     		str	r3, [r7, #12]
+ 19097              	.LBB12:
+ 19098 00f4 BB88     		ldrh	r3, [r7, #4]
+ 19099 00f6 3E2B     		cmp	r3, #62
+ 19100 00f8 15D9     		bls	.L74
+ 19101              		.loc 1 632 0 discriminator 13
+ 19102 00fa BB88     		ldrh	r3, [r7, #4]
+ 19103 00fc 4FEA5313 		lsr	r3, r3, #5
+ 19104 0100 BB82     		strh	r3, [r7, #20]	@ movhi
+ 19105 0102 BB88     		ldrh	r3, [r7, #4]
+ 19106 0104 03F01F03 		and	r3, r3, #31
+ 19107 0108 002B     		cmp	r3, #0
+ 19108 010a 03D1     		bne	.L75
+ 19109              		.loc 1 632 0 discriminator 15
+ 19110 010c BB8A     		ldrh	r3, [r7, #20]	@ movhi
+ 19111 010e 03F1FF33 		add	r3, r3, #-1
+ 19112 0112 BB82     		strh	r3, [r7, #20]	@ movhi
+ 19113              	.L75:
+ 19114              		.loc 1 632 0 discriminator 16
+ 19115 0114 BB8A     		ldrh	r3, [r7, #20]
+ 19116 0116 4FEA8323 		lsl	r3, r3, #10
+ 19117 011a 43F40043 		orr	r3, r3, #32768
+ 19118 011e 1A46     		mov	r2, r3
+ 19119 0120 FB68     		ldr	r3, [r7, #12]
+ 19120 0122 1A60     		str	r2, [r3, #0]
+ 19121 0124 2BE0     		b	.L67
+ 19122              	.L74:
+ 19123              		.loc 1 632 0 discriminator 14
+ 19124 0126 BB88     		ldrh	r3, [r7, #4]
+ 19125 0128 4FEA5303 		lsr	r3, r3, #1
+ 19126 012c BB82     		strh	r3, [r7, #20]	@ movhi
+ 19127 012e BB88     		ldrh	r3, [r7, #4]
+ 19128 0130 03F00103 		and	r3, r3, #1
+ 19129 0134 DBB2     		uxtb	r3, r3
+ 19130 0136 002B     		cmp	r3, #0
+ 19131 0138 03D0     		beq	.L77
+ 19132              		.loc 1 632 0 discriminator 17
+ 19133 013a BB8A     		ldrh	r3, [r7, #20]	@ movhi
+ 19134 013c 03F10103 		add	r3, r3, #1
+ 19135 0140 BB82     		strh	r3, [r7, #20]	@ movhi
+ 19136              	.L77:
+ 19137              		.loc 1 632 0 discriminator 18
+ 19138 0142 BB8A     		ldrh	r3, [r7, #20]
+ 19139 0144 4FEA8323 		lsl	r3, r3, #10
+ 19140 0148 1A46     		mov	r2, r3
+ 19141 014a FB68     		ldr	r3, [r7, #12]
+ 19142 014c 1A60     		str	r2, [r3, #0]
+ 19143 014e 16E0     		b	.L67
+ 19144              	.L73:
+ 19145              	.LBE12:
+ 19146              	.LBE11:
+ 19147              		.loc 1 632 0 discriminator 12
+ 19148 0150 BB79     		ldrb	r3, [r7, #6]	@ zero_extendqisi2
+ 19149 0152 022B     		cmp	r3, #2
+ 19150 0154 13D1     		bne	.L67
+ 19151              		.loc 1 632 0 discriminator 19
+ 19152 0156 45F65043 		movw	r3, #23632
+ 19153 015a C4F20003 		movt	r3, 16384
+ 19154 015e 1B68     		ldr	r3, [r3, #0]
+ 19155 0160 9BB2     		uxth	r3, r3
+ 19156 0162 1A46     		mov	r2, r3
+ 19157 0164 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 19158 0166 4FEAC303 		lsl	r3, r3, #3
+ 19159 016a D218     		adds	r2, r2, r3
+ 19160 016c 43F20603 		movw	r3, #12294
+ 19161 0170 C2F20003 		movt	r3, 8192
+ 19162 0174 D318     		adds	r3, r2, r3
+ 19163 0176 4FEA4303 		lsl	r3, r3, #1
+ 19164 017a BA88     		ldrh	r2, [r7, #4]
+ 19165 017c 1A60     		str	r2, [r3, #0]
+ 19166              	.L67:
+ 633:../target/stm32/vcom/usb_regs.c **** }
+ 19167              		.loc 1 633 0 is_stmt 1
+ 19168 017e 07F11C07 		add	r7, r7, #28
+ 19169 0182 BD46     		mov	sp, r7
+ 19170 0184 80BC     		pop	{r7}
+ 19171 0186 7047     		bx	lr
+ 19172              		.cfi_endproc
+ 19173              	.LFE79:
+ 19175              		.section	.text.SetEPDblBuf0Count,"ax",%progbits
+ 19176              		.align	2
+ 19177              		.global	SetEPDblBuf0Count
+ 19178              		.thumb
+ 19179              		.thumb_func
+ 19181              	SetEPDblBuf0Count:
+ 19182              	.LFB80:
+ 634:../target/stm32/vcom/usb_regs.c **** /*******************************************************************************
+ 635:../target/stm32/vcom/usb_regs.c **** * Function Name  : SetEPDblBuf0Count
+ 636:../target/stm32/vcom/usb_regs.c **** * Description    : Set the number of bytes in the buffer 0 of a double Buffer 
+ 637:../target/stm32/vcom/usb_regs.c **** *                  endpoint.
+ 638:../target/stm32/vcom/usb_regs.c **** * Input          : bEpNum, bDir,  wCount
+ 639:../target/stm32/vcom/usb_regs.c **** * Output         : None.
+ 640:../target/stm32/vcom/usb_regs.c **** * Return         : None.
+ 641:../target/stm32/vcom/usb_regs.c **** *******************************************************************************/
+ 642:../target/stm32/vcom/usb_regs.c **** void SetEPDblBuf0Count(u8 bEpNum, u8 bDir, u16 wCount)
+ 643:../target/stm32/vcom/usb_regs.c **** {
+ 19183              		.loc 1 643 0
+ 19184              		.cfi_startproc
+ 19185              		@ args = 0, pretend = 0, frame = 16
+ 19186              		@ frame_needed = 1, uses_anonymous_args = 0
+ 19187              		@ link register save eliminated.
+ 19188 0000 80B4     		push	{r7}
+ 19189              	.LCFI148:
+ 19190              		.cfi_def_cfa_offset 4
+ 19191 0002 85B0     		sub	sp, sp, #20
+ 19192              	.LCFI149:
+ 19193              		.cfi_def_cfa_offset 24
+ 19194 0004 00AF     		add	r7, sp, #0
+ 19195              		.cfi_offset 7, -4
+ 19196              	.LCFI150:
+ 19197              		.cfi_def_cfa_register 7
+ 19198 0006 1346     		mov	r3, r2
+ 19199 0008 0246     		mov	r2, r0
+ 19200 000a FA71     		strb	r2, [r7, #7]
+ 19201 000c 0A46     		mov	r2, r1
+ 19202 000e BA71     		strb	r2, [r7, #6]
+ 19203 0010 BB80     		strh	r3, [r7, #4]	@ movhi
+ 644:../target/stm32/vcom/usb_regs.c ****   _SetEPDblBuf0Count(bEpNum, bDir, wCount);
+ 19204              		.loc 1 644 0
+ 19205 0012 BB79     		ldrb	r3, [r7, #6]	@ zero_extendqisi2
+ 19206 0014 012B     		cmp	r3, #1
+ 19207 0016 40D1     		bne	.L79
+ 19208              	.LBB13:
+ 19209              		.loc 1 644 0 is_stmt 0 discriminator 1
+ 19210 0018 45F65043 		movw	r3, #23632
+ 19211 001c C4F20003 		movt	r3, 16384
+ 19212 0020 1B68     		ldr	r3, [r3, #0]
+ 19213 0022 9BB2     		uxth	r3, r3
+ 19214 0024 1A46     		mov	r2, r3
+ 19215 0026 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 19216 0028 4FEAC303 		lsl	r3, r3, #3
+ 19217 002c D218     		adds	r2, r2, r3
+ 19218 002e 43F20203 		movw	r3, #12290
+ 19219 0032 C2F20003 		movt	r3, 8192
+ 19220 0036 D318     		adds	r3, r2, r3
+ 19221 0038 4FEA4303 		lsl	r3, r3, #1
+ 19222 003c BB60     		str	r3, [r7, #8]
+ 19223              	.LBB14:
+ 19224 003e BB88     		ldrh	r3, [r7, #4]
+ 19225 0040 3E2B     		cmp	r3, #62
+ 19226 0042 15D9     		bls	.L80
+ 19227              		.loc 1 644 0 discriminator 3
+ 19228 0044 BB88     		ldrh	r3, [r7, #4]
+ 19229 0046 4FEA5313 		lsr	r3, r3, #5
+ 19230 004a FB81     		strh	r3, [r7, #14]	@ movhi
+ 19231 004c BB88     		ldrh	r3, [r7, #4]
+ 19232 004e 03F01F03 		and	r3, r3, #31
+ 19233 0052 002B     		cmp	r3, #0
+ 19234 0054 03D1     		bne	.L81
+ 19235              		.loc 1 644 0 discriminator 5
+ 19236 0056 FB89     		ldrh	r3, [r7, #14]	@ movhi
+ 19237 0058 03F1FF33 		add	r3, r3, #-1
+ 19238 005c FB81     		strh	r3, [r7, #14]	@ movhi
+ 19239              	.L81:
+ 19240              		.loc 1 644 0 discriminator 6
+ 19241 005e FB89     		ldrh	r3, [r7, #14]
+ 19242 0060 4FEA8323 		lsl	r3, r3, #10
+ 19243 0064 43F40043 		orr	r3, r3, #32768
+ 19244 0068 1A46     		mov	r2, r3
+ 19245 006a BB68     		ldr	r3, [r7, #8]
+ 19246 006c 1A60     		str	r2, [r3, #0]
+ 19247 006e 2BE0     		b	.L78
+ 19248              	.L80:
+ 19249              		.loc 1 644 0 discriminator 4
+ 19250 0070 BB88     		ldrh	r3, [r7, #4]
+ 19251 0072 4FEA5303 		lsr	r3, r3, #1
+ 19252 0076 FB81     		strh	r3, [r7, #14]	@ movhi
+ 19253 0078 BB88     		ldrh	r3, [r7, #4]
+ 19254 007a 03F00103 		and	r3, r3, #1
+ 19255 007e DBB2     		uxtb	r3, r3
+ 19256 0080 002B     		cmp	r3, #0
+ 19257 0082 03D0     		beq	.L83
+ 19258              		.loc 1 644 0 discriminator 7
+ 19259 0084 FB89     		ldrh	r3, [r7, #14]	@ movhi
+ 19260 0086 03F10103 		add	r3, r3, #1
+ 19261 008a FB81     		strh	r3, [r7, #14]	@ movhi
+ 19262              	.L83:
+ 19263              		.loc 1 644 0 discriminator 8
+ 19264 008c FB89     		ldrh	r3, [r7, #14]
+ 19265 008e 4FEA8323 		lsl	r3, r3, #10
+ 19266 0092 1A46     		mov	r2, r3
+ 19267 0094 BB68     		ldr	r3, [r7, #8]
+ 19268 0096 1A60     		str	r2, [r3, #0]
+ 19269 0098 16E0     		b	.L78
+ 19270              	.L79:
+ 19271              	.LBE14:
+ 19272              	.LBE13:
+ 19273              		.loc 1 644 0 discriminator 2
+ 19274 009a BB79     		ldrb	r3, [r7, #6]	@ zero_extendqisi2
+ 19275 009c 022B     		cmp	r3, #2
+ 19276 009e 13D1     		bne	.L78
+ 19277              		.loc 1 644 0 discriminator 9
+ 19278 00a0 45F65043 		movw	r3, #23632
+ 19279 00a4 C4F20003 		movt	r3, 16384
+ 19280 00a8 1B68     		ldr	r3, [r3, #0]
+ 19281 00aa 9BB2     		uxth	r3, r3
+ 19282 00ac 1A46     		mov	r2, r3
+ 19283 00ae FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 19284 00b0 4FEAC303 		lsl	r3, r3, #3
+ 19285 00b4 D218     		adds	r2, r2, r3
+ 19286 00b6 43F20203 		movw	r3, #12290
+ 19287 00ba C2F20003 		movt	r3, 8192
+ 19288 00be D318     		adds	r3, r2, r3
+ 19289 00c0 4FEA4303 		lsl	r3, r3, #1
+ 19290 00c4 BA88     		ldrh	r2, [r7, #4]
+ 19291 00c6 1A60     		str	r2, [r3, #0]
+ 19292              	.L78:
+ 645:../target/stm32/vcom/usb_regs.c **** }
+ 19293              		.loc 1 645 0 is_stmt 1
+ 19294 00c8 07F11407 		add	r7, r7, #20
+ 19295 00cc BD46     		mov	sp, r7
+ 19296 00ce 80BC     		pop	{r7}
+ 19297 00d0 7047     		bx	lr
+ 19298              		.cfi_endproc
+ 19299              	.LFE80:
+ 19301 00d2 00BF     		.section	.text.SetEPDblBuf1Count,"ax",%progbits
+ 19302              		.align	2
+ 19303              		.global	SetEPDblBuf1Count
+ 19304              		.thumb
+ 19305              		.thumb_func
+ 19307              	SetEPDblBuf1Count:
+ 19308              	.LFB81:
+ 646:../target/stm32/vcom/usb_regs.c **** /*******************************************************************************
+ 647:../target/stm32/vcom/usb_regs.c **** * Function Name  : SetEPDblBuf1Count
+ 648:../target/stm32/vcom/usb_regs.c **** * Description    : Set the number of bytes in the buffer 0 of a double Buffer 
+ 649:../target/stm32/vcom/usb_regs.c **** *                  endpoint.
+ 650:../target/stm32/vcom/usb_regs.c **** * Input          : bEpNum,  bDir,  wCount
+ 651:../target/stm32/vcom/usb_regs.c **** * Output         : None.
+ 652:../target/stm32/vcom/usb_regs.c **** * Return         : None.
+ 653:../target/stm32/vcom/usb_regs.c **** *******************************************************************************/
+ 654:../target/stm32/vcom/usb_regs.c **** void SetEPDblBuf1Count(u8 bEpNum, u8 bDir, u16 wCount)
+ 655:../target/stm32/vcom/usb_regs.c **** {
+ 19309              		.loc 1 655 0
+ 19310              		.cfi_startproc
+ 19311              		@ args = 0, pretend = 0, frame = 16
+ 19312              		@ frame_needed = 1, uses_anonymous_args = 0
+ 19313              		@ link register save eliminated.
+ 19314 0000 80B4     		push	{r7}
+ 19315              	.LCFI151:
+ 19316              		.cfi_def_cfa_offset 4
+ 19317 0002 85B0     		sub	sp, sp, #20
+ 19318              	.LCFI152:
+ 19319              		.cfi_def_cfa_offset 24
+ 19320 0004 00AF     		add	r7, sp, #0
+ 19321              		.cfi_offset 7, -4
+ 19322              	.LCFI153:
+ 19323              		.cfi_def_cfa_register 7
+ 19324 0006 1346     		mov	r3, r2
+ 19325 0008 0246     		mov	r2, r0
+ 19326 000a FA71     		strb	r2, [r7, #7]
+ 19327 000c 0A46     		mov	r2, r1
+ 19328 000e BA71     		strb	r2, [r7, #6]
+ 19329 0010 BB80     		strh	r3, [r7, #4]	@ movhi
+ 656:../target/stm32/vcom/usb_regs.c ****   _SetEPDblBuf1Count(bEpNum, bDir, wCount);
+ 19330              		.loc 1 656 0
+ 19331 0012 BB79     		ldrb	r3, [r7, #6]	@ zero_extendqisi2
+ 19332 0014 012B     		cmp	r3, #1
+ 19333 0016 40D1     		bne	.L85
+ 19334              	.LBB15:
+ 19335              		.loc 1 656 0 is_stmt 0 discriminator 1
+ 19336 0018 45F65043 		movw	r3, #23632
+ 19337 001c C4F20003 		movt	r3, 16384
+ 19338 0020 1B68     		ldr	r3, [r3, #0]
+ 19339 0022 9BB2     		uxth	r3, r3
+ 19340 0024 1A46     		mov	r2, r3
+ 19341 0026 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 19342 0028 4FEAC303 		lsl	r3, r3, #3
+ 19343 002c D218     		adds	r2, r2, r3
+ 19344 002e 43F20603 		movw	r3, #12294
+ 19345 0032 C2F20003 		movt	r3, 8192
+ 19346 0036 D318     		adds	r3, r2, r3
+ 19347 0038 4FEA4303 		lsl	r3, r3, #1
+ 19348 003c BB60     		str	r3, [r7, #8]
+ 19349              	.LBB16:
+ 19350 003e BB88     		ldrh	r3, [r7, #4]
+ 19351 0040 3E2B     		cmp	r3, #62
+ 19352 0042 15D9     		bls	.L86
+ 19353              		.loc 1 656 0 discriminator 3
+ 19354 0044 BB88     		ldrh	r3, [r7, #4]
+ 19355 0046 4FEA5313 		lsr	r3, r3, #5
+ 19356 004a FB81     		strh	r3, [r7, #14]	@ movhi
+ 19357 004c BB88     		ldrh	r3, [r7, #4]
+ 19358 004e 03F01F03 		and	r3, r3, #31
+ 19359 0052 002B     		cmp	r3, #0
+ 19360 0054 03D1     		bne	.L87
+ 19361              		.loc 1 656 0 discriminator 5
+ 19362 0056 FB89     		ldrh	r3, [r7, #14]	@ movhi
+ 19363 0058 03F1FF33 		add	r3, r3, #-1
+ 19364 005c FB81     		strh	r3, [r7, #14]	@ movhi
+ 19365              	.L87:
+ 19366              		.loc 1 656 0 discriminator 6
+ 19367 005e FB89     		ldrh	r3, [r7, #14]
+ 19368 0060 4FEA8323 		lsl	r3, r3, #10
+ 19369 0064 43F40043 		orr	r3, r3, #32768
+ 19370 0068 1A46     		mov	r2, r3
+ 19371 006a BB68     		ldr	r3, [r7, #8]
+ 19372 006c 1A60     		str	r2, [r3, #0]
+ 19373 006e 2BE0     		b	.L84
+ 19374              	.L86:
+ 19375              		.loc 1 656 0 discriminator 4
+ 19376 0070 BB88     		ldrh	r3, [r7, #4]
+ 19377 0072 4FEA5303 		lsr	r3, r3, #1
+ 19378 0076 FB81     		strh	r3, [r7, #14]	@ movhi
+ 19379 0078 BB88     		ldrh	r3, [r7, #4]
+ 19380 007a 03F00103 		and	r3, r3, #1
+ 19381 007e DBB2     		uxtb	r3, r3
+ 19382 0080 002B     		cmp	r3, #0
+ 19383 0082 03D0     		beq	.L89
+ 19384              		.loc 1 656 0 discriminator 7
+ 19385 0084 FB89     		ldrh	r3, [r7, #14]	@ movhi
+ 19386 0086 03F10103 		add	r3, r3, #1
+ 19387 008a FB81     		strh	r3, [r7, #14]	@ movhi
+ 19388              	.L89:
+ 19389              		.loc 1 656 0 discriminator 8
+ 19390 008c FB89     		ldrh	r3, [r7, #14]
+ 19391 008e 4FEA8323 		lsl	r3, r3, #10
+ 19392 0092 1A46     		mov	r2, r3
+ 19393 0094 BB68     		ldr	r3, [r7, #8]
+ 19394 0096 1A60     		str	r2, [r3, #0]
+ 19395 0098 16E0     		b	.L84
+ 19396              	.L85:
+ 19397              	.LBE16:
+ 19398              	.LBE15:
+ 19399              		.loc 1 656 0 discriminator 2
+ 19400 009a BB79     		ldrb	r3, [r7, #6]	@ zero_extendqisi2
+ 19401 009c 022B     		cmp	r3, #2
+ 19402 009e 13D1     		bne	.L84
+ 19403              		.loc 1 656 0 discriminator 9
+ 19404 00a0 45F65043 		movw	r3, #23632
+ 19405 00a4 C4F20003 		movt	r3, 16384
+ 19406 00a8 1B68     		ldr	r3, [r3, #0]
+ 19407 00aa 9BB2     		uxth	r3, r3
+ 19408 00ac 1A46     		mov	r2, r3
+ 19409 00ae FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 19410 00b0 4FEAC303 		lsl	r3, r3, #3
+ 19411 00b4 D218     		adds	r2, r2, r3
+ 19412 00b6 43F20603 		movw	r3, #12294
+ 19413 00ba C2F20003 		movt	r3, 8192
+ 19414 00be D318     		adds	r3, r2, r3
+ 19415 00c0 4FEA4303 		lsl	r3, r3, #1
+ 19416 00c4 BA88     		ldrh	r2, [r7, #4]
+ 19417 00c6 1A60     		str	r2, [r3, #0]
+ 19418              	.L84:
+ 657:../target/stm32/vcom/usb_regs.c **** }
+ 19419              		.loc 1 657 0 is_stmt 1
+ 19420 00c8 07F11407 		add	r7, r7, #20
+ 19421 00cc BD46     		mov	sp, r7
+ 19422 00ce 80BC     		pop	{r7}
+ 19423 00d0 7047     		bx	lr
+ 19424              		.cfi_endproc
+ 19425              	.LFE81:
+ 19427 00d2 00BF     		.section	.text.GetEPDblBuf0Count,"ax",%progbits
+ 19428              		.align	2
+ 19429              		.global	GetEPDblBuf0Count
+ 19430              		.thumb
+ 19431              		.thumb_func
+ 19433              	GetEPDblBuf0Count:
+ 19434              	.LFB82:
+ 658:../target/stm32/vcom/usb_regs.c **** /*******************************************************************************
+ 659:../target/stm32/vcom/usb_regs.c **** * Function Name  : GetEPDblBuf0Count
+ 660:../target/stm32/vcom/usb_regs.c **** * Description    : Returns the number of byte received in the buffer 0 of a double
+ 661:../target/stm32/vcom/usb_regs.c **** *                  Buffer endpoint.
+ 662:../target/stm32/vcom/usb_regs.c **** * Input          : bEpNum: Endpoint Number.
+ 663:../target/stm32/vcom/usb_regs.c **** * Output         : None.
+ 664:../target/stm32/vcom/usb_regs.c **** * Return         : Endpoint Buffer 0 count
+ 665:../target/stm32/vcom/usb_regs.c **** *******************************************************************************/
+ 666:../target/stm32/vcom/usb_regs.c **** u16 GetEPDblBuf0Count(u8 bEpNum)
+ 667:../target/stm32/vcom/usb_regs.c **** {
+ 19435              		.loc 1 667 0
+ 19436              		.cfi_startproc
+ 19437              		@ args = 0, pretend = 0, frame = 8
+ 19438              		@ frame_needed = 1, uses_anonymous_args = 0
+ 19439              		@ link register save eliminated.
+ 19440 0000 80B4     		push	{r7}
+ 19441              	.LCFI154:
+ 19442              		.cfi_def_cfa_offset 4
+ 19443 0002 83B0     		sub	sp, sp, #12
+ 19444              	.LCFI155:
+ 19445              		.cfi_def_cfa_offset 16
+ 19446 0004 00AF     		add	r7, sp, #0
+ 19447              		.cfi_offset 7, -4
+ 19448              	.LCFI156:
+ 19449              		.cfi_def_cfa_register 7
+ 19450 0006 0346     		mov	r3, r0
+ 19451 0008 FB71     		strb	r3, [r7, #7]
+ 668:../target/stm32/vcom/usb_regs.c ****   return(_GetEPDblBuf0Count(bEpNum));
+ 19452              		.loc 1 668 0
+ 19453 000a 45F65043 		movw	r3, #23632
+ 19454 000e C4F20003 		movt	r3, 16384
+ 19455 0012 1B68     		ldr	r3, [r3, #0]
+ 19456 0014 9BB2     		uxth	r3, r3
+ 19457 0016 1A46     		mov	r2, r3
+ 19458 0018 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 19459 001a 4FEAC303 		lsl	r3, r3, #3
+ 19460 001e D218     		adds	r2, r2, r3
+ 19461 0020 43F20203 		movw	r3, #12290
+ 19462 0024 C2F20003 		movt	r3, 8192
+ 19463 0028 D318     		adds	r3, r2, r3
+ 19464 002a 4FEA4303 		lsl	r3, r3, #1
+ 19465 002e 1B68     		ldr	r3, [r3, #0]
+ 19466 0030 9BB2     		uxth	r3, r3
+ 19467 0032 4FEA8353 		lsl	r3, r3, #22
+ 19468 0036 4FEA9353 		lsr	r3, r3, #22
+ 19469 003a 9BB2     		uxth	r3, r3
+ 669:../target/stm32/vcom/usb_regs.c **** }
+ 19470              		.loc 1 669 0
+ 19471 003c 1846     		mov	r0, r3
+ 19472 003e 07F10C07 		add	r7, r7, #12
+ 19473 0042 BD46     		mov	sp, r7
+ 19474 0044 80BC     		pop	{r7}
+ 19475 0046 7047     		bx	lr
+ 19476              		.cfi_endproc
+ 19477              	.LFE82:
+ 19479              		.section	.text.GetEPDblBuf1Count,"ax",%progbits
+ 19480              		.align	2
+ 19481              		.global	GetEPDblBuf1Count
+ 19482              		.thumb
+ 19483              		.thumb_func
+ 19485              	GetEPDblBuf1Count:
+ 19486              	.LFB83:
+ 670:../target/stm32/vcom/usb_regs.c **** /*******************************************************************************
+ 671:../target/stm32/vcom/usb_regs.c **** * Function Name  : GetEPDblBuf1Count
+ 672:../target/stm32/vcom/usb_regs.c **** * Description    : Returns the number of data received in the buffer 1 of a double
+ 673:../target/stm32/vcom/usb_regs.c **** *                  Buffer endpoint.
+ 674:../target/stm32/vcom/usb_regs.c **** * Input          : bEpNum: Endpoint Number.
+ 675:../target/stm32/vcom/usb_regs.c **** * Output         : None.
+ 676:../target/stm32/vcom/usb_regs.c **** * Return         : Endpoint Buffer 1 count.
+ 677:../target/stm32/vcom/usb_regs.c **** *******************************************************************************/
+ 678:../target/stm32/vcom/usb_regs.c **** u16 GetEPDblBuf1Count(u8 bEpNum)
+ 679:../target/stm32/vcom/usb_regs.c **** {
+ 19487              		.loc 1 679 0
+ 19488              		.cfi_startproc
+ 19489              		@ args = 0, pretend = 0, frame = 8
+ 19490              		@ frame_needed = 1, uses_anonymous_args = 0
+ 19491              		@ link register save eliminated.
+ 19492 0000 80B4     		push	{r7}
+ 19493              	.LCFI157:
+ 19494              		.cfi_def_cfa_offset 4
+ 19495 0002 83B0     		sub	sp, sp, #12
+ 19496              	.LCFI158:
+ 19497              		.cfi_def_cfa_offset 16
+ 19498 0004 00AF     		add	r7, sp, #0
+ 19499              		.cfi_offset 7, -4
+ 19500              	.LCFI159:
+ 19501              		.cfi_def_cfa_register 7
+ 19502 0006 0346     		mov	r3, r0
+ 19503 0008 FB71     		strb	r3, [r7, #7]
+ 680:../target/stm32/vcom/usb_regs.c ****   return(_GetEPDblBuf1Count(bEpNum));
+ 19504              		.loc 1 680 0
+ 19505 000a 45F65043 		movw	r3, #23632
+ 19506 000e C4F20003 		movt	r3, 16384
+ 19507 0012 1B68     		ldr	r3, [r3, #0]
+ 19508 0014 9BB2     		uxth	r3, r3
+ 19509 0016 1A46     		mov	r2, r3
+ 19510 0018 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 19511 001a 4FEAC303 		lsl	r3, r3, #3
+ 19512 001e D218     		adds	r2, r2, r3
+ 19513 0020 43F20603 		movw	r3, #12294
+ 19514 0024 C2F20003 		movt	r3, 8192
+ 19515 0028 D318     		adds	r3, r2, r3
+ 19516 002a 4FEA4303 		lsl	r3, r3, #1
+ 19517 002e 1B68     		ldr	r3, [r3, #0]
+ 19518 0030 9BB2     		uxth	r3, r3
+ 19519 0032 4FEA8353 		lsl	r3, r3, #22
+ 19520 0036 4FEA9353 		lsr	r3, r3, #22
+ 19521 003a 9BB2     		uxth	r3, r3
+ 681:../target/stm32/vcom/usb_regs.c **** }
+ 19522              		.loc 1 681 0
+ 19523 003c 1846     		mov	r0, r3
+ 19524 003e 07F10C07 		add	r7, r7, #12
+ 19525 0042 BD46     		mov	sp, r7
+ 19526 0044 80BC     		pop	{r7}
+ 19527 0046 7047     		bx	lr
+ 19528              		.cfi_endproc
+ 19529              	.LFE83:
+ 19531              		.section	.text.GetEPDblBufDir,"ax",%progbits
+ 19532              		.align	2
+ 19533              		.global	GetEPDblBufDir
+ 19534              		.thumb
+ 19535              		.thumb_func
+ 19537              	GetEPDblBufDir:
+ 19538              	.LFB84:
+ 682:../target/stm32/vcom/usb_regs.c **** /*******************************************************************************
+ 683:../target/stm32/vcom/usb_regs.c **** * Function Name  : GetEPDblBufDir
+ 684:../target/stm32/vcom/usb_regs.c **** * Description    : gets direction of the double buffered endpoint
+ 685:../target/stm32/vcom/usb_regs.c **** * Input          : bEpNum: Endpoint Number. 
+ 686:../target/stm32/vcom/usb_regs.c **** * Output         : None.
+ 687:../target/stm32/vcom/usb_regs.c **** * Return         : EP_DBUF_OUT, EP_DBUF_IN,
+ 688:../target/stm32/vcom/usb_regs.c **** *                  EP_DBUF_ERR if the endpoint counter not yet programmed.
+ 689:../target/stm32/vcom/usb_regs.c **** *******************************************************************************/
+ 690:../target/stm32/vcom/usb_regs.c **** EP_DBUF_DIR GetEPDblBufDir(u8 bEpNum)
+ 691:../target/stm32/vcom/usb_regs.c **** {
+ 19539              		.loc 1 691 0
+ 19540              		.cfi_startproc
+ 19541              		@ args = 0, pretend = 0, frame = 8
+ 19542              		@ frame_needed = 1, uses_anonymous_args = 0
+ 19543              		@ link register save eliminated.
+ 19544 0000 80B4     		push	{r7}
+ 19545              	.LCFI160:
+ 19546              		.cfi_def_cfa_offset 4
+ 19547 0002 83B0     		sub	sp, sp, #12
+ 19548              	.LCFI161:
+ 19549              		.cfi_def_cfa_offset 16
+ 19550 0004 00AF     		add	r7, sp, #0
+ 19551              		.cfi_offset 7, -4
+ 19552              	.LCFI162:
+ 19553              		.cfi_def_cfa_register 7
+ 19554 0006 0346     		mov	r3, r0
+ 19555 0008 FB71     		strb	r3, [r7, #7]
+ 692:../target/stm32/vcom/usb_regs.c ****   if ((u16)(*_pEPRxCount(bEpNum) & 0xFC00) != 0)
+ 19556              		.loc 1 692 0
+ 19557 000a 45F65043 		movw	r3, #23632
+ 19558 000e C4F20003 		movt	r3, 16384
+ 19559 0012 1B68     		ldr	r3, [r3, #0]
+ 19560 0014 9BB2     		uxth	r3, r3
+ 19561 0016 1A46     		mov	r2, r3
+ 19562 0018 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 19563 001a 4FEAC303 		lsl	r3, r3, #3
+ 19564 001e D218     		adds	r2, r2, r3
+ 19565 0020 43F20603 		movw	r3, #12294
+ 19566 0024 C2F20003 		movt	r3, 8192
+ 19567 0028 D318     		adds	r3, r2, r3
+ 19568 002a 4FEA4303 		lsl	r3, r3, #1
+ 19569 002e 1B68     		ldr	r3, [r3, #0]
+ 19570 0030 9BB2     		uxth	r3, r3
+ 19571 0032 03F47C43 		and	r3, r3, #64512
+ 19572 0036 002B     		cmp	r3, #0
+ 19573 0038 02D0     		beq	.L93
+ 693:../target/stm32/vcom/usb_regs.c ****     return(EP_DBUF_OUT);
+ 19574              		.loc 1 693 0
+ 19575 003a 4FF00103 		mov	r3, #1
+ 19576 003e 1EE0     		b	.L94
+ 19577              	.L93:
+ 694:../target/stm32/vcom/usb_regs.c ****   else if (((u16)(*_pEPTxCount(bEpNum)) & 0x03FF) != 0)
+ 19578              		.loc 1 694 0
+ 19579 0040 45F65043 		movw	r3, #23632
+ 19580 0044 C4F20003 		movt	r3, 16384
+ 19581 0048 1B68     		ldr	r3, [r3, #0]
+ 19582 004a 9BB2     		uxth	r3, r3
+ 19583 004c 1A46     		mov	r2, r3
+ 19584 004e FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 19585 0050 4FEAC303 		lsl	r3, r3, #3
+ 19586 0054 D218     		adds	r2, r2, r3
+ 19587 0056 43F20203 		movw	r3, #12290
+ 19588 005a C2F20003 		movt	r3, 8192
+ 19589 005e D318     		adds	r3, r2, r3
+ 19590 0060 4FEA4303 		lsl	r3, r3, #1
+ 19591 0064 1B68     		ldr	r3, [r3, #0]
+ 19592 0066 9BB2     		uxth	r3, r3
+ 19593 0068 4FEA8353 		lsl	r3, r3, #22
+ 19594 006c 4FEA9353 		lsr	r3, r3, #22
+ 19595 0070 002B     		cmp	r3, #0
+ 19596 0072 02D0     		beq	.L95
+ 695:../target/stm32/vcom/usb_regs.c ****     return(EP_DBUF_IN);
+ 19597              		.loc 1 695 0
+ 19598 0074 4FF00203 		mov	r3, #2
+ 19599 0078 01E0     		b	.L94
+ 19600              	.L95:
+ 696:../target/stm32/vcom/usb_regs.c ****   else
+ 697:../target/stm32/vcom/usb_regs.c ****     return(EP_DBUF_ERR);
+ 19601              		.loc 1 697 0
+ 19602 007a 4FF00003 		mov	r3, #0
+ 19603              	.L94:
+ 698:../target/stm32/vcom/usb_regs.c **** }
+ 19604              		.loc 1 698 0
+ 19605 007e 1846     		mov	r0, r3
+ 19606 0080 07F10C07 		add	r7, r7, #12
+ 19607 0084 BD46     		mov	sp, r7
+ 19608 0086 80BC     		pop	{r7}
+ 19609 0088 7047     		bx	lr
+ 19610              		.cfi_endproc
+ 19611              	.LFE84:
+ 19613 008a 00BF     		.section	.text.FreeUserBuffer,"ax",%progbits
+ 19614              		.align	2
+ 19615              		.global	FreeUserBuffer
+ 19616              		.thumb
+ 19617              		.thumb_func
+ 19619              	FreeUserBuffer:
+ 19620              	.LFB85:
+ 699:../target/stm32/vcom/usb_regs.c **** /*******************************************************************************
+ 700:../target/stm32/vcom/usb_regs.c **** * Function Name  : FreeUserBuffer
+ 701:../target/stm32/vcom/usb_regs.c **** * Description    : free buffer used from the application realizing it to the line
+ 702:../target/stm32/vcom/usb_regs.c ****                    toggles bit SW_BUF in the double buffered endpoint register
+ 703:../target/stm32/vcom/usb_regs.c **** * Input          : bEpNum, bDir
+ 704:../target/stm32/vcom/usb_regs.c **** * Output         : None.
+ 705:../target/stm32/vcom/usb_regs.c **** * Return         : None.
+ 706:../target/stm32/vcom/usb_regs.c **** *******************************************************************************/
+ 707:../target/stm32/vcom/usb_regs.c **** void FreeUserBuffer(u8 bEpNum, u8 bDir)
+ 708:../target/stm32/vcom/usb_regs.c **** {
+ 19621              		.loc 1 708 0
+ 19622              		.cfi_startproc
+ 19623              		@ args = 0, pretend = 0, frame = 8
+ 19624              		@ frame_needed = 1, uses_anonymous_args = 0
+ 19625              		@ link register save eliminated.
+ 19626 0000 80B4     		push	{r7}
+ 19627              	.LCFI163:
+ 19628              		.cfi_def_cfa_offset 4
+ 19629 0002 83B0     		sub	sp, sp, #12
+ 19630              	.LCFI164:
+ 19631              		.cfi_def_cfa_offset 16
+ 19632 0004 00AF     		add	r7, sp, #0
+ 19633              		.cfi_offset 7, -4
+ 19634              	.LCFI165:
+ 19635              		.cfi_def_cfa_register 7
+ 19636 0006 0246     		mov	r2, r0
+ 19637 0008 0B46     		mov	r3, r1
+ 19638 000a FA71     		strb	r2, [r7, #7]
+ 19639 000c BB71     		strb	r3, [r7, #6]
+ 709:../target/stm32/vcom/usb_regs.c ****   if (bDir == EP_DBUF_OUT)
+ 19640              		.loc 1 709 0
+ 19641 000e BB79     		ldrb	r3, [r7, #6]	@ zero_extendqisi2
+ 19642 0010 012B     		cmp	r3, #1
+ 19643 0012 18D1     		bne	.L97
+ 710:../target/stm32/vcom/usb_regs.c ****   { /* OUT double buffered endpoint */
+ 711:../target/stm32/vcom/usb_regs.c ****     _ToggleDTOG_TX(bEpNum);
+ 19644              		.loc 1 711 0
+ 19645 0014 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 19646 0016 4FEA8303 		lsl	r3, r3, #2
+ 19647 001a 03F18043 		add	r3, r3, #1073741824
+ 19648 001e 03F5B843 		add	r3, r3, #23552
+ 19649 0022 FA79     		ldrb	r2, [r7, #7]	@ zero_extendqisi2
+ 19650 0024 4FEA8202 		lsl	r2, r2, #2
+ 19651 0028 02F18042 		add	r2, r2, #1073741824
+ 19652 002c 02F5B842 		add	r2, r2, #23552
+ 19653 0030 1268     		ldr	r2, [r2, #0]
+ 19654 0032 92B2     		uxth	r2, r2
+ 19655 0034 1146     		mov	r1, r2
+ 19656 0036 48F68F72 		movw	r2, #36751
+ 19657 003a 01EA0202 		and	r2, r1, r2
+ 19658 003e 42F04002 		orr	r2, r2, #64
+ 19659 0042 1A60     		str	r2, [r3, #0]
+ 19660 0044 1AE0     		b	.L96
+ 19661              	.L97:
+ 712:../target/stm32/vcom/usb_regs.c ****   }
+ 713:../target/stm32/vcom/usb_regs.c ****   else if (bDir == EP_DBUF_IN)
+ 19662              		.loc 1 713 0
+ 19663 0046 BB79     		ldrb	r3, [r7, #6]	@ zero_extendqisi2
+ 19664 0048 022B     		cmp	r3, #2
+ 19665 004a 17D1     		bne	.L96
+ 714:../target/stm32/vcom/usb_regs.c ****   { /* IN double buffered endpoint */
+ 715:../target/stm32/vcom/usb_regs.c ****     _ToggleDTOG_RX(bEpNum);
+ 19666              		.loc 1 715 0
+ 19667 004c FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 19668 004e 4FEA8303 		lsl	r3, r3, #2
+ 19669 0052 03F18043 		add	r3, r3, #1073741824
+ 19670 0056 03F5B843 		add	r3, r3, #23552
+ 19671 005a FA79     		ldrb	r2, [r7, #7]	@ zero_extendqisi2
+ 19672 005c 4FEA8202 		lsl	r2, r2, #2
+ 19673 0060 02F18042 		add	r2, r2, #1073741824
+ 19674 0064 02F5B842 		add	r2, r2, #23552
+ 19675 0068 1268     		ldr	r2, [r2, #0]
+ 19676 006a 92B2     		uxth	r2, r2
+ 19677 006c 1146     		mov	r1, r2
+ 19678 006e 48F68F72 		movw	r2, #36751
+ 19679 0072 01EA0202 		and	r2, r1, r2
+ 19680 0076 42F48042 		orr	r2, r2, #16384
+ 19681 007a 1A60     		str	r2, [r3, #0]
+ 19682              	.L96:
+ 716:../target/stm32/vcom/usb_regs.c ****   }
+ 717:../target/stm32/vcom/usb_regs.c **** }
+ 19683              		.loc 1 717 0
+ 19684 007c 07F10C07 		add	r7, r7, #12
+ 19685 0080 BD46     		mov	sp, r7
+ 19686 0082 80BC     		pop	{r7}
+ 19687 0084 7047     		bx	lr
+ 19688              		.cfi_endproc
+ 19689              	.LFE85:
+ 19691 0086 00BF     		.section	.text.ToWord,"ax",%progbits
+ 19692              		.align	2
+ 19693              		.global	ToWord
+ 19694              		.thumb
+ 19695              		.thumb_func
+ 19697              	ToWord:
+ 19698              	.LFB86:
+ 718:../target/stm32/vcom/usb_regs.c **** 
+ 719:../target/stm32/vcom/usb_regs.c **** /*******************************************************************************
+ 720:../target/stm32/vcom/usb_regs.c **** * Function Name  : ToWord
+ 721:../target/stm32/vcom/usb_regs.c **** * Description    : merge two byte in a word.
+ 722:../target/stm32/vcom/usb_regs.c **** * Input          : bh: byte high, bl: bytes low.
+ 723:../target/stm32/vcom/usb_regs.c **** * Output         : None.
+ 724:../target/stm32/vcom/usb_regs.c **** * Return         : resulted word.
+ 725:../target/stm32/vcom/usb_regs.c **** *******************************************************************************/
+ 726:../target/stm32/vcom/usb_regs.c **** u16 ToWord(u8 bh, u8 bl)
+ 727:../target/stm32/vcom/usb_regs.c **** {
+ 19699              		.loc 1 727 0
+ 19700              		.cfi_startproc
+ 19701              		@ args = 0, pretend = 0, frame = 16
+ 19702              		@ frame_needed = 1, uses_anonymous_args = 0
+ 19703              		@ link register save eliminated.
+ 19704 0000 80B4     		push	{r7}
+ 19705              	.LCFI166:
+ 19706              		.cfi_def_cfa_offset 4
+ 19707 0002 85B0     		sub	sp, sp, #20
+ 19708              	.LCFI167:
+ 19709              		.cfi_def_cfa_offset 24
+ 19710 0004 00AF     		add	r7, sp, #0
+ 19711              		.cfi_offset 7, -4
+ 19712              	.LCFI168:
+ 19713              		.cfi_def_cfa_register 7
+ 19714 0006 0246     		mov	r2, r0
+ 19715 0008 0B46     		mov	r3, r1
+ 19716 000a FA71     		strb	r2, [r7, #7]
+ 19717 000c BB71     		strb	r3, [r7, #6]
+ 728:../target/stm32/vcom/usb_regs.c ****   u16 wRet;
+ 729:../target/stm32/vcom/usb_regs.c ****   wRet = (u16)bl | ((u16)bh << 8);
+ 19718              		.loc 1 729 0
+ 19719 000e BB79     		ldrb	r3, [r7, #6]	@ zero_extendqisi2
+ 19720 0010 9AB2     		uxth	r2, r3
+ 19721 0012 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 19722 0014 4FEA0323 		lsl	r3, r3, #8
+ 19723 0018 9BB2     		uxth	r3, r3
+ 19724 001a 42EA0303 		orr	r3, r2, r3
+ 19725 001e 9BB2     		uxth	r3, r3
+ 19726 0020 FB81     		strh	r3, [r7, #14]	@ movhi
+ 730:../target/stm32/vcom/usb_regs.c ****   return(wRet);
+ 19727              		.loc 1 730 0
+ 19728 0022 FB89     		ldrh	r3, [r7, #14]
+ 731:../target/stm32/vcom/usb_regs.c **** }
+ 19729              		.loc 1 731 0
+ 19730 0024 1846     		mov	r0, r3
+ 19731 0026 07F11407 		add	r7, r7, #20
+ 19732 002a BD46     		mov	sp, r7
+ 19733 002c 80BC     		pop	{r7}
+ 19734 002e 7047     		bx	lr
+ 19735              		.cfi_endproc
+ 19736              	.LFE86:
+ 19738              		.section	.text.ByteSwap,"ax",%progbits
+ 19739              		.align	2
+ 19740              		.global	ByteSwap
+ 19741              		.thumb
+ 19742              		.thumb_func
+ 19744              	ByteSwap:
+ 19745              	.LFB87:
+ 732:../target/stm32/vcom/usb_regs.c **** /*******************************************************************************
+ 733:../target/stm32/vcom/usb_regs.c **** * Function Name  : ByteSwap
+ 734:../target/stm32/vcom/usb_regs.c **** * Description    : Swap two byte in a word.
+ 735:../target/stm32/vcom/usb_regs.c **** * Input          : wSwW: word to Swap.
+ 736:../target/stm32/vcom/usb_regs.c **** * Output         : None.
+ 737:../target/stm32/vcom/usb_regs.c **** * Return         : resulted word.
+ 738:../target/stm32/vcom/usb_regs.c **** *******************************************************************************/
+ 739:../target/stm32/vcom/usb_regs.c **** u16 ByteSwap(u16 wSwW)
+ 740:../target/stm32/vcom/usb_regs.c **** {
+ 19746              		.loc 1 740 0
+ 19747              		.cfi_startproc
+ 19748              		@ args = 0, pretend = 0, frame = 16
+ 19749              		@ frame_needed = 1, uses_anonymous_args = 0
+ 19750              		@ link register save eliminated.
+ 19751 0000 80B4     		push	{r7}
+ 19752              	.LCFI169:
+ 19753              		.cfi_def_cfa_offset 4
+ 19754 0002 85B0     		sub	sp, sp, #20
+ 19755              	.LCFI170:
+ 19756              		.cfi_def_cfa_offset 24
+ 19757 0004 00AF     		add	r7, sp, #0
+ 19758              		.cfi_offset 7, -4
+ 19759              	.LCFI171:
+ 19760              		.cfi_def_cfa_register 7
+ 19761 0006 0346     		mov	r3, r0
+ 19762 0008 FB80     		strh	r3, [r7, #6]	@ movhi
+ 741:../target/stm32/vcom/usb_regs.c ****   u8 bTemp;
+ 742:../target/stm32/vcom/usb_regs.c ****   u16 wRet;
+ 743:../target/stm32/vcom/usb_regs.c ****   bTemp = (u8)(wSwW & 0xff);
+ 19763              		.loc 1 743 0
+ 19764 000a FB88     		ldrh	r3, [r7, #6]	@ movhi
+ 19765 000c FB73     		strb	r3, [r7, #15]
+ 744:../target/stm32/vcom/usb_regs.c ****   wRet =  (wSwW >> 8) | ((u16)bTemp << 8);
+ 19766              		.loc 1 744 0
+ 19767 000e FB88     		ldrh	r3, [r7, #6]
+ 19768 0010 4FEA1323 		lsr	r3, r3, #8
+ 19769 0014 9BB2     		uxth	r3, r3
+ 19770 0016 9AB2     		uxth	r2, r3
+ 19771 0018 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 19772 001a 4FEA0323 		lsl	r3, r3, #8
+ 19773 001e 9BB2     		uxth	r3, r3
+ 19774 0020 42EA0303 		orr	r3, r2, r3
+ 19775 0024 9BB2     		uxth	r3, r3
+ 19776 0026 BB81     		strh	r3, [r7, #12]	@ movhi
+ 745:../target/stm32/vcom/usb_regs.c ****   return(wRet);
+ 19777              		.loc 1 745 0
+ 19778 0028 BB89     		ldrh	r3, [r7, #12]
+ 746:../target/stm32/vcom/usb_regs.c **** }
+ 19779              		.loc 1 746 0
+ 19780 002a 1846     		mov	r0, r3
+ 19781 002c 07F11407 		add	r7, r7, #20
+ 19782 0030 BD46     		mov	sp, r7
+ 19783 0032 80BC     		pop	{r7}
+ 19784 0034 7047     		bx	lr
+ 19785              		.cfi_endproc
+ 19786              	.LFE87:
+ 19788 0036 00BF     		.text
+ 19789              	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 usb_regs.c
+     /tmp/cc1ZUbva.s:16441  .text.SetCNTR:00000000 $t
+     /tmp/cc1ZUbva.s:16446  .text.SetCNTR:00000000 SetCNTR
+     /tmp/cc1ZUbva.s:16479  .text.GetCNTR:00000000 $t
+     /tmp/cc1ZUbva.s:16484  .text.GetCNTR:00000000 GetCNTR
+     /tmp/cc1ZUbva.s:16512  .text.SetISTR:00000000 $t
+     /tmp/cc1ZUbva.s:16517  .text.SetISTR:00000000 SetISTR
+     /tmp/cc1ZUbva.s:16550  .text.GetISTR:00000000 $t
+     /tmp/cc1ZUbva.s:16555  .text.GetISTR:00000000 GetISTR
+     /tmp/cc1ZUbva.s:16583  .text.GetFNR:00000000 $t
+     /tmp/cc1ZUbva.s:16588  .text.GetFNR:00000000 GetFNR
+     /tmp/cc1ZUbva.s:16616  .text.SetDADDR:00000000 $t
+     /tmp/cc1ZUbva.s:16621  .text.SetDADDR:00000000 SetDADDR
+     /tmp/cc1ZUbva.s:16654  .text.GetDADDR:00000000 $t
+     /tmp/cc1ZUbva.s:16659  .text.GetDADDR:00000000 GetDADDR
+     /tmp/cc1ZUbva.s:16687  .text.SetBTABLE:00000000 $t
+     /tmp/cc1ZUbva.s:16692  .text.SetBTABLE:00000000 SetBTABLE
+     /tmp/cc1ZUbva.s:16727  .text.GetBTABLE:00000000 $t
+     /tmp/cc1ZUbva.s:16732  .text.GetBTABLE:00000000 GetBTABLE
+     /tmp/cc1ZUbva.s:16760  .text.SetENDPOINT:00000000 $t
+     /tmp/cc1ZUbva.s:16765  .text.SetENDPOINT:00000000 SetENDPOINT
+     /tmp/cc1ZUbva.s:16802  .text.GetENDPOINT:00000000 $t
+     /tmp/cc1ZUbva.s:16807  .text.GetENDPOINT:00000000 GetENDPOINT
+     /tmp/cc1ZUbva.s:16843  .text.SetEPType:00000000 $t
+     /tmp/cc1ZUbva.s:16848  .text.SetEPType:00000000 SetEPType
+     /tmp/cc1ZUbva.s:16897  .text.GetEPType:00000000 $t
+     /tmp/cc1ZUbva.s:16902  .text.GetEPType:00000000 GetEPType
+     /tmp/cc1ZUbva.s:16940  .text.SetEPTxStatus:00000000 $t
+     /tmp/cc1ZUbva.s:16945  .text.SetEPTxStatus:00000000 SetEPTxStatus
+     /tmp/cc1ZUbva.s:17014  .text.SetEPRxStatus:00000000 $t
+     /tmp/cc1ZUbva.s:17019  .text.SetEPRxStatus:00000000 SetEPRxStatus
+     /tmp/cc1ZUbva.s:17088  .text.SetDouBleBuffEPStall:00000000 $t
+     /tmp/cc1ZUbva.s:17093  .text.SetDouBleBuffEPStall:00000000 SetDouBleBuffEPStall
+     /tmp/cc1ZUbva.s:17155  .text.GetEPTxStatus:00000000 $t
+     /tmp/cc1ZUbva.s:17160  .text.GetEPTxStatus:00000000 GetEPTxStatus
+     /tmp/cc1ZUbva.s:17198  .text.GetEPRxStatus:00000000 $t
+     /tmp/cc1ZUbva.s:17203  .text.GetEPRxStatus:00000000 GetEPRxStatus
+     /tmp/cc1ZUbva.s:17241  .text.SetEPTxValid:00000000 $t
+     /tmp/cc1ZUbva.s:17246  .text.SetEPTxValid:00000000 SetEPTxValid
+     /tmp/cc1ZUbva.s:17297  .text.SetEPRxValid:00000000 $t
+     /tmp/cc1ZUbva.s:17302  .text.SetEPRxValid:00000000 SetEPRxValid
+     /tmp/cc1ZUbva.s:17353  .text.SetEP_KIND:00000000 $t
+     /tmp/cc1ZUbva.s:17358  .text.SetEP_KIND:00000000 SetEP_KIND
+     /tmp/cc1ZUbva.s:17403  .text.ClearEP_KIND:00000000 $t
+     /tmp/cc1ZUbva.s:17408  .text.ClearEP_KIND:00000000 ClearEP_KIND
+     /tmp/cc1ZUbva.s:17451  .text.Clear_Status_Out:00000000 $t
+     /tmp/cc1ZUbva.s:17456  .text.Clear_Status_Out:00000000 Clear_Status_Out
+     /tmp/cc1ZUbva.s:17499  .text.Set_Status_Out:00000000 $t
+     /tmp/cc1ZUbva.s:17504  .text.Set_Status_Out:00000000 Set_Status_Out
+     /tmp/cc1ZUbva.s:17549  .text.SetEPDoubleBuff:00000000 $t
+     /tmp/cc1ZUbva.s:17554  .text.SetEPDoubleBuff:00000000 SetEPDoubleBuff
+     /tmp/cc1ZUbva.s:17599  .text.ClearEPDoubleBuff:00000000 $t
+     /tmp/cc1ZUbva.s:17604  .text.ClearEPDoubleBuff:00000000 ClearEPDoubleBuff
+     /tmp/cc1ZUbva.s:17647  .text.GetTxStallStatus:00000000 $t
+     /tmp/cc1ZUbva.s:17652  .text.GetTxStallStatus:00000000 GetTxStallStatus
+     /tmp/cc1ZUbva.s:17694  .text.GetRxStallStatus:00000000 $t
+     /tmp/cc1ZUbva.s:17699  .text.GetRxStallStatus:00000000 GetRxStallStatus
+     /tmp/cc1ZUbva.s:17741  .text.ClearEP_CTR_RX:00000000 $t
+     /tmp/cc1ZUbva.s:17746  .text.ClearEP_CTR_RX:00000000 ClearEP_CTR_RX
+     /tmp/cc1ZUbva.s:17789  .text.ClearEP_CTR_TX:00000000 $t
+     /tmp/cc1ZUbva.s:17794  .text.ClearEP_CTR_TX:00000000 ClearEP_CTR_TX
+     /tmp/cc1ZUbva.s:17837  .text.ToggleDTOG_RX:00000000 $t
+     /tmp/cc1ZUbva.s:17842  .text.ToggleDTOG_RX:00000000 ToggleDTOG_RX
+     /tmp/cc1ZUbva.s:17886  .text.ToggleDTOG_TX:00000000 $t
+     /tmp/cc1ZUbva.s:17891  .text.ToggleDTOG_TX:00000000 ToggleDTOG_TX
+     /tmp/cc1ZUbva.s:17935  .text.ClearDTOG_RX:00000000 $t
+     /tmp/cc1ZUbva.s:17940  .text.ClearDTOG_RX:00000000 ClearDTOG_RX
+     /tmp/cc1ZUbva.s:17995  .text.ClearDTOG_TX:00000000 $t
+     /tmp/cc1ZUbva.s:18000  .text.ClearDTOG_TX:00000000 ClearDTOG_TX
+     /tmp/cc1ZUbva.s:18055  .text.SetEPAddress:00000000 $t
+     /tmp/cc1ZUbva.s:18060  .text.SetEPAddress:00000000 SetEPAddress
+     /tmp/cc1ZUbva.s:18107  .text.GetEPAddress:00000000 $t
+     /tmp/cc1ZUbva.s:18112  .text.GetEPAddress:00000000 GetEPAddress
+     /tmp/cc1ZUbva.s:18150  .text.SetEPTxAddr:00000000 $t
+     /tmp/cc1ZUbva.s:18155  .text.SetEPTxAddr:00000000 SetEPTxAddr
+     /tmp/cc1ZUbva.s:18202  .text.SetEPRxAddr:00000000 $t
+     /tmp/cc1ZUbva.s:18207  .text.SetEPRxAddr:00000000 SetEPRxAddr
+     /tmp/cc1ZUbva.s:18255  .text.GetEPTxAddr:00000000 $t
+     /tmp/cc1ZUbva.s:18260  .text.GetEPTxAddr:00000000 GetEPTxAddr
+     /tmp/cc1ZUbva.s:18303  .text.GetEPRxAddr:00000000 $t
+     /tmp/cc1ZUbva.s:18308  .text.GetEPRxAddr:00000000 GetEPRxAddr
+     /tmp/cc1ZUbva.s:18352  .text.SetEPTxCount:00000000 $t
+     /tmp/cc1ZUbva.s:18357  .text.SetEPTxCount:00000000 SetEPTxCount
+     /tmp/cc1ZUbva.s:18402  .text.SetEPCountRxReg:00000000 $t
+     /tmp/cc1ZUbva.s:18407  .text.SetEPCountRxReg:00000000 SetEPCountRxReg
+     /tmp/cc1ZUbva.s:18485  .text.SetEPRxCount:00000000 $t
+     /tmp/cc1ZUbva.s:18490  .text.SetEPRxCount:00000000 SetEPRxCount
+     /tmp/cc1ZUbva.s:18584  .text.GetEPTxCount:00000000 $t
+     /tmp/cc1ZUbva.s:18589  .text.GetEPTxCount:00000000 GetEPTxCount
+     /tmp/cc1ZUbva.s:18636  .text.GetEPRxCount:00000000 $t
+     /tmp/cc1ZUbva.s:18641  .text.GetEPRxCount:00000000 GetEPRxCount
+     /tmp/cc1ZUbva.s:18688  .text.SetEPDblBuffAddr:00000000 $t
+     /tmp/cc1ZUbva.s:18693  .text.SetEPDblBuffAddr:00000000 SetEPDblBuffAddr
+     /tmp/cc1ZUbva.s:18759  .text.SetEPDblBuf0Addr:00000000 $t
+     /tmp/cc1ZUbva.s:18764  .text.SetEPDblBuf0Addr:00000000 SetEPDblBuf0Addr
+     /tmp/cc1ZUbva.s:18811  .text.SetEPDblBuf1Addr:00000000 $t
+     /tmp/cc1ZUbva.s:18816  .text.SetEPDblBuf1Addr:00000000 SetEPDblBuf1Addr
+     /tmp/cc1ZUbva.s:18864  .text.GetEPDblBuf0Addr:00000000 $t
+     /tmp/cc1ZUbva.s:18869  .text.GetEPDblBuf0Addr:00000000 GetEPDblBuf0Addr
+     /tmp/cc1ZUbva.s:18912  .text.GetEPDblBuf1Addr:00000000 $t
+     /tmp/cc1ZUbva.s:18917  .text.GetEPDblBuf1Addr:00000000 GetEPDblBuf1Addr
+     /tmp/cc1ZUbva.s:18961  .text.SetEPDblBuffCount:00000000 $t
+     /tmp/cc1ZUbva.s:18966  .text.SetEPDblBuffCount:00000000 SetEPDblBuffCount
+     /tmp/cc1ZUbva.s:19176  .text.SetEPDblBuf0Count:00000000 $t
+     /tmp/cc1ZUbva.s:19181  .text.SetEPDblBuf0Count:00000000 SetEPDblBuf0Count
+     /tmp/cc1ZUbva.s:19302  .text.SetEPDblBuf1Count:00000000 $t
+     /tmp/cc1ZUbva.s:19307  .text.SetEPDblBuf1Count:00000000 SetEPDblBuf1Count
+     /tmp/cc1ZUbva.s:19428  .text.GetEPDblBuf0Count:00000000 $t
+     /tmp/cc1ZUbva.s:19433  .text.GetEPDblBuf0Count:00000000 GetEPDblBuf0Count
+     /tmp/cc1ZUbva.s:19480  .text.GetEPDblBuf1Count:00000000 $t
+     /tmp/cc1ZUbva.s:19485  .text.GetEPDblBuf1Count:00000000 GetEPDblBuf1Count
+     /tmp/cc1ZUbva.s:19532  .text.GetEPDblBufDir:00000000 $t
+     /tmp/cc1ZUbva.s:19537  .text.GetEPDblBufDir:00000000 GetEPDblBufDir
+     /tmp/cc1ZUbva.s:19614  .text.FreeUserBuffer:00000000 $t
+     /tmp/cc1ZUbva.s:19619  .text.FreeUserBuffer:00000000 FreeUserBuffer
+     /tmp/cc1ZUbva.s:19692  .text.ToWord:00000000 $t
+     /tmp/cc1ZUbva.s:19697  .text.ToWord:00000000 ToWord
+     /tmp/cc1ZUbva.s:19739  .text.ByteSwap:00000000 $t
+     /tmp/cc1ZUbva.s:19744  .text.ByteSwap:00000000 ByteSwap
+                     .debug_frame:00000010 $d
+
+NO UNDEFINED SYMBOLS

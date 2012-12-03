@@ -1,0 +1,224 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"usb_hw.c"
+  23              	.Ltext0:
+  24              		.file 1 "../target/stm32/vcom/usb_hw.c"
+ 16580              		.align	2
+ 16581              		.global	Enter_LowPowerMode
+ 16582              		.thumb
+ 16583              		.thumb_func
+ 16585              	Enter_LowPowerMode:
+ 16586              	.LFB31:
+   1:../target/stm32/vcom/usb_hw.c **** /******************** (C) COPYRIGHT 2007 STMicroelectronics ********************
+   2:../target/stm32/vcom/usb_hw.c **** * File Name          : hw_config.c
+   3:../target/stm32/vcom/usb_hw.c **** * Author             : MCD Application Team
+   4:../target/stm32/vcom/usb_hw.c **** * Version            : V1.0
+   5:../target/stm32/vcom/usb_hw.c **** * Date               : 10/08/2007
+   6:../target/stm32/vcom/usb_hw.c **** * Description        : Hardware Configuration & Setup
+   7:../target/stm32/vcom/usb_hw.c **** ********************************************************************************
+   8:../target/stm32/vcom/usb_hw.c **** * THE PRESENT SOFTWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
+   9:../target/stm32/vcom/usb_hw.c **** * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE TIME.
+  10:../target/stm32/vcom/usb_hw.c **** * AS A RESULT, STMICROELECTRONICS SHALL NOT BE HELD LIABLE FOR ANY DIRECT,
+  11:../target/stm32/vcom/usb_hw.c **** * INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING FROM THE
+  12:../target/stm32/vcom/usb_hw.c **** * CONTENT OF SUCH SOFTWARE AND/OR THE USE MADE BY CUSTOMERS OF THE CODING
+  13:../target/stm32/vcom/usb_hw.c **** * INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
+  14:../target/stm32/vcom/usb_hw.c **** *******************************************************************************/
+  15:../target/stm32/vcom/usb_hw.c **** 
+  16:../target/stm32/vcom/usb_hw.c **** /* Includes ------------------------------------------------------------------*/
+  17:../target/stm32/vcom/usb_hw.c **** #include "stm32f10x_lib.h"
+  18:../target/stm32/vcom/usb_hw.c **** #include "usb_lib.h"
+  19:../target/stm32/vcom/usb_hw.c **** #include "usb_prop.h"
+  20:../target/stm32/vcom/usb_hw.c **** #include "usb_desc.h"
+  21:../target/stm32/vcom/usb_hw.c **** #include "usb_endp.h"
+  22:../target/stm32/vcom/usb_hw.c **** #include "usb_hw.h"
+  23:../target/stm32/vcom/usb_hw.c **** 
+  24:../target/stm32/vcom/usb_hw.c **** /* Private typedef -----------------------------------------------------------*/
+  25:../target/stm32/vcom/usb_hw.c **** /* Private define ------------------------------------------------------------*/
+  26:../target/stm32/vcom/usb_hw.c **** /* Private macro -------------------------------------------------------------*/
+  27:../target/stm32/vcom/usb_hw.c **** /* Private variables ---------------------------------------------------------*/
+  28:../target/stm32/vcom/usb_hw.c **** /* Extern variables ----------------------------------------------------------*/
+  29:../target/stm32/vcom/usb_hw.c **** /* Private function prototypes -----------------------------------------------*/
+  30:../target/stm32/vcom/usb_hw.c **** /* Private functions ---------------------------------------------------------*/
+  31:../target/stm32/vcom/usb_hw.c **** 
+  32:../target/stm32/vcom/usb_hw.c **** /*******************************************************************************
+  33:../target/stm32/vcom/usb_hw.c **** * Function Name  : Enter_LowPowerMode
+  34:../target/stm32/vcom/usb_hw.c **** * Description    : Power-off system clocks and power while entering suspend mode
+  35:../target/stm32/vcom/usb_hw.c **** * Input          : None.
+  36:../target/stm32/vcom/usb_hw.c **** * Return         : None.
+  37:../target/stm32/vcom/usb_hw.c **** *******************************************************************************/
+  38:../target/stm32/vcom/usb_hw.c **** void Enter_LowPowerMode(void)
+  39:../target/stm32/vcom/usb_hw.c **** {
+ 16587              		.loc 1 39 0
+ 16588              		.cfi_startproc
+ 16589              		@ args = 0, pretend = 0, frame = 0
+ 16590              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16591              		@ link register save eliminated.
+ 16592 0000 80B4     		push	{r7}
+ 16593              	.LCFI0:
+ 16594              		.cfi_def_cfa_offset 4
+ 16595 0002 00AF     		add	r7, sp, #0
+ 16596              		.cfi_offset 7, -4
+ 16597              	.LCFI1:
+ 16598              		.cfi_def_cfa_register 7
+  40:../target/stm32/vcom/usb_hw.c **** }
+ 16599              		.loc 1 40 0
+ 16600 0004 BD46     		mov	sp, r7
+ 16601 0006 80BC     		pop	{r7}
+ 16602 0008 7047     		bx	lr
+ 16603              		.cfi_endproc
+ 16604              	.LFE31:
+ 16606 000a 00BF     		.section	.text.Leave_LowPowerMode,"ax",%progbits
+ 16607              		.align	2
+ 16608              		.global	Leave_LowPowerMode
+ 16609              		.thumb
+ 16610              		.thumb_func
+ 16612              	Leave_LowPowerMode:
+ 16613              	.LFB32:
+  41:../target/stm32/vcom/usb_hw.c **** 
+  42:../target/stm32/vcom/usb_hw.c **** /*******************************************************************************
+  43:../target/stm32/vcom/usb_hw.c **** * Function Name  : Leave_LowPowerMode
+  44:../target/stm32/vcom/usb_hw.c **** * Description    : Restores system clocks and power while exiting suspend mode
+  45:../target/stm32/vcom/usb_hw.c **** * Input          : None.
+  46:../target/stm32/vcom/usb_hw.c **** * Return         : None.
+  47:../target/stm32/vcom/usb_hw.c **** *******************************************************************************/
+  48:../target/stm32/vcom/usb_hw.c **** void Leave_LowPowerMode(void)
+  49:../target/stm32/vcom/usb_hw.c **** {
+ 16614              		.loc 1 49 0
+ 16615              		.cfi_startproc
+ 16616              		@ args = 0, pretend = 0, frame = 0
+ 16617              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16618              		@ link register save eliminated.
+ 16619 0000 80B4     		push	{r7}
+ 16620              	.LCFI2:
+ 16621              		.cfi_def_cfa_offset 4
+ 16622 0002 00AF     		add	r7, sp, #0
+ 16623              		.cfi_offset 7, -4
+ 16624              	.LCFI3:
+ 16625              		.cfi_def_cfa_register 7
+  50:../target/stm32/vcom/usb_hw.c **** }
+ 16626              		.loc 1 50 0
+ 16627 0004 BD46     		mov	sp, r7
+ 16628 0006 80BC     		pop	{r7}
+ 16629 0008 7047     		bx	lr
+ 16630              		.cfi_endproc
+ 16631              	.LFE32:
+ 16633 000a 00BF     		.section	.text.LineCoding_Reset,"ax",%progbits
+ 16634              		.align	2
+ 16635              		.global	LineCoding_Reset
+ 16636              		.thumb
+ 16637              		.thumb_func
+ 16639              	LineCoding_Reset:
+ 16640              	.LFB33:
+  51:../target/stm32/vcom/usb_hw.c **** 
+  52:../target/stm32/vcom/usb_hw.c **** /*******************************************************************************
+  53:../target/stm32/vcom/usb_hw.c **** * Function Name  :  LineCoding_Reset.
+  54:../target/stm32/vcom/usb_hw.c **** * Description    :  Called to reset the linecoding structure.
+  55:../target/stm32/vcom/usb_hw.c **** * Input          :  None.
+  56:../target/stm32/vcom/usb_hw.c **** * Return         :  None.
+  57:../target/stm32/vcom/usb_hw.c **** *******************************************************************************/
+  58:../target/stm32/vcom/usb_hw.c **** void LineCoding_Reset(void)
+  59:../target/stm32/vcom/usb_hw.c **** {
+ 16641              		.loc 1 59 0
+ 16642              		.cfi_startproc
+ 16643              		@ args = 0, pretend = 0, frame = 0
+ 16644              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16645              		@ link register save eliminated.
+ 16646 0000 80B4     		push	{r7}
+ 16647              	.LCFI4:
+ 16648              		.cfi_def_cfa_offset 4
+ 16649 0002 00AF     		add	r7, sp, #0
+ 16650              		.cfi_offset 7, -4
+ 16651              	.LCFI5:
+ 16652              		.cfi_def_cfa_register 7
+  60:../target/stm32/vcom/usb_hw.c ****   linecoding.bitrate = 115200;	// 115200 baud
+ 16653              		.loc 1 60 0
+ 16654 0004 40F20003 		movw	r3, #:lower16:linecoding
+ 16655 0008 C0F20003 		movt	r3, #:upper16:linecoding
+ 16656 000c 4FF4E132 		mov	r2, #115200
+ 16657 0010 1A60     		str	r2, [r3, #0]
+  61:../target/stm32/vcom/usb_hw.c ****   linecoding.format = 0;		// 1 stop bit
+ 16658              		.loc 1 61 0
+ 16659 0012 40F20003 		movw	r3, #:lower16:linecoding
+ 16660 0016 C0F20003 		movt	r3, #:upper16:linecoding
+ 16661 001a 4FF00002 		mov	r2, #0
+ 16662 001e 1A71     		strb	r2, [r3, #4]
+  62:../target/stm32/vcom/usb_hw.c ****   linecoding.paritytype = 0;	// no parity
+ 16663              		.loc 1 62 0
+ 16664 0020 40F20003 		movw	r3, #:lower16:linecoding
+ 16665 0024 C0F20003 		movt	r3, #:upper16:linecoding
+ 16666 0028 4FF00002 		mov	r2, #0
+ 16667 002c 5A71     		strb	r2, [r3, #5]
+  63:../target/stm32/vcom/usb_hw.c ****   linecoding.datatype = 8;		// 8 data bits
+ 16668              		.loc 1 63 0
+ 16669 002e 40F20003 		movw	r3, #:lower16:linecoding
+ 16670 0032 C0F20003 		movt	r3, #:upper16:linecoding
+ 16671 0036 4FF00802 		mov	r2, #8
+ 16672 003a 9A71     		strb	r2, [r3, #6]
+  64:../target/stm32/vcom/usb_hw.c **** }
+ 16673              		.loc 1 64 0
+ 16674 003c BD46     		mov	sp, r7
+ 16675 003e 80BC     		pop	{r7}
+ 16676 0040 7047     		bx	lr
+ 16677              		.cfi_endproc
+ 16678              	.LFE33:
+ 16680 0042 00BF     		.section	.text.LineCoding_Update,"ax",%progbits
+ 16681              		.align	2
+ 16682              		.global	LineCoding_Update
+ 16683              		.thumb
+ 16684              		.thumb_func
+ 16686              	LineCoding_Update:
+ 16687              	.LFB34:
+  65:../target/stm32/vcom/usb_hw.c **** 
+  66:../target/stm32/vcom/usb_hw.c **** /*******************************************************************************
+  67:../target/stm32/vcom/usb_hw.c **** * Function Name  :  LineCoding_Update.
+  68:../target/stm32/vcom/usb_hw.c **** * Description    :  Called after linecoding structure is updated.
+  69:../target/stm32/vcom/usb_hw.c **** * Input          :  None.
+  70:../target/stm32/vcom/usb_hw.c **** * Return         :  None.
+  71:../target/stm32/vcom/usb_hw.c **** *******************************************************************************/
+  72:../target/stm32/vcom/usb_hw.c **** void LineCoding_Update(void)
+  73:../target/stm32/vcom/usb_hw.c **** {
+ 16688              		.loc 1 73 0
+ 16689              		.cfi_startproc
+ 16690              		@ args = 0, pretend = 0, frame = 0
+ 16691              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16692              		@ link register save eliminated.
+ 16693 0000 80B4     		push	{r7}
+ 16694              	.LCFI6:
+ 16695              		.cfi_def_cfa_offset 4
+ 16696 0002 00AF     		add	r7, sp, #0
+ 16697              		.cfi_offset 7, -4
+ 16698              	.LCFI7:
+ 16699              		.cfi_def_cfa_register 7
+  74:../target/stm32/vcom/usb_hw.c **** }
+ 16700              		.loc 1 74 0
+ 16701 0004 BD46     		mov	sp, r7
+ 16702 0006 80BC     		pop	{r7}
+ 16703 0008 7047     		bx	lr
+ 16704              		.cfi_endproc
+ 16705              	.LFE34:
+ 16707 000a 00BF     		.text
+ 16708              	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 usb_hw.c
+     /tmp/ccALZvOG.s:16580  .text.Enter_LowPowerMode:00000000 $t
+     /tmp/ccALZvOG.s:16585  .text.Enter_LowPowerMode:00000000 Enter_LowPowerMode
+     /tmp/ccALZvOG.s:16607  .text.Leave_LowPowerMode:00000000 $t
+     /tmp/ccALZvOG.s:16612  .text.Leave_LowPowerMode:00000000 Leave_LowPowerMode
+     /tmp/ccALZvOG.s:16634  .text.LineCoding_Reset:00000000 $t
+     /tmp/ccALZvOG.s:16639  .text.LineCoding_Reset:00000000 LineCoding_Reset
+     /tmp/ccALZvOG.s:16681  .text.LineCoding_Update:00000000 $t
+     /tmp/ccALZvOG.s:16686  .text.LineCoding_Update:00000000 LineCoding_Update
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+linecoding

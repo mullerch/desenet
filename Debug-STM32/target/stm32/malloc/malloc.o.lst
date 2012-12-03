@@ -1,0 +1,325 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"malloc.c"
+  23              	.Ltext0:
+  24              		.file 1 "../target/stm32/malloc/malloc.c"
+ 1445              		.align	2
+ 1446              		.global	malloc
+ 1447              		.thumb
+ 1448              		.thumb_func
+ 1450              	malloc:
+ 1451              	.LFB0:
+   1:../target/stm32/malloc/malloc.c **** /* VxWorks provides its own version of malloc, and we can't use this
+   2:../target/stm32/malloc/malloc.c ****    one because VxWorks does not provide sbrk.  So we have a hook to
+   3:../target/stm32/malloc/malloc.c ****    not compile this code.  */
+   4:../target/stm32/malloc/malloc.c **** 
+   5:../target/stm32/malloc/malloc.c **** /* The routines here are simple cover fns to the routines that do the real
+   6:../target/stm32/malloc/malloc.c ****    work (the reentrant versions).  */
+   7:../target/stm32/malloc/malloc.c **** /* FIXME: Does the warning below (see WARNINGS) about non-reentrancy still
+   8:../target/stm32/malloc/malloc.c ****    apply?  A first guess would be "no", but how about reentrancy in the *same*
+   9:../target/stm32/malloc/malloc.c ****    thread?  */
+  10:../target/stm32/malloc/malloc.c **** 
+  11:../target/stm32/malloc/malloc.c **** #ifdef MALLOC_PROVIDED
+  12:../target/stm32/malloc/malloc.c **** 
+  13:../target/stm32/malloc/malloc.c **** int _dummy_malloc = 1;
+  14:../target/stm32/malloc/malloc.c **** 
+  15:../target/stm32/malloc/malloc.c **** #else
+  16:../target/stm32/malloc/malloc.c **** 
+  17:../target/stm32/malloc/malloc.c **** /*
+  18:../target/stm32/malloc/malloc.c **** FUNCTION
+  19:../target/stm32/malloc/malloc.c **** <<malloc>>, <<realloc>>, <<free>>---manage memory
+  20:../target/stm32/malloc/malloc.c **** 
+  21:../target/stm32/malloc/malloc.c **** INDEX
+  22:../target/stm32/malloc/malloc.c **** 	malloc
+  23:../target/stm32/malloc/malloc.c **** INDEX
+  24:../target/stm32/malloc/malloc.c **** 	realloc
+  25:../target/stm32/malloc/malloc.c **** INDEX
+  26:../target/stm32/malloc/malloc.c **** 	reallocf
+  27:../target/stm32/malloc/malloc.c **** INDEX
+  28:../target/stm32/malloc/malloc.c **** 	free
+  29:../target/stm32/malloc/malloc.c **** INDEX
+  30:../target/stm32/malloc/malloc.c **** 	memalign
+  31:../target/stm32/malloc/malloc.c **** INDEX
+  32:../target/stm32/malloc/malloc.c **** 	malloc_usable_size
+  33:../target/stm32/malloc/malloc.c **** INDEX
+  34:../target/stm32/malloc/malloc.c **** 	_malloc_r
+  35:../target/stm32/malloc/malloc.c **** INDEX
+  36:../target/stm32/malloc/malloc.c **** 	_realloc_r
+  37:../target/stm32/malloc/malloc.c **** INDEX
+  38:../target/stm32/malloc/malloc.c **** 	_reallocf_r
+  39:../target/stm32/malloc/malloc.c **** INDEX
+  40:../target/stm32/malloc/malloc.c **** 	_free_r
+  41:../target/stm32/malloc/malloc.c **** INDEX
+  42:../target/stm32/malloc/malloc.c **** 	_memalign_r
+  43:../target/stm32/malloc/malloc.c **** INDEX
+  44:../target/stm32/malloc/malloc.c **** 	_malloc_usable_size_r
+  45:../target/stm32/malloc/malloc.c **** 
+  46:../target/stm32/malloc/malloc.c **** ANSI_SYNOPSIS
+  47:../target/stm32/malloc/malloc.c **** 	#include <stdlib.h>
+  48:../target/stm32/malloc/malloc.c **** 	void *malloc(size_t <[nbytes]>);
+  49:../target/stm32/malloc/malloc.c **** 	void *realloc(void *<[aptr]>, size_t <[nbytes]>);
+  50:../target/stm32/malloc/malloc.c **** 	void *reallocf(void *<[aptr]>, size_t <[nbytes]>);
+  51:../target/stm32/malloc/malloc.c **** 	void free(void *<[aptr]>);
+  52:../target/stm32/malloc/malloc.c **** 
+  53:../target/stm32/malloc/malloc.c **** 	void *memalign(size_t <[align]>, size_t <[nbytes]>);
+  54:../target/stm32/malloc/malloc.c **** 
+  55:../target/stm32/malloc/malloc.c **** 	size_t malloc_usable_size(void *<[aptr]>);
+  56:../target/stm32/malloc/malloc.c **** 
+  57:../target/stm32/malloc/malloc.c **** 	void *_malloc_r(void *<[reent]>, size_t <[nbytes]>);
+  58:../target/stm32/malloc/malloc.c **** 	void *_realloc_r(void *<[reent]>, 
+  59:../target/stm32/malloc/malloc.c ****                          void *<[aptr]>, size_t <[nbytes]>);
+  60:../target/stm32/malloc/malloc.c **** 	void *_reallocf_r(void *<[reent]>, 
+  61:../target/stm32/malloc/malloc.c ****                          void *<[aptr]>, size_t <[nbytes]>);
+  62:../target/stm32/malloc/malloc.c **** 	void _free_r(void *<[reent]>, void *<[aptr]>);
+  63:../target/stm32/malloc/malloc.c **** 
+  64:../target/stm32/malloc/malloc.c **** 	void *_memalign_r(void *<[reent]>,
+  65:../target/stm32/malloc/malloc.c **** 			  size_t <[align]>, size_t <[nbytes]>);
+  66:../target/stm32/malloc/malloc.c **** 
+  67:../target/stm32/malloc/malloc.c **** 	size_t _malloc_usable_size_r(void *<[reent]>, void *<[aptr]>);
+  68:../target/stm32/malloc/malloc.c **** 
+  69:../target/stm32/malloc/malloc.c **** TRAD_SYNOPSIS
+  70:../target/stm32/malloc/malloc.c **** 	#include <stdlib.h>
+  71:../target/stm32/malloc/malloc.c **** 	char *malloc(<[nbytes]>)
+  72:../target/stm32/malloc/malloc.c **** 	size_t <[nbytes]>;
+  73:../target/stm32/malloc/malloc.c **** 
+  74:../target/stm32/malloc/malloc.c **** 	char *realloc(<[aptr]>, <[nbytes]>)
+  75:../target/stm32/malloc/malloc.c **** 	char *<[aptr]>;
+  76:../target/stm32/malloc/malloc.c **** 	size_t <[nbytes]>;
+  77:../target/stm32/malloc/malloc.c **** 
+  78:../target/stm32/malloc/malloc.c **** 	char *reallocf(<[aptr]>, <[nbytes]>)
+  79:../target/stm32/malloc/malloc.c **** 	char *<[aptr]>;
+  80:../target/stm32/malloc/malloc.c **** 	size_t <[nbytes]>;
+  81:../target/stm32/malloc/malloc.c **** 
+  82:../target/stm32/malloc/malloc.c **** 	void free(<[aptr]>)
+  83:../target/stm32/malloc/malloc.c **** 	char *<[aptr]>;
+  84:../target/stm32/malloc/malloc.c **** 
+  85:../target/stm32/malloc/malloc.c **** 	char *memalign(<[align]>, <[nbytes]>)
+  86:../target/stm32/malloc/malloc.c **** 	size_t <[align]>;
+  87:../target/stm32/malloc/malloc.c **** 	size_t <[nbytes]>;
+  88:../target/stm32/malloc/malloc.c **** 
+  89:../target/stm32/malloc/malloc.c **** 	size_t malloc_usable_size(<[aptr]>)
+  90:../target/stm32/malloc/malloc.c **** 	char *<[aptr]>;
+  91:../target/stm32/malloc/malloc.c **** 
+  92:../target/stm32/malloc/malloc.c **** 	char *_malloc_r(<[reent]>,<[nbytes]>)
+  93:../target/stm32/malloc/malloc.c **** 	char *<[reent]>;
+  94:../target/stm32/malloc/malloc.c **** 	size_t <[nbytes]>;
+  95:../target/stm32/malloc/malloc.c **** 
+  96:../target/stm32/malloc/malloc.c **** 	char *_realloc_r(<[reent]>, <[aptr]>, <[nbytes]>)
+  97:../target/stm32/malloc/malloc.c **** 	char *<[reent]>;
+  98:../target/stm32/malloc/malloc.c **** 	char *<[aptr]>;
+  99:../target/stm32/malloc/malloc.c **** 	size_t <[nbytes]>;
+ 100:../target/stm32/malloc/malloc.c **** 
+ 101:../target/stm32/malloc/malloc.c **** 	char *_reallocf_r(<[reent]>, <[aptr]>, <[nbytes]>)
+ 102:../target/stm32/malloc/malloc.c **** 	char *<[reent]>;
+ 103:../target/stm32/malloc/malloc.c **** 	char *<[aptr]>;
+ 104:../target/stm32/malloc/malloc.c **** 	size_t <[nbytes]>;
+ 105:../target/stm32/malloc/malloc.c **** 
+ 106:../target/stm32/malloc/malloc.c **** 	void _free_r(<[reent]>, <[aptr]>)
+ 107:../target/stm32/malloc/malloc.c **** 	char *<[reent]>;
+ 108:../target/stm32/malloc/malloc.c **** 	char *<[aptr]>;
+ 109:../target/stm32/malloc/malloc.c **** 
+ 110:../target/stm32/malloc/malloc.c **** 	char *_memalign_r(<[reent]>, <[align]>, <[nbytes]>)
+ 111:../target/stm32/malloc/malloc.c **** 	char *<[reent]>;
+ 112:../target/stm32/malloc/malloc.c **** 	size_t <[align]>;
+ 113:../target/stm32/malloc/malloc.c **** 	size_t <[nbytes]>;
+ 114:../target/stm32/malloc/malloc.c **** 
+ 115:../target/stm32/malloc/malloc.c **** 	size_t malloc_usable_size(<[reent]>, <[aptr]>)
+ 116:../target/stm32/malloc/malloc.c **** 	char *<[reent]>;
+ 117:../target/stm32/malloc/malloc.c **** 	char *<[aptr]>;
+ 118:../target/stm32/malloc/malloc.c **** 
+ 119:../target/stm32/malloc/malloc.c **** DESCRIPTION
+ 120:../target/stm32/malloc/malloc.c **** These functions manage a pool of system memory.
+ 121:../target/stm32/malloc/malloc.c **** 
+ 122:../target/stm32/malloc/malloc.c **** Use <<malloc>> to request allocation of an object with at least
+ 123:../target/stm32/malloc/malloc.c **** <[nbytes]> bytes of storage available.  If the space is available,
+ 124:../target/stm32/malloc/malloc.c **** <<malloc>> returns a pointer to a newly allocated block as its result.
+ 125:../target/stm32/malloc/malloc.c **** 
+ 126:../target/stm32/malloc/malloc.c **** If you already have a block of storage allocated by <<malloc>>, but
+ 127:../target/stm32/malloc/malloc.c **** you no longer need all the space allocated to it, you can make it
+ 128:../target/stm32/malloc/malloc.c **** smaller by calling <<realloc>> with both the object pointer and the
+ 129:../target/stm32/malloc/malloc.c **** new desired size as arguments.  <<realloc>> guarantees that the
+ 130:../target/stm32/malloc/malloc.c **** contents of the smaller object match the beginning of the original object.
+ 131:../target/stm32/malloc/malloc.c **** 
+ 132:../target/stm32/malloc/malloc.c **** Similarly, if you need more space for an object, use <<realloc>> to
+ 133:../target/stm32/malloc/malloc.c **** request the larger size; again, <<realloc>> guarantees that the
+ 134:../target/stm32/malloc/malloc.c **** beginning of the new, larger object matches the contents of the
+ 135:../target/stm32/malloc/malloc.c **** original object.
+ 136:../target/stm32/malloc/malloc.c **** 
+ 137:../target/stm32/malloc/malloc.c **** When you no longer need an object originally allocated by <<malloc>>
+ 138:../target/stm32/malloc/malloc.c **** or <<realloc>> (or the related function <<calloc>>), return it to the
+ 139:../target/stm32/malloc/malloc.c **** memory storage pool by calling <<free>> with the address of the object
+ 140:../target/stm32/malloc/malloc.c **** as the argument.  You can also use <<realloc>> for this purpose by
+ 141:../target/stm32/malloc/malloc.c **** calling it with <<0>> as the <[nbytes]> argument.
+ 142:../target/stm32/malloc/malloc.c **** 
+ 143:../target/stm32/malloc/malloc.c **** The <<reallocf>> function behaves just like <<realloc>> except if the
+ 144:../target/stm32/malloc/malloc.c **** function is required to allocate new storage and this fails.  In this
+ 145:../target/stm32/malloc/malloc.c **** case <<reallocf>> will free the original object passed in whereas
+ 146:../target/stm32/malloc/malloc.c **** <<realloc>> will not.
+ 147:../target/stm32/malloc/malloc.c **** 
+ 148:../target/stm32/malloc/malloc.c **** The <<memalign>> function returns a block of size <[nbytes]> aligned
+ 149:../target/stm32/malloc/malloc.c **** to a <[align]> boundary.  The <[align]> argument must be a power of
+ 150:../target/stm32/malloc/malloc.c **** two.
+ 151:../target/stm32/malloc/malloc.c **** 
+ 152:../target/stm32/malloc/malloc.c **** The <<malloc_usable_size>> function takes a pointer to a block
+ 153:../target/stm32/malloc/malloc.c **** allocated by <<malloc>>.  It returns the amount of space that is
+ 154:../target/stm32/malloc/malloc.c **** available in the block.  This may or may not be more than the size
+ 155:../target/stm32/malloc/malloc.c **** requested from <<malloc>>, due to alignment or minimum size
+ 156:../target/stm32/malloc/malloc.c **** constraints.
+ 157:../target/stm32/malloc/malloc.c **** 
+ 158:../target/stm32/malloc/malloc.c **** The alternate functions <<_malloc_r>>, <<_realloc_r>>, <<_reallocf_r>>, 
+ 159:../target/stm32/malloc/malloc.c **** <<_free_r>>, <<_memalign_r>>, and <<_malloc_usable_size_r>> are reentrant
+ 160:../target/stm32/malloc/malloc.c **** versions.  The extra argument <[reent]> is a pointer to a reentrancy structure.
+ 161:../target/stm32/malloc/malloc.c **** 
+ 162:../target/stm32/malloc/malloc.c **** If you have multiple threads of execution which may call any of these
+ 163:../target/stm32/malloc/malloc.c **** routines, or if any of these routines may be called reentrantly, then
+ 164:../target/stm32/malloc/malloc.c **** you must provide implementations of the <<__malloc_lock>> and
+ 165:../target/stm32/malloc/malloc.c **** <<__malloc_unlock>> functions for your system.  See the documentation
+ 166:../target/stm32/malloc/malloc.c **** for those functions.
+ 167:../target/stm32/malloc/malloc.c **** 
+ 168:../target/stm32/malloc/malloc.c **** These functions operate by calling the function <<_sbrk_r>> or
+ 169:../target/stm32/malloc/malloc.c **** <<sbrk>>, which allocates space.  You may need to provide one of these
+ 170:../target/stm32/malloc/malloc.c **** functions for your system.  <<_sbrk_r>> is called with a positive
+ 171:../target/stm32/malloc/malloc.c **** value to allocate more space, and with a negative value to release
+ 172:../target/stm32/malloc/malloc.c **** previously allocated space if it is no longer required.
+ 173:../target/stm32/malloc/malloc.c **** @xref{Stubs}.
+ 174:../target/stm32/malloc/malloc.c **** 
+ 175:../target/stm32/malloc/malloc.c **** RETURNS
+ 176:../target/stm32/malloc/malloc.c **** <<malloc>> returns a pointer to the newly allocated space, if
+ 177:../target/stm32/malloc/malloc.c **** successful; otherwise it returns <<NULL>>.  If your application needs
+ 178:../target/stm32/malloc/malloc.c **** to generate empty objects, you may use <<malloc(0)>> for this purpose.
+ 179:../target/stm32/malloc/malloc.c **** 
+ 180:../target/stm32/malloc/malloc.c **** <<realloc>> returns a pointer to the new block of memory, or <<NULL>>
+ 181:../target/stm32/malloc/malloc.c **** if a new block could not be allocated.  <<NULL>> is also the result
+ 182:../target/stm32/malloc/malloc.c **** when you use `<<realloc(<[aptr]>,0)>>' (which has the same effect as
+ 183:../target/stm32/malloc/malloc.c **** `<<free(<[aptr]>)>>').  You should always check the result of
+ 184:../target/stm32/malloc/malloc.c **** <<realloc>>; successful reallocation is not guaranteed even when
+ 185:../target/stm32/malloc/malloc.c **** you request a smaller object.
+ 186:../target/stm32/malloc/malloc.c **** 
+ 187:../target/stm32/malloc/malloc.c **** <<free>> does not return a result.
+ 188:../target/stm32/malloc/malloc.c **** 
+ 189:../target/stm32/malloc/malloc.c **** <<memalign>> returns a pointer to the newly allocated space.
+ 190:../target/stm32/malloc/malloc.c **** 
+ 191:../target/stm32/malloc/malloc.c **** <<malloc_usable_size>> returns the usable size.
+ 192:../target/stm32/malloc/malloc.c **** 
+ 193:../target/stm32/malloc/malloc.c **** PORTABILITY
+ 194:../target/stm32/malloc/malloc.c **** <<malloc>>, <<realloc>>, and <<free>> are specified by the ANSI C
+ 195:../target/stm32/malloc/malloc.c **** standard, but other conforming implementations of <<malloc>> may
+ 196:../target/stm32/malloc/malloc.c **** behave differently when <[nbytes]> is zero.
+ 197:../target/stm32/malloc/malloc.c **** 
+ 198:../target/stm32/malloc/malloc.c **** <<memalign>> is part of SVR4.
+ 199:../target/stm32/malloc/malloc.c **** 
+ 200:../target/stm32/malloc/malloc.c **** <<malloc_usable_size>> is not portable.
+ 201:../target/stm32/malloc/malloc.c **** 
+ 202:../target/stm32/malloc/malloc.c **** Supporting OS subroutines required: <<sbrk>>.  */
+ 203:../target/stm32/malloc/malloc.c **** 
+ 204:../target/stm32/malloc/malloc.c **** #include <_ansi.h>
+ 205:../target/stm32/malloc/malloc.c **** #include <reent.h>
+ 206:../target/stm32/malloc/malloc.c **** #include <stdlib.h>
+ 207:../target/stm32/malloc/malloc.c **** #include <malloc.h>
+ 208:../target/stm32/malloc/malloc.c **** 
+ 209:../target/stm32/malloc/malloc.c **** #ifndef _REENT_ONLY
+ 210:../target/stm32/malloc/malloc.c **** 
+ 211:../target/stm32/malloc/malloc.c **** _PTR
+ 212:../target/stm32/malloc/malloc.c **** _DEFUN (malloc, (nbytes),
+ 213:../target/stm32/malloc/malloc.c **** 	size_t nbytes)		/* get a block */
+ 214:../target/stm32/malloc/malloc.c **** {
+ 1452              		.loc 1 214 0
+ 1453              		.cfi_startproc
+ 1454              		@ args = 0, pretend = 0, frame = 8
+ 1455              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1456 0000 80B5     		push	{r7, lr}
+ 1457              	.LCFI0:
+ 1458              		.cfi_def_cfa_offset 8
+ 1459 0002 82B0     		sub	sp, sp, #8
+ 1460              	.LCFI1:
+ 1461              		.cfi_def_cfa_offset 16
+ 1462 0004 00AF     		add	r7, sp, #0
+ 1463              		.cfi_offset 14, -4
+ 1464              		.cfi_offset 7, -8
+ 1465              	.LCFI2:
+ 1466              		.cfi_def_cfa_register 7
+ 1467 0006 7860     		str	r0, [r7, #4]
+ 215:../target/stm32/malloc/malloc.c ****   return _malloc_r (_REENT, nbytes);
+ 1468              		.loc 1 215 0
+ 1469 0008 40F20003 		movw	r3, #:lower16:_impure_ptr
+ 1470 000c C0F20003 		movt	r3, #:upper16:_impure_ptr
+ 1471 0010 1B68     		ldr	r3, [r3, #0]
+ 1472 0012 1846     		mov	r0, r3
+ 1473 0014 7968     		ldr	r1, [r7, #4]
+ 1474 0016 FFF7FEFF 		bl	_malloc_r
+ 1475 001a 0346     		mov	r3, r0
+ 216:../target/stm32/malloc/malloc.c **** }
+ 1476              		.loc 1 216 0
+ 1477 001c 1846     		mov	r0, r3
+ 1478 001e 07F10807 		add	r7, r7, #8
+ 1479 0022 BD46     		mov	sp, r7
+ 1480 0024 80BD     		pop	{r7, pc}
+ 1481              		.cfi_endproc
+ 1482              	.LFE0:
+ 1484 0026 00BF     		.section	.text.free,"ax",%progbits
+ 1485              		.align	2
+ 1486              		.global	free
+ 1487              		.thumb
+ 1488              		.thumb_func
+ 1490              	free:
+ 1491              	.LFB1:
+ 217:../target/stm32/malloc/malloc.c **** 
+ 218:../target/stm32/malloc/malloc.c **** void
+ 219:../target/stm32/malloc/malloc.c **** _DEFUN (free, (aptr),
+ 220:../target/stm32/malloc/malloc.c **** 	_PTR aptr)
+ 221:../target/stm32/malloc/malloc.c **** {
+ 1492              		.loc 1 221 0
+ 1493              		.cfi_startproc
+ 1494              		@ args = 0, pretend = 0, frame = 8
+ 1495              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1496 0000 80B5     		push	{r7, lr}
+ 1497              	.LCFI3:
+ 1498              		.cfi_def_cfa_offset 8
+ 1499 0002 82B0     		sub	sp, sp, #8
+ 1500              	.LCFI4:
+ 1501              		.cfi_def_cfa_offset 16
+ 1502 0004 00AF     		add	r7, sp, #0
+ 1503              		.cfi_offset 14, -4
+ 1504              		.cfi_offset 7, -8
+ 1505              	.LCFI5:
+ 1506              		.cfi_def_cfa_register 7
+ 1507 0006 7860     		str	r0, [r7, #4]
+ 222:../target/stm32/malloc/malloc.c ****   _free_r (_REENT, aptr);
+ 1508              		.loc 1 222 0
+ 1509 0008 40F20003 		movw	r3, #:lower16:_impure_ptr
+ 1510 000c C0F20003 		movt	r3, #:upper16:_impure_ptr
+ 1511 0010 1B68     		ldr	r3, [r3, #0]
+ 1512 0012 1846     		mov	r0, r3
+ 1513 0014 7968     		ldr	r1, [r7, #4]
+ 1514 0016 FFF7FEFF 		bl	_free_r
+ 223:../target/stm32/malloc/malloc.c **** }
+ 1515              		.loc 1 223 0
+ 1516 001a 07F10807 		add	r7, r7, #8
+ 1517 001e BD46     		mov	sp, r7
+ 1518 0020 80BD     		pop	{r7, pc}
+ 1519              		.cfi_endproc
+ 1520              	.LFE1:
+ 1522 0022 00BF     		.text
+ 1523              	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 malloc.c
+     /tmp/ccBuzhun.s:1445   .text.malloc:00000000 $t
+     /tmp/ccBuzhun.s:1450   .text.malloc:00000000 malloc
+     /tmp/ccBuzhun.s:1485   .text.free:00000000 $t
+     /tmp/ccBuzhun.s:1490   .text.free:00000000 free
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+_impure_ptr
+_malloc_r
+_free_r

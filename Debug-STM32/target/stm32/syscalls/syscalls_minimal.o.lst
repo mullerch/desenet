@@ -1,0 +1,1079 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"syscalls_minimal.c"
+  23              	.Ltext0:
+  24              		.file 1 "../target/stm32/syscalls/syscalls_minimal.c"
+ 17614              		.align	2
+ 17617              	__env:
+ 17618 0000 00000000 		.space	4
+ 17619              		.global	__environ
+ 17620              		.section	.data.__environ,"aw",%progbits
+ 17621              		.align	2
+ 17624              	__environ:
+ 17625 0000 00000000 		.word	__env
+ 17626              		.section	.bss.heap,"aw",%nobits
+ 17627              		.align	2
+ 17630              	heap:
+ 17631 0000 00000000 		.space	4
+ 17632              		.comm	__dso_handle,4,4
+ 17633              		.section	.rodata
+ 17634              		.align	2
+ 17635              	.LC0:
+ 17636 0000 50726F67 		.ascii	"Program exit with code %d\000"
+ 17636      72616D20 
+ 17636      65786974 
+ 17636      20776974 
+ 17636      6820636F 
+ 17637 001a 0000     		.section	.text._exit,"ax",%progbits
+ 17638              		.align	2
+ 17639              		.global	_exit
+ 17640              		.thumb
+ 17641              		.thumb_func
+ 17643              	_exit:
+ 17644              	.LFB29:
+   1:../target/stm32/syscalls/syscalls_minimal.c **** #include <inc/config.h>
+   2:../target/stm32/syscalls/syscalls_minimal.c **** #include <stdlib.h>
+   3:../target/stm32/syscalls/syscalls_minimal.c **** #include <stdio.h>
+   4:../target/stm32/syscalls/syscalls_minimal.c **** #include <errno.h>
+   5:../target/stm32/syscalls/syscalls_minimal.c **** #include <time.h>
+   6:../target/stm32/syscalls/syscalls_minimal.c **** #include <sys/stat.h>
+   7:../target/stm32/syscalls/syscalls_minimal.c **** 
+   8:../target/stm32/syscalls/syscalls_minimal.c **** #if (USE_USB_TRACE != 0)
+   9:../target/stm32/syscalls/syscalls_minimal.c **** 	#include <vcom/usb_vcom.h>
+  10:../target/stm32/syscalls/syscalls_minimal.c **** 	#include <board/usb-vcom/vcom.h>
+  11:../target/stm32/syscalls/syscalls_minimal.c **** #endif
+  12:../target/stm32/syscalls/syscalls_minimal.c **** 
+  13:../target/stm32/syscalls/syscalls_minimal.c **** #if (USE_USART2_TRACE != 0)
+  14:../target/stm32/syscalls/syscalls_minimal.c **** 	#include <stm32f10x_usart.h>
+  15:../target/stm32/syscalls/syscalls_minimal.c **** #endif
+  16:../target/stm32/syscalls/syscalls_minimal.c **** 
+  17:../target/stm32/syscalls/syscalls_minimal.c **** // Function declaration.
+  18:../target/stm32/syscalls/syscalls_minimal.c **** void _exit(int i);
+  19:../target/stm32/syscalls/syscalls_minimal.c **** int _open(const char *name, int flags, int mode);
+  20:../target/stm32/syscalls/syscalls_minimal.c **** int _read(int file, char *ptr, int len);
+  21:../target/stm32/syscalls/syscalls_minimal.c **** int _write(int file, char *buffer, unsigned int count);
+  22:../target/stm32/syscalls/syscalls_minimal.c **** int _lseek(int file, int ptr, int dir);
+  23:../target/stm32/syscalls/syscalls_minimal.c **** int _fstat(int file, struct stat *st);
+  24:../target/stm32/syscalls/syscalls_minimal.c **** int _link(char *old, char *new);
+  25:../target/stm32/syscalls/syscalls_minimal.c **** int _unlink(char *name);
+  26:../target/stm32/syscalls/syscalls_minimal.c **** int _stat(char *file, struct stat *st);
+  27:../target/stm32/syscalls/syscalls_minimal.c **** int _close(int file);
+  28:../target/stm32/syscalls/syscalls_minimal.c **** int _execve(char *name, char **argv, char **env);
+  29:../target/stm32/syscalls/syscalls_minimal.c **** int _fork();
+  30:../target/stm32/syscalls/syscalls_minimal.c **** int _getpid();
+  31:../target/stm32/syscalls/syscalls_minimal.c **** int _isatty(int file);
+  32:../target/stm32/syscalls/syscalls_minimal.c **** int _kill(int pid, int sig);
+  33:../target/stm32/syscalls/syscalls_minimal.c **** caddr_t _sbrk(int incr);
+  34:../target/stm32/syscalls/syscalls_minimal.c **** caddr_t _sbrk_r (struct _reent *, ptrdiff_t incr);
+  35:../target/stm32/syscalls/syscalls_minimal.c **** int times(struct tm *buf);
+  36:../target/stm32/syscalls/syscalls_minimal.c **** int _wait(int *status);
+  37:../target/stm32/syscalls/syscalls_minimal.c **** 
+  38:../target/stm32/syscalls/syscalls_minimal.c **** #undef errno
+  39:../target/stm32/syscalls/syscalls_minimal.c **** extern int errno;
+  40:../target/stm32/syscalls/syscalls_minimal.c **** char *__env[1] = {0};
+  41:../target/stm32/syscalls/syscalls_minimal.c **** char **__environ = __env;
+  42:../target/stm32/syscalls/syscalls_minimal.c **** extern unsigned int _heap;
+  43:../target/stm32/syscalls/syscalls_minimal.c **** extern unsigned int _eheap;
+  44:../target/stm32/syscalls/syscalls_minimal.c **** static caddr_t heap = NULL;
+  45:../target/stm32/syscalls/syscalls_minimal.c **** 
+  46:../target/stm32/syscalls/syscalls_minimal.c **** 
+  47:../target/stm32/syscalls/syscalls_minimal.c **** // Add dso_handle constant in case it does not exist.
+  48:../target/stm32/syscalls/syscalls_minimal.c **** // Used with shared libraries. Therefore not needed
+  49:../target/stm32/syscalls/syscalls_minimal.c **** // in an embedded system with no RTOS.
+  50:../target/stm32/syscalls/syscalls_minimal.c **** #ifndef __dso_handle
+  51:../target/stm32/syscalls/syscalls_minimal.c **** 	int __dso_handle;
+  52:../target/stm32/syscalls/syscalls_minimal.c **** #endif
+  53:../target/stm32/syscalls/syscalls_minimal.c **** 
+  54:../target/stm32/syscalls/syscalls_minimal.c **** // Function definition.
+  55:../target/stm32/syscalls/syscalls_minimal.c **** void _exit(int i)
+  56:../target/stm32/syscalls/syscalls_minimal.c **** {
+ 17645              		.loc 1 56 0
+ 17646              		.cfi_startproc
+ 17647              		@ args = 0, pretend = 0, frame = 8
+ 17648              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17649 0000 80B5     		push	{r7, lr}
+ 17650              	.LCFI0:
+ 17651              		.cfi_def_cfa_offset 8
+ 17652 0002 82B0     		sub	sp, sp, #8
+ 17653              	.LCFI1:
+ 17654              		.cfi_def_cfa_offset 16
+ 17655 0004 00AF     		add	r7, sp, #0
+ 17656              		.cfi_offset 14, -4
+ 17657              		.cfi_offset 7, -8
+ 17658              	.LCFI2:
+ 17659              		.cfi_def_cfa_register 7
+ 17660 0006 7860     		str	r0, [r7, #4]
+  57:../target/stm32/syscalls/syscalls_minimal.c **** 	iprintf("Program exit with code %d", i);
+ 17661              		.loc 1 57 0
+ 17662 0008 40F20000 		movw	r0, #:lower16:.LC0
+ 17663 000c C0F20000 		movt	r0, #:upper16:.LC0
+ 17664 0010 7968     		ldr	r1, [r7, #4]
+ 17665 0012 FFF7FEFF 		bl	iprintf
+ 17666              	.L2:
+  58:../target/stm32/syscalls/syscalls_minimal.c **** 	while (1);
+ 17667              		.loc 1 58 0 discriminator 1
+ 17668 0016 FEE7     		b	.L2
+ 17669              		.cfi_endproc
+ 17670              	.LFE29:
+ 17672              		.section	.text._write,"ax",%progbits
+ 17673              		.align	2
+ 17674              		.global	_write
+ 17675              		.thumb
+ 17676              		.thumb_func
+ 17678              	_write:
+ 17679              	.LFB30:
+  59:../target/stm32/syscalls/syscalls_minimal.c **** }
+  60:../target/stm32/syscalls/syscalls_minimal.c **** 
+  61:../target/stm32/syscalls/syscalls_minimal.c **** int _write(int file, char *ptr, unsigned int len)
+  62:../target/stm32/syscalls/syscalls_minimal.c **** {
+ 17680              		.loc 1 62 0
+ 17681              		.cfi_startproc
+ 17682              		@ args = 0, pretend = 0, frame = 24
+ 17683              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17684 0000 80B5     		push	{r7, lr}
+ 17685              	.LCFI3:
+ 17686              		.cfi_def_cfa_offset 8
+ 17687 0002 86B0     		sub	sp, sp, #24
+ 17688              	.LCFI4:
+ 17689              		.cfi_def_cfa_offset 32
+ 17690 0004 00AF     		add	r7, sp, #0
+ 17691              		.cfi_offset 14, -4
+ 17692              		.cfi_offset 7, -8
+ 17693              	.LCFI5:
+ 17694              		.cfi_def_cfa_register 7
+ 17695 0006 F860     		str	r0, [r7, #12]
+ 17696 0008 B960     		str	r1, [r7, #8]
+ 17697 000a 7A60     		str	r2, [r7, #4]
+ 17698              	.LBB2:
+  63:../target/stm32/syscalls/syscalls_minimal.c **** /*	register int i;
+  64:../target/stm32/syscalls/syscalls_minimal.c **** 	for (i=0; i<count; ++i) {
+  65:../target/stm32/syscalls/syscalls_minimal.c **** 		putChar(*buffer++);
+  66:../target/stm32/syscalls/syscalls_minimal.c **** 	}
+  67:../target/stm32/syscalls/syscalls_minimal.c **** 	return count;
+  68:../target/stm32/syscalls/syscalls_minimal.c **** */
+  69:../target/stm32/syscalls/syscalls_minimal.c **** 	if (len < 0) return -1;
+  70:../target/stm32/syscalls/syscalls_minimal.c **** #if (USE_USB_TRACE != 0)
+  71:../target/stm32/syscalls/syscalls_minimal.c **** //	Virtual_Com_Port_Transmit((u8*) ptr, len);
+  72:../target/stm32/syscalls/syscalls_minimal.c **** 	vcomWrite(ptr, len);
+  73:../target/stm32/syscalls/syscalls_minimal.c **** 	return len;
+  74:../target/stm32/syscalls/syscalls_minimal.c **** #else
+  75:../target/stm32/syscalls/syscalls_minimal.c **** 	#if (USE_USART2_TRACE != 0)
+  76:../target/stm32/syscalls/syscalls_minimal.c **** 	{
+  77:../target/stm32/syscalls/syscalls_minimal.c **** 		unsigned int i;
+  78:../target/stm32/syscalls/syscalls_minimal.c **** 
+  79:../target/stm32/syscalls/syscalls_minimal.c **** 		for (i = 0; i < len; i++)
+ 17699              		.loc 1 79 0
+ 17700 000c 4FF00003 		mov	r3, #0
+ 17701 0010 7B61     		str	r3, [r7, #20]
+ 17702 0012 1AE0     		b	.L4
+ 17703              	.L6:
+  80:../target/stm32/syscalls/syscalls_minimal.c **** 		{
+  81:../target/stm32/syscalls/syscalls_minimal.c **** 			// Send next character
+  82:../target/stm32/syscalls/syscalls_minimal.c **** 			USART_SendData(USART2, ptr[i]);
+ 17704              		.loc 1 82 0
+ 17705 0014 BA68     		ldr	r2, [r7, #8]
+ 17706 0016 7B69     		ldr	r3, [r7, #20]
+ 17707 0018 D318     		adds	r3, r2, r3
+ 17708 001a 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 17709 001c 4FF48840 		mov	r0, #17408
+ 17710 0020 C4F20000 		movt	r0, 16384
+ 17711 0024 1946     		mov	r1, r3
+ 17712 0026 FFF7FEFF 		bl	USART_SendData
+  83:../target/stm32/syscalls/syscalls_minimal.c **** 
+  84:../target/stm32/syscalls/syscalls_minimal.c **** 			// Wait until previous character got transfered
+  85:../target/stm32/syscalls/syscalls_minimal.c **** 			while (USART_GetFlagStatus(USART2, USART_FLAG_TXE) == RESET);
+ 17713              		.loc 1 85 0
+ 17714 002a 00BF     		nop
+ 17715              	.L5:
+ 17716              		.loc 1 85 0 is_stmt 0 discriminator 1
+ 17717 002c 4FF48840 		mov	r0, #17408
+ 17718 0030 C4F20000 		movt	r0, 16384
+ 17719 0034 4FF08001 		mov	r1, #128
+ 17720 0038 FFF7FEFF 		bl	USART_GetFlagStatus
+ 17721 003c 0346     		mov	r3, r0
+ 17722 003e 002B     		cmp	r3, #0
+ 17723 0040 F4D0     		beq	.L5
+  79:../target/stm32/syscalls/syscalls_minimal.c **** 		for (i = 0; i < len; i++)
+ 17724              		.loc 1 79 0 is_stmt 1
+ 17725 0042 7B69     		ldr	r3, [r7, #20]
+ 17726 0044 03F10103 		add	r3, r3, #1
+ 17727 0048 7B61     		str	r3, [r7, #20]
+ 17728              	.L4:
+  79:../target/stm32/syscalls/syscalls_minimal.c **** 		for (i = 0; i < len; i++)
+ 17729              		.loc 1 79 0 is_stmt 0 discriminator 1
+ 17730 004a 7A69     		ldr	r2, [r7, #20]
+ 17731 004c 7B68     		ldr	r3, [r7, #4]
+ 17732 004e 9A42     		cmp	r2, r3
+ 17733 0050 E0D3     		bcc	.L6
+  86:../target/stm32/syscalls/syscalls_minimal.c **** 		}
+  87:../target/stm32/syscalls/syscalls_minimal.c **** 		return len;
+ 17734              		.loc 1 87 0 is_stmt 1
+ 17735 0052 7B68     		ldr	r3, [r7, #4]
+ 17736              	.LBE2:
+  88:../target/stm32/syscalls/syscalls_minimal.c **** 	}
+  89:../target/stm32/syscalls/syscalls_minimal.c **** 	#else
+  90:../target/stm32/syscalls/syscalls_minimal.c **** 		return 0;
+  91:../target/stm32/syscalls/syscalls_minimal.c **** 	#endif
+  92:../target/stm32/syscalls/syscalls_minimal.c **** #endif
+  93:../target/stm32/syscalls/syscalls_minimal.c **** }
+ 17737              		.loc 1 93 0
+ 17738 0054 1846     		mov	r0, r3
+ 17739 0056 07F11807 		add	r7, r7, #24
+ 17740 005a BD46     		mov	sp, r7
+ 17741 005c 80BD     		pop	{r7, pc}
+ 17742              		.cfi_endproc
+ 17743              	.LFE30:
+ 17745 005e 00BF     		.section	.text._read,"ax",%progbits
+ 17746              		.align	2
+ 17747              		.global	_read
+ 17748              		.thumb
+ 17749              		.thumb_func
+ 17751              	_read:
+ 17752              	.LFB31:
+  94:../target/stm32/syscalls/syscalls_minimal.c **** 
+  95:../target/stm32/syscalls/syscalls_minimal.c **** int _read(int file, char *ptr, int len)
+  96:../target/stm32/syscalls/syscalls_minimal.c **** {
+ 17753              		.loc 1 96 0
+ 17754              		.cfi_startproc
+ 17755              		@ args = 0, pretend = 0, frame = 16
+ 17756              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17757              		@ link register save eliminated.
+ 17758 0000 80B4     		push	{r7}
+ 17759              	.LCFI6:
+ 17760              		.cfi_def_cfa_offset 4
+ 17761 0002 85B0     		sub	sp, sp, #20
+ 17762              	.LCFI7:
+ 17763              		.cfi_def_cfa_offset 24
+ 17764 0004 00AF     		add	r7, sp, #0
+ 17765              		.cfi_offset 7, -4
+ 17766              	.LCFI8:
+ 17767              		.cfi_def_cfa_register 7
+ 17768 0006 F860     		str	r0, [r7, #12]
+ 17769 0008 B960     		str	r1, [r7, #8]
+ 17770 000a 7A60     		str	r2, [r7, #4]
+  97:../target/stm32/syscalls/syscalls_minimal.c **** //	return 0;
+  98:../target/stm32/syscalls/syscalls_minimal.c **** 
+  99:../target/stm32/syscalls/syscalls_minimal.c **** 	if (len < 0) return -1;
+ 17771              		.loc 1 99 0
+ 17772 000c 7B68     		ldr	r3, [r7, #4]
+ 17773 000e 002B     		cmp	r3, #0
+ 17774 0010 02DA     		bge	.L8
+ 17775              		.loc 1 99 0 is_stmt 0 discriminator 1
+ 17776 0012 4FF0FF33 		mov	r3, #-1
+ 17777 0016 01E0     		b	.L9
+ 17778              	.L8:
+ 100:../target/stm32/syscalls/syscalls_minimal.c **** #if (USE_USB_TRACE != 0)
+ 101:../target/stm32/syscalls/syscalls_minimal.c **** 	return Virtual_Com_Port_Receive((u8*) ptr, len);
+ 102:../target/stm32/syscalls/syscalls_minimal.c **** #else
+ 103:../target/stm32/syscalls/syscalls_minimal.c **** 	return 0;
+ 17779              		.loc 1 103 0 is_stmt 1
+ 17780 0018 4FF00003 		mov	r3, #0
+ 17781              	.L9:
+ 104:../target/stm32/syscalls/syscalls_minimal.c **** #endif
+ 105:../target/stm32/syscalls/syscalls_minimal.c **** }
+ 17782              		.loc 1 105 0
+ 17783 001c 1846     		mov	r0, r3
+ 17784 001e 07F11407 		add	r7, r7, #20
+ 17785 0022 BD46     		mov	sp, r7
+ 17786 0024 80BC     		pop	{r7}
+ 17787 0026 7047     		bx	lr
+ 17788              		.cfi_endproc
+ 17789              	.LFE31:
+ 17791              		.section	.text._close,"ax",%progbits
+ 17792              		.align	2
+ 17793              		.global	_close
+ 17794              		.thumb
+ 17795              		.thumb_func
+ 17797              	_close:
+ 17798              	.LFB32:
+ 106:../target/stm32/syscalls/syscalls_minimal.c **** 
+ 107:../target/stm32/syscalls/syscalls_minimal.c **** int _close(int file)
+ 108:../target/stm32/syscalls/syscalls_minimal.c **** {
+ 17799              		.loc 1 108 0
+ 17800              		.cfi_startproc
+ 17801              		@ args = 0, pretend = 0, frame = 8
+ 17802              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17803              		@ link register save eliminated.
+ 17804 0000 80B4     		push	{r7}
+ 17805              	.LCFI9:
+ 17806              		.cfi_def_cfa_offset 4
+ 17807 0002 83B0     		sub	sp, sp, #12
+ 17808              	.LCFI10:
+ 17809              		.cfi_def_cfa_offset 16
+ 17810 0004 00AF     		add	r7, sp, #0
+ 17811              		.cfi_offset 7, -4
+ 17812              	.LCFI11:
+ 17813              		.cfi_def_cfa_register 7
+ 17814 0006 7860     		str	r0, [r7, #4]
+ 109:../target/stm32/syscalls/syscalls_minimal.c **** 	return -1;
+ 17815              		.loc 1 109 0
+ 17816 0008 4FF0FF33 		mov	r3, #-1
+ 110:../target/stm32/syscalls/syscalls_minimal.c **** }
+ 17817              		.loc 1 110 0
+ 17818 000c 1846     		mov	r0, r3
+ 17819 000e 07F10C07 		add	r7, r7, #12
+ 17820 0012 BD46     		mov	sp, r7
+ 17821 0014 80BC     		pop	{r7}
+ 17822 0016 7047     		bx	lr
+ 17823              		.cfi_endproc
+ 17824              	.LFE32:
+ 17826              		.section	.text._fstat,"ax",%progbits
+ 17827              		.align	2
+ 17828              		.global	_fstat
+ 17829              		.thumb
+ 17830              		.thumb_func
+ 17832              	_fstat:
+ 17833              	.LFB33:
+ 111:../target/stm32/syscalls/syscalls_minimal.c **** 
+ 112:../target/stm32/syscalls/syscalls_minimal.c **** int _fstat(int file, struct stat *st)
+ 113:../target/stm32/syscalls/syscalls_minimal.c **** {
+ 17834              		.loc 1 113 0
+ 17835              		.cfi_startproc
+ 17836              		@ args = 0, pretend = 0, frame = 8
+ 17837              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17838              		@ link register save eliminated.
+ 17839 0000 80B4     		push	{r7}
+ 17840              	.LCFI12:
+ 17841              		.cfi_def_cfa_offset 4
+ 17842 0002 83B0     		sub	sp, sp, #12
+ 17843              	.LCFI13:
+ 17844              		.cfi_def_cfa_offset 16
+ 17845 0004 00AF     		add	r7, sp, #0
+ 17846              		.cfi_offset 7, -4
+ 17847              	.LCFI14:
+ 17848              		.cfi_def_cfa_register 7
+ 17849 0006 7860     		str	r0, [r7, #4]
+ 17850 0008 3960     		str	r1, [r7, #0]
+ 114:../target/stm32/syscalls/syscalls_minimal.c **** 	st->st_mode = S_IFCHR;
+ 17851              		.loc 1 114 0
+ 17852 000a 3B68     		ldr	r3, [r7, #0]
+ 17853 000c 4FF40052 		mov	r2, #8192
+ 17854 0010 5A60     		str	r2, [r3, #4]
+ 115:../target/stm32/syscalls/syscalls_minimal.c **** 	return 0;
+ 17855              		.loc 1 115 0
+ 17856 0012 4FF00003 		mov	r3, #0
+ 116:../target/stm32/syscalls/syscalls_minimal.c **** }
+ 17857              		.loc 1 116 0
+ 17858 0016 1846     		mov	r0, r3
+ 17859 0018 07F10C07 		add	r7, r7, #12
+ 17860 001c BD46     		mov	sp, r7
+ 17861 001e 80BC     		pop	{r7}
+ 17862 0020 7047     		bx	lr
+ 17863              		.cfi_endproc
+ 17864              	.LFE33:
+ 17866 0022 00BF     		.section	.text._isatty,"ax",%progbits
+ 17867              		.align	2
+ 17868              		.global	_isatty
+ 17869              		.thumb
+ 17870              		.thumb_func
+ 17872              	_isatty:
+ 17873              	.LFB34:
+ 117:../target/stm32/syscalls/syscalls_minimal.c **** 
+ 118:../target/stm32/syscalls/syscalls_minimal.c **** int _isatty(int file)
+ 119:../target/stm32/syscalls/syscalls_minimal.c **** {
+ 17874              		.loc 1 119 0
+ 17875              		.cfi_startproc
+ 17876              		@ args = 0, pretend = 0, frame = 8
+ 17877              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17878              		@ link register save eliminated.
+ 17879 0000 80B4     		push	{r7}
+ 17880              	.LCFI15:
+ 17881              		.cfi_def_cfa_offset 4
+ 17882 0002 83B0     		sub	sp, sp, #12
+ 17883              	.LCFI16:
+ 17884              		.cfi_def_cfa_offset 16
+ 17885 0004 00AF     		add	r7, sp, #0
+ 17886              		.cfi_offset 7, -4
+ 17887              	.LCFI17:
+ 17888              		.cfi_def_cfa_register 7
+ 17889 0006 7860     		str	r0, [r7, #4]
+ 120:../target/stm32/syscalls/syscalls_minimal.c **** 	return 1;
+ 17890              		.loc 1 120 0
+ 17891 0008 4FF00103 		mov	r3, #1
+ 121:../target/stm32/syscalls/syscalls_minimal.c **** }
+ 17892              		.loc 1 121 0
+ 17893 000c 1846     		mov	r0, r3
+ 17894 000e 07F10C07 		add	r7, r7, #12
+ 17895 0012 BD46     		mov	sp, r7
+ 17896 0014 80BC     		pop	{r7}
+ 17897 0016 7047     		bx	lr
+ 17898              		.cfi_endproc
+ 17899              	.LFE34:
+ 17901              		.section	.text._lseek,"ax",%progbits
+ 17902              		.align	2
+ 17903              		.global	_lseek
+ 17904              		.thumb
+ 17905              		.thumb_func
+ 17907              	_lseek:
+ 17908              	.LFB35:
+ 122:../target/stm32/syscalls/syscalls_minimal.c **** 
+ 123:../target/stm32/syscalls/syscalls_minimal.c **** int _lseek(int file, int ptr, int dir)
+ 124:../target/stm32/syscalls/syscalls_minimal.c **** {
+ 17909              		.loc 1 124 0
+ 17910              		.cfi_startproc
+ 17911              		@ args = 0, pretend = 0, frame = 16
+ 17912              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17913              		@ link register save eliminated.
+ 17914 0000 80B4     		push	{r7}
+ 17915              	.LCFI18:
+ 17916              		.cfi_def_cfa_offset 4
+ 17917 0002 85B0     		sub	sp, sp, #20
+ 17918              	.LCFI19:
+ 17919              		.cfi_def_cfa_offset 24
+ 17920 0004 00AF     		add	r7, sp, #0
+ 17921              		.cfi_offset 7, -4
+ 17922              	.LCFI20:
+ 17923              		.cfi_def_cfa_register 7
+ 17924 0006 F860     		str	r0, [r7, #12]
+ 17925 0008 B960     		str	r1, [r7, #8]
+ 17926 000a 7A60     		str	r2, [r7, #4]
+ 125:../target/stm32/syscalls/syscalls_minimal.c **** 	return 0;
+ 17927              		.loc 1 125 0
+ 17928 000c 4FF00003 		mov	r3, #0
+ 126:../target/stm32/syscalls/syscalls_minimal.c **** }
+ 17929              		.loc 1 126 0
+ 17930 0010 1846     		mov	r0, r3
+ 17931 0012 07F11407 		add	r7, r7, #20
+ 17932 0016 BD46     		mov	sp, r7
+ 17933 0018 80BC     		pop	{r7}
+ 17934 001a 7047     		bx	lr
+ 17935              		.cfi_endproc
+ 17936              	.LFE35:
+ 17938              		.section	.text._sbrk,"ax",%progbits
+ 17939              		.align	2
+ 17940              		.global	_sbrk
+ 17941              		.thumb
+ 17942              		.thumb_func
+ 17944              	_sbrk:
+ 17945              	.LFB36:
+ 127:../target/stm32/syscalls/syscalls_minimal.c **** 
+ 128:../target/stm32/syscalls/syscalls_minimal.c **** caddr_t _sbrk(int incr)
+ 129:../target/stm32/syscalls/syscalls_minimal.c **** {
+ 17946              		.loc 1 129 0
+ 17947              		.cfi_startproc
+ 17948              		@ args = 0, pretend = 0, frame = 16
+ 17949              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17950              		@ link register save eliminated.
+ 17951 0000 80B4     		push	{r7}
+ 17952              	.LCFI21:
+ 17953              		.cfi_def_cfa_offset 4
+ 17954 0002 85B0     		sub	sp, sp, #20
+ 17955              	.LCFI22:
+ 17956              		.cfi_def_cfa_offset 24
+ 17957 0004 00AF     		add	r7, sp, #0
+ 17958              		.cfi_offset 7, -4
+ 17959              	.LCFI23:
+ 17960              		.cfi_def_cfa_register 7
+ 17961 0006 7860     		str	r0, [r7, #4]
+ 130:../target/stm32/syscalls/syscalls_minimal.c **** 	caddr_t prevHeap;
+ 131:../target/stm32/syscalls/syscalls_minimal.c **** 	caddr_t nextHeap;
+ 132:../target/stm32/syscalls/syscalls_minimal.c **** 
+ 133:../target/stm32/syscalls/syscalls_minimal.c **** 	if (heap == NULL)
+ 17962              		.loc 1 133 0
+ 17963 0008 40F20003 		movw	r3, #:lower16:heap
+ 17964 000c C0F20003 		movt	r3, #:upper16:heap
+ 17965 0010 1B68     		ldr	r3, [r3, #0]
+ 17966 0012 002B     		cmp	r3, #0
+ 17967 0014 08D1     		bne	.L15
+ 134:../target/stm32/syscalls/syscalls_minimal.c **** 	{ // first allocation
+ 135:../target/stm32/syscalls/syscalls_minimal.c **** 		heap = (caddr_t) & _heap;
+ 17968              		.loc 1 135 0
+ 17969 0016 40F20002 		movw	r2, #:lower16:_heap
+ 17970 001a C0F20002 		movt	r2, #:upper16:_heap
+ 17971 001e 40F20003 		movw	r3, #:lower16:heap
+ 17972 0022 C0F20003 		movt	r3, #:upper16:heap
+ 17973 0026 1A60     		str	r2, [r3, #0]
+ 17974              	.L15:
+ 136:../target/stm32/syscalls/syscalls_minimal.c **** 	}
+ 137:../target/stm32/syscalls/syscalls_minimal.c **** 
+ 138:../target/stm32/syscalls/syscalls_minimal.c **** 	prevHeap = heap;
+ 17975              		.loc 1 138 0
+ 17976 0028 40F20003 		movw	r3, #:lower16:heap
+ 17977 002c C0F20003 		movt	r3, #:upper16:heap
+ 17978 0030 1B68     		ldr	r3, [r3, #0]
+ 17979 0032 FB60     		str	r3, [r7, #12]
+ 139:../target/stm32/syscalls/syscalls_minimal.c **** 
+ 140:../target/stm32/syscalls/syscalls_minimal.c **** 	// Always return data aligned on a 8 byte boundary
+ 141:../target/stm32/syscalls/syscalls_minimal.c **** 	nextHeap = (caddr_t) (((unsigned int) (heap + incr) + 7) & ~7);
+ 17980              		.loc 1 141 0
+ 17981 0034 40F20003 		movw	r3, #:lower16:heap
+ 17982 0038 C0F20003 		movt	r3, #:upper16:heap
+ 17983 003c 1A68     		ldr	r2, [r3, #0]
+ 17984 003e 7B68     		ldr	r3, [r7, #4]
+ 17985 0040 D318     		adds	r3, r2, r3
+ 17986 0042 03F10703 		add	r3, r3, #7
+ 17987 0046 23F00703 		bic	r3, r3, #7
+ 17988 004a BB60     		str	r3, [r7, #8]
+ 142:../target/stm32/syscalls/syscalls_minimal.c **** 
+ 143:../target/stm32/syscalls/syscalls_minimal.c **** 	// Check enough space and there is no collision with stack coming the other way
+ 144:../target/stm32/syscalls/syscalls_minimal.c **** 	// if stack is above start of heap
+ 145:../target/stm32/syscalls/syscalls_minimal.c **** 	if (nextHeap >= (caddr_t) & _eheap)
+ 17989              		.loc 1 145 0
+ 17990 004c 40F20003 		movw	r3, #:lower16:_eheap
+ 17991 0050 C0F20003 		movt	r3, #:upper16:_eheap
+ 17992 0054 BA68     		ldr	r2, [r7, #8]
+ 17993 0056 9A42     		cmp	r2, r3
+ 17994 0058 09D3     		bcc	.L16
+ 146:../target/stm32/syscalls/syscalls_minimal.c **** 	{
+ 147:../target/stm32/syscalls/syscalls_minimal.c **** 		errno = ENOMEM;
+ 17995              		.loc 1 147 0
+ 17996 005a 40F20003 		movw	r3, #:lower16:errno
+ 17997 005e C0F20003 		movt	r3, #:upper16:errno
+ 17998 0062 4FF00C02 		mov	r2, #12
+ 17999 0066 1A60     		str	r2, [r3, #0]
+ 148:../target/stm32/syscalls/syscalls_minimal.c **** 		return NULL; // error - no more memory
+ 18000              		.loc 1 148 0
+ 18001 0068 4FF00003 		mov	r3, #0
+ 18002 006c 06E0     		b	.L17
+ 18003              	.L16:
+ 149:../target/stm32/syscalls/syscalls_minimal.c **** 	}
+ 150:../target/stm32/syscalls/syscalls_minimal.c **** 	else
+ 151:../target/stm32/syscalls/syscalls_minimal.c **** 	{
+ 152:../target/stm32/syscalls/syscalls_minimal.c **** 		heap = nextHeap;
+ 18004              		.loc 1 152 0
+ 18005 006e 40F20003 		movw	r3, #:lower16:heap
+ 18006 0072 C0F20003 		movt	r3, #:upper16:heap
+ 18007 0076 BA68     		ldr	r2, [r7, #8]
+ 18008 0078 1A60     		str	r2, [r3, #0]
+ 153:../target/stm32/syscalls/syscalls_minimal.c **** 		return (caddr_t) prevHeap;
+ 18009              		.loc 1 153 0
+ 18010 007a FB68     		ldr	r3, [r7, #12]
+ 18011              	.L17:
+ 154:../target/stm32/syscalls/syscalls_minimal.c **** 	}
+ 155:../target/stm32/syscalls/syscalls_minimal.c **** }
+ 18012              		.loc 1 155 0
+ 18013 007c 1846     		mov	r0, r3
+ 18014 007e 07F11407 		add	r7, r7, #20
+ 18015 0082 BD46     		mov	sp, r7
+ 18016 0084 80BC     		pop	{r7}
+ 18017 0086 7047     		bx	lr
+ 18018              		.cfi_endproc
+ 18019              	.LFE36:
+ 18021              		.section	.text._sbrk_r,"ax",%progbits
+ 18022              		.align	2
+ 18023              		.global	_sbrk_r
+ 18024              		.thumb
+ 18025              		.thumb_func
+ 18027              	_sbrk_r:
+ 18028              	.LFB37:
+ 156:../target/stm32/syscalls/syscalls_minimal.c **** 
+ 157:../target/stm32/syscalls/syscalls_minimal.c **** caddr_t _sbrk_r (struct _reent * r, ptrdiff_t incr)
+ 158:../target/stm32/syscalls/syscalls_minimal.c **** {
+ 18029              		.loc 1 158 0
+ 18030              		.cfi_startproc
+ 18031              		@ args = 0, pretend = 0, frame = 8
+ 18032              		@ frame_needed = 1, uses_anonymous_args = 0
+ 18033 0000 80B5     		push	{r7, lr}
+ 18034              	.LCFI24:
+ 18035              		.cfi_def_cfa_offset 8
+ 18036 0002 82B0     		sub	sp, sp, #8
+ 18037              	.LCFI25:
+ 18038              		.cfi_def_cfa_offset 16
+ 18039 0004 00AF     		add	r7, sp, #0
+ 18040              		.cfi_offset 14, -4
+ 18041              		.cfi_offset 7, -8
+ 18042              	.LCFI26:
+ 18043              		.cfi_def_cfa_register 7
+ 18044 0006 7860     		str	r0, [r7, #4]
+ 18045 0008 3960     		str	r1, [r7, #0]
+ 159:../target/stm32/syscalls/syscalls_minimal.c **** 	return _sbrk(incr);
+ 18046              		.loc 1 159 0
+ 18047 000a 3868     		ldr	r0, [r7, #0]
+ 18048 000c FFF7FEFF 		bl	_sbrk
+ 18049 0010 0346     		mov	r3, r0
+ 160:../target/stm32/syscalls/syscalls_minimal.c **** }
+ 18050              		.loc 1 160 0
+ 18051 0012 1846     		mov	r0, r3
+ 18052 0014 07F10807 		add	r7, r7, #8
+ 18053 0018 BD46     		mov	sp, r7
+ 18054 001a 80BD     		pop	{r7, pc}
+ 18055              		.cfi_endproc
+ 18056              	.LFE37:
+ 18058              		.section	.text._open,"ax",%progbits
+ 18059              		.align	2
+ 18060              		.global	_open
+ 18061              		.thumb
+ 18062              		.thumb_func
+ 18064              	_open:
+ 18065              	.LFB38:
+ 161:../target/stm32/syscalls/syscalls_minimal.c **** 
+ 162:../target/stm32/syscalls/syscalls_minimal.c **** int _open(const char *name, int flags, int mode)
+ 163:../target/stm32/syscalls/syscalls_minimal.c **** {
+ 18066              		.loc 1 163 0
+ 18067              		.cfi_startproc
+ 18068              		@ args = 0, pretend = 0, frame = 16
+ 18069              		@ frame_needed = 1, uses_anonymous_args = 0
+ 18070              		@ link register save eliminated.
+ 18071 0000 80B4     		push	{r7}
+ 18072              	.LCFI27:
+ 18073              		.cfi_def_cfa_offset 4
+ 18074 0002 85B0     		sub	sp, sp, #20
+ 18075              	.LCFI28:
+ 18076              		.cfi_def_cfa_offset 24
+ 18077 0004 00AF     		add	r7, sp, #0
+ 18078              		.cfi_offset 7, -4
+ 18079              	.LCFI29:
+ 18080              		.cfi_def_cfa_register 7
+ 18081 0006 F860     		str	r0, [r7, #12]
+ 18082 0008 B960     		str	r1, [r7, #8]
+ 18083 000a 7A60     		str	r2, [r7, #4]
+ 164:../target/stm32/syscalls/syscalls_minimal.c **** 	return -1;
+ 18084              		.loc 1 164 0
+ 18085 000c 4FF0FF33 		mov	r3, #-1
+ 165:../target/stm32/syscalls/syscalls_minimal.c **** }
+ 18086              		.loc 1 165 0
+ 18087 0010 1846     		mov	r0, r3
+ 18088 0012 07F11407 		add	r7, r7, #20
+ 18089 0016 BD46     		mov	sp, r7
+ 18090 0018 80BC     		pop	{r7}
+ 18091 001a 7047     		bx	lr
+ 18092              		.cfi_endproc
+ 18093              	.LFE38:
+ 18095              		.section	.text._link,"ax",%progbits
+ 18096              		.align	2
+ 18097              		.global	_link
+ 18098              		.thumb
+ 18099              		.thumb_func
+ 18101              	_link:
+ 18102              	.LFB39:
+ 166:../target/stm32/syscalls/syscalls_minimal.c **** 
+ 167:../target/stm32/syscalls/syscalls_minimal.c **** int _link(char *old, char *new)
+ 168:../target/stm32/syscalls/syscalls_minimal.c **** {
+ 18103              		.loc 1 168 0
+ 18104              		.cfi_startproc
+ 18105              		@ args = 0, pretend = 0, frame = 8
+ 18106              		@ frame_needed = 1, uses_anonymous_args = 0
+ 18107              		@ link register save eliminated.
+ 18108 0000 80B4     		push	{r7}
+ 18109              	.LCFI30:
+ 18110              		.cfi_def_cfa_offset 4
+ 18111 0002 83B0     		sub	sp, sp, #12
+ 18112              	.LCFI31:
+ 18113              		.cfi_def_cfa_offset 16
+ 18114 0004 00AF     		add	r7, sp, #0
+ 18115              		.cfi_offset 7, -4
+ 18116              	.LCFI32:
+ 18117              		.cfi_def_cfa_register 7
+ 18118 0006 7860     		str	r0, [r7, #4]
+ 18119 0008 3960     		str	r1, [r7, #0]
+ 169:../target/stm32/syscalls/syscalls_minimal.c **** 	errno = EMLINK;
+ 18120              		.loc 1 169 0
+ 18121 000a 40F20003 		movw	r3, #:lower16:errno
+ 18122 000e C0F20003 		movt	r3, #:upper16:errno
+ 18123 0012 4FF01F02 		mov	r2, #31
+ 18124 0016 1A60     		str	r2, [r3, #0]
+ 170:../target/stm32/syscalls/syscalls_minimal.c **** 	return -1;
+ 18125              		.loc 1 170 0
+ 18126 0018 4FF0FF33 		mov	r3, #-1
+ 171:../target/stm32/syscalls/syscalls_minimal.c **** }
+ 18127              		.loc 1 171 0
+ 18128 001c 1846     		mov	r0, r3
+ 18129 001e 07F10C07 		add	r7, r7, #12
+ 18130 0022 BD46     		mov	sp, r7
+ 18131 0024 80BC     		pop	{r7}
+ 18132 0026 7047     		bx	lr
+ 18133              		.cfi_endproc
+ 18134              	.LFE39:
+ 18136              		.section	.text._unlink,"ax",%progbits
+ 18137              		.align	2
+ 18138              		.global	_unlink
+ 18139              		.thumb
+ 18140              		.thumb_func
+ 18142              	_unlink:
+ 18143              	.LFB40:
+ 172:../target/stm32/syscalls/syscalls_minimal.c **** 
+ 173:../target/stm32/syscalls/syscalls_minimal.c **** int _unlink(char *name)
+ 174:../target/stm32/syscalls/syscalls_minimal.c **** {
+ 18144              		.loc 1 174 0
+ 18145              		.cfi_startproc
+ 18146              		@ args = 0, pretend = 0, frame = 8
+ 18147              		@ frame_needed = 1, uses_anonymous_args = 0
+ 18148              		@ link register save eliminated.
+ 18149 0000 80B4     		push	{r7}
+ 18150              	.LCFI33:
+ 18151              		.cfi_def_cfa_offset 4
+ 18152 0002 83B0     		sub	sp, sp, #12
+ 18153              	.LCFI34:
+ 18154              		.cfi_def_cfa_offset 16
+ 18155 0004 00AF     		add	r7, sp, #0
+ 18156              		.cfi_offset 7, -4
+ 18157              	.LCFI35:
+ 18158              		.cfi_def_cfa_register 7
+ 18159 0006 7860     		str	r0, [r7, #4]
+ 175:../target/stm32/syscalls/syscalls_minimal.c **** 	errno = ENOENT;
+ 18160              		.loc 1 175 0
+ 18161 0008 40F20003 		movw	r3, #:lower16:errno
+ 18162 000c C0F20003 		movt	r3, #:upper16:errno
+ 18163 0010 4FF00202 		mov	r2, #2
+ 18164 0014 1A60     		str	r2, [r3, #0]
+ 176:../target/stm32/syscalls/syscalls_minimal.c **** 	return -1;
+ 18165              		.loc 1 176 0
+ 18166 0016 4FF0FF33 		mov	r3, #-1
+ 177:../target/stm32/syscalls/syscalls_minimal.c **** }
+ 18167              		.loc 1 177 0
+ 18168 001a 1846     		mov	r0, r3
+ 18169 001c 07F10C07 		add	r7, r7, #12
+ 18170 0020 BD46     		mov	sp, r7
+ 18171 0022 80BC     		pop	{r7}
+ 18172 0024 7047     		bx	lr
+ 18173              		.cfi_endproc
+ 18174              	.LFE40:
+ 18176 0026 00BF     		.section	.text._stat,"ax",%progbits
+ 18177              		.align	2
+ 18178              		.global	_stat
+ 18179              		.thumb
+ 18180              		.thumb_func
+ 18182              	_stat:
+ 18183              	.LFB41:
+ 178:../target/stm32/syscalls/syscalls_minimal.c **** 
+ 179:../target/stm32/syscalls/syscalls_minimal.c **** int _stat(char *file, struct stat *st)
+ 180:../target/stm32/syscalls/syscalls_minimal.c **** {
+ 18184              		.loc 1 180 0
+ 18185              		.cfi_startproc
+ 18186              		@ args = 0, pretend = 0, frame = 8
+ 18187              		@ frame_needed = 1, uses_anonymous_args = 0
+ 18188              		@ link register save eliminated.
+ 18189 0000 80B4     		push	{r7}
+ 18190              	.LCFI36:
+ 18191              		.cfi_def_cfa_offset 4
+ 18192 0002 83B0     		sub	sp, sp, #12
+ 18193              	.LCFI37:
+ 18194              		.cfi_def_cfa_offset 16
+ 18195 0004 00AF     		add	r7, sp, #0
+ 18196              		.cfi_offset 7, -4
+ 18197              	.LCFI38:
+ 18198              		.cfi_def_cfa_register 7
+ 18199 0006 7860     		str	r0, [r7, #4]
+ 18200 0008 3960     		str	r1, [r7, #0]
+ 181:../target/stm32/syscalls/syscalls_minimal.c **** 	st->st_mode = S_IFCHR;
+ 18201              		.loc 1 181 0
+ 18202 000a 3B68     		ldr	r3, [r7, #0]
+ 18203 000c 4FF40052 		mov	r2, #8192
+ 18204 0010 5A60     		str	r2, [r3, #4]
+ 182:../target/stm32/syscalls/syscalls_minimal.c **** 	return 0;
+ 18205              		.loc 1 182 0
+ 18206 0012 4FF00003 		mov	r3, #0
+ 183:../target/stm32/syscalls/syscalls_minimal.c **** }
+ 18207              		.loc 1 183 0
+ 18208 0016 1846     		mov	r0, r3
+ 18209 0018 07F10C07 		add	r7, r7, #12
+ 18210 001c BD46     		mov	sp, r7
+ 18211 001e 80BC     		pop	{r7}
+ 18212 0020 7047     		bx	lr
+ 18213              		.cfi_endproc
+ 18214              	.LFE41:
+ 18216 0022 00BF     		.section	.text._execve,"ax",%progbits
+ 18217              		.align	2
+ 18218              		.global	_execve
+ 18219              		.thumb
+ 18220              		.thumb_func
+ 18222              	_execve:
+ 18223              	.LFB42:
+ 184:../target/stm32/syscalls/syscalls_minimal.c **** 
+ 185:../target/stm32/syscalls/syscalls_minimal.c **** int _execve(char *name, char **argv, char **env)
+ 186:../target/stm32/syscalls/syscalls_minimal.c **** {
+ 18224              		.loc 1 186 0
+ 18225              		.cfi_startproc
+ 18226              		@ args = 0, pretend = 0, frame = 16
+ 18227              		@ frame_needed = 1, uses_anonymous_args = 0
+ 18228              		@ link register save eliminated.
+ 18229 0000 80B4     		push	{r7}
+ 18230              	.LCFI39:
+ 18231              		.cfi_def_cfa_offset 4
+ 18232 0002 85B0     		sub	sp, sp, #20
+ 18233              	.LCFI40:
+ 18234              		.cfi_def_cfa_offset 24
+ 18235 0004 00AF     		add	r7, sp, #0
+ 18236              		.cfi_offset 7, -4
+ 18237              	.LCFI41:
+ 18238              		.cfi_def_cfa_register 7
+ 18239 0006 F860     		str	r0, [r7, #12]
+ 18240 0008 B960     		str	r1, [r7, #8]
+ 18241 000a 7A60     		str	r2, [r7, #4]
+ 187:../target/stm32/syscalls/syscalls_minimal.c **** 	errno = ENOMEM;
+ 18242              		.loc 1 187 0
+ 18243 000c 40F20003 		movw	r3, #:lower16:errno
+ 18244 0010 C0F20003 		movt	r3, #:upper16:errno
+ 18245 0014 4FF00C02 		mov	r2, #12
+ 18246 0018 1A60     		str	r2, [r3, #0]
+ 188:../target/stm32/syscalls/syscalls_minimal.c **** 	return -1;
+ 18247              		.loc 1 188 0
+ 18248 001a 4FF0FF33 		mov	r3, #-1
+ 189:../target/stm32/syscalls/syscalls_minimal.c **** }
+ 18249              		.loc 1 189 0
+ 18250 001e 1846     		mov	r0, r3
+ 18251 0020 07F11407 		add	r7, r7, #20
+ 18252 0024 BD46     		mov	sp, r7
+ 18253 0026 80BC     		pop	{r7}
+ 18254 0028 7047     		bx	lr
+ 18255              		.cfi_endproc
+ 18256              	.LFE42:
+ 18258 002a 00BF     		.section	.text._fork,"ax",%progbits
+ 18259              		.align	2
+ 18260              		.global	_fork
+ 18261              		.thumb
+ 18262              		.thumb_func
+ 18264              	_fork:
+ 18265              	.LFB43:
+ 190:../target/stm32/syscalls/syscalls_minimal.c **** 
+ 191:../target/stm32/syscalls/syscalls_minimal.c **** int _fork()
+ 192:../target/stm32/syscalls/syscalls_minimal.c **** {
+ 18266              		.loc 1 192 0
+ 18267              		.cfi_startproc
+ 18268              		@ args = 0, pretend = 0, frame = 0
+ 18269              		@ frame_needed = 1, uses_anonymous_args = 0
+ 18270              		@ link register save eliminated.
+ 18271 0000 80B4     		push	{r7}
+ 18272              	.LCFI42:
+ 18273              		.cfi_def_cfa_offset 4
+ 18274 0002 00AF     		add	r7, sp, #0
+ 18275              		.cfi_offset 7, -4
+ 18276              	.LCFI43:
+ 18277              		.cfi_def_cfa_register 7
+ 193:../target/stm32/syscalls/syscalls_minimal.c **** 	errno = EAGAIN;
+ 18278              		.loc 1 193 0
+ 18279 0004 40F20003 		movw	r3, #:lower16:errno
+ 18280 0008 C0F20003 		movt	r3, #:upper16:errno
+ 18281 000c 4FF00B02 		mov	r2, #11
+ 18282 0010 1A60     		str	r2, [r3, #0]
+ 194:../target/stm32/syscalls/syscalls_minimal.c **** 	return -1;
+ 18283              		.loc 1 194 0
+ 18284 0012 4FF0FF33 		mov	r3, #-1
+ 195:../target/stm32/syscalls/syscalls_minimal.c **** }
+ 18285              		.loc 1 195 0
+ 18286 0016 1846     		mov	r0, r3
+ 18287 0018 BD46     		mov	sp, r7
+ 18288 001a 80BC     		pop	{r7}
+ 18289 001c 7047     		bx	lr
+ 18290              		.cfi_endproc
+ 18291              	.LFE43:
+ 18293 001e 00BF     		.section	.text._getpid,"ax",%progbits
+ 18294              		.align	2
+ 18295              		.global	_getpid
+ 18296              		.thumb
+ 18297              		.thumb_func
+ 18299              	_getpid:
+ 18300              	.LFB44:
+ 196:../target/stm32/syscalls/syscalls_minimal.c **** 
+ 197:../target/stm32/syscalls/syscalls_minimal.c **** int _getpid()
+ 198:../target/stm32/syscalls/syscalls_minimal.c **** {
+ 18301              		.loc 1 198 0
+ 18302              		.cfi_startproc
+ 18303              		@ args = 0, pretend = 0, frame = 0
+ 18304              		@ frame_needed = 1, uses_anonymous_args = 0
+ 18305              		@ link register save eliminated.
+ 18306 0000 80B4     		push	{r7}
+ 18307              	.LCFI44:
+ 18308              		.cfi_def_cfa_offset 4
+ 18309 0002 00AF     		add	r7, sp, #0
+ 18310              		.cfi_offset 7, -4
+ 18311              	.LCFI45:
+ 18312              		.cfi_def_cfa_register 7
+ 199:../target/stm32/syscalls/syscalls_minimal.c **** 	return 1;
+ 18313              		.loc 1 199 0
+ 18314 0004 4FF00103 		mov	r3, #1
+ 200:../target/stm32/syscalls/syscalls_minimal.c **** }
+ 18315              		.loc 1 200 0
+ 18316 0008 1846     		mov	r0, r3
+ 18317 000a BD46     		mov	sp, r7
+ 18318 000c 80BC     		pop	{r7}
+ 18319 000e 7047     		bx	lr
+ 18320              		.cfi_endproc
+ 18321              	.LFE44:
+ 18323              		.section	.text._kill,"ax",%progbits
+ 18324              		.align	2
+ 18325              		.global	_kill
+ 18326              		.thumb
+ 18327              		.thumb_func
+ 18329              	_kill:
+ 18330              	.LFB45:
+ 201:../target/stm32/syscalls/syscalls_minimal.c **** 
+ 202:../target/stm32/syscalls/syscalls_minimal.c **** int _kill(int pid, int sig)
+ 203:../target/stm32/syscalls/syscalls_minimal.c **** {
+ 18331              		.loc 1 203 0
+ 18332              		.cfi_startproc
+ 18333              		@ args = 0, pretend = 0, frame = 8
+ 18334              		@ frame_needed = 1, uses_anonymous_args = 0
+ 18335              		@ link register save eliminated.
+ 18336 0000 80B4     		push	{r7}
+ 18337              	.LCFI46:
+ 18338              		.cfi_def_cfa_offset 4
+ 18339 0002 83B0     		sub	sp, sp, #12
+ 18340              	.LCFI47:
+ 18341              		.cfi_def_cfa_offset 16
+ 18342 0004 00AF     		add	r7, sp, #0
+ 18343              		.cfi_offset 7, -4
+ 18344              	.LCFI48:
+ 18345              		.cfi_def_cfa_register 7
+ 18346 0006 7860     		str	r0, [r7, #4]
+ 18347 0008 3960     		str	r1, [r7, #0]
+ 204:../target/stm32/syscalls/syscalls_minimal.c **** 	errno = EINVAL;
+ 18348              		.loc 1 204 0
+ 18349 000a 40F20003 		movw	r3, #:lower16:errno
+ 18350 000e C0F20003 		movt	r3, #:upper16:errno
+ 18351 0012 4FF01602 		mov	r2, #22
+ 18352 0016 1A60     		str	r2, [r3, #0]
+ 205:../target/stm32/syscalls/syscalls_minimal.c **** 	return (-1);
+ 18353              		.loc 1 205 0
+ 18354 0018 4FF0FF33 		mov	r3, #-1
+ 206:../target/stm32/syscalls/syscalls_minimal.c **** }
+ 18355              		.loc 1 206 0
+ 18356 001c 1846     		mov	r0, r3
+ 18357 001e 07F10C07 		add	r7, r7, #12
+ 18358 0022 BD46     		mov	sp, r7
+ 18359 0024 80BC     		pop	{r7}
+ 18360 0026 7047     		bx	lr
+ 18361              		.cfi_endproc
+ 18362              	.LFE45:
+ 18364              		.section	.text.times,"ax",%progbits
+ 18365              		.align	2
+ 18366              		.global	times
+ 18367              		.thumb
+ 18368              		.thumb_func
+ 18370              	times:
+ 18371              	.LFB46:
+ 207:../target/stm32/syscalls/syscalls_minimal.c **** 
+ 208:../target/stm32/syscalls/syscalls_minimal.c **** int times(struct tm *buf)
+ 209:../target/stm32/syscalls/syscalls_minimal.c **** {
+ 18372              		.loc 1 209 0
+ 18373              		.cfi_startproc
+ 18374              		@ args = 0, pretend = 0, frame = 8
+ 18375              		@ frame_needed = 1, uses_anonymous_args = 0
+ 18376              		@ link register save eliminated.
+ 18377 0000 80B4     		push	{r7}
+ 18378              	.LCFI49:
+ 18379              		.cfi_def_cfa_offset 4
+ 18380 0002 83B0     		sub	sp, sp, #12
+ 18381              	.LCFI50:
+ 18382              		.cfi_def_cfa_offset 16
+ 18383 0004 00AF     		add	r7, sp, #0
+ 18384              		.cfi_offset 7, -4
+ 18385              	.LCFI51:
+ 18386              		.cfi_def_cfa_register 7
+ 18387 0006 7860     		str	r0, [r7, #4]
+ 210:../target/stm32/syscalls/syscalls_minimal.c **** 	return -1;
+ 18388              		.loc 1 210 0
+ 18389 0008 4FF0FF33 		mov	r3, #-1
+ 211:../target/stm32/syscalls/syscalls_minimal.c **** }
+ 18390              		.loc 1 211 0
+ 18391 000c 1846     		mov	r0, r3
+ 18392 000e 07F10C07 		add	r7, r7, #12
+ 18393 0012 BD46     		mov	sp, r7
+ 18394 0014 80BC     		pop	{r7}
+ 18395 0016 7047     		bx	lr
+ 18396              		.cfi_endproc
+ 18397              	.LFE46:
+ 18399              		.section	.text._wait,"ax",%progbits
+ 18400              		.align	2
+ 18401              		.global	_wait
+ 18402              		.thumb
+ 18403              		.thumb_func
+ 18405              	_wait:
+ 18406              	.LFB47:
+ 212:../target/stm32/syscalls/syscalls_minimal.c **** 
+ 213:../target/stm32/syscalls/syscalls_minimal.c **** int _wait(int *status)
+ 214:../target/stm32/syscalls/syscalls_minimal.c **** {
+ 18407              		.loc 1 214 0
+ 18408              		.cfi_startproc
+ 18409              		@ args = 0, pretend = 0, frame = 8
+ 18410              		@ frame_needed = 1, uses_anonymous_args = 0
+ 18411              		@ link register save eliminated.
+ 18412 0000 80B4     		push	{r7}
+ 18413              	.LCFI52:
+ 18414              		.cfi_def_cfa_offset 4
+ 18415 0002 83B0     		sub	sp, sp, #12
+ 18416              	.LCFI53:
+ 18417              		.cfi_def_cfa_offset 16
+ 18418 0004 00AF     		add	r7, sp, #0
+ 18419              		.cfi_offset 7, -4
+ 18420              	.LCFI54:
+ 18421              		.cfi_def_cfa_register 7
+ 18422 0006 7860     		str	r0, [r7, #4]
+ 215:../target/stm32/syscalls/syscalls_minimal.c **** 	errno = ECHILD;
+ 18423              		.loc 1 215 0
+ 18424 0008 40F20003 		movw	r3, #:lower16:errno
+ 18425 000c C0F20003 		movt	r3, #:upper16:errno
+ 18426 0010 4FF00A02 		mov	r2, #10
+ 18427 0014 1A60     		str	r2, [r3, #0]
+ 216:../target/stm32/syscalls/syscalls_minimal.c **** 	return -1;
+ 18428              		.loc 1 216 0
+ 18429 0016 4FF0FF33 		mov	r3, #-1
+ 217:../target/stm32/syscalls/syscalls_minimal.c **** }
+ 18430              		.loc 1 217 0
+ 18431 001a 1846     		mov	r0, r3
+ 18432 001c 07F10C07 		add	r7, r7, #12
+ 18433 0020 BD46     		mov	sp, r7
+ 18434 0022 80BC     		pop	{r7}
+ 18435 0024 7047     		bx	lr
+ 18436              		.cfi_endproc
+ 18437              	.LFE47:
+ 18439 0026 00BF     		.text
+ 18440              	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 syscalls_minimal.c
+     /tmp/ccprebMy.s:17617  .bss.__env:00000000 __env
+     /tmp/ccprebMy.s:17614  .bss.__env:00000000 $d
+     /tmp/ccprebMy.s:17624  .data.__environ:00000000 __environ
+     /tmp/ccprebMy.s:17621  .data.__environ:00000000 $d
+     /tmp/ccprebMy.s:17627  .bss.heap:00000000 $d
+     /tmp/ccprebMy.s:17630  .bss.heap:00000000 heap
+                            *COM*:00000004 __dso_handle
+     /tmp/ccprebMy.s:17634  .rodata:00000000 $d
+     /tmp/ccprebMy.s:17635  .rodata:00000000 .LC0
+     /tmp/ccprebMy.s:17638  .text._exit:00000000 $t
+     /tmp/ccprebMy.s:17643  .text._exit:00000000 _exit
+     /tmp/ccprebMy.s:17673  .text._write:00000000 $t
+     /tmp/ccprebMy.s:17678  .text._write:00000000 _write
+     /tmp/ccprebMy.s:17746  .text._read:00000000 $t
+     /tmp/ccprebMy.s:17751  .text._read:00000000 _read
+     /tmp/ccprebMy.s:17792  .text._close:00000000 $t
+     /tmp/ccprebMy.s:17797  .text._close:00000000 _close
+     /tmp/ccprebMy.s:17827  .text._fstat:00000000 $t
+     /tmp/ccprebMy.s:17832  .text._fstat:00000000 _fstat
+     /tmp/ccprebMy.s:17867  .text._isatty:00000000 $t
+     /tmp/ccprebMy.s:17872  .text._isatty:00000000 _isatty
+     /tmp/ccprebMy.s:17902  .text._lseek:00000000 $t
+     /tmp/ccprebMy.s:17907  .text._lseek:00000000 _lseek
+     /tmp/ccprebMy.s:17939  .text._sbrk:00000000 $t
+     /tmp/ccprebMy.s:17944  .text._sbrk:00000000 _sbrk
+     /tmp/ccprebMy.s:18022  .text._sbrk_r:00000000 $t
+     /tmp/ccprebMy.s:18027  .text._sbrk_r:00000000 _sbrk_r
+     /tmp/ccprebMy.s:18059  .text._open:00000000 $t
+     /tmp/ccprebMy.s:18064  .text._open:00000000 _open
+     /tmp/ccprebMy.s:18096  .text._link:00000000 $t
+     /tmp/ccprebMy.s:18101  .text._link:00000000 _link
+     /tmp/ccprebMy.s:18137  .text._unlink:00000000 $t
+     /tmp/ccprebMy.s:18142  .text._unlink:00000000 _unlink
+     /tmp/ccprebMy.s:18177  .text._stat:00000000 $t
+     /tmp/ccprebMy.s:18182  .text._stat:00000000 _stat
+     /tmp/ccprebMy.s:18217  .text._execve:00000000 $t
+     /tmp/ccprebMy.s:18222  .text._execve:00000000 _execve
+     /tmp/ccprebMy.s:18259  .text._fork:00000000 $t
+     /tmp/ccprebMy.s:18264  .text._fork:00000000 _fork
+     /tmp/ccprebMy.s:18294  .text._getpid:00000000 $t
+     /tmp/ccprebMy.s:18299  .text._getpid:00000000 _getpid
+     /tmp/ccprebMy.s:18324  .text._kill:00000000 $t
+     /tmp/ccprebMy.s:18329  .text._kill:00000000 _kill
+     /tmp/ccprebMy.s:18365  .text.times:00000000 $t
+     /tmp/ccprebMy.s:18370  .text.times:00000000 times
+     /tmp/ccprebMy.s:18400  .text._wait:00000000 $t
+     /tmp/ccprebMy.s:18405  .text._wait:00000000 _wait
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+iprintf
+USART_SendData
+USART_GetFlagStatus
+_heap
+_eheap
+errno

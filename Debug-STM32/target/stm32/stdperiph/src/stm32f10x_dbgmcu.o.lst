@@ -1,0 +1,297 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"stm32f10x_dbgmcu.c"
+  23              	.Ltext0:
+  24              		.file 1 "../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c"
+ 15821              		.align	2
+ 15822              		.global	DBGMCU_GetREVID
+ 15823              		.thumb
+ 15824              		.thumb_func
+ 15826              	DBGMCU_GetREVID:
+ 15827              	.LFB29:
+   1:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c **** /**
+   2:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   ******************************************************************************
+   3:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   * @file    stm32f10x_dbgmcu.c
+   4:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   * @author  MCD Application Team
+   5:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   * @version V3.4.0
+   6:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   * @date    10/15/2010
+   7:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   * @brief   This file provides all the DBGMCU firmware functions.
+   8:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   ******************************************************************************
+   9:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   * @copy
+  10:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   *
+  11:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   * THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
+  12:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
+  13:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   * TIME. AS A RESULT, STMICROELECTRONICS SHALL NOT BE HELD LIABLE FOR ANY
+  14:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   * DIRECT, INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING
+  15:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   * FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
+  16:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
+  17:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   *
+  18:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   * <h2><center>&copy; COPYRIGHT 2010 STMicroelectronics</center></h2>
+  19:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   */ 
+  20:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c **** 
+  21:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c **** /* Includes ------------------------------------------------------------------*/
+  22:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c **** #include "stm32f10x_dbgmcu.h"
+  23:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c **** 
+  24:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c **** /** @addtogroup STM32F10x_StdPeriph_Driver
+  25:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   * @{
+  26:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   */
+  27:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c **** 
+  28:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c **** /** @defgroup DBGMCU 
+  29:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   * @brief DBGMCU driver modules
+  30:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   * @{
+  31:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   */ 
+  32:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c **** 
+  33:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c **** /** @defgroup DBGMCU_Private_TypesDefinitions
+  34:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   * @{
+  35:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   */
+  36:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c **** 
+  37:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c **** /**
+  38:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   * @}
+  39:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   */
+  40:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c **** 
+  41:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c **** /** @defgroup DBGMCU_Private_Defines
+  42:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   * @{
+  43:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   */
+  44:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c **** 
+  45:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c **** #define IDCODE_DEVID_MASK    ((uint32_t)0x00000FFF)
+  46:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c **** /**
+  47:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   * @}
+  48:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   */
+  49:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c **** 
+  50:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c **** /** @defgroup DBGMCU_Private_Macros
+  51:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   * @{
+  52:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   */
+  53:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c **** 
+  54:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c **** /**
+  55:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   * @}
+  56:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   */
+  57:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c **** 
+  58:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c **** /** @defgroup DBGMCU_Private_Variables
+  59:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   * @{
+  60:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   */
+  61:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c **** 
+  62:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c **** /**
+  63:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   * @}
+  64:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   */
+  65:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c **** 
+  66:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c **** /** @defgroup DBGMCU_Private_FunctionPrototypes
+  67:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   * @{
+  68:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   */
+  69:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c **** 
+  70:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c **** /**
+  71:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   * @}
+  72:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   */
+  73:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c **** 
+  74:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c **** /** @defgroup DBGMCU_Private_Functions
+  75:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   * @{
+  76:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   */
+  77:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c **** 
+  78:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c **** /**
+  79:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   * @brief  Returns the device revision identifier.
+  80:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   * @param  None
+  81:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   * @retval Device revision identifier
+  82:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   */
+  83:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c **** uint32_t DBGMCU_GetREVID(void)
+  84:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c **** {
+ 15828              		.loc 1 84 0
+ 15829              		.cfi_startproc
+ 15830              		@ args = 0, pretend = 0, frame = 0
+ 15831              		@ frame_needed = 1, uses_anonymous_args = 0
+ 15832              		@ link register save eliminated.
+ 15833 0000 80B4     		push	{r7}
+ 15834              	.LCFI0:
+ 15835              		.cfi_def_cfa_offset 4
+ 15836 0002 00AF     		add	r7, sp, #0
+ 15837              		.cfi_offset 7, -4
+ 15838              	.LCFI1:
+ 15839              		.cfi_def_cfa_register 7
+  85:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****    return(DBGMCU->IDCODE >> 16);
+ 15840              		.loc 1 85 0
+ 15841 0004 4FF40053 		mov	r3, #8192
+ 15842 0008 CEF20403 		movt	r3, 57348
+ 15843 000c 1B68     		ldr	r3, [r3, #0]
+ 15844 000e 4FEA1343 		lsr	r3, r3, #16
+  86:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c **** }
+ 15845              		.loc 1 86 0
+ 15846 0012 1846     		mov	r0, r3
+ 15847 0014 BD46     		mov	sp, r7
+ 15848 0016 80BC     		pop	{r7}
+ 15849 0018 7047     		bx	lr
+ 15850              		.cfi_endproc
+ 15851              	.LFE29:
+ 15853 001a 00BF     		.section	.text.DBGMCU_GetDEVID,"ax",%progbits
+ 15854              		.align	2
+ 15855              		.global	DBGMCU_GetDEVID
+ 15856              		.thumb
+ 15857              		.thumb_func
+ 15859              	DBGMCU_GetDEVID:
+ 15860              	.LFB30:
+  87:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c **** 
+  88:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c **** /**
+  89:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   * @brief  Returns the device identifier.
+  90:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   * @param  None
+  91:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   * @retval Device identifier
+  92:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   */
+  93:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c **** uint32_t DBGMCU_GetDEVID(void)
+  94:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c **** {
+ 15861              		.loc 1 94 0
+ 15862              		.cfi_startproc
+ 15863              		@ args = 0, pretend = 0, frame = 0
+ 15864              		@ frame_needed = 1, uses_anonymous_args = 0
+ 15865              		@ link register save eliminated.
+ 15866 0000 80B4     		push	{r7}
+ 15867              	.LCFI2:
+ 15868              		.cfi_def_cfa_offset 4
+ 15869 0002 00AF     		add	r7, sp, #0
+ 15870              		.cfi_offset 7, -4
+ 15871              	.LCFI3:
+ 15872              		.cfi_def_cfa_register 7
+  95:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****    return(DBGMCU->IDCODE & IDCODE_DEVID_MASK);
+ 15873              		.loc 1 95 0
+ 15874 0004 4FF40053 		mov	r3, #8192
+ 15875 0008 CEF20403 		movt	r3, 57348
+ 15876 000c 1B68     		ldr	r3, [r3, #0]
+ 15877 000e 4FEA0353 		lsl	r3, r3, #20
+ 15878 0012 4FEA1353 		lsr	r3, r3, #20
+  96:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c **** }
+ 15879              		.loc 1 96 0
+ 15880 0016 1846     		mov	r0, r3
+ 15881 0018 BD46     		mov	sp, r7
+ 15882 001a 80BC     		pop	{r7}
+ 15883 001c 7047     		bx	lr
+ 15884              		.cfi_endproc
+ 15885              	.LFE30:
+ 15887 001e 00BF     		.section	.text.DBGMCU_Config,"ax",%progbits
+ 15888              		.align	2
+ 15889              		.global	DBGMCU_Config
+ 15890              		.thumb
+ 15891              		.thumb_func
+ 15893              	DBGMCU_Config:
+ 15894              	.LFB31:
+  97:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c **** 
+  98:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c **** /**
+  99:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   * @brief  Configures the specified peripheral and low power mode behavior
+ 100:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   *   when the MCU under Debug mode.
+ 101:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   * @param  DBGMCU_Periph: specifies the peripheral and low power mode.
+ 102:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   *   This parameter can be any combination of the following values:
+ 103:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   *     @arg DBGMCU_SLEEP: Keep debugger connection during SLEEP mode              
+ 104:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   *     @arg DBGMCU_STOP: Keep debugger connection during STOP mode               
+ 105:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   *     @arg DBGMCU_STANDBY: Keep debugger connection during STANDBY mode            
+ 106:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   *     @arg DBGMCU_IWDG_STOP: Debug IWDG stopped when Core is halted          
+ 107:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   *     @arg DBGMCU_WWDG_STOP: Debug WWDG stopped when Core is halted          
+ 108:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   *     @arg DBGMCU_TIM1_STOP: TIM1 counter stopped when Core is halted          
+ 109:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   *     @arg DBGMCU_TIM2_STOP: TIM2 counter stopped when Core is halted          
+ 110:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   *     @arg DBGMCU_TIM3_STOP: TIM3 counter stopped when Core is halted          
+ 111:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   *     @arg DBGMCU_TIM4_STOP: TIM4 counter stopped when Core is halted          
+ 112:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   *     @arg DBGMCU_CAN1_STOP: Debug CAN2 stopped when Core is halted           
+ 113:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   *     @arg DBGMCU_I2C1_SMBUS_TIMEOUT: I2C1 SMBUS timeout mode stopped when Core is halted
+ 114:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   *     @arg DBGMCU_I2C2_SMBUS_TIMEOUT: I2C2 SMBUS timeout mode stopped when Core is halted
+ 115:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   *     @arg DBGMCU_TIM5_STOP: TIM5 counter stopped when Core is halted          
+ 116:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   *     @arg DBGMCU_TIM6_STOP: TIM6 counter stopped when Core is halted          
+ 117:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   *     @arg DBGMCU_TIM7_STOP: TIM7 counter stopped when Core is halted          
+ 118:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   *     @arg DBGMCU_TIM8_STOP: TIM8 counter stopped when Core is halted
+ 119:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   *     @arg DBGMCU_CAN2_STOP: Debug CAN2 stopped when Core is halted 
+ 120:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   *     @arg DBGMCU_TIM15_STOP: TIM15 counter stopped when Core is halted
+ 121:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   *     @arg DBGMCU_TIM16_STOP: TIM16 counter stopped when Core is halted
+ 122:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   *     @arg DBGMCU_TIM17_STOP: TIM17 counter stopped when Core is halted                
+ 123:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   *     @arg DBGMCU_TIM9_STOP: TIM9 counter stopped when Core is halted
+ 124:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   *     @arg DBGMCU_TIM10_STOP: TIM10 counter stopped when Core is halted
+ 125:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   *     @arg DBGMCU_TIM11_STOP: TIM11 counter stopped when Core is halted
+ 126:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   *     @arg DBGMCU_TIM12_STOP: TIM12 counter stopped when Core is halted
+ 127:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   *     @arg DBGMCU_TIM13_STOP: TIM13 counter stopped when Core is halted
+ 128:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   *     @arg DBGMCU_TIM14_STOP: TIM14 counter stopped when Core is halted
+ 129:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   * @param  NewState: new state of the specified peripheral in Debug mode.
+ 130:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   *   This parameter can be: ENABLE or DISABLE.
+ 131:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   * @retval None
+ 132:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   */
+ 133:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c **** void DBGMCU_Config(uint32_t DBGMCU_Periph, FunctionalState NewState)
+ 134:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c **** {
+ 15895              		.loc 1 134 0
+ 15896              		.cfi_startproc
+ 15897              		@ args = 0, pretend = 0, frame = 8
+ 15898              		@ frame_needed = 1, uses_anonymous_args = 0
+ 15899              		@ link register save eliminated.
+ 15900 0000 80B4     		push	{r7}
+ 15901              	.LCFI4:
+ 15902              		.cfi_def_cfa_offset 4
+ 15903 0002 83B0     		sub	sp, sp, #12
+ 15904              	.LCFI5:
+ 15905              		.cfi_def_cfa_offset 16
+ 15906 0004 00AF     		add	r7, sp, #0
+ 15907              		.cfi_offset 7, -4
+ 15908              	.LCFI6:
+ 15909              		.cfi_def_cfa_register 7
+ 15910 0006 7860     		str	r0, [r7, #4]
+ 15911 0008 0B46     		mov	r3, r1
+ 15912 000a FB70     		strb	r3, [r7, #3]
+ 135:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   /* Check the parameters */
+ 136:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   assert_param(IS_DBGMCU_PERIPH(DBGMCU_Periph));
+ 137:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   assert_param(IS_FUNCTIONAL_STATE(NewState));
+ 138:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c **** 
+ 139:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   if (NewState != DISABLE)
+ 15913              		.loc 1 139 0
+ 15914 000c FB78     		ldrb	r3, [r7, #3]	@ zero_extendqisi2
+ 15915 000e 002B     		cmp	r3, #0
+ 15916 0010 0ED0     		beq	.L4
+ 140:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   {
+ 141:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****     DBGMCU->CR |= DBGMCU_Periph;
+ 15917              		.loc 1 141 0
+ 15918 0012 4FF40053 		mov	r3, #8192
+ 15919 0016 CEF20403 		movt	r3, 57348
+ 15920 001a 4FF40052 		mov	r2, #8192
+ 15921 001e CEF20402 		movt	r2, 57348
+ 15922 0022 5268     		ldr	r2, [r2, #4]
+ 15923 0024 1146     		mov	r1, r2
+ 15924 0026 7A68     		ldr	r2, [r7, #4]
+ 15925 0028 41EA0202 		orr	r2, r1, r2
+ 15926 002c 5A60     		str	r2, [r3, #4]
+ 15927 002e 0FE0     		b	.L3
+ 15928              	.L4:
+ 142:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   }
+ 143:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   else
+ 144:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   {
+ 145:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****     DBGMCU->CR &= ~DBGMCU_Periph;
+ 15929              		.loc 1 145 0
+ 15930 0030 4FF40053 		mov	r3, #8192
+ 15931 0034 CEF20403 		movt	r3, 57348
+ 15932 0038 4FF40052 		mov	r2, #8192
+ 15933 003c CEF20402 		movt	r2, 57348
+ 15934 0040 5268     		ldr	r2, [r2, #4]
+ 15935 0042 1146     		mov	r1, r2
+ 15936 0044 7A68     		ldr	r2, [r7, #4]
+ 15937 0046 6FEA0202 		mvn	r2, r2
+ 15938 004a 01EA0202 		and	r2, r1, r2
+ 15939 004e 5A60     		str	r2, [r3, #4]
+ 15940              	.L3:
+ 146:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c ****   }
+ 147:../target/stm32/stdperiph/src/stm32f10x_dbgmcu.c **** }
+ 15941              		.loc 1 147 0
+ 15942 0050 07F10C07 		add	r7, r7, #12
+ 15943 0054 BD46     		mov	sp, r7
+ 15944 0056 80BC     		pop	{r7}
+ 15945 0058 7047     		bx	lr
+ 15946              		.cfi_endproc
+ 15947              	.LFE31:
+ 15949 005a 00BF     		.text
+ 15950              	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 stm32f10x_dbgmcu.c
+     /tmp/ccrGWQqA.s:15821  .text.DBGMCU_GetREVID:00000000 $t
+     /tmp/ccrGWQqA.s:15826  .text.DBGMCU_GetREVID:00000000 DBGMCU_GetREVID
+     /tmp/ccrGWQqA.s:15854  .text.DBGMCU_GetDEVID:00000000 $t
+     /tmp/ccrGWQqA.s:15859  .text.DBGMCU_GetDEVID:00000000 DBGMCU_GetDEVID
+     /tmp/ccrGWQqA.s:15888  .text.DBGMCU_Config:00000000 $t
+     /tmp/ccrGWQqA.s:15893  .text.DBGMCU_Config:00000000 DBGMCU_Config
+                     .debug_frame:00000010 $d
+
+NO UNDEFINED SYMBOLS

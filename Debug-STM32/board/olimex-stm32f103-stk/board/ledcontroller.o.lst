@@ -1,0 +1,777 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"ledcontroller.cpp"
+  23              	.Ltext0:
+  24              		.file 1 "../board/olimex-stm32f103-stk/board/ledcontroller.cpp"
+ 17549              		.align	2
+ 17550              		.weak	_ZN4ILedC2Ev
+ 17551              		.thumb
+ 17552              		.thumb_func
+ 17554              	_ZN4ILedC2Ev:
+ 17555              	.LFB30:
+   1:/home/desem/workspace/desenet/interfaces/iled.h **** #pragma once
+   2:/home/desem/workspace/desenet/interfaces/iled.h **** 
+   3:/home/desem/workspace/desenet/interfaces/iled.h **** /**
+   4:/home/desem/workspace/desenet/interfaces/iled.h ****  * @ingroup interfaces
+   5:/home/desem/workspace/desenet/interfaces/iled.h ****  * @brief Interface for a single LED. Abstracts all operations possible (turn off, turn on, toggle)
+   6:/home/desem/workspace/desenet/interfaces/iled.h ****  * 		  with a simple interface.
+   7:/home/desem/workspace/desenet/interfaces/iled.h ****  */
+   8:/home/desem/workspace/desenet/interfaces/iled.h **** class ILed
+   9:/home/desem/workspace/desenet/interfaces/iled.h **** {
+  10:/home/desem/workspace/desenet/interfaces/iled.h **** public:
+  11:/home/desem/workspace/desenet/interfaces/iled.h **** 	/**
+  12:/home/desem/workspace/desenet/interfaces/iled.h **** 	 * @brief All possible and impossible states a LED can have.
+  13:/home/desem/workspace/desenet/interfaces/iled.h **** 	 */
+  14:/home/desem/workspace/desenet/interfaces/iled.h **** 	enum State
+  15:/home/desem/workspace/desenet/interfaces/iled.h **** 	{
+  16:/home/desem/workspace/desenet/interfaces/iled.h **** 		Invalid	=  0 ,	///< @brief Invalid LED state.
+  17:/home/desem/workspace/desenet/interfaces/iled.h **** 		Off 	= -1 ,	///< @brief The LED is off.
+  18:/home/desem/workspace/desenet/interfaces/iled.h **** 		On 		=  1	///< @brief The LED is on.
+  19:/home/desem/workspace/desenet/interfaces/iled.h **** 	};
+  20:/home/desem/workspace/desenet/interfaces/iled.h **** 
+  21:/home/desem/workspace/desenet/interfaces/iled.h **** protected:
+  22:/home/desem/workspace/desenet/interfaces/iled.h **** 	// It is just an interface, so constructor and destructor should be not public.
+  23:/home/desem/workspace/desenet/interfaces/iled.h **** 	explicit ILed() {}
+ 17556              		.loc 31 23 0
+ 17557              		.cfi_startproc
+ 17558              		@ args = 0, pretend = 0, frame = 8
+ 17559              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17560              		@ link register save eliminated.
+ 17561 0000 80B4     		push	{r7}
+ 17562              	.LCFI0:
+ 17563              		.cfi_def_cfa_offset 4
+ 17564 0002 83B0     		sub	sp, sp, #12
+ 17565              	.LCFI1:
+ 17566              		.cfi_def_cfa_offset 16
+ 17567 0004 00AF     		add	r7, sp, #0
+ 17568              		.cfi_offset 7, -4
+ 17569              	.LCFI2:
+ 17570              		.cfi_def_cfa_register 7
+ 17571 0006 7860     		str	r0, [r7, #4]
+ 17572              	.LBB2:
+ 17573              		.loc 31 23 0
+ 17574 0008 7B68     		ldr	r3, [r7, #4]
+ 17575 000a 044A     		ldr	r2, .L3
+ 17576 000c 1A60     		str	r2, [r3, #0]
+ 17577              	.LBE2:
+ 17578 000e 7B68     		ldr	r3, [r7, #4]
+ 17579 0010 1846     		mov	r0, r3
+ 17580 0012 07F10C07 		add	r7, r7, #12
+ 17581 0016 BD46     		mov	sp, r7
+ 17582 0018 80BC     		pop	{r7}
+ 17583 001a 7047     		bx	lr
+ 17584              	.L4:
+ 17585              		.align	2
+ 17586              	.L3:
+ 17587 001c 08000000 		.word	_ZTV4ILed+8
+ 17588              		.cfi_endproc
+ 17589              	.LFE30:
+ 17591              		.weak	_ZN4ILedC1Ev
+ 17592              		.thumb_set _ZN4ILedC1Ev,_ZN4ILedC2Ev
+ 17593              		.section	.text._ZN4ILedD2Ev,"axG",%progbits,_ZN4ILedD5Ev,comdat
+ 17594              		.align	2
+ 17595              		.weak	_ZN4ILedD2Ev
+ 17596              		.thumb
+ 17597              		.thumb_func
+ 17599              	_ZN4ILedD2Ev:
+ 17600              	.LFB33:
+  24:/home/desem/workspace/desenet/interfaces/iled.h **** 	virtual ~ILed() {}
+ 17601              		.loc 31 24 0
+ 17602              		.cfi_startproc
+ 17603              		@ args = 0, pretend = 0, frame = 8
+ 17604              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17605 0000 80B5     		push	{r7, lr}
+ 17606              	.LCFI3:
+ 17607              		.cfi_def_cfa_offset 8
+ 17608 0002 82B0     		sub	sp, sp, #8
+ 17609              	.LCFI4:
+ 17610              		.cfi_def_cfa_offset 16
+ 17611 0004 00AF     		add	r7, sp, #0
+ 17612              		.cfi_offset 14, -4
+ 17613              		.cfi_offset 7, -8
+ 17614              	.LCFI5:
+ 17615              		.cfi_def_cfa_register 7
+ 17616 0006 7860     		str	r0, [r7, #4]
+ 17617              	.LBB3:
+ 17618              		.loc 31 24 0
+ 17619 0008 7B68     		ldr	r3, [r7, #4]
+ 17620 000a 094A     		ldr	r2, .L8
+ 17621 000c 1A60     		str	r2, [r3, #0]
+ 17622              	.LBE3:
+ 17623 000e 4FF00003 		mov	r3, #0
+ 17624 0012 03F00103 		and	r3, r3, #1
+ 17625 0016 DBB2     		uxtb	r3, r3
+ 17626 0018 002B     		cmp	r3, #0
+ 17627 001a 02D0     		beq	.L7
+ 17628              		.loc 31 24 0 is_stmt 0 discriminator 1
+ 17629 001c 7868     		ldr	r0, [r7, #4]
+ 17630 001e FFF7FEFF 		bl	_ZdlPv
+ 17631              	.L7:
+ 17632              		.loc 31 24 0 discriminator 2
+ 17633 0022 7B68     		ldr	r3, [r7, #4]
+ 17634 0024 1846     		mov	r0, r3
+ 17635 0026 07F10807 		add	r7, r7, #8
+ 17636 002a BD46     		mov	sp, r7
+ 17637 002c 80BD     		pop	{r7, pc}
+ 17638              	.L9:
+ 17639 002e 00BF     		.align	2
+ 17640              	.L8:
+ 17641 0030 08000000 		.word	_ZTV4ILed+8
+ 17642              		.cfi_endproc
+ 17643              	.LFE33:
+ 17645              		.weak	_ZN4ILedD1Ev
+ 17646              		.thumb_set _ZN4ILedD1Ev,_ZN4ILedD2Ev
+ 17647              		.section	.text._ZN4ILedD0Ev,"axG",%progbits,_ZN4ILedD5Ev,comdat
+ 17648              		.align	2
+ 17649              		.weak	_ZN4ILedD0Ev
+ 17650              		.thumb
+ 17651              		.thumb_func
+ 17653              	_ZN4ILedD0Ev:
+ 17654              	.LFB35:
+ 17655              		.loc 31 24 0 is_stmt 1
+ 17656              		.cfi_startproc
+ 17657              		@ args = 0, pretend = 0, frame = 8
+ 17658              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17659 0000 80B5     		push	{r7, lr}
+ 17660              	.LCFI6:
+ 17661              		.cfi_def_cfa_offset 8
+ 17662 0002 82B0     		sub	sp, sp, #8
+ 17663              	.LCFI7:
+ 17664              		.cfi_def_cfa_offset 16
+ 17665 0004 00AF     		add	r7, sp, #0
+ 17666              		.cfi_offset 14, -4
+ 17667              		.cfi_offset 7, -8
+ 17668              	.LCFI8:
+ 17669              		.cfi_def_cfa_register 7
+ 17670 0006 7860     		str	r0, [r7, #4]
+ 17671              		.loc 31 24 0
+ 17672 0008 7868     		ldr	r0, [r7, #4]
+ 17673 000a FFF7FEFF 		bl	_ZN4ILedD1Ev
+ 17674 000e 7868     		ldr	r0, [r7, #4]
+ 17675 0010 FFF7FEFF 		bl	_ZdlPv
+ 17676 0014 7B68     		ldr	r3, [r7, #4]
+ 17677 0016 1846     		mov	r0, r3
+ 17678 0018 07F10807 		add	r7, r7, #8
+ 17679 001c BD46     		mov	sp, r7
+ 17680 001e 80BD     		pop	{r7, pc}
+ 17681              		.cfi_endproc
+ 17682              	.LFE35:
+ 17684              		.section	.text._ZN4ILed6toggleEv,"axG",%progbits,_ZN4ILed6toggleEv,comdat
+ 17685              		.align	2
+ 17686              		.weak	_ZN4ILed6toggleEv
+ 17687              		.thumb
+ 17688              		.thumb_func
+ 17690              	_ZN4ILed6toggleEv:
+ 17691              	.LFB38:
+  25:/home/desem/workspace/desenet/interfaces/iled.h **** 
+  26:/home/desem/workspace/desenet/interfaces/iled.h **** public:
+  27:/home/desem/workspace/desenet/interfaces/iled.h **** 	/**
+  28:/home/desem/workspace/desenet/interfaces/iled.h **** 	 * @brief Initializes all subsystems and the object itself needed for proper LED operation.
+  29:/home/desem/workspace/desenet/interfaces/iled.h **** 	 *
+  30:/home/desem/workspace/desenet/interfaces/iled.h **** 	 * @return True if the LED could be initialized and is ready to be used, false otherwise.
+  31:/home/desem/workspace/desenet/interfaces/iled.h **** 	 */
+  32:/home/desem/workspace/desenet/interfaces/iled.h **** 	virtual bool initialize() = 0;
+  33:/home/desem/workspace/desenet/interfaces/iled.h **** 
+  34:/home/desem/workspace/desenet/interfaces/iled.h **** 	/**
+  35:/home/desem/workspace/desenet/interfaces/iled.h **** 	 * @brief Returns the actual state of the LED.
+  36:/home/desem/workspace/desenet/interfaces/iled.h **** 	 *
+  37:/home/desem/workspace/desenet/interfaces/iled.h **** 	 * @return State of the LED.
+  38:/home/desem/workspace/desenet/interfaces/iled.h **** 	 */
+  39:/home/desem/workspace/desenet/interfaces/iled.h **** 	virtual State state() const = 0;
+  40:/home/desem/workspace/desenet/interfaces/iled.h **** 
+  41:/home/desem/workspace/desenet/interfaces/iled.h **** 	/**
+  42:/home/desem/workspace/desenet/interfaces/iled.h **** 	 * @brief Changes the actual state of the LED.
+  43:/home/desem/workspace/desenet/interfaces/iled.h **** 	 *
+  44:/home/desem/workspace/desenet/interfaces/iled.h **** 	 * @param state State to set for the LED.
+  45:/home/desem/workspace/desenet/interfaces/iled.h **** 	 */
+  46:/home/desem/workspace/desenet/interfaces/iled.h **** 	virtual void setState( State state ) = 0;
+  47:/home/desem/workspace/desenet/interfaces/iled.h **** 
+  48:/home/desem/workspace/desenet/interfaces/iled.h **** 	/**
+  49:/home/desem/workspace/desenet/interfaces/iled.h **** 	 * @brief Convenient method that makes myLed = ILed::On statements possible.
+  50:/home/desem/workspace/desenet/interfaces/iled.h **** 	 *
+  51:/home/desem/workspace/desenet/interfaces/iled.h **** 	 * @param state State to set for the LED.
+  52:/home/desem/workspace/desenet/interfaces/iled.h **** 	 * @return Reference to the ILed object.
+  53:/home/desem/workspace/desenet/interfaces/iled.h **** 	 */
+  54:/home/desem/workspace/desenet/interfaces/iled.h **** 	inline const ILed & operator=( State state )
+  55:/home/desem/workspace/desenet/interfaces/iled.h **** 	{
+  56:/home/desem/workspace/desenet/interfaces/iled.h **** 		setState( state );
+  57:/home/desem/workspace/desenet/interfaces/iled.h **** 		return *this;
+  58:/home/desem/workspace/desenet/interfaces/iled.h **** 	}
+  59:/home/desem/workspace/desenet/interfaces/iled.h **** 
+  60:/home/desem/workspace/desenet/interfaces/iled.h **** 	/**
+  61:/home/desem/workspace/desenet/interfaces/iled.h **** 	 * @brief Convenient method that makes if ( myLed = ILed::Off ) statements possible.
+  62:/home/desem/workspace/desenet/interfaces/iled.h **** 	 *
+  63:/home/desem/workspace/desenet/interfaces/iled.h **** 	 * @return Actual state of the LED.
+  64:/home/desem/workspace/desenet/interfaces/iled.h **** 	 */
+  65:/home/desem/workspace/desenet/interfaces/iled.h **** 	inline operator State() const
+  66:/home/desem/workspace/desenet/interfaces/iled.h **** 	{
+  67:/home/desem/workspace/desenet/interfaces/iled.h **** 		return state();
+  68:/home/desem/workspace/desenet/interfaces/iled.h **** 	}
+  69:/home/desem/workspace/desenet/interfaces/iled.h **** 
+  70:/home/desem/workspace/desenet/interfaces/iled.h **** 	/**
+  71:/home/desem/workspace/desenet/interfaces/iled.h **** 	 * @brief Convenient method that toggles the LED if this functionality is not provided
+  72:/home/desem/workspace/desenet/interfaces/iled.h **** 	 * 		  by the ILed implementation.
+  73:/home/desem/workspace/desenet/interfaces/iled.h **** 	 */
+  74:/home/desem/workspace/desenet/interfaces/iled.h **** 	virtual void toggle()
+ 17692              		.loc 31 74 0
+ 17693              		.cfi_startproc
+ 17694              		@ args = 0, pretend = 0, frame = 8
+ 17695              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17696 0000 90B5     		push	{r4, r7, lr}
+ 17697              	.LCFI9:
+ 17698              		.cfi_def_cfa_offset 12
+ 17699 0002 83B0     		sub	sp, sp, #12
+ 17700              	.LCFI10:
+ 17701              		.cfi_def_cfa_offset 24
+ 17702 0004 00AF     		add	r7, sp, #0
+ 17703              		.cfi_offset 14, -4
+ 17704              		.cfi_offset 7, -8
+ 17705              		.cfi_offset 4, -12
+ 17706              	.LCFI11:
+ 17707              		.cfi_def_cfa_register 7
+ 17708 0006 7860     		str	r0, [r7, #4]
+  75:/home/desem/workspace/desenet/interfaces/iled.h **** 	{
+  76:/home/desem/workspace/desenet/interfaces/iled.h **** 		setState( static_cast<State>( -state() ) );
+ 17709              		.loc 31 76 0
+ 17710 0008 7B68     		ldr	r3, [r7, #4]
+ 17711 000a 1B68     		ldr	r3, [r3, #0]
+ 17712 000c 03F11003 		add	r3, r3, #16
+ 17713 0010 1C68     		ldr	r4, [r3, #0]
+ 17714 0012 7B68     		ldr	r3, [r7, #4]
+ 17715 0014 1B68     		ldr	r3, [r3, #0]
+ 17716 0016 03F10C03 		add	r3, r3, #12
+ 17717 001a 1B68     		ldr	r3, [r3, #0]
+ 17718 001c 7868     		ldr	r0, [r7, #4]
+ 17719 001e 9847     		blx	r3
+ 17720 0020 0346     		mov	r3, r0
+ 17721 0022 DBB2     		uxtb	r3, r3
+ 17722 0024 C3F10003 		rsb	r3, r3, #0
+ 17723 0028 DBB2     		uxtb	r3, r3
+ 17724 002a DBB2     		uxtb	r3, r3
+ 17725 002c 5BB2     		sxtb	r3, r3
+ 17726 002e 7868     		ldr	r0, [r7, #4]
+ 17727 0030 1946     		mov	r1, r3
+ 17728 0032 A047     		blx	r4
+  77:/home/desem/workspace/desenet/interfaces/iled.h **** 	}
+ 17729              		.loc 31 77 0
+ 17730 0034 07F10C07 		add	r7, r7, #12
+ 17731 0038 BD46     		mov	sp, r7
+ 17732 003a 90BD     		pop	{r4, r7, pc}
+ 17733              		.cfi_endproc
+ 17734              	.LFE38:
+ 17736              		.section	.text._ZN13LedControllerC2Ev,"ax",%progbits
+ 17737              		.align	2
+ 17738              		.global	_ZN13LedControllerC2Ev
+ 17739              		.thumb
+ 17740              		.thumb_func
+ 17742              	_ZN13LedControllerC2Ev:
+ 17743              	.LFB40:
+   1:../board/olimex-stm32f103-stk/board/ledcontroller.cpp **** /*
+   2:../board/olimex-stm32f103-stk/board/ledcontroller.cpp ****  * LedController.cpp
+   3:../board/olimex-stm32f103-stk/board/ledcontroller.cpp ****  *
+   4:../board/olimex-stm32f103-stk/board/ledcontroller.cpp ****  *  Created on: Jan 11, 2011
+   5:../board/olimex-stm32f103-stk/board/ledcontroller.cpp ****  *      Author: sth
+   6:../board/olimex-stm32f103-stk/board/ledcontroller.cpp ****  */
+   7:../board/olimex-stm32f103-stk/board/ledcontroller.cpp **** 
+   8:../board/olimex-stm32f103-stk/board/ledcontroller.cpp **** 
+   9:../board/olimex-stm32f103-stk/board/ledcontroller.cpp **** #include <target.h>
+  10:../board/olimex-stm32f103-stk/board/ledcontroller.cpp **** #include "ledcontroller.h"
+  11:../board/olimex-stm32f103-stk/board/ledcontroller.cpp **** 
+  12:../board/olimex-stm32f103-stk/board/ledcontroller.cpp **** 
+  13:../board/olimex-stm32f103-stk/board/ledcontroller.cpp **** LedController::LedController()
+ 17744              		.loc 1 13 0
+ 17745              		.cfi_startproc
+ 17746              		@ args = 0, pretend = 0, frame = 8
+ 17747              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17748 0000 80B5     		push	{r7, lr}
+ 17749              	.LCFI12:
+ 17750              		.cfi_def_cfa_offset 8
+ 17751 0002 82B0     		sub	sp, sp, #8
+ 17752              	.LCFI13:
+ 17753              		.cfi_def_cfa_offset 16
+ 17754 0004 00AF     		add	r7, sp, #0
+ 17755              		.cfi_offset 14, -4
+ 17756              		.cfi_offset 7, -8
+ 17757              	.LCFI14:
+ 17758              		.cfi_def_cfa_register 7
+ 17759 0006 7860     		str	r0, [r7, #4]
+ 17760              	.LBB4:
+  14:../board/olimex-stm32f103-stk/board/ledcontroller.cpp ****  : _bInitialized(false)
+ 17761              		.loc 1 14 0
+ 17762 0008 7B68     		ldr	r3, [r7, #4]
+ 17763 000a 1846     		mov	r0, r3
+ 17764 000c FFF7FEFF 		bl	_ZN4ILedC2Ev
+ 17765 0010 7B68     		ldr	r3, [r7, #4]
+ 17766 0012 064A     		ldr	r2, .L15
+ 17767 0014 1A60     		str	r2, [r3, #0]
+ 17768 0016 7B68     		ldr	r3, [r7, #4]
+ 17769 0018 4FF00002 		mov	r2, #0
+ 17770 001c 1A71     		strb	r2, [r3, #4]
+ 17771              	.LBE4:
+  15:../board/olimex-stm32f103-stk/board/ledcontroller.cpp **** {
+  16:../board/olimex-stm32f103-stk/board/ledcontroller.cpp **** 
+  17:../board/olimex-stm32f103-stk/board/ledcontroller.cpp **** }
+ 17772              		.loc 1 17 0
+ 17773 001e 7B68     		ldr	r3, [r7, #4]
+ 17774 0020 1846     		mov	r0, r3
+ 17775 0022 07F10807 		add	r7, r7, #8
+ 17776 0026 BD46     		mov	sp, r7
+ 17777 0028 80BD     		pop	{r7, pc}
+ 17778              	.L16:
+ 17779 002a 00BF     		.align	2
+ 17780              	.L15:
+ 17781 002c 08000000 		.word	_ZTV13LedController+8
+ 17782              		.cfi_endproc
+ 17783              	.LFE40:
+ 17785              		.global	_ZN13LedControllerC1Ev
+ 17786              		.thumb_set _ZN13LedControllerC1Ev,_ZN13LedControllerC2Ev
+ 17787              		.section	.text._ZN13LedControllerD2Ev,"ax",%progbits
+ 17788              		.align	2
+ 17789              		.global	_ZN13LedControllerD2Ev
+ 17790              		.thumb
+ 17791              		.thumb_func
+ 17793              	_ZN13LedControllerD2Ev:
+ 17794              	.LFB43:
+  18:../board/olimex-stm32f103-stk/board/ledcontroller.cpp **** 
+  19:../board/olimex-stm32f103-stk/board/ledcontroller.cpp **** LedController::~LedController()
+ 17795              		.loc 1 19 0
+ 17796              		.cfi_startproc
+ 17797              		@ args = 0, pretend = 0, frame = 8
+ 17798              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17799 0000 80B5     		push	{r7, lr}
+ 17800              	.LCFI15:
+ 17801              		.cfi_def_cfa_offset 8
+ 17802 0002 82B0     		sub	sp, sp, #8
+ 17803              	.LCFI16:
+ 17804              		.cfi_def_cfa_offset 16
+ 17805 0004 00AF     		add	r7, sp, #0
+ 17806              		.cfi_offset 14, -4
+ 17807              		.cfi_offset 7, -8
+ 17808              	.LCFI17:
+ 17809              		.cfi_def_cfa_register 7
+ 17810 0006 7860     		str	r0, [r7, #4]
+ 17811              	.LBB5:
+ 17812              		.loc 1 19 0
+ 17813 0008 7B68     		ldr	r3, [r7, #4]
+ 17814 000a 0B4A     		ldr	r2, .L20
+ 17815 000c 1A60     		str	r2, [r3, #0]
+ 17816 000e 7B68     		ldr	r3, [r7, #4]
+  20:../board/olimex-stm32f103-stk/board/ledcontroller.cpp **** {
+  21:../board/olimex-stm32f103-stk/board/ledcontroller.cpp **** 
+  22:../board/olimex-stm32f103-stk/board/ledcontroller.cpp **** }
+ 17817              		.loc 1 22 0
+ 17818 0010 1846     		mov	r0, r3
+ 17819 0012 FFF7FEFF 		bl	_ZN4ILedD2Ev
+ 17820              	.LBE5:
+ 17821 0016 4FF00003 		mov	r3, #0
+ 17822 001a 03F00103 		and	r3, r3, #1
+ 17823 001e DBB2     		uxtb	r3, r3
+ 17824 0020 002B     		cmp	r3, #0
+ 17825 0022 02D0     		beq	.L19
+ 17826              		.loc 1 22 0 is_stmt 0 discriminator 2
+ 17827 0024 7868     		ldr	r0, [r7, #4]
+ 17828 0026 FFF7FEFF 		bl	_ZdlPv
+ 17829              	.L19:
+ 17830              		.loc 1 22 0 discriminator 3
+ 17831 002a 7B68     		ldr	r3, [r7, #4]
+ 17832 002c 1846     		mov	r0, r3
+ 17833 002e 07F10807 		add	r7, r7, #8
+ 17834 0032 BD46     		mov	sp, r7
+ 17835 0034 80BD     		pop	{r7, pc}
+ 17836              	.L21:
+ 17837 0036 00BF     		.align	2
+ 17838              	.L20:
+ 17839 0038 08000000 		.word	_ZTV13LedController+8
+ 17840              		.cfi_endproc
+ 17841              	.LFE43:
+ 17843              		.global	_ZN13LedControllerD1Ev
+ 17844              		.thumb_set _ZN13LedControllerD1Ev,_ZN13LedControllerD2Ev
+ 17845              		.section	.text._ZN13LedControllerD0Ev,"ax",%progbits
+ 17846              		.align	2
+ 17847              		.global	_ZN13LedControllerD0Ev
+ 17848              		.thumb
+ 17849              		.thumb_func
+ 17851              	_ZN13LedControllerD0Ev:
+ 17852              	.LFB45:
+  19:../board/olimex-stm32f103-stk/board/ledcontroller.cpp **** LedController::~LedController()
+ 17853              		.loc 1 19 0 is_stmt 1
+ 17854              		.cfi_startproc
+ 17855              		@ args = 0, pretend = 0, frame = 8
+ 17856              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17857 0000 80B5     		push	{r7, lr}
+ 17858              	.LCFI18:
+ 17859              		.cfi_def_cfa_offset 8
+ 17860 0002 82B0     		sub	sp, sp, #8
+ 17861              	.LCFI19:
+ 17862              		.cfi_def_cfa_offset 16
+ 17863 0004 00AF     		add	r7, sp, #0
+ 17864              		.cfi_offset 14, -4
+ 17865              		.cfi_offset 7, -8
+ 17866              	.LCFI20:
+ 17867              		.cfi_def_cfa_register 7
+ 17868 0006 7860     		str	r0, [r7, #4]
+ 17869              		.loc 1 22 0
+ 17870 0008 7868     		ldr	r0, [r7, #4]
+ 17871 000a FFF7FEFF 		bl	_ZN13LedControllerD1Ev
+ 17872 000e 7868     		ldr	r0, [r7, #4]
+ 17873 0010 FFF7FEFF 		bl	_ZdlPv
+ 17874 0014 7B68     		ldr	r3, [r7, #4]
+ 17875 0016 1846     		mov	r0, r3
+ 17876 0018 07F10807 		add	r7, r7, #8
+ 17877 001c BD46     		mov	sp, r7
+ 17878 001e 80BD     		pop	{r7, pc}
+ 17879              		.cfi_endproc
+ 17880              	.LFE45:
+ 17882              		.section	.text._ZN13LedController10initializeEv,"ax",%progbits
+ 17883              		.align	2
+ 17884              		.global	_ZN13LedController10initializeEv
+ 17885              		.thumb
+ 17886              		.thumb_func
+ 17888              	_ZN13LedController10initializeEv:
+ 17889              	.LFB46:
+  23:../board/olimex-stm32f103-stk/board/ledcontroller.cpp **** 
+  24:../board/olimex-stm32f103-stk/board/ledcontroller.cpp **** bool LedController::initialize()
+  25:../board/olimex-stm32f103-stk/board/ledcontroller.cpp **** {
+ 17890              		.loc 1 25 0
+ 17891              		.cfi_startproc
+ 17892              		@ args = 0, pretend = 0, frame = 16
+ 17893              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17894 0000 80B5     		push	{r7, lr}
+ 17895              	.LCFI21:
+ 17896              		.cfi_def_cfa_offset 8
+ 17897 0002 84B0     		sub	sp, sp, #16
+ 17898              	.LCFI22:
+ 17899              		.cfi_def_cfa_offset 24
+ 17900 0004 00AF     		add	r7, sp, #0
+ 17901              		.cfi_offset 14, -4
+ 17902              		.cfi_offset 7, -8
+ 17903              	.LCFI23:
+ 17904              		.cfi_def_cfa_register 7
+ 17905 0006 7860     		str	r0, [r7, #4]
+ 17906              	.LBB6:
+ 17907              	.LBB7:
+  26:../board/olimex-stm32f103-stk/board/ledcontroller.cpp **** 	if (!_bInitialized)
+ 17908              		.loc 1 26 0
+ 17909 0008 7B68     		ldr	r3, [r7, #4]
+ 17910 000a 1B79     		ldrb	r3, [r3, #4]	@ zero_extendqisi2
+ 17911 000c 83F00103 		eor	r3, r3, #1
+ 17912 0010 DBB2     		uxtb	r3, r3
+ 17913 0012 002B     		cmp	r3, #0
+ 17914 0014 25D0     		beq	.L25
+ 17915              	.LBB8:
+  27:../board/olimex-stm32f103-stk/board/ledcontroller.cpp **** 	{
+  28:../board/olimex-stm32f103-stk/board/ledcontroller.cpp **** 		GPIO_InitTypeDef gpioInitStructure;
+  29:../board/olimex-stm32f103-stk/board/ledcontroller.cpp **** 
+  30:../board/olimex-stm32f103-stk/board/ledcontroller.cpp **** 		_bInitialized = true;
+ 17916              		.loc 1 30 0
+ 17917 0016 7B68     		ldr	r3, [r7, #4]
+ 17918 0018 4FF00102 		mov	r2, #1
+ 17919 001c 1A71     		strb	r2, [r3, #4]
+  31:../board/olimex-stm32f103-stk/board/ledcontroller.cpp **** 
+  32:../board/olimex-stm32f103-stk/board/ledcontroller.cpp **** 		// Enable needed clocks
+  33:../board/olimex-stm32f103-stk/board/ledcontroller.cpp **** 		RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC, ENABLE);
+ 17920              		.loc 1 33 0
+ 17921 001e 4FF01000 		mov	r0, #16
+ 17922 0022 4FF00101 		mov	r1, #1
+ 17923 0026 FFF7FEFF 		bl	RCC_APB2PeriphClockCmd
+  34:../board/olimex-stm32f103-stk/board/ledcontroller.cpp **** 
+  35:../board/olimex-stm32f103-stk/board/ledcontroller.cpp **** 	    // Configure PC.12 as output push-pull (LED)
+  36:../board/olimex-stm32f103-stk/board/ledcontroller.cpp **** 	    GPIO_WriteBit(GPIOC,GPIO_Pin_12,Bit_SET);
+ 17924              		.loc 1 36 0
+ 17925 002a 4FF48050 		mov	r0, #4096
+ 17926 002e C4F20100 		movt	r0, 16385
+ 17927 0032 4FF48051 		mov	r1, #4096
+ 17928 0036 4FF00102 		mov	r2, #1
+ 17929 003a FFF7FEFF 		bl	GPIO_WriteBit
+  37:../board/olimex-stm32f103-stk/board/ledcontroller.cpp **** 	    gpioInitStructure.GPIO_Pin =  GPIO_Pin_12;
+ 17930              		.loc 1 37 0
+ 17931 003e 4FF48053 		mov	r3, #4096
+ 17932 0042 BB81     		strh	r3, [r7, #12]	@ movhi
+  38:../board/olimex-stm32f103-stk/board/ledcontroller.cpp **** 	    gpioInitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+ 17933              		.loc 1 38 0
+ 17934 0044 4FF01003 		mov	r3, #16
+ 17935 0048 FB73     		strb	r3, [r7, #15]
+  39:../board/olimex-stm32f103-stk/board/ledcontroller.cpp **** 	    gpioInitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+ 17936              		.loc 1 39 0
+ 17937 004a 4FF00303 		mov	r3, #3
+ 17938 004e BB73     		strb	r3, [r7, #14]
+  40:../board/olimex-stm32f103-stk/board/ledcontroller.cpp **** 	    GPIO_Init(GPIOC, &gpioInitStructure);
+ 17939              		.loc 1 40 0
+ 17940 0050 07F10C03 		add	r3, r7, #12
+ 17941 0054 4FF48050 		mov	r0, #4096
+ 17942 0058 C4F20100 		movt	r0, 16385
+ 17943 005c 1946     		mov	r1, r3
+ 17944 005e FFF7FEFF 		bl	GPIO_Init
+ 17945              	.L25:
+ 17946              	.LBE8:
+ 17947              	.LBE7:
+  41:../board/olimex-stm32f103-stk/board/ledcontroller.cpp **** 	}
+  42:../board/olimex-stm32f103-stk/board/ledcontroller.cpp **** 	return true;
+ 17948              		.loc 1 42 0
+ 17949 0062 4FF00103 		mov	r3, #1
+ 17950              	.LBE6:
+  43:../board/olimex-stm32f103-stk/board/ledcontroller.cpp **** }
+ 17951              		.loc 1 43 0
+ 17952 0066 1846     		mov	r0, r3
+ 17953 0068 07F11007 		add	r7, r7, #16
+ 17954 006c BD46     		mov	sp, r7
+ 17955 006e 80BD     		pop	{r7, pc}
+ 17956              		.cfi_endproc
+ 17957              	.LFE46:
+ 17959              		.section	.text._ZNK13LedController5stateEv,"ax",%progbits
+ 17960              		.align	2
+ 17961              		.global	_ZNK13LedController5stateEv
+ 17962              		.thumb
+ 17963              		.thumb_func
+ 17965              	_ZNK13LedController5stateEv:
+ 17966              	.LFB47:
+  44:../board/olimex-stm32f103-stk/board/ledcontroller.cpp **** 
+  45:../board/olimex-stm32f103-stk/board/ledcontroller.cpp **** ILed::State LedController::state() const
+  46:../board/olimex-stm32f103-stk/board/ledcontroller.cpp **** {
+ 17967              		.loc 1 46 0
+ 17968              		.cfi_startproc
+ 17969              		@ args = 0, pretend = 0, frame = 8
+ 17970              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17971              		@ link register save eliminated.
+ 17972 0000 80B4     		push	{r7}
+ 17973              	.LCFI24:
+ 17974              		.cfi_def_cfa_offset 4
+ 17975 0002 83B0     		sub	sp, sp, #12
+ 17976              	.LCFI25:
+ 17977              		.cfi_def_cfa_offset 16
+ 17978 0004 00AF     		add	r7, sp, #0
+ 17979              		.cfi_offset 7, -4
+ 17980              	.LCFI26:
+ 17981              		.cfi_def_cfa_register 7
+ 17982 0006 7860     		str	r0, [r7, #4]
+  47:../board/olimex-stm32f103-stk/board/ledcontroller.cpp **** 	// TODO: To check if its right
+  48:../board/olimex-stm32f103-stk/board/ledcontroller.cpp **** 	return State(((GPIOC->IDR & 0x00001000) == 0x00001000) ? ILed::On : ILed::Off);
+ 17983              		.loc 1 48 0
+ 17984 0008 4FF48053 		mov	r3, #4096
+ 17985 000c C4F20103 		movt	r3, 16385
+ 17986 0010 9B68     		ldr	r3, [r3, #8]
+ 17987 0012 03F48053 		and	r3, r3, #4096
+ 17988 0016 002B     		cmp	r3, #0
+ 17989 0018 02D0     		beq	.L27
+ 17990              		.loc 1 48 0 is_stmt 0 discriminator 1
+ 17991 001a 4FF00103 		mov	r3, #1
+ 17992 001e 01E0     		b	.L28
+ 17993              	.L27:
+ 17994              		.loc 1 48 0 discriminator 2
+ 17995 0020 4FF0FF03 		mov	r3, #255
+ 17996              	.L28:
+ 17997              		.loc 1 48 0 discriminator 3
+ 17998 0024 5BB2     		sxtb	r3, r3
+  49:../board/olimex-stm32f103-stk/board/ledcontroller.cpp **** }
+ 17999              		.loc 1 49 0 is_stmt 1 discriminator 3
+ 18000 0026 1846     		mov	r0, r3
+ 18001 0028 07F10C07 		add	r7, r7, #12
+ 18002 002c BD46     		mov	sp, r7
+ 18003 002e 80BC     		pop	{r7}
+ 18004 0030 7047     		bx	lr
+ 18005              		.cfi_endproc
+ 18006              	.LFE47:
+ 18008 0032 00BF     		.section	.text._ZN13LedController8setStateEN4ILed5StateE,"ax",%progbits
+ 18009              		.align	2
+ 18010              		.global	_ZN13LedController8setStateEN4ILed5StateE
+ 18011              		.thumb
+ 18012              		.thumb_func
+ 18014              	_ZN13LedController8setStateEN4ILed5StateE:
+ 18015              	.LFB48:
+  50:../board/olimex-stm32f103-stk/board/ledcontroller.cpp **** 
+  51:../board/olimex-stm32f103-stk/board/ledcontroller.cpp **** void LedController::setState(State state)
+  52:../board/olimex-stm32f103-stk/board/ledcontroller.cpp **** {
+ 18016              		.loc 1 52 0
+ 18017              		.cfi_startproc
+ 18018              		@ args = 0, pretend = 0, frame = 8
+ 18019              		@ frame_needed = 1, uses_anonymous_args = 0
+ 18020 0000 80B5     		push	{r7, lr}
+ 18021              	.LCFI27:
+ 18022              		.cfi_def_cfa_offset 8
+ 18023 0002 82B0     		sub	sp, sp, #8
+ 18024              	.LCFI28:
+ 18025              		.cfi_def_cfa_offset 16
+ 18026 0004 00AF     		add	r7, sp, #0
+ 18027              		.cfi_offset 14, -4
+ 18028              		.cfi_offset 7, -8
+ 18029              	.LCFI29:
+ 18030              		.cfi_def_cfa_register 7
+ 18031 0006 7860     		str	r0, [r7, #4]
+ 18032 0008 0B46     		mov	r3, r1
+ 18033 000a FB70     		strb	r3, [r7, #3]
+  53:../board/olimex-stm32f103-stk/board/ledcontroller.cpp **** 	setLed(0, (state == ILed::On) ? true : false);
+ 18034              		.loc 1 53 0
+ 18035 000c 97F90330 		ldrsb	r3, [r7, #3]
+ 18036 0010 012B     		cmp	r3, #1
+ 18037 0012 14BF     		ite	ne
+ 18038 0014 0023     		movne	r3, #0
+ 18039 0016 0123     		moveq	r3, #1
+ 18040 0018 DBB2     		uxtb	r3, r3
+ 18041 001a 7868     		ldr	r0, [r7, #4]
+ 18042 001c 4FF00001 		mov	r1, #0
+ 18043 0020 1A46     		mov	r2, r3
+ 18044 0022 FFF7FEFF 		bl	_ZN13LedController6setLedEib
+  54:../board/olimex-stm32f103-stk/board/ledcontroller.cpp **** }
+ 18045              		.loc 1 54 0
+ 18046 0026 07F10807 		add	r7, r7, #8
+ 18047 002a BD46     		mov	sp, r7
+ 18048 002c 80BD     		pop	{r7, pc}
+ 18049              		.cfi_endproc
+ 18050              	.LFE48:
+ 18052 002e 00BF     		.section	.text._ZN13LedController6setLedEib,"ax",%progbits
+ 18053              		.align	2
+ 18054              		.global	_ZN13LedController6setLedEib
+ 18055              		.thumb
+ 18056              		.thumb_func
+ 18058              	_ZN13LedController6setLedEib:
+ 18059              	.LFB49:
+  55:../board/olimex-stm32f103-stk/board/ledcontroller.cpp **** 
+  56:../board/olimex-stm32f103-stk/board/ledcontroller.cpp **** void LedController::setLed(int index, bool bEnable)
+  57:../board/olimex-stm32f103-stk/board/ledcontroller.cpp **** {
+ 18060              		.loc 1 57 0
+ 18061              		.cfi_startproc
+ 18062              		@ args = 0, pretend = 0, frame = 16
+ 18063              		@ frame_needed = 1, uses_anonymous_args = 0
+ 18064              		@ link register save eliminated.
+ 18065 0000 80B4     		push	{r7}
+ 18066              	.LCFI30:
+ 18067              		.cfi_def_cfa_offset 4
+ 18068 0002 85B0     		sub	sp, sp, #20
+ 18069              	.LCFI31:
+ 18070              		.cfi_def_cfa_offset 24
+ 18071 0004 00AF     		add	r7, sp, #0
+ 18072              		.cfi_offset 7, -4
+ 18073              	.LCFI32:
+ 18074              		.cfi_def_cfa_register 7
+ 18075 0006 F860     		str	r0, [r7, #12]
+ 18076 0008 B960     		str	r1, [r7, #8]
+ 18077 000a 1346     		mov	r3, r2
+ 18078 000c FB71     		strb	r3, [r7, #7]
+  58:../board/olimex-stm32f103-stk/board/ledcontroller.cpp **** 	if (index == 0)
+ 18079              		.loc 1 58 0
+ 18080 000e BB68     		ldr	r3, [r7, #8]
+ 18081 0010 002B     		cmp	r3, #0
+ 18082 0012 1BD1     		bne	.L30
+  59:../board/olimex-stm32f103-stk/board/ledcontroller.cpp **** 	{
+  60:../board/olimex-stm32f103-stk/board/ledcontroller.cpp **** 		if (bEnable)
+ 18083              		.loc 1 60 0
+ 18084 0014 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 18085 0016 002B     		cmp	r3, #0
+ 18086 0018 0CD0     		beq	.L32
+  61:../board/olimex-stm32f103-stk/board/ledcontroller.cpp **** 		{
+  62:../board/olimex-stm32f103-stk/board/ledcontroller.cpp **** 			GPIOC->BRR |= 0x00001000;
+ 18087              		.loc 1 62 0
+ 18088 001a 4FF48053 		mov	r3, #4096
+ 18089 001e C4F20103 		movt	r3, 16385
+ 18090 0022 4FF48052 		mov	r2, #4096
+ 18091 0026 C4F20102 		movt	r2, 16385
+ 18092 002a 5269     		ldr	r2, [r2, #20]
+ 18093 002c 42F48052 		orr	r2, r2, #4096
+ 18094 0030 5A61     		str	r2, [r3, #20]
+ 18095 0032 0BE0     		b	.L30
+ 18096              	.L32:
+  63:../board/olimex-stm32f103-stk/board/ledcontroller.cpp **** 		}
+  64:../board/olimex-stm32f103-stk/board/ledcontroller.cpp **** 		else
+  65:../board/olimex-stm32f103-stk/board/ledcontroller.cpp **** 		{
+  66:../board/olimex-stm32f103-stk/board/ledcontroller.cpp **** 			GPIOC->BSRR |= 0x00001000;
+ 18097              		.loc 1 66 0
+ 18098 0034 4FF48053 		mov	r3, #4096
+ 18099 0038 C4F20103 		movt	r3, 16385
+ 18100 003c 4FF48052 		mov	r2, #4096
+ 18101 0040 C4F20102 		movt	r2, 16385
+ 18102 0044 1269     		ldr	r2, [r2, #16]
+ 18103 0046 42F48052 		orr	r2, r2, #4096
+ 18104 004a 1A61     		str	r2, [r3, #16]
+ 18105              	.L30:
+  67:../board/olimex-stm32f103-stk/board/ledcontroller.cpp **** 		}
+  68:../board/olimex-stm32f103-stk/board/ledcontroller.cpp **** 	}
+  69:../board/olimex-stm32f103-stk/board/ledcontroller.cpp **** }
+ 18106              		.loc 1 69 0
+ 18107 004c 07F11407 		add	r7, r7, #20
+ 18108 0050 BD46     		mov	sp, r7
+ 18109 0052 80BC     		pop	{r7}
+ 18110 0054 7047     		bx	lr
+ 18111              		.cfi_endproc
+ 18112              	.LFE49:
+ 18114              		.global	_ZTV13LedController
+ 18115 0056 00BF     		.section	.rodata._ZTV13LedController,"a",%progbits
+ 18116              		.align	3
+ 18119              	_ZTV13LedController:
+ 18120 0000 00000000 		.word	0
+ 18121 0004 00000000 		.word	0
+ 18122 0008 00000000 		.word	_ZN13LedControllerD1Ev
+ 18123 000c 00000000 		.word	_ZN13LedControllerD0Ev
+ 18124 0010 00000000 		.word	_ZN13LedController10initializeEv
+ 18125 0014 00000000 		.word	_ZNK13LedController5stateEv
+ 18126 0018 00000000 		.word	_ZN13LedController8setStateEN4ILed5StateE
+ 18127 001c 00000000 		.word	_ZN4ILed6toggleEv
+ 18128              		.weak	_ZTV4ILed
+ 18129              		.section	.rodata._ZTV4ILed,"aG",%progbits,_ZTV4ILed,comdat
+ 18130              		.align	3
+ 18133              	_ZTV4ILed:
+ 18134 0000 00000000 		.word	0
+ 18135 0004 00000000 		.word	0
+ 18136 0008 00000000 		.word	_ZN4ILedD1Ev
+ 18137 000c 00000000 		.word	_ZN4ILedD0Ev
+ 18138 0010 00000000 		.word	__cxa_pure_virtual
+ 18139 0014 00000000 		.word	__cxa_pure_virtual
+ 18140 0018 00000000 		.word	__cxa_pure_virtual
+ 18141 001c 00000000 		.word	_ZN4ILed6toggleEv
+ 18142              		.text
+ 18143              	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 ledcontroller.cpp
+     /tmp/ccjA8SHD.s:17549  .text._ZN4ILedC2Ev:00000000 $t
+     /tmp/ccjA8SHD.s:17554  .text._ZN4ILedC2Ev:00000000 _ZN4ILedC2Ev
+     /tmp/ccjA8SHD.s:17587  .text._ZN4ILedC2Ev:0000001c $d
+     /tmp/ccjA8SHD.s:18133  .rodata._ZTV4ILed:00000000 _ZTV4ILed
+     /tmp/ccjA8SHD.s:17554  .text._ZN4ILedC2Ev:00000000 _ZN4ILedC1Ev
+     /tmp/ccjA8SHD.s:17594  .text._ZN4ILedD2Ev:00000000 $t
+     /tmp/ccjA8SHD.s:17599  .text._ZN4ILedD2Ev:00000000 _ZN4ILedD2Ev
+     /tmp/ccjA8SHD.s:17641  .text._ZN4ILedD2Ev:00000030 $d
+     /tmp/ccjA8SHD.s:17599  .text._ZN4ILedD2Ev:00000000 _ZN4ILedD1Ev
+     /tmp/ccjA8SHD.s:17648  .text._ZN4ILedD0Ev:00000000 $t
+     /tmp/ccjA8SHD.s:17653  .text._ZN4ILedD0Ev:00000000 _ZN4ILedD0Ev
+     /tmp/ccjA8SHD.s:17685  .text._ZN4ILed6toggleEv:00000000 $t
+     /tmp/ccjA8SHD.s:17690  .text._ZN4ILed6toggleEv:00000000 _ZN4ILed6toggleEv
+     /tmp/ccjA8SHD.s:17737  .text._ZN13LedControllerC2Ev:00000000 $t
+     /tmp/ccjA8SHD.s:17742  .text._ZN13LedControllerC2Ev:00000000 _ZN13LedControllerC2Ev
+     /tmp/ccjA8SHD.s:17781  .text._ZN13LedControllerC2Ev:0000002c $d
+     /tmp/ccjA8SHD.s:18119  .rodata._ZTV13LedController:00000000 _ZTV13LedController
+     /tmp/ccjA8SHD.s:17742  .text._ZN13LedControllerC2Ev:00000000 _ZN13LedControllerC1Ev
+     /tmp/ccjA8SHD.s:17788  .text._ZN13LedControllerD2Ev:00000000 $t
+     /tmp/ccjA8SHD.s:17793  .text._ZN13LedControllerD2Ev:00000000 _ZN13LedControllerD2Ev
+     /tmp/ccjA8SHD.s:17839  .text._ZN13LedControllerD2Ev:00000038 $d
+     /tmp/ccjA8SHD.s:17793  .text._ZN13LedControllerD2Ev:00000000 _ZN13LedControllerD1Ev
+     /tmp/ccjA8SHD.s:17846  .text._ZN13LedControllerD0Ev:00000000 $t
+     /tmp/ccjA8SHD.s:17851  .text._ZN13LedControllerD0Ev:00000000 _ZN13LedControllerD0Ev
+     /tmp/ccjA8SHD.s:17883  .text._ZN13LedController10initializeEv:00000000 $t
+     /tmp/ccjA8SHD.s:17888  .text._ZN13LedController10initializeEv:00000000 _ZN13LedController10initializeEv
+     /tmp/ccjA8SHD.s:17960  .text._ZNK13LedController5stateEv:00000000 $t
+     /tmp/ccjA8SHD.s:17965  .text._ZNK13LedController5stateEv:00000000 _ZNK13LedController5stateEv
+     /tmp/ccjA8SHD.s:18009  .text._ZN13LedController8setStateEN4ILed5StateE:00000000 $t
+     /tmp/ccjA8SHD.s:18014  .text._ZN13LedController8setStateEN4ILed5StateE:00000000 _ZN13LedController8setStateEN4ILed5StateE
+     /tmp/ccjA8SHD.s:18058  .text._ZN13LedController6setLedEib:00000000 _ZN13LedController6setLedEib
+     /tmp/ccjA8SHD.s:18053  .text._ZN13LedController6setLedEib:00000000 $t
+     /tmp/ccjA8SHD.s:18116  .rodata._ZTV13LedController:00000000 $d
+     /tmp/ccjA8SHD.s:18130  .rodata._ZTV4ILed:00000000 $d
+                     .debug_frame:00000010 $d
+                           .group:00000000 _ZN4ILedC5Ev
+                           .group:00000000 _ZN4ILedD5Ev
+
+UNDEFINED SYMBOLS
+_ZdlPv
+RCC_APB2PeriphClockCmd
+GPIO_WriteBit
+GPIO_Init
+__cxa_pure_virtual

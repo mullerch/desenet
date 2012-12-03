@@ -1,0 +1,103 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"mlock.c"
+  23              	.Ltext0:
+  24              		.file 1 "../target/stm32/malloc/mlock.c"
+ 1268              		.align	2
+ 1269              		.global	__malloc_lock
+ 1270              		.thumb
+ 1271              		.thumb_func
+ 1273              	__malloc_lock:
+ 1274              	.LFB0:
+   1:../target/stm32/malloc/mlock.c **** #include <malloc.h>
+   2:../target/stm32/malloc/mlock.c **** #include <sys/lock.h>
+   3:../target/stm32/malloc/mlock.c **** #include <critical/critical.h>
+   4:../target/stm32/malloc/mlock.c **** 
+   5:../target/stm32/malloc/mlock.c **** 
+   6:../target/stm32/malloc/mlock.c **** void __malloc_lock (ptr) struct _reent *ptr;
+   7:../target/stm32/malloc/mlock.c **** {
+ 1275              		.loc 1 7 0
+ 1276              		.cfi_startproc
+ 1277              		@ args = 0, pretend = 0, frame = 8
+ 1278              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1279 0000 80B5     		push	{r7, lr}
+ 1280              	.LCFI0:
+ 1281              		.cfi_def_cfa_offset 8
+ 1282 0002 82B0     		sub	sp, sp, #8
+ 1283              	.LCFI1:
+ 1284              		.cfi_def_cfa_offset 16
+ 1285 0004 00AF     		add	r7, sp, #0
+ 1286              		.cfi_offset 14, -4
+ 1287              		.cfi_offset 7, -8
+ 1288              	.LCFI2:
+ 1289              		.cfi_def_cfa_register 7
+ 1290 0006 7860     		str	r0, [r7, #4]
+   8:../target/stm32/malloc/mlock.c **** 	enterCritical();
+ 1291              		.loc 1 8 0
+ 1292 0008 FFF7FEFF 		bl	enterCritical
+   9:../target/stm32/malloc/mlock.c **** }
+ 1293              		.loc 1 9 0
+ 1294 000c 07F10807 		add	r7, r7, #8
+ 1295 0010 BD46     		mov	sp, r7
+ 1296 0012 80BD     		pop	{r7, pc}
+ 1297              		.cfi_endproc
+ 1298              	.LFE0:
+ 1300              		.section	.text.__malloc_unlock,"ax",%progbits
+ 1301              		.align	2
+ 1302              		.global	__malloc_unlock
+ 1303              		.thumb
+ 1304              		.thumb_func
+ 1306              	__malloc_unlock:
+ 1307              	.LFB1:
+  10:../target/stm32/malloc/mlock.c **** 
+  11:../target/stm32/malloc/mlock.c **** void __malloc_unlock (ptr) struct _reent *ptr;
+  12:../target/stm32/malloc/mlock.c **** {
+ 1308              		.loc 1 12 0
+ 1309              		.cfi_startproc
+ 1310              		@ args = 0, pretend = 0, frame = 8
+ 1311              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1312 0000 80B5     		push	{r7, lr}
+ 1313              	.LCFI3:
+ 1314              		.cfi_def_cfa_offset 8
+ 1315 0002 82B0     		sub	sp, sp, #8
+ 1316              	.LCFI4:
+ 1317              		.cfi_def_cfa_offset 16
+ 1318 0004 00AF     		add	r7, sp, #0
+ 1319              		.cfi_offset 14, -4
+ 1320              		.cfi_offset 7, -8
+ 1321              	.LCFI5:
+ 1322              		.cfi_def_cfa_register 7
+ 1323 0006 7860     		str	r0, [r7, #4]
+  13:../target/stm32/malloc/mlock.c **** 	exitCritical();
+ 1324              		.loc 1 13 0
+ 1325 0008 FFF7FEFF 		bl	exitCritical
+  14:../target/stm32/malloc/mlock.c **** }
+ 1326              		.loc 1 14 0
+ 1327 000c 07F10807 		add	r7, r7, #8
+ 1328 0010 BD46     		mov	sp, r7
+ 1329 0012 80BD     		pop	{r7, pc}
+ 1330              		.cfi_endproc
+ 1331              	.LFE1:
+ 1333              		.text
+ 1334              	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 mlock.c
+     /tmp/ccxhVu6j.s:1268   .text.__malloc_lock:00000000 $t
+     /tmp/ccxhVu6j.s:1273   .text.__malloc_lock:00000000 __malloc_lock
+     /tmp/ccxhVu6j.s:1301   .text.__malloc_unlock:00000000 $t
+     /tmp/ccxhVu6j.s:1306   .text.__malloc_unlock:00000000 __malloc_unlock
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+enterCritical
+exitCritical

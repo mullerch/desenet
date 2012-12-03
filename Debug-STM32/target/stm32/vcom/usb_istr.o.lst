@@ -1,0 +1,326 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"usb_istr.c"
+  23              	.Ltext0:
+  24              		.file 1 "../target/stm32/vcom/usb_istr.c"
+ 16523              	bIntPackSOF:
+ 16524 0000 00       		.space	1
+ 16525              		.global	pEpInt_IN
+ 16526              		.section	.data.pEpInt_IN,"aw",%progbits
+ 16527              		.align	2
+ 16530              	pEpInt_IN:
+ 16531 0000 00000000 		.word	EP1_IN_Callback
+ 16532 0004 00000000 		.word	NOP_Process
+ 16533 0008 00000000 		.word	NOP_Process
+ 16534 000c 00000000 		.word	NOP_Process
+ 16535 0010 00000000 		.word	NOP_Process
+ 16536 0014 00000000 		.word	NOP_Process
+ 16537 0018 00000000 		.word	NOP_Process
+ 16538              		.global	pEpInt_OUT
+ 16539              		.section	.data.pEpInt_OUT,"aw",%progbits
+ 16540              		.align	2
+ 16543              	pEpInt_OUT:
+ 16544 0000 00000000 		.word	NOP_Process
+ 16545 0004 00000000 		.word	NOP_Process
+ 16546 0008 00000000 		.word	EP3_OUT_Callback
+ 16547 000c 00000000 		.word	NOP_Process
+ 16548 0010 00000000 		.word	NOP_Process
+ 16549 0014 00000000 		.word	NOP_Process
+ 16550 0018 00000000 		.word	NOP_Process
+ 16551              		.section	.text.USB_Istr,"ax",%progbits
+ 16552              		.align	2
+ 16553              		.global	USB_Istr
+ 16554              		.thumb
+ 16555              		.thumb_func
+ 16557              	USB_Istr:
+ 16558              	.LFB29:
+   1:../target/stm32/vcom/usb_istr.c **** /******************** (C) COPYRIGHT 2007 STMicroelectronics ********************
+   2:../target/stm32/vcom/usb_istr.c **** * File Name          : usb_istr.c
+   3:../target/stm32/vcom/usb_istr.c **** * Author             : MCD Application Team
+   4:../target/stm32/vcom/usb_istr.c **** * Version            : V1.0
+   5:../target/stm32/vcom/usb_istr.c **** * Date               : 10/08/2007
+   6:../target/stm32/vcom/usb_istr.c **** * Description        : ISTR events interrupt service routines
+   7:../target/stm32/vcom/usb_istr.c **** ********************************************************************************
+   8:../target/stm32/vcom/usb_istr.c **** * THE PRESENT SOFTWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
+   9:../target/stm32/vcom/usb_istr.c **** * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE TIME.
+  10:../target/stm32/vcom/usb_istr.c **** * AS A RESULT, STMICROELECTRONICS SHALL NOT BE HELD LIABLE FOR ANY DIRECT,
+  11:../target/stm32/vcom/usb_istr.c **** * INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING FROM THE
+  12:../target/stm32/vcom/usb_istr.c **** * CONTENT OF SUCH SOFTWARE AND/OR THE USE MADE BY CUSTOMERS OF THE CODING
+  13:../target/stm32/vcom/usb_istr.c **** * INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
+  14:../target/stm32/vcom/usb_istr.c **** *******************************************************************************/
+  15:../target/stm32/vcom/usb_istr.c **** 
+  16:../target/stm32/vcom/usb_istr.c **** /* Includes ------------------------------------------------------------------*/
+  17:../target/stm32/vcom/usb_istr.c **** #include "usb_lib.h"
+  18:../target/stm32/vcom/usb_istr.c **** #include "usb_prop.h"
+  19:../target/stm32/vcom/usb_istr.c **** #include "usb_pwr.h"
+  20:../target/stm32/vcom/usb_istr.c **** #include "usb_istr.h"
+  21:../target/stm32/vcom/usb_istr.c **** 
+  22:../target/stm32/vcom/usb_istr.c **** /* Private typedef -----------------------------------------------------------*/
+  23:../target/stm32/vcom/usb_istr.c **** /* Private define ------------------------------------------------------------*/
+  24:../target/stm32/vcom/usb_istr.c **** /* Private macro -------------------------------------------------------------*/
+  25:../target/stm32/vcom/usb_istr.c **** /* Private variables ---------------------------------------------------------*/
+  26:../target/stm32/vcom/usb_istr.c **** volatile u16 wIstr;  /* ISTR register last read value */
+  27:../target/stm32/vcom/usb_istr.c **** volatile u8 bIntPackSOF = 0;  /* SOFs received between 2 consecutive packets */
+  28:../target/stm32/vcom/usb_istr.c **** 
+  29:../target/stm32/vcom/usb_istr.c **** /* Extern variables ----------------------------------------------------------*/
+  30:../target/stm32/vcom/usb_istr.c **** /* Private function prototypes -----------------------------------------------*/
+  31:../target/stm32/vcom/usb_istr.c **** /* Private functions ---------------------------------------------------------*/
+  32:../target/stm32/vcom/usb_istr.c **** /* function pointers to non-control endpoints service routines */
+  33:../target/stm32/vcom/usb_istr.c **** void (*pEpInt_IN[7])(void) =
+  34:../target/stm32/vcom/usb_istr.c ****   {
+  35:../target/stm32/vcom/usb_istr.c ****     EP1_IN_Callback,
+  36:../target/stm32/vcom/usb_istr.c ****     EP2_IN_Callback,
+  37:../target/stm32/vcom/usb_istr.c ****     EP3_IN_Callback,
+  38:../target/stm32/vcom/usb_istr.c ****     EP4_IN_Callback,
+  39:../target/stm32/vcom/usb_istr.c ****     EP5_IN_Callback,
+  40:../target/stm32/vcom/usb_istr.c ****     EP6_IN_Callback,
+  41:../target/stm32/vcom/usb_istr.c ****     EP7_IN_Callback,
+  42:../target/stm32/vcom/usb_istr.c ****   };
+  43:../target/stm32/vcom/usb_istr.c **** 
+  44:../target/stm32/vcom/usb_istr.c **** void (*pEpInt_OUT[7])(void) =
+  45:../target/stm32/vcom/usb_istr.c ****   {
+  46:../target/stm32/vcom/usb_istr.c ****     EP1_OUT_Callback,
+  47:../target/stm32/vcom/usb_istr.c ****     EP2_OUT_Callback,
+  48:../target/stm32/vcom/usb_istr.c ****     EP3_OUT_Callback,
+  49:../target/stm32/vcom/usb_istr.c ****     EP4_OUT_Callback,
+  50:../target/stm32/vcom/usb_istr.c ****     EP5_OUT_Callback,
+  51:../target/stm32/vcom/usb_istr.c ****     EP6_OUT_Callback,
+  52:../target/stm32/vcom/usb_istr.c ****     EP7_OUT_Callback,
+  53:../target/stm32/vcom/usb_istr.c ****   };
+  54:../target/stm32/vcom/usb_istr.c **** 
+  55:../target/stm32/vcom/usb_istr.c **** 
+  56:../target/stm32/vcom/usb_istr.c **** /*******************************************************************************
+  57:../target/stm32/vcom/usb_istr.c **** * Function Name  : USB_Istr.
+  58:../target/stm32/vcom/usb_istr.c **** * Description    : ISTR events interrupt service routine.
+  59:../target/stm32/vcom/usb_istr.c **** * Input          : None.
+  60:../target/stm32/vcom/usb_istr.c **** * Output         : None.
+  61:../target/stm32/vcom/usb_istr.c **** * Return         : None.
+  62:../target/stm32/vcom/usb_istr.c **** *******************************************************************************/
+  63:../target/stm32/vcom/usb_istr.c **** void USB_Istr(void)
+  64:../target/stm32/vcom/usb_istr.c **** {
+ 16559              		.loc 1 64 0
+ 16560              		.cfi_startproc
+ 16561              		@ args = 0, pretend = 0, frame = 0
+ 16562              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16563 0000 80B5     		push	{r7, lr}
+ 16564              	.LCFI0:
+ 16565              		.cfi_def_cfa_offset 8
+ 16566 0002 00AF     		add	r7, sp, #0
+ 16567              		.cfi_offset 14, -4
+ 16568              		.cfi_offset 7, -8
+ 16569              	.LCFI1:
+ 16570              		.cfi_def_cfa_register 7
+  65:../target/stm32/vcom/usb_istr.c **** 
+  66:../target/stm32/vcom/usb_istr.c ****   wIstr = _GetISTR();
+ 16571              		.loc 1 66 0
+ 16572 0004 45F64443 		movw	r3, #23620
+ 16573 0008 C4F20003 		movt	r3, 16384
+ 16574 000c 1B68     		ldr	r3, [r3, #0]
+ 16575 000e 9AB2     		uxth	r2, r3
+ 16576 0010 40F20003 		movw	r3, #:lower16:wIstr
+ 16577 0014 C0F20003 		movt	r3, #:upper16:wIstr
+ 16578 0018 1A80     		strh	r2, [r3, #0]	@ movhi
+  67:../target/stm32/vcom/usb_istr.c **** 
+  68:../target/stm32/vcom/usb_istr.c **** #if (IMR_MSK & ISTR_RESET)
+  69:../target/stm32/vcom/usb_istr.c ****   if (wIstr & ISTR_RESET & wInterrupt_Mask)
+ 16579              		.loc 1 69 0
+ 16580 001a 40F20003 		movw	r3, #:lower16:wIstr
+ 16581 001e C0F20003 		movt	r3, #:upper16:wIstr
+ 16582 0022 1B88     		ldrh	r3, [r3, #0]	@ movhi
+ 16583 0024 9BB2     		uxth	r3, r3
+ 16584 0026 03F48062 		and	r2, r3, #1024
+ 16585 002a 40F20003 		movw	r3, #:lower16:wInterrupt_Mask
+ 16586 002e C0F20003 		movt	r3, #:upper16:wInterrupt_Mask
+ 16587 0032 1B88     		ldrh	r3, [r3, #0]
+ 16588 0034 02EA0303 		and	r3, r2, r3
+ 16589 0038 002B     		cmp	r3, #0
+ 16590 003a 0CD0     		beq	.L2
+  70:../target/stm32/vcom/usb_istr.c ****   {
+  71:../target/stm32/vcom/usb_istr.c ****     _SetISTR((u16)CLR_RESET);
+ 16591              		.loc 1 71 0
+ 16592 003c 45F64443 		movw	r3, #23620
+ 16593 0040 C4F20003 		movt	r3, 16384
+ 16594 0044 4FF6FF32 		movw	r2, #64511
+ 16595 0048 1A60     		str	r2, [r3, #0]
+  72:../target/stm32/vcom/usb_istr.c ****     Device_Property.Reset();
+ 16596              		.loc 1 72 0
+ 16597 004a 40F20003 		movw	r3, #:lower16:Device_Property
+ 16598 004e C0F20003 		movt	r3, #:upper16:Device_Property
+ 16599 0052 5B68     		ldr	r3, [r3, #4]
+ 16600 0054 9847     		blx	r3
+ 16601              	.L2:
+  73:../target/stm32/vcom/usb_istr.c **** #ifdef RESET_CALLBACK
+  74:../target/stm32/vcom/usb_istr.c ****     RESET_Callback();
+  75:../target/stm32/vcom/usb_istr.c **** #endif
+  76:../target/stm32/vcom/usb_istr.c ****   }
+  77:../target/stm32/vcom/usb_istr.c **** #endif
+  78:../target/stm32/vcom/usb_istr.c ****   /*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*/
+  79:../target/stm32/vcom/usb_istr.c **** #if (IMR_MSK & ISTR_DOVR)
+  80:../target/stm32/vcom/usb_istr.c ****   if (wIstr & ISTR_DOVR & wInterrupt_Mask)
+  81:../target/stm32/vcom/usb_istr.c ****   {
+  82:../target/stm32/vcom/usb_istr.c ****     _SetISTR((u16)CLR_DOVR);
+  83:../target/stm32/vcom/usb_istr.c **** #ifdef DOVR_CALLBACK
+  84:../target/stm32/vcom/usb_istr.c ****     DOVR_Callback();
+  85:../target/stm32/vcom/usb_istr.c **** #endif
+  86:../target/stm32/vcom/usb_istr.c ****   }
+  87:../target/stm32/vcom/usb_istr.c **** #endif
+  88:../target/stm32/vcom/usb_istr.c ****   /*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*/
+  89:../target/stm32/vcom/usb_istr.c **** #if (IMR_MSK & ISTR_ERR)
+  90:../target/stm32/vcom/usb_istr.c ****   if (wIstr & ISTR_ERR & wInterrupt_Mask)
+  91:../target/stm32/vcom/usb_istr.c ****   {
+  92:../target/stm32/vcom/usb_istr.c ****     _SetISTR((u16)CLR_ERR);
+  93:../target/stm32/vcom/usb_istr.c **** #ifdef ERR_CALLBACK
+  94:../target/stm32/vcom/usb_istr.c ****     ERR_Callback();
+  95:../target/stm32/vcom/usb_istr.c **** #endif
+  96:../target/stm32/vcom/usb_istr.c ****   }
+  97:../target/stm32/vcom/usb_istr.c **** #endif
+  98:../target/stm32/vcom/usb_istr.c ****   /*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*/
+  99:../target/stm32/vcom/usb_istr.c **** #if (IMR_MSK & ISTR_WKUP)
+ 100:../target/stm32/vcom/usb_istr.c ****   if (wIstr & ISTR_WKUP & wInterrupt_Mask)
+ 101:../target/stm32/vcom/usb_istr.c ****   {
+ 102:../target/stm32/vcom/usb_istr.c ****     _SetISTR((u16)CLR_WKUP);
+ 103:../target/stm32/vcom/usb_istr.c ****     Resume(RESUME_EXTERNAL);
+ 104:../target/stm32/vcom/usb_istr.c **** #ifdef WKUP_CALLBACK
+ 105:../target/stm32/vcom/usb_istr.c ****     WKUP_Callback();
+ 106:../target/stm32/vcom/usb_istr.c **** #endif
+ 107:../target/stm32/vcom/usb_istr.c ****   }
+ 108:../target/stm32/vcom/usb_istr.c **** #endif
+ 109:../target/stm32/vcom/usb_istr.c ****   /*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*/
+ 110:../target/stm32/vcom/usb_istr.c **** #if (IMR_MSK & ISTR_SUSP)
+ 111:../target/stm32/vcom/usb_istr.c ****   if (wIstr & ISTR_SUSP & wInterrupt_Mask)
+ 112:../target/stm32/vcom/usb_istr.c ****   {
+ 113:../target/stm32/vcom/usb_istr.c **** 
+ 114:../target/stm32/vcom/usb_istr.c ****     /* check if SUSPEND is possible */
+ 115:../target/stm32/vcom/usb_istr.c ****     if (fSuspendEnabled)
+ 116:../target/stm32/vcom/usb_istr.c ****     {
+ 117:../target/stm32/vcom/usb_istr.c ****       Suspend();
+ 118:../target/stm32/vcom/usb_istr.c ****     }
+ 119:../target/stm32/vcom/usb_istr.c ****     else
+ 120:../target/stm32/vcom/usb_istr.c ****     {
+ 121:../target/stm32/vcom/usb_istr.c ****       /* if not possible then resume after xx ms */
+ 122:../target/stm32/vcom/usb_istr.c ****       Resume(RESUME_LATER);
+ 123:../target/stm32/vcom/usb_istr.c ****     }
+ 124:../target/stm32/vcom/usb_istr.c ****     /* clear of the ISTR bit must be done after setting of CNTR_FSUSP */
+ 125:../target/stm32/vcom/usb_istr.c ****     _SetISTR((u16)CLR_SUSP);
+ 126:../target/stm32/vcom/usb_istr.c **** #ifdef SUSP_CALLBACK
+ 127:../target/stm32/vcom/usb_istr.c ****     SUSP_Callback();
+ 128:../target/stm32/vcom/usb_istr.c **** #endif
+ 129:../target/stm32/vcom/usb_istr.c ****   }
+ 130:../target/stm32/vcom/usb_istr.c **** #endif
+ 131:../target/stm32/vcom/usb_istr.c ****   /*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*/
+ 132:../target/stm32/vcom/usb_istr.c **** #if (IMR_MSK & ISTR_SOF)
+ 133:../target/stm32/vcom/usb_istr.c ****   if (wIstr & ISTR_SOF & wInterrupt_Mask)
+ 16602              		.loc 1 133 0
+ 16603 0056 40F20003 		movw	r3, #:lower16:wIstr
+ 16604 005a C0F20003 		movt	r3, #:upper16:wIstr
+ 16605 005e 1B88     		ldrh	r3, [r3, #0]	@ movhi
+ 16606 0060 9BB2     		uxth	r3, r3
+ 16607 0062 03F40072 		and	r2, r3, #512
+ 16608 0066 40F20003 		movw	r3, #:lower16:wInterrupt_Mask
+ 16609 006a C0F20003 		movt	r3, #:upper16:wInterrupt_Mask
+ 16610 006e 1B88     		ldrh	r3, [r3, #0]
+ 16611 0070 02EA0303 		and	r3, r2, r3
+ 16612 0074 002B     		cmp	r3, #0
+ 16613 0076 14D0     		beq	.L3
+ 134:../target/stm32/vcom/usb_istr.c ****   {
+ 135:../target/stm32/vcom/usb_istr.c ****     _SetISTR((u16)CLR_SOF);
+ 16614              		.loc 1 135 0
+ 16615 0078 45F64443 		movw	r3, #23620
+ 16616 007c C4F20003 		movt	r3, 16384
+ 16617 0080 4FF6FF52 		movw	r2, #65023
+ 16618 0084 1A60     		str	r2, [r3, #0]
+ 136:../target/stm32/vcom/usb_istr.c ****     bIntPackSOF++;
+ 16619              		.loc 1 136 0
+ 16620 0086 40F20003 		movw	r3, #:lower16:bIntPackSOF
+ 16621 008a C0F20003 		movt	r3, #:upper16:bIntPackSOF
+ 16622 008e 1B78     		ldrb	r3, [r3, #0]
+ 16623 0090 DBB2     		uxtb	r3, r3
+ 16624 0092 03F10103 		add	r3, r3, #1
+ 16625 0096 DAB2     		uxtb	r2, r3
+ 16626 0098 40F20003 		movw	r3, #:lower16:bIntPackSOF
+ 16627 009c C0F20003 		movt	r3, #:upper16:bIntPackSOF
+ 16628 00a0 1A70     		strb	r2, [r3, #0]
+ 16629              	.L3:
+ 137:../target/stm32/vcom/usb_istr.c **** 
+ 138:../target/stm32/vcom/usb_istr.c **** #ifdef SOF_CALLBACK
+ 139:../target/stm32/vcom/usb_istr.c ****     SOF_Callback();
+ 140:../target/stm32/vcom/usb_istr.c **** #endif
+ 141:../target/stm32/vcom/usb_istr.c ****   }
+ 142:../target/stm32/vcom/usb_istr.c **** #endif
+ 143:../target/stm32/vcom/usb_istr.c ****   /*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*/
+ 144:../target/stm32/vcom/usb_istr.c **** #if (IMR_MSK & ISTR_ESOF)
+ 145:../target/stm32/vcom/usb_istr.c ****   if (wIstr & ISTR_ESOF & wInterrupt_Mask)
+ 146:../target/stm32/vcom/usb_istr.c ****   {
+ 147:../target/stm32/vcom/usb_istr.c ****     _SetISTR((u16)CLR_ESOF);
+ 148:../target/stm32/vcom/usb_istr.c ****     /* resume handling timing is made with ESOFs */
+ 149:../target/stm32/vcom/usb_istr.c ****     Resume(RESUME_ESOF); /* request without change of the machine state */
+ 150:../target/stm32/vcom/usb_istr.c **** 
+ 151:../target/stm32/vcom/usb_istr.c **** #ifdef ESOF_CALLBACK
+ 152:../target/stm32/vcom/usb_istr.c ****     ESOF_Callback();
+ 153:../target/stm32/vcom/usb_istr.c **** #endif
+ 154:../target/stm32/vcom/usb_istr.c ****   }
+ 155:../target/stm32/vcom/usb_istr.c **** #endif
+ 156:../target/stm32/vcom/usb_istr.c ****   /*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*/
+ 157:../target/stm32/vcom/usb_istr.c **** #if (IMR_MSK & ISTR_CTR)
+ 158:../target/stm32/vcom/usb_istr.c ****   if (wIstr & ISTR_CTR & wInterrupt_Mask)
+ 16630              		.loc 1 158 0
+ 16631 00a2 40F20003 		movw	r3, #:lower16:wIstr
+ 16632 00a6 C0F20003 		movt	r3, #:upper16:wIstr
+ 16633 00aa 1B88     		ldrh	r3, [r3, #0]	@ movhi
+ 16634 00ac 9BB2     		uxth	r3, r3
+ 16635 00ae 03F40042 		and	r2, r3, #32768
+ 16636 00b2 40F20003 		movw	r3, #:lower16:wInterrupt_Mask
+ 16637 00b6 C0F20003 		movt	r3, #:upper16:wInterrupt_Mask
+ 16638 00ba 1B88     		ldrh	r3, [r3, #0]
+ 16639 00bc 02EA0303 		and	r3, r2, r3
+ 16640 00c0 002B     		cmp	r3, #0
+ 16641 00c2 01D0     		beq	.L1
+ 159:../target/stm32/vcom/usb_istr.c ****   {
+ 160:../target/stm32/vcom/usb_istr.c ****     /* servicing of the endpoint correct transfer interrupt */
+ 161:../target/stm32/vcom/usb_istr.c ****     /* clear of the CTR flag into the sub */
+ 162:../target/stm32/vcom/usb_istr.c ****     CTR_LP();
+ 16642              		.loc 1 162 0
+ 16643 00c4 FFF7FEFF 		bl	CTR_LP
+ 16644              	.L1:
+ 163:../target/stm32/vcom/usb_istr.c **** #ifdef CTR_CALLBACK
+ 164:../target/stm32/vcom/usb_istr.c ****     CTR_Callback();
+ 165:../target/stm32/vcom/usb_istr.c **** #endif
+ 166:../target/stm32/vcom/usb_istr.c ****   }
+ 167:../target/stm32/vcom/usb_istr.c **** #endif
+ 168:../target/stm32/vcom/usb_istr.c **** } /* USB_Istr */
+ 16645              		.loc 1 168 0
+ 16646 00c8 80BD     		pop	{r7, pc}
+ 16647              		.cfi_endproc
+ 16648              	.LFE29:
+ 16650 00ca 00BF     		.text
+ 16651              	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 usb_istr.c
+                            *COM*:00000002 wIstr
+     /tmp/ccF2tsBx.s:16523  .bss.bIntPackSOF:00000000 bIntPackSOF
+     /tmp/ccF2tsBx.s:16524  .bss.bIntPackSOF:00000000 $d
+     /tmp/ccF2tsBx.s:16530  .data.pEpInt_IN:00000000 pEpInt_IN
+     /tmp/ccF2tsBx.s:16527  .data.pEpInt_IN:00000000 $d
+     /tmp/ccF2tsBx.s:16543  .data.pEpInt_OUT:00000000 pEpInt_OUT
+     /tmp/ccF2tsBx.s:16540  .data.pEpInt_OUT:00000000 $d
+     /tmp/ccF2tsBx.s:16552  .text.USB_Istr:00000000 $t
+     /tmp/ccF2tsBx.s:16557  .text.USB_Istr:00000000 USB_Istr
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+EP1_IN_Callback
+NOP_Process
+EP3_OUT_Callback
+wInterrupt_Mask
+Device_Property
+CTR_LP

@@ -1,0 +1,1751 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"joystick.cpp"
+  23              	.Ltext0:
+  24              		.file 1 "../board/olimex-stm32f103-stk/board/joystick.cpp"
+ 18982              		.align	2
+ 18983              		.weak	_ZN9IJoystickC2Ev
+ 18984              		.thumb
+ 18985              		.thumb_func
+ 18987              	_ZN9IJoystickC2Ev:
+ 18988              	.LFB30:
+   1:/home/desem/workspace/desenet/interfaces/ijoystick.h **** #pragma once
+   2:/home/desem/workspace/desenet/interfaces/ijoystick.h **** class IJoystickObserver;
+   3:/home/desem/workspace/desenet/interfaces/ijoystick.h **** 
+   4:/home/desem/workspace/desenet/interfaces/ijoystick.h **** /**
+   5:/home/desem/workspace/desenet/interfaces/ijoystick.h ****  * @ingroup interfaces
+   6:/home/desem/workspace/desenet/interfaces/ijoystick.h ****  * @brief This interface represents a joystick that can be moved into four directions and and at th
+   7:/home/desem/workspace/desenet/interfaces/ijoystick.h ****  * 		  pressed down.
+   8:/home/desem/workspace/desenet/interfaces/ijoystick.h ****  *
+   9:/home/desem/workspace/desenet/interfaces/ijoystick.h ****  * This leads to six possible states of the joystick. The state of the joystick can be polled or
+  10:/home/desem/workspace/desenet/interfaces/ijoystick.h ****  * an JoystickObserver can be registered to get joystick events. Note that just one observer is sup
+  11:/home/desem/workspace/desenet/interfaces/ijoystick.h ****  * if the setObserver() method is called a second time, the first instance of the observer will be 
+  12:/home/desem/workspace/desenet/interfaces/ijoystick.h ****  */
+  13:/home/desem/workspace/desenet/interfaces/ijoystick.h **** class IJoystick
+  14:/home/desem/workspace/desenet/interfaces/ijoystick.h **** {
+  15:/home/desem/workspace/desenet/interfaces/ijoystick.h **** protected:
+  16:/home/desem/workspace/desenet/interfaces/ijoystick.h **** 	// It is just an interface, so constructor and destructor should be not public.
+  17:/home/desem/workspace/desenet/interfaces/ijoystick.h **** 	explicit IJoystick() {}
+ 18989              		.loc 33 17 0
+ 18990              		.cfi_startproc
+ 18991              		@ args = 0, pretend = 0, frame = 8
+ 18992              		@ frame_needed = 1, uses_anonymous_args = 0
+ 18993              		@ link register save eliminated.
+ 18994 0000 80B4     		push	{r7}
+ 18995              	.LCFI0:
+ 18996              		.cfi_def_cfa_offset 4
+ 18997 0002 83B0     		sub	sp, sp, #12
+ 18998              	.LCFI1:
+ 18999              		.cfi_def_cfa_offset 16
+ 19000 0004 00AF     		add	r7, sp, #0
+ 19001              		.cfi_offset 7, -4
+ 19002              	.LCFI2:
+ 19003              		.cfi_def_cfa_register 7
+ 19004 0006 7860     		str	r0, [r7, #4]
+ 19005              	.LBB2:
+ 19006              		.loc 33 17 0
+ 19007 0008 7B68     		ldr	r3, [r7, #4]
+ 19008 000a 044A     		ldr	r2, .L3
+ 19009 000c 1A60     		str	r2, [r3, #0]
+ 19010              	.LBE2:
+ 19011 000e 7B68     		ldr	r3, [r7, #4]
+ 19012 0010 1846     		mov	r0, r3
+ 19013 0012 07F10C07 		add	r7, r7, #12
+ 19014 0016 BD46     		mov	sp, r7
+ 19015 0018 80BC     		pop	{r7}
+ 19016 001a 7047     		bx	lr
+ 19017              	.L4:
+ 19018              		.align	2
+ 19019              	.L3:
+ 19020 001c 08000000 		.word	_ZTV9IJoystick+8
+ 19021              		.cfi_endproc
+ 19022              	.LFE30:
+ 19024              		.weak	_ZN9IJoystickC1Ev
+ 19025              		.thumb_set _ZN9IJoystickC1Ev,_ZN9IJoystickC2Ev
+ 19026              		.section	.text._ZN9IJoystickD2Ev,"axG",%progbits,_ZN9IJoystickD5Ev,comdat
+ 19027              		.align	2
+ 19028              		.weak	_ZN9IJoystickD2Ev
+ 19029              		.thumb
+ 19030              		.thumb_func
+ 19032              	_ZN9IJoystickD2Ev:
+ 19033              	.LFB33:
+  18:/home/desem/workspace/desenet/interfaces/ijoystick.h **** 	virtual ~IJoystick() {}
+ 19034              		.loc 33 18 0
+ 19035              		.cfi_startproc
+ 19036              		@ args = 0, pretend = 0, frame = 8
+ 19037              		@ frame_needed = 1, uses_anonymous_args = 0
+ 19038 0000 80B5     		push	{r7, lr}
+ 19039              	.LCFI3:
+ 19040              		.cfi_def_cfa_offset 8
+ 19041 0002 82B0     		sub	sp, sp, #8
+ 19042              	.LCFI4:
+ 19043              		.cfi_def_cfa_offset 16
+ 19044 0004 00AF     		add	r7, sp, #0
+ 19045              		.cfi_offset 14, -4
+ 19046              		.cfi_offset 7, -8
+ 19047              	.LCFI5:
+ 19048              		.cfi_def_cfa_register 7
+ 19049 0006 7860     		str	r0, [r7, #4]
+ 19050              	.LBB3:
+ 19051              		.loc 33 18 0
+ 19052 0008 7B68     		ldr	r3, [r7, #4]
+ 19053 000a 094A     		ldr	r2, .L8
+ 19054 000c 1A60     		str	r2, [r3, #0]
+ 19055              	.LBE3:
+ 19056 000e 4FF00003 		mov	r3, #0
+ 19057 0012 03F00103 		and	r3, r3, #1
+ 19058 0016 DBB2     		uxtb	r3, r3
+ 19059 0018 002B     		cmp	r3, #0
+ 19060 001a 02D0     		beq	.L7
+ 19061              		.loc 33 18 0 is_stmt 0 discriminator 1
+ 19062 001c 7868     		ldr	r0, [r7, #4]
+ 19063 001e FFF7FEFF 		bl	_ZdlPv
+ 19064              	.L7:
+ 19065              		.loc 33 18 0 discriminator 2
+ 19066 0022 7B68     		ldr	r3, [r7, #4]
+ 19067 0024 1846     		mov	r0, r3
+ 19068 0026 07F10807 		add	r7, r7, #8
+ 19069 002a BD46     		mov	sp, r7
+ 19070 002c 80BD     		pop	{r7, pc}
+ 19071              	.L9:
+ 19072 002e 00BF     		.align	2
+ 19073              	.L8:
+ 19074 0030 08000000 		.word	_ZTV9IJoystick+8
+ 19075              		.cfi_endproc
+ 19076              	.LFE33:
+ 19078              		.weak	_ZN9IJoystickD1Ev
+ 19079              		.thumb_set _ZN9IJoystickD1Ev,_ZN9IJoystickD2Ev
+ 19080              		.section	.text._ZN9IJoystickD0Ev,"axG",%progbits,_ZN9IJoystickD5Ev,comdat
+ 19081              		.align	2
+ 19082              		.weak	_ZN9IJoystickD0Ev
+ 19083              		.thumb
+ 19084              		.thumb_func
+ 19086              	_ZN9IJoystickD0Ev:
+ 19087              	.LFB35:
+ 19088              		.loc 33 18 0 is_stmt 1
+ 19089              		.cfi_startproc
+ 19090              		@ args = 0, pretend = 0, frame = 8
+ 19091              		@ frame_needed = 1, uses_anonymous_args = 0
+ 19092 0000 80B5     		push	{r7, lr}
+ 19093              	.LCFI6:
+ 19094              		.cfi_def_cfa_offset 8
+ 19095 0002 82B0     		sub	sp, sp, #8
+ 19096              	.LCFI7:
+ 19097              		.cfi_def_cfa_offset 16
+ 19098 0004 00AF     		add	r7, sp, #0
+ 19099              		.cfi_offset 14, -4
+ 19100              		.cfi_offset 7, -8
+ 19101              	.LCFI8:
+ 19102              		.cfi_def_cfa_register 7
+ 19103 0006 7860     		str	r0, [r7, #4]
+ 19104              		.loc 33 18 0
+ 19105 0008 7868     		ldr	r0, [r7, #4]
+ 19106 000a FFF7FEFF 		bl	_ZN9IJoystickD1Ev
+ 19107 000e 7868     		ldr	r0, [r7, #4]
+ 19108 0010 FFF7FEFF 		bl	_ZdlPv
+ 19109 0014 7B68     		ldr	r3, [r7, #4]
+ 19110 0016 1846     		mov	r0, r3
+ 19111 0018 07F10807 		add	r7, r7, #8
+ 19112 001c BD46     		mov	sp, r7
+ 19113 001e 80BD     		pop	{r7, pc}
+ 19114              		.cfi_endproc
+ 19115              	.LFE35:
+ 19117              		.section	.text._ZNK8IXFEvent12getEventTypeEv,"axG",%progbits,_ZNK8IXFEvent12getEventTypeEv,comdat
+ 19118              		.align	2
+ 19119              		.weak	_ZNK8IXFEvent12getEventTypeEv
+ 19120              		.thumb
+ 19121              		.thumb_func
+ 19123              	_ZNK8IXFEvent12getEventTypeEv:
+ 19124              	.LFB51:
+   1:/home/desem/workspace/desenet/xf/ixfevent.h **** #ifndef IXFEVENT_H
+   2:/home/desem/workspace/desenet/xf/ixfevent.h **** #define IXFEVENT_H
+   3:/home/desem/workspace/desenet/xf/ixfevent.h **** 
+   4:/home/desem/workspace/desenet/xf/ixfevent.h **** 
+   5:/home/desem/workspace/desenet/xf/ixfevent.h **** class IXFReactive;
+   6:/home/desem/workspace/desenet/xf/ixfevent.h **** 
+   7:/home/desem/workspace/desenet/xf/ixfevent.h **** 
+   8:/home/desem/workspace/desenet/xf/ixfevent.h **** /**
+   9:/home/desem/workspace/desenet/xf/ixfevent.h ****  * @ingroup xf
+  10:/home/desem/workspace/desenet/xf/ixfevent.h ****  * Interface for an event. The abstract methods defined in this interface
+  11:/home/desem/workspace/desenet/xf/ixfevent.h ****  * need to be reimplemented in its derived classes. These methods are
+  12:/home/desem/workspace/desenet/xf/ixfevent.h ****  * used by other classes in the framework (ex. XFThread, XFReactive).
+  13:/home/desem/workspace/desenet/xf/ixfevent.h ****  *
+  14:/home/desem/workspace/desenet/xf/ixfevent.h ****  * Requirements:
+  15:/home/desem/workspace/desenet/xf/ixfevent.h ****  * - Needs to hold a property which allows to distinguish between different
+  16:/home/desem/workspace/desenet/xf/ixfevent.h ****  *   types of events.
+  17:/home/desem/workspace/desenet/xf/ixfevent.h ****  * - Use an enumeration to define the type for the type property.
+  18:/home/desem/workspace/desenet/xf/ixfevent.h ****  * - The type property needs to be set at initialization time and cannot be
+  19:/home/desem/workspace/desenet/xf/ixfevent.h ****  *   changed afterwards.
+  20:/home/desem/workspace/desenet/xf/ixfevent.h ****  */
+  21:/home/desem/workspace/desenet/xf/ixfevent.h **** class IXFEvent
+  22:/home/desem/workspace/desenet/xf/ixfevent.h **** {
+  23:/home/desem/workspace/desenet/xf/ixfevent.h **** public:
+  24:/home/desem/workspace/desenet/xf/ixfevent.h **** 	/**
+  25:/home/desem/workspace/desenet/xf/ixfevent.h **** 	 * Defines the types of events
+  26:/home/desem/workspace/desenet/xf/ixfevent.h **** 	 */
+  27:/home/desem/workspace/desenet/xf/ixfevent.h **** 	typedef enum
+  28:/home/desem/workspace/desenet/xf/ixfevent.h **** 	{
+  29:/home/desem/workspace/desenet/xf/ixfevent.h **** 		Unknown			= 0,		///< Unknown state (not initialized)
+  30:/home/desem/workspace/desenet/xf/ixfevent.h **** 		Initial			= 1,		///< Initial pseudo-state
+  31:/home/desem/workspace/desenet/xf/ixfevent.h **** 		NullTransition	= 2,		///< Event generated by the state machine to define a null transition
+  32:/home/desem/workspace/desenet/xf/ixfevent.h **** 		Event			= 3,		///< Normal event
+  33:/home/desem/workspace/desenet/xf/ixfevent.h **** 		Timeout			= 4,		///< Defines a timeout event.
+  34:/home/desem/workspace/desenet/xf/ixfevent.h **** 		Terminate		= -1		///< Defines a terminate state. Will end the state machine.
+  35:/home/desem/workspace/desenet/xf/ixfevent.h **** 	} eEventType;
+  36:/home/desem/workspace/desenet/xf/ixfevent.h **** 
+  37:/home/desem/workspace/desenet/xf/ixfevent.h **** public :
+  38:/home/desem/workspace/desenet/xf/ixfevent.h **** 	/**
+  39:/home/desem/workspace/desenet/xf/ixfevent.h **** 	 * Default class constructor
+  40:/home/desem/workspace/desenet/xf/ixfevent.h **** 	 */
+  41:/home/desem/workspace/desenet/xf/ixfevent.h **** 	IXFEvent(eEventType eventType, int id, IXFReactive * pBehavior) : _eventType(eventType), _id(id), 
+  42:/home/desem/workspace/desenet/xf/ixfevent.h **** 	virtual ~IXFEvent() {}		///< Class destructor
+  43:/home/desem/workspace/desenet/xf/ixfevent.h **** 
+  44:/home/desem/workspace/desenet/xf/ixfevent.h **** 	/** \brief Returns the type of the event.
+  45:/home/desem/workspace/desenet/xf/ixfevent.h **** 	 *
+  46:/home/desem/workspace/desenet/xf/ixfevent.h **** 	 * Can be used to distinguish between an event or a timeout.
+  47:/home/desem/workspace/desenet/xf/ixfevent.h **** 	 */
+  48:/home/desem/workspace/desenet/xf/ixfevent.h **** 	inline eEventType getEventType() const { return _eventType; }
+ 19125              		.loc 41 48 0
+ 19126              		.cfi_startproc
+ 19127              		@ args = 0, pretend = 0, frame = 8
+ 19128              		@ frame_needed = 1, uses_anonymous_args = 0
+ 19129              		@ link register save eliminated.
+ 19130 0000 80B4     		push	{r7}
+ 19131              	.LCFI9:
+ 19132              		.cfi_def_cfa_offset 4
+ 19133 0002 83B0     		sub	sp, sp, #12
+ 19134              	.LCFI10:
+ 19135              		.cfi_def_cfa_offset 16
+ 19136 0004 00AF     		add	r7, sp, #0
+ 19137              		.cfi_offset 7, -4
+ 19138              	.LCFI11:
+ 19139              		.cfi_def_cfa_register 7
+ 19140 0006 7860     		str	r0, [r7, #4]
+ 19141              		.loc 41 48 0
+ 19142 0008 7B68     		ldr	r3, [r7, #4]
+ 19143 000a 1B79     		ldrb	r3, [r3, #4]	@ zero_extendqisi2
+ 19144 000c 5BB2     		sxtb	r3, r3
+ 19145 000e 1846     		mov	r0, r3
+ 19146 0010 07F10C07 		add	r7, r7, #12
+ 19147 0014 BD46     		mov	sp, r7
+ 19148 0016 80BC     		pop	{r7}
+ 19149 0018 7047     		bx	lr
+ 19150              		.cfi_endproc
+ 19151              	.LFE51:
+ 19153 001a 00BF     		.section	.text._ZNK8IXFEvent5getIdEv,"axG",%progbits,_ZNK8IXFEvent5getIdEv,comdat
+ 19154              		.align	2
+ 19155              		.weak	_ZNK8IXFEvent5getIdEv
+ 19156              		.thumb
+ 19157              		.thumb_func
+ 19159              	_ZNK8IXFEvent5getIdEv:
+ 19160              	.LFB54:
+  49:/home/desem/workspace/desenet/xf/ixfevent.h **** 
+  50:/home/desem/workspace/desenet/xf/ixfevent.h **** 	/** \brief Returns pointer to behavioral class.
+  51:/home/desem/workspace/desenet/xf/ixfevent.h **** 	 *
+  52:/home/desem/workspace/desenet/xf/ixfevent.h **** 	 * Returns a pointer to the behavioral class processing the event (see #_pBehavior).
+  53:/home/desem/workspace/desenet/xf/ixfevent.h **** 	 */
+  54:/home/desem/workspace/desenet/xf/ixfevent.h **** 	inline IXFReactive * getBehavior() const { return _pBehavior; }
+  55:/home/desem/workspace/desenet/xf/ixfevent.h **** 
+  56:/home/desem/workspace/desenet/xf/ixfevent.h **** 	/** \brief Sets pointer to behavioral class (see #_pBehavior).
+  57:/home/desem/workspace/desenet/xf/ixfevent.h **** 	 * Sets the behavior in which the event should be executed.
+  58:/home/desem/workspace/desenet/xf/ixfevent.h **** 	 */
+  59:/home/desem/workspace/desenet/xf/ixfevent.h **** 	inline void setBehavior(IXFReactive * pBehavior) { _pBehavior = pBehavior; }
+  60:/home/desem/workspace/desenet/xf/ixfevent.h **** 
+  61:/home/desem/workspace/desenet/xf/ixfevent.h **** 	inline int getId() const { return _id; }		///< Returns #_id identifying the event in the behaviors
+ 19161              		.loc 41 61 0
+ 19162              		.cfi_startproc
+ 19163              		@ args = 0, pretend = 0, frame = 8
+ 19164              		@ frame_needed = 1, uses_anonymous_args = 0
+ 19165              		@ link register save eliminated.
+ 19166 0000 80B4     		push	{r7}
+ 19167              	.LCFI12:
+ 19168              		.cfi_def_cfa_offset 4
+ 19169 0002 83B0     		sub	sp, sp, #12
+ 19170              	.LCFI13:
+ 19171              		.cfi_def_cfa_offset 16
+ 19172 0004 00AF     		add	r7, sp, #0
+ 19173              		.cfi_offset 7, -4
+ 19174              	.LCFI14:
+ 19175              		.cfi_def_cfa_register 7
+ 19176 0006 7860     		str	r0, [r7, #4]
+ 19177              		.loc 41 61 0
+ 19178 0008 7B68     		ldr	r3, [r7, #4]
+ 19179 000a 9B68     		ldr	r3, [r3, #8]
+ 19180 000c 1846     		mov	r0, r3
+ 19181 000e 07F10C07 		add	r7, r7, #12
+ 19182 0012 BD46     		mov	sp, r7
+ 19183 0014 80BC     		pop	{r7}
+ 19184 0016 7047     		bx	lr
+ 19185              		.cfi_endproc
+ 19186              	.LFE54:
+ 19188              		.section	.text._ZN11EventStatusC2ENS_12eEventStatusE,"axG",%progbits,_ZN11EventStatusC5ENS_12eEven
+ 19189              		.align	2
+ 19190              		.weak	_ZN11EventStatusC2ENS_12eEventStatusE
+ 19191              		.thumb
+ 19192              		.thumb_func
+ 19194              	_ZN11EventStatusC2ENS_12eEventStatusE:
+ 19195              	.LFB765:
+   1:/home/desem/workspace/desenet/xf/xfeventstatus.h **** #ifndef XFEVENTSTATUS_H
+   2:/home/desem/workspace/desenet/xf/xfeventstatus.h **** #define XFEVENTSTATUS_H
+   3:/home/desem/workspace/desenet/xf/xfeventstatus.h **** 
+   4:/home/desem/workspace/desenet/xf/xfeventstatus.h **** 
+   5:/home/desem/workspace/desenet/xf/xfeventstatus.h **** /**
+   6:/home/desem/workspace/desenet/xf/xfeventstatus.h ****  * @ingroup xf
+   7:/home/desem/workspace/desenet/xf/xfeventstatus.h ****  * The EventStatus is used after consumption of an event. It gives an
+   8:/home/desem/workspace/desenet/xf/xfeventstatus.h ****  * information on how the event was consument and how the framework should
+   9:/home/desem/workspace/desenet/xf/xfeventstatus.h ****  * react.
+  10:/home/desem/workspace/desenet/xf/xfeventstatus.h ****  */
+  11:/home/desem/workspace/desenet/xf/xfeventstatus.h **** class EventStatus
+  12:/home/desem/workspace/desenet/xf/xfeventstatus.h **** {
+  13:/home/desem/workspace/desenet/xf/xfeventstatus.h **** public:
+  14:/home/desem/workspace/desenet/xf/xfeventstatus.h **** 	/**
+  15:/home/desem/workspace/desenet/xf/xfeventstatus.h **** 	 * Status values about the event processed.
+  16:/home/desem/workspace/desenet/xf/xfeventstatus.h **** 	 *
+  17:/home/desem/workspace/desenet/xf/xfeventstatus.h **** 	 * \see XFReactive::process
+  18:/home/desem/workspace/desenet/xf/xfeventstatus.h **** 	 */
+  19:/home/desem/workspace/desenet/xf/xfeventstatus.h **** 	typedef enum
+  20:/home/desem/workspace/desenet/xf/xfeventstatus.h **** 	{
+  21:/home/desem/workspace/desenet/xf/xfeventstatus.h **** 		Unknown			= 0,
+  22:/home/desem/workspace/desenet/xf/xfeventstatus.h **** 		Consumed		= 0x0001,
+  23:/home/desem/workspace/desenet/xf/xfeventstatus.h **** 		NotConsumed		= 0x0002,
+  24:/home/desem/workspace/desenet/xf/xfeventstatus.h **** 		Terminate		= 0x0004
+  25:/home/desem/workspace/desenet/xf/xfeventstatus.h **** 	} eEventStatus;
+  26:/home/desem/workspace/desenet/xf/xfeventstatus.h **** 
+  27:/home/desem/workspace/desenet/xf/xfeventstatus.h **** 	/**
+  28:/home/desem/workspace/desenet/xf/xfeventstatus.h **** 	 * Constructor
+  29:/home/desem/workspace/desenet/xf/xfeventstatus.h **** 	 *
+  30:/home/desem/workspace/desenet/xf/xfeventstatus.h **** 	 * \param eventStatus Initial value of the event status.
+  31:/home/desem/workspace/desenet/xf/xfeventstatus.h **** 	 */
+  32:/home/desem/workspace/desenet/xf/xfeventstatus.h **** 	EventStatus(eEventStatus eventStatus = Unknown) : _status(eventStatus) {}
+ 19196              		.loc 80 32 0
+ 19197              		.cfi_startproc
+ 19198              		@ args = 0, pretend = 0, frame = 8
+ 19199              		@ frame_needed = 1, uses_anonymous_args = 0
+ 19200              		@ link register save eliminated.
+ 19201 0000 80B4     		push	{r7}
+ 19202              	.LCFI15:
+ 19203              		.cfi_def_cfa_offset 4
+ 19204 0002 83B0     		sub	sp, sp, #12
+ 19205              	.LCFI16:
+ 19206              		.cfi_def_cfa_offset 16
+ 19207 0004 00AF     		add	r7, sp, #0
+ 19208              		.cfi_offset 7, -4
+ 19209              	.LCFI17:
+ 19210              		.cfi_def_cfa_register 7
+ 19211 0006 7860     		str	r0, [r7, #4]
+ 19212 0008 0B46     		mov	r3, r1
+ 19213 000a FB70     		strb	r3, [r7, #3]
+ 19214              	.LBB4:
+ 19215              		.loc 80 32 0
+ 19216 000c 7B68     		ldr	r3, [r7, #4]
+ 19217 000e FA78     		ldrb	r2, [r7, #3]
+ 19218 0010 1A70     		strb	r2, [r3, #0]
+ 19219              	.LBE4:
+ 19220 0012 7B68     		ldr	r3, [r7, #4]
+ 19221 0014 1846     		mov	r0, r3
+ 19222 0016 07F10C07 		add	r7, r7, #12
+ 19223 001a BD46     		mov	sp, r7
+ 19224 001c 80BC     		pop	{r7}
+ 19225 001e 7047     		bx	lr
+ 19226              		.cfi_endproc
+ 19227              	.LFE765:
+ 19229              		.weak	_ZN11EventStatusC1ENS_12eEventStatusE
+ 19230              		.thumb_set _ZN11EventStatusC1ENS_12eEventStatusE,_ZN11EventStatusC2ENS_12eEventStatusE
+ 19231              		.section	.text._ZN8JoystickC2Ev,"ax",%progbits
+ 19232              		.align	2
+ 19233              		.global	_ZN8JoystickC2Ev
+ 19234              		.thumb
+ 19235              		.thumb_func
+ 19237              	_ZN8JoystickC2Ev:
+ 19238              	.LFB776:
+   1:../board/olimex-stm32f103-stk/board/joystick.cpp **** #include <target.h>
+   2:../board/olimex-stm32f103-stk/board/joystick.cpp **** #include <stm32f10x_adc.h>
+   3:../board/olimex-stm32f103-stk/board/joystick.cpp **** #include <IJoystickObserver>
+   4:../board/olimex-stm32f103-stk/board/joystick.cpp **** #include "joystick.h"
+   5:../board/olimex-stm32f103-stk/board/joystick.cpp **** 
+   6:../board/olimex-stm32f103-stk/board/joystick.cpp **** #if (JOYSTICK_TRACE_VERBOSE != 0)
+   7:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	#include <trace/trace.h>
+   8:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	#include <stdarg.h>
+   9:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	#include <stdio.h>
+  10:../board/olimex-stm32f103-stk/board/joystick.cpp **** #endif
+  11:../board/olimex-stm32f103-stk/board/joystick.cpp **** 
+  12:../board/olimex-stm32f103-stk/board/joystick.cpp **** Joystick::Joystick()
+ 19239              		.loc 1 12 0
+ 19240              		.cfi_startproc
+ 19241              		@ args = 0, pretend = 0, frame = 8
+ 19242              		@ frame_needed = 1, uses_anonymous_args = 0
+ 19243 0000 80B5     		push	{r7, lr}
+ 19244              	.LCFI18:
+ 19245              		.cfi_def_cfa_offset 8
+ 19246 0002 82B0     		sub	sp, sp, #8
+ 19247              	.LCFI19:
+ 19248              		.cfi_def_cfa_offset 16
+ 19249 0004 00AF     		add	r7, sp, #0
+ 19250              		.cfi_offset 14, -4
+ 19251              		.cfi_offset 7, -8
+ 19252              	.LCFI20:
+ 19253              		.cfi_def_cfa_register 7
+ 19254 0006 7860     		str	r0, [r7, #4]
+ 19255              	.LBB5:
+ 19256              		.loc 1 12 0
+ 19257 0008 7B68     		ldr	r3, [r7, #4]
+ 19258 000a 1846     		mov	r0, r3
+ 19259 000c FFF7FEFF 		bl	_ZN9IJoystickC2Ev
+ 19260 0010 7B68     		ldr	r3, [r7, #4]
+ 19261 0012 03F10403 		add	r3, r3, #4
+ 19262 0016 1846     		mov	r0, r3
+ 19263 0018 4FF00001 		mov	r1, #0
+ 19264 001c FFF7FEFF 		bl	_ZN10XFReactiveC2EP8XFThread
+ 19265 0020 7B68     		ldr	r3, [r7, #4]
+ 19266 0022 0D4A     		ldr	r2, .L18
+ 19267 0024 1A60     		str	r2, [r3, #0]
+ 19268 0026 7B68     		ldr	r3, [r7, #4]
+ 19269 0028 0C4A     		ldr	r2, .L18+4
+ 19270 002a 5A60     		str	r2, [r3, #4]
+  13:../board/olimex-stm32f103-stk/board/joystick.cpp **** {
+  14:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	_bInitialized = false;
+ 19271              		.loc 1 14 0
+ 19272 002c 7B68     		ldr	r3, [r7, #4]
+ 19273 002e 4FF00002 		mov	r2, #0
+ 19274 0032 1A74     		strb	r2, [r3, #16]
+  15:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	_pObserver = NULL;
+ 19275              		.loc 1 15 0
+ 19276 0034 7B68     		ldr	r3, [r7, #4]
+ 19277 0036 4FF00002 		mov	r2, #0
+ 19278 003a 5A61     		str	r2, [r3, #20]
+  16:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	_position = Invalid;
+ 19279              		.loc 1 16 0
+ 19280 003c 7B68     		ldr	r3, [r7, #4]
+ 19281 003e 4FF00002 		mov	r2, #0
+ 19282 0042 1A76     		strb	r2, [r3, #24]
+  17:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	_currentState = STATE_INITIAL;
+ 19283              		.loc 1 17 0
+ 19284 0044 7B68     		ldr	r3, [r7, #4]
+ 19285 0046 4FF00102 		mov	r2, #1
+ 19286 004a 5A76     		strb	r2, [r3, #25]
+ 19287              	.LBE5:
+  18:../board/olimex-stm32f103-stk/board/joystick.cpp **** }
+ 19288              		.loc 1 18 0
+ 19289 004c 7B68     		ldr	r3, [r7, #4]
+ 19290 004e 1846     		mov	r0, r3
+ 19291 0050 07F10807 		add	r7, r7, #8
+ 19292 0054 BD46     		mov	sp, r7
+ 19293 0056 80BD     		pop	{r7, pc}
+ 19294              	.L19:
+ 19295              		.align	2
+ 19296              	.L18:
+ 19297 0058 08000000 		.word	_ZTV8Joystick+8
+ 19298 005c 28000000 		.word	_ZTV8Joystick+40
+ 19299              		.cfi_endproc
+ 19300              	.LFE776:
+ 19302              		.global	_ZN8JoystickC1Ev
+ 19303              		.thumb_set _ZN8JoystickC1Ev,_ZN8JoystickC2Ev
+ 19304              		.section	.text._ZN8JoystickD2Ev,"ax",%progbits
+ 19305              		.align	2
+ 19306              		.global	_ZN8JoystickD2Ev
+ 19307              		.thumb
+ 19308              		.thumb_func
+ 19310              	_ZN8JoystickD2Ev:
+ 19311              	.LFB779:
+  19:../board/olimex-stm32f103-stk/board/joystick.cpp **** 
+  20:../board/olimex-stm32f103-stk/board/joystick.cpp **** Joystick::~Joystick()
+ 19312              		.loc 1 20 0
+ 19313              		.cfi_startproc
+ 19314              		@ args = 0, pretend = 0, frame = 8
+ 19315              		@ frame_needed = 1, uses_anonymous_args = 0
+ 19316 0000 80B5     		push	{r7, lr}
+ 19317              	.LCFI21:
+ 19318              		.cfi_def_cfa_offset 8
+ 19319 0002 82B0     		sub	sp, sp, #8
+ 19320              	.LCFI22:
+ 19321              		.cfi_def_cfa_offset 16
+ 19322 0004 00AF     		add	r7, sp, #0
+ 19323              		.cfi_offset 14, -4
+ 19324              		.cfi_offset 7, -8
+ 19325              	.LCFI23:
+ 19326              		.cfi_def_cfa_register 7
+ 19327 0006 7860     		str	r0, [r7, #4]
+ 19328              	.LBB6:
+ 19329              		.loc 1 20 0
+ 19330 0008 7B68     		ldr	r3, [r7, #4]
+ 19331 000a 0F4A     		ldr	r2, .L23
+ 19332 000c 1A60     		str	r2, [r3, #0]
+ 19333 000e 7B68     		ldr	r3, [r7, #4]
+ 19334 0010 0E4A     		ldr	r2, .L23+4
+ 19335 0012 5A60     		str	r2, [r3, #4]
+ 19336 0014 7B68     		ldr	r3, [r7, #4]
+ 19337 0016 03F10403 		add	r3, r3, #4
+  21:../board/olimex-stm32f103-stk/board/joystick.cpp **** {
+  22:../board/olimex-stm32f103-stk/board/joystick.cpp **** 
+  23:../board/olimex-stm32f103-stk/board/joystick.cpp **** }
+ 19338              		.loc 1 23 0
+ 19339 001a 1846     		mov	r0, r3
+ 19340 001c FFF7FEFF 		bl	_ZN10XFReactiveD2Ev
+  20:../board/olimex-stm32f103-stk/board/joystick.cpp **** Joystick::~Joystick()
+ 19341              		.loc 1 20 0
+ 19342 0020 7B68     		ldr	r3, [r7, #4]
+ 19343              		.loc 1 23 0
+ 19344 0022 1846     		mov	r0, r3
+ 19345 0024 FFF7FEFF 		bl	_ZN9IJoystickD2Ev
+ 19346              	.LBE6:
+ 19347 0028 4FF00003 		mov	r3, #0
+ 19348 002c 03F00103 		and	r3, r3, #1
+ 19349 0030 DBB2     		uxtb	r3, r3
+ 19350 0032 002B     		cmp	r3, #0
+ 19351 0034 02D0     		beq	.L22
+ 19352              		.loc 1 23 0 is_stmt 0 discriminator 2
+ 19353 0036 7868     		ldr	r0, [r7, #4]
+ 19354 0038 FFF7FEFF 		bl	_ZdlPv
+ 19355              	.L22:
+ 19356              		.loc 1 23 0 discriminator 3
+ 19357 003c 7B68     		ldr	r3, [r7, #4]
+ 19358 003e 1846     		mov	r0, r3
+ 19359 0040 07F10807 		add	r7, r7, #8
+ 19360 0044 BD46     		mov	sp, r7
+ 19361 0046 80BD     		pop	{r7, pc}
+ 19362              	.L24:
+ 19363              		.align	2
+ 19364              	.L23:
+ 19365 0048 08000000 		.word	_ZTV8Joystick+8
+ 19366 004c 28000000 		.word	_ZTV8Joystick+40
+ 19367              		.cfi_endproc
+ 19368              	.LFE779:
+ 19370              		.global	_ZN8JoystickD1Ev
+ 19371              		.thumb_set _ZN8JoystickD1Ev,_ZN8JoystickD2Ev
+ 19372              		.thumb_set .LTHUNK0,_ZN8JoystickD1Ev
+ 19373              		.section	.text._ZThn4_N8JoystickD1Ev,"ax",%progbits
+ 19374              		.align	2
+ 19375              		.global	_ZThn4_N8JoystickD1Ev
+ 19376              		.thumb
+ 19377              		.thumb_func
+ 19379              	_ZThn4_N8JoystickD1Ev:
+ 19380 0000 A0F10400 		sub	r0, r0, #4
+ 19381 0004 FFF7FEBF 		b	.LTHUNK0
+ 19383              		.section	.text._ZN8JoystickD0Ev,"ax",%progbits
+ 19384              		.align	2
+ 19385              		.global	_ZN8JoystickD0Ev
+ 19386              		.thumb
+ 19387              		.thumb_func
+ 19389              	_ZN8JoystickD0Ev:
+ 19390              	.LFB781:
+  20:../board/olimex-stm32f103-stk/board/joystick.cpp **** Joystick::~Joystick()
+ 19391              		.loc 1 20 0 is_stmt 1
+ 19392              		.cfi_startproc
+ 19393              		@ args = 0, pretend = 0, frame = 8
+ 19394              		@ frame_needed = 1, uses_anonymous_args = 0
+ 19395 0000 80B5     		push	{r7, lr}
+ 19396              	.LCFI24:
+ 19397              		.cfi_def_cfa_offset 8
+ 19398 0002 82B0     		sub	sp, sp, #8
+ 19399              	.LCFI25:
+ 19400              		.cfi_def_cfa_offset 16
+ 19401 0004 00AF     		add	r7, sp, #0
+ 19402              		.cfi_offset 14, -4
+ 19403              		.cfi_offset 7, -8
+ 19404              	.LCFI26:
+ 19405              		.cfi_def_cfa_register 7
+ 19406 0006 7860     		str	r0, [r7, #4]
+ 19407              		.loc 1 23 0
+ 19408 0008 7868     		ldr	r0, [r7, #4]
+ 19409 000a FFF7FEFF 		bl	_ZN8JoystickD1Ev
+ 19410 000e 7868     		ldr	r0, [r7, #4]
+ 19411 0010 FFF7FEFF 		bl	_ZdlPv
+ 19412 0014 7B68     		ldr	r3, [r7, #4]
+ 19413 0016 1846     		mov	r0, r3
+ 19414 0018 07F10807 		add	r7, r7, #8
+ 19415 001c BD46     		mov	sp, r7
+ 19416 001e 80BD     		pop	{r7, pc}
+ 19417              		.cfi_endproc
+ 19418              	.LFE781:
+ 19420              		.thumb_set .LTHUNK1,_ZN8JoystickD0Ev
+ 19421              		.section	.text._ZThn4_N8JoystickD0Ev,"ax",%progbits
+ 19422              		.align	2
+ 19423              		.global	_ZThn4_N8JoystickD0Ev
+ 19424              		.thumb
+ 19425              		.thumb_func
+ 19427              	_ZThn4_N8JoystickD0Ev:
+ 19428 0000 A0F10400 		sub	r0, r0, #4
+ 19429 0004 FFF7FEBF 		b	.LTHUNK1
+ 19431              		.section	.text._ZN8Joystick10initializeEv,"ax",%progbits
+ 19432              		.align	2
+ 19433              		.global	_ZN8Joystick10initializeEv
+ 19434              		.thumb
+ 19435              		.thumb_func
+ 19437              	_ZN8Joystick10initializeEv:
+ 19438              	.LFB782:
+  24:../board/olimex-stm32f103-stk/board/joystick.cpp **** 
+  25:../board/olimex-stm32f103-stk/board/joystick.cpp **** bool Joystick::initialize()
+  26:../board/olimex-stm32f103-stk/board/joystick.cpp **** {
+ 19439              		.loc 1 26 0
+ 19440              		.cfi_startproc
+ 19441              		@ args = 0, pretend = 0, frame = 8
+ 19442              		@ frame_needed = 1, uses_anonymous_args = 0
+ 19443 0000 80B5     		push	{r7, lr}
+ 19444              	.LCFI27:
+ 19445              		.cfi_def_cfa_offset 8
+ 19446 0002 82B0     		sub	sp, sp, #8
+ 19447              	.LCFI28:
+ 19448              		.cfi_def_cfa_offset 16
+ 19449 0004 00AF     		add	r7, sp, #0
+ 19450              		.cfi_offset 14, -4
+ 19451              		.cfi_offset 7, -8
+ 19452              	.LCFI29:
+ 19453              		.cfi_def_cfa_register 7
+ 19454 0006 7860     		str	r0, [r7, #4]
+  27:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	if (!_bInitialized)
+ 19455              		.loc 1 27 0
+ 19456 0008 7B68     		ldr	r3, [r7, #4]
+ 19457 000a 1B7C     		ldrb	r3, [r3, #16]	@ zero_extendqisi2
+ 19458 000c 83F00103 		eor	r3, r3, #1
+ 19459 0010 DBB2     		uxtb	r3, r3
+ 19460 0012 002B     		cmp	r3, #0
+ 19461 0014 16D0     		beq	.L28
+  28:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	{
+  29:../board/olimex-stm32f103-stk/board/joystick.cpp **** 		_bInitialized = true;
+ 19462              		.loc 1 29 0
+ 19463 0016 7B68     		ldr	r3, [r7, #4]
+ 19464 0018 4FF00102 		mov	r2, #1
+ 19465 001c 1A74     		strb	r2, [r3, #16]
+  30:../board/olimex-stm32f103-stk/board/joystick.cpp **** 
+  31:../board/olimex-stm32f103-stk/board/joystick.cpp **** 		_initCenterButtonIrq();
+ 19466              		.loc 1 31 0
+ 19467 001e 7868     		ldr	r0, [r7, #4]
+ 19468 0020 FFF7FEFF 		bl	_ZNK8Joystick20_initCenterButtonIrqEv
+  32:../board/olimex-stm32f103-stk/board/joystick.cpp **** 		_initAdc();
+ 19469              		.loc 1 32 0
+ 19470 0024 7868     		ldr	r0, [r7, #4]
+ 19471 0026 FFF7FEFF 		bl	_ZNK8Joystick8_initAdcEv
+  33:../board/olimex-stm32f103-stk/board/joystick.cpp **** 
+  34:../board/olimex-stm32f103-stk/board/joystick.cpp **** 		// Start state machine
+  35:../board/olimex-stm32f103-stk/board/joystick.cpp **** 		startBehavior();
+ 19472              		.loc 1 35 0
+ 19473 002a 7B68     		ldr	r3, [r7, #4]
+ 19474 002c 5B68     		ldr	r3, [r3, #4]
+ 19475 002e 03F10803 		add	r3, r3, #8
+ 19476 0032 1B68     		ldr	r3, [r3, #0]
+ 19477 0034 7A68     		ldr	r2, [r7, #4]
+ 19478 0036 02F10402 		add	r2, r2, #4
+ 19479 003a 1046     		mov	r0, r2
+ 19480 003c 9847     		blx	r3
+  36:../board/olimex-stm32f103-stk/board/joystick.cpp **** 
+  37:../board/olimex-stm32f103-stk/board/joystick.cpp **** 		return true;
+ 19481              		.loc 1 37 0
+ 19482 003e 4FF00103 		mov	r3, #1
+ 19483 0042 01E0     		b	.L29
+ 19484              	.L28:
+  38:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	}
+  39:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	return false;
+ 19485              		.loc 1 39 0
+ 19486 0044 4FF00003 		mov	r3, #0
+ 19487              	.L29:
+  40:../board/olimex-stm32f103-stk/board/joystick.cpp **** }
+ 19488              		.loc 1 40 0
+ 19489 0048 1846     		mov	r0, r3
+ 19490 004a 07F10807 		add	r7, r7, #8
+ 19491 004e BD46     		mov	sp, r7
+ 19492 0050 80BD     		pop	{r7, pc}
+ 19493              		.cfi_endproc
+ 19494              	.LFE782:
+ 19496 0052 00BF     		.section	.text._ZN8Joystick11setObserverEP17IJoystickObserver,"ax",%progbits
+ 19497              		.align	2
+ 19498              		.global	_ZN8Joystick11setObserverEP17IJoystickObserver
+ 19499              		.thumb
+ 19500              		.thumb_func
+ 19502              	_ZN8Joystick11setObserverEP17IJoystickObserver:
+ 19503              	.LFB783:
+  41:../board/olimex-stm32f103-stk/board/joystick.cpp **** 
+  42:../board/olimex-stm32f103-stk/board/joystick.cpp **** bool Joystick::setObserver(IJoystickObserver * observer)
+  43:../board/olimex-stm32f103-stk/board/joystick.cpp **** {
+ 19504              		.loc 1 43 0
+ 19505              		.cfi_startproc
+ 19506              		@ args = 0, pretend = 0, frame = 8
+ 19507              		@ frame_needed = 1, uses_anonymous_args = 0
+ 19508              		@ link register save eliminated.
+ 19509 0000 80B4     		push	{r7}
+ 19510              	.LCFI30:
+ 19511              		.cfi_def_cfa_offset 4
+ 19512 0002 83B0     		sub	sp, sp, #12
+ 19513              	.LCFI31:
+ 19514              		.cfi_def_cfa_offset 16
+ 19515 0004 00AF     		add	r7, sp, #0
+ 19516              		.cfi_offset 7, -4
+ 19517              	.LCFI32:
+ 19518              		.cfi_def_cfa_register 7
+ 19519 0006 7860     		str	r0, [r7, #4]
+ 19520 0008 3960     		str	r1, [r7, #0]
+  44:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	_pObserver = observer;
+ 19521              		.loc 1 44 0
+ 19522 000a 7B68     		ldr	r3, [r7, #4]
+ 19523 000c 3A68     		ldr	r2, [r7, #0]
+ 19524 000e 5A61     		str	r2, [r3, #20]
+  45:../board/olimex-stm32f103-stk/board/joystick.cpp **** 
+  46:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	// Tell them the actual position
+  47:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	//_pObserver->onPositionChange(position());
+  48:../board/olimex-stm32f103-stk/board/joystick.cpp **** 
+  49:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	return true;
+ 19525              		.loc 1 49 0
+ 19526 0010 4FF00103 		mov	r3, #1
+  50:../board/olimex-stm32f103-stk/board/joystick.cpp **** }
+ 19527              		.loc 1 50 0
+ 19528 0014 1846     		mov	r0, r3
+ 19529 0016 07F10C07 		add	r7, r7, #12
+ 19530 001a BD46     		mov	sp, r7
+ 19531 001c 80BC     		pop	{r7}
+ 19532 001e 7047     		bx	lr
+ 19533              		.cfi_endproc
+ 19534              	.LFE783:
+ 19536              		.section	.text._ZNK8Joystick8positionEv,"ax",%progbits
+ 19537              		.align	2
+ 19538              		.global	_ZNK8Joystick8positionEv
+ 19539              		.thumb
+ 19540              		.thumb_func
+ 19542              	_ZNK8Joystick8positionEv:
+ 19543              	.LFB784:
+  51:../board/olimex-stm32f103-stk/board/joystick.cpp **** 
+  52:../board/olimex-stm32f103-stk/board/joystick.cpp **** IJoystick::Position Joystick::position() const
+  53:../board/olimex-stm32f103-stk/board/joystick.cpp **** {
+ 19544              		.loc 1 53 0
+ 19545              		.cfi_startproc
+ 19546              		@ args = 0, pretend = 0, frame = 8
+ 19547              		@ frame_needed = 1, uses_anonymous_args = 0
+ 19548              		@ link register save eliminated.
+ 19549 0000 80B4     		push	{r7}
+ 19550              	.LCFI33:
+ 19551              		.cfi_def_cfa_offset 4
+ 19552 0002 83B0     		sub	sp, sp, #12
+ 19553              	.LCFI34:
+ 19554              		.cfi_def_cfa_offset 16
+ 19555 0004 00AF     		add	r7, sp, #0
+ 19556              		.cfi_offset 7, -4
+ 19557              	.LCFI35:
+ 19558              		.cfi_def_cfa_register 7
+ 19559 0006 7860     		str	r0, [r7, #4]
+  54:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	return _position;
+ 19560              		.loc 1 54 0
+ 19561 0008 7B68     		ldr	r3, [r7, #4]
+ 19562 000a 1B7E     		ldrb	r3, [r3, #24]	@ zero_extendqisi2
+  55:../board/olimex-stm32f103-stk/board/joystick.cpp **** }
+ 19563              		.loc 1 55 0
+ 19564 000c 1846     		mov	r0, r3
+ 19565 000e 07F10C07 		add	r7, r7, #12
+ 19566 0012 BD46     		mov	sp, r7
+ 19567 0014 80BC     		pop	{r7}
+ 19568 0016 7047     		bx	lr
+ 19569              		.cfi_endproc
+ 19570              	.LFE784:
+ 19572              		.section	.text._ZNK8Joystick20_initCenterButtonIrqEv,"ax",%progbits
+ 19573              		.align	2
+ 19574              		.global	_ZNK8Joystick20_initCenterButtonIrqEv
+ 19575              		.thumb
+ 19576              		.thumb_func
+ 19578              	_ZNK8Joystick20_initCenterButtonIrqEv:
+ 19579              	.LFB785:
+  56:../board/olimex-stm32f103-stk/board/joystick.cpp **** 
+  57:../board/olimex-stm32f103-stk/board/joystick.cpp **** /**
+  58:../board/olimex-stm32f103-stk/board/joystick.cpp ****  * Initializes and enables the interrupt for the
+  59:../board/olimex-stm32f103-stk/board/joystick.cpp ****  * joystick center button (GPIO PC6).
+  60:../board/olimex-stm32f103-stk/board/joystick.cpp ****  */
+  61:../board/olimex-stm32f103-stk/board/joystick.cpp **** void Joystick::_initCenterButtonIrq() const
+  62:../board/olimex-stm32f103-stk/board/joystick.cpp **** {
+ 19580              		.loc 1 62 0
+ 19581              		.cfi_startproc
+ 19582              		@ args = 0, pretend = 0, frame = 24
+ 19583              		@ frame_needed = 1, uses_anonymous_args = 0
+ 19584 0000 80B5     		push	{r7, lr}
+ 19585              	.LCFI36:
+ 19586              		.cfi_def_cfa_offset 8
+ 19587 0002 86B0     		sub	sp, sp, #24
+ 19588              	.LCFI37:
+ 19589              		.cfi_def_cfa_offset 32
+ 19590 0004 00AF     		add	r7, sp, #0
+ 19591              		.cfi_offset 14, -4
+ 19592              		.cfi_offset 7, -8
+ 19593              	.LCFI38:
+ 19594              		.cfi_def_cfa_register 7
+ 19595 0006 7860     		str	r0, [r7, #4]
+ 19596              	.LBB7:
+  63:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	GPIO_InitTypeDef gpioInitStructure;
+  64:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	EXTI_InitTypeDef extiInitStructure;
+  65:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	NVIC_InitTypeDef nvicInitStructure;
+  66:../board/olimex-stm32f103-stk/board/joystick.cpp **** 
+  67:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	// Enable needed clocks
+  68:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO  | RCC_APB2Periph_GPIOC, ENABLE);
+ 19597              		.loc 1 68 0
+ 19598 0008 4FF01100 		mov	r0, #17
+ 19599 000c 4FF00101 		mov	r1, #1
+ 19600 0010 FFF7FEFF 		bl	RCC_APB2PeriphClockCmd
+  69:../board/olimex-stm32f103-stk/board/joystick.cpp **** 
+  70:../board/olimex-stm32f103-stk/board/joystick.cpp ****     /* Configure USB host interrupt pin as input floating */
+  71:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	gpioInitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+ 19601              		.loc 1 71 0
+ 19602 0014 4FF00403 		mov	r3, #4
+ 19603 0018 FB75     		strb	r3, [r7, #23]
+  72:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	gpioInitStructure.GPIO_Pin = GPIO_Pin_6;
+ 19604              		.loc 1 72 0
+ 19605 001a 4FF04003 		mov	r3, #64
+ 19606 001e BB82     		strh	r3, [r7, #20]	@ movhi
+  73:../board/olimex-stm32f103-stk/board/joystick.cpp ****     GPIO_Init(GPIOC, &gpioInitStructure);
+ 19607              		.loc 1 73 0
+ 19608 0020 07F11403 		add	r3, r7, #20
+ 19609 0024 4FF48050 		mov	r0, #4096
+ 19610 0028 C4F20100 		movt	r0, 16385
+ 19611 002c 1946     		mov	r1, r3
+ 19612 002e FFF7FEFF 		bl	GPIO_Init
+  74:../board/olimex-stm32f103-stk/board/joystick.cpp **** 
+  75:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	// Define GPIO to
+  76:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	GPIO_EXTILineConfig(GPIO_PortSourceGPIOC, GPIO_PinSource6);
+ 19613              		.loc 1 76 0
+ 19614 0032 4FF00200 		mov	r0, #2
+ 19615 0036 4FF00601 		mov	r1, #6
+ 19616 003a FFF7FEFF 		bl	GPIO_EXTILineConfig
+  77:../board/olimex-stm32f103-stk/board/joystick.cpp **** 
+  78:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	// Configure external interrupt for PC6
+  79:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	EXTI_ClearITPendingBit(EXTI_Line6);
+ 19617              		.loc 1 79 0
+ 19618 003e 4FF04000 		mov	r0, #64
+ 19619 0042 FFF7FEFF 		bl	EXTI_ClearITPendingBit
+  80:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	extiInitStructure.EXTI_Line = EXTI_Line6;
+ 19620              		.loc 1 80 0
+ 19621 0046 4FF04003 		mov	r3, #64
+ 19622 004a FB60     		str	r3, [r7, #12]
+  81:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	extiInitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
+ 19623              		.loc 1 81 0
+ 19624 004c 4FF00003 		mov	r3, #0
+ 19625 0050 3B74     		strb	r3, [r7, #16]
+  82:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	extiInitStructure.EXTI_Trigger = EXTI_Trigger_Rising_Falling;
+ 19626              		.loc 1 82 0
+ 19627 0052 4FF01003 		mov	r3, #16
+ 19628 0056 7B74     		strb	r3, [r7, #17]
+  83:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	extiInitStructure.EXTI_LineCmd = ENABLE;
+ 19629              		.loc 1 83 0
+ 19630 0058 4FF00103 		mov	r3, #1
+ 19631 005c BB74     		strb	r3, [r7, #18]
+  84:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	EXTI_Init(&extiInitStructure);
+ 19632              		.loc 1 84 0
+ 19633 005e 07F10C03 		add	r3, r7, #12
+ 19634 0062 1846     		mov	r0, r3
+ 19635 0064 FFF7FEFF 		bl	EXTI_Init
+  85:../board/olimex-stm32f103-stk/board/joystick.cpp **** 
+  86:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	// Enable EXTI interrupt for PC6
+  87:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	nvicInitStructure.NVIC_IRQChannel = EXTI9_5_IRQn;
+ 19636              		.loc 1 87 0
+ 19637 0068 4FF01703 		mov	r3, #23
+ 19638 006c 3B72     		strb	r3, [r7, #8]
+  88:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	nvicInitStructure.NVIC_IRQChannelPreemptionPriority = 0x0F;
+ 19639              		.loc 1 88 0
+ 19640 006e 4FF00F03 		mov	r3, #15
+ 19641 0072 7B72     		strb	r3, [r7, #9]
+  89:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	nvicInitStructure.NVIC_IRQChannelSubPriority = 0x00;
+ 19642              		.loc 1 89 0
+ 19643 0074 4FF00003 		mov	r3, #0
+ 19644 0078 BB72     		strb	r3, [r7, #10]
+  90:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	nvicInitStructure.NVIC_IRQChannelCmd = ENABLE;
+ 19645              		.loc 1 90 0
+ 19646 007a 4FF00103 		mov	r3, #1
+ 19647 007e FB72     		strb	r3, [r7, #11]
+  91:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	NVIC_Init(&nvicInitStructure);
+ 19648              		.loc 1 91 0
+ 19649 0080 07F10803 		add	r3, r7, #8
+ 19650 0084 1846     		mov	r0, r3
+ 19651 0086 FFF7FEFF 		bl	NVIC_Init
+ 19652              	.LBE7:
+  92:../board/olimex-stm32f103-stk/board/joystick.cpp **** }
+ 19653              		.loc 1 92 0
+ 19654 008a 07F11807 		add	r7, r7, #24
+ 19655 008e BD46     		mov	sp, r7
+ 19656 0090 80BD     		pop	{r7, pc}
+ 19657              		.cfi_endproc
+ 19658              	.LFE785:
+ 19660 0092 00BF     		.section	.text._ZNK8Joystick8_initAdcEv,"ax",%progbits
+ 19661              		.align	2
+ 19662              		.global	_ZNK8Joystick8_initAdcEv
+ 19663              		.thumb
+ 19664              		.thumb_func
+ 19666              	_ZNK8Joystick8_initAdcEv:
+ 19667              	.LFB786:
+  93:../board/olimex-stm32f103-stk/board/joystick.cpp **** 
+  94:../board/olimex-stm32f103-stk/board/joystick.cpp **** /**
+  95:../board/olimex-stm32f103-stk/board/joystick.cpp ****  * Initializes ADC15 used to measure the joysticks button state (left, right, up, down).
+  96:../board/olimex-stm32f103-stk/board/joystick.cpp ****  * ADC1 is used for the conversion
+  97:../board/olimex-stm32f103-stk/board/joystick.cpp ****  */
+  98:../board/olimex-stm32f103-stk/board/joystick.cpp **** void Joystick::_initAdc() const
+  99:../board/olimex-stm32f103-stk/board/joystick.cpp **** {
+ 19668              		.loc 1 99 0
+ 19669              		.cfi_startproc
+ 19670              		@ args = 0, pretend = 0, frame = 32
+ 19671              		@ frame_needed = 1, uses_anonymous_args = 0
+ 19672 0000 80B5     		push	{r7, lr}
+ 19673              	.LCFI39:
+ 19674              		.cfi_def_cfa_offset 8
+ 19675 0002 88B0     		sub	sp, sp, #32
+ 19676              	.LCFI40:
+ 19677              		.cfi_def_cfa_offset 40
+ 19678 0004 00AF     		add	r7, sp, #0
+ 19679              		.cfi_offset 14, -4
+ 19680              		.cfi_offset 7, -8
+ 19681              	.LCFI41:
+ 19682              		.cfi_def_cfa_register 7
+ 19683 0006 7860     		str	r0, [r7, #4]
+ 19684              	.LBB8:
+ 100:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	GPIO_InitTypeDef	gpioInitStructure;
+ 101:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	ADC_InitTypeDef		adcInitStructure;
+ 102:../board/olimex-stm32f103-stk/board/joystick.cpp **** 
+ 103:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_ADC1 | RCC_APB2Periph_GPIOC, ENABLE);
+ 19685              		.loc 1 103 0
+ 19686 0008 4FF40470 		mov	r0, #528
+ 19687 000c 4FF00101 		mov	r1, #1
+ 19688 0010 FFF7FEFF 		bl	RCC_APB2PeriphClockCmd
+ 104:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	ADC_DeInit(ADC1);
+ 19689              		.loc 1 104 0
+ 19690 0014 4FF41050 		mov	r0, #9216
+ 19691 0018 C4F20100 		movt	r0, 16385
+ 19692 001c FFF7FEFF 		bl	ADC_DeInit
+ 105:../board/olimex-stm32f103-stk/board/joystick.cpp **** 
+ 106:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	// Set RC5 as analog input
+ 107:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	gpioInitStructure.GPIO_Pin = GPIO_Pin_5;
+ 19693              		.loc 1 107 0
+ 19694 0020 4FF02003 		mov	r3, #32
+ 19695 0024 BB83     		strh	r3, [r7, #28]	@ movhi
+ 108:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	gpioInitStructure.GPIO_Speed = GPIO_Speed_10MHz;
+ 19696              		.loc 1 108 0
+ 19697 0026 4FF00103 		mov	r3, #1
+ 19698 002a BB77     		strb	r3, [r7, #30]
+ 109:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	gpioInitStructure.GPIO_Mode = GPIO_Mode_AIN;
+ 19699              		.loc 1 109 0
+ 19700 002c 4FF00003 		mov	r3, #0
+ 19701 0030 FB77     		strb	r3, [r7, #31]
+ 110:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	GPIO_Init (GPIOC, &gpioInitStructure);
+ 19702              		.loc 1 110 0
+ 19703 0032 07F11C03 		add	r3, r7, #28
+ 19704 0036 4FF48050 		mov	r0, #4096
+ 19705 003a C4F20100 		movt	r0, 16385
+ 19706 003e 1946     		mov	r1, r3
+ 19707 0040 FFF7FEFF 		bl	GPIO_Init
+ 111:../board/olimex-stm32f103-stk/board/joystick.cpp **** 
+ 112:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	// ADC Structure Initialization
+ 113:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	ADC_StructInit(&adcInitStructure);
+ 19708              		.loc 1 113 0
+ 19709 0044 07F10803 		add	r3, r7, #8
+ 19710 0048 1846     		mov	r0, r3
+ 19711 004a FFF7FEFF 		bl	ADC_StructInit
+ 114:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	// Preinit
+ 115:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	adcInitStructure.ADC_Mode = ADC_Mode_Independent;
+ 19712              		.loc 1 115 0
+ 19713 004e 4FF00003 		mov	r3, #0
+ 19714 0052 BB60     		str	r3, [r7, #8]
+ 116:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	adcInitStructure.ADC_ScanConvMode = DISABLE;
+ 19715              		.loc 1 116 0
+ 19716 0054 4FF00003 		mov	r3, #0
+ 19717 0058 3B73     		strb	r3, [r7, #12]
+ 117:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	adcInitStructure.ADC_ContinuousConvMode = DISABLE;
+ 19718              		.loc 1 117 0
+ 19719 005a 4FF00003 		mov	r3, #0
+ 19720 005e 7B73     		strb	r3, [r7, #13]
+ 118:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	adcInitStructure.ADC_ExternalTrigConv = ADC_ExternalTrigConv_None;
+ 19721              		.loc 1 118 0
+ 19722 0060 4FF46023 		mov	r3, #917504
+ 19723 0064 3B61     		str	r3, [r7, #16]
+ 119:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	adcInitStructure.ADC_DataAlign = ADC_DataAlign_Right;
+ 19724              		.loc 1 119 0
+ 19725 0066 4FF00003 		mov	r3, #0
+ 19726 006a 7B61     		str	r3, [r7, #20]
+ 120:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	adcInitStructure.ADC_NbrOfChannel = 1;
+ 19727              		.loc 1 120 0
+ 19728 006c 4FF00103 		mov	r3, #1
+ 19729 0070 3B76     		strb	r3, [r7, #24]
+ 121:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	ADC_Init(ADC1, &adcInitStructure);
+ 19730              		.loc 1 121 0
+ 19731 0072 07F10803 		add	r3, r7, #8
+ 19732 0076 4FF41050 		mov	r0, #9216
+ 19733 007a C4F20100 		movt	r0, 16385
+ 19734 007e 1946     		mov	r1, r3
+ 19735 0080 FFF7FEFF 		bl	ADC_Init
+ 122:../board/olimex-stm32f103-stk/board/joystick.cpp **** 
+ 123:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	// Enable the ADC
+ 124:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	ADC_Cmd(ADC1, ENABLE);
+ 19736              		.loc 1 124 0
+ 19737 0084 4FF41050 		mov	r0, #9216
+ 19738 0088 C4F20100 		movt	r0, 16385
+ 19739 008c 4FF00101 		mov	r1, #1
+ 19740 0090 FFF7FEFF 		bl	ADC_Cmd
+ 19741              	.LBE8:
+ 125:../board/olimex-stm32f103-stk/board/joystick.cpp **** }
+ 19742              		.loc 1 125 0
+ 19743 0094 07F12007 		add	r7, r7, #32
+ 19744 0098 BD46     		mov	sp, r7
+ 19745 009a 80BD     		pop	{r7, pc}
+ 19746              		.cfi_endproc
+ 19747              	.LFE786:
+ 19749              		.section	.text._ZN8Joystick13_readAdcValueEv,"ax",%progbits
+ 19750              		.align	2
+ 19751              		.global	_ZN8Joystick13_readAdcValueEv
+ 19752              		.thumb
+ 19753              		.thumb_func
+ 19755              	_ZN8Joystick13_readAdcValueEv:
+ 19756              	.LFB787:
+ 126:../board/olimex-stm32f103-stk/board/joystick.cpp **** 
+ 127:../board/olimex-stm32f103-stk/board/joystick.cpp **** unsigned short Joystick::_readAdcValue()
+ 128:../board/olimex-stm32f103-stk/board/joystick.cpp **** {
+ 19757              		.loc 1 128 0
+ 19758              		.cfi_startproc
+ 19759              		@ args = 0, pretend = 0, frame = 8
+ 19760              		@ frame_needed = 1, uses_anonymous_args = 0
+ 19761 0000 80B5     		push	{r7, lr}
+ 19762              	.LCFI42:
+ 19763              		.cfi_def_cfa_offset 8
+ 19764 0002 82B0     		sub	sp, sp, #8
+ 19765              	.LCFI43:
+ 19766              		.cfi_def_cfa_offset 16
+ 19767 0004 00AF     		add	r7, sp, #0
+ 19768              		.cfi_offset 14, -4
+ 19769              		.cfi_offset 7, -8
+ 19770              	.LCFI44:
+ 19771              		.cfi_def_cfa_register 7
+ 19772 0006 7860     		str	r0, [r7, #4]
+ 129:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	// Configure channel
+ 130:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	ADC_RegularChannelConfig(ADC1, ADC_Channel_15, 1, ADC_SampleTime_55Cycles5);
+ 19773              		.loc 1 130 0
+ 19774 0008 4FF41050 		mov	r0, #9216
+ 19775 000c C4F20100 		movt	r0, 16385
+ 19776 0010 4FF00F01 		mov	r1, #15
+ 19777 0014 4FF00102 		mov	r2, #1
+ 19778 0018 4FF00503 		mov	r3, #5
+ 19779 001c FFF7FEFF 		bl	ADC_RegularChannelConfig
+ 131:../board/olimex-stm32f103-stk/board/joystick.cpp **** 
+ 132:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	// Start the conversion
+ 133:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	ADC_SoftwareStartConvCmd(ADC1, ENABLE);
+ 19780              		.loc 1 133 0
+ 19781 0020 4FF41050 		mov	r0, #9216
+ 19782 0024 C4F20100 		movt	r0, 16385
+ 19783 0028 4FF00101 		mov	r1, #1
+ 19784 002c FFF7FEFF 		bl	ADC_SoftwareStartConvCmd
+ 134:../board/olimex-stm32f103-stk/board/joystick.cpp **** 
+ 135:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	// Wait until conversion completion
+ 136:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	while(ADC_GetFlagStatus(ADC1, ADC_FLAG_EOC) == RESET);
+ 19785              		.loc 1 136 0
+ 19786 0030 00BF     		nop
+ 19787              	.L35:
+ 19788              		.loc 1 136 0 is_stmt 0 discriminator 1
+ 19789 0032 4FF41050 		mov	r0, #9216
+ 19790 0036 C4F20100 		movt	r0, 16385
+ 19791 003a 4FF00201 		mov	r1, #2
+ 19792 003e FFF7FEFF 		bl	ADC_GetFlagStatus
+ 19793 0042 0346     		mov	r3, r0
+ 19794 0044 002B     		cmp	r3, #0
+ 19795 0046 14BF     		ite	ne
+ 19796 0048 0023     		movne	r3, #0
+ 19797 004a 0123     		moveq	r3, #1
+ 19798 004c DBB2     		uxtb	r3, r3
+ 19799 004e 002B     		cmp	r3, #0
+ 19800 0050 EFD1     		bne	.L35
+ 137:../board/olimex-stm32f103-stk/board/joystick.cpp **** 
+ 138:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	// Get the conversion value
+ 139:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	return ADC_GetConversionValue(ADC1);
+ 19801              		.loc 1 139 0 is_stmt 1
+ 19802 0052 4FF41050 		mov	r0, #9216
+ 19803 0056 C4F20100 		movt	r0, 16385
+ 19804 005a FFF7FEFF 		bl	ADC_GetConversionValue
+ 19805 005e 0346     		mov	r3, r0
+ 140:../board/olimex-stm32f103-stk/board/joystick.cpp **** }
+ 19806              		.loc 1 140 0
+ 19807 0060 1846     		mov	r0, r3
+ 19808 0062 07F10807 		add	r7, r7, #8
+ 19809 0066 BD46     		mov	sp, r7
+ 19810 0068 80BD     		pop	{r7, pc}
+ 19811              		.cfi_endproc
+ 19812              	.LFE787:
+ 19814 006a 00BF     		.section	.text._ZN8Joystick12processEventEv,"ax",%progbits
+ 19815              		.align	2
+ 19816              		.global	_ZN8Joystick12processEventEv
+ 19817              		.thumb
+ 19818              		.thumb_func
+ 19820              	_ZN8Joystick12processEventEv:
+ 19821              	.LFB788:
+ 141:../board/olimex-stm32f103-stk/board/joystick.cpp **** 
+ 142:../board/olimex-stm32f103-stk/board/joystick.cpp **** EventStatus Joystick::processEvent()
+ 143:../board/olimex-stm32f103-stk/board/joystick.cpp **** {
+ 19822              		.loc 1 143 0
+ 19823              		.cfi_startproc
+ 19824              		@ args = 0, pretend = 0, frame = 16
+ 19825              		@ frame_needed = 1, uses_anonymous_args = 0
+ 19826 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+ 19827              	.LCFI45:
+ 19828              		.cfi_def_cfa_offset 20
+ 19829 0002 85B0     		sub	sp, sp, #20
+ 19830              	.LCFI46:
+ 19831              		.cfi_def_cfa_offset 40
+ 19832 0004 00AF     		add	r7, sp, #0
+ 19833              		.cfi_offset 14, -4
+ 19834              		.cfi_offset 7, -8
+ 19835              		.cfi_offset 6, -12
+ 19836              		.cfi_offset 5, -16
+ 19837              		.cfi_offset 4, -20
+ 19838              	.LCFI47:
+ 19839              		.cfi_def_cfa_register 7
+ 19840 0006 7860     		str	r0, [r7, #4]
+ 19841              	.LBB9:
+ 144:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	eEventStatus eventStatus = EventStatus::Unknown;
+ 19842              		.loc 1 144 0
+ 19843 0008 4FF00003 		mov	r3, #0
+ 19844 000c FB73     		strb	r3, [r7, #15]
+ 145:../board/olimex-stm32f103-stk/board/joystick.cpp **** 
+ 146:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	switch (_currentState)
+ 19845              		.loc 1 146 0
+ 19846 000e 7B68     		ldr	r3, [r7, #4]
+ 19847 0010 5B7E     		ldrb	r3, [r3, #25]	@ zero_extendqisi2
+ 19848 0012 012B     		cmp	r3, #1
+ 19849 0014 02D0     		beq	.L38
+ 19850 0016 022B     		cmp	r3, #2
+ 19851 0018 33D0     		beq	.L39
+ 147:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	{
+ 148:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	case STATE_INITIAL:
+ 149:../board/olimex-stm32f103-stk/board/joystick.cpp **** 		{
+ 150:../board/olimex-stm32f103-stk/board/joystick.cpp **** 			if (getCurrentEvent()->getEventType() == IXFEvent::Initial)
+ 151:../board/olimex-stm32f103-stk/board/joystick.cpp **** 			{
+ 152:../board/olimex-stm32f103-stk/board/joystick.cpp **** 				GEN(XFNullTransition());
+ 153:../board/olimex-stm32f103-stk/board/joystick.cpp **** 
+ 154:../board/olimex-stm32f103-stk/board/joystick.cpp **** 				_currentState = STATE_CHECK_JOYSTICK;
+ 155:../board/olimex-stm32f103-stk/board/joystick.cpp **** 
+ 156:../board/olimex-stm32f103-stk/board/joystick.cpp **** 				eventStatus = EventStatus::Consumed;
+ 157:../board/olimex-stm32f103-stk/board/joystick.cpp **** 			}
+ 158:../board/olimex-stm32f103-stk/board/joystick.cpp **** 		}
+ 159:../board/olimex-stm32f103-stk/board/joystick.cpp **** 		break;
+ 160:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	case STATE_CHECK_JOYSTICK:
+ 161:../board/olimex-stm32f103-stk/board/joystick.cpp **** 		{
+ 162:../board/olimex-stm32f103-stk/board/joystick.cpp **** 			if (getCurrentEvent()->getEventType() == IXFEvent::NullTransition ||
+ 163:../board/olimex-stm32f103-stk/board/joystick.cpp **** 				(getCurrentEvent()->getEventType() == IXFEvent::Timeout &&
+ 164:../board/olimex-stm32f103-stk/board/joystick.cpp **** 				 getCurrentTimeout()->getId() == Timeout_CHECK_JOYSTICK_id))
+ 165:../board/olimex-stm32f103-stk/board/joystick.cpp **** 			{
+ 166:../board/olimex-stm32f103-stk/board/joystick.cpp **** 				{
+ 167:../board/olimex-stm32f103-stk/board/joystick.cpp **** 					doCheckJoystickState();
+ 168:../board/olimex-stm32f103-stk/board/joystick.cpp **** 				}
+ 169:../board/olimex-stm32f103-stk/board/joystick.cpp **** 
+ 170:../board/olimex-stm32f103-stk/board/joystick.cpp **** 				getThread()->scheduleTimeout(Timeout_CHECK_JOYSTICK_id, 50, this);
+ 171:../board/olimex-stm32f103-stk/board/joystick.cpp **** 
+ 172:../board/olimex-stm32f103-stk/board/joystick.cpp **** 				_currentState = STATE_CHECK_JOYSTICK;
+ 173:../board/olimex-stm32f103-stk/board/joystick.cpp **** 
+ 174:../board/olimex-stm32f103-stk/board/joystick.cpp **** 				eventStatus = EventStatus::Consumed;
+ 175:../board/olimex-stm32f103-stk/board/joystick.cpp **** 			}
+ 176:../board/olimex-stm32f103-stk/board/joystick.cpp **** 		}
+ 177:../board/olimex-stm32f103-stk/board/joystick.cpp **** 		break;
+ 178:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	default:
+ 179:../board/olimex-stm32f103-stk/board/joystick.cpp **** 		break;
+ 19852              		.loc 1 179 0
+ 19853 001a 83E0     		b	.L41
+ 19854              	.L38:
+ 150:../board/olimex-stm32f103-stk/board/joystick.cpp **** 			if (getCurrentEvent()->getEventType() == IXFEvent::Initial)
+ 19855              		.loc 1 150 0
+ 19856 001c 7B68     		ldr	r3, [r7, #4]
+ 19857 001e 03F10403 		add	r3, r3, #4
+ 19858 0022 1846     		mov	r0, r3
+ 19859 0024 FFF7FEFF 		bl	_ZNK10XFReactive15getCurrentEventEv
+ 19860 0028 0346     		mov	r3, r0
+ 19861 002a 1846     		mov	r0, r3
+ 19862 002c FFF7FEFF 		bl	_ZNK8IXFEvent12getEventTypeEv
+ 19863 0030 0346     		mov	r3, r0
+ 19864 0032 012B     		cmp	r3, #1
+ 19865 0034 14BF     		ite	ne
+ 19866 0036 0023     		movne	r3, #0
+ 19867 0038 0123     		moveq	r3, #1
+ 19868 003a DBB2     		uxtb	r3, r3
+ 19869 003c 002B     		cmp	r3, #0
+ 19870 003e 6ED0     		beq	.L46
+ 152:../board/olimex-stm32f103-stk/board/joystick.cpp **** 				GEN(XFNullTransition());
+ 19871              		.loc 1 152 0
+ 19872 0040 7B68     		ldr	r3, [r7, #4]
+ 19873 0042 5B68     		ldr	r3, [r3, #4]
+ 19874 0044 03F10C03 		add	r3, r3, #12
+ 19875 0048 1D68     		ldr	r5, [r3, #0]
+ 19876 004a 7B68     		ldr	r3, [r7, #4]
+ 19877 004c 03F10406 		add	r6, r3, #4
+ 19878 0050 4FF01400 		mov	r0, #20
+ 19879 0054 FFF7FEFF 		bl	_Znwj
+ 19880 0058 0446     		mov	r4, r0
+ 19881 005a 2346     		mov	r3, r4
+ 19882 005c 1846     		mov	r0, r3
+ 19883 005e 4FF00001 		mov	r1, #0
+ 19884 0062 4FF00002 		mov	r2, #0
+ 19885 0066 FFF7FEFF 		bl	_ZN16XFNullTransitionC1EiP11IXFReactive
+ 19886 006a 2346     		mov	r3, r4
+ 19887 006c 3046     		mov	r0, r6
+ 19888 006e 1946     		mov	r1, r3
+ 19889 0070 A847     		blx	r5
+ 154:../board/olimex-stm32f103-stk/board/joystick.cpp **** 				_currentState = STATE_CHECK_JOYSTICK;
+ 19890              		.loc 1 154 0
+ 19891 0072 7B68     		ldr	r3, [r7, #4]
+ 19892 0074 4FF00202 		mov	r2, #2
+ 19893 0078 5A76     		strb	r2, [r3, #25]
+ 156:../board/olimex-stm32f103-stk/board/joystick.cpp **** 				eventStatus = EventStatus::Consumed;
+ 19894              		.loc 1 156 0
+ 19895 007a 4FF00103 		mov	r3, #1
+ 19896 007e FB73     		strb	r3, [r7, #15]
+ 159:../board/olimex-stm32f103-stk/board/joystick.cpp **** 		break;
+ 19897              		.loc 1 159 0
+ 19898 0080 50E0     		b	.L41
+ 19899              	.L39:
+ 162:../board/olimex-stm32f103-stk/board/joystick.cpp **** 			if (getCurrentEvent()->getEventType() == IXFEvent::NullTransition ||
+ 19900              		.loc 1 162 0
+ 19901 0082 7B68     		ldr	r3, [r7, #4]
+ 19902 0084 03F10403 		add	r3, r3, #4
+ 19903 0088 1846     		mov	r0, r3
+ 19904 008a FFF7FEFF 		bl	_ZNK10XFReactive15getCurrentEventEv
+ 19905 008e 0346     		mov	r3, r0
+ 19906 0090 1846     		mov	r0, r3
+ 19907 0092 FFF7FEFF 		bl	_ZNK8IXFEvent12getEventTypeEv
+ 19908 0096 0346     		mov	r3, r0
+ 19909 0098 022B     		cmp	r3, #2
+ 19910 009a 19D0     		beq	.L42
+ 163:../board/olimex-stm32f103-stk/board/joystick.cpp **** 				(getCurrentEvent()->getEventType() == IXFEvent::Timeout &&
+ 19911              		.loc 1 163 0 discriminator 2
+ 19912 009c 7B68     		ldr	r3, [r7, #4]
+ 19913 009e 03F10403 		add	r3, r3, #4
+ 19914 00a2 1846     		mov	r0, r3
+ 19915 00a4 FFF7FEFF 		bl	_ZNK10XFReactive15getCurrentEventEv
+ 19916 00a8 0346     		mov	r3, r0
+ 19917 00aa 1846     		mov	r0, r3
+ 19918 00ac FFF7FEFF 		bl	_ZNK8IXFEvent12getEventTypeEv
+ 19919 00b0 0346     		mov	r3, r0
+ 162:../board/olimex-stm32f103-stk/board/joystick.cpp **** 			if (getCurrentEvent()->getEventType() == IXFEvent::NullTransition ||
+ 19920              		.loc 1 162 0 discriminator 2
+ 19921 00b2 042B     		cmp	r3, #4
+ 19922 00b4 0FD1     		bne	.L43
+ 164:../board/olimex-stm32f103-stk/board/joystick.cpp **** 				 getCurrentTimeout()->getId() == Timeout_CHECK_JOYSTICK_id))
+ 19923              		.loc 1 164 0 discriminator 3
+ 19924 00b6 7B68     		ldr	r3, [r7, #4]
+ 19925 00b8 03F10403 		add	r3, r3, #4
+ 19926 00bc 1846     		mov	r0, r3
+ 19927 00be FFF7FEFF 		bl	_ZN10XFReactive17getCurrentTimeoutEv
+ 19928 00c2 0346     		mov	r3, r0
+ 19929 00c4 1846     		mov	r0, r3
+ 19930 00c6 FFF7FEFF 		bl	_ZNK8IXFEvent5getIdEv
+ 19931 00ca 0346     		mov	r3, r0
+ 162:../board/olimex-stm32f103-stk/board/joystick.cpp **** 			if (getCurrentEvent()->getEventType() == IXFEvent::NullTransition ||
+ 19932              		.loc 1 162 0 discriminator 3
+ 19933 00cc 012B     		cmp	r3, #1
+ 19934 00ce 02D1     		bne	.L43
+ 19935              	.L42:
+ 162:../board/olimex-stm32f103-stk/board/joystick.cpp **** 			if (getCurrentEvent()->getEventType() == IXFEvent::NullTransition ||
+ 19936              		.loc 1 162 0 is_stmt 0 discriminator 1
+ 19937 00d0 4FF00103 		mov	r3, #1
+ 19938 00d4 01E0     		b	.L44
+ 19939              	.L43:
+ 162:../board/olimex-stm32f103-stk/board/joystick.cpp **** 			if (getCurrentEvent()->getEventType() == IXFEvent::NullTransition ||
+ 19940              		.loc 1 162 0 discriminator 4
+ 19941 00d6 4FF00003 		mov	r3, #0
+ 19942              	.L44:
+ 162:../board/olimex-stm32f103-stk/board/joystick.cpp **** 			if (getCurrentEvent()->getEventType() == IXFEvent::NullTransition ||
+ 19943              		.loc 1 162 0 discriminator 5
+ 19944 00da 002B     		cmp	r3, #0
+ 19945 00dc 21D0     		beq	.L47
+ 167:../board/olimex-stm32f103-stk/board/joystick.cpp **** 					doCheckJoystickState();
+ 19946              		.loc 1 167 0 is_stmt 1
+ 19947 00de 7868     		ldr	r0, [r7, #4]
+ 19948 00e0 FFF7FEFF 		bl	_ZN8Joystick20doCheckJoystickStateEv
+ 170:../board/olimex-stm32f103-stk/board/joystick.cpp **** 				getThread()->scheduleTimeout(Timeout_CHECK_JOYSTICK_id, 50, this);
+ 19949              		.loc 1 170 0
+ 19950 00e4 7B68     		ldr	r3, [r7, #4]
+ 19951 00e6 5B68     		ldr	r3, [r3, #4]
+ 19952 00e8 03F11803 		add	r3, r3, #24
+ 19953 00ec 1B68     		ldr	r3, [r3, #0]
+ 19954 00ee 7A68     		ldr	r2, [r7, #4]
+ 19955 00f0 02F10402 		add	r2, r2, #4
+ 19956 00f4 1046     		mov	r0, r2
+ 19957 00f6 9847     		blx	r3
+ 19958 00f8 0246     		mov	r2, r0
+ 19959 00fa 7B68     		ldr	r3, [r7, #4]
+ 19960 00fc 03F10403 		add	r3, r3, #4
+ 19961 0100 1046     		mov	r0, r2
+ 19962 0102 4FF00101 		mov	r1, #1
+ 19963 0106 4FF03202 		mov	r2, #50
+ 19964 010a FFF7FEFF 		bl	_ZN8XFThread15scheduleTimeoutEiiP11IXFReactive
+ 172:../board/olimex-stm32f103-stk/board/joystick.cpp **** 				_currentState = STATE_CHECK_JOYSTICK;
+ 19965              		.loc 1 172 0
+ 19966 010e 7B68     		ldr	r3, [r7, #4]
+ 19967 0110 4FF00202 		mov	r2, #2
+ 19968 0114 5A76     		strb	r2, [r3, #25]
+ 174:../board/olimex-stm32f103-stk/board/joystick.cpp **** 				eventStatus = EventStatus::Consumed;
+ 19969              		.loc 1 174 0
+ 19970 0116 4FF00103 		mov	r3, #1
+ 19971 011a FB73     		strb	r3, [r7, #15]
+ 177:../board/olimex-stm32f103-stk/board/joystick.cpp **** 		break;
+ 19972              		.loc 1 177 0
+ 19973 011c 02E0     		b	.L41
+ 19974              	.L46:
+ 159:../board/olimex-stm32f103-stk/board/joystick.cpp **** 		break;
+ 19975              		.loc 1 159 0
+ 19976 011e 00BF     		nop
+ 19977 0120 00E0     		b	.L41
+ 19978              	.L47:
+ 177:../board/olimex-stm32f103-stk/board/joystick.cpp **** 		break;
+ 19979              		.loc 1 177 0
+ 19980 0122 00BF     		nop
+ 19981              	.L41:
+ 180:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	}
+ 181:../board/olimex-stm32f103-stk/board/joystick.cpp **** 
+ 182:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	return eventStatus;
+ 19982              		.loc 1 182 0
+ 19983 0124 07F10C02 		add	r2, r7, #12
+ 19984 0128 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 19985 012a 1046     		mov	r0, r2
+ 19986 012c 1946     		mov	r1, r3
+ 19987 012e FFF7FEFF 		bl	_ZN11EventStatusC1ENS_12eEventStatusE
+ 19988 0132 3B7B     		ldrb	r3, [r7, #12]
+ 19989              	.LBE9:
+ 183:../board/olimex-stm32f103-stk/board/joystick.cpp **** }
+ 19990              		.loc 1 183 0
+ 19991 0134 1846     		mov	r0, r3
+ 19992 0136 07F11407 		add	r7, r7, #20
+ 19993 013a BD46     		mov	sp, r7
+ 19994 013c F0BD     		pop	{r4, r5, r6, r7, pc}
+ 19995              		.cfi_endproc
+ 19996              	.LFE788:
+ 19998              		.thumb_set .LTHUNK2,_ZN8Joystick12processEventEv
+ 19999 013e 00BF     		.section	.text._ZThn4_N8Joystick12processEventEv,"ax",%progbits
+ 20000              		.align	2
+ 20001              		.global	_ZThn4_N8Joystick12processEventEv
+ 20002              		.thumb
+ 20003              		.thumb_func
+ 20005              	_ZThn4_N8Joystick12processEventEv:
+ 20006 0000 A0F10400 		sub	r0, r0, #4
+ 20007 0004 FFF7FEBF 		b	.LTHUNK2
+ 20009              		.section	.text._ZN8Joystick20doCheckJoystickStateEv,"ax",%progbits
+ 20010              		.align	2
+ 20011              		.global	_ZN8Joystick20doCheckJoystickStateEv
+ 20012              		.thumb
+ 20013              		.thumb_func
+ 20015              	_ZN8Joystick20doCheckJoystickStateEv:
+ 20016              	.LFB789:
+ 184:../board/olimex-stm32f103-stk/board/joystick.cpp **** 
+ 185:../board/olimex-stm32f103-stk/board/joystick.cpp **** void Joystick::doCheckJoystickState()
+ 186:../board/olimex-stm32f103-stk/board/joystick.cpp **** {
+ 20017              		.loc 1 186 0
+ 20018              		.cfi_startproc
+ 20019              		@ args = 0, pretend = 0, frame = 16
+ 20020              		@ frame_needed = 1, uses_anonymous_args = 0
+ 20021 0000 B0B5     		push	{r4, r5, r7, lr}
+ 20022              	.LCFI48:
+ 20023              		.cfi_def_cfa_offset 16
+ 20024 0002 84B0     		sub	sp, sp, #16
+ 20025              	.LCFI49:
+ 20026              		.cfi_def_cfa_offset 32
+ 20027 0004 00AF     		add	r7, sp, #0
+ 20028              		.cfi_offset 14, -4
+ 20029              		.cfi_offset 7, -8
+ 20030              		.cfi_offset 5, -12
+ 20031              		.cfi_offset 4, -16
+ 20032              	.LCFI50:
+ 20033              		.cfi_def_cfa_register 7
+ 20034 0006 7860     		str	r0, [r7, #4]
+ 20035              	.LBB10:
+ 187:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	// Store previously calculated value
+ 188:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	const Position oldPosition = _position;
+ 20036              		.loc 1 188 0
+ 20037 0008 7B68     		ldr	r3, [r7, #4]
+ 20038 000a 1B7E     		ldrb	r3, [r3, #24]
+ 20039 000c FB73     		strb	r3, [r7, #15]
+ 20040              	.LBB11:
+ 189:../board/olimex-stm32f103-stk/board/joystick.cpp **** 
+ 190:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	// Check first if center button is pressed
+ 191:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	if((GPIO_ReadInputDataBit(GPIOC, GPIO_Pin_6)) == Bit_SET)
+ 20041              		.loc 1 191 0
+ 20042 000e 4FF48050 		mov	r0, #4096
+ 20043 0012 C4F20100 		movt	r0, 16385
+ 20044 0016 4FF04001 		mov	r1, #64
+ 20045 001a FFF7FEFF 		bl	GPIO_ReadInputDataBit
+ 20046 001e 0346     		mov	r3, r0
+ 20047 0020 012B     		cmp	r3, #1
+ 20048 0022 14BF     		ite	ne
+ 20049 0024 0023     		movne	r3, #0
+ 20050 0026 0123     		moveq	r3, #1
+ 20051 0028 DBB2     		uxtb	r3, r3
+ 20052 002a 002B     		cmp	r3, #0
+ 20053 002c 04D0     		beq	.L49
+ 192:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	{
+ 193:../board/olimex-stm32f103-stk/board/joystick.cpp **** 		_position = Pressed;
+ 20054              		.loc 1 193 0
+ 20055 002e 7B68     		ldr	r3, [r7, #4]
+ 20056 0030 4FF02002 		mov	r2, #32
+ 20057 0034 1A76     		strb	r2, [r3, #24]
+ 20058 0036 41E0     		b	.L50
+ 20059              	.L49:
+ 20060              	.LBB12:
+ 194:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	}
+ 195:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	else
+ 196:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	{	// Check other positions
+ 197:../board/olimex-stm32f103-stk/board/joystick.cpp **** 		unsigned short value;
+ 198:../board/olimex-stm32f103-stk/board/joystick.cpp **** 
+ 199:../board/olimex-stm32f103-stk/board/joystick.cpp **** 		// Read the voltage on the PC5/ADC15 pin. BUTTONS pin
+ 200:../board/olimex-stm32f103-stk/board/joystick.cpp **** 		value = _readAdcValue();
+ 20061              		.loc 1 200 0
+ 20062 0038 7868     		ldr	r0, [r7, #4]
+ 20063 003a FFF7FEFF 		bl	_ZN8Joystick13_readAdcValueEv
+ 20064 003e 0346     		mov	r3, r0
+ 20065 0040 BB81     		strh	r3, [r7, #12]	@ movhi
+ 201:../board/olimex-stm32f103-stk/board/joystick.cpp **** 
+ 202:../board/olimex-stm32f103-stk/board/joystick.cpp **** #if (JOYSTICK_TRACE_VERBOSE != 0)
+ 203:../board/olimex-stm32f103-stk/board/joystick.cpp **** 		if (value)
+ 204:../board/olimex-stm32f103-stk/board/joystick.cpp **** 		{
+ 205:../board/olimex-stm32f103-stk/board/joystick.cpp **** 			traceOut("Joystick: Measured value -> %d", value);
+ 206:../board/olimex-stm32f103-stk/board/joystick.cpp **** 		}
+ 207:../board/olimex-stm32f103-stk/board/joystick.cpp **** #endif
+ 208:../board/olimex-stm32f103-stk/board/joystick.cpp **** 
+ 209:../board/olimex-stm32f103-stk/board/joystick.cpp **** 		if ( value == 0)
+ 20066              		.loc 1 209 0
+ 20067 0042 BB89     		ldrh	r3, [r7, #12]
+ 20068 0044 002B     		cmp	r3, #0
+ 20069 0046 04D1     		bne	.L51
+ 210:../board/olimex-stm32f103-stk/board/joystick.cpp **** 		{
+ 211:../board/olimex-stm32f103-stk/board/joystick.cpp **** 			_position = Center;
+ 20070              		.loc 1 211 0
+ 20071 0048 7B68     		ldr	r3, [r7, #4]
+ 20072 004a 4FF00102 		mov	r2, #1
+ 20073 004e 1A76     		strb	r2, [r3, #24]
+ 20074 0050 34E0     		b	.L50
+ 20075              	.L51:
+ 212:../board/olimex-stm32f103-stk/board/joystick.cpp **** 		}
+ 213:../board/olimex-stm32f103-stk/board/joystick.cpp **** 		else if((value > (LEFT_VALUE-DIVERSION)) &&
+ 20076              		.loc 1 213 0
+ 20077 0052 BB89     		ldrh	r3, [r7, #12]
+ 20078 0054 B3F5F56F 		cmp	r3, #1960
+ 20079 0058 09D9     		bls	.L52
+ 20080              		.loc 1 213 0 is_stmt 0 discriminator 1
+ 20081 005a BA89     		ldrh	r2, [r7, #12]
+ 20082 005c 40F2E373 		movw	r3, #2019
+ 20083 0060 9A42     		cmp	r2, r3
+ 20084 0062 04D8     		bhi	.L52
+ 214:../board/olimex-stm32f103-stk/board/joystick.cpp **** 				(value < (LEFT_VALUE+DIVERSION)))
+ 215:../board/olimex-stm32f103-stk/board/joystick.cpp **** 		{
+ 216:../board/olimex-stm32f103-stk/board/joystick.cpp **** 			_position = Left;
+ 20085              		.loc 1 216 0 is_stmt 1
+ 20086 0064 7B68     		ldr	r3, [r7, #4]
+ 20087 0066 4FF00202 		mov	r2, #2
+ 20088 006a 1A76     		strb	r2, [r3, #24]
+ 20089 006c 26E0     		b	.L50
+ 20090              	.L52:
+ 217:../board/olimex-stm32f103-stk/board/joystick.cpp **** 		}
+ 218:../board/olimex-stm32f103-stk/board/joystick.cpp **** 		else if ((value > (RIGHT_VALUE-DIVERSION)) &&
+ 20091              		.loc 1 218 0
+ 20092 006e BB89     		ldrh	r3, [r7, #12]
+ 20093 0070 B3F5DC7F 		cmp	r3, #440
+ 20094 0074 09D9     		bls	.L53
+ 20095              		.loc 1 218 0 is_stmt 0 discriminator 1
+ 20096 0076 BA89     		ldrh	r2, [r7, #12]
+ 20097 0078 40F2F313 		movw	r3, #499
+ 20098 007c 9A42     		cmp	r2, r3
+ 20099 007e 04D8     		bhi	.L53
+ 219:../board/olimex-stm32f103-stk/board/joystick.cpp **** 				 (value < (RIGHT_VALUE+DIVERSION)) )
+ 220:../board/olimex-stm32f103-stk/board/joystick.cpp **** 		{
+ 221:../board/olimex-stm32f103-stk/board/joystick.cpp **** 			_position = Right;
+ 20100              		.loc 1 221 0 is_stmt 1
+ 20101 0080 7B68     		ldr	r3, [r7, #4]
+ 20102 0082 4FF00402 		mov	r2, #4
+ 20103 0086 1A76     		strb	r2, [r3, #24]
+ 20104 0088 18E0     		b	.L50
+ 20105              	.L53:
+ 222:../board/olimex-stm32f103-stk/board/joystick.cpp **** 		}
+ 223:../board/olimex-stm32f103-stk/board/joystick.cpp **** 		else if ((value > (UP_VALUE-DIVERSION)) &&
+ 20106              		.loc 1 223 0
+ 20107 008a BA89     		ldrh	r2, [r7, #12]
+ 20108 008c 40F2A233 		movw	r3, #930
+ 20109 0090 9A42     		cmp	r2, r3
+ 20110 0092 09D9     		bls	.L54
+ 20111              		.loc 1 223 0 is_stmt 0 discriminator 1
+ 20112 0094 BA89     		ldrh	r2, [r7, #12]
+ 20113 0096 40F2DD33 		movw	r3, #989
+ 20114 009a 9A42     		cmp	r2, r3
+ 20115 009c 04D8     		bhi	.L54
+ 224:../board/olimex-stm32f103-stk/board/joystick.cpp **** 				 (value < (UP_VALUE+DIVERSION)))
+ 225:../board/olimex-stm32f103-stk/board/joystick.cpp **** 		{
+ 226:../board/olimex-stm32f103-stk/board/joystick.cpp **** 			_position = Up;
+ 20116              		.loc 1 226 0 is_stmt 1
+ 20117 009e 7B68     		ldr	r3, [r7, #4]
+ 20118 00a0 4FF00802 		mov	r2, #8
+ 20119 00a4 1A76     		strb	r2, [r3, #24]
+ 20120 00a6 09E0     		b	.L50
+ 20121              	.L54:
+ 227:../board/olimex-stm32f103-stk/board/joystick.cpp **** 		}
+ 228:../board/olimex-stm32f103-stk/board/joystick.cpp **** 		else if ((value > (DOWN_VALUE-DIVERSION)) &&
+ 20122              		.loc 1 228 0
+ 20123 00a8 BB89     		ldrh	r3, [r7, #12]
+ 20124 00aa A02B     		cmp	r3, #160
+ 20125 00ac 06D9     		bls	.L50
+ 20126              		.loc 1 228 0 is_stmt 0 discriminator 1
+ 20127 00ae BB89     		ldrh	r3, [r7, #12]
+ 20128 00b0 DB2B     		cmp	r3, #219
+ 20129 00b2 03D8     		bhi	.L50
+ 229:../board/olimex-stm32f103-stk/board/joystick.cpp **** 				 (value < (DOWN_VALUE+DIVERSION)))
+ 230:../board/olimex-stm32f103-stk/board/joystick.cpp **** 		{
+ 231:../board/olimex-stm32f103-stk/board/joystick.cpp **** 			_position = Down;
+ 20130              		.loc 1 231 0 is_stmt 1
+ 20131 00b4 7B68     		ldr	r3, [r7, #4]
+ 20132 00b6 4FF01002 		mov	r2, #16
+ 20133 00ba 1A76     		strb	r2, [r3, #24]
+ 20134              	.L50:
+ 20135              	.LBE12:
+ 20136              	.LBE11:
+ 232:../board/olimex-stm32f103-stk/board/joystick.cpp **** 		}
+ 233:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	}
+ 234:../board/olimex-stm32f103-stk/board/joystick.cpp **** 
+ 235:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	// Did the position of the joystick change?
+ 236:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	if (oldPosition != _position)
+ 20137              		.loc 1 236 0
+ 20138 00bc 7B68     		ldr	r3, [r7, #4]
+ 20139 00be 1B7E     		ldrb	r3, [r3, #24]	@ zero_extendqisi2
+ 20140 00c0 FA7B     		ldrb	r2, [r7, #15]	@ zero_extendqisi2
+ 20141 00c2 9A42     		cmp	r2, r3
+ 20142 00c4 16D0     		beq	.L48
+ 237:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	{
+ 238:../board/olimex-stm32f103-stk/board/joystick.cpp **** #if (JOYSTICK_TRACE_VERBOSE != 0)
+ 239:../board/olimex-stm32f103-stk/board/joystick.cpp **** 		switch (_position)
+ 240:../board/olimex-stm32f103-stk/board/joystick.cpp **** 		{
+ 241:../board/olimex-stm32f103-stk/board/joystick.cpp **** 		case Center:
+ 242:../board/olimex-stm32f103-stk/board/joystick.cpp **** 			traceOut("Joystick: released");
+ 243:../board/olimex-stm32f103-stk/board/joystick.cpp **** 			break;
+ 244:../board/olimex-stm32f103-stk/board/joystick.cpp **** 		case Pressed:
+ 245:../board/olimex-stm32f103-stk/board/joystick.cpp **** 			traceOut("Joystick: pressed");
+ 246:../board/olimex-stm32f103-stk/board/joystick.cpp **** 			break;
+ 247:../board/olimex-stm32f103-stk/board/joystick.cpp **** 		case Left:
+ 248:../board/olimex-stm32f103-stk/board/joystick.cpp **** 			traceOut("Joystick: left");
+ 249:../board/olimex-stm32f103-stk/board/joystick.cpp **** 			break;
+ 250:../board/olimex-stm32f103-stk/board/joystick.cpp **** 		case Right:
+ 251:../board/olimex-stm32f103-stk/board/joystick.cpp **** 			traceOut("Joystick: right");
+ 252:../board/olimex-stm32f103-stk/board/joystick.cpp **** 			break;
+ 253:../board/olimex-stm32f103-stk/board/joystick.cpp **** 		case Up:
+ 254:../board/olimex-stm32f103-stk/board/joystick.cpp **** 			traceOut("Joystick: up");
+ 255:../board/olimex-stm32f103-stk/board/joystick.cpp **** 			break;
+ 256:../board/olimex-stm32f103-stk/board/joystick.cpp **** 		case Down:
+ 257:../board/olimex-stm32f103-stk/board/joystick.cpp **** 			traceOut("Joystick: down");
+ 258:../board/olimex-stm32f103-stk/board/joystick.cpp **** 			break;
+ 259:../board/olimex-stm32f103-stk/board/joystick.cpp **** 		default:
+ 260:../board/olimex-stm32f103-stk/board/joystick.cpp **** 			// Say nothing
+ 261:../board/olimex-stm32f103-stk/board/joystick.cpp **** 			break;
+ 262:../board/olimex-stm32f103-stk/board/joystick.cpp **** 		}
+ 263:../board/olimex-stm32f103-stk/board/joystick.cpp **** #endif // (JOYSTICK_TRACE_VERBOSE != 0)
+ 264:../board/olimex-stm32f103-stk/board/joystick.cpp **** 
+ 265:../board/olimex-stm32f103-stk/board/joystick.cpp **** 		// Notify observer
+ 266:../board/olimex-stm32f103-stk/board/joystick.cpp **** 		if (_pObserver)
+ 20143              		.loc 1 266 0
+ 20144 00c6 7B68     		ldr	r3, [r7, #4]
+ 20145 00c8 5B69     		ldr	r3, [r3, #20]
+ 20146 00ca 002B     		cmp	r3, #0
+ 20147 00cc 12D0     		beq	.L48
+ 267:../board/olimex-stm32f103-stk/board/joystick.cpp **** 		{
+ 268:../board/olimex-stm32f103-stk/board/joystick.cpp **** 			_pObserver->onPositionChange(position());
+ 20148              		.loc 1 268 0
+ 20149 00ce 7B68     		ldr	r3, [r7, #4]
+ 20150 00d0 5B69     		ldr	r3, [r3, #20]
+ 20151 00d2 1B68     		ldr	r3, [r3, #0]
+ 20152 00d4 03F10803 		add	r3, r3, #8
+ 20153 00d8 1C68     		ldr	r4, [r3, #0]
+ 20154 00da 7B68     		ldr	r3, [r7, #4]
+ 20155 00dc 5D69     		ldr	r5, [r3, #20]
+ 20156 00de 7B68     		ldr	r3, [r7, #4]
+ 20157 00e0 1B68     		ldr	r3, [r3, #0]
+ 20158 00e2 03F11003 		add	r3, r3, #16
+ 20159 00e6 1B68     		ldr	r3, [r3, #0]
+ 20160 00e8 7868     		ldr	r0, [r7, #4]
+ 20161 00ea 9847     		blx	r3
+ 20162 00ec 0346     		mov	r3, r0
+ 20163 00ee 2846     		mov	r0, r5
+ 20164 00f0 1946     		mov	r1, r3
+ 20165 00f2 A047     		blx	r4
+ 20166              	.L48:
+ 20167              	.LBE10:
+ 269:../board/olimex-stm32f103-stk/board/joystick.cpp **** 		}
+ 270:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	}
+ 271:../board/olimex-stm32f103-stk/board/joystick.cpp **** }
+ 20168              		.loc 1 271 0
+ 20169 00f4 07F11007 		add	r7, r7, #16
+ 20170 00f8 BD46     		mov	sp, r7
+ 20171 00fa B0BD     		pop	{r4, r5, r7, pc}
+ 20172              		.cfi_endproc
+ 20173              	.LFE789:
+ 20175              		.section	.text._ZN8Joystick8traceOutEPKcz,"ax",%progbits
+ 20176              		.align	2
+ 20177              		.global	_ZN8Joystick8traceOutEPKcz
+ 20178              		.thumb
+ 20179              		.thumb_func
+ 20181              	_ZN8Joystick8traceOutEPKcz:
+ 20182              	.LFB790:
+ 272:../board/olimex-stm32f103-stk/board/joystick.cpp **** 
+ 273:../board/olimex-stm32f103-stk/board/joystick.cpp **** void Joystick::traceOut(const char * const format, ...)
+ 274:../board/olimex-stm32f103-stk/board/joystick.cpp **** {
+ 20183              		.loc 1 274 0
+ 20184              		.cfi_startproc
+ 20185              		@ args = 4, pretend = 16, frame = 0
+ 20186              		@ frame_needed = 1, uses_anonymous_args = 1
+ 20187              		@ link register save eliminated.
+ 20188 0000 0FB4     		push	{r0, r1, r2, r3}
+ 20189              	.LCFI51:
+ 20190              		.cfi_def_cfa_offset 16
+ 20191 0002 80B4     		push	{r7}
+ 20192              	.LCFI52:
+ 20193              		.cfi_def_cfa_offset 20
+ 20194 0004 00AF     		add	r7, sp, #0
+ 20195              		.cfi_offset 7, -20
+ 20196              		.cfi_offset 3, -4
+ 20197              		.cfi_offset 2, -8
+ 20198              		.cfi_offset 1, -12
+ 20199              		.cfi_offset 0, -16
+ 20200              	.LCFI53:
+ 20201              		.cfi_def_cfa_register 7
+ 275:../board/olimex-stm32f103-stk/board/joystick.cpp **** #if (JOYSTICK_TRACE_VERBOSE != 0)
+ 276:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	static const unsigned int STR_SIZE = 64;
+ 277:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	static char str[STR_SIZE];
+ 278:../board/olimex-stm32f103-stk/board/joystick.cpp **** 
+ 279:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	va_list args;
+ 280:../board/olimex-stm32f103-stk/board/joystick.cpp **** 
+ 281:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	va_start(args, format);
+ 282:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	vsiprintf(str, format, args);
+ 283:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	va_end(args);
+ 284:../board/olimex-stm32f103-stk/board/joystick.cpp **** 
+ 285:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	assert(strlen(str) < STR_SIZE);		// Uups! str is too small
+ 286:../board/olimex-stm32f103-stk/board/joystick.cpp **** 
+ 287:../board/olimex-stm32f103-stk/board/joystick.cpp **** 	Trace::out(str);
+ 288:../board/olimex-stm32f103-stk/board/joystick.cpp **** #endif
+ 289:../board/olimex-stm32f103-stk/board/joystick.cpp **** }
+ 20202              		.loc 1 289 0
+ 20203 0006 BD46     		mov	sp, r7
+ 20204 0008 80BC     		pop	{r7}
+ 20205 000a 04B0     		add	sp, sp, #16
+ 20206 000c 7047     		bx	lr
+ 20207              		.cfi_endproc
+ 20208              	.LFE790:
+ 20210              		.global	_ZTV8Joystick
+ 20211 000e 00BF     		.section	.rodata._ZTV8Joystick,"a",%progbits
+ 20212              		.align	3
+ 20215              	_ZTV8Joystick:
+ 20216 0000 00000000 		.word	0
+ 20217 0004 00000000 		.word	0
+ 20218 0008 00000000 		.word	_ZN8JoystickD1Ev
+ 20219 000c 00000000 		.word	_ZN8JoystickD0Ev
+ 20220 0010 00000000 		.word	_ZN8Joystick10initializeEv
+ 20221 0014 00000000 		.word	_ZN8Joystick11setObserverEP17IJoystickObserver
+ 20222 0018 00000000 		.word	_ZNK8Joystick8positionEv
+ 20223 001c 00000000 		.word	_ZN8Joystick12processEventEv
+ 20224 0020 FCFFFFFF 		.word	-4
+ 20225 0024 00000000 		.word	0
+ 20226 0028 00000000 		.word	_ZThn4_N8JoystickD1Ev
+ 20227 002c 00000000 		.word	_ZThn4_N8JoystickD0Ev
+ 20228 0030 00000000 		.word	_ZN10XFReactive13startBehaviorEv
+ 20229 0034 00000000 		.word	_ZN10XFReactive9pushEventEP8IXFEvent
+ 20230 0038 00000000 		.word	_ZN10XFReactive7processEP8IXFEvent
+ 20231 003c 00000000 		.word	_ZThn4_N8Joystick12processEventEv
+ 20232 0040 00000000 		.word	_ZN10XFReactive9getThreadEv
+ 20233              		.weak	_ZTV9IJoystick
+ 20234 0044 00000000 		.section	.rodata._ZTV9IJoystick,"aG",%progbits,_ZTV9IJoystick,comdat
+ 20235              		.align	3
+ 20238              	_ZTV9IJoystick:
+ 20239 0000 00000000 		.word	0
+ 20240 0004 00000000 		.word	0
+ 20241 0008 00000000 		.word	_ZN9IJoystickD1Ev
+ 20242 000c 00000000 		.word	_ZN9IJoystickD0Ev
+ 20243 0010 00000000 		.word	__cxa_pure_virtual
+ 20244 0014 00000000 		.word	__cxa_pure_virtual
+ 20245 0018 00000000 		.word	__cxa_pure_virtual
+ 20246 001c 00000000 		.text
+ 20247              	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 joystick.cpp
+     /tmp/ccvNY9vW.s:18982  .text._ZN9IJoystickC2Ev:00000000 $t
+     /tmp/ccvNY9vW.s:18987  .text._ZN9IJoystickC2Ev:00000000 _ZN9IJoystickC2Ev
+     /tmp/ccvNY9vW.s:19020  .text._ZN9IJoystickC2Ev:0000001c $d
+     /tmp/ccvNY9vW.s:20238  .rodata._ZTV9IJoystick:00000000 _ZTV9IJoystick
+     /tmp/ccvNY9vW.s:18987  .text._ZN9IJoystickC2Ev:00000000 _ZN9IJoystickC1Ev
+     /tmp/ccvNY9vW.s:19027  .text._ZN9IJoystickD2Ev:00000000 $t
+     /tmp/ccvNY9vW.s:19032  .text._ZN9IJoystickD2Ev:00000000 _ZN9IJoystickD2Ev
+     /tmp/ccvNY9vW.s:19074  .text._ZN9IJoystickD2Ev:00000030 $d
+     /tmp/ccvNY9vW.s:19032  .text._ZN9IJoystickD2Ev:00000000 _ZN9IJoystickD1Ev
+     /tmp/ccvNY9vW.s:19081  .text._ZN9IJoystickD0Ev:00000000 $t
+     /tmp/ccvNY9vW.s:19086  .text._ZN9IJoystickD0Ev:00000000 _ZN9IJoystickD0Ev
+     /tmp/ccvNY9vW.s:19118  .text._ZNK8IXFEvent12getEventTypeEv:00000000 $t
+     /tmp/ccvNY9vW.s:19123  .text._ZNK8IXFEvent12getEventTypeEv:00000000 _ZNK8IXFEvent12getEventTypeEv
+     /tmp/ccvNY9vW.s:19154  .text._ZNK8IXFEvent5getIdEv:00000000 $t
+     /tmp/ccvNY9vW.s:19159  .text._ZNK8IXFEvent5getIdEv:00000000 _ZNK8IXFEvent5getIdEv
+     /tmp/ccvNY9vW.s:19189  .text._ZN11EventStatusC2ENS_12eEventStatusE:00000000 $t
+     /tmp/ccvNY9vW.s:19194  .text._ZN11EventStatusC2ENS_12eEventStatusE:00000000 _ZN11EventStatusC2ENS_12eEventStatusE
+     /tmp/ccvNY9vW.s:19194  .text._ZN11EventStatusC2ENS_12eEventStatusE:00000000 _ZN11EventStatusC1ENS_12eEventStatusE
+     /tmp/ccvNY9vW.s:19232  .text._ZN8JoystickC2Ev:00000000 $t
+     /tmp/ccvNY9vW.s:19237  .text._ZN8JoystickC2Ev:00000000 _ZN8JoystickC2Ev
+     /tmp/ccvNY9vW.s:19297  .text._ZN8JoystickC2Ev:00000058 $d
+     /tmp/ccvNY9vW.s:20215  .rodata._ZTV8Joystick:00000000 _ZTV8Joystick
+     /tmp/ccvNY9vW.s:19237  .text._ZN8JoystickC2Ev:00000000 _ZN8JoystickC1Ev
+     /tmp/ccvNY9vW.s:19305  .text._ZN8JoystickD2Ev:00000000 $t
+     /tmp/ccvNY9vW.s:19310  .text._ZN8JoystickD2Ev:00000000 _ZN8JoystickD2Ev
+     /tmp/ccvNY9vW.s:19365  .text._ZN8JoystickD2Ev:00000048 $d
+     /tmp/ccvNY9vW.s:19310  .text._ZN8JoystickD2Ev:00000000 _ZN8JoystickD1Ev
+     /tmp/ccvNY9vW.s:19310  .text._ZN8JoystickD2Ev:00000000 .LTHUNK0
+     /tmp/ccvNY9vW.s:19374  .text._ZThn4_N8JoystickD1Ev:00000000 $t
+     /tmp/ccvNY9vW.s:19379  .text._ZThn4_N8JoystickD1Ev:00000000 _ZThn4_N8JoystickD1Ev
+     /tmp/ccvNY9vW.s:19384  .text._ZN8JoystickD0Ev:00000000 $t
+     /tmp/ccvNY9vW.s:19389  .text._ZN8JoystickD0Ev:00000000 _ZN8JoystickD0Ev
+     /tmp/ccvNY9vW.s:19389  .text._ZN8JoystickD0Ev:00000000 .LTHUNK1
+     /tmp/ccvNY9vW.s:19422  .text._ZThn4_N8JoystickD0Ev:00000000 $t
+     /tmp/ccvNY9vW.s:19427  .text._ZThn4_N8JoystickD0Ev:00000000 _ZThn4_N8JoystickD0Ev
+     /tmp/ccvNY9vW.s:19432  .text._ZN8Joystick10initializeEv:00000000 $t
+     /tmp/ccvNY9vW.s:19437  .text._ZN8Joystick10initializeEv:00000000 _ZN8Joystick10initializeEv
+     /tmp/ccvNY9vW.s:19578  .text._ZNK8Joystick20_initCenterButtonIrqEv:00000000 _ZNK8Joystick20_initCenterButtonIrqEv
+     /tmp/ccvNY9vW.s:19666  .text._ZNK8Joystick8_initAdcEv:00000000 _ZNK8Joystick8_initAdcEv
+     /tmp/ccvNY9vW.s:19497  .text._ZN8Joystick11setObserverEP17IJoystickObserver:00000000 $t
+     /tmp/ccvNY9vW.s:19502  .text._ZN8Joystick11setObserverEP17IJoystickObserver:00000000 _ZN8Joystick11setObserverEP17IJoystickObserver
+     /tmp/ccvNY9vW.s:19537  .text._ZNK8Joystick8positionEv:00000000 $t
+     /tmp/ccvNY9vW.s:19542  .text._ZNK8Joystick8positionEv:00000000 _ZNK8Joystick8positionEv
+     /tmp/ccvNY9vW.s:19573  .text._ZNK8Joystick20_initCenterButtonIrqEv:00000000 $t
+     /tmp/ccvNY9vW.s:19661  .text._ZNK8Joystick8_initAdcEv:00000000 $t
+     /tmp/ccvNY9vW.s:19750  .text._ZN8Joystick13_readAdcValueEv:00000000 $t
+     /tmp/ccvNY9vW.s:19755  .text._ZN8Joystick13_readAdcValueEv:00000000 _ZN8Joystick13_readAdcValueEv
+     /tmp/ccvNY9vW.s:19815  .text._ZN8Joystick12processEventEv:00000000 $t
+     /tmp/ccvNY9vW.s:19820  .text._ZN8Joystick12processEventEv:00000000 _ZN8Joystick12processEventEv
+     /tmp/ccvNY9vW.s:20015  .text._ZN8Joystick20doCheckJoystickStateEv:00000000 _ZN8Joystick20doCheckJoystickStateEv
+     /tmp/ccvNY9vW.s:19820  .text._ZN8Joystick12processEventEv:00000000 .LTHUNK2
+     /tmp/ccvNY9vW.s:20000  .text._ZThn4_N8Joystick12processEventEv:00000000 $t
+     /tmp/ccvNY9vW.s:20005  .text._ZThn4_N8Joystick12processEventEv:00000000 _ZThn4_N8Joystick12processEventEv
+     /tmp/ccvNY9vW.s:20010  .text._ZN8Joystick20doCheckJoystickStateEv:00000000 $t
+     /tmp/ccvNY9vW.s:20176  .text._ZN8Joystick8traceOutEPKcz:00000000 $t
+     /tmp/ccvNY9vW.s:20181  .text._ZN8Joystick8traceOutEPKcz:00000000 _ZN8Joystick8traceOutEPKcz
+     /tmp/ccvNY9vW.s:20212  .rodata._ZTV8Joystick:00000000 $d
+     /tmp/ccvNY9vW.s:20235  .rodata._ZTV9IJoystick:00000000 $d
+                     .debug_frame:00000010 $d
+                           .group:00000000 _ZN9IJoystickC5Ev
+                           .group:00000000 _ZN9IJoystickD5Ev
+                           .group:00000000 _ZN11EventStatusC5ENS_12eEventStatusE
+
+UNDEFINED SYMBOLS
+_ZdlPv
+_ZN10XFReactiveC2EP8XFThread
+_ZN10XFReactiveD2Ev
+RCC_APB2PeriphClockCmd
+GPIO_Init
+GPIO_EXTILineConfig
+EXTI_ClearITPendingBit
+EXTI_Init
+NVIC_Init
+ADC_DeInit
+ADC_StructInit
+ADC_Init
+ADC_Cmd
+ADC_RegularChannelConfig
+ADC_SoftwareStartConvCmd
+ADC_GetFlagStatus
+ADC_GetConversionValue
+_ZNK10XFReactive15getCurrentEventEv
+_Znwj
+_ZN16XFNullTransitionC1EiP11IXFReactive
+_ZN10XFReactive17getCurrentTimeoutEv
+_ZN8XFThread15scheduleTimeoutEiiP11IXFReactive
+GPIO_ReadInputDataBit
+_ZN10XFReactive13startBehaviorEv
+_ZN10XFReactive9pushEventEP8IXFEvent
+_ZN10XFReactive7processEP8IXFEvent
+_ZN10XFReactive9getThreadEv
+__cxa_pure_virtual

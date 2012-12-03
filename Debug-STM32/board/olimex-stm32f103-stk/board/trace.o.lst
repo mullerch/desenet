@@ -1,0 +1,277 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"trace.cpp"
+  23              	.Ltext0:
+  24              		.file 1 "../board/olimex-stm32f103-stk/board/trace.cpp"
+ 2272              		.align	2
+ 2275              	strTrace:
+ 2276 0000 00000000 		.space	256
+ 2276      00000000 
+ 2276      00000000 
+ 2276      00000000 
+ 2276      00000000 
+ 2277              		.section	.text._ZN5Trace3outEPKcz,"ax",%progbits
+ 2278              		.align	2
+ 2279              		.global	_ZN5Trace3outEPKcz
+ 2280              		.thumb
+ 2281              		.thumb_func
+ 2283              	_ZN5Trace3outEPKcz:
+ 2284              	.LFB5:
+   1:../board/olimex-stm32f103-stk/board/trace.cpp **** 
+   2:../board/olimex-stm32f103-stk/board/trace.cpp **** #include <trace/trace.h>
+   3:../board/olimex-stm32f103-stk/board/trace.cpp **** #include <stdarg.h>
+   4:../board/olimex-stm32f103-stk/board/trace.cpp **** #include <stdio.h>
+   5:../board/olimex-stm32f103-stk/board/trace.cpp **** #include <string.h>
+   6:../board/olimex-stm32f103-stk/board/trace.cpp **** 
+   7:../board/olimex-stm32f103-stk/board/trace.cpp **** 
+   8:../board/olimex-stm32f103-stk/board/trace.cpp **** char strTrace[256];
+   9:../board/olimex-stm32f103-stk/board/trace.cpp **** 
+  10:../board/olimex-stm32f103-stk/board/trace.cpp **** 
+  11:../board/olimex-stm32f103-stk/board/trace.cpp **** // static
+  12:../board/olimex-stm32f103-stk/board/trace.cpp **** void Trace::out( const char * const format , ... )
+  13:../board/olimex-stm32f103-stk/board/trace.cpp **** {
+ 2285              		.loc 1 13 0
+ 2286              		.cfi_startproc
+ 2287              		@ args = 4, pretend = 16, frame = 8
+ 2288              		@ frame_needed = 1, uses_anonymous_args = 1
+ 2289 0000 0FB4     		push	{r0, r1, r2, r3}
+ 2290              	.LCFI0:
+ 2291              		.cfi_def_cfa_offset 16
+ 2292 0002 80B5     		push	{r7, lr}
+ 2293              	.LCFI1:
+ 2294              		.cfi_def_cfa_offset 24
+ 2295 0004 82B0     		sub	sp, sp, #8
+ 2296              	.LCFI2:
+ 2297              		.cfi_def_cfa_offset 32
+ 2298 0006 00AF     		add	r7, sp, #0
+ 2299              		.cfi_offset 14, -20
+ 2300              		.cfi_offset 7, -24
+ 2301              		.cfi_offset 3, -4
+ 2302              		.cfi_offset 2, -8
+ 2303              		.cfi_offset 1, -12
+ 2304              		.cfi_offset 0, -16
+ 2305              	.LCFI3:
+ 2306              		.cfi_def_cfa_register 7
+ 2307              	.LBB2:
+  14:../board/olimex-stm32f103-stk/board/trace.cpp **** 	va_list args;
+  15:../board/olimex-stm32f103-stk/board/trace.cpp **** 
+  16:../board/olimex-stm32f103-stk/board/trace.cpp **** 	va_start(args, format);
+ 2308              		.loc 1 16 0
+ 2309 0008 07F11403 		add	r3, r7, #20
+ 2310 000c 3B60     		str	r3, [r7, #0]
+  17:../board/olimex-stm32f103-stk/board/trace.cpp **** 	vsiprintf(strTrace, format, args);
+ 2311              		.loc 1 17 0
+ 2312 000e 40F20000 		movw	r0, #:lower16:strTrace
+ 2313 0012 C0F20000 		movt	r0, #:upper16:strTrace
+ 2314 0016 3969     		ldr	r1, [r7, #16]
+ 2315 0018 3A68     		ldr	r2, [r7, #0]
+ 2316 001a FFF7FEFF 		bl	vsiprintf
+  18:../board/olimex-stm32f103-stk/board/trace.cpp **** 	va_end(args);
+  19:../board/olimex-stm32f103-stk/board/trace.cpp **** 
+  20:../board/olimex-stm32f103-stk/board/trace.cpp **** 	const int len = strlen(strTrace);
+ 2317              		.loc 1 20 0
+ 2318 001e 40F20000 		movw	r0, #:lower16:strTrace
+ 2319 0022 C0F20000 		movt	r0, #:upper16:strTrace
+ 2320 0026 FFF7FEFF 		bl	strlen
+ 2321 002a 0346     		mov	r3, r0
+ 2322 002c 7B60     		str	r3, [r7, #4]
+  21:../board/olimex-stm32f103-stk/board/trace.cpp **** 
+  22:../board/olimex-stm32f103-stk/board/trace.cpp **** 	if (strTrace[len - 1] != '\n')
+ 2323              		.loc 1 22 0
+ 2324 002e 7B68     		ldr	r3, [r7, #4]
+ 2325 0030 03F1FF32 		add	r2, r3, #-1
+ 2326 0034 40F20003 		movw	r3, #:lower16:strTrace
+ 2327 0038 C0F20003 		movt	r3, #:upper16:strTrace
+ 2328 003c 9B5C     		ldrb	r3, [r3, r2]	@ zero_extendqisi2
+ 2329 003e 0A2B     		cmp	r3, #10
+ 2330 0040 12D0     		beq	.L2
+  23:../board/olimex-stm32f103-stk/board/trace.cpp **** 	{
+  24:../board/olimex-stm32f103-stk/board/trace.cpp **** 		// Add "\r\n"
+  25:../board/olimex-stm32f103-stk/board/trace.cpp **** //		strTrace[len] 	  = '\r';
+  26:../board/olimex-stm32f103-stk/board/trace.cpp **** //		strTrace[len + 1] = '\n';
+  27:../board/olimex-stm32f103-stk/board/trace.cpp **** //		strTrace[len + 2] = '\0';
+  28:../board/olimex-stm32f103-stk/board/trace.cpp **** 
+  29:../board/olimex-stm32f103-stk/board/trace.cpp **** 		// Add "\r" (linux host)
+  30:../board/olimex-stm32f103-stk/board/trace.cpp **** 		strTrace[len] 	  = '\r';
+ 2331              		.loc 1 30 0
+ 2332 0042 40F20003 		movw	r3, #:lower16:strTrace
+ 2333 0046 C0F20003 		movt	r3, #:upper16:strTrace
+ 2334 004a 7A68     		ldr	r2, [r7, #4]
+ 2335 004c 9B18     		adds	r3, r3, r2
+ 2336 004e 4FF00D02 		mov	r2, #13
+ 2337 0052 1A70     		strb	r2, [r3, #0]
+  31:../board/olimex-stm32f103-stk/board/trace.cpp **** 		strTrace[len + 1] = '\0';
+ 2338              		.loc 1 31 0
+ 2339 0054 7B68     		ldr	r3, [r7, #4]
+ 2340 0056 03F10102 		add	r2, r3, #1
+ 2341 005a 40F20003 		movw	r3, #:lower16:strTrace
+ 2342 005e C0F20003 		movt	r3, #:upper16:strTrace
+ 2343 0062 4FF00001 		mov	r1, #0
+ 2344 0066 9954     		strb	r1, [r3, r2]
+ 2345              	.L2:
+  32:../board/olimex-stm32f103-stk/board/trace.cpp **** 	}
+  33:../board/olimex-stm32f103-stk/board/trace.cpp **** 
+  34:../board/olimex-stm32f103-stk/board/trace.cpp **** 	puts(strTrace);
+ 2346              		.loc 1 34 0
+ 2347 0068 40F20000 		movw	r0, #:lower16:strTrace
+ 2348 006c C0F20000 		movt	r0, #:upper16:strTrace
+ 2349 0070 FFF7FEFF 		bl	puts
+ 2350              	.LBE2:
+  35:../board/olimex-stm32f103-stk/board/trace.cpp **** }
+ 2351              		.loc 1 35 0
+ 2352 0074 07F10807 		add	r7, r7, #8
+ 2353 0078 BD46     		mov	sp, r7
+ 2354 007a BDE88040 		pop	{r7, lr}
+ 2355 007e 04B0     		add	sp, sp, #16
+ 2356 0080 7047     		bx	lr
+ 2357              		.cfi_endproc
+ 2358              	.LFE5:
+ 2360 0082 00BF     		.section	.text._ZN5Trace11outToStringEPcPKcz,"ax",%progbits
+ 2361              		.align	2
+ 2362              		.global	_ZN5Trace11outToStringEPcPKcz
+ 2363              		.thumb
+ 2364              		.thumb_func
+ 2366              	_ZN5Trace11outToStringEPcPKcz:
+ 2367              	.LFB6:
+  36:../board/olimex-stm32f103-stk/board/trace.cpp **** 
+  37:../board/olimex-stm32f103-stk/board/trace.cpp **** void Trace::outToString( char * destination , const char * const format , ... )
+  38:../board/olimex-stm32f103-stk/board/trace.cpp **** {
+ 2368              		.loc 1 38 0
+ 2369              		.cfi_startproc
+ 2370              		@ args = 4, pretend = 12, frame = 16
+ 2371              		@ frame_needed = 1, uses_anonymous_args = 1
+ 2372 0000 0EB4     		push	{r1, r2, r3}
+ 2373              	.LCFI4:
+ 2374              		.cfi_def_cfa_offset 12
+ 2375 0002 80B5     		push	{r7, lr}
+ 2376              	.LCFI5:
+ 2377              		.cfi_def_cfa_offset 20
+ 2378 0004 85B0     		sub	sp, sp, #20
+ 2379              	.LCFI6:
+ 2380              		.cfi_def_cfa_offset 40
+ 2381 0006 00AF     		add	r7, sp, #0
+ 2382              		.cfi_offset 14, -16
+ 2383              		.cfi_offset 7, -20
+ 2384              		.cfi_offset 3, -4
+ 2385              		.cfi_offset 2, -8
+ 2386              		.cfi_offset 1, -12
+ 2387              	.LCFI7:
+ 2388              		.cfi_def_cfa_register 7
+ 2389 0008 7860     		str	r0, [r7, #4]
+ 2390              	.LBB3:
+  39:../board/olimex-stm32f103-stk/board/trace.cpp **** 	va_list arguments;
+  40:../board/olimex-stm32f103-stk/board/trace.cpp **** 
+  41:../board/olimex-stm32f103-stk/board/trace.cpp **** 	va_start( arguments , format );
+ 2391              		.loc 1 41 0
+ 2392 000a 07F12003 		add	r3, r7, #32
+ 2393 000e FB60     		str	r3, [r7, #12]
+  42:../board/olimex-stm32f103-stk/board/trace.cpp **** 
+  43:../board/olimex-stm32f103-stk/board/trace.cpp **** 	// Print to buffer.
+  44:../board/olimex-stm32f103-stk/board/trace.cpp **** 	vsiprintf( destination , format , arguments );
+ 2394              		.loc 1 44 0
+ 2395 0010 7868     		ldr	r0, [r7, #4]
+ 2396 0012 F969     		ldr	r1, [r7, #28]
+ 2397 0014 FA68     		ldr	r2, [r7, #12]
+ 2398 0016 FFF7FEFF 		bl	vsiprintf
+ 2399              	.LBE3:
+  45:../board/olimex-stm32f103-stk/board/trace.cpp **** 
+  46:../board/olimex-stm32f103-stk/board/trace.cpp **** 	va_end( arguments );
+  47:../board/olimex-stm32f103-stk/board/trace.cpp **** }
+ 2400              		.loc 1 47 0
+ 2401 001a 07F11407 		add	r7, r7, #20
+ 2402 001e BD46     		mov	sp, r7
+ 2403 0020 BDE88040 		pop	{r7, lr}
+ 2404 0024 03B0     		add	sp, sp, #12
+ 2405 0026 7047     		bx	lr
+ 2406              		.cfi_endproc
+ 2407              	.LFE6:
+ 2409              		.section	.text._ZN5Trace11outToStringEPcjPKcz,"ax",%progbits
+ 2410              		.align	2
+ 2411              		.global	_ZN5Trace11outToStringEPcjPKcz
+ 2412              		.thumb
+ 2413              		.thumb_func
+ 2415              	_ZN5Trace11outToStringEPcjPKcz:
+ 2416              	.LFB7:
+  48:../board/olimex-stm32f103-stk/board/trace.cpp **** 
+  49:../board/olimex-stm32f103-stk/board/trace.cpp **** 
+  50:../board/olimex-stm32f103-stk/board/trace.cpp **** void Trace::outToString( char * destination , size_t size , const char * const format , ... )
+  51:../board/olimex-stm32f103-stk/board/trace.cpp **** {
+ 2417              		.loc 1 51 0
+ 2418              		.cfi_startproc
+ 2419              		@ args = 4, pretend = 8, frame = 16
+ 2420              		@ frame_needed = 1, uses_anonymous_args = 1
+ 2421 0000 0CB4     		push	{r2, r3}
+ 2422              	.LCFI8:
+ 2423              		.cfi_def_cfa_offset 8
+ 2424 0002 80B5     		push	{r7, lr}
+ 2425              	.LCFI9:
+ 2426              		.cfi_def_cfa_offset 16
+ 2427 0004 84B0     		sub	sp, sp, #16
+ 2428              	.LCFI10:
+ 2429              		.cfi_def_cfa_offset 32
+ 2430 0006 00AF     		add	r7, sp, #0
+ 2431              		.cfi_offset 14, -12
+ 2432              		.cfi_offset 7, -16
+ 2433              		.cfi_offset 3, -4
+ 2434              		.cfi_offset 2, -8
+ 2435              	.LCFI11:
+ 2436              		.cfi_def_cfa_register 7
+ 2437 0008 7860     		str	r0, [r7, #4]
+ 2438 000a 3960     		str	r1, [r7, #0]
+ 2439              	.LBB4:
+  52:../board/olimex-stm32f103-stk/board/trace.cpp **** 	va_list arguments;
+  53:../board/olimex-stm32f103-stk/board/trace.cpp **** 
+  54:../board/olimex-stm32f103-stk/board/trace.cpp **** 	va_start( arguments , format );
+ 2440              		.loc 1 54 0
+ 2441 000c 07F11C03 		add	r3, r7, #28
+ 2442 0010 FB60     		str	r3, [r7, #12]
+  55:../board/olimex-stm32f103-stk/board/trace.cpp **** 
+  56:../board/olimex-stm32f103-stk/board/trace.cpp **** 	// Print to buffer.
+  57:../board/olimex-stm32f103-stk/board/trace.cpp **** 	vsniprintf( destination , size , format , arguments );
+ 2443              		.loc 1 57 0
+ 2444 0012 7868     		ldr	r0, [r7, #4]
+ 2445 0014 3968     		ldr	r1, [r7, #0]
+ 2446 0016 BA69     		ldr	r2, [r7, #24]
+ 2447 0018 FB68     		ldr	r3, [r7, #12]
+ 2448 001a FFF7FEFF 		bl	vsniprintf
+ 2449              	.LBE4:
+  58:../board/olimex-stm32f103-stk/board/trace.cpp **** 
+  59:../board/olimex-stm32f103-stk/board/trace.cpp **** 	va_end( arguments );
+  60:../board/olimex-stm32f103-stk/board/trace.cpp **** }
+ 2450              		.loc 1 60 0
+ 2451 001e 07F11007 		add	r7, r7, #16
+ 2452 0022 BD46     		mov	sp, r7
+ 2453 0024 BDE88040 		pop	{r7, lr}
+ 2454 0028 02B0     		add	sp, sp, #8
+ 2455 002a 7047     		bx	lr
+ 2456              		.cfi_endproc
+ 2457              	.LFE7:
+ 2459              		.text
+ 2460              	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 trace.cpp
+     /tmp/cc6plsau.s:2275   .bss.strTrace:00000000 strTrace
+     /tmp/cc6plsau.s:2272   .bss.strTrace:00000000 $d
+     /tmp/cc6plsau.s:2278   .text._ZN5Trace3outEPKcz:00000000 $t
+     /tmp/cc6plsau.s:2283   .text._ZN5Trace3outEPKcz:00000000 _ZN5Trace3outEPKcz
+     /tmp/cc6plsau.s:2361   .text._ZN5Trace11outToStringEPcPKcz:00000000 $t
+     /tmp/cc6plsau.s:2366   .text._ZN5Trace11outToStringEPcPKcz:00000000 _ZN5Trace11outToStringEPcPKcz
+     /tmp/cc6plsau.s:2410   .text._ZN5Trace11outToStringEPcjPKcz:00000000 $t
+     /tmp/cc6plsau.s:2415   .text._ZN5Trace11outToStringEPcjPKcz:00000000 _ZN5Trace11outToStringEPcjPKcz
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+vsiprintf
+strlen
+puts
+vsniprintf

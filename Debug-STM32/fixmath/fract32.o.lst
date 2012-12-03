@@ -1,0 +1,252 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"fract32.c"
+  23              	.Ltext0:
+  24              		.file 1 "../fixmath/fract32.c"
+ 902              		.align	2
+ 903              		.global	fract32_create
+ 904              		.thumb
+ 905              		.thumb_func
+ 907              	fract32_create:
+ 908              	.LFB0:
+   1:../fixmath/fract32.c **** #include "fract32.h"
+   2:../fixmath/fract32.c **** 
+   3:../fixmath/fract32.c **** 
+   4:../fixmath/fract32.c **** 
+   5:../fixmath/fract32.c **** fract32_t fract32_create(uint32_t inNumerator, uint32_t inDenominator) {
+ 909              		.loc 1 5 0
+ 910              		.cfi_startproc
+ 911              		@ args = 0, pretend = 0, frame = 16
+ 912              		@ frame_needed = 1, uses_anonymous_args = 0
+ 913              		@ link register save eliminated.
+ 914 0000 80B4     		push	{r7}
+ 915              	.LCFI0:
+ 916              		.cfi_def_cfa_offset 4
+ 917 0002 85B0     		sub	sp, sp, #20
+ 918              	.LCFI1:
+ 919              		.cfi_def_cfa_offset 24
+ 920 0004 00AF     		add	r7, sp, #0
+ 921              		.cfi_offset 7, -4
+ 922              	.LCFI2:
+ 923              		.cfi_def_cfa_register 7
+ 924 0006 7860     		str	r0, [r7, #4]
+ 925 0008 3960     		str	r1, [r7, #0]
+   6:../fixmath/fract32.c **** 	if(inDenominator <= inNumerator)
+ 926              		.loc 1 6 0
+ 927 000a 3A68     		ldr	r2, [r7, #0]
+ 928 000c 7B68     		ldr	r3, [r7, #4]
+ 929 000e 9A42     		cmp	r2, r3
+ 930 0010 02D8     		bhi	.L2
+   7:../fixmath/fract32.c **** 		return 0xFFFFFFFF;
+ 931              		.loc 1 7 0
+ 932 0012 4FF0FF33 		mov	r3, #-1
+ 933 0016 14E0     		b	.L3
+ 934              	.L2:
+   8:../fixmath/fract32.c **** 	uint32_t tempMod = (inNumerator % inDenominator);
+ 935              		.loc 1 8 0
+ 936 0018 7B68     		ldr	r3, [r7, #4]
+ 937 001a 3A68     		ldr	r2, [r7, #0]
+ 938 001c B3FBF2F2 		udiv	r2, r3, r2
+ 939 0020 3968     		ldr	r1, [r7, #0]
+ 940 0022 01FB02F2 		mul	r2, r1, r2
+ 941 0026 9B1A     		subs	r3, r3, r2
+ 942 0028 FB60     		str	r3, [r7, #12]
+   9:../fixmath/fract32.c **** 	uint32_t tempDiv = (0xFFFFFFFF / (inDenominator - 1));
+ 943              		.loc 1 9 0
+ 944 002a 3B68     		ldr	r3, [r7, #0]
+ 945 002c 03F1FF33 		add	r3, r3, #-1
+ 946 0030 4FF0FF32 		mov	r2, #-1
+ 947 0034 B2FBF3F3 		udiv	r3, r2, r3
+ 948 0038 BB60     		str	r3, [r7, #8]
+  10:../fixmath/fract32.c **** 	return (tempMod * tempDiv);
+ 949              		.loc 1 10 0
+ 950 003a FB68     		ldr	r3, [r7, #12]
+ 951 003c BA68     		ldr	r2, [r7, #8]
+ 952 003e 02FB03F3 		mul	r3, r2, r3
+ 953              	.L3:
+  11:../fixmath/fract32.c **** }
+ 954              		.loc 1 11 0
+ 955 0042 1846     		mov	r0, r3
+ 956 0044 07F11407 		add	r7, r7, #20
+ 957 0048 BD46     		mov	sp, r7
+ 958 004a 80BC     		pop	{r7}
+ 959 004c 7047     		bx	lr
+ 960              		.cfi_endproc
+ 961              	.LFE0:
+ 963 004e 00BF     		.section	.text.fract32_invert,"ax",%progbits
+ 964              		.align	2
+ 965              		.global	fract32_invert
+ 966              		.thumb
+ 967              		.thumb_func
+ 969              	fract32_invert:
+ 970              	.LFB1:
+  12:../fixmath/fract32.c **** 
+  13:../fixmath/fract32.c **** fract32_t fract32_invert(fract32_t inFract) {
+ 971              		.loc 1 13 0
+ 972              		.cfi_startproc
+ 973              		@ args = 0, pretend = 0, frame = 8
+ 974              		@ frame_needed = 1, uses_anonymous_args = 0
+ 975              		@ link register save eliminated.
+ 976 0000 80B4     		push	{r7}
+ 977              	.LCFI3:
+ 978              		.cfi_def_cfa_offset 4
+ 979 0002 83B0     		sub	sp, sp, #12
+ 980              	.LCFI4:
+ 981              		.cfi_def_cfa_offset 16
+ 982 0004 00AF     		add	r7, sp, #0
+ 983              		.cfi_offset 7, -4
+ 984              	.LCFI5:
+ 985              		.cfi_def_cfa_register 7
+ 986 0006 7860     		str	r0, [r7, #4]
+  14:../fixmath/fract32.c **** 	return (0xFFFFFFFF - inFract);
+ 987              		.loc 1 14 0
+ 988 0008 7B68     		ldr	r3, [r7, #4]
+ 989 000a 6FEA0303 		mvn	r3, r3
+  15:../fixmath/fract32.c **** }
+ 990              		.loc 1 15 0
+ 991 000e 1846     		mov	r0, r3
+ 992 0010 07F10C07 		add	r7, r7, #12
+ 993 0014 BD46     		mov	sp, r7
+ 994 0016 80BC     		pop	{r7}
+ 995 0018 7047     		bx	lr
+ 996              		.cfi_endproc
+ 997              	.LFE1:
+ 999 001a 00BF     		.section	.text.fract32_usmul,"ax",%progbits
+ 1000              		.align	2
+ 1001              		.global	fract32_usmul
+ 1002              		.thumb
+ 1003              		.thumb_func
+ 1005              	fract32_usmul:
+ 1006              	.LFB2:
+  16:../fixmath/fract32.c **** 
+  17:../fixmath/fract32.c **** uint32_t fract32_usmul(uint32_t inVal, fract32_t inFract) {
+ 1007              		.loc 1 17 0
+ 1008              		.cfi_startproc
+ 1009              		@ args = 0, pretend = 0, frame = 8
+ 1010              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1011              		@ link register save eliminated.
+ 1012 0000 2DE9B003 		push	{r4, r5, r7, r8, r9}
+ 1013              	.LCFI6:
+ 1014              		.cfi_def_cfa_offset 20
+ 1015 0004 83B0     		sub	sp, sp, #12
+ 1016              	.LCFI7:
+ 1017              		.cfi_def_cfa_offset 32
+ 1018 0006 00AF     		add	r7, sp, #0
+ 1019              		.cfi_offset 9, -4
+ 1020              		.cfi_offset 8, -8
+ 1021              		.cfi_offset 7, -12
+ 1022              		.cfi_offset 5, -16
+ 1023              		.cfi_offset 4, -20
+ 1024              	.LCFI8:
+ 1025              		.cfi_def_cfa_register 7
+ 1026 0008 7860     		str	r0, [r7, #4]
+ 1027 000a 3960     		str	r1, [r7, #0]
+  18:../fixmath/fract32.c **** 	return (uint32_t)(((uint64_t)inVal * (uint64_t)inFract) >> 32);
+ 1028              		.loc 1 18 0
+ 1029 000c 7B68     		ldr	r3, [r7, #4]
+ 1030 000e 1846     		mov	r0, r3
+ 1031 0010 4FF00001 		mov	r1, #0
+ 1032 0014 3B68     		ldr	r3, [r7, #0]
+ 1033 0016 1A46     		mov	r2, r3
+ 1034 0018 4FF00003 		mov	r3, #0
+ 1035 001c 02FB01F4 		mul	r4, r2, r1
+ 1036 0020 00FB03F5 		mul	r5, r0, r3
+ 1037 0024 6419     		adds	r4, r4, r5
+ 1038 0026 A0FB0223 		umull	r2, r3, r0, r2
+ 1039 002a E418     		adds	r4, r4, r3
+ 1040 002c 2346     		mov	r3, r4
+ 1041 002e 9846     		mov	r8, r3
+ 1042 0030 4FF00009 		mov	r9, #0
+ 1043 0034 4346     		mov	r3, r8
+  19:../fixmath/fract32.c **** }
+ 1044              		.loc 1 19 0
+ 1045 0036 1846     		mov	r0, r3
+ 1046 0038 07F10C07 		add	r7, r7, #12
+ 1047 003c BD46     		mov	sp, r7
+ 1048 003e BDE8B003 		pop	{r4, r5, r7, r8, r9}
+ 1049 0042 7047     		bx	lr
+ 1050              		.cfi_endproc
+ 1051              	.LFE2:
+ 1053              		.section	.text.fract32_smul,"ax",%progbits
+ 1054              		.align	2
+ 1055              		.global	fract32_smul
+ 1056              		.thumb
+ 1057              		.thumb_func
+ 1059              	fract32_smul:
+ 1060              	.LFB3:
+  20:../fixmath/fract32.c **** 
+  21:../fixmath/fract32.c **** int32_t fract32_smul(int32_t inVal, fract32_t inFract) {
+ 1061              		.loc 1 21 0
+ 1062              		.cfi_startproc
+ 1063              		@ args = 0, pretend = 0, frame = 8
+ 1064              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1065 0000 80B5     		push	{r7, lr}
+ 1066              	.LCFI9:
+ 1067              		.cfi_def_cfa_offset 8
+ 1068 0002 82B0     		sub	sp, sp, #8
+ 1069              	.LCFI10:
+ 1070              		.cfi_def_cfa_offset 16
+ 1071 0004 00AF     		add	r7, sp, #0
+ 1072              		.cfi_offset 14, -4
+ 1073              		.cfi_offset 7, -8
+ 1074              	.LCFI11:
+ 1075              		.cfi_def_cfa_register 7
+ 1076 0006 7860     		str	r0, [r7, #4]
+ 1077 0008 3960     		str	r1, [r7, #0]
+  22:../fixmath/fract32.c **** 	if(inVal < 0)
+ 1078              		.loc 1 22 0
+ 1079 000a 7B68     		ldr	r3, [r7, #4]
+ 1080 000c 002B     		cmp	r3, #0
+ 1081 000e 0ADA     		bge	.L7
+  23:../fixmath/fract32.c **** 		return -fract32_usmul(-inVal, inFract);
+ 1082              		.loc 1 23 0
+ 1083 0010 7B68     		ldr	r3, [r7, #4]
+ 1084 0012 C3F10003 		rsb	r3, r3, #0
+ 1085 0016 1846     		mov	r0, r3
+ 1086 0018 3968     		ldr	r1, [r7, #0]
+ 1087 001a FFF7FEFF 		bl	fract32_usmul
+ 1088 001e 0346     		mov	r3, r0
+ 1089 0020 C3F10003 		rsb	r3, r3, #0
+ 1090 0024 05E0     		b	.L8
+ 1091              	.L7:
+  24:../fixmath/fract32.c **** 	return fract32_usmul(inVal, inFract);
+ 1092              		.loc 1 24 0
+ 1093 0026 7B68     		ldr	r3, [r7, #4]
+ 1094 0028 1846     		mov	r0, r3
+ 1095 002a 3968     		ldr	r1, [r7, #0]
+ 1096 002c FFF7FEFF 		bl	fract32_usmul
+ 1097 0030 0346     		mov	r3, r0
+ 1098              	.L8:
+  25:../fixmath/fract32.c **** }
+ 1099              		.loc 1 25 0
+ 1100 0032 1846     		mov	r0, r3
+ 1101 0034 07F10807 		add	r7, r7, #8
+ 1102 0038 BD46     		mov	sp, r7
+ 1103 003a 80BD     		pop	{r7, pc}
+ 1104              		.cfi_endproc
+ 1105              	.LFE3:
+ 1107              		.text
+ 1108              	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 fract32.c
+     /tmp/ccN8B8Ji.s:902    .text.fract32_create:00000000 $t
+     /tmp/ccN8B8Ji.s:907    .text.fract32_create:00000000 fract32_create
+     /tmp/ccN8B8Ji.s:964    .text.fract32_invert:00000000 $t
+     /tmp/ccN8B8Ji.s:969    .text.fract32_invert:00000000 fract32_invert
+     /tmp/ccN8B8Ji.s:1000   .text.fract32_usmul:00000000 $t
+     /tmp/ccN8B8Ji.s:1005   .text.fract32_usmul:00000000 fract32_usmul
+     /tmp/ccN8B8Ji.s:1054   .text.fract32_smul:00000000 $t
+     /tmp/ccN8B8Ji.s:1059   .text.fract32_smul:00000000 fract32_smul
+                     .debug_frame:00000010 $d
+
+NO UNDEFINED SYMBOLS

@@ -1,0 +1,167 @@
+/**
+ * @page devenv Development Environment
+ * In order to accomplish the practical work goals of the DeSEm MAS module, you will need to program for your computer and an ARM Cortex-M3 MCU (STM32F103) using exclusively open-source development tools. 
+ * The following tools are needed for the development:
+ *
+ * @section argouml ArgoUML
+ * @image html argouml-screenshot.jpg
+ *
+ * ArgoUML is an open source UML modeling tool and includes support for all standard UML 1.4 diagrams.
+ *
+ * We will use ArgoUML during the specification, analysis and design of the Air3T software.
+ *
+ * @section eclipsecdt Eclipse CDT
+ * @image html eclipse-screenshot.jpg
+ *
+ * Eclipse is a multi-language software development environment comprising an integrated development environment (IDE) and an extensible plug-in system. It is written mostly in Java.
+ *
+ * We will use the Eclipse IDE for booth platforms: The simulated hardware on the computer and the embedded target.
+ *
+ * @section openocd OpenOCD
+ * The Open On Chip Debugger offers the possibility to flash and debug a whole range of Embedded Processors. It supports different JTAG adapters.
+ *
+ * We use OpenOCD with the HES-SO Valais Universal Tracer JTAG Adapter.
+ *
+ * @section meshsimulator Mesh Simulator
+ * @image html mesh-simulator-screenshot.png
+ *
+ * Mesh Simulator offers a very convenient way to simulate wired or wireless networks. It was developed at the HES-SO Valais in order to simulate and test routing protocols for mesh networks.
+ *
+ * We will use Mesh Simulator to simulate the wireless ad-hoc network we will form to play Tic Tac Toe over the air during the development phase on the computer.
+ *
+ * @section gcc GCC
+ * The GNU Compiler Collection includes front ends for C, C++, Objective-C, Fortran, Java, Ada, and Go, as well as libraries for these languages (libstdc++, libgcj,...). GCC was originally written as 
+ * the compiler for the GNU operating system. The GNU system was developed to be 100% free software, free in the sense that it respects the user's freedom.
+ *
+ * For the development on the Linux host, we will use just the default GCC installed on the OS. To compile the application for the embedded ARM Cortex-M3 MCU, we will use a custom arm-none-eabi 
+ * version of the GCC compiler with newlibc.
+ *
+ * @section installation Installation
+ * We basically offer two methods to install these tools on your computer:
+ * - A VMware image of Ubuntu where all tools are already installed.
+ * - An archive of some tools which can be installed on Linux machines and instructions to install all other tools.
+ *
+ * @subsection vmtools Tools on VMware image
+ * The free VMware Player offers the possibility to execute virtual machines on top of a physical computer. We provide an image based on Ubuntu which contains all development tools and is ready to use.
+ *
+ * TIP: You can check using the VMware player if the virtual machine has snapshots. If this is the case, you can gain a lot of disk space by removing those snapshots. 
+ * 
+ * The password of the desem user is "d3s3m4s". Feel free to change it...
+ *
+ * Contact michael.clausen@hevs.ch if you like to get this VMware image or if you have questions about the image itself.
+ *
+ * @subsection manualinstall Manual installation
+ * IMPORTANT: If you use the VMware virtual machine for development, you can ignore the following section, all tools are already installed.
+ *
+ * For those who have already a Linux system, the installation of VMware Player and a virtual Linux machine might be a little artificial...
+ *
+ * However we can not provide much support on how to install all these tools on your Linux installation. If you have problems, you can send an email to michael.clausen@hevs.ch, he will assist you per mail 
+ * or after the official lessons at Lausanne, but during the lessons we just have not enough time for these installations.
+ *
+ * We provide here compressed archives of the tools needed as a download and some instructions how to install these tools on Ubuntu Linux. If you use another Linux Distribution than Ubuntu, you should be 
+ * still able to install these tools using the archives and installers, but we can not provide instructions for all Linux distributions.
+ *
+ * If you have any question, you can either ask on the forum or send a mail to michael.clausen@hevs.ch.
+ *
+ * @subsubsection mandep Dependencies of the installed software
+ * In order that the installed software can be used or compiled, you need to install the dependencies using apt-get:
+ * 
+ * @code
+ * $ sudo apt-get update
+ * $ sudo apt-get install g++ make libboost-dev libboost-thread-dev libboost-system-dev libqt4-dev openjdk-7-jre flex bison libgmp3-dev libgmp3c2 libmpfr-dev libncurses5-dev libmpc-dev autoconf texinfo build-essential libexpat-dev wget
+ * @endcode
+ *
+ * This will install the needed packages and all thier dependencies.
+ *
+ * @subsubsection instargouml ArgoUML
+ * Go to the ArgoUML website http://argouml.tigris.org, download and install ArgoUML. This should be quite straightforward. However you need to have a Java Runtime Environment (JRE) on your machine in order to run ArgoUML. Refer to your 
+ * Distribution's Documentation how to install a JRE. If you have installed the dependencies above you are already fine since it contains already the OpenJDK 7 (openjdk-7-jre).
+ *
+ * @subsubsection insteclipse Eclipse CDT
+ * Eclipse can be downloaded from http://www.eclipse.org.
+ * Please install the CDT (Eclipse IDE for C/C++ Developers) Version. Note that Eclipse needs a JRE as well.
+ *
+ * IMPORTANT: Do not download Eclipse Juno! This release really does not work at all for C/C++. Please consider downloading the older version "Indigo" instead.
+ *
+ * To be able to configure a cross development tool chain, you need to install the GNU ARM Eclipse plugin. Follow the instructions on the website in order to install the plugin within Eclipse.
+ *
+ * In order to debug using OpenOCD, you need to install the "CDT Hardware Debugging plugin". In Eclipse, go to "Help->Install new software". Select "--All Available Sites--" in the combobox on top and type "Hardware" in the filter. Select "C/C++ GDB Hardware Debugging" plugin and install it.
+ *
+ * Your Eclipse installation is now ready to develop embedded software for ARM MCUs.
+ *
+ * @subsubsection instopenocd OpenOCD
+ * This is quite easy. Just type (Ubuntu & Debian):
+ *
+ * @code
+ * $ sudo apt-get update
+ * $ sudo apt-get install openocd
+ * @endcode
+ *
+ * This installs the OpenOCD daemon and all his dependencies.
+ *
+ * Before you debug the project, you need to start OpenOCD with the following parameters:
+ *
+ * @code
+ * $ sudo openocd -f interface/jtagkey2.cfg -f board/olimex_stm32_h103.cfg
+ * @endcode
+ *
+ * This starts the OpenOCD deamon and GDB can connect to the deamon in order to debug on the ARM Cortex-M3 MCU.
+ *
+ * If you like to automate the startup of OpenOCD in Eclipse, you just have to add an "Externet Tool" and set the following options:
+ *
+ * - Location : /usr/bin/openocd
+ * - Working directory : /usr/share/openocd
+ * - Arguments : -f interface/jtagkey2.cfg -f board/olimex_stm32_h103.cfg
+ *
+ * @subsubsection instgcc ARM GCC
+ * We will use GCC 4.5 and GDB 7.2 for the development. Clearly this GCC version is outdated, but we are sure that the whole toolchain including GCC, GDB and OpenOCD work together.
+ *
+ * We use a custom arm-none-eabi-gcc to compile the project. You can download the 32-bit, respective the 64-bit version from here:
+ *
+ * - 32-bit arm-none-eabi-gcc : <a href="http://moodle.msengineering.ch/file.php/255/Development_Environment/32bit/arm-none-eabi-gcc.tar.bz2.part1">Part 1</a> , <a href="http://moodle.msengineering.ch/file.php/255/Development_Environment/32bit/arm-none-eabi-gcc.tar.bz2.part2">Part 2</a>
+ * - 64-bit arm-none-eabi-gcc : <a href="http://moodle.msengineering.ch/file.php/255/Development_Environment/64bit/arm-none-eabi-gcc.tar.bz2.part1">Part 1</a> , <a href="http://moodle.msengineering.ch/file.php/255/Development_Environment/64bit/arm-none-eabi-gcc.tar.bz2.part2">Part 2</a>
+ *
+ * Then install the compiler as follows (You need to be in the directory the downloaded files are saved to): 
+ *
+ * @code
+ * $ cat arm-none-eabi-gcc.tar.bz2.part{1,2} >> arm-none-eabi-gcc.tar.bz2
+ * $ sudo tar -xvjf arm-none-eabi-gcc.tar.bz2 -C /opt
+ * $ rm arm-none-eabi-gcc.* 
+ * @endcode
+ *
+ * Our Eclipse projects are configured with GCC at this location, so do not install to any other location if not really necessary.
+ *
+ * If you really want to do it the hard way, you can compile GCC, newlibc and GDB yourself using <a href="http://moodle.msengineering.ch/file.php/255/Development_Environment/arm-toolchain-build.tar">this</a> script:
+ *
+ * @code
+ * $ tar -xvf arm-toolchain-build.tar
+ * $ cd arm-toolchain-build
+ * $ chmod a+x buildToolchain.sh
+ * $ ./buildToolchain.sh
+ * @endcode
+ *
+ * It is very important that you add the compiler path "/opt/toolchains/arm-none-eabi/bin" to the PATH variable of your environment before starting Eclipse. You can put that inside your bash.rc script to have the path set every time you open a console. 
+ *
+ * @code
+ * $ export PATH=$PATH:/opt/toolchains/arm-none-eabi/bin
+ * @endcode
+ *
+ * @subsubsection instmeshsim Mesh Simulator
+ *
+ * Download either the <a href="http://moodle.msengineering.ch/file.php/255/Development_Environment/32bit/MeshSimulator32">32 bit</a> or <a href="http://moodle.msengineering.ch/file.php/255/Development_Environment/64bit/MeshSimulator64">64 bit</a> version, 
+ * depending if you use a 32 bit or 64 bit OS. 
+ *
+ * Install as follows (XX stands for either 32 or 64, depending the version you just downloaded):
+ *
+ * @code
+ * $ sudo mkdir -p /opt/MeshSimulator
+ * $ sudo mv MeshSimulatorXX /opt/MeshSimulator/MeshSimulator
+ * $ sudo chmod +x /opt/MeshSimulator/MeshSimulator
+ * @endcode 
+ *
+ * To start the mesh simulator, simple enter:
+ *
+ * @code
+ * $ /opt/MeshSimulator/MeshSimulator
+ * @endcode
+ */

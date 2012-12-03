@@ -1,0 +1,349 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"startup.cpp"
+  23              	.Ltext0:
+  24              		.file 1 "../target/stm32/startup/startup.cpp"
+ 17885              		.align	2
+ 17886              		.global	_ZN7Startup4initEv
+ 17887              		.thumb
+ 17888              		.thumb_func
+ 17890              	_ZN7Startup4initEv:
+ 17891              	.LFB29:
+   1:../target/stm32/startup/startup.cpp **** /*
+   2:../target/stm32/startup/startup.cpp ****  * Startup.cpp
+   3:../target/stm32/startup/startup.cpp ****  *
+   4:../target/stm32/startup/startup.cpp ****  *  Created on: Feb 14, 2011
+   5:../target/stm32/startup/startup.cpp ****  *      Author: sth
+   6:../target/stm32/startup/startup.cpp ****  */
+   7:../target/stm32/startup/startup.cpp **** 
+   8:../target/stm32/startup/startup.cpp **** #include <target.h>
+   9:../target/stm32/startup/startup.cpp **** #include <stm32f10x_flash.h>
+  10:../target/stm32/startup/startup.cpp **** #include "startup.h"
+  11:../target/stm32/startup/startup.cpp **** 
+  12:../target/stm32/startup/startup.cpp **** 
+  13:../target/stm32/startup/startup.cpp **** // Defined in linker script
+  14:../target/stm32/startup/startup.cpp **** extern unsigned long _flash_data;
+  15:../target/stm32/startup/startup.cpp **** extern unsigned long _data;
+  16:../target/stm32/startup/startup.cpp **** extern unsigned long _edata;
+  17:../target/stm32/startup/startup.cpp **** extern unsigned long _bss;
+  18:../target/stm32/startup/startup.cpp **** extern unsigned long _ebss;
+  19:../target/stm32/startup/startup.cpp **** 
+  20:../target/stm32/startup/startup.cpp **** 
+  21:../target/stm32/startup/startup.cpp **** void Startup::init()
+  22:../target/stm32/startup/startup.cpp **** {
+ 17892              		.loc 1 22 0
+ 17893              		.cfi_startproc
+ 17894              		@ args = 0, pretend = 0, frame = 0
+ 17895              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17896 0000 B0B5     		push	{r4, r5, r7, lr}
+ 17897              	.LCFI0:
+ 17898              		.cfi_def_cfa_offset 16
+ 17899 0002 00AF     		add	r7, sp, #0
+ 17900              		.cfi_offset 14, -4
+ 17901              		.cfi_offset 7, -8
+ 17902              		.cfi_offset 5, -12
+ 17903              		.cfi_offset 4, -16
+ 17904              	.LCFI1:
+ 17905              		.cfi_def_cfa_register 7
+ 17906              	.LBB2:
+  23:../target/stm32/startup/startup.cpp ****     register unsigned long *pulSrc, *pulDest;
+  24:../target/stm32/startup/startup.cpp **** 
+  25:../target/stm32/startup/startup.cpp ****     // Init system clock
+  26:../target/stm32/startup/startup.cpp **** 	clkInit();
+ 17907              		.loc 1 26 0
+ 17908 0004 FFF7FEFF 		bl	_ZN7Startup7clkInitEv
+  27:../target/stm32/startup/startup.cpp **** 
+  28:../target/stm32/startup/startup.cpp ****     // Copy the data segment initializers from flash to SRAM.
+  29:../target/stm32/startup/startup.cpp ****     pulSrc = &_flash_data;
+ 17909              		.loc 1 29 0
+ 17910 0008 40F20005 		movw	r5, #:lower16:_flash_data
+ 17911 000c C0F20005 		movt	r5, #:upper16:_flash_data
+  30:../target/stm32/startup/startup.cpp ****     for(pulDest = &_data; pulDest < &_edata; )
+ 17912              		.loc 1 30 0
+ 17913 0010 40F20004 		movw	r4, #:lower16:_data
+ 17914 0014 C0F20004 		movt	r4, #:upper16:_data
+ 17915 0018 05E0     		b	.L2
+ 17916              	.L3:
+  31:../target/stm32/startup/startup.cpp ****     {
+  32:../target/stm32/startup/startup.cpp ****         *(pulDest++) = *(pulSrc++);
+ 17917              		.loc 1 32 0
+ 17918 001a 2B68     		ldr	r3, [r5, #0]
+ 17919 001c 2360     		str	r3, [r4, #0]
+ 17920 001e 04F10404 		add	r4, r4, #4
+ 17921 0022 05F10405 		add	r5, r5, #4
+ 17922              	.L2:
+  30:../target/stm32/startup/startup.cpp ****     for(pulDest = &_data; pulDest < &_edata; )
+ 17923              		.loc 1 30 0 discriminator 1
+ 17924 0026 40F20003 		movw	r3, #:lower16:_edata
+ 17925 002a C0F20003 		movt	r3, #:upper16:_edata
+ 17926 002e 9C42     		cmp	r4, r3
+ 17927 0030 2CBF     		ite	cs
+ 17928 0032 0023     		movcs	r3, #0
+ 17929 0034 0123     		movcc	r3, #1
+ 17930 0036 DBB2     		uxtb	r3, r3
+ 17931 0038 002B     		cmp	r3, #0
+ 17932 003a EED1     		bne	.L3
+  33:../target/stm32/startup/startup.cpp ****     }
+  34:../target/stm32/startup/startup.cpp **** 
+  35:../target/stm32/startup/startup.cpp ****     // Zero fill the bss segment.
+  36:../target/stm32/startup/startup.cpp ****     for(pulDest = &_bss; pulDest < &_ebss; )
+ 17933              		.loc 1 36 0
+ 17934 003c 40F20004 		movw	r4, #:lower16:_bss
+ 17935 0040 C0F20004 		movt	r4, #:upper16:_bss
+ 17936 0044 04E0     		b	.L4
+ 17937              	.L5:
+  37:../target/stm32/startup/startup.cpp ****     {
+  38:../target/stm32/startup/startup.cpp ****         *(pulDest++) = 0;
+ 17938              		.loc 1 38 0
+ 17939 0046 4FF00003 		mov	r3, #0
+ 17940 004a 2360     		str	r3, [r4, #0]
+ 17941 004c 04F10404 		add	r4, r4, #4
+ 17942              	.L4:
+  36:../target/stm32/startup/startup.cpp ****     for(pulDest = &_bss; pulDest < &_ebss; )
+ 17943              		.loc 1 36 0 discriminator 1
+ 17944 0050 40F20003 		movw	r3, #:lower16:_ebss
+ 17945 0054 C0F20003 		movt	r3, #:upper16:_ebss
+ 17946 0058 9C42     		cmp	r4, r3
+ 17947 005a 2CBF     		ite	cs
+ 17948 005c 0023     		movcs	r3, #0
+ 17949 005e 0123     		movcc	r3, #1
+ 17950 0060 DBB2     		uxtb	r3, r3
+ 17951 0062 002B     		cmp	r3, #0
+ 17952 0064 EFD1     		bne	.L5
+  39:../target/stm32/startup/startup.cpp ****     }
+  40:../target/stm32/startup/startup.cpp **** 
+  41:../target/stm32/startup/startup.cpp **** /*    // Fill the stack with a known value.
+  42:../target/stm32/startup/startup.cpp ****     for(pulDest = pulStack; pulDest < pulStack + STACK_SIZE; )
+  43:../target/stm32/startup/startup.cpp ****     {
+  44:../target/stm32/startup/startup.cpp ****     	*pulDest++ = 0xA5A5;
+  45:../target/stm32/startup/startup.cpp ****     }
+  46:../target/stm32/startup/startup.cpp **** */
+  47:../target/stm32/startup/startup.cpp **** 
+  48:../target/stm32/startup/startup.cpp ****     // Call global/static constructors (used with arm-none-eabi toolchain)
+  49:../target/stm32/startup/startup.cpp **** 	init_array();
+ 17953              		.loc 1 49 0
+ 17954 0066 FFF7FEFF 		bl	_Z10init_arrayv
+  50:../target/stm32/startup/startup.cpp **** 
+  51:../target/stm32/startup/startup.cpp ****     //
+  52:../target/stm32/startup/startup.cpp **** 	__do_global_ctors();
+ 17955              		.loc 1 52 0
+ 17956 006a FFF7FEFF 		bl	_Z17__do_global_ctorsv
+ 17957              	.LBE2:
+  53:../target/stm32/startup/startup.cpp **** }
+ 17958              		.loc 1 53 0
+ 17959 006e B0BD     		pop	{r4, r5, r7, pc}
+ 17960              		.cfi_endproc
+ 17961              	.LFE29:
+ 17963              		.section	.text._ZN7Startup7clkInitEv,"ax",%progbits
+ 17964              		.align	2
+ 17965              		.global	_ZN7Startup7clkInitEv
+ 17966              		.thumb
+ 17967              		.thumb_func
+ 17969              	_ZN7Startup7clkInitEv:
+ 17970              	.LFB30:
+  54:../target/stm32/startup/startup.cpp **** 
+  55:../target/stm32/startup/startup.cpp **** void Startup::clkInit()
+  56:../target/stm32/startup/startup.cpp **** {
+ 17971              		.loc 1 56 0
+ 17972              		.cfi_startproc
+ 17973              		@ args = 0, pretend = 0, frame = 0
+ 17974              		@ frame_needed = 1, uses_anonymous_args = 0
+ 17975 0000 80B5     		push	{r7, lr}
+ 17976              	.LCFI2:
+ 17977              		.cfi_def_cfa_offset 8
+ 17978 0002 00AF     		add	r7, sp, #0
+ 17979              		.cfi_offset 14, -4
+ 17980              		.cfi_offset 7, -8
+ 17981              	.LCFI3:
+ 17982              		.cfi_def_cfa_register 7
+  57:../target/stm32/startup/startup.cpp **** 	// Set STKALIGN in NVIC
+  58:../target/stm32/startup/startup.cpp **** 	SCB->CCR |= 0x200;
+ 17983              		.loc 1 58 0
+ 17984 0004 4FF46D43 		mov	r3, #60672
+ 17985 0008 CEF20003 		movt	r3, 57344
+ 17986 000c 4FF46D42 		mov	r2, #60672
+ 17987 0010 CEF20002 		movt	r2, 57344
+ 17988 0014 5269     		ldr	r2, [r2, #20]
+ 17989 0016 42F40072 		orr	r2, r2, #512
+ 17990 001a 5A61     		str	r2, [r3, #20]
+  59:../target/stm32/startup/startup.cpp **** 
+  60:../target/stm32/startup/startup.cpp **** 	// 1. Clocking the controller from internal HSI RC (8 MHz)
+  61:../target/stm32/startup/startup.cpp **** 	RCC_HSICmd(ENABLE);
+ 17991              		.loc 1 61 0
+ 17992 001c 4FF00100 		mov	r0, #1
+ 17993 0020 FFF7FEFF 		bl	RCC_HSICmd
+  62:../target/stm32/startup/startup.cpp **** 	// wait until the HSI is ready
+  63:../target/stm32/startup/startup.cpp **** 	while(RCC_GetFlagStatus(RCC_FLAG_HSIRDY) == RESET);
+ 17994              		.loc 1 63 0
+ 17995 0024 00BF     		nop
+ 17996              	.L7:
+ 17997              		.loc 1 63 0 is_stmt 0 discriminator 1
+ 17998 0026 4FF02100 		mov	r0, #33
+ 17999 002a FFF7FEFF 		bl	RCC_GetFlagStatus
+ 18000 002e 0346     		mov	r3, r0
+ 18001 0030 002B     		cmp	r3, #0
+ 18002 0032 14BF     		ite	ne
+ 18003 0034 0023     		movne	r3, #0
+ 18004 0036 0123     		moveq	r3, #1
+ 18005 0038 DBB2     		uxtb	r3, r3
+ 18006 003a 002B     		cmp	r3, #0
+ 18007 003c F3D1     		bne	.L7
+  64:../target/stm32/startup/startup.cpp **** 	RCC_SYSCLKConfig(RCC_SYSCLKSource_HSI);
+ 18008              		.loc 1 64 0 is_stmt 1
+ 18009 003e 4FF00000 		mov	r0, #0
+ 18010 0042 FFF7FEFF 		bl	RCC_SYSCLKConfig
+  65:../target/stm32/startup/startup.cpp **** 	// 2. Enable ext. high frequency OSC
+  66:../target/stm32/startup/startup.cpp **** 	RCC_HSEConfig(RCC_HSE_ON);
+ 18011              		.loc 1 66 0
+ 18012 0046 4FF48030 		mov	r0, #65536
+ 18013 004a FFF7FEFF 		bl	RCC_HSEConfig
+  67:../target/stm32/startup/startup.cpp **** 	// wait until the HSE is ready
+  68:../target/stm32/startup/startup.cpp **** 	while(RCC_GetFlagStatus(RCC_FLAG_HSERDY) == RESET);
+ 18014              		.loc 1 68 0
+ 18015 004e 00BF     		nop
+ 18016              	.L8:
+ 18017              		.loc 1 68 0 is_stmt 0 discriminator 1
+ 18018 0050 4FF03100 		mov	r0, #49
+ 18019 0054 FFF7FEFF 		bl	RCC_GetFlagStatus
+ 18020 0058 0346     		mov	r3, r0
+ 18021 005a 002B     		cmp	r3, #0
+ 18022 005c 14BF     		ite	ne
+ 18023 005e 0023     		movne	r3, #0
+ 18024 0060 0123     		moveq	r3, #1
+ 18025 0062 DBB2     		uxtb	r3, r3
+ 18026 0064 002B     		cmp	r3, #0
+ 18027 0066 F3D1     		bne	.L8
+  69:../target/stm32/startup/startup.cpp **** 	// 3. Init PLL
+  70:../target/stm32/startup/startup.cpp **** 	RCC_PLLConfig(RCC_PLLSource_HSE_Div1,RCC_PLLMul_9); // 72MHz
+ 18028              		.loc 1 70 0 is_stmt 1
+ 18029 0068 4FF48030 		mov	r0, #65536
+ 18030 006c 4FF4E011 		mov	r1, #1835008
+ 18031 0070 FFF7FEFF 		bl	RCC_PLLConfig
+  71:../target/stm32/startup/startup.cpp **** //  RCC_PLLConfig(RCC_PLLSource_HSE_Div2,RCC_PLLMul_9); // 72MHz
+  72:../target/stm32/startup/startup.cpp **** 	RCC_PLLCmd(ENABLE);
+ 18032              		.loc 1 72 0
+ 18033 0074 4FF00100 		mov	r0, #1
+ 18034 0078 FFF7FEFF 		bl	RCC_PLLCmd
+  73:../target/stm32/startup/startup.cpp **** 	// wait until the PLL is ready
+  74:../target/stm32/startup/startup.cpp **** 	while(RCC_GetFlagStatus(RCC_FLAG_PLLRDY) == RESET);
+ 18035              		.loc 1 74 0
+ 18036 007c 00BF     		nop
+ 18037              	.L9:
+ 18038              		.loc 1 74 0 is_stmt 0 discriminator 1
+ 18039 007e 4FF03900 		mov	r0, #57
+ 18040 0082 FFF7FEFF 		bl	RCC_GetFlagStatus
+ 18041 0086 0346     		mov	r3, r0
+ 18042 0088 002B     		cmp	r3, #0
+ 18043 008a 14BF     		ite	ne
+ 18044 008c 0023     		movne	r3, #0
+ 18045 008e 0123     		moveq	r3, #1
+ 18046 0090 DBB2     		uxtb	r3, r3
+ 18047 0092 002B     		cmp	r3, #0
+ 18048 0094 F3D1     		bne	.L9
+  75:../target/stm32/startup/startup.cpp **** 	// 4. Set system clock dividers
+  76:../target/stm32/startup/startup.cpp **** 	RCC_USBCLKConfig(RCC_USBCLKSource_PLLCLK_1Div5);
+ 18049              		.loc 1 76 0 is_stmt 1
+ 18050 0096 4FF00000 		mov	r0, #0
+ 18051 009a FFF7FEFF 		bl	RCC_USBCLKConfig
+  77:../target/stm32/startup/startup.cpp **** 	RCC_ADCCLKConfig(RCC_PCLK2_Div8);
+ 18052              		.loc 1 77 0
+ 18053 009e 4FF44040 		mov	r0, #49152
+ 18054 00a2 FFF7FEFF 		bl	RCC_ADCCLKConfig
+  78:../target/stm32/startup/startup.cpp **** 	RCC_PCLK2Config(RCC_HCLK_Div1);
+ 18055              		.loc 1 78 0
+ 18056 00a6 4FF00000 		mov	r0, #0
+ 18057 00aa FFF7FEFF 		bl	RCC_PCLK2Config
+  79:../target/stm32/startup/startup.cpp **** 	RCC_PCLK1Config(RCC_HCLK_Div2);
+ 18058              		.loc 1 79 0
+ 18059 00ae 4FF48060 		mov	r0, #1024
+ 18060 00b2 FFF7FEFF 		bl	RCC_PCLK1Config
+  80:../target/stm32/startup/startup.cpp **** 	RCC_HCLKConfig(RCC_SYSCLK_Div1);
+ 18061              		.loc 1 80 0
+ 18062 00b6 4FF00000 		mov	r0, #0
+ 18063 00ba FFF7FEFF 		bl	RCC_HCLKConfig
+  81:../target/stm32/startup/startup.cpp **** 
+  82:../target/stm32/startup/startup.cpp **** 	// Flash 1 wait state
+  83:../target/stm32/startup/startup.cpp **** //	*(vu32 *)0x40022000 = 0x12;
+  84:../target/stm32/startup/startup.cpp **** //	*(vu32 *)0x40022000 = 0x01;
+  85:../target/stm32/startup/startup.cpp **** 
+  86:../target/stm32/startup/startup.cpp ****     // Enable Prefetch Buffer
+  87:../target/stm32/startup/startup.cpp ****     FLASH_PrefetchBufferCmd(FLASH_PrefetchBuffer_Enable);
+ 18064              		.loc 1 87 0
+ 18065 00be 4FF01000 		mov	r0, #16
+ 18066 00c2 FFF7FEFF 		bl	FLASH_PrefetchBufferCmd
+  88:../target/stm32/startup/startup.cpp ****     // Flash 2 wait state
+  89:../target/stm32/startup/startup.cpp ****     FLASH_SetLatency(FLASH_Latency_2);
+ 18067              		.loc 1 89 0
+ 18068 00c6 4FF00200 		mov	r0, #2
+ 18069 00ca FFF7FEFF 		bl	FLASH_SetLatency
+  90:../target/stm32/startup/startup.cpp **** 
+  91:../target/stm32/startup/startup.cpp **** 	// Select PLL as system clock source
+  92:../target/stm32/startup/startup.cpp **** 	RCC_SYSCLKConfig(RCC_SYSCLKSource_PLLCLK);
+ 18070              		.loc 1 92 0
+ 18071 00ce 4FF00200 		mov	r0, #2
+ 18072 00d2 FFF7FEFF 		bl	RCC_SYSCLKConfig
+  93:../target/stm32/startup/startup.cpp **** 
+  94:../target/stm32/startup/startup.cpp ****     // Wait till PLL is used as system clock source
+  95:../target/stm32/startup/startup.cpp ****     while(RCC_GetSYSCLKSource() != 0x08)
+ 18073              		.loc 1 95 0
+ 18074 00d6 00BF     		nop
+ 18075              	.L10:
+ 18076              		.loc 1 95 0 is_stmt 0 discriminator 1
+ 18077 00d8 FFF7FEFF 		bl	RCC_GetSYSCLKSource
+ 18078 00dc 0346     		mov	r3, r0
+ 18079 00de 082B     		cmp	r3, #8
+ 18080 00e0 0CBF     		ite	eq
+ 18081 00e2 0023     		moveq	r3, #0
+ 18082 00e4 0123     		movne	r3, #1
+ 18083 00e6 DBB2     		uxtb	r3, r3
+ 18084 00e8 002B     		cmp	r3, #0
+ 18085 00ea F5D1     		bne	.L10
+  96:../target/stm32/startup/startup.cpp ****     {
+  97:../target/stm32/startup/startup.cpp ****     }
+  98:../target/stm32/startup/startup.cpp **** }
+ 18086              		.loc 1 98 0 is_stmt 1
+ 18087 00ec 80BD     		pop	{r7, pc}
+ 18088              		.cfi_endproc
+ 18089              	.LFE30:
+ 18091 00ee 00BF     		.text
+ 18092              	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 startup.cpp
+     /tmp/cc5AyjE6.s:17885  .text._ZN7Startup4initEv:00000000 $t
+     /tmp/cc5AyjE6.s:17890  .text._ZN7Startup4initEv:00000000 _ZN7Startup4initEv
+     /tmp/cc5AyjE6.s:17969  .text._ZN7Startup7clkInitEv:00000000 _ZN7Startup7clkInitEv
+     /tmp/cc5AyjE6.s:17964  .text._ZN7Startup7clkInitEv:00000000 $t
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+_flash_data
+_data
+_edata
+_bss
+_ebss
+_Z10init_arrayv
+_Z17__do_global_ctorsv
+RCC_HSICmd
+RCC_GetFlagStatus
+RCC_SYSCLKConfig
+RCC_HSEConfig
+RCC_PLLConfig
+RCC_PLLCmd
+RCC_USBCLKConfig
+RCC_ADCCLKConfig
+RCC_PCLK2Config
+RCC_PCLK1Config
+RCC_HCLKConfig
+FLASH_PrefetchBufferCmd
+FLASH_SetLatency
+RCC_GetSYSCLKSource

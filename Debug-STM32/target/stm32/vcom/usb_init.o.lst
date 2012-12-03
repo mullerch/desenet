@@ -1,0 +1,146 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"usb_init.c"
+  23              	.Ltext0:
+  24              		.file 1 "../target/stm32/vcom/usb_init.c"
+ 16448              		.align	2
+ 16449              		.global	USB_Init
+ 16450              		.thumb
+ 16451              		.thumb_func
+ 16453              	USB_Init:
+ 16454              	.LFB29:
+   1:../target/stm32/vcom/usb_init.c **** /******************** (C) COPYRIGHT 2007 STMicroelectronics ********************
+   2:../target/stm32/vcom/usb_init.c **** * File Name          : usb_init.c
+   3:../target/stm32/vcom/usb_init.c **** * Author             : MCD Application Team
+   4:../target/stm32/vcom/usb_init.c **** * Version            : V1.0
+   5:../target/stm32/vcom/usb_init.c **** * Date               : 10/08/2007
+   6:../target/stm32/vcom/usb_init.c **** * Description        : Initialization routines & global variables
+   7:../target/stm32/vcom/usb_init.c **** ********************************************************************************
+   8:../target/stm32/vcom/usb_init.c **** * THE PRESENT SOFTWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
+   9:../target/stm32/vcom/usb_init.c **** * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE TIME.
+  10:../target/stm32/vcom/usb_init.c **** * AS A RESULT, STMICROELECTRONICS SHALL NOT BE HELD LIABLE FOR ANY DIRECT,
+  11:../target/stm32/vcom/usb_init.c **** * INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING FROM THE
+  12:../target/stm32/vcom/usb_init.c **** * CONTENT OF SUCH SOFTWARE AND/OR THE USE MADE BY CUSTOMERS OF THE CODING
+  13:../target/stm32/vcom/usb_init.c **** * INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
+  14:../target/stm32/vcom/usb_init.c **** *******************************************************************************/
+  15:../target/stm32/vcom/usb_init.c **** 
+  16:../target/stm32/vcom/usb_init.c **** /* Includes ------------------------------------------------------------------*/
+  17:../target/stm32/vcom/usb_init.c **** #include "usb_lib.h"
+  18:../target/stm32/vcom/usb_init.c **** 
+  19:../target/stm32/vcom/usb_init.c **** /* Private typedef -----------------------------------------------------------*/
+  20:../target/stm32/vcom/usb_init.c **** /* Private define ------------------------------------------------------------*/
+  21:../target/stm32/vcom/usb_init.c **** /* Private macro -------------------------------------------------------------*/
+  22:../target/stm32/vcom/usb_init.c **** /* Private variables ---------------------------------------------------------*/
+  23:../target/stm32/vcom/usb_init.c **** /*  The number of current endpoint, it will be used to specify an endpoint */
+  24:../target/stm32/vcom/usb_init.c ****  u8	EPindex;
+  25:../target/stm32/vcom/usb_init.c **** /*  The number of current device, it is an index to the Device_Table */
+  26:../target/stm32/vcom/usb_init.c **** /* u8	Device_no; */
+  27:../target/stm32/vcom/usb_init.c **** /*  Points to the DEVICE_INFO structure of current device */
+  28:../target/stm32/vcom/usb_init.c **** /*  The purpose of this register is to speed up the execution */
+  29:../target/stm32/vcom/usb_init.c **** DEVICE_INFO *pInformation;
+  30:../target/stm32/vcom/usb_init.c **** /*  Points to the DEVICE_PROP structure of current device */
+  31:../target/stm32/vcom/usb_init.c **** /*  The purpose of this register is to speed up the execution */
+  32:../target/stm32/vcom/usb_init.c **** DEVICE_PROP *pProperty;
+  33:../target/stm32/vcom/usb_init.c **** /*  Temporary save the state of Rx & Tx status. */
+  34:../target/stm32/vcom/usb_init.c **** /*  Whenever the Rx or Tx state is changed, its value is saved */
+  35:../target/stm32/vcom/usb_init.c **** /*  in this variable first and will be set to the EPRB or EPRA */
+  36:../target/stm32/vcom/usb_init.c **** /*  at the end of interrupt process */
+  37:../target/stm32/vcom/usb_init.c **** u16	SaveState ;
+  38:../target/stm32/vcom/usb_init.c **** u16  wInterrupt_Mask;
+  39:../target/stm32/vcom/usb_init.c **** DEVICE_INFO	Device_Info;
+  40:../target/stm32/vcom/usb_init.c **** USER_STANDARD_REQUESTS  *pUser_Standard_Requests;
+  41:../target/stm32/vcom/usb_init.c **** 
+  42:../target/stm32/vcom/usb_init.c **** /* Extern variables ----------------------------------------------------------*/
+  43:../target/stm32/vcom/usb_init.c **** /* Private function prototypes -----------------------------------------------*/
+  44:../target/stm32/vcom/usb_init.c **** /* Private functions ---------------------------------------------------------*/
+  45:../target/stm32/vcom/usb_init.c **** 
+  46:../target/stm32/vcom/usb_init.c **** /*******************************************************************************
+  47:../target/stm32/vcom/usb_init.c **** * Function Name  : USB_Init
+  48:../target/stm32/vcom/usb_init.c **** * Description    : USB system initialization
+  49:../target/stm32/vcom/usb_init.c **** * Input          : None.
+  50:../target/stm32/vcom/usb_init.c **** * Output         : None.
+  51:../target/stm32/vcom/usb_init.c **** * Return         : None.
+  52:../target/stm32/vcom/usb_init.c **** *******************************************************************************/
+  53:../target/stm32/vcom/usb_init.c **** void USB_Init(void)
+  54:../target/stm32/vcom/usb_init.c **** {
+ 16455              		.loc 1 54 0
+ 16456              		.cfi_startproc
+ 16457              		@ args = 0, pretend = 0, frame = 0
+ 16458              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16459 0000 80B5     		push	{r7, lr}
+ 16460              	.LCFI0:
+ 16461              		.cfi_def_cfa_offset 8
+ 16462 0002 00AF     		add	r7, sp, #0
+ 16463              		.cfi_offset 14, -4
+ 16464              		.cfi_offset 7, -8
+ 16465              	.LCFI1:
+ 16466              		.cfi_def_cfa_register 7
+  55:../target/stm32/vcom/usb_init.c ****   pInformation = &Device_Info;
+ 16467              		.loc 1 55 0
+ 16468 0004 40F20003 		movw	r3, #:lower16:pInformation
+ 16469 0008 C0F20003 		movt	r3, #:upper16:pInformation
+ 16470 000c 40F20002 		movw	r2, #:lower16:Device_Info
+ 16471 0010 C0F20002 		movt	r2, #:upper16:Device_Info
+ 16472 0014 1A60     		str	r2, [r3, #0]
+  56:../target/stm32/vcom/usb_init.c ****   pInformation->ControlState = 2;
+ 16473              		.loc 1 56 0
+ 16474 0016 40F20003 		movw	r3, #:lower16:pInformation
+ 16475 001a C0F20003 		movt	r3, #:upper16:pInformation
+ 16476 001e 1B68     		ldr	r3, [r3, #0]
+ 16477 0020 4FF00202 		mov	r2, #2
+ 16478 0024 1A72     		strb	r2, [r3, #8]
+  57:../target/stm32/vcom/usb_init.c ****   pProperty = &Device_Property;
+ 16479              		.loc 1 57 0
+ 16480 0026 40F20003 		movw	r3, #:lower16:pProperty
+ 16481 002a C0F20003 		movt	r3, #:upper16:pProperty
+ 16482 002e 40F20002 		movw	r2, #:lower16:Device_Property
+ 16483 0032 C0F20002 		movt	r2, #:upper16:Device_Property
+ 16484 0036 1A60     		str	r2, [r3, #0]
+  58:../target/stm32/vcom/usb_init.c ****   pUser_Standard_Requests = &User_Standard_Requests;
+ 16485              		.loc 1 58 0
+ 16486 0038 40F20003 		movw	r3, #:lower16:pUser_Standard_Requests
+ 16487 003c C0F20003 		movt	r3, #:upper16:pUser_Standard_Requests
+ 16488 0040 40F20002 		movw	r2, #:lower16:User_Standard_Requests
+ 16489 0044 C0F20002 		movt	r2, #:upper16:User_Standard_Requests
+ 16490 0048 1A60     		str	r2, [r3, #0]
+  59:../target/stm32/vcom/usb_init.c ****   /* Initialize devices one by one */
+  60:../target/stm32/vcom/usb_init.c ****   pProperty->Init();
+ 16491              		.loc 1 60 0
+ 16492 004a 40F20003 		movw	r3, #:lower16:pProperty
+ 16493 004e C0F20003 		movt	r3, #:upper16:pProperty
+ 16494 0052 1B68     		ldr	r3, [r3, #0]
+ 16495 0054 1B68     		ldr	r3, [r3, #0]
+ 16496 0056 9847     		blx	r3
+  61:../target/stm32/vcom/usb_init.c **** }
+ 16497              		.loc 1 61 0
+ 16498 0058 80BD     		pop	{r7, pc}
+ 16499              		.cfi_endproc
+ 16500              	.LFE29:
+ 16502 005a 00BF     		.text
+ 16503              	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 usb_init.c
+                            *COM*:00000001 EPindex
+                            *COM*:00000004 pInformation
+                            *COM*:00000004 pProperty
+                            *COM*:00000002 SaveState
+                            *COM*:00000002 wInterrupt_Mask
+                            *COM*:0000001c Device_Info
+                            *COM*:00000004 pUser_Standard_Requests
+     /tmp/ccYjCnrE.s:16448  .text.USB_Init:00000000 $t
+     /tmp/ccYjCnrE.s:16453  .text.USB_Init:00000000 USB_Init
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+Device_Property
+User_Standard_Requests

@@ -1,0 +1,53 @@
+/**
+ * @mainpage
+ * 
+ * Welcome to the DeSEm master course practical work. 
+ * 
+ * This documentation should help you during analysis, design, implementation and test of your DeSeNet protocol stack.
+ * 
+ * If you have sugestions, comments, questions or you found an error inside the documentation, please write an email to 
+ * <a href="mailto:michael.clausen@hevs.ch">michael.clausen@hevs.ch</a>. So we can help you or update the documentation
+ * to remote the errors.
+ * 
+ * Here we have some introductions in order to start developping:
+ * - @subpage devenv
+ * - @subpage architecture
+ * - @subpage meshsimsettings
+ * 
+ * In addition to this, we provide some interesting links to sites that might help you during the project:
+ * 
+ * - <a href="http://cplusplus.com/reference/">www.cplusplus.com</a> - Very complete C++ online reference.
+ * - <a href="http://www.mochima.com/tutorials/STL.html">www.mochima.com</a> - C++ STL (Standard Templates Library) introduction.
+ * - <a href="http://en.wikibooks.org/wiki/More_C%2B%2B_Idioms">C++ Idioms on Wikibooks.org</a> - Very good open book and resources about common used C++ idioms.
+ * 
+ * @section Eclipse Project structure.
+ * The different folders of the Eclipse project contain the following:
+ * 
+ * - air3t : Contains the whole code of the Air3T package. Including the sub-packages Data, UI and Logic.
+ * - board : Contains the code for all supported hardware boards. For the moment this is just the Olimex STM32F103-STK.
+ * - Debug-MashSim : All build files of the Debug-MeshSim configuration are build into this folder. This is the simulated desktop version.
+ * - Debug-STM32 : All build files of the Debug-STM32 configuration are build into this folder. This is the debug version that runs on the Olimex STM32F103-STK board.
+ * - desenet : Contains the implementation of the DeSeNet stack in the two packages Datalink and Application.
+ * - documentation : Contains the files related to the documentation and the folder html contains the actually generated documentation.
+ * - fixmath : Contains a fixed point mathematical library used to drive the paint engine (soft-float is pretty slow on a Cortex-M3).
+ * - interfaces : Contains the definition of all interfaces of the components that are common to the hardware and the simulation of the hardware.
+ * - phy : Contains all classes related to the operation with the physical communication device.
+ * - scripts : The subfolder board/desem contains the OpenOCD scripts to connect to the Olimex STM32F103-STK development board, the folder openocd contains the openocd
+ * 			   for the project and the folder launchers contains all configured launchers that can be used to either start the simulated version or to download and debug 
+ * 			   the embedded software on the target.
+ * - target : The folder linux-meshsim contains the interfaces implementation for the simulated hardware on the desktop and the folder stm32 contains the implementation
+ * 			  for the real hardware.
+ * - test : The test folder contains all the test applications.
+ * - trace : The trace folder contains the trace library which enables to debug output to the console on the simulated hardware or through the serial port on the 
+ *           embedded target.
+ * - utils : Contains the Utils package offering utilities like dynamic sized addresses and the common display painter.
+ * - xf : Contains the sources of the XF (eXecution Framework).
+ * 
+ * The file main.cpp contains the common bootstrap code for the embedded ARM version and the simulated desktop version.
+ * 
+ * The desktop version compiles ALL tests, as a PC has quite enough resources and the decision which test or the main application will be started is determined by 
+ * command line arguments given to the application.
+ * 
+ * However the embedded version uses compilation switches to enable a test or the main application. These compilation switches can be found inside the file
+ * stm32-configuration.h.
+ */

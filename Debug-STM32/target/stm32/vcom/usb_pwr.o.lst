@@ -1,0 +1,691 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"usb_pwr.c"
+  23              	.Ltext0:
+  24              		.file 1 "../target/stm32/vcom/usb_pwr.c"
+ 16468              	bDeviceState:
+ 16469 0000 00       		.space	1
+ 16470              		.global	fSuspendEnabled
+ 16471              		.section	.data.fSuspendEnabled,"aw",%progbits
+ 16474              	fSuspendEnabled:
+ 16475 0000 01       		.byte	1
+ 16476              		.comm	ResumeS,2,4
+ 16477              		.section	.text.PowerOn,"ax",%progbits
+ 16478              		.align	2
+ 16479              		.global	PowerOn
+ 16480              		.thumb
+ 16481              		.thumb_func
+ 16483              	PowerOn:
+ 16484              	.LFB29:
+   1:../target/stm32/vcom/usb_pwr.c **** /******************** (C) COPYRIGHT 2007 STMicroelectronics ********************
+   2:../target/stm32/vcom/usb_pwr.c **** * File Name          : usb_pwr.c
+   3:../target/stm32/vcom/usb_pwr.c **** * Author             : MCD Application Team
+   4:../target/stm32/vcom/usb_pwr.c **** * Version            : V1.0
+   5:../target/stm32/vcom/usb_pwr.c **** * Date               : 10/08/2007
+   6:../target/stm32/vcom/usb_pwr.c **** * Description        : Connection/disconnection & power management
+   7:../target/stm32/vcom/usb_pwr.c **** ********************************************************************************
+   8:../target/stm32/vcom/usb_pwr.c **** * THE PRESENT SOFTWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
+   9:../target/stm32/vcom/usb_pwr.c **** * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE TIME.
+  10:../target/stm32/vcom/usb_pwr.c **** * AS A RESULT, STMICROELECTRONICS SHALL NOT BE HELD LIABLE FOR ANY DIRECT,
+  11:../target/stm32/vcom/usb_pwr.c **** * INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING FROM THE
+  12:../target/stm32/vcom/usb_pwr.c **** * CONTENT OF SUCH SOFTWARE AND/OR THE USE MADE BY CUSTOMERS OF THE CODING
+  13:../target/stm32/vcom/usb_pwr.c **** * INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
+  14:../target/stm32/vcom/usb_pwr.c **** *******************************************************************************/
+  15:../target/stm32/vcom/usb_pwr.c **** 
+  16:../target/stm32/vcom/usb_pwr.c **** /* Includes ------------------------------------------------------------------*/
+  17:../target/stm32/vcom/usb_pwr.c **** #include "stm32f10x_lib.h"
+  18:../target/stm32/vcom/usb_pwr.c **** #include "usb_lib.h"
+  19:../target/stm32/vcom/usb_pwr.c **** #include "usb_conf.h"
+  20:../target/stm32/vcom/usb_pwr.c **** #include "usb_hw.h"
+  21:../target/stm32/vcom/usb_pwr.c **** #include "usb_pwr.h"
+  22:../target/stm32/vcom/usb_pwr.c **** 
+  23:../target/stm32/vcom/usb_pwr.c **** /* Private typedef -----------------------------------------------------------*/
+  24:../target/stm32/vcom/usb_pwr.c **** /* Private define ------------------------------------------------------------*/
+  25:../target/stm32/vcom/usb_pwr.c **** /* Private macro -------------------------------------------------------------*/
+  26:../target/stm32/vcom/usb_pwr.c **** /* Private variables ---------------------------------------------------------*/
+  27:../target/stm32/vcom/usb_pwr.c **** volatile u8 bDeviceState = UNCONNECTED; /* USB device status */
+  28:../target/stm32/vcom/usb_pwr.c **** volatile bool fSuspendEnabled = TRUE;  /* True when suspend is possible */
+  29:../target/stm32/vcom/usb_pwr.c **** 
+  30:../target/stm32/vcom/usb_pwr.c **** struct
+  31:../target/stm32/vcom/usb_pwr.c **** {
+  32:../target/stm32/vcom/usb_pwr.c ****   volatile RESUME_STATE eState;
+  33:../target/stm32/vcom/usb_pwr.c ****   volatile u8 bESOFcnt;
+  34:../target/stm32/vcom/usb_pwr.c **** }ResumeS;
+  35:../target/stm32/vcom/usb_pwr.c **** 
+  36:../target/stm32/vcom/usb_pwr.c **** /* Extern variables ----------------------------------------------------------*/
+  37:../target/stm32/vcom/usb_pwr.c **** /* Private function prototypes -----------------------------------------------*/
+  38:../target/stm32/vcom/usb_pwr.c **** /* Extern function prototypes ------------------------------------------------*/
+  39:../target/stm32/vcom/usb_pwr.c **** /* Private functions ---------------------------------------------------------*/
+  40:../target/stm32/vcom/usb_pwr.c **** 
+  41:../target/stm32/vcom/usb_pwr.c **** /*******************************************************************************
+  42:../target/stm32/vcom/usb_pwr.c **** * Function Name  : PowerOn
+  43:../target/stm32/vcom/usb_pwr.c **** * Description    : USB IP power ON Routine.
+  44:../target/stm32/vcom/usb_pwr.c **** * Input          : None.
+  45:../target/stm32/vcom/usb_pwr.c **** * Output         : None.
+  46:../target/stm32/vcom/usb_pwr.c **** * Return         : USB_SUCCESS.
+  47:../target/stm32/vcom/usb_pwr.c **** *******************************************************************************/
+  48:../target/stm32/vcom/usb_pwr.c **** RESULT PowerOn(void)
+  49:../target/stm32/vcom/usb_pwr.c **** {
+ 16485              		.loc 1 49 0
+ 16486              		.cfi_startproc
+ 16487              		@ args = 0, pretend = 0, frame = 8
+ 16488              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16489 0000 80B5     		push	{r7, lr}
+ 16490              	.LCFI0:
+ 16491              		.cfi_def_cfa_offset 8
+ 16492 0002 82B0     		sub	sp, sp, #8
+ 16493              	.LCFI1:
+ 16494              		.cfi_def_cfa_offset 16
+ 16495 0004 00AF     		add	r7, sp, #0
+ 16496              		.cfi_offset 14, -4
+ 16497              		.cfi_offset 7, -8
+ 16498              	.LCFI2:
+ 16499              		.cfi_def_cfa_register 7
+  50:../target/stm32/vcom/usb_pwr.c ****   u16 wRegVal;
+  51:../target/stm32/vcom/usb_pwr.c **** 
+  52:../target/stm32/vcom/usb_pwr.c ****   /*** cable plugged-in ? ***/
+  53:../target/stm32/vcom/usb_pwr.c ****   USB_Cable_Config(ENABLE);
+ 16500              		.loc 1 53 0
+ 16501 0006 4FF00100 		mov	r0, #1
+ 16502 000a FFF7FEFF 		bl	USB_Cable_Config
+  54:../target/stm32/vcom/usb_pwr.c **** 
+  55:../target/stm32/vcom/usb_pwr.c ****   /*** CNTR_PWDN = 0 ***/
+  56:../target/stm32/vcom/usb_pwr.c ****   wRegVal = CNTR_FRES;
+ 16503              		.loc 1 56 0
+ 16504 000e 4FF00103 		mov	r3, #1
+ 16505 0012 FB80     		strh	r3, [r7, #6]	@ movhi
+  57:../target/stm32/vcom/usb_pwr.c ****   _SetCNTR(wRegVal);
+ 16506              		.loc 1 57 0
+ 16507 0014 45F64043 		movw	r3, #23616
+ 16508 0018 C4F20003 		movt	r3, 16384
+ 16509 001c FA88     		ldrh	r2, [r7, #6]
+ 16510 001e 1A60     		str	r2, [r3, #0]
+  58:../target/stm32/vcom/usb_pwr.c **** 
+  59:../target/stm32/vcom/usb_pwr.c ****   /*** CNTR_FRES = 0 ***/
+  60:../target/stm32/vcom/usb_pwr.c ****   wInterrupt_Mask = 0;
+ 16511              		.loc 1 60 0
+ 16512 0020 40F20003 		movw	r3, #:lower16:wInterrupt_Mask
+ 16513 0024 C0F20003 		movt	r3, #:upper16:wInterrupt_Mask
+ 16514 0028 4FF00002 		mov	r2, #0
+ 16515 002c 1A80     		strh	r2, [r3, #0]	@ movhi
+  61:../target/stm32/vcom/usb_pwr.c ****   _SetCNTR(wInterrupt_Mask);
+ 16516              		.loc 1 61 0
+ 16517 002e 45F64043 		movw	r3, #23616
+ 16518 0032 C4F20003 		movt	r3, 16384
+ 16519 0036 40F20002 		movw	r2, #:lower16:wInterrupt_Mask
+ 16520 003a C0F20002 		movt	r2, #:upper16:wInterrupt_Mask
+ 16521 003e 1288     		ldrh	r2, [r2, #0]
+ 16522 0040 1A60     		str	r2, [r3, #0]
+  62:../target/stm32/vcom/usb_pwr.c ****   /*** Clear pending interrupts ***/
+  63:../target/stm32/vcom/usb_pwr.c ****   _SetISTR(0);
+ 16523              		.loc 1 63 0
+ 16524 0042 45F64443 		movw	r3, #23620
+ 16525 0046 C4F20003 		movt	r3, 16384
+ 16526 004a 4FF00002 		mov	r2, #0
+ 16527 004e 1A60     		str	r2, [r3, #0]
+  64:../target/stm32/vcom/usb_pwr.c ****   /*** Set interrupt mask ***/
+  65:../target/stm32/vcom/usb_pwr.c ****   wInterrupt_Mask = CNTR_RESETM | CNTR_SUSPM | CNTR_WKUPM;
+ 16528              		.loc 1 65 0
+ 16529 0050 40F20003 		movw	r3, #:lower16:wInterrupt_Mask
+ 16530 0054 C0F20003 		movt	r3, #:upper16:wInterrupt_Mask
+ 16531 0058 4FF4E052 		mov	r2, #7168
+ 16532 005c 1A80     		strh	r2, [r3, #0]	@ movhi
+  66:../target/stm32/vcom/usb_pwr.c ****   _SetCNTR(wInterrupt_Mask);
+ 16533              		.loc 1 66 0
+ 16534 005e 45F64043 		movw	r3, #23616
+ 16535 0062 C4F20003 		movt	r3, 16384
+ 16536 0066 40F20002 		movw	r2, #:lower16:wInterrupt_Mask
+ 16537 006a C0F20002 		movt	r2, #:upper16:wInterrupt_Mask
+ 16538 006e 1288     		ldrh	r2, [r2, #0]
+ 16539 0070 1A60     		str	r2, [r3, #0]
+  67:../target/stm32/vcom/usb_pwr.c **** 
+  68:../target/stm32/vcom/usb_pwr.c ****   return USB_SUCCESS;
+ 16540              		.loc 1 68 0
+ 16541 0072 4FF00003 		mov	r3, #0
+  69:../target/stm32/vcom/usb_pwr.c **** }
+ 16542              		.loc 1 69 0
+ 16543 0076 1846     		mov	r0, r3
+ 16544 0078 07F10807 		add	r7, r7, #8
+ 16545 007c BD46     		mov	sp, r7
+ 16546 007e 80BD     		pop	{r7, pc}
+ 16547              		.cfi_endproc
+ 16548              	.LFE29:
+ 16550              		.section	.text.PowerOff,"ax",%progbits
+ 16551              		.align	2
+ 16552              		.global	PowerOff
+ 16553              		.thumb
+ 16554              		.thumb_func
+ 16556              	PowerOff:
+ 16557              	.LFB30:
+  70:../target/stm32/vcom/usb_pwr.c **** 
+  71:../target/stm32/vcom/usb_pwr.c **** /*******************************************************************************
+  72:../target/stm32/vcom/usb_pwr.c **** * Function Name  : PowerOff
+  73:../target/stm32/vcom/usb_pwr.c **** * Description    : Handles switch-off conditions
+  74:../target/stm32/vcom/usb_pwr.c **** * Input          : None.
+  75:../target/stm32/vcom/usb_pwr.c **** * Output         : None.
+  76:../target/stm32/vcom/usb_pwr.c **** * Return         : USB_SUCCESS.
+  77:../target/stm32/vcom/usb_pwr.c **** *******************************************************************************/
+  78:../target/stm32/vcom/usb_pwr.c **** RESULT PowerOff()
+  79:../target/stm32/vcom/usb_pwr.c **** {
+ 16558              		.loc 1 79 0
+ 16559              		.cfi_startproc
+ 16560              		@ args = 0, pretend = 0, frame = 0
+ 16561              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16562 0000 80B5     		push	{r7, lr}
+ 16563              	.LCFI3:
+ 16564              		.cfi_def_cfa_offset 8
+ 16565 0002 00AF     		add	r7, sp, #0
+ 16566              		.cfi_offset 14, -4
+ 16567              		.cfi_offset 7, -8
+ 16568              	.LCFI4:
+ 16569              		.cfi_def_cfa_register 7
+  80:../target/stm32/vcom/usb_pwr.c ****   /* disable all ints and force USB reset */
+  81:../target/stm32/vcom/usb_pwr.c ****   _SetCNTR(CNTR_FRES);
+ 16570              		.loc 1 81 0
+ 16571 0004 45F64043 		movw	r3, #23616
+ 16572 0008 C4F20003 		movt	r3, 16384
+ 16573 000c 4FF00102 		mov	r2, #1
+ 16574 0010 1A60     		str	r2, [r3, #0]
+  82:../target/stm32/vcom/usb_pwr.c ****   /* clear interrupt status register */
+  83:../target/stm32/vcom/usb_pwr.c ****   _SetISTR(0);
+ 16575              		.loc 1 83 0
+ 16576 0012 45F64443 		movw	r3, #23620
+ 16577 0016 C4F20003 		movt	r3, 16384
+ 16578 001a 4FF00002 		mov	r2, #0
+ 16579 001e 1A60     		str	r2, [r3, #0]
+  84:../target/stm32/vcom/usb_pwr.c ****   /* Disable the Pull-Up*/
+  85:../target/stm32/vcom/usb_pwr.c ****   USB_Cable_Config(DISABLE);
+ 16580              		.loc 1 85 0
+ 16581 0020 4FF00000 		mov	r0, #0
+ 16582 0024 FFF7FEFF 		bl	USB_Cable_Config
+  86:../target/stm32/vcom/usb_pwr.c ****   /* switch-off device */
+  87:../target/stm32/vcom/usb_pwr.c ****   _SetCNTR(CNTR_FRES + CNTR_PDWN);
+ 16583              		.loc 1 87 0
+ 16584 0028 45F64043 		movw	r3, #23616
+ 16585 002c C4F20003 		movt	r3, 16384
+ 16586 0030 4FF00302 		mov	r2, #3
+ 16587 0034 1A60     		str	r2, [r3, #0]
+  88:../target/stm32/vcom/usb_pwr.c ****   /* sw variables reset */
+  89:../target/stm32/vcom/usb_pwr.c ****   /* ... */
+  90:../target/stm32/vcom/usb_pwr.c **** 
+  91:../target/stm32/vcom/usb_pwr.c ****   return USB_SUCCESS;
+ 16588              		.loc 1 91 0
+ 16589 0036 4FF00003 		mov	r3, #0
+  92:../target/stm32/vcom/usb_pwr.c **** }
+ 16590              		.loc 1 92 0
+ 16591 003a 1846     		mov	r0, r3
+ 16592 003c 80BD     		pop	{r7, pc}
+ 16593              		.cfi_endproc
+ 16594              	.LFE30:
+ 16596 003e 00BF     		.section	.text.Suspend,"ax",%progbits
+ 16597              		.align	2
+ 16598              		.global	Suspend
+ 16599              		.thumb
+ 16600              		.thumb_func
+ 16602              	Suspend:
+ 16603              	.LFB31:
+  93:../target/stm32/vcom/usb_pwr.c **** 
+  94:../target/stm32/vcom/usb_pwr.c **** /*******************************************************************************
+  95:../target/stm32/vcom/usb_pwr.c **** * Function Name  : Suspend
+  96:../target/stm32/vcom/usb_pwr.c **** * Description    : sets suspend mode operating conditions
+  97:../target/stm32/vcom/usb_pwr.c **** * Input          : None.
+  98:../target/stm32/vcom/usb_pwr.c **** * Output         : None.
+  99:../target/stm32/vcom/usb_pwr.c **** * Return         : USB_SUCCESS.
+ 100:../target/stm32/vcom/usb_pwr.c **** *******************************************************************************/
+ 101:../target/stm32/vcom/usb_pwr.c **** void Suspend(void)
+ 102:../target/stm32/vcom/usb_pwr.c **** {
+ 16604              		.loc 1 102 0
+ 16605              		.cfi_startproc
+ 16606              		@ args = 0, pretend = 0, frame = 8
+ 16607              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16608 0000 80B5     		push	{r7, lr}
+ 16609              	.LCFI5:
+ 16610              		.cfi_def_cfa_offset 8
+ 16611 0002 82B0     		sub	sp, sp, #8
+ 16612              	.LCFI6:
+ 16613              		.cfi_def_cfa_offset 16
+ 16614 0004 00AF     		add	r7, sp, #0
+ 16615              		.cfi_offset 14, -4
+ 16616              		.cfi_offset 7, -8
+ 16617              	.LCFI7:
+ 16618              		.cfi_def_cfa_register 7
+ 103:../target/stm32/vcom/usb_pwr.c ****   u16 wCNTR;
+ 104:../target/stm32/vcom/usb_pwr.c ****   /* suspend preparation */
+ 105:../target/stm32/vcom/usb_pwr.c ****   /* ... */
+ 106:../target/stm32/vcom/usb_pwr.c **** 
+ 107:../target/stm32/vcom/usb_pwr.c ****   /* macrocell enters suspend mode */
+ 108:../target/stm32/vcom/usb_pwr.c ****   wCNTR = _GetCNTR();
+ 16619              		.loc 1 108 0
+ 16620 0006 45F64043 		movw	r3, #23616
+ 16621 000a C4F20003 		movt	r3, 16384
+ 16622 000e 1B68     		ldr	r3, [r3, #0]
+ 16623 0010 FB80     		strh	r3, [r7, #6]	@ movhi
+ 109:../target/stm32/vcom/usb_pwr.c ****   wCNTR |= CNTR_FSUSP;
+ 16624              		.loc 1 109 0
+ 16625 0012 FB88     		ldrh	r3, [r7, #6]	@ movhi
+ 16626 0014 43F00803 		orr	r3, r3, #8
+ 16627 0018 FB80     		strh	r3, [r7, #6]	@ movhi
+ 110:../target/stm32/vcom/usb_pwr.c ****   _SetCNTR(wCNTR);
+ 16628              		.loc 1 110 0
+ 16629 001a 45F64043 		movw	r3, #23616
+ 16630 001e C4F20003 		movt	r3, 16384
+ 16631 0022 FA88     		ldrh	r2, [r7, #6]
+ 16632 0024 1A60     		str	r2, [r3, #0]
+ 111:../target/stm32/vcom/usb_pwr.c **** 
+ 112:../target/stm32/vcom/usb_pwr.c ****   /* ------------------ ONLY WITH BUS-POWERED DEVICES ---------------------- */
+ 113:../target/stm32/vcom/usb_pwr.c ****   /* power reduction */
+ 114:../target/stm32/vcom/usb_pwr.c ****   /* ... on connected devices */
+ 115:../target/stm32/vcom/usb_pwr.c **** 
+ 116:../target/stm32/vcom/usb_pwr.c **** 
+ 117:../target/stm32/vcom/usb_pwr.c ****   /* force low-power mode in the macrocell */
+ 118:../target/stm32/vcom/usb_pwr.c ****   wCNTR = _GetCNTR();
+ 16633              		.loc 1 118 0
+ 16634 0026 45F64043 		movw	r3, #23616
+ 16635 002a C4F20003 		movt	r3, 16384
+ 16636 002e 1B68     		ldr	r3, [r3, #0]
+ 16637 0030 FB80     		strh	r3, [r7, #6]	@ movhi
+ 119:../target/stm32/vcom/usb_pwr.c ****   wCNTR |= CNTR_LPMODE;
+ 16638              		.loc 1 119 0
+ 16639 0032 FB88     		ldrh	r3, [r7, #6]	@ movhi
+ 16640 0034 43F00403 		orr	r3, r3, #4
+ 16641 0038 FB80     		strh	r3, [r7, #6]	@ movhi
+ 120:../target/stm32/vcom/usb_pwr.c ****   _SetCNTR(wCNTR);
+ 16642              		.loc 1 120 0
+ 16643 003a 45F64043 		movw	r3, #23616
+ 16644 003e C4F20003 		movt	r3, 16384
+ 16645 0042 FA88     		ldrh	r2, [r7, #6]
+ 16646 0044 1A60     		str	r2, [r3, #0]
+ 121:../target/stm32/vcom/usb_pwr.c **** 
+ 122:../target/stm32/vcom/usb_pwr.c ****   /* switch-off the clocks */
+ 123:../target/stm32/vcom/usb_pwr.c ****   /* ... */
+ 124:../target/stm32/vcom/usb_pwr.c ****   Enter_LowPowerMode();
+ 16647              		.loc 1 124 0
+ 16648 0046 FFF7FEFF 		bl	Enter_LowPowerMode
+ 125:../target/stm32/vcom/usb_pwr.c **** 
+ 126:../target/stm32/vcom/usb_pwr.c **** }
+ 16649              		.loc 1 126 0
+ 16650 004a 07F10807 		add	r7, r7, #8
+ 16651 004e BD46     		mov	sp, r7
+ 16652 0050 80BD     		pop	{r7, pc}
+ 16653              		.cfi_endproc
+ 16654              	.LFE31:
+ 16656 0052 00BF     		.section	.text.Resume_Init,"ax",%progbits
+ 16657              		.align	2
+ 16658              		.global	Resume_Init
+ 16659              		.thumb
+ 16660              		.thumb_func
+ 16662              	Resume_Init:
+ 16663              	.LFB32:
+ 127:../target/stm32/vcom/usb_pwr.c **** 
+ 128:../target/stm32/vcom/usb_pwr.c **** /*******************************************************************************
+ 129:../target/stm32/vcom/usb_pwr.c **** * Function Name  : Resume_Init
+ 130:../target/stm32/vcom/usb_pwr.c **** * Description    : Handles wake-up restoring normal operations
+ 131:../target/stm32/vcom/usb_pwr.c **** * Input          : None.
+ 132:../target/stm32/vcom/usb_pwr.c **** * Output         : None.
+ 133:../target/stm32/vcom/usb_pwr.c **** * Return         : USB_SUCCESS.
+ 134:../target/stm32/vcom/usb_pwr.c **** *******************************************************************************/
+ 135:../target/stm32/vcom/usb_pwr.c **** void Resume_Init(void)
+ 136:../target/stm32/vcom/usb_pwr.c **** {
+ 16664              		.loc 1 136 0
+ 16665              		.cfi_startproc
+ 16666              		@ args = 0, pretend = 0, frame = 8
+ 16667              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16668 0000 80B5     		push	{r7, lr}
+ 16669              	.LCFI8:
+ 16670              		.cfi_def_cfa_offset 8
+ 16671 0002 82B0     		sub	sp, sp, #8
+ 16672              	.LCFI9:
+ 16673              		.cfi_def_cfa_offset 16
+ 16674 0004 00AF     		add	r7, sp, #0
+ 16675              		.cfi_offset 14, -4
+ 16676              		.cfi_offset 7, -8
+ 16677              	.LCFI10:
+ 16678              		.cfi_def_cfa_register 7
+ 137:../target/stm32/vcom/usb_pwr.c ****   u16 wCNTR;
+ 138:../target/stm32/vcom/usb_pwr.c ****   /* ------------------ ONLY WITH BUS-POWERED DEVICES ---------------------- */
+ 139:../target/stm32/vcom/usb_pwr.c ****   /* restart the clocks */
+ 140:../target/stm32/vcom/usb_pwr.c ****   /* ...  */
+ 141:../target/stm32/vcom/usb_pwr.c **** 
+ 142:../target/stm32/vcom/usb_pwr.c ****   /* CNTR_LPMODE = 0 */
+ 143:../target/stm32/vcom/usb_pwr.c ****   wCNTR = _GetCNTR();
+ 16679              		.loc 1 143 0
+ 16680 0006 45F64043 		movw	r3, #23616
+ 16681 000a C4F20003 		movt	r3, 16384
+ 16682 000e 1B68     		ldr	r3, [r3, #0]
+ 16683 0010 FB80     		strh	r3, [r7, #6]	@ movhi
+ 144:../target/stm32/vcom/usb_pwr.c ****   wCNTR &= (~CNTR_LPMODE);
+ 16684              		.loc 1 144 0
+ 16685 0012 FB88     		ldrh	r3, [r7, #6]	@ movhi
+ 16686 0014 23F00403 		bic	r3, r3, #4
+ 16687 0018 FB80     		strh	r3, [r7, #6]	@ movhi
+ 145:../target/stm32/vcom/usb_pwr.c ****   _SetCNTR(wCNTR);
+ 16688              		.loc 1 145 0
+ 16689 001a 45F64043 		movw	r3, #23616
+ 16690 001e C4F20003 		movt	r3, 16384
+ 16691 0022 FA88     		ldrh	r2, [r7, #6]
+ 16692 0024 1A60     		str	r2, [r3, #0]
+ 146:../target/stm32/vcom/usb_pwr.c **** 
+ 147:../target/stm32/vcom/usb_pwr.c ****   /* restore full power */
+ 148:../target/stm32/vcom/usb_pwr.c ****   /* ... on connected devices */
+ 149:../target/stm32/vcom/usb_pwr.c ****   Leave_LowPowerMode();
+ 16693              		.loc 1 149 0
+ 16694 0026 FFF7FEFF 		bl	Leave_LowPowerMode
+ 150:../target/stm32/vcom/usb_pwr.c **** 
+ 151:../target/stm32/vcom/usb_pwr.c ****   /* reset FSUSP bit */
+ 152:../target/stm32/vcom/usb_pwr.c ****   _SetCNTR(IMR_MSK);
+ 16695              		.loc 1 152 0
+ 16696 002a 45F64043 		movw	r3, #23616
+ 16697 002e C4F20003 		movt	r3, 16384
+ 16698 0032 4FF40642 		mov	r2, #34304
+ 16699 0036 1A60     		str	r2, [r3, #0]
+ 153:../target/stm32/vcom/usb_pwr.c **** 
+ 154:../target/stm32/vcom/usb_pwr.c ****   /* reverse suspend preparation */
+ 155:../target/stm32/vcom/usb_pwr.c ****   /* ... */
+ 156:../target/stm32/vcom/usb_pwr.c **** 
+ 157:../target/stm32/vcom/usb_pwr.c **** }
+ 16700              		.loc 1 157 0
+ 16701 0038 07F10807 		add	r7, r7, #8
+ 16702 003c BD46     		mov	sp, r7
+ 16703 003e 80BD     		pop	{r7, pc}
+ 16704              		.cfi_endproc
+ 16705              	.LFE32:
+ 16707              		.section	.text.Resume,"ax",%progbits
+ 16708              		.align	2
+ 16709              		.global	Resume
+ 16710              		.thumb
+ 16711              		.thumb_func
+ 16713              	Resume:
+ 16714              	.LFB33:
+ 158:../target/stm32/vcom/usb_pwr.c **** 
+ 159:../target/stm32/vcom/usb_pwr.c **** /*******************************************************************************
+ 160:../target/stm32/vcom/usb_pwr.c **** * Function Name  : Resume
+ 161:../target/stm32/vcom/usb_pwr.c **** * Description    : This is the state machine handling resume operations and
+ 162:../target/stm32/vcom/usb_pwr.c **** *                 timing sequence. The control is based on the Resume structure
+ 163:../target/stm32/vcom/usb_pwr.c **** *                 variables and on the ESOF interrupt calling this subroutine
+ 164:../target/stm32/vcom/usb_pwr.c **** *                 without changing machine state.
+ 165:../target/stm32/vcom/usb_pwr.c **** * Input          : a state machine value (RESUME_STATE)
+ 166:../target/stm32/vcom/usb_pwr.c **** *                  RESUME_ESOF doesn't change ResumeS.eState allowing
+ 167:../target/stm32/vcom/usb_pwr.c **** *                  decrementing of the ESOF counter in different states.
+ 168:../target/stm32/vcom/usb_pwr.c **** * Output         : None.
+ 169:../target/stm32/vcom/usb_pwr.c **** * Return         : None.
+ 170:../target/stm32/vcom/usb_pwr.c **** *******************************************************************************/
+ 171:../target/stm32/vcom/usb_pwr.c **** void Resume(RESUME_STATE eResumeSetVal)
+ 172:../target/stm32/vcom/usb_pwr.c **** {
+ 16715              		.loc 1 172 0
+ 16716              		.cfi_startproc
+ 16717              		@ args = 0, pretend = 0, frame = 16
+ 16718              		@ frame_needed = 1, uses_anonymous_args = 0
+ 16719 0000 80B5     		push	{r7, lr}
+ 16720              	.LCFI11:
+ 16721              		.cfi_def_cfa_offset 8
+ 16722 0002 84B0     		sub	sp, sp, #16
+ 16723              	.LCFI12:
+ 16724              		.cfi_def_cfa_offset 24
+ 16725 0004 00AF     		add	r7, sp, #0
+ 16726              		.cfi_offset 14, -4
+ 16727              		.cfi_offset 7, -8
+ 16728              	.LCFI13:
+ 16729              		.cfi_def_cfa_register 7
+ 16730 0006 0346     		mov	r3, r0
+ 16731 0008 FB71     		strb	r3, [r7, #7]
+ 173:../target/stm32/vcom/usb_pwr.c ****   u16 wCNTR;
+ 174:../target/stm32/vcom/usb_pwr.c **** 
+ 175:../target/stm32/vcom/usb_pwr.c ****   if (eResumeSetVal != RESUME_ESOF)
+ 16732              		.loc 1 175 0
+ 16733 000a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 16734 000c 072B     		cmp	r3, #7
+ 16735 000e 05D0     		beq	.L6
+ 176:../target/stm32/vcom/usb_pwr.c ****     ResumeS.eState = eResumeSetVal;
+ 16736              		.loc 1 176 0
+ 16737 0010 40F20003 		movw	r3, #:lower16:ResumeS
+ 16738 0014 C0F20003 		movt	r3, #:upper16:ResumeS
+ 16739 0018 FA79     		ldrb	r2, [r7, #7]
+ 16740 001a 1A70     		strb	r2, [r3, #0]
+ 16741              	.L6:
+ 177:../target/stm32/vcom/usb_pwr.c **** 
+ 178:../target/stm32/vcom/usb_pwr.c ****   switch (ResumeS.eState)
+ 16742              		.loc 1 178 0
+ 16743 001c 40F20003 		movw	r3, #:lower16:ResumeS
+ 16744 0020 C0F20003 		movt	r3, #:upper16:ResumeS
+ 16745 0024 1B78     		ldrb	r3, [r3, #0]
+ 16746 0026 DBB2     		uxtb	r3, r3
+ 16747 0028 052B     		cmp	r3, #5
+ 16748 002a 00F29D80 		bhi	.L7
+ 16749 002e 01A2     		adr	r2, .L14
+ 16750 0030 52F823F0 		ldr	pc, [r2, r3, lsl #2]
+ 16751              		.align	2
+ 16752              	.L14:
+ 16753 0034 4D000000 		.word	.L8+1
+ 16754 0038 61000000 		.word	.L9+1
+ 16755 003c 75000000 		.word	.L10+1
+ 16756 0040 93000000 		.word	.L11+1
+ 16757 0044 CF000000 		.word	.L12+1
+ 16758 0048 0D010000 		.word	.L13+1
+ 16759              	.L8:
+ 179:../target/stm32/vcom/usb_pwr.c ****   {
+ 180:../target/stm32/vcom/usb_pwr.c ****     case RESUME_EXTERNAL:
+ 181:../target/stm32/vcom/usb_pwr.c ****       Resume_Init();
+ 16760              		.loc 1 181 0
+ 16761 004c FFF7FEFF 		bl	Resume_Init
+ 182:../target/stm32/vcom/usb_pwr.c ****       ResumeS.eState = RESUME_OFF;
+ 16762              		.loc 1 182 0
+ 16763 0050 40F20003 		movw	r3, #:lower16:ResumeS
+ 16764 0054 C0F20003 		movt	r3, #:upper16:ResumeS
+ 16765 0058 4FF00602 		mov	r2, #6
+ 16766 005c 1A70     		strb	r2, [r3, #0]
+ 183:../target/stm32/vcom/usb_pwr.c ****       break;
+ 16767              		.loc 1 183 0
+ 16768 005e 8FE0     		b	.L5
+ 16769              	.L9:
+ 184:../target/stm32/vcom/usb_pwr.c ****     case RESUME_INTERNAL:
+ 185:../target/stm32/vcom/usb_pwr.c ****       Resume_Init();
+ 16770              		.loc 1 185 0
+ 16771 0060 FFF7FEFF 		bl	Resume_Init
+ 186:../target/stm32/vcom/usb_pwr.c ****       ResumeS.eState = RESUME_START;
+ 16772              		.loc 1 186 0
+ 16773 0064 40F20003 		movw	r3, #:lower16:ResumeS
+ 16774 0068 C0F20003 		movt	r3, #:upper16:ResumeS
+ 16775 006c 4FF00402 		mov	r2, #4
+ 16776 0070 1A70     		strb	r2, [r3, #0]
+ 187:../target/stm32/vcom/usb_pwr.c ****       break;
+ 16777              		.loc 1 187 0
+ 16778 0072 85E0     		b	.L5
+ 16779              	.L10:
+ 188:../target/stm32/vcom/usb_pwr.c ****     case RESUME_LATER:
+ 189:../target/stm32/vcom/usb_pwr.c ****       ResumeS.bESOFcnt = 2;
+ 16780              		.loc 1 189 0
+ 16781 0074 40F20003 		movw	r3, #:lower16:ResumeS
+ 16782 0078 C0F20003 		movt	r3, #:upper16:ResumeS
+ 16783 007c 4FF00202 		mov	r2, #2
+ 16784 0080 5A70     		strb	r2, [r3, #1]
+ 190:../target/stm32/vcom/usb_pwr.c ****       ResumeS.eState = RESUME_WAIT;
+ 16785              		.loc 1 190 0
+ 16786 0082 40F20003 		movw	r3, #:lower16:ResumeS
+ 16787 0086 C0F20003 		movt	r3, #:upper16:ResumeS
+ 16788 008a 4FF00302 		mov	r2, #3
+ 16789 008e 1A70     		strb	r2, [r3, #0]
+ 191:../target/stm32/vcom/usb_pwr.c ****       break;
+ 16790              		.loc 1 191 0
+ 16791 0090 76E0     		b	.L5
+ 16792              	.L11:
+ 192:../target/stm32/vcom/usb_pwr.c ****     case RESUME_WAIT:
+ 193:../target/stm32/vcom/usb_pwr.c ****       ResumeS.bESOFcnt--;
+ 16793              		.loc 1 193 0
+ 16794 0092 40F20003 		movw	r3, #:lower16:ResumeS
+ 16795 0096 C0F20003 		movt	r3, #:upper16:ResumeS
+ 16796 009a 5B78     		ldrb	r3, [r3, #1]
+ 16797 009c DBB2     		uxtb	r3, r3
+ 16798 009e 03F1FF33 		add	r3, r3, #-1
+ 16799 00a2 DAB2     		uxtb	r2, r3
+ 16800 00a4 40F20003 		movw	r3, #:lower16:ResumeS
+ 16801 00a8 C0F20003 		movt	r3, #:upper16:ResumeS
+ 16802 00ac 5A70     		strb	r2, [r3, #1]
+ 194:../target/stm32/vcom/usb_pwr.c ****       if (ResumeS.bESOFcnt == 0)
+ 16803              		.loc 1 194 0
+ 16804 00ae 40F20003 		movw	r3, #:lower16:ResumeS
+ 16805 00b2 C0F20003 		movt	r3, #:upper16:ResumeS
+ 16806 00b6 5B78     		ldrb	r3, [r3, #1]
+ 16807 00b8 DBB2     		uxtb	r3, r3
+ 16808 00ba 002B     		cmp	r3, #0
+ 16809 00bc 5DD1     		bne	.L18
+ 195:../target/stm32/vcom/usb_pwr.c ****         ResumeS.eState = RESUME_START;
+ 16810              		.loc 1 195 0
+ 16811 00be 40F20003 		movw	r3, #:lower16:ResumeS
+ 16812 00c2 C0F20003 		movt	r3, #:upper16:ResumeS
+ 16813 00c6 4FF00402 		mov	r2, #4
+ 16814 00ca 1A70     		strb	r2, [r3, #0]
+ 196:../target/stm32/vcom/usb_pwr.c ****       break;
+ 16815              		.loc 1 196 0
+ 16816 00cc 58E0     		b	.L5
+ 16817              	.L12:
+ 197:../target/stm32/vcom/usb_pwr.c ****     case RESUME_START:
+ 198:../target/stm32/vcom/usb_pwr.c ****       wCNTR = _GetCNTR();
+ 16818              		.loc 1 198 0
+ 16819 00ce 45F64043 		movw	r3, #23616
+ 16820 00d2 C4F20003 		movt	r3, 16384
+ 16821 00d6 1B68     		ldr	r3, [r3, #0]
+ 16822 00d8 FB81     		strh	r3, [r7, #14]	@ movhi
+ 199:../target/stm32/vcom/usb_pwr.c ****       wCNTR |= CNTR_RESUME;
+ 16823              		.loc 1 199 0
+ 16824 00da FB89     		ldrh	r3, [r7, #14]	@ movhi
+ 16825 00dc 43F01003 		orr	r3, r3, #16
+ 16826 00e0 FB81     		strh	r3, [r7, #14]	@ movhi
+ 200:../target/stm32/vcom/usb_pwr.c ****       _SetCNTR(wCNTR);
+ 16827              		.loc 1 200 0
+ 16828 00e2 45F64043 		movw	r3, #23616
+ 16829 00e6 C4F20003 		movt	r3, 16384
+ 16830 00ea FA89     		ldrh	r2, [r7, #14]
+ 16831 00ec 1A60     		str	r2, [r3, #0]
+ 201:../target/stm32/vcom/usb_pwr.c ****       ResumeS.eState = RESUME_ON;
+ 16832              		.loc 1 201 0
+ 16833 00ee 40F20003 		movw	r3, #:lower16:ResumeS
+ 16834 00f2 C0F20003 		movt	r3, #:upper16:ResumeS
+ 16835 00f6 4FF00502 		mov	r2, #5
+ 16836 00fa 1A70     		strb	r2, [r3, #0]
+ 202:../target/stm32/vcom/usb_pwr.c ****       ResumeS.bESOFcnt = 10;
+ 16837              		.loc 1 202 0
+ 16838 00fc 40F20003 		movw	r3, #:lower16:ResumeS
+ 16839 0100 C0F20003 		movt	r3, #:upper16:ResumeS
+ 16840 0104 4FF00A02 		mov	r2, #10
+ 16841 0108 5A70     		strb	r2, [r3, #1]
+ 203:../target/stm32/vcom/usb_pwr.c ****       break;
+ 16842              		.loc 1 203 0
+ 16843 010a 39E0     		b	.L5
+ 16844              	.L13:
+ 204:../target/stm32/vcom/usb_pwr.c ****     case RESUME_ON:
+ 205:../target/stm32/vcom/usb_pwr.c ****       ResumeS.bESOFcnt--;
+ 16845              		.loc 1 205 0
+ 16846 010c 40F20003 		movw	r3, #:lower16:ResumeS
+ 16847 0110 C0F20003 		movt	r3, #:upper16:ResumeS
+ 16848 0114 5B78     		ldrb	r3, [r3, #1]
+ 16849 0116 DBB2     		uxtb	r3, r3
+ 16850 0118 03F1FF33 		add	r3, r3, #-1
+ 16851 011c DAB2     		uxtb	r2, r3
+ 16852 011e 40F20003 		movw	r3, #:lower16:ResumeS
+ 16853 0122 C0F20003 		movt	r3, #:upper16:ResumeS
+ 16854 0126 5A70     		strb	r2, [r3, #1]
+ 206:../target/stm32/vcom/usb_pwr.c ****       if (ResumeS.bESOFcnt == 0)
+ 16855              		.loc 1 206 0
+ 16856 0128 40F20003 		movw	r3, #:lower16:ResumeS
+ 16857 012c C0F20003 		movt	r3, #:upper16:ResumeS
+ 16858 0130 5B78     		ldrb	r3, [r3, #1]
+ 16859 0132 DBB2     		uxtb	r3, r3
+ 16860 0134 002B     		cmp	r3, #0
+ 16861 0136 22D1     		bne	.L19
+ 207:../target/stm32/vcom/usb_pwr.c ****       {
+ 208:../target/stm32/vcom/usb_pwr.c ****         wCNTR = _GetCNTR();
+ 16862              		.loc 1 208 0
+ 16863 0138 45F64043 		movw	r3, #23616
+ 16864 013c C4F20003 		movt	r3, 16384
+ 16865 0140 1B68     		ldr	r3, [r3, #0]
+ 16866 0142 FB81     		strh	r3, [r7, #14]	@ movhi
+ 209:../target/stm32/vcom/usb_pwr.c ****         wCNTR &= (~CNTR_RESUME);
+ 16867              		.loc 1 209 0
+ 16868 0144 FB89     		ldrh	r3, [r7, #14]	@ movhi
+ 16869 0146 23F01003 		bic	r3, r3, #16
+ 16870 014a FB81     		strh	r3, [r7, #14]	@ movhi
+ 210:../target/stm32/vcom/usb_pwr.c ****         _SetCNTR(wCNTR);
+ 16871              		.loc 1 210 0
+ 16872 014c 45F64043 		movw	r3, #23616
+ 16873 0150 C4F20003 		movt	r3, 16384
+ 16874 0154 FA89     		ldrh	r2, [r7, #14]
+ 16875 0156 1A60     		str	r2, [r3, #0]
+ 211:../target/stm32/vcom/usb_pwr.c ****         ResumeS.eState = RESUME_OFF;
+ 16876              		.loc 1 211 0
+ 16877 0158 40F20003 		movw	r3, #:lower16:ResumeS
+ 16878 015c C0F20003 		movt	r3, #:upper16:ResumeS
+ 16879 0160 4FF00602 		mov	r2, #6
+ 16880 0164 1A70     		strb	r2, [r3, #0]
+ 212:../target/stm32/vcom/usb_pwr.c ****       }
+ 213:../target/stm32/vcom/usb_pwr.c ****       break;
+ 16881              		.loc 1 213 0
+ 16882 0166 0BE0     		b	.L5
+ 16883              	.L7:
+ 214:../target/stm32/vcom/usb_pwr.c ****     case RESUME_OFF:
+ 215:../target/stm32/vcom/usb_pwr.c ****     case RESUME_ESOF:
+ 216:../target/stm32/vcom/usb_pwr.c ****     default:
+ 217:../target/stm32/vcom/usb_pwr.c ****       ResumeS.eState = RESUME_OFF;
+ 16884              		.loc 1 217 0
+ 16885 0168 40F20003 		movw	r3, #:lower16:ResumeS
+ 16886 016c C0F20003 		movt	r3, #:upper16:ResumeS
+ 16887 0170 4FF00602 		mov	r2, #6
+ 16888 0174 1A70     		strb	r2, [r3, #0]
+ 218:../target/stm32/vcom/usb_pwr.c ****       break;
+ 16889              		.loc 1 218 0
+ 16890 0176 00BF     		nop
+ 16891 0178 02E0     		b	.L5
+ 16892              	.L18:
+ 196:../target/stm32/vcom/usb_pwr.c ****       break;
+ 16893              		.loc 1 196 0
+ 16894 017a 00BF     		nop
+ 16895 017c 00E0     		b	.L5
+ 16896              	.L19:
+ 213:../target/stm32/vcom/usb_pwr.c ****       break;
+ 16897              		.loc 1 213 0
+ 16898 017e 00BF     		nop
+ 16899              	.L5:
+ 219:../target/stm32/vcom/usb_pwr.c ****   }
+ 220:../target/stm32/vcom/usb_pwr.c **** }
+ 16900              		.loc 1 220 0
+ 16901 0180 07F11007 		add	r7, r7, #16
+ 16902 0184 BD46     		mov	sp, r7
+ 16903 0186 80BD     		pop	{r7, pc}
+ 16904              		.cfi_endproc
+ 16905              	.LFE33:
+ 16907              		.text
+ 16908              	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 usb_pwr.c
+     /tmp/ccsqpFS1.s:16468  .bss.bDeviceState:00000000 bDeviceState
+     /tmp/ccsqpFS1.s:16469  .bss.bDeviceState:00000000 $d
+     /tmp/ccsqpFS1.s:16474  .data.fSuspendEnabled:00000000 fSuspendEnabled
+                            *COM*:00000002 ResumeS
+     /tmp/ccsqpFS1.s:16478  .text.PowerOn:00000000 $t
+     /tmp/ccsqpFS1.s:16483  .text.PowerOn:00000000 PowerOn
+     /tmp/ccsqpFS1.s:16551  .text.PowerOff:00000000 $t
+     /tmp/ccsqpFS1.s:16556  .text.PowerOff:00000000 PowerOff
+     /tmp/ccsqpFS1.s:16597  .text.Suspend:00000000 $t
+     /tmp/ccsqpFS1.s:16602  .text.Suspend:00000000 Suspend
+     /tmp/ccsqpFS1.s:16657  .text.Resume_Init:00000000 $t
+     /tmp/ccsqpFS1.s:16662  .text.Resume_Init:00000000 Resume_Init
+     /tmp/ccsqpFS1.s:16708  .text.Resume:00000000 $t
+     /tmp/ccsqpFS1.s:16713  .text.Resume:00000000 Resume
+     /tmp/ccsqpFS1.s:16753  .text.Resume:00000034 $d
+     /tmp/ccsqpFS1.s:16761  .text.Resume:0000004c $t
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+USB_Cable_Config
+wInterrupt_Mask
+Enter_LowPowerMode
+Leave_LowPowerMode

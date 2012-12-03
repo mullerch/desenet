@@ -1,0 +1,84 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"realloc.c"
+  23              	.Ltext0:
+  24              		.file 1 "../target/stm32/malloc/realloc.c"
+ 1445              		.align	2
+ 1446              		.global	realloc
+ 1447              		.thumb
+ 1448              		.thumb_func
+ 1450              	realloc:
+ 1451              	.LFB0:
+   1:../target/stm32/malloc/realloc.c **** #ifdef MALLOC_PROVIDED
+   2:../target/stm32/malloc/realloc.c **** int _dummy_calloc = 1;
+   3:../target/stm32/malloc/realloc.c **** #else
+   4:../target/stm32/malloc/realloc.c **** /* realloc.c -- a wrapper for realloc_r.  */
+   5:../target/stm32/malloc/realloc.c **** 
+   6:../target/stm32/malloc/realloc.c **** #include <_ansi.h>
+   7:../target/stm32/malloc/realloc.c **** #include <reent.h>
+   8:../target/stm32/malloc/realloc.c **** #include <stdlib.h>
+   9:../target/stm32/malloc/realloc.c **** #include <malloc.h>
+  10:../target/stm32/malloc/realloc.c **** 
+  11:../target/stm32/malloc/realloc.c **** #ifndef _REENT_ONLY
+  12:../target/stm32/malloc/realloc.c **** 
+  13:../target/stm32/malloc/realloc.c **** _PTR
+  14:../target/stm32/malloc/realloc.c **** _DEFUN (realloc, (ap, nbytes),
+  15:../target/stm32/malloc/realloc.c **** 	_PTR ap _AND
+  16:../target/stm32/malloc/realloc.c **** 	size_t nbytes)
+  17:../target/stm32/malloc/realloc.c **** {
+ 1452              		.loc 1 17 0
+ 1453              		.cfi_startproc
+ 1454              		@ args = 0, pretend = 0, frame = 8
+ 1455              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1456 0000 80B5     		push	{r7, lr}
+ 1457              	.LCFI0:
+ 1458              		.cfi_def_cfa_offset 8
+ 1459 0002 82B0     		sub	sp, sp, #8
+ 1460              	.LCFI1:
+ 1461              		.cfi_def_cfa_offset 16
+ 1462 0004 00AF     		add	r7, sp, #0
+ 1463              		.cfi_offset 14, -4
+ 1464              		.cfi_offset 7, -8
+ 1465              	.LCFI2:
+ 1466              		.cfi_def_cfa_register 7
+ 1467 0006 7860     		str	r0, [r7, #4]
+ 1468 0008 3960     		str	r1, [r7, #0]
+  18:../target/stm32/malloc/realloc.c ****   return _realloc_r (_REENT, ap, nbytes);
+ 1469              		.loc 1 18 0
+ 1470 000a 40F20003 		movw	r3, #:lower16:_impure_ptr
+ 1471 000e C0F20003 		movt	r3, #:upper16:_impure_ptr
+ 1472 0012 1B68     		ldr	r3, [r3, #0]
+ 1473 0014 1846     		mov	r0, r3
+ 1474 0016 7968     		ldr	r1, [r7, #4]
+ 1475 0018 3A68     		ldr	r2, [r7, #0]
+ 1476 001a FFF7FEFF 		bl	_realloc_r
+ 1477 001e 0346     		mov	r3, r0
+  19:../target/stm32/malloc/realloc.c **** }
+ 1478              		.loc 1 19 0
+ 1479 0020 1846     		mov	r0, r3
+ 1480 0022 07F10807 		add	r7, r7, #8
+ 1481 0026 BD46     		mov	sp, r7
+ 1482 0028 80BD     		pop	{r7, pc}
+ 1483              		.cfi_endproc
+ 1484              	.LFE0:
+ 1486 002a 00BF     		.text
+ 1487              	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 realloc.c
+     /tmp/ccAsgz8H.s:1445   .text.realloc:00000000 $t
+     /tmp/ccAsgz8H.s:1450   .text.realloc:00000000 realloc
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+_impure_ptr
+_realloc_r

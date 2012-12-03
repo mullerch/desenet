@@ -1,0 +1,69 @@
+/**
+ * @page architecture DeSEm Architecture
+ *
+ * The following diagram shows the relations between the different packages for the DeSem practical work:
+ * @image html PackageRelations.png
+ *
+ * @section interfaces Interfaces
+ * This package contains all interfaces (abstract classes in the terminology of C++) that abstract the hardware components of the two platforms
+ * (Desktop simulator and real embedded device) and the classes to create instances of them and build the relations between them.
+ *
+ * The following classes are part of this package:
+ * - IPhyTransceiver : Interface in order to send and receive frames using either the NRF transceiver on the embedded device or the Mesh Simulator on the simulated device.
+ * - IPhyObserver : Base class for all classes that have to get notified about the arrival of new frames and the send status from the class implementing the IPhyObserver interface.
+ * - IMonochromeDisplay : Abstraction of the Monochrome Display API. Required and Optional display primitives enable hardware accelerated drawing on displays supporting these drawing methods.
+ * - ILed : Abstraction for a simple LED on the embedded target or the Simulator.
+ * - IJoystick : Interface in order to initialize the joystick and to get the active joystick position.
+ * - IJoystickObserver : Interface or base class for all classes that have to get notified about changes in the joystick position.
+ * - IBuilder : Interface for the builder class that creates the object relations specific to the platform (common relations can be set up in main() function).
+ *              It uses IAir3TFactory to create instances of the classes implementing th e interfaces of this package.
+ * - IAir3TFactory : Object factory able to create objects that implement the interfaces inside this package.
+ *
+ * @section xf XF
+ * XF stands for eXecution Framework. The XF enables an asynchronous communication between the objects of a system without realtime operating system and offers the possibility to think and develop
+ * using finite state machines. For complex systems, the approach of finite state machines enables a better understanding of the problem and generally leads to a better solution with less errors than
+ * a sequential solution.
+ *
+ * The basic classes of the XF are the XFReactive and the XFEvent. An XFReactive can send and receive events (XFEvent based subclasses) and drive its internal state machine using these events. Additionally
+ * a XFReactive can schedule timers that will generate events for the XFReactive at the moment the timer expires.
+ *
+ * A simple and easy to understand example is the CD Player simulation in test/simpleFsm.hpp:
+ *
+ * @include test/simpleFsm.hpp
+ *
+ * @section trace Trace
+ * The trace package offers a simple way to write informations to a debug port. I this case this is the UART1 of the STM32 microcontroller. The universal traces is hooked up to this serial port and thus the
+ * output can be examined using a standard terminal application using the following settings:
+ * - Port: /dev/ttyUSB0
+ * - Baudrate: 115200
+ * - Parity: none
+ * - Bits: 8
+ * - Stopbits: 1
+ * - Flow Control: none
+ *
+ * @section utils Utils
+ * The Utils package contains some helper classes that do not apply to a specific package.
+ *
+ * Here a list of these classes:
+ * - Address: An address template supporting different sizes of addresses and offers the functionality to read/write the address from/to the memory native or as a hex-string.
+ * - MonochromeDisplayPainter: Used to draw on objects implementing the IMonochromeDisplay interface. It uses accelerated methods if possible to draw and falls back to non-accelerated
+ * 							   onces in the case the display do not offer these.
+ * - ObjectPool: As the name implies, a pool of prepared objects to avoid much new/delete operations if the frequency of these operations is quite high, the object pool can accelerate the
+ * 				 execution time significantly.
+ *
+ * @section phy Phy
+ * This section contains the classes related to the physical communication layer. Basically it is just a simple Frame class used to be send/received by the physical communication interface.
+ *
+ * @section test Test
+ * The test package contains several test utilities in order to test the software. Feel free to add new test scenarios.
+ *
+ * @section desenet DeSeNet
+ * Well, there is not much at the moment. It is your practical work to implement the DeSeNet communication stack.
+ *
+ * @section air3t Air3T
+ * This package contains the tools needed to create the Air3T Tic Tac Toe game. All is centered around the MVC (Model-View-Controller) pattern. All needed views in UI and the model in Data are present.
+ * The Controller class(es) in Logic however is not present as the solution uses the API provided by the DeSeNet stack solution and will anyway not be compatible with your implementation. So you have to
+ * write your own game controller.
+ *
+ * The individual packages all contain class diagrams with all classes contained and their relations.
+ */
