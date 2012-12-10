@@ -12,18 +12,11 @@
 #include <interfaces/iphytransceiver.h>
 #include <xf/xfreactive.h>
 
-class DataLink : public XFReactive, public IPhyTransceiver {
+class DataLink : public XFReactive {
 
 private:
-	DataLink();
-
-	virtual void startBehavior();					///< Starts the behavior, resp. the state machine.
-
-	virtual void pushEvent(IXFEvent * pEvent);
-	virtual EventStatus process(IXFEvent * pEvent);
 
 
-	IPhyTransceiver myPhyRTX;
 public:
 
 
