@@ -12,7 +12,7 @@
 #include <interfaces/iphytransceiver.h>
 #include <xf/xfreactive.h>
 
-class DataLink : public XFReactive {
+class DataLink : public XFReactive, public IPhyTransceiver {
 
 private:
 	DataLink();
