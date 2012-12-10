@@ -14,6 +14,7 @@
 #include <test/applicationlayertester.hpp>
 #include <test/simpleFsm.hpp>
 #include <assert.h>
+#include <desenet/Node.hpp>
 extern const char * __MESH_NAME;
 extern const char * __DATALINK_ID;
 
@@ -82,9 +83,15 @@ bool MeshSimBuilder::buildApplication( int argc , char ** argv )
 					else if ( strcmp( optarg , "datalink" ) == 0 )
 					{
 						Trace::out( "Starting Data link test..." );
-						assert( DataLink().initialize( factory.phyTransceiver() , Node::NodeId::fromHexString( __DATALINK_ID ) ) );
-						new DataLinkTester( factory.phyTransceiver() , factory.joystick() );
+						DataLink *dl = new DataLink();
+						dl->advertiseStart(NULL);
+
 						return true;
+						//FIXME make this to compile (original code)
+//						Trace::out( "Starting Data link test..." );
+//						assert( DataLink().initialize( factory.phyTransceiver() , Node::NodeId::fromHexString( __DATALINK_ID ) ) );
+//						new DataLinkTester( factory.phyTransceiver() , factory.joystick() );
+//						return true;
 					}
 #				endif
 #				ifdef APPLICATION_LAYER_TESTER_PRESENT

@@ -11,6 +11,7 @@
 #include <xf/xfstaticevent.h>
 #include <IAir3TFactory>
 #include <trace/trace.h>
+#include <desenet/Node.hpp>
 
 class DataLink : public XFReactive {
 private:
@@ -28,14 +29,20 @@ private:
 	class AdvertiseIntervalTimeout			{ public: static const int Id = 31; };
 	class ConnectionPduMaxTimeout			{ public: static const int Id = 32; };
 	class ConnectionIntervalTimeout			{ public: static const int Id = 33; };
+	class WaitNullTransition				{ public: static const int Id = 40; };
 
 public:
 	DataLink() : 	_state( Initialize ) ,
-					_advertiseSubstate( SendAdvertise ) ,
+					_advertiseSubstate( AdvertiseInitialize ) ,
 //					_receiveAdvertiseSubstate( WaitForAdvertiseData ) ,
-					_establishConnectionSubstate( WaitForConnectionData ) ,
-					_connectedSubstate( Initial ) {
+					_establishConnectionSubstate( EstablishConnectionInitialize ) ,
+					_connectedSubstate( ConnectedInitialize ) {
 		startBehavior();
+	}
+
+	bool initialize( IPhyTransceiver & transceiver , Node::NodeId DataLinkId ){
+		//TODO implement
+		return true;
 	}
 
 	void advertiseStart(void *desc) 		{ static StartAdvertiseRequestEvent event; 	pushEvent( &event );}
@@ -58,9 +65,9 @@ public:
 
 private:
 	enum { Initialize , Idle , Advertise , EstablishConnection , AcceptConnection , Connected } _state , _oldState;
-	enum { SendAdvertise , WaitForAdvertiseData , ProcessAdvertiseData } _advertiseSubstate , _oldAdvertiseSubstate;
-	enum { WaitForConnectionData , ProcessConnectionData } _establishConnectionSubstate , _oldEstablishConnectionSubstate;
-	enum { Initial , SendQueuedDataPdu , WaitDataPdu , ProcessDataPdu , CloseConnection , WaitForNextConnectionEvent , EnableTransceiver } _connectedSubstate , _oldConnectedSubstate;
+	enum { AdvertiseInitialize , SendAdvertise , WaitForAdvertiseData , ProcessAdvertiseData } _advertiseSubstate , _oldAdvertiseSubstate;
+	enum { EstablishConnectionInitialize, WaitForConnectionData , ProcessConnectionData } _establishConnectionSubstate , _oldEstablishConnectionSubstate;
+	enum { ConnectedInitialize , SendQueuedDataPdu , WaitDataPdu , ProcessDataPdu , CloseConnection , WaitForNextConnectionEvent , EnableTransceiver } _connectedSubstate , _oldConnectedSubstate;
 
 	enum PeerRole { MASTER , SLAVE };
 	enum ConnectionStatus { CONNECTED , LINK_LOSS , PEER_DISCONNECT };
@@ -73,13 +80,14 @@ private:
 	static const int CONNECTION_INTERVAL_TIMEOUT = 1000;
 
 	EventStatus processEvent() {
+		Trace::out("# Event!");
 
 		IXFEvent *e = getCurrentEvent();
 		_oldState = _state;
-		_advertiseSubstate = _oldAdvertiseSubstate;
+		_oldAdvertiseSubstate = _advertiseSubstate;
 //		_receiveAdvertiseSubstate = _oldReceiveAdvertiseSubstate;
-		_establishConnectionSubstate = _oldEstablishConnectionSubstate;
-		_connectedSubstate = _oldConnectedSubstate;
+		_oldEstablishConnectionSubstate = _establishConnectionSubstate;
+		_oldConnectedSubstate = _connectedSubstate;
 
 
 		switch( _state ) {
@@ -90,8 +98,11 @@ private:
 
 		case Idle:
 
-			if ( e->getEventType() == XFEvent::Event && e->getId() == StartAdvertiseRequestEvent::Id )
+			if ( e->getEventType() == XFEvent::Event && e->getId() == StartAdvertiseRequestEvent::Id ){
 				_state = Advertise;
+				_advertiseSubstate = WaitForAdvertiseData;
+			}
+
 			break;
 
 		case Advertise:
@@ -145,10 +156,14 @@ private:
 		if( _state != _oldState ) {
 			switch( _state ) {
 			case Idle:
-				Trace::out("->[main state] Idle");
+				Trace::out("->[Idle]");
+				break;
+			case Advertise:
+				Trace::out("->[Advertise]");
 				break;
 
 			case EstablishConnection:
+				Trace::out("->[EstablishConnection]");
 				getThread()->scheduleTimeout(EstablishConnectionTimeout::Id, ESTABLISH_CONNECTION_TIMEOUT, this);
 				break;
 
@@ -160,9 +175,16 @@ private:
 		if( _advertiseSubstate != _oldAdvertiseSubstate ) {
 			switch( _advertiseSubstate ) {
 			case WaitForAdvertiseData:
+				Trace::out("\t->[WaitForAdvertiseData]");
 				getThread()->scheduleTimeout(AdvertiseIntervalTimeout::Id, ADVERTISE_INTERVAL_TIMEOUT, this);
 				break;
 
+			case SendAdvertise:
+				Trace::out("\t- sending my advertise");
+				pushEvent( new XFNullTransition( WaitNullTransition::Id ) );
+			case ProcessAdvertiseData:
+				Trace::out("\t- processing advertise received");
+				pushEvent( new XFNullTransition( WaitNullTransition::Id ) );
 			default:
 				break;
 			}
@@ -220,6 +242,7 @@ private:
 				break;
 			}
 		}
+		return EventStatus::Consumed; //TODO : not necessary consumed...
 	}
 
 	/*
@@ -229,6 +252,10 @@ private:
 	void SubMachineAdvertise(IXFEvent *e) {
 
 		switch(_advertiseSubstate) {
+		case AdvertiseInitialize:
+			_advertiseSubstate = SendAdvertise;
+			break;
+
 		case SendAdvertise:
 			//TODO send
 			_advertiseSubstate = WaitForAdvertiseData;
@@ -236,9 +263,10 @@ private:
 
 		case WaitForAdvertiseData:
 
-			if ( e->getEventType() == XFEvent::Timeout && e->getId() == AdvertiseIntervalTimeout::Id )
+			if ( e->getEventType() == XFEvent::Timeout && e->getId() == AdvertiseIntervalTimeout::Id ){
+				Trace::out("->[SendAdvertise]");
 				_advertiseSubstate = SendAdvertise;
-			else if ( e->getEventType() == XFEvent::Event && e->getId() == DataIndicationEvent::Id )
+			}else if ( e->getEventType() == XFEvent::Event && e->getId() == DataIndicationEvent::Id )
 				_advertiseSubstate = ProcessAdvertiseData;
 			break;
 
@@ -270,6 +298,10 @@ private:
 	void SubMachineEstablishConnection(IXFEvent *e) {
 
 		switch(_establishConnectionSubstate) {
+		case EstablishConnectionInitialize:
+			_establishConnectionSubstate = WaitForConnectionData;
+			break;
+
 		case WaitForConnectionData:
 			if ( e->getEventType() == XFEvent::Event && e->getId() == DataIndicationEvent::Id )
 				_establishConnectionSubstate = ProcessConnectionData;
@@ -288,7 +320,7 @@ private:
 	ConnectionStatus SubMachineConnected(IXFEvent *e) {
 
 		switch(_connectedSubstate) {
-		case Initial:
+		case ConnectedInitialize:
 			switch(role){
 			case MASTER:
 				_connectedSubstate = SendQueuedDataPdu;
