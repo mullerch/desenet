@@ -14,7 +14,8 @@
 #include <test/applicationlayertester.hpp>
 #include <test/simpleFsm.hpp>
 #include <assert.h>
-#include <desenet/Node.hpp>
+#include <desenet/datalink/Node.hpp>
+
 extern const char * __MESH_NAME;
 extern const char * __DATALINK_ID;
 
@@ -83,8 +84,8 @@ bool MeshSimBuilder::buildApplication( int argc , char ** argv )
 					else if ( strcmp( optarg , "datalink" ) == 0 )
 					{
 						Trace::out( "Starting Data link test..." );
-						DataLink *dl = new DataLink();
-						dl->advertiseStart(NULL);
+						DataLink dl;
+						dl.advertiseStart(NULL);
 
 						return true;
 						//FIXME make this to compile (original code)

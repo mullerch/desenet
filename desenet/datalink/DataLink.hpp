@@ -11,12 +11,17 @@
 #include <xf/xfstaticevent.h>
 #include <IAir3TFactory>
 #include <trace/trace.h>
-#include <desenet/Node.hpp>
+#include <desenet/datalink/Node.hpp>
+#include <interfaces/iphyobserver.h>
+//#include <vector>
 
-class DataLink : public XFReactive {
+using namespace std;
+
+class DataLink : public XFReactive, public IPhyObserver {
 private:
 	class StartAdvertiseRequestEvent : 		public XFStaticEvent { public: static const int Id = 10; StartAdvertiseRequestEvent() : 	XFStaticEvent( Id ) {} };
-	class ConnectionIndicationEvent : 		public XFStaticEvent { public: static const int Id = 11; ConnectionIndicationEvent() : 		XFStaticEvent( Id ) {} };
+	class StopAdvertiseRequestEvent	:		public XFStaticEvent { public: static const int Id = 11; StopAdvertiseRequestEvent() : 		XFStaticEvent( Id ) {} };
+	class ConnectionIndicationEvent : 		public XFStaticEvent { public: static const int Id = 12; ConnectionIndicationEvent() : 		XFStaticEvent( Id ) {} };
 
 	class ConnectionRequestEvent : 			public XFStaticEvent { public: static const int Id = 20; ConnectionRequestEvent() : 		XFStaticEvent( Id ) {} };
 	class ConnectionConfirmationEvent : 	public XFStaticEvent { public: static const int Id = 21; ConnectionConfirmationEvent() : 	XFStaticEvent( Id ) {} };
@@ -31,30 +36,35 @@ private:
 	class ConnectionIntervalTimeout			{ public: static const int Id = 33; };
 	class WaitNullTransition				{ public: static const int Id = 40; };
 
+	queue<Frame> rxQueue, txQueue;
+	IPhyTransceiver *transceiver;
+
+
 public:
 	DataLink() : 	_state( Initialize ) ,
 					_advertiseSubstate( AdvertiseInitialize ) ,
-//					_receiveAdvertiseSubstate( WaitForAdvertiseData ) ,
 					_establishConnectionSubstate( EstablishConnectionInitialize ) ,
 					_connectedSubstate( ConnectedInitialize ) {
 		startBehavior();
+
 	}
 
 	bool initialize( IPhyTransceiver & transceiver , Node::NodeId DataLinkId ){
-		//TODO implement
+		this->transceiver = &transceiver; //FIXME peut être faux
+		transceiver.setObserver(this);
 		return true;
 	}
 
 	void advertiseStart(void *desc) 		{ static StartAdvertiseRequestEvent event; 	pushEvent( &event );}
-//	void advertiseStop() 					{ static disc? event; 	pushEvent( &event );}
+	void advertiseStop() 					{ static StopAdvertiseRequestEvent event; 	pushEvent( &event );}
 	void connectRequest(void *peerHandle, int connectionInterval, void *serviceReference)
 											{ static ConnectionRequestEvent event; 		pushEvent( &event );}
 	void connectIndication( void *peerHandle, void *serviceReference ) {}
 	void disconnectRequest() 				{ static ConnectionRequestEvent event; 		pushEvent( &event );}
 	void disconnectIndication( void *cause ){}
 
-//	void dataRequest( void * data) 			{ static SendQueuedDataPdu event; 			pushEvent( &event );}
-	void dataIndication( void * data) 		{}
+	void dataRequest( Frame *data ) 		{ txQueue.push(*data); }
+	void dataIndication( void *data) 		{}
 	void appear( void *peerHandle, void *peerDescription) {}
 	void disappear( void *peerHandle )		{}
 
@@ -85,7 +95,6 @@ private:
 		IXFEvent *e = getCurrentEvent();
 		_oldState = _state;
 		_oldAdvertiseSubstate = _advertiseSubstate;
-//		_receiveAdvertiseSubstate = _oldReceiveAdvertiseSubstate;
 		_oldEstablishConnectionSubstate = _establishConnectionSubstate;
 		_oldConnectedSubstate = _connectedSubstate;
 
@@ -112,6 +121,8 @@ private:
 				_state = EstablishConnection;
 			else if ( e->getEventType() == XFEvent::Event && e->getId() == ConnectionIndicationEvent::Id )
 				_state = AcceptConnection;
+			else if ( e->getEventType() == XFEvent::Event && e->getId() == StopAdvertiseRequestEvent::Id )
+				_state = Idle;
 			break;
 
 		case EstablishConnection:
@@ -155,9 +166,14 @@ private:
 		/* Action on entry */
 		if( _state != _oldState ) {
 			switch( _state ) {
+			case Initialize:
+				Trace::out("->[Initialize global state machine]");
+				break;
+
 			case Idle:
 				Trace::out("->[Idle]");
 				break;
+
 			case Advertise:
 				Trace::out("->[Advertise]");
 				break;
@@ -167,13 +183,27 @@ private:
 				getThread()->scheduleTimeout(EstablishConnectionTimeout::Id, ESTABLISH_CONNECTION_TIMEOUT, this);
 				break;
 
+			case AcceptConnection:
+				Trace::out("->[AcceptConnection]");
+				pushEvent( new XFNullTransition( WaitNullTransition::Id ) );
+				break;
+
+			case Connected:
+				Trace::out("->[Connected]");
+				break;
+
 			default:
+				Trace::out("\t->[undefined state error]");
 				break;
 			}
 		}
 
 		if( _advertiseSubstate != _oldAdvertiseSubstate ) {
 			switch( _advertiseSubstate ) {
+			case AdvertiseInitialize:
+				Trace::out("->[Initialize advertisement phase state machine]");
+				break;
+
 			case WaitForAdvertiseData:
 				Trace::out("\t->[WaitForAdvertiseData]");
 				getThread()->scheduleTimeout(AdvertiseIntervalTimeout::Id, ADVERTISE_INTERVAL_TIMEOUT, this);
@@ -182,25 +212,77 @@ private:
 			case SendAdvertise:
 				Trace::out("\t- sending my advertise");
 				pushEvent( new XFNullTransition( WaitNullTransition::Id ) );
+
 			case ProcessAdvertiseData:
 				Trace::out("\t- processing advertise received");
 				pushEvent( new XFNullTransition( WaitNullTransition::Id ) );
+
 			default:
+				Trace::out("\t- undefined state error");
+				break;
+			}
+		}
+
+		if( _establishConnectionSubstate != _oldEstablishConnectionSubstate ) {
+			switch( _establishConnectionSubstate ) {
+			case EstablishConnectionInitialize:
+				Trace::out("->[Initialize connection establishment state machine]");
+				break;
+
+			case WaitForConnectionData:
+				Trace::out("\t- wait for connection data");
+				break;
+
+			case ProcessConnectionData:
+				Trace::out("\t- process connection data");
+				pushEvent( new XFNullTransition( WaitNullTransition::Id ) );
+				break;
+
+			default:
+				Trace::out("\t- undefined state error");
 				break;
 			}
 		}
 
 		if( _connectedSubstate != _oldConnectedSubstate ) {
 			switch( _connectedSubstate ) {
+			case ConnectedInitialize:
+				Trace::out("\t- initialize data transfer (alias 'connected') state machine");
+				break;
+
+			case SendQueuedDataPdu:
+				Trace::out("\t- send queued data pdu");
+				if(!txQueue.empty()) {
+					transceiver->send(txQueue.front());
+					txQueue.pop();
+				}
+				break;
+
 			case WaitDataPdu:
+				Trace::out("\t- wait data pdu");
 				getThread()->scheduleTimeout(ConnectionPduMaxTimeout::Id, CONNECTION_PDU_MAX_TIMEOUT, this);
 				break;
 
+			case ProcessDataPdu:
+				Trace::out("\t- process data pdu");
+				pushEvent( new XFNullTransition( WaitNullTransition::Id ) );
+				break;
+
+			case CloseConnection:
+				Trace::out("\t- close connection");
+				break;
+
 			case WaitForNextConnectionEvent:
+				Trace::out("\t- wait for connection");
 				getThread()->scheduleTimeout(ConnectionIntervalTimeout::Id, CONNECTION_INTERVAL_TIMEOUT, this);
 				break;
 
+			case EnableTransceiver:
+				Trace::out("\t- enable transceiver");
+				break;
+
 			default:
+				Trace::out("\t- undefined state error");
 				break;
 			}
 		}
@@ -385,6 +467,31 @@ private:
 		return CONNECTED;
 	}
 
+	void onReceive( const Frame &pdu ) {
+		rxQueue.push(pdu);
+		pushEvent( new XFStaticEvent( DataIndicationEvent::Id ) );
+	}
+
+	void onSendStatus( SendStatus status ) {
+		switch( status ) {
+		case Delivered:
+			pushEvent( new XFStaticEvent( FrameDeliveredEvent::Id ) );
+			break;
+
+		case NotDelivered:
+			pushEvent( new XFStaticEvent( FrameNotDeliveredEvent::Id ) );
+			break;
+
+		case Sent:
+			Trace::out("\t- SendStatus = Sent");
+			break;
+
+		case InvalidStatus:
+			Trace::out("\t- SendStatus = InvalidStatus");
+			pushEvent( new XFStaticEvent( FrameNotDeliveredEvent::Id ) );
+			break;
+		}
+	}
 
 };
 
