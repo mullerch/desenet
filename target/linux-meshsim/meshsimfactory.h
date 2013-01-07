@@ -1,4 +1,5 @@
 #include <IAir3TFactory>
+#include "desenet/datalink/DataLink.hpp"
 class MeshSimTransceiver;
 class MeshSimBoard;
 class QWidget;
@@ -16,6 +17,7 @@ public:
 	IMonochromeDisplay & monochromeDisplay();
 	IJoystick & joystick();
 	ILed & led();
+	DataLink & dataLink();
 	//static IAir3TFactory & factory( int argc = 0 , char ** argv = NULL );
 	//static IBuilder & builder();
 
@@ -29,4 +31,5 @@ private:
 	// The pointers to the objects...
 	MeshSimTransceiver * _transceiver;
 	MeshSimBoard * _board;
+	DataLink * _datalink;
 };

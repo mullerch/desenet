@@ -1,12 +1,11 @@
 #pragma once
-#include <IPhyObserver>
+#include "idatalinkobserver.h"
 #include <IJoystickObserver>
 #include <IPhyTransceiver>
 #include <IJoystick>
 #include <IMonochromeDisplay>
 #include <phy/Frame>
 #include <trace/Trace>
-#include <utils/MonochromeDisplayPainter>
 
 #define DATALINK_LAYER_TESTER_PRESENT
 
@@ -15,41 +14,37 @@
  * Tests the PHY interface by sending the joystick events to all reachable nodes and the received events will be used
  * to draw into the display.
  */
-class DataLinkTester : public IPhyObserver , public IJoystickObserver
+class DataLinkTester : public IJoystickObserver, public IDataLinkObserver
 {
 public:
 	/**
 	 * Initializes all needed components and prepares the test object itself.
 	 */
-	DataLinkTester( IPhyTransceiver & transceiver , IJoystick & joystick , IMonochromeDisplay & display )
-		: _transceiver( transceiver ) , _joystick( joystick ) , _display( display ) ,_p( 42 , 24 )
+	DataLinkTester( DataLink & datalink , IJoystick & joystick )
+		: _datalink( datalink ) , _joystick( joystick )
 	{
-		_transceiver.setObserver( this );
-		_transceiver.setReceptionFilterAddress( IPhyTransceiver::FilterAddress::fromHexString( "8E89BED6" ) );
+		_datalink.setObserver( this );
+		//_transceiver.setReceptionFilterAddress( IPhyTransceiver::FilterAddress::fromHexString( "8E89BED6" ) );
 
 		_joystick.setObserver( this );
-
-		_display.clear();
-	}
-
-	void onReceive( const Frame & frame )
-	{
-
-	}
-
-	void onSendStatus( SendStatus status )
-	{
-
 	}
 
 	void onPositionChange( IJoystick::Position position )
 	{
-
+		if ( position != IJoystick::Center )
+		{
+			//DataLink();
+			Trace::out( "Action!" );
+			//_datalink.advertiseStart(NULL);
+		}
 	}
 
+	virtual void onNodeAppear( const Node &node ) {};
+	virtual void onNodeDissapear( const Node &node ) {};
+	virtual void onConnectConfirm( ConnectStatus status ){};
+	virtual void onDataIndication( const Frame &frame ){}
+
 private:
-	IPhyTransceiver & _transceiver;
+	DataLink & _datalink;
 	IJoystick & _joystick;
-	IMonochromeDisplay & _display;
-	IMonochromeDisplay::Point _p;
 };

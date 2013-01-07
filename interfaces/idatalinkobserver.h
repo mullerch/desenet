@@ -14,12 +14,12 @@ class Frame;
  * other methods that could use them. Execute only as much code as needed to process these events (set event flags,
  * push event to queue,...).
  */
-class DataLinkObserver
+class IDataLinkObserver
 {
 protected:
 	// It is just an interface, so constructor and destructor should be not public.
-	explicit DataLinkObserver() {}
-	virtual ~DataLinkObserver() {}
+	explicit IDataLinkObserver() {}
+	virtual ~IDataLinkObserver() {}
 
 public:
 	virtual void onNodeAppear( const Node &node ) = 0;
@@ -33,7 +33,7 @@ public:
 	virtual void onConnectConfirm( ConnectStatus status ) = 0;
 
 
-	virtual void onConnectIndication( const Node &node, Air3tService &service ) = 0;
+	//virtual void onConnectIndication( const Node &node, Air3tService &service ) = 0;
 	virtual void onDataIndication( const Frame &frame ) = 0;
 
 };
