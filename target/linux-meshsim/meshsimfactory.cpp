@@ -19,7 +19,7 @@ const char *    __DATALINK_ID	= "191277310808";
 
 /*** MeshSim Factory implementation. *********************************************************************************/
 
-MeshSimFactory::MeshSimFactory( int argc , char ** argv ) : _transceiver( NULL ) , _board( NULL )
+MeshSimFactory::MeshSimFactory( int argc , char ** argv ) : _transceiver( NULL ) , _board( NULL ), _datalink( NULL )
 {
 	// Parse command line arguments...
 	int c;
@@ -48,6 +48,15 @@ MeshSimFactory::MeshSimFactory( int argc , char ** argv ) : _transceiver( NULL )
 
 MeshSimFactory::~MeshSimFactory()
 {}
+
+DataLink & MeshSimFactory::dataLink(){
+	// Create transceiver object on demand.
+	if ( !_datalink ) _datalink = new DataLink();
+	assert( _datalink );
+
+	// Return the reference to the object.
+	return *_datalink;
+}
 
 IPhyTransceiver & MeshSimFactory::phyTransceiver()
 {

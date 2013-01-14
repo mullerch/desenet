@@ -13,8 +13,9 @@
 #include <trace/trace.h>
 #include <desenet/datalink/Node.hpp>
 #include <interfaces/iphyobserver.h>
-
 #include <types.h>
+#include <interfaces/idatalinkobserver.h>
+#include <iphytransceiver.h>
 
 using namespace std;
 
@@ -38,35 +39,59 @@ private:
 	class WaitNullTransition				{ public: static const int Id = 40; };
 
 	queue<Frame> rxQueue, txQueue;
-	IPhyTransceiver *transceiver;
+	IPhyTransceiver *_transceiver;
+	IDataLinkObserver *_observer;
 
 
 public:
 	DataLink() : 	_state( Initialize ) ,
 					_advertiseSubstate( AdvertiseInitialize ) ,
 					_establishConnectionSubstate( EstablishConnectionInitialize ) ,
-					_connectedSubstate( ConnectedInitialize ) {
-		startBehavior();
-
+					_connectedSubstate( ConnectedInitialize ),
+					_transceiver( NULL ),
+					_observer( NULL ){
 	}
 
 	bool initialize( IPhyTransceiver & transceiver , Node::NodeId DataLinkId ){
-		this->transceiver = &transceiver; //FIXME peut être faux
-		transceiver.setObserver(this);
+		//this->transceiver = &transceiver; //FIXME peu être faux
+		//transceiver.setObserver(this);
+		startBehavior();
 		return true;
 	}
 
 	void advertiseStart(uint8_t *desc) 		{ static StartAdvertiseRequestEvent event; 	pushEvent( &event );}
+
+	bool setObserver( IDataLinkObserver * observer )
+	{
+		// If there was an set an observer already, fail. Otherwise set the observer and return true.
+		if ( _observer == NULL ){
+			_observer = observer;
+			return true;
+		}
+		else
+		{
+			Trace::out( "There is already an observer registered, ignoring the new one!" );
+			return false;
+		}
+	}
+
+
 	void advertiseStop() 					{ static StopAdvertiseRequestEvent event; 	pushEvent( &event );}
-	void connectRequest(Node *node, int connectionInterval, void *serviceReference)
+	void connectRequest(void *peerHandle, int connectionInterval, void *serviceReference)
 											{ static ConnectionRequestEvent event; 		pushEvent( &event );}
-	void disconnectRequest() 				{ static ConnectionRequestEvent event; 		pushEvent( &event );}
+	void disconnectRequest() 
 
 	void dataRequest( DataPdu *data ) 		{
 		Frame frame;
 		frame = Frame();
 		txQueue.push();
 	}
+	void disconnectIndication( void *cause ){}
+
+	
+	void dataIndication( void *data) 		{}
+	void appear( void *peerHandle, void *peerDescription) {}
+	void disappear( void *peerHandle )		{}
 
 private:
 	enum { Initialize , Idle , Advertise , EstablishConnection , AcceptConnection , Connected } _state , _oldState;
@@ -247,6 +272,10 @@ private:
 
 			case SendQueuedDataPdu:
 				Trace::out("\t- send queued data pdu");
+				if(!txQueue.empty()) {
+					_transceiver->send(txQueue.front());
+					txQueue.pop();
+				}
 				break;
 
 			case WaitDataPdu:

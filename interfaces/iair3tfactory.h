@@ -4,6 +4,7 @@ class IMonochromeDisplay;
 class IJoystick;
 class ILed;
 class IBuilder;
+class DataLink;
 
 #ifndef NULL
 #define NULL 0
@@ -61,6 +62,8 @@ public:
 	 * @return Reference to the single object that implements the IPhyTrasnceiver interface for the current target.
 	 */
 	virtual IPhyTransceiver & phyTransceiver() = 0;
+
+	virtual DataLink & dataLink() = 0;
 
 	/**
 	 * @brief Returns a reference to the object that implements the IMonochromeDisplay interface and which enables the
