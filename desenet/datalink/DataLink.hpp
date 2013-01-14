@@ -13,7 +13,8 @@
 #include <trace/trace.h>
 #include <desenet/datalink/Node.hpp>
 #include <interfaces/iphyobserver.h>
-//#include <vector>
+
+#include <types.h>
 
 using namespace std;
 
@@ -55,23 +56,17 @@ public:
 		return true;
 	}
 
-	void advertiseStart(void *desc) 		{ static StartAdvertiseRequestEvent event; 	pushEvent( &event );}
+	void advertiseStart(uint8_t *desc) 		{ static StartAdvertiseRequestEvent event; 	pushEvent( &event );}
 	void advertiseStop() 					{ static StopAdvertiseRequestEvent event; 	pushEvent( &event );}
-	void connectRequest(void *peerHandle, int connectionInterval, void *serviceReference)
+	void connectRequest(Node *node, int connectionInterval, void *serviceReference)
 											{ static ConnectionRequestEvent event; 		pushEvent( &event );}
-	void connectIndication( void *peerHandle, void *serviceReference ) {}
 	void disconnectRequest() 				{ static ConnectionRequestEvent event; 		pushEvent( &event );}
-	void disconnectIndication( void *cause ){}
 
-	void dataRequest( Frame *data ) 		{ txQueue.push(*data); }
-	void dataIndication( void *data) 		{}
-	void appear( void *peerHandle, void *peerDescription) {}
-	void disappear( void *peerHandle )		{}
-
-	void initialize() {
-
+	void dataRequest( DataPdu *data ) 		{
+		Frame frame;
+		frame = Frame();
+		txQueue.push();
 	}
-
 
 private:
 	enum { Initialize , Idle , Advertise , EstablishConnection , AcceptConnection , Connected } _state , _oldState;
@@ -252,10 +247,6 @@ private:
 
 			case SendQueuedDataPdu:
 				Trace::out("\t- send queued data pdu");
-				if(!txQueue.empty()) {
-					transceiver->send(txQueue.front());
-					txQueue.pop();
-				}
 				break;
 
 			case WaitDataPdu:
@@ -414,6 +405,11 @@ private:
 			}
 
 		case SendQueuedDataPdu:
+			if(!txQueue.empty()) {
+				transceiver->send(txQueue.front());
+				txQueue.pop();
+			}
+
 			if ( e->getEventType() == XFEvent::Event && e->getId() == FrameNotDeliveredEvent::Id )
 				break;
 			else if ( e->getEventType() == XFEvent::Event && e->getId() == FrameDeliveredEvent::Id ) {

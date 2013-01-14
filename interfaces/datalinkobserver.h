@@ -25,15 +25,19 @@ public:
 	virtual void onNodeAppear( const Node &node ) = 0;
 	virtual void onNodeDissapear( const Node &node ) = 0;
 
-	enum ConnectStatus
-	{
-		Success	= 0 ,
-		Failure = 1 ,
+	enum ConnectStatus {
+		Success,
+		Failure,
 	};
 	virtual void onConnectConfirm( ConnectStatus status ) = 0;
 
-
 	virtual void onConnectIndication( const Node &node, Air3tService &service ) = 0;
+
+	enum DisconnectCause {
+		LinkLoss,
+		PeerDisconnect,
+	};
+	virtual void onDisconnectIndication( DisconnectCause cause );
 	virtual void onDataIndication( const Frame &frame ) = 0;
 
 };
