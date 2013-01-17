@@ -12,6 +12,10 @@
 class Node{
 public:
 	typedef Address<6> NodeId;
+
+	typedef Address<4> NodeAddress;
+
+	NodeAddress address;
 };
 
 #endif /* NODE_HPP_ */

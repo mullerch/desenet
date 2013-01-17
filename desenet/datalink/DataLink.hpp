@@ -13,9 +13,13 @@
 #include <trace/trace.h>
 #include <desenet/datalink/Node.hpp>
 #include <interfaces/iphyobserver.h>
-#include <types.h>
 #include <interfaces/idatalinkobserver.h>
 #include <iphytransceiver.h>
+#include <desenet/datalink/Node.hpp>
+#include <desenet/datalink/DataPdu.hpp>
+
+#include <iostream>
+#include <queue>
 
 using namespace std;
 
@@ -47,14 +51,12 @@ public:
 	DataLink() : 	_state( Initialize ) ,
 					_advertiseSubstate( AdvertiseInitialize ) ,
 					_establishConnectionSubstate( EstablishConnectionInitialize ) ,
-					_connectedSubstate( ConnectedInitialize ),
-					_transceiver( NULL ),
-					_observer( NULL ){
+					_connectedSubstate( ConnectedInitialize ){
 	}
 
 	bool initialize( IPhyTransceiver & transceiver , Node::NodeId DataLinkId ){
-		//this->transceiver = &transceiver; //FIXME peu être faux
-		//transceiver.setObserver(this);
+		_transceiver = &transceiver; //FIXME peut être faux
+		_transceiver->setObserver(this);
 		startBehavior();
 		return true;
 	}
@@ -79,12 +81,32 @@ public:
 	void advertiseStop() 					{ static StopAdvertiseRequestEvent event; 	pushEvent( &event );}
 	void connectRequest(void *peerHandle, int connectionInterval, void *serviceReference)
 											{ static ConnectionRequestEvent event; 		pushEvent( &event );}
-	void disconnectRequest() 
+	void disconnectRequest() {}
 
-	void dataRequest( DataPdu *data ) 		{
-		Frame frame;
-		frame = Frame();
-		txQueue.push();
+	void dataRequest( Node node, char *data, int size ) {
+
+		DataPdu *dataPdu;
+		Frame *frame;
+
+		int i;
+		// for each data byte
+		for(i=0; i<size; i++) {
+			// if we have 32 bytes, send
+
+			if(i%32) {
+				dataPdu = new DataPdu(data[i-32], 32, true);
+				frame = new Frame(node.address, dataPdu, dataPdu->getPayloadSize() + 6);
+				txQueue.push(*frame);
+			}
+		}
+
+		// if we have data left (not full payload frame)
+		if(size%32 != 0) {
+			// send left data
+			dataPdu = new DataPdu(data[i-32], 32, true);
+			frame = new Frame(node.address, dataPdu, dataPdu->getPayloadSize() + 6);
+			txQueue.push(*frame);
+		}
 	}
 	void disconnectIndication( void *cause ){}
 
@@ -435,7 +457,7 @@ private:
 
 		case SendQueuedDataPdu:
 			if(!txQueue.empty()) {
-				transceiver->send(txQueue.front());
+				_transceiver->send(txQueue.front());
 				txQueue.pop();
 			}
 
@@ -462,14 +484,24 @@ private:
 
 		case ProcessDataPdu:
 			//TODO process
+			Frame *frame;
 
-			if (1) // disconnection
+			if(rxQueue.empty())
+				break;
+
+			*frame = rxQueue.front();
+			rxQueue.pop();
+
+
+			DataPdu *dataPdu;
+			*dataPdu = *((DataPdu*)(frame->payloadBytes()));
+
+			if (0) // disconnection
 				_connectedSubstate = CloseConnection;
-			else if (1) // plus de data MMF=0 && SMF==0
+			else if (dataPdu->isMoreData()) // plus de data MMF==0 && SMF==0
 				_connectedSubstate = WaitForNextConnectionEvent;
 			else
 				_connectedSubstate = SendQueuedDataPdu;
-
 			break;
 
 		case CloseConnection:

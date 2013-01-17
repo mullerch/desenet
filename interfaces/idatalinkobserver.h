@@ -35,7 +35,7 @@ public:
 		LinkLoss,
 		PeerDisconnect,
 	};
-	virtual void onDisconnectIndication( DisconnectCause cause );
+	virtual void onDisconnectIndication( DisconnectCause cause ) = 0;
 
 	//virtual void onConnectIndication( const Node &node, Air3tService &service ) = 0;
 	virtual void onDataIndication( const Frame &frame ) = 0;

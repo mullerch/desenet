@@ -14,8 +14,7 @@
  * Tests the PHY interface by sending the joystick events to all reachable nodes and the received events will be used
  * to draw into the display.
  */
-class DataLinkTester : public IJoystickObserver, public IDataLinkObserver
-{
+class DataLinkTester : public IJoystickObserver, public IDataLinkObserver {
 public:
 	/**
 	 * Initializes all needed components and prepares the test object itself.
@@ -39,10 +38,11 @@ public:
 		}
 	}
 
-	virtual void onNodeAppear( const Node &node ) {};
-	virtual void onNodeDissapear( const Node &node ) {};
-	virtual void onConnectConfirm( ConnectStatus status ){};
+	virtual void onNodeAppear( const Node &node ) {}
+	virtual void onNodeDissapear( const Node &node ) {}
+	virtual void onConnectConfirm( ConnectStatus status ){}
 	virtual void onDataIndication( const Frame &frame ){}
+	virtual void onDisconnectIndication( DisconnectCause cause ){}
 
 private:
 	DataLink & _datalink;
