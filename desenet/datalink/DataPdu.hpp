@@ -21,25 +21,15 @@ public:
 	 : payload(payload), payloadSize(size), smd(smd), cmd(true)  {
 	}
 
-//	DataPdu(Frame frame) {
-//
-//		DataPdu dataPdu = (DataPdu) *frame.payloadBytes();
-//
-//		this->payload = dataPdu.payload;
-//		this->payload_size = dataPdu.payload_size;
-//		this->smd = dataPdu.smd;
-//		this->cmd = dataPdu.cmd;
-//	}
-
 	bool isMoreData() {
-		return smd && cmd;
+		return smd || cmd;
 	}
 
 	int getPayloadSize() {
 		return payloadSize;
 	}
 
-	const char * getPayloadBytes() const {
+	const char *getPayloadBytes() const {
 		return payload;
 	}
 

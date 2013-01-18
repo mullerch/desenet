@@ -3,7 +3,6 @@
 #include <stdint.h>
 #include <phy/frame.h>
 #include <desenet/datalink/Node>
-#include <vector>
 
 using namespace std;
 
@@ -20,7 +19,7 @@ public:
 	AdvPdu(Node::NodeId nodeId, uint8_t* advData) {
 		header = ADV;
 		payload.nodeId=nodeId;
-		memcpy(advData, payload.advData, 4);
+		memcpy(payload.advData, advData, 4);
 	}
 
 	size_t size(){
@@ -35,6 +34,10 @@ private:
 		//AdvPayload(Node::NodeId nodeId, uint8_t* advData) : nodeId(nodeId), advData(advData) {}
 	} AdvPayload;
 
+	/*
+	 * AdvPdu has to be adapted for use with the following struct too
+	 * So it can assume connection requests
+	 */
 //	typedef struct ConnectPayload {
 //		Node::NodeId peerNodeId;
 //		Node::NodeId myNodeId;

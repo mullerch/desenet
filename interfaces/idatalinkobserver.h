@@ -1,6 +1,7 @@
 #pragma once
 #include <desenet/datalink/Common>
 #include <desenet/datalink/DataPdu>
+#include <desenet/datalink/Node>
 
 using namespace datalink;
 

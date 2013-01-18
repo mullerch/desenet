@@ -8,6 +8,14 @@
 <stringAttribute key="org.eclipse.cdt.launch.launchGroup.1.enabled" value="true"/>
 <stringAttribute key="org.eclipse.cdt.launch.launchGroup.1.mode" value="debug"/>
 <stringAttribute key="org.eclipse.cdt.launch.launchGroup.1.name" value="STM32 - Debug"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.2.action" value="NONE"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.2.enabled" value="true"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.2.mode" value="run"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.2.name" value="MeshSim - Air3T C"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.3.action" value="NONE"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.3.enabled" value="true"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.3.mode" value="run"/>
+<stringAttribute key="org.eclipse.cdt.launch.launchGroup.3.name" value="MeshSim - Air3T D"/>
 <listAttribute key="org.eclipse.debug.ui.favoriteGroups">
 <listEntry value="org.eclipse.debug.ui.launchGroup.debug"/>
 <listEntry value="org.eclipse.debug.ui.launchGroup.run"/>

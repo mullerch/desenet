@@ -1,10 +1,5 @@
 #pragma once
-/*
- * DataLink.cpp
- *
- *  Created on: Dec 3, 2012
- *      Author: desem
- */
+
 
 #include <xf/xf.h>
 #include <xf/xfevent.h>
@@ -12,10 +7,10 @@
 #include <xf/xfstaticevent.h>
 #include <trace/trace.h>
 
-#include <IAir3TFactory>
-#include <IPhyObserver>
-#include <IDataLinkObserver>
-#include <IPhyTransceiver>
+#include <interfaces/IAir3TFactory>
+#include <interfaces/IPhyObserver>
+#include <interfaces/IDataLinkObserver>
+#include <interfaces/IPhyTransceiver>
 
 #include <desenet/datalink/Node>
 #include <desenet/datalink/DataPdu>
@@ -55,6 +50,8 @@ private:
 	uint8_t advRadioChannel;
 	Frame::FrameAddress advAccessAddress;
 
+	static const uint8_t DISCONNECT_REQUEST = 0xFF;
+
 
 public:
 
@@ -67,59 +64,72 @@ public:
 	}
 
 	bool initialize( IPhyTransceiver & transceiver , Node::NodeId DataLinkId ) {
-		_transceiver = &transceiver; //FIXME peut être faux
+		_transceiver = &transceiver;
 		_transceiver->setObserver(this);
 
-//		_nodeLocal = new Node(Node::NodeId::fromHexString("000000000002"));
+		_nodeLocal = new Node(Node::NodeId::fromHexString("000000000002"));
 		startBehavior();
 		return true;
 	}
 
+
+	/*
+	 * Top layer interface
+	 */
 	void startAdvertiseRequest(uint8_t *desc) {
 		_advDesc = desc;
 		static StartAdvertiseRequestEvent event;
-		pushEvent( &event );}
+		pushEvent(&event);
+	}
 
-	bool setObserver( IDataLinkObserver * observer ) {
+	bool setObserver(IDataLinkObserver * observer) {
 		// If there was an set an observer already, fail. Otherwise set the observer and return true.
 		if (_observer == NULL) {
 			_observer = observer;
 			return true;
 		} else {
-			Trace::out("There is already an observer registered, ignoring the new one!");
+			Trace::out(
+					"There is already an observer registered, ignoring the new one!");
 			return false;
 		}
 	}
 
+	void stopAdvertiseRequest() {
+		static StopAdvertiseRequestEvent event;
+		pushEvent(&event);
+	}
 
-	void stopAdvertiseRequest() 			{ static StopAdvertiseRequestEvent event; 	pushEvent( &event );}
 	void connectRequest(Node::NodeId nodeId, int connectionInterval /*, void *serviceReference*/) {
 		static ConnectionRequestEvent event;
-		pushEvent( &event );
+		pushEvent(&event);
 
 		_nodePeer = new Node(nodeId);
 	}
 
-	void disconnectRequest() {}
+	void disconnectRequest() {
+	}
 
-	void dataRequest( DataPdu &dataPdu ) {
+	void dataRequest(DataPdu &dataPdu) {
 		Frame *frame;
 
 		int i;
 		// for each data byte
-		for(i=0; i<dataPdu.getPayloadSize(); i++) {
+		for (i = 0; i < dataPdu.getPayloadSize(); i++) {
 			// if we have 32 bytes, send
 
-			if(i%32) {
-				frame = new Frame(_nodePeer->getAddress(), dataPdu.getPayloadBytes(), dataPdu.getPayloadSize() + 6);
+			if (i % 32) {
+				frame = new Frame(_nodePeer->getAddress(),
+								dataPdu.getPayloadBytes(),
+								dataPdu.getPayloadSize() + 6);
 				txQueue.push(*frame);
 			}
 		}
 
 		// if we have data left (not full payload frame)
-		if(dataPdu.getPayloadSize()%32 != 0) {
+		if (dataPdu.getPayloadSize() % 32 != 0) {
 			// send left data
-			frame = new Frame(_nodePeer->getAddress(), dataPdu.getPayloadBytes(), dataPdu.getPayloadSize() + 6);
+			frame = new Frame(_nodePeer->getAddress(),
+					dataPdu.getPayloadBytes(), dataPdu.getPayloadSize() + 6);
 			txQueue.push(*frame);
 		}
 	}
@@ -141,7 +151,7 @@ private:
 	PeerRole role;
 
 	static const int ESTABLISH_CONNECTION_TIMEOUT = 1000;
-	static const int ADVERTISE_INTERVAL_TIMEOUT = 500;
+	static const int ADVERTISE_INTERVAL_TIMEOUT = 2000; // 500
 	static const int CONNECTION_PDU_MAX_TIMEOUT = 100;
 	static const int CONNECTION_INTERVAL_TIMEOUT = 1000;
 
@@ -161,7 +171,6 @@ private:
 			break;
 
 		case Idle:
-
 			if ( e->getEventType() == XFEvent::Event && e->getId() == StartAdvertiseRequestEvent::Id ){
 				_state = Advertise;
 				_advertiseSubstate = WaitForAdvertiseData;
@@ -182,6 +191,8 @@ private:
 
 		case EstablishConnection:
 			SubMachineEstablishConnection(e);
+
+			// if we request the connection, we are master
 			role = MASTER;
 
 			if ( e->getEventType() == XFEvent::Timeout && e->getId() == EstablishConnectionTimeout::Id ) // timeout
@@ -191,19 +202,26 @@ private:
 			break;
 
 		case AcceptConnection:
-			//TODO envoi data
+			//TODO Send accept connection data
+			// create AdvPdu with type Connect
+			// create frame with AdvPdu
+			// send frame with transceiver
+			// get ack from phy layer about
+
+			// if we didn't requested the connection, we are slave
 			role = SLAVE;
 
 			_state = Connected;
 			break;
 
 		case Connected:
+			// call the "Connected" submachine and test if it returns a disconnection
 			switch( SubMachineConnected(e) ) {
-			case LINK_LOSS:
+			case LINK_LOSS: // in case of link loss, restart connection
 				_state = Advertise;
 				break;
 
-			case DISCONNECT:
+			case DISCONNECT: // if peer (or local) asked for disconnection, go idle
 				_state = Idle;
 				break;
 
@@ -216,7 +234,10 @@ private:
 
 
 
-		/* MEALY */
+		/* MEALY
+		 * Some actions requires to be done only on state transition,
+		 * and not when staying in same state.
+		 */
 
 		/* Action on entry */
 		if( _state != _oldState ) {
@@ -248,7 +269,7 @@ private:
 				break;
 
 			default:
-				Trace::out("\t->[undefined state error]");
+				Trace::out("->[undefined state error]");
 				break;
 			}
 		}
@@ -260,7 +281,7 @@ private:
 				break;
 
 			case WaitForAdvertiseData:
-				Trace::out("\t->[WaitForAdvertiseData]");
+				Trace::out("\t- WaitForAdvertiseData");
 				getThread()->scheduleTimeout(AdvertiseIntervalTimeout::Id, ADVERTISE_INTERVAL_TIMEOUT, this);
 				break;
 
@@ -398,38 +419,37 @@ private:
 			break;
 
 		case SendAdvertise:
-			Trace::out("->[Activate transceiver]");
+			// Activate transceiver
+			Trace::out("\t-Activate transceiver");
 			_transceiver->setMode(IPhyTransceiver::Active);
 
-			Trace::out("->[Send advertise]");
-			//TODO make the frame an advertising frame
-
-
-
-			advPdu = new AdvPdu(Node::NodeId::fromHexString("000000000002"), _advDesc);
+			Trace::out("\t-Send advertise");
+			advPdu = new AdvPdu(_nodeLocal->id(), (uint8_t*) _advDesc);
 			frame = new Frame(advAccessAddress, advPdu, advPdu->size());
-//			frame = new Frame(advAccessAddress, "aaaaaaaaaaa", 11);
+			//frame = new Frame(advAccessAddress, "0000002AAAA", 11); // this is for tests
 			_transceiver->send(*frame);
 			delete frame;
 
-			Trace::out("->[WaitForAdvertiseData]");
 			_advertiseSubstate = WaitForAdvertiseData;
 			break;
 
 		case WaitForAdvertiseData:
 
 			if ( e->getEventType() == XFEvent::Timeout && e->getId() == AdvertiseIntervalTimeout::Id ){
-				Trace::out("->[Timeout]");
+				Trace::out("\t-Timeout");
 				_advertiseSubstate = SendAdvertise;
 			} else if ( e->getEventType() == XFEvent::Event && e->getId() == DataIndicationEvent::Id ) {
-				Trace::out("->[Advertise received]");
+				Trace::out("\t-Advertise received");
 				_advertiseSubstate = ProcessAdvertiseData;
 			}
 			break;
 
 		case ProcessAdvertiseData:
-			//TODO process
-			Trace::out("->[Process advertise]");
+			Trace::out("\t-Process advertise");
+			advPdu = (AdvPdu*)rxQueue.front().payloadBytes();
+			rxQueue.pop();
+
+			// test if frame is an advertising frame
 			_advertiseSubstate = WaitForAdvertiseData;
 			break;
 
@@ -437,7 +457,9 @@ private:
 
 	}
 
-
+/*
+ * We don't use this since both advertising substate machines have been merged
+ */
 //	void ReceiveAdvertise(IXFEvent *e) {
 //		case WaitForAdvertiseData:
 //
@@ -461,15 +483,16 @@ private:
 			break;
 
 		case WaitForConnectionData:
-			Trace::out("->[Wait for connection data]");
+			Trace::out("\t-Wait for connection data");
 			if ( e->getEventType() == XFEvent::Event && e->getId() == DataIndicationEvent::Id )
-				Trace::out("->[Connection data received]");
+				// check if frame is connection data, if not : break
+				Trace::out("\t-Connection data received");
 				_establishConnectionSubstate = ProcessConnectionData;
 			break;
 
 		case ProcessConnectionData:
-			//TODO process
-			Trace::out("->[Process connections data]");
+			// process connection data
+			Trace::out("\t-Process connections data");
 			_establishConnectionSubstate = WaitForConnectionData;
 			break;
 		}
@@ -480,8 +503,12 @@ private:
 	 */
 	DisconnectIndicationCause SubMachineConnected(IXFEvent *e) {
 
+		DataPdu *dataPdu;
+		DisconnectIndicationCause cause;
+
 		switch(_connectedSubstate) {
 		case ConnectedInitialize:
+			// first state is not same for master and slave
 			switch(role){
 			case MASTER:
 				_connectedSubstate = SendQueuedDataPdu;
@@ -493,9 +520,12 @@ private:
 			}
 
 		case SendQueuedDataPdu:
+			// send all data in queue
 			if(!txQueue.empty()) {
 				Trace::out("->[Send data pdu]");
+				dataPdu = (DataPdu *) txQueue.front().payloadBytes();
 				_transceiver->send(txQueue.front());
+				// get data off the queue
 				txQueue.pop();
 			}
 
@@ -503,21 +533,26 @@ private:
 				Trace::out("->[Frame not delivered]");
 				break;
 			} else if ( e->getEventType() == XFEvent::Event && e->getId() == FrameDeliveredEvent::Id ) {
-				if (1) // disconnection
+
+				if (*dataPdu->getPayloadBytes() == DISCONNECT_REQUEST) { // if it was a disconnection request, disconnect
 					_connectedSubstate = CloseConnection;
-				else if (1) // plus de data MMF=0 && SMF==0
+					cause = DISCONNECT;
+				} else if (!dataPdu->isMoreData()) { // No more datas (MMF==0 && SMF==0)
 					_connectedSubstate = WaitForNextConnectionEvent;
-				else
+				} else {
 					_connectedSubstate = WaitDataPdu;
+				}
 			}
 			break;
 
 
 		case WaitDataPdu:
-			if ( e->getEventType() == XFEvent::Timeout && e->getId() == ConnectionPduMaxTimeout::Id )
+			if ( e->getEventType() == XFEvent::Timeout && e->getId() == ConnectionPduMaxTimeout::Id ) {
 				_connectedSubstate = CloseConnection;
-			else if ( e->getEventType() == XFEvent::Event && e->getId() == DataIndicationEvent::Id )
+				cause = LINK_LOSS;
+			} else if ( e->getEventType() == XFEvent::Event && e->getId() == DataIndicationEvent::Id ) {
 				_connectedSubstate = ProcessDataPdu;
+			}
 			break;
 
 
@@ -536,25 +571,27 @@ private:
 			*dataPdu = *((DataPdu*)(frame->payloadBytes()));
 
 			// Check the data pdu informations
-			if (*dataPdu->getPayloadBytes() == 0x1) // disconnection
+			if (*dataPdu->getPayloadBytes() == DISCONNECT_REQUEST) { // disconnection
 				_connectedSubstate = CloseConnection;
-			else if (dataPdu->isMoreData()) // plus de data MMF==0 && SMF==0
+				cause = DISCONNECT;
+			} else if (!dataPdu->isMoreData()) { // No more datas (MMF==0 && SMF==0)
 				_connectedSubstate = WaitForNextConnectionEvent;
-			else
+			} else {
 				_connectedSubstate = SendQueuedDataPdu;
+			}
 			break;
 
 		case CloseConnection:
-			Trace::out("->[Disconnection]");
+			Trace::out("\t-Disconnection");
+			// send disconnection indication to upper layer
 			_observer->onDisconnectIndication(DISCONNECT);
-			return DISCONNECT;
-			return LINK_LOSS;
+			return cause;
 			break;
 
 		case WaitForNextConnectionEvent:
 			// Disable transceiver
 			_transceiver->setMode(IPhyTransceiver::Inactive);
-			Trace::out("->[Desactivate transciever]");
+			Trace::out("\t-Disable transceiver");
 
 			// Set timer until next transceiver activation
 			if ( e->getEventType() == XFEvent::Timeout && e->getId() == ConnectionIntervalTimeout::Id )
@@ -562,18 +599,28 @@ private:
 			break;
 
 		case EnableTransceiver:
+			// Enable transceiver
+			Trace::out("\t-Enable transceiver");
+			_transceiver->setMode(IPhyTransceiver::Active);
 			break;
 		}
 		return NO_DISCONNECT;
 	}
 
 
-	// DataLink primitives for PHY layer
+	/* DataLink primitives for PHY layer */
+
+	/*
+	 * Add data received from PHY layer and raise data indication event
+	 */
 	void onReceive( const Frame &pdu ) {
 		rxQueue.push(pdu);
 		pushEvent( new XFStaticEvent( DataIndicationEvent::Id ) );
 	}
 
+	/*
+	 * Rises event depending on frame send status
+	 */
 	void onSendStatus( SendStatus status ) {
 		switch( status ) {
 		case Delivered:
