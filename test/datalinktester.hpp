@@ -1,50 +1,105 @@
 #pragma once
-#include "idatalinkobserver.h"
+
+#include <desenet/datalink/DataLink>
+#include <interfaces/idatalinkobserver.h>
+#include <desenet/datalink/Node>
 #include <IJoystickObserver>
-#include <IPhyTransceiver>
 #include <IJoystick>
-#include <IMonochromeDisplay>
-#include <phy/Frame>
 #include <trace/Trace>
+#include <desenet/datalink/DataPdu>
+#include <desenet/datalink/Common>
+
+using namespace datalink;
 
 #define DATALINK_LAYER_TESTER_PRESENT
 
 /**
  * @ingroup test
- * Tests the PHY interface by sending the joystick events to all reachable nodes and the received events will be used
- * to draw into the display.
+ * Test class for the data link layer implementation.
  */
-class DataLinkTester : public IJoystickObserver, public IDataLinkObserver {
+class DataLinkTester: public IDataLinkObserver, public IJoystickObserver {
 public:
 	/**
-	 * Initializes all needed components and prepares the test object itself.
+	 * Creates and initializes the test object for the data link layer.
 	 */
-	DataLinkTester( DataLink & datalink , IJoystick & joystick )
-		: _datalink( datalink ) , _joystick( joystick )
-	{
-		_datalink.setObserver( this );
-		//_transceiver.setReceptionFilterAddress( IPhyTransceiver::FilterAddress::fromHexString( "8E89BED6" ) );
-
-		_joystick.setObserver( this );
+	DataLinkTester(DataLink & dataLink, IJoystick & joystick) :
+		_dataLink(dataLink) {
+		// Set the observer pointer on the used subsystems.
+		_dataLink.setObserver(this);
+		joystick.setObserver(this);
 	}
 
-	void onPositionChange( IJoystick::Position position )
-	{
-		if ( position != IJoystick::Center )
-		{
-			//DataLink();
-			Trace::out( "Action!" );
-			//_datalink.advertiseStart(NULL);
+	// IDataLinkObserver interface implementation...
+	void onNodeAppearIndication(const Node &node) {
+		Trace::out("Node %s found.", node.id().toHexString().c_str());
+	}
+
+	void onNodeDissapearIndication(const Node &node) {
+		Trace::out("Node %s lost.", node.id().toHexString().c_str());
+	}
+
+	bool onConnectIndication(const Node::NodeId & peerNode, uint16_t sapi) {
+		Trace::out("Connection from %s.", peerNode.toHexString().c_str());
+
+		// We only accept connections on SAPI 0.
+		return sapi == 0;
+	}
+
+	void onConnectConfirmation(ConnectConfirmationStatus status) {
+		if (status == CONNECTED)
+			Trace::out("Connection established.");
+		else
+			Trace::out("Failed to establish connection!");
+	}
+
+	void onDisconnectIndication(DisconnectIndicationCause cause) {
+		if (cause == DISCONNECT)
+			Trace::out("Connection closed.");
+		else
+			Trace::out("Connection lost.");
+	}
+
+	void onDataIndication(const DataPdu &pdu) {
+		Trace::out("Received Data: \"%s\".", pdu.getPayloadBytes());
+	}
+
+	// IjoystickObserver interface implementation.
+	void onPositionChange(IJoystick::Position position) {
+		switch (position) {
+		case IJoystick::Up:
+			Trace::out("Start advertising the node...");
+			_dataLink.startAdvertiseRequest(std::vector<uint8_t>(4, 'A'));
+			break;
+
+		case IJoystick::Down:
+			Trace::out("Stop advertising the node. ");
+			_dataLink.stopAdvertiseRequest();
+			break;
+
+		case IJoystick::Right:
+			Trace::out("Connect to a predefined node (Node A: 0x000000000001).");
+			_dataLink.connectRequest(
+					Node::NodeId::fromHexString("000000000001"), 200);
+			break;
+
+		case IJoystick::Left:
+			Trace::out("Disconnect...");
+			_dataLink.disconnectRequest();
+			break;
+
+		case IJoystick::Pressed: {
+			Trace::out("Send a test frame.");
+			const char * test = "Lorem Ipsum...";
+			DataPdu pdu(test, 8);
+			_dataLink.dataRequest(pdu);
+		}
+			break;
+
+		default:
+			break;
 		}
 	}
 
-	virtual void onNodeAppear( const Node &node ) {}
-	virtual void onNodeDissapear( const Node &node ) {}
-	virtual void onConnectConfirm( ConnectStatus status ){}
-	virtual void onDataIndication( const Frame &frame ){}
-	virtual void onDisconnectIndication( DisconnectCause cause ){}
-
 private:
-	DataLink & _datalink;
-	IJoystick & _joystick;
+	DataLink & _dataLink;
 };

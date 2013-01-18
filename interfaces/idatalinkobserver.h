@@ -1,6 +1,10 @@
 #pragma once
-class Frame;
+#include <desenet/datalink/Common>
+#include <desenet/datalink/DataPdu>
 
+using namespace datalink;
+
+class Frame;
 
 /**
  * @ingroup interfaces
@@ -22,23 +26,14 @@ protected:
 	virtual ~IDataLinkObserver() {}
 
 public:
-	virtual void onNodeAppear( const Node &node ) = 0;
-	virtual void onNodeDissapear( const Node &node ) = 0;
+	virtual void onNodeAppearIndication( const Node &node ) = 0;
+	virtual void onNodeDissapearIndication( const Node &node ) = 0;
 
-	enum ConnectStatus {
-		Success,
-		Failure,
-	};
-	virtual void onConnectConfirm( ConnectStatus status ) = 0;
+	virtual void onConnectConfirmation( ConnectConfirmationStatus status ) = 0;
 
-	enum DisconnectCause {
-		LinkLoss,
-		PeerDisconnect,
-	};
-	virtual void onDisconnectIndication( DisconnectCause cause ) = 0;
+	virtual void onDisconnectIndication( DisconnectIndicationCause cause ) = 0;
 
 	//virtual void onConnectIndication( const Node &node, Air3tService &service ) = 0;
-	virtual void onDataIndication( const Frame &frame ) = 0;
+	virtual void onDataIndication( const DataPdu &pdu ) = 0;
 
 };
-

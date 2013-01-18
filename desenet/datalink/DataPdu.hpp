@@ -1,12 +1,4 @@
-/*
- * Node.hpp
- *
- *  Created on: Dec 10, 2012
- *      Author: desem
- */
-
-#ifndef DATAPDU_HPP_
-#define DATAPDU_HPP_
+#pragma once
 
 #include <stdint.h>
 #include <phy/frame.h>
@@ -14,17 +6,19 @@
 class DataPdu {
 
 private:
-	uint32_t payload;
+	const char *payload;
 	int payloadSize;
 	bool smd, cmd;
 
 
 public:
-	DataPdu(uint32_t payload, int size, bool smd) {
-		this->payload = payload;
-		this->payloadSize = size;
-		this->smd = smd;
-		this->cmd = true;
+
+	DataPdu(const char *payload, int size) {
+		DataPdu(payload, size, false);
+	}
+
+	DataPdu(const char *payload, int size, bool smd)
+	 : payload(payload), payloadSize(size), smd(smd), cmd(true)  {
 	}
 
 //	DataPdu(Frame frame) {
@@ -44,6 +38,9 @@ public:
 	int getPayloadSize() {
 		return payloadSize;
 	}
-};
 
-#endif /* DATAPDU_HPP_ */
+	const char * getPayloadBytes() const {
+		return payload;
+	}
+
+};

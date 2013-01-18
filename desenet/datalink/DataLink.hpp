@@ -1,3 +1,4 @@
+#pragma once
 /*
  * DataLink.cpp
  *
@@ -12,16 +13,19 @@
 #include <IAir3TFactory>
 #include <trace/trace.h>
 #include <desenet/datalink/Node.hpp>
-#include <interfaces/iphyobserver.h>
-#include <interfaces/idatalinkobserver.h>
+#include <iphyobserver.h>
+#include <idatalinkobserver.h>
 #include <iphytransceiver.h>
 #include <desenet/datalink/Node.hpp>
-#include <desenet/datalink/DataPdu.hpp>
+#include <desenet/datalink/DataPdu>
+#include <desenet/datalink/AdvPdu>
+#include <desenet/datalink/Common>
 
 #include <iostream>
 #include <queue>
 
 using namespace std;
+using namespace datalink;
 
 class DataLink : public XFReactive, public IPhyObserver {
 private:
@@ -45,72 +49,81 @@ private:
 	queue<Frame> rxQueue, txQueue;
 	IPhyTransceiver *_transceiver;
 	IDataLinkObserver *_observer;
+	Node *_nodeCurrent;
+	vector<uint8_t> _advDesc;
+	uint8_t advRadioChannel;
+	Frame::FrameAddress advAccessAddress;
 
 
 public:
-	DataLink() : 	_state( Initialize ) ,
+
+	DataLink() : 	_state( Initialize ),
 					_advertiseSubstate( AdvertiseInitialize ) ,
 					_establishConnectionSubstate( EstablishConnectionInitialize ) ,
-					_connectedSubstate( ConnectedInitialize ){
+					_connectedSubstate( ConnectedInitialize ),
+					advRadioChannel( 1 ),
+					advAccessAddress(Frame::FrameAddress::fromHexString("8E89BED6") ){
 	}
 
-	bool initialize( IPhyTransceiver & transceiver , Node::NodeId DataLinkId ){
+	bool initialize( IPhyTransceiver & transceiver , Node::NodeId DataLinkId ) {
 		_transceiver = &transceiver; //FIXME peut être faux
 		_transceiver->setObserver(this);
+
 		startBehavior();
 		return true;
 	}
 
-	void advertiseStart(uint8_t *desc) 		{ static StartAdvertiseRequestEvent event; 	pushEvent( &event );}
+	void startAdvertiseRequest(vector<uint8_t> desc) {
+		_advDesc = desc;
+		static StartAdvertiseRequestEvent event;
+		pushEvent( &event );}
 
-	bool setObserver( IDataLinkObserver * observer )
-	{
+	bool setObserver( IDataLinkObserver * observer ) {
 		// If there was an set an observer already, fail. Otherwise set the observer and return true.
-		if ( _observer == NULL ){
+		if (_observer == NULL) {
 			_observer = observer;
 			return true;
-		}
-		else
-		{
-			Trace::out( "There is already an observer registered, ignoring the new one!" );
+		} else {
+			Trace::out("There is already an observer registered, ignoring the new one!");
 			return false;
 		}
 	}
 
 
-	void advertiseStop() 					{ static StopAdvertiseRequestEvent event; 	pushEvent( &event );}
-	void connectRequest(void *peerHandle, int connectionInterval, void *serviceReference)
-											{ static ConnectionRequestEvent event; 		pushEvent( &event );}
+	void stopAdvertiseRequest() 			{ static StopAdvertiseRequestEvent event; 	pushEvent( &event );}
+	void connectRequest(Node::NodeId nodeId, int connectionInterval /*, void *serviceReference*/) {
+		static ConnectionRequestEvent event;
+		pushEvent( &event );
+
+		_nodeCurrent = new Node(nodeId);
+	}
+
 	void disconnectRequest() {}
 
-	void dataRequest( Node node, char *data, int size ) {
-
-		DataPdu *dataPdu;
+	void dataRequest( DataPdu &dataPdu ) {
 		Frame *frame;
 
 		int i;
 		// for each data byte
-		for(i=0; i<size; i++) {
+		for(i=0; i<dataPdu.getPayloadSize(); i++) {
 			// if we have 32 bytes, send
 
 			if(i%32) {
-				dataPdu = new DataPdu(data[i-32], 32, true);
-				frame = new Frame(node.address, dataPdu, dataPdu->getPayloadSize() + 6);
+				frame = new Frame(_nodeCurrent->getAddress(), dataPdu.getPayloadBytes(), dataPdu.getPayloadSize() + 6);
 				txQueue.push(*frame);
 			}
 		}
 
 		// if we have data left (not full payload frame)
-		if(size%32 != 0) {
+		if(dataPdu.getPayloadSize()%32 != 0) {
 			// send left data
-			dataPdu = new DataPdu(data[i-32], 32, true);
-			frame = new Frame(node.address, dataPdu, dataPdu->getPayloadSize() + 6);
+			frame = new Frame(_nodeCurrent->getAddress(), dataPdu.getPayloadBytes(), dataPdu.getPayloadSize() + 6);
 			txQueue.push(*frame);
 		}
 	}
 	void disconnectIndication( void *cause ){}
 
-	
+
 	void dataIndication( void *data) 		{}
 	void appear( void *peerHandle, void *peerDescription) {}
 	void disappear( void *peerHandle )		{}
@@ -122,7 +135,6 @@ private:
 	enum { ConnectedInitialize , SendQueuedDataPdu , WaitDataPdu , ProcessDataPdu , CloseConnection , WaitForNextConnectionEvent , EnableTransceiver } _connectedSubstate , _oldConnectedSubstate;
 
 	enum PeerRole { MASTER , SLAVE };
-	enum ConnectionStatus { CONNECTED , LINK_LOSS , PEER_DISCONNECT };
 
 	PeerRole role;
 
@@ -190,7 +202,7 @@ private:
 				_state = Advertise;
 				break;
 
-			case PEER_DISCONNECT:
+			case DISCONNECT:
 				_state = Idle;
 				break;
 
@@ -254,10 +266,12 @@ private:
 			case SendAdvertise:
 				Trace::out("\t- sending my advertise");
 				pushEvent( new XFNullTransition( WaitNullTransition::Id ) );
+				break;
 
 			case ProcessAdvertiseData:
 				Trace::out("\t- processing advertise received");
 				pushEvent( new XFNullTransition( WaitNullTransition::Id ) );
+				break;
 
 			default:
 				Trace::out("\t- undefined state error");
@@ -381,21 +395,38 @@ private:
 			break;
 
 		case SendAdvertise:
-			//TODO send
+			Trace::out("->[Activate transceiver]");
+			_transceiver->setMode(IPhyTransceiver::Active);
+
+			Trace::out("->[Send advertise]");
+			//TODO make the frame an advertising frame
+
+
+			AdvPdu *advPdu;
+			advPdu = new AdvPdu(_nodeCurrent->id(), _advDesc);
+
+			const Frame *frame;
+			frame = new Frame(advAccessAddress, advPdu, sizeof(advPdu));
+			_transceiver->send(*frame);
+
+			Trace::out("->[WaitForAdvertiseData]");
 			_advertiseSubstate = WaitForAdvertiseData;
 			break;
 
 		case WaitForAdvertiseData:
 
 			if ( e->getEventType() == XFEvent::Timeout && e->getId() == AdvertiseIntervalTimeout::Id ){
-				Trace::out("->[SendAdvertise]");
+				Trace::out("->[Timeout]");
 				_advertiseSubstate = SendAdvertise;
-			}else if ( e->getEventType() == XFEvent::Event && e->getId() == DataIndicationEvent::Id )
+			} else if ( e->getEventType() == XFEvent::Event && e->getId() == DataIndicationEvent::Id ) {
+				Trace::out("->[Advertise received]");
 				_advertiseSubstate = ProcessAdvertiseData;
+			}
 			break;
 
 		case ProcessAdvertiseData:
 			//TODO process
+			Trace::out("->[Process advertise]");
 			_advertiseSubstate = WaitForAdvertiseData;
 			break;
 
@@ -427,12 +458,15 @@ private:
 			break;
 
 		case WaitForConnectionData:
+			Trace::out("->[Wait for connection data]");
 			if ( e->getEventType() == XFEvent::Event && e->getId() == DataIndicationEvent::Id )
+				Trace::out("->[Connection data received]");
 				_establishConnectionSubstate = ProcessConnectionData;
 			break;
 
 		case ProcessConnectionData:
 			//TODO process
+			Trace::out("->[Process connections data]");
 			_establishConnectionSubstate = WaitForConnectionData;
 			break;
 		}
@@ -441,7 +475,7 @@ private:
 	/*
 	 * Connected
 	 */
-	ConnectionStatus SubMachineConnected(IXFEvent *e) {
+	DisconnectIndicationCause SubMachineConnected(IXFEvent *e) {
 
 		switch(_connectedSubstate) {
 		case ConnectedInitialize:
@@ -457,13 +491,15 @@ private:
 
 		case SendQueuedDataPdu:
 			if(!txQueue.empty()) {
+				Trace::out("->[Send data pdu]");
 				_transceiver->send(txQueue.front());
 				txQueue.pop();
 			}
 
-			if ( e->getEventType() == XFEvent::Event && e->getId() == FrameNotDeliveredEvent::Id )
+			if ( e->getEventType() == XFEvent::Event && e->getId() == FrameNotDeliveredEvent::Id ) {
+				Trace::out("->[Frame not delivered]");
 				break;
-			else if ( e->getEventType() == XFEvent::Event && e->getId() == FrameDeliveredEvent::Id ) {
+			} else if ( e->getEventType() == XFEvent::Event && e->getId() == FrameDeliveredEvent::Id ) {
 				if (1) // disconnection
 					_connectedSubstate = CloseConnection;
 				else if (1) // plus de data MMF=0 && SMF==0
@@ -483,20 +519,21 @@ private:
 
 
 		case ProcessDataPdu:
-			//TODO process
 			Frame *frame;
-
+			// If there is a frame in the queue
 			if(rxQueue.empty())
 				break;
 
+			// Get the frame
 			*frame = rxQueue.front();
 			rxQueue.pop();
 
-
+			// Extract the data pdu
 			DataPdu *dataPdu;
 			*dataPdu = *((DataPdu*)(frame->payloadBytes()));
 
-			if (0) // disconnection
+			// Check the data pdu informations
+			if (*dataPdu->getPayloadBytes() == 0x1) // disconnection
 				_connectedSubstate = CloseConnection;
 			else if (dataPdu->isMoreData()) // plus de data MMF==0 && SMF==0
 				_connectedSubstate = WaitForNextConnectionEvent;
@@ -505,15 +542,18 @@ private:
 			break;
 
 		case CloseConnection:
-			//TODO indique a la couche app la déco
-			//DISCONNECT_IND(state)
+			Trace::out("->[Disconnection]");
+			_observer->onDisconnectIndication(DISCONNECT);
+			return DISCONNECT;
 			return LINK_LOSS;
-			return PEER_DISCONNECT;
 			break;
 
 		case WaitForNextConnectionEvent:
-			//TODO disable transceiver
+			// Disable transceiver
+			_transceiver->setMode(IPhyTransceiver::Inactive);
+			Trace::out("->[Desactivate transciever]");
 
+			// Set timer until next transceiver activation
 			if ( e->getEventType() == XFEvent::Timeout && e->getId() == ConnectionIntervalTimeout::Id )
 				_connectedSubstate = EnableTransceiver;
 			break;
@@ -521,9 +561,11 @@ private:
 		case EnableTransceiver:
 			break;
 		}
-		return CONNECTED;
+		return NO_DISCONNECT;
 	}
 
+
+	// DataLink primitives for PHY layer
 	void onReceive( const Frame &pdu ) {
 		rxQueue.push(pdu);
 		pushEvent( new XFStaticEvent( DataIndicationEvent::Id ) );
@@ -551,14 +593,5 @@ private:
 	}
 
 };
-
-
-
-//DataLink::DataLink() {
-//	myPhyRTX = IAir3TFactory::factory().phyTransceiver();
-//
-//	myPhyRTX.setObserver(this);
-//}
-
 
 
