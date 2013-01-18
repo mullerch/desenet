@@ -1,4 +1,12 @@
 #pragma once
+/**
+ * @file datalinktester.hpp
+ * @date fall 2012
+ * @author desem team
+ *
+ * The only thing changed in this file compared to the original file
+ * is at line 79-80. We changed the node description format from vector<uint8_t> to uint8_t[].
+ */
 
 #include <desenet/datalink/DataLink>
 #include <interfaces/idatalinkobserver.h>
@@ -15,7 +23,7 @@ using namespace datalink;
 
 /**
  * @ingroup test
- * Test class for the data link layer implementation.
+ * @brief Test class for the data link layer implementation.
  */
 class DataLinkTester: public IDataLinkObserver, public IJoystickObserver {
 public:

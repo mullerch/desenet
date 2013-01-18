@@ -1,5 +1,9 @@
 #pragma once
-
+/**
+ * @file DataLink.hpp
+ * @date fall 2012 - 18.01.2013
+ * @author Christian Muller & Romain Maffina
+ */
 
 #include <xf/xf.h>
 #include <xf/xfevent.h>
@@ -17,12 +21,12 @@
 #include <desenet/datalink/AdvPdu>
 #include <desenet/datalink/Common>
 
-#include <iostream>
-#include <queue>
-
 using namespace std;
 using namespace datalink;
 
+/**
+ * @brief Represent the DataLink layer in the desenet network stack.
+ */
 class DataLink : public XFReactive, public IPhyObserver {
 private:
 	class StartAdvertiseRequestEvent : 		public XFStaticEvent { public: static const int Id = 10; StartAdvertiseRequestEvent() : 	XFStaticEvent( Id ) {} };
@@ -63,6 +67,10 @@ public:
 					advAccessAddress(Frame::FrameAddress::fromHexString("8E89BED6") ){
 	}
 
+	/**
+	 * @brief Initialize the datalink
+	 * @param transceiver the underlying tranceiver for sending data
+	 */
 	bool initialize( IPhyTransceiver & transceiver , Node::NodeId DataLinkId ) {
 		_transceiver = &transceiver;
 		_transceiver->setObserver(this);
@@ -72,16 +80,10 @@ public:
 		return true;
 	}
 
-
-	/*
-	 * Top layer interface
+	/**
+	 * @brief Allow to set observer of the DL (that implement IDataLinkObserver) to then call his callbacks.
+	 * @param observer a pointer to the observer
 	 */
-	void startAdvertiseRequest(uint8_t *desc) {
-		_advDesc = desc;
-		static StartAdvertiseRequestEvent event;
-		pushEvent(&event);
-	}
-
 	bool setObserver(IDataLinkObserver * observer) {
 		// If there was an set an observer already, fail. Otherwise set the observer and return true.
 		if (_observer == NULL) {
@@ -94,11 +96,33 @@ public:
 		}
 	}
 
+
+	/**
+	 * @brief Start advertising
+	 * @param pointer to the description to send
+	 *
+	 * - Send own description to other nodes in the network
+	 * - Discover other nodes in the network
+	 */
+	void startAdvertiseRequest(uint8_t *desc) {
+		_advDesc = desc;
+		static StartAdvertiseRequestEvent event;
+		pushEvent(&event);
+	}
+
+	/**
+	 * @brief Stop advertising.
+	 */
 	void stopAdvertiseRequest() {
 		static StopAdvertiseRequestEvent event;
 		pushEvent(&event);
 	}
 
+	/**
+	 * @brief Try to establish a connection with a specific node
+	 * @param nodeId the node to connect with
+	 * @param connectionInterval Time (of sleep) between active communication phases
+	 */
 	void connectRequest(Node::NodeId nodeId, int connectionInterval /*, void *serviceReference*/) {
 		static ConnectionRequestEvent event;
 		pushEvent(&event);
@@ -106,9 +130,17 @@ public:
 		_nodePeer = new Node(nodeId);
 	}
 
+	/**
+	 * @brief Disconnect from current connected node (if any)
+	 */
 	void disconnectRequest() {
+		//TODO
 	}
 
+	/**
+	 * @brief Sent a data using the DL
+	 * @param dataPdu the data to send
+	 */
 	void dataRequest(DataPdu &dataPdu) {
 		Frame *frame;
 
@@ -133,12 +165,6 @@ public:
 			txQueue.push(*frame);
 		}
 	}
-	void disconnectIndication( void *cause ){}
-
-
-	void dataIndication( void *data) 		{}
-	void appear( void *peerHandle, void *peerDescription) {}
-	void disappear( void *peerHandle )		{}
 
 private:
 	enum { Initialize , Idle , Advertise , EstablishConnection , AcceptConnection , Connected } _state , _oldState;
@@ -146,15 +172,24 @@ private:
 	enum { EstablishConnectionInitialize, WaitForConnectionData , ProcessConnectionData } _establishConnectionSubstate , _oldEstablishConnectionSubstate;
 	enum { ConnectedInitialize , SendQueuedDataPdu , WaitDataPdu , ProcessDataPdu , CloseConnection , WaitForNextConnectionEvent , EnableTransceiver } _connectedSubstate , _oldConnectedSubstate;
 
-	enum PeerRole { MASTER , SLAVE };
+	/**
+	 * @enum Represents the roles that a node can take
+	 */
+	enum PeerRole {
+		MASTER, /**< Master role : the node has  initiated the connection */
+		SLAVE  /**< Slave role : the node has accepted the connection */
+	};
 
 	PeerRole role;
 
-	static const int ESTABLISH_CONNECTION_TIMEOUT = 1000;
-	static const int ADVERTISE_INTERVAL_TIMEOUT = 2000; // 500
-	static const int CONNECTION_PDU_MAX_TIMEOUT = 100;
-	static const int CONNECTION_INTERVAL_TIMEOUT = 1000;
+	static const int ESTABLISH_CONNECTION_TIMEOUT = 1000; 	/**< Max time to wait for the connection to establish */
+	static const int ADVERTISE_INTERVAL_TIMEOUT = 500; 		/**< Interval of advertising */
+	static const int CONNECTION_PDU_MAX_TIMEOUT = 100;		/**< Max time to wait for data to arrive */
+	static const int CONNECTION_INTERVAL_TIMEOUT = 1000;	/**< Time of sleep between to active communication phase */
 
+	/**
+	 * @brief This function is called by the XF when an event must be handled.
+	 */
 	EventStatus processEvent() {
 
 		IXFEvent *e = getCurrentEvent();
@@ -230,8 +265,6 @@ private:
 			}
 			break;
 		}
-
-
 
 
 		/* MEALY
@@ -406,8 +439,8 @@ private:
 	}
 
 	/*
-	 * Advertise
-	 *
+	 * @brief This submachine contains the state machine for the main AVERTISE state.
+	 * @return the cause of disconnection
 	 */
 	void SubMachineAdvertise(IXFEvent *e) {
 
@@ -473,7 +506,8 @@ private:
 //	}
 
 	/*
-	 * EstablishConnection
+	 * @brief This submachine contains the state machine for the main ESTABLISH_CONNECTION state.
+	 * @return the cause of disconnection
 	 */
 	void SubMachineEstablishConnection(IXFEvent *e) {
 
@@ -499,7 +533,8 @@ private:
 	}
 
 	/*
-	 * Connected
+	 * @brief This submachine contains the state machine for the main CONNECTED state.
+	 * @return the cause of disconnection
 	 */
 	DisconnectIndicationCause SubMachineConnected(IXFEvent *e) {
 
@@ -610,15 +645,19 @@ private:
 
 	/* DataLink primitives for PHY layer */
 
-	/*
-	 * Add data received from PHY layer and raise data indication event
+	/**
+	 * @brief Add data received from PHY layer and raise data indication event
+	 * @param pdu the frame received
 	 */
 	void onReceive( const Frame &pdu ) {
 		rxQueue.push(pdu);
 		pushEvent( new XFStaticEvent( DataIndicationEvent::Id ) );
 	}
 
-	/*
+	/**
+	 * @brief Callback called by the PHY layer when a frame has been treated.
+	 * @param status the status of the treated frame.
+	 *
 	 * Rises event depending on frame send status
 	 */
 	void onSendStatus( SendStatus status ) {

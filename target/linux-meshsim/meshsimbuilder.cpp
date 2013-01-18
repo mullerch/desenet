@@ -83,11 +83,6 @@ bool MeshSimBuilder::buildApplication( int argc , char ** argv )
 #				ifdef DATALINK_LAYER_TESTER_PRESENT
 					else if ( strcmp( optarg , "datalink" ) == 0 )
 					{
-//						Trace::out( "Starting Data link test..." );
-//						factory.dataLink().advertiseStart(NULL);
-//						return true;
-
-//						//FIXME make this to compile (original code)
 						Trace::out( "Starting Data link test..." );
 						assert( factory.dataLink().initialize( factory.phyTransceiver() , Node::NodeId::fromHexString( __DATALINK_ID ) ) );
 						new DataLinkTester( factory.dataLink(), factory.joystick() );
