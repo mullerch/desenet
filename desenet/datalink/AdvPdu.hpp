@@ -17,32 +17,38 @@ public:
 	} PduType;
 
 
-	AdvPdu(Node::NodeId nodeId, vector<uint8_t> &advData) {
-		payload = (uint8_t*) new AdvPayload(nodeId, advData);
+	AdvPdu(Node::NodeId nodeId, uint8_t* advData) {
+		header = ADV;
+		payload.nodeId=nodeId;
+		memcpy(advData, payload.advData, 4);
+	}
+
+	size_t size(){
+		return 11;
 	}
 
 private:
 
 	typedef struct AdvPayload {
 		Node::NodeId nodeId;
-		vector<uint8_t> advData;
-		AdvPayload(Node::NodeId nodeId, vector<uint8_t> advData) : nodeId(nodeId), advData(advData) {}
+		uint8_t advData[4];
+		//AdvPayload(Node::NodeId nodeId, uint8_t* advData) : nodeId(nodeId), advData(advData) {}
 	} AdvPayload;
 
-	typedef struct ConnectPayload {
-		Node::NodeId peerNodeId;
-		Node::NodeId myNodeId;
-
-		struct {
-			Address<4u> accessAddress;
-			uint8_t radioChannel;
-			uint16_t connInterval;
-			uint16_t serviceUUID;
-		} connectionParameters;
-
-	} ConnectPayload;
+//	typedef struct ConnectPayload {
+//		Node::NodeId peerNodeId;
+//		Node::NodeId myNodeId;
+//
+//		struct {
+//			Address<4u> accessAddress;
+//			uint8_t radioChannel;
+//			uint16_t connInterval;
+//			uint16_t serviceUUID;
+//		} connectionParameters;
+//
+//	} ConnectPayload;
 
 	PduType header;
-	uint8_t *payload;
+	AdvPayload payload;
 
 };

@@ -10,13 +10,14 @@
 #include <xf/xfevent.h>
 #include <xf/xfreactive.h>
 #include <xf/xfstaticevent.h>
-#include <IAir3TFactory>
 #include <trace/trace.h>
-#include <desenet/datalink/Node.hpp>
-#include <iphyobserver.h>
-#include <idatalinkobserver.h>
-#include <iphytransceiver.h>
-#include <desenet/datalink/Node.hpp>
+
+#include <IAir3TFactory>
+#include <IPhyObserver>
+#include <IDataLinkObserver>
+#include <IPhyTransceiver>
+
+#include <desenet/datalink/Node>
 #include <desenet/datalink/DataPdu>
 #include <desenet/datalink/AdvPdu>
 #include <desenet/datalink/Common>
@@ -49,8 +50,8 @@ private:
 	queue<Frame> rxQueue, txQueue;
 	IPhyTransceiver *_transceiver;
 	IDataLinkObserver *_observer;
-	Node *_nodeCurrent;
-	vector<uint8_t> _advDesc;
+	Node *_nodePeer, *_nodeLocal;
+	uint8_t *_advDesc;
 	uint8_t advRadioChannel;
 	Frame::FrameAddress advAccessAddress;
 
@@ -69,11 +70,12 @@ public:
 		_transceiver = &transceiver; //FIXME peut être faux
 		_transceiver->setObserver(this);
 
+//		_nodeLocal = new Node(Node::NodeId::fromHexString("000000000002"));
 		startBehavior();
 		return true;
 	}
 
-	void startAdvertiseRequest(vector<uint8_t> desc) {
+	void startAdvertiseRequest(uint8_t *desc) {
 		_advDesc = desc;
 		static StartAdvertiseRequestEvent event;
 		pushEvent( &event );}
@@ -95,7 +97,7 @@ public:
 		static ConnectionRequestEvent event;
 		pushEvent( &event );
 
-		_nodeCurrent = new Node(nodeId);
+		_nodePeer = new Node(nodeId);
 	}
 
 	void disconnectRequest() {}
@@ -109,7 +111,7 @@ public:
 			// if we have 32 bytes, send
 
 			if(i%32) {
-				frame = new Frame(_nodeCurrent->getAddress(), dataPdu.getPayloadBytes(), dataPdu.getPayloadSize() + 6);
+				frame = new Frame(_nodePeer->getAddress(), dataPdu.getPayloadBytes(), dataPdu.getPayloadSize() + 6);
 				txQueue.push(*frame);
 			}
 		}
@@ -117,7 +119,7 @@ public:
 		// if we have data left (not full payload frame)
 		if(dataPdu.getPayloadSize()%32 != 0) {
 			// send left data
-			frame = new Frame(_nodeCurrent->getAddress(), dataPdu.getPayloadBytes(), dataPdu.getPayloadSize() + 6);
+			frame = new Frame(_nodePeer->getAddress(), dataPdu.getPayloadBytes(), dataPdu.getPayloadSize() + 6);
 			txQueue.push(*frame);
 		}
 	}
@@ -144,7 +146,6 @@ private:
 	static const int CONNECTION_INTERVAL_TIMEOUT = 1000;
 
 	EventStatus processEvent() {
-		Trace::out("# Event!");
 
 		IXFEvent *e = getCurrentEvent();
 		_oldState = _state;
@@ -389,6 +390,8 @@ private:
 	 */
 	void SubMachineAdvertise(IXFEvent *e) {
 
+		AdvPdu *advPdu;
+		Frame *frame;
 		switch(_advertiseSubstate) {
 		case AdvertiseInitialize:
 			_advertiseSubstate = SendAdvertise;
@@ -402,12 +405,12 @@ private:
 			//TODO make the frame an advertising frame
 
 
-			AdvPdu *advPdu;
-			advPdu = new AdvPdu(_nodeCurrent->id(), _advDesc);
 
-			const Frame *frame;
-			frame = new Frame(advAccessAddress, advPdu, sizeof(advPdu));
+			advPdu = new AdvPdu(Node::NodeId::fromHexString("000000000002"), _advDesc);
+			frame = new Frame(advAccessAddress, advPdu, advPdu->size());
+//			frame = new Frame(advAccessAddress, "aaaaaaaaaaa", 11);
 			_transceiver->send(*frame);
+			delete frame;
 
 			Trace::out("->[WaitForAdvertiseData]");
 			_advertiseSubstate = WaitForAdvertiseData;

@@ -68,7 +68,8 @@ public:
 		switch (position) {
 		case IJoystick::Up:
 			Trace::out("Start advertising the node...");
-			_dataLink.startAdvertiseRequest(std::vector<uint8_t>(4, 'A'));
+			//_dataLink.startAdvertiseRequest(std::vector<uint8_t>(4, 'A'));
+			_dataLink.startAdvertiseRequest((uint8_t*)"AAAA");
 			break;
 
 		case IJoystick::Down:
